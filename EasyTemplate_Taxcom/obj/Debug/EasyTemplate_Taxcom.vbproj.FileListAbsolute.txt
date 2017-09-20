@@ -600,3 +600,6 @@ C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\EasyTe
 C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucPNL_p1Sales.resources
 C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbproj.GenerateResource.Cache
 C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.exe.licenses
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ET_Taxcom.exe.config
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.exe
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.pdb
