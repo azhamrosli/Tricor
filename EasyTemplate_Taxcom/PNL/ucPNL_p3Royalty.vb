@@ -19,10 +19,9 @@ Public Class ucPNL_p3Royalty
     Public Const MainSourceNo As String = "EXRO_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXRO_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXROD_DESC"  'PLFSD_DESC
+    Public Const Main_Desc As String = "EXRO_DESC"  'PLFSD_DESC
     Public Const Main_Addback As String = "EXRO_DEDUCTIBLE"  'PLFSD_DESC
     Public Const MainDetails_Addback As String = "EXROD_DEDUCTIBLE"  'PLFSD_DESC
-
-    Const Main_Desc As String = "EXRO_DESC"  'PLFSD_DESC
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing

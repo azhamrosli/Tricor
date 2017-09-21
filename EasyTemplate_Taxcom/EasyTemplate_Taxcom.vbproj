@@ -291,11 +291,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PNL\frmPNL_InterestResPurS33_Yearly.Designer.vb">
+      <DependentUpon>frmPNL_InterestResPurS33_Yearly.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\frmPNL_InterestResPurS33_Yearly.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PNL\mdlPNL.vb" />
+    <Compile Include="PNL\ucPNL_p3InterestResPurS33.Designer.vb">
+      <DependentUpon>ucPNL_p3InterestResPurS33.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3InterestResPurS33.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2ExemptDividend.Designer.vb">
+      <DependentUpon>ucPNL_p2ExemptDividend.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2ExemptDividend.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PNL\ucPNL_p2RentalIncome.Designer.vb">
       <DependentUpon>ucPNL_p2RentalIncome.vb</DependentUpon>
     </Compile>
     <Compile Include="PNL\ucPNL_p2RentalIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2Other.Designer.vb">
+      <DependentUpon>ucPNL_p2Other.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2Other.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="PNL\ucPNL_p3COEStock.Designer.vb">
@@ -652,8 +676,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="PNL\frmPNL_InterestResPurS33_Yearly.resx">
+      <DependentUpon>frmPNL_InterestResPurS33_Yearly.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3InterestResPurS33.resx">
+      <DependentUpon>ucPNL_p3InterestResPurS33.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2ExemptDividend.resx">
+      <DependentUpon>ucPNL_p2ExemptDividend.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL_p2RentalIncome.resx">
       <DependentUpon>ucPNL_p2RentalIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2Other.resx">
+      <DependentUpon>ucPNL_p2Other.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL_p3COEStock.resx">
       <DependentUpon>ucPNL_p3COEStock.vb</DependentUpon>

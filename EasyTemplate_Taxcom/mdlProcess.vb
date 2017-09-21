@@ -17,9 +17,9 @@ Module mdlProcess
     Public R1 As Integer = 0
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "0785632400" 'RefNo
+    Public ArgParam2 As String = "1225723109" 'RefNo
     Public ArgParam3 As String = "2016" 'YA
-    Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Normal
+    Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
 
 #Region "SCRIPT DATABASE"
 
@@ -3309,7 +3309,7 @@ tryagain:
 #End Region
 #Region "PNL"
     Public Function Save_EXPENSES_ALLOW(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
-                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             If ListofCmd Is Nothing Then
                 ListofCmd = New List(Of SqlCommand)
@@ -3367,6 +3367,4031 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXAD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXAD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXAD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_CONTRACT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_CONTRACT WHERE EXC_KEY=@EXC_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXC_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_CONTRACT(EXC_KEY,EXC_EXCKEY,EXC_SOURCENO,EXC_DESC,EXC_AMOUNT,EXC_DEDUCTIBLE,EXC_NOTE,EXC_DETAIL) VALUES (@EXC_KEY,@EXC_EXCKEY,@EXC_SOURCENO,@EXC_DESC,@EXC_AMOUNT,@EXC_DEDUCTIBLE,@EXC_NOTE,@EXC_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXC_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXC_EXCKEY", SqlDbType.Int).Value = dt.Rows(i)("EXC_EXCKEY")
+                SQLcmd.Parameters.Add("@EXC_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXC_SOURCENO")
+                SQLcmd.Parameters.Add("@EXC_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXC_DESC")
+                SQLcmd.Parameters.Add("@EXC_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXC_AMOUNT")
+                SQLcmd.Parameters.Add("@EXC_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXC_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXC_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXC_NOTE")
+                SQLcmd.Parameters.Add("@EXC_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXC_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_CONTRACT_DETAIL WHERE EXCD_KEY=@EXCD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXCD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_CONTRACT_DETAIL(EXCD_KEY,EXCD_EXCKEY,EXCD_SOURCENO,EXCD_EXCDKEY,EXCD_DESC,EXCD_AMOUNT,EXCD_DEDUCTIBLE,EXCD_NOTE) VALUES (@EXCD_KEY,@EXCD_EXCKEY,@EXCD_SOURCENO,@EXCD_EXCDKEY,@EXCD_DESC,@EXCD_AMOUNT,@EXCD_DEDUCTIBLE,@EXCD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXCD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXCD_EXCKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXCD_EXCKEY")
+                    SQLcmd.Parameters.Add("@EXCD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXCD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXCD_EXCDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXCD_EXCDKEY")
+                    SQLcmd.Parameters.Add("@EXCD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXCD_DESC")
+                    SQLcmd.Parameters.Add("@EXCD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXCD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXCD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXCD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXCD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXCD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_DEPRECIATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_DEPRECIATION WHERE EXDEP_KEY=@EXDEP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXDEP_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_DEPRECIATION(EXDEP_KEY,EXDEP_EXDEPKEY,EXDEP_SOURCENO,EXDEP_DESC,EXDEP_AMOUNT,EXDEP_DEDUCTIBLE,EXDEP_NOTE,EXDEP_DETAIL) VALUES (@EXDEP_KEY,@EXDEP_EXDEPKEY,@EXDEP_SOURCENO,@EXDEP_DESC,@EXDEP_AMOUNT,@EXDEP_DEDUCTIBLE,@EXDEP_NOTE,@EXDEP_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXDEP_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXDEP_EXDEPKEY", SqlDbType.Int).Value = dt.Rows(i)("EXDEP_EXDEPKEY")
+                SQLcmd.Parameters.Add("@EXDEP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXDEP_SOURCENO")
+                SQLcmd.Parameters.Add("@EXDEP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXDEP_DESC")
+                SQLcmd.Parameters.Add("@EXDEP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXDEP_AMOUNT")
+                SQLcmd.Parameters.Add("@EXDEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDEP_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXDEP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXDEP_NOTE")
+                SQLcmd.Parameters.Add("@EXDEP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDEP_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_DEPRECIATION_DETAIL WHERE EXDEPD_KEY=@EXDEPD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXDEPD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_DEPRECIATION_DETAIL(EXDEPD_KEY,EXDEPD_EXDEPKEY,EXDEPD_SOURCENO,EXDEPD_EXDEPDKEY,EXDEPD_DESC,EXDEPD_AMOUNT,EXDEPD_DEDUCTIBLE,EXDEPD_NOTE) VALUES (@EXDEPD_KEY,@EXDEPD_EXDEPKEY,@EXDEPD_SOURCENO,@EXDEPD_EXDEPDKEY,@EXDEPD_DESC,@EXDEPD_AMOUNT,@EXDEPD_DEDUCTIBLE,@EXDEPD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXDEPD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXDEPD_EXDEPKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXDEPD_EXDEPKEY")
+                    SQLcmd.Parameters.Add("@EXDEPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXDEPD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXDEPD_EXDEPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXDEPD_EXDEPDKEY")
+                    SQLcmd.Parameters.Add("@EXDEPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXDEPD_DESC")
+                    SQLcmd.Parameters.Add("@EXDEPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXDEPD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXDEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXDEPD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXDEPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXDEPD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_DIRECTORS_FEE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_DIRECTORS_FEE WHERE EXDF_KEY=@EXDF_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXDF_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE(EXDF_KEY,EXDF_EXDFKEY,EXDF_SOURCENO,EXDF_DESC,EXDF_AMOUNT,EXDF_DEDUCTIBLE,EXDF_NOTE,EXDF_DETAIL) VALUES (@EXDF_KEY,@EXDF_EXDFKEY,@EXDF_SOURCENO,@EXDF_DESC,@EXDF_AMOUNT,@EXDF_DEDUCTIBLE,@EXDF_NOTE,@EXDF_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXDF_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXDF_EXDFKEY", SqlDbType.Int).Value = dt.Rows(i)("EXDF_EXDFKEY")
+                SQLcmd.Parameters.Add("@EXDF_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXDF_SOURCENO")
+                SQLcmd.Parameters.Add("@EXDF_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXDF_DESC")
+                SQLcmd.Parameters.Add("@EXDF_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXDF_AMOUNT")
+                SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDF_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXDF_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXDF_NOTE")
+                SQLcmd.Parameters.Add("@EXDF_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDF_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_DIRECTORS_FEE_DETAIL WHERE EXDFD_KEY=@EXDFD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXDFD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE_DETAIL(EXDFD_KEY,EXDFD_EXDFKEY,EXDFD_SOURCENO,EXDFD_EXDFDKEY,EXDFD_DESC,EXDFD_AMOUNT,EXDFD_DEDUCTIBLE,EXDFD_NOTE) VALUES (@EXDFD_KEY,@EXDFD_EXDFKEY,@EXDFD_SOURCENO,@EXDFD_EXDFDKEY,@EXDFD_DESC,@EXDFD_AMOUNT,@EXDFD_DEDUCTIBLE,@EXDFD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXDFD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXDFD_EXDFKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXDFD_EXDFKEY")
+                    SQLcmd.Parameters.Add("@EXDFD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXDFD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXDFD_EXDFDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXDFD_EXDFDKEY")
+                    SQLcmd.Parameters.Add("@EXDFD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXDFD_DESC")
+                    SQLcmd.Parameters.Add("@EXDFD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXDFD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXDFD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXDFD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXDFD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_EMPL_STOCK(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_EMPL_STOCK WHERE EXES_KEY=@EXES_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXES_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK(EXES_KEY,EXES_EXESKEY,EXES_SOURCENO,EXES_DESC,EXES_AMOUNT,EXES_DEDUCTIBLE,EXES_NOTE,EXES_DETAIL) VALUES (@EXES_KEY,@EXES_EXESKEY,@EXES_SOURCENO,@EXES_DESC,@EXES_AMOUNT,@EXES_DEDUCTIBLE,@EXES_NOTE,@EXES_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXES_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXES_EXESKEY", SqlDbType.Int).Value = dt.Rows(i)("EXES_EXESKEY")
+                SQLcmd.Parameters.Add("@EXES_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXES_SOURCENO")
+                SQLcmd.Parameters.Add("@EXES_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXES_DESC")
+                SQLcmd.Parameters.Add("@EXES_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXES_AMOUNT")
+                SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXES_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXES_NOTE")
+                SQLcmd.Parameters.Add("@EXES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXES_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_EMPL_STOCK_DETAIL WHERE EXESD_KEY=@EXESD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXESD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK_DETAIL(EXESD_KEY,EXESD_EXESKEY,EXESD_SOURCENO,EXESD_EXESDKEY,EXESD_DESC,EXESD_AMOUNT,EXESD_DEDUCTIBLE,EXESD_NOTE) VALUES (@EXESD_KEY,@EXESD_EXESKEY,@EXESD_SOURCENO,@EXESD_EXESDKEY,@EXESD_DESC,@EXESD_AMOUNT,@EXESD_DEDUCTIBLE,@EXESD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXESD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXESD_EXESKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXESD_EXESKEY")
+                    SQLcmd.Parameters.Add("@EXESD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXESD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXESD_EXESDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXESD_EXESDKEY")
+                    SQLcmd.Parameters.Add("@EXESD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXESD_DESC")
+                    SQLcmd.Parameters.Add("@EXESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXESD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXESD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXESD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_INTEREST(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_INTEREST WHERE EXI_KEY=@EXI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXI_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_INTEREST(EXI_KEY,EXI_EXIKEY,EXI_SOURCENO,EXI_DESC,EXI_AMOUNT,EXI_DEDUCTIBLE,EXI_NOTE,EXI_DETAIL) VALUES (@EXI_KEY,@EXI_EXIKEY,@EXI_SOURCENO,@EXI_DESC,@EXI_AMOUNT,@EXI_DEDUCTIBLE,@EXI_NOTE,@EXI_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXI_EXIKEY", SqlDbType.Int).Value = dt.Rows(i)("EXI_EXIKEY")
+                SQLcmd.Parameters.Add("@EXI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXI_SOURCENO")
+                SQLcmd.Parameters.Add("@EXI_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXI_DESC")
+                SQLcmd.Parameters.Add("@EXI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXI_AMOUNT")
+                SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXI_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXI_NOTE")
+                SQLcmd.Parameters.Add("@EXI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXI_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_INTEREST_DETAIL WHERE EXID_KEY=@EXID_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXID_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_INTEREST_DETAIL(EXID_KEY,EXID_EXIKEY,EXID_SOURCENO,EXID_EXIDKEY,EXID_DESC,EXID_AMOUNT,EXID_DEDUCTIBLE,EXID_NOTE) VALUES (@EXID_KEY,@EXID_EXIKEY,@EXID_SOURCENO,@EXID_EXIDKEY,@EXID_DESC,@EXID_AMOUNT,@EXID_DEDUCTIBLE,@EXID_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXID_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXID_EXIKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXID_EXIKEY")
+                    SQLcmd.Parameters.Add("@EXID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXID_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXID_EXIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXID_EXIDKEY")
+                    SQLcmd.Parameters.Add("@EXID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXID_DESC")
+                    SQLcmd.Parameters.Add("@EXID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXID_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXID_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXID_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_INTERESTRESTRICT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_INTERESTRESTRICT WHERE EXIR_KEY=@EXIR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXIR_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT(EXIR_KEY,EXIR_EXIRKEY,EXIR_SOURCENO,EXIR_DESC,EXIR_AMOUNT,EXIR_DEDUCTIBLE,EXIR_NOTE,EXIR_DETAIL,EXIR_YEAREND,EXIR_STATUS) VALUES (@EXIR_KEY,@EXIR_EXIRKEY,@EXIR_SOURCENO,@EXIR_DESC,@EXIR_AMOUNT,@EXIR_DEDUCTIBLE,@EXIR_NOTE,@EXIR_DETAIL,@EXIR_YEAREND,@EXIR_STATUS)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXIR_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXIR_EXIRKEY", SqlDbType.Int).Value = dt.Rows(i)("EXIR_EXIRKEY")
+                SQLcmd.Parameters.Add("@EXIR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXIR_SOURCENO")
+                SQLcmd.Parameters.Add("@EXIR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXIR_DESC")
+                SQLcmd.Parameters.Add("@EXIR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXIR_AMOUNT")
+                SQLcmd.Parameters.Add("@EXIR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXIR_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXIR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXIR_NOTE")
+                SQLcmd.Parameters.Add("@EXIR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXIR_DETAIL")
+                SQLcmd.Parameters.Add("@EXIR_YEAREND", SqlDbType.NVarChar, 50).Value = dt.Rows(i)("EXIR_YEAREND")
+                SQLcmd.Parameters.Add("@EXIR_STATUS", SqlDbType.NVarChar, 10).Value = dt.Rows(i)("EXIR_STATUS")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY=@EXIRD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXIRD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT_DETAIL(EXIRD_KEY,EXIRD_EXIRKEY,EXIRD_SOURCENO,EXIRD_EXIRDKEY,EXIRD_DESC,EXIRD_AMOUNT,EXIRD_DEDUCTIBLE,EXIRD_NOTE) VALUES (@EXIRD_KEY,@EXIRD_EXIRKEY,@EXIRD_SOURCENO,@EXIRD_EXIRDKEY,@EXIRD_DESC,@EXIRD_AMOUNT,@EXIRD_DEDUCTIBLE,@EXIRD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXIRD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXIRD_EXIRKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXIRD_EXIRKEY")
+                    SQLcmd.Parameters.Add("@EXIRD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXIRD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXIRD_EXIRDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXIRD_EXIRDKEY")
+                    SQLcmd.Parameters.Add("@EXIRD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXIRD_DESC")
+                    SQLcmd.Parameters.Add("@EXIRD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXIRD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXIRD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXIRD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXIRD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXIRD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_JKDM(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_JKDM WHERE EXJK_KEY=@EXJK_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXJK_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_JKDM(EXJK_KEY,EXJK_EXJKKEY,EXJK_SOURCENO,EXJK_DESC,EXJK_AMOUNT,EXJK_DEDUCTIBLE,EXJK_NOTE,EXJK_DETAIL) VALUES (@EXJK_KEY,@EXJK_EXJKKEY,@EXJK_SOURCENO,@EXJK_DESC,@EXJK_AMOUNT,@EXJK_DEDUCTIBLE,@EXJK_NOTE,@EXJK_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXJK_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXJK_EXJKKEY", SqlDbType.Int).Value = dt.Rows(i)("EXJK_EXJKKEY")
+                SQLcmd.Parameters.Add("@EXJK_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXJK_SOURCENO")
+                SQLcmd.Parameters.Add("@EXJK_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXJK_DESC")
+                SQLcmd.Parameters.Add("@EXJK_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXJK_AMOUNT")
+                SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXJK_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXJK_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXJK_NOTE")
+                SQLcmd.Parameters.Add("@EXJK_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXJK_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_JKDM_DETAIL WHERE EXJKD_KEY=@EXJKD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXJKD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_JKDM_DETAIL(EXJKD_KEY,EXJKD_EXJKKEY,EXJKD_SOURCENO,EXJKD_EXJKDKEY,EXJKD_DESC,EXJKD_AMOUNT,EXJKD_DEDUCTIBLE,EXJKD_NOTE) VALUES (@EXJKD_KEY,@EXJKD_EXJKKEY,@EXJKD_SOURCENO,@EXJKD_EXJKDKEY,@EXJKD_DESC,@EXJKD_AMOUNT,@EXJKD_DEDUCTIBLE,@EXJKD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXJKD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXJKD_EXJKKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXJKD_EXJKKEY")
+                    SQLcmd.Parameters.Add("@EXJKD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXJKD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXJKD_EXJKDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXJKD_EXJKDKEY")
+                    SQLcmd.Parameters.Add("@EXJKD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXJKD_DESC")
+                    SQLcmd.Parameters.Add("@EXJKD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXJKD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXJKD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXJKD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXJKD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_LEGAL(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_LEGAL WHERE EXL_KEY=@EXL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXL_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_LEGAL(EXL_KEY,EXL_EXLKEY,EXL_SOURCENO,EXL_DESC,EXL_AMOUNT,EXL_DEDUCTIBLE,EXL_NOTE,EXL_DETAIL) VALUES (@EXL_KEY,@EXL_EXLKEY,@EXL_SOURCENO,@EXL_DESC,@EXL_AMOUNT,@EXL_DEDUCTIBLE,@EXL_NOTE,@EXL_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXL_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXL_EXLKEY", SqlDbType.Int).Value = dt.Rows(i)("EXL_EXLKEY")
+                SQLcmd.Parameters.Add("@EXL_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXL_SOURCENO")
+                SQLcmd.Parameters.Add("@EXL_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXL_DESC")
+                SQLcmd.Parameters.Add("@EXL_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXL_AMOUNT")
+                SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXL_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXL_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXL_NOTE")
+                SQLcmd.Parameters.Add("@EXL_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXL_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_LEGAL_DETAIL WHERE EXLD_KEY=@EXLD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXLD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_LEGAL_DETAIL(EXLD_KEY,EXLD_EXLKEY,EXLD_SOURCENO,EXLD_EXLDKEY,EXLD_DESC,EXLD_AMOUNT,EXLD_DEDUCTIBLE,EXLD_NOTE) VALUES (@EXLD_KEY,@EXLD_EXLKEY,@EXLD_SOURCENO,@EXLD_EXLDKEY,@EXLD_DESC,@EXLD_AMOUNT,@EXLD_DEDUCTIBLE,@EXLD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXLD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXLD_EXLKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXLD_EXLKEY")
+                    SQLcmd.Parameters.Add("@EXLD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXLD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXLD_EXLDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXLD_EXLDKEY")
+                    SQLcmd.Parameters.Add("@EXLD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXLD_DESC")
+                    SQLcmd.Parameters.Add("@EXLD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXLD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXLD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXLD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXLD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_NONALLOW(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_NONALLOW WHERE EXNA_KEY=@EXNA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXNA_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_NONALLOW(EXNA_KEY,EXNA_EXNAKEY,EXNA_SOURCENO,EXNA_DESC,EXNA_AMOUNT,EXNA_DEDUCTIBLE,EXNA_NOTE,EXNA_DETAIL) VALUES (@EXNA_KEY,@EXNA_EXNAKEY,@EXNA_SOURCENO,@EXNA_DESC,@EXNA_AMOUNT,@EXNA_DEDUCTIBLE,@EXNA_NOTE,@EXNA_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXNA_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXNA_EXNAKEY", SqlDbType.Int).Value = dt.Rows(i)("EXNA_EXNAKEY")
+                SQLcmd.Parameters.Add("@EXNA_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXNA_SOURCENO")
+                SQLcmd.Parameters.Add("@EXNA_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXNA_DESC")
+                SQLcmd.Parameters.Add("@EXNA_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXNA_AMOUNT")
+                SQLcmd.Parameters.Add("@EXNA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXNA_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXNA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXNA_NOTE")
+                SQLcmd.Parameters.Add("@EXNA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXNA_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_NONALLOW_DETAIL WHERE EXNAD_KEY=@EXNAD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXNAD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_NONALLOW_DETAIL(EXNAD_KEY,EXNAD_EXNAKEY,EXNAD_SOURCENO,EXNAD_EXNADKEY,EXNAD_DESC,EXNAD_AMOUNT,EXNAD_DEDUCTIBLE,EXNAD_NOTE) VALUES (@EXNAD_KEY,@EXNAD_EXNAKEY,@EXNAD_SOURCENO,@EXNAD_EXNADKEY,@EXNAD_DESC,@EXNAD_AMOUNT,@EXNAD_DEDUCTIBLE,@EXNAD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXNAD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXNAD_EXNAKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXNAD_EXNAKEY")
+                    SQLcmd.Parameters.Add("@EXNAD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXNAD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXNAD_EXNADKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXNAD_EXNADKEY")
+                    SQLcmd.Parameters.Add("@EXNAD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXNAD_DESC")
+                    SQLcmd.Parameters.Add("@EXNAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXNAD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXNAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXNAD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXNAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXNAD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_PROMOTE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_PROMOTE WHERE EXP_KEY=@EXP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXP_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_PROMOTE(EXP_KEY,EXP_EXPKEY,EXP_SOURCENO,EXP_DESC,EXP_AMOUNT,EXP_DEDUCTIBLE,EXP_NOTE,EXP_DETAIL) VALUES (@EXP_KEY,@EXP_EXPKEY,@EXP_SOURCENO,@EXP_DESC,@EXP_AMOUNT,@EXP_DEDUCTIBLE,@EXP_NOTE,@EXP_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXP_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXP_EXPKEY", SqlDbType.Int).Value = dt.Rows(i)("EXP_EXPKEY")
+                SQLcmd.Parameters.Add("@EXP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXP_SOURCENO")
+                SQLcmd.Parameters.Add("@EXP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXP_DESC")
+                SQLcmd.Parameters.Add("@EXP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXP_AMOUNT")
+                SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXP_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXP_NOTE")
+                SQLcmd.Parameters.Add("@EXP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXP_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_PROMOTE_DETAIL WHERE EXPD_KEY=@EXPD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXPD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_PROMOTE_DETAIL(EXPD_KEY,EXPD_EXPKEY,EXPD_SOURCENO,EXPD_EXPDKEY,EXPD_DESC,EXPD_AMOUNT,EXPD_DEDUCTIBLE,EXPD_NOTE) VALUES (@EXPD_KEY,@EXPD_EXPKEY,@EXPD_SOURCENO,@EXPD_EXPDKEY,@EXPD_DESC,@EXPD_AMOUNT,@EXPD_DEDUCTIBLE,@EXPD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXPD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXPD_EXPKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXPD_EXPKEY")
+                    SQLcmd.Parameters.Add("@EXPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXPD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXPD_EXPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXPD_EXPDKEY")
+                    SQLcmd.Parameters.Add("@EXPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXPD_DESC")
+                    SQLcmd.Parameters.Add("@EXPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXPD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXPD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXPD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_RENTAL(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_RENTAL WHERE EXRENT_KEY=@EXRENT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRENT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXRENT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXRENT_EXRENTKEY", SqlDbType.Int).Value = dt.Rows(i)("EXRENT_EXRENTKEY")
+                SQLcmd.Parameters.Add("@EXRENT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXRENT_SOURCENO")
+                SQLcmd.Parameters.Add("@EXRENT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXRENT_DESC")
+                SQLcmd.Parameters.Add("@EXRENT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXRENT_AMOUNT")
+                SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRENT_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXRENT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRENT_NOTE")
+                SQLcmd.Parameters.Add("@EXRENT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRENT_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_RENTAL_DETAIL WHERE EXRENTD_KEY=@EXRENTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXRENTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXRENTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXRENTD_EXRENTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXRENTD_EXRENTKEY")
+                    SQLcmd.Parameters.Add("@EXRENTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXRENTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXRENTD_EXRENTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXRENTD_EXRENTDKEY")
+                    SQLcmd.Parameters.Add("@EXRENTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXRENTD_DESC")
+                    SQLcmd.Parameters.Add("@EXRENTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXRENTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXRENTD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXRENTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXRENTD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_REPAIR(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_REPAIR WHERE EXREP_KEY=@EXREP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXREP_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_REPAIR(EXREP_KEY,EXREP_EXREPKEY,EXREP_SOURCENO,EXREP_DESC,EXREP_AMOUNT,EXREP_DEDUCTIBLE,EXREP_NOTE,EXREP_DETAIL) VALUES (@EXREP_KEY,@EXREP_EXREPKEY,@EXREP_SOURCENO,@EXREP_DESC,@EXREP_AMOUNT,@EXREP_DEDUCTIBLE,@EXREP_NOTE,@EXREP_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXREP_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXREP_EXREPKEY", SqlDbType.Int).Value = dt.Rows(i)("EXREP_EXREPKEY")
+                SQLcmd.Parameters.Add("@EXREP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXREP_SOURCENO")
+                SQLcmd.Parameters.Add("@EXREP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXREP_DESC")
+                SQLcmd.Parameters.Add("@EXREP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXREP_AMOUNT")
+                SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXREP_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXREP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXREP_NOTE")
+                SQLcmd.Parameters.Add("@EXREP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXREP_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_REPAIR_DETAIL WHERE EXREPD_KEY=@EXREPD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXREPD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_REPAIR_DETAIL(EXREPD_KEY,EXREPD_EXREPKEY,EXREPD_SOURCENO,EXREPD_EXREPDKEY,EXREPD_DESC,EXREPD_AMOUNT,EXREPD_DEDUCTIBLE,EXREPD_NOTE) VALUES (@EXREPD_KEY,@EXREPD_EXREPKEY,@EXREPD_SOURCENO,@EXREPD_EXREPDKEY,@EXREPD_DESC,@EXREPD_AMOUNT,@EXREPD_DEDUCTIBLE,@EXREPD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXREPD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXREPD_EXREPKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXREPD_EXREPKEY")
+                    SQLcmd.Parameters.Add("@EXREPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXREPD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXREPD_EXREPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXREPD_EXREPDKEY")
+                    SQLcmd.Parameters.Add("@EXREPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXREPD_DESC")
+                    SQLcmd.Parameters.Add("@EXREPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXREPD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXREPD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXREPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXREPD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_RESEARCH(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_RESEARCH WHERE EXRES_KEY=@EXRES_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRES_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_RESEARCH(EXRES_KEY,EXRES_EXRESKEY,EXRES_SOURCENO,EXRES_DESC,EXRES_AMOUNT,EXRES_DEDUCTIBLE,EXRES_NOTE,EXRES_DETAIL) VALUES (@EXRES_KEY,@EXRES_EXRESKEY,@EXRES_SOURCENO,@EXRES_DESC,@EXRES_AMOUNT,@EXRES_DEDUCTIBLE,@EXRES_NOTE,@EXRES_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXRES_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXRES_EXRESKEY", SqlDbType.Int).Value = dt.Rows(i)("EXRES_EXRESKEY")
+                SQLcmd.Parameters.Add("@EXRES_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXRES_SOURCENO")
+                SQLcmd.Parameters.Add("@EXRES_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXRES_DESC")
+                SQLcmd.Parameters.Add("@EXRES_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXRES_AMOUNT")
+                SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRES_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXRES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRES_NOTE")
+                SQLcmd.Parameters.Add("@EXRES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRES_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_RESEARCH_DETAIL WHERE EXRESD_KEY=@EXRESD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXRESD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_RESEARCH_DETAIL(EXRESD_KEY,EXRESD_EXRESKEY,EXRESD_SOURCENO,EXRESD_EXRESDKEY,EXRESD_DESC,EXRESD_AMOUNT,EXRESD_DEDUCTIBLE,EXRESD_NOTE) VALUES (@EXRESD_KEY,@EXRESD_EXRESKEY,@EXRESD_SOURCENO,@EXRESD_EXRESDKEY,@EXRESD_DESC,@EXRESD_AMOUNT,@EXRESD_DEDUCTIBLE,@EXRESD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXRESD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXRESD_EXRESKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXRESD_EXRESKEY")
+                    SQLcmd.Parameters.Add("@EXRESD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXRESD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXRESD_EXRESDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXRESD_EXRESDKEY")
+                    SQLcmd.Parameters.Add("@EXRESD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXRESD_DESC")
+                    SQLcmd.Parameters.Add("@EXRESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXRESD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXRESD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXRESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXRESD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_ROYALTY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_ROYALTY WHERE EXRO_KEY=@EXRO_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRO_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_ROYALTY(EXRO_KEY,EXRO_EXROKEY,EXRO_SOURCENO,EXRO_DESC,EXRO_AMOUNT,EXRO_DEDUCTIBLE,EXRO_NOTE,EXRO_DETAIL) VALUES (@EXRO_KEY,@EXRO_EXROKEY,@EXRO_SOURCENO,@EXRO_DESC,@EXRO_AMOUNT,@EXRO_DEDUCTIBLE,@EXRO_NOTE,@EXRO_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXRO_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXRO_EXROKEY", SqlDbType.Int).Value = dt.Rows(i)("EXRO_EXROKEY")
+                SQLcmd.Parameters.Add("@EXRO_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXRO_SOURCENO")
+                SQLcmd.Parameters.Add("@EXRO_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXRO_DESC")
+                SQLcmd.Parameters.Add("@EXRO_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXRO_AMOUNT")
+                SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRO_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXRO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRO_NOTE")
+                SQLcmd.Parameters.Add("@EXRO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRO_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_ROYALTY_DETAIL WHERE EXROD_KEY=@EXROD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXROD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_ROYALTY_DETAIL(EXROD_KEY,EXROD_EXROKEY,EXROD_SOURCENO,EXROD_EXRODKEY,EXROD_DESC,EXROD_AMOUNT,EXROD_DEDUCTIBLE,EXROD_NOTE) VALUES (@EXROD_KEY,@EXROD_EXROKEY,@EXROD_SOURCENO,@EXROD_EXRODKEY,@EXROD_DESC,@EXROD_AMOUNT,@EXROD_DEDUCTIBLE,@EXROD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXROD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXROD_EXROKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXROD_EXROKEY")
+                    SQLcmd.Parameters.Add("@EXROD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXROD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXROD_EXRODKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXROD_EXRODKEY")
+                    SQLcmd.Parameters.Add("@EXROD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXROD_DESC")
+                    SQLcmd.Parameters.Add("@EXROD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXROD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXROD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXROD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXROD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_SALARY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_SALARY WHERE EXS_KEY=@EXS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXS_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_SALARY(EXS_KEY,EXS_EXSKEY,EXS_SOURCENO,EXS_DESC,EXS_AMOUNT,EXS_DEDUCTIBLE,EXS_NOTE,EXS_DETAIL) VALUES (@EXS_KEY,@EXS_EXSKEY,@EXS_SOURCENO,@EXS_DESC,@EXS_AMOUNT,@EXS_DEDUCTIBLE,@EXS_NOTE,@EXS_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXS_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXS_EXSKEY", SqlDbType.Int).Value = dt.Rows(i)("EXS_EXSKEY")
+                SQLcmd.Parameters.Add("@EXS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXS_SOURCENO")
+                SQLcmd.Parameters.Add("@EXS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXS_DESC")
+                SQLcmd.Parameters.Add("@EXS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXS_AMOUNT")
+                SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXS_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXS_NOTE")
+                SQLcmd.Parameters.Add("@EXS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXS_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_SALARY_DETAIL WHERE EXSD_KEY=@EXSD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXSD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXSD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXSD_EXSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXSD_EXSKEY")
+                    SQLcmd.Parameters.Add("@EXSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXSD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXSD_EXSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXSD_EXSDKEY")
+                    SQLcmd.Parameters.Add("@EXSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXSD_DESC")
+                    SQLcmd.Parameters.Add("@EXSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXSD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXSD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXSD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_TECH_FEE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_TECH_FEE WHERE EXTF_KEY=@EXTF_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXTF_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_TECH_FEE(EXTF_KEY,EXTF_EXTFKEY,EXTF_SOURCENO,EXTF_DESC,EXTF_AMOUNT,EXTF_DEDUCTIBLE,EXTF_NOTE,EXTF_DETAIL) VALUES (@EXTF_KEY,@EXTF_EXTFKEY,@EXTF_SOURCENO,@EXTF_DESC,@EXTF_AMOUNT,@EXTF_DEDUCTIBLE,@EXTF_NOTE,@EXTF_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXTF_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXTF_EXTFKEY", SqlDbType.Int).Value = dt.Rows(i)("EXTF_EXTFKEY")
+                SQLcmd.Parameters.Add("@EXTF_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXTF_SOURCENO")
+                SQLcmd.Parameters.Add("@EXTF_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXTF_DESC")
+                SQLcmd.Parameters.Add("@EXTF_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXTF_AMOUNT")
+                SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXTF_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXTF_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXTF_NOTE")
+                SQLcmd.Parameters.Add("@EXTF_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXTF_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_TECH_FEE_DETAIL WHERE EXTFD_KEY=@EXTFD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXTFD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_TECH_FEE_DETAIL(EXTFD_KEY,EXTFD_EXTFKEY,EXTFD_SOURCENO,EXTFD_EXTFDKEY,EXTFD_DESC,EXTFD_AMOUNT,EXTFD_DEDUCTIBLE,EXTFD_NOTE) VALUES (@EXTFD_KEY,@EXTFD_EXTFKEY,@EXTFD_SOURCENO,@EXTFD_EXTFDKEY,@EXTFD_DESC,@EXTFD_AMOUNT,@EXTFD_DEDUCTIBLE,@EXTFD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXTFD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXTFD_EXTFKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXTFD_EXTFKEY")
+                    SQLcmd.Parameters.Add("@EXTFD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXTFD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXTFD_EXTFDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXTFD_EXTFDKEY")
+                    SQLcmd.Parameters.Add("@EXTFD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXTFD_DESC")
+                    SQLcmd.Parameters.Add("@EXTFD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXTFD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXTFD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXTFD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXTFD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_EXPENSES_TRAVEL(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXPENSES_TRAVEL WHERE EXT_KEY=@EXT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO EXPENSES_TRAVEL(EXT_KEY,EXT_EXTKEY,EXT_SOURCENO,EXT_DESC,EXT_AMOUNT,EXT_DEDUCTIBLE,EXT_NOTE,EXT_DETAIL) VALUES (@EXT_KEY,@EXT_EXTKEY,@EXT_SOURCENO,@EXT_DESC,@EXT_AMOUNT,@EXT_DEDUCTIBLE,@EXT_NOTE,@EXT_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXT_EXTKEY", SqlDbType.Int).Value = dt.Rows(i)("EXT_EXTKEY")
+                SQLcmd.Parameters.Add("@EXT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXT_SOURCENO")
+                SQLcmd.Parameters.Add("@EXT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXT_DESC")
+                SQLcmd.Parameters.Add("@EXT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXT_AMOUNT")
+                SQLcmd.Parameters.Add("@EXT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXT_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXT_NOTE")
+                SQLcmd.Parameters.Add("@EXT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXT_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE EXPENSES_TRAVEL_DETAIL WHERE EXTD_KEY=@EXTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO EXPENSES_TRAVEL_DETAIL(EXTD_KEY,EXTD_EXTKEY,EXTD_SOURCENO,EXTD_EXTDKEY,EXTD_DESC,EXTD_AMOUNT,EXTD_DEDUCTIBLE,EXTD_NOTE) VALUES (@EXTD_KEY,@EXTD_EXTKEY,@EXTD_SOURCENO,@EXTD_EXTDKEY,@EXTD_DESC,@EXTD_AMOUNT,@EXTD_DEDUCTIBLE,@EXTD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXTD_EXTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXTD_EXTKEY")
+                    SQLcmd.Parameters.Add("@EXTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXTD_EXTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXTD_EXTDKEY")
+                    SQLcmd.Parameters.Add("@EXTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXTD_DESC")
+                    SQLcmd.Parameters.Add("@EXTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXTD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXTD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NBINTEREST(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NBINTEREST WHERE NOBII_KEY=@NOBII_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NOBII_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NBINTEREST(NOBII_KEY,NOBII_NOBIIKEY,NOBII_DESC,NOBII_AMOUNT,NOBII_NOTE,NOBII_DETAIL,NOBII_SOURCENO) VALUES (@NOBII_KEY,@NOBII_NOBIIKEY,@NOBII_DESC,@NOBII_AMOUNT,@NOBII_NOTE,@NOBII_DETAIL,@NOBII_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NOBII_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NOBII_NOBIIKEY", SqlDbType.Int).Value = dt.Rows(i)("NOBII_NOBIIKEY")
+                SQLcmd.Parameters.Add("@NOBII_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NOBII_DESC")
+                SQLcmd.Parameters.Add("@NOBII_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NOBII_AMOUNT")
+                SQLcmd.Parameters.Add("@NOBII_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NOBII_NOTE")
+                SQLcmd.Parameters.Add("@NOBII_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NOBII_DETAIL")
+                SQLcmd.Parameters.Add("@NOBII_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NOBII_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NBINTEREST_DETAIL WHERE NOBIID_KEY=@NOBIID_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NOBIID_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NBINTEREST_DETAIL(NOBIID_KEY,NOBIID_NOBIIKEY,NOBIID_NOBIIDKEY,NOBIID_DESC,NOBIID_AMOUNT,NOBIID_NOTE,NOBIID_SOURCENO) VALUES (@NOBIID_KEY,@NOBIID_NOBIIKEY,@NOBIID_NOBIIDKEY,@NOBIID_DESC,@NOBIID_AMOUNT,@NOBIID_NOTE,@NOBIID_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NOBIID_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NOBIID_NOBIIKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NOBIID_NOBIIKEY")
+                    SQLcmd.Parameters.Add("@NOBIID_NOBIIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NOBIID_NOBIIDKEY")
+                    SQLcmd.Parameters.Add("@NOBIID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NOBIID_DESC")
+                    SQLcmd.Parameters.Add("@NOBIID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NOBIID_AMOUNT")
+                    SQLcmd.Parameters.Add("@NOBIID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NOBIID_NOTE")
+                    SQLcmd.Parameters.Add("@NOBIID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NOBIID_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NBROYALTY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NBROYALTY WHERE NOBRI_KEY=@NOBRI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NOBRI_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NBROYALTY(NOBRI_KEY,NOBRI_NOBRIKEY,NOBRI_DESC,NOBRI_AMOUNT,NOBRI_NOTE,NOBRI_DETAIL,NOBRI_SOURCENO) VALUES (@NOBRI_KEY,@NOBRI_NOBRIKEY,@NOBRI_DESC,@NOBRI_AMOUNT,@NOBRI_NOTE,@NOBRI_DETAIL,@NOBRI_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NOBRI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NOBRI_NOBRIKEY", SqlDbType.Int).Value = dt.Rows(i)("NOBRI_NOBRIKEY")
+                SQLcmd.Parameters.Add("@NOBRI_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NOBRI_DESC")
+                SQLcmd.Parameters.Add("@NOBRI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NOBRI_AMOUNT")
+                SQLcmd.Parameters.Add("@NOBRI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NOBRI_NOTE")
+                SQLcmd.Parameters.Add("@NOBRI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NOBRI_DETAIL")
+                SQLcmd.Parameters.Add("@NOBRI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NOBRI_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NBROYALTY_DETAIL WHERE NOBRID_KEY=@NOBRID_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NOBRID_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NBROYALTY_DETAIL(NOBRID_KEY,NOBRID_NOBRIKEY,NOBRID_NOBRIDKEY,NOBRID_DESC,NOBRID_AMOUNT,NOBRID_NOTE,NOBRID_SOURCENO) VALUES (@NOBRID_KEY,@NOBRID_NOBRIKEY,@NOBRID_NOBRIDKEY,@NOBRID_DESC,@NOBRID_AMOUNT,@NOBRID_NOTE,@NOBRID_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NOBRID_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NOBRID_NOBRIKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NOBRID_NOBRIKEY")
+                    SQLcmd.Parameters.Add("@NOBRID_NOBRIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NOBRID_NOBRIDKEY")
+                    SQLcmd.Parameters.Add("@NOBRID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NOBRID_DESC")
+                    SQLcmd.Parameters.Add("@NOBRID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NOBRID_AMOUNT")
+                    SQLcmd.Parameters.Add("@NOBRID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NOBRID_NOTE")
+                    SQLcmd.Parameters.Add("@NOBRID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NOBRID_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NTDISPOSALFA(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NTDISPOSALFA WHERE NTIDFA_KEY=@NTIDFA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIDFA_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NTDISPOSALFA(NTIDFA_KEY,NTIDFA_NTIDFAKEY,NTIDFA_DESC,NTIDFA_AMOUNT,NTIDFA_NOTE,NTIDFA_DETAIL,NTIDFA_SOURCENO) VALUES (@NTIDFA_KEY,@NTIDFA_NTIDFAKEY,@NTIDFA_DESC,@NTIDFA_AMOUNT,@NTIDFA_NOTE,@NTIDFA_DETAIL,@NTIDFA_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIDFA_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NTIDFA_NTIDFAKEY", SqlDbType.Int).Value = dt.Rows(i)("NTIDFA_NTIDFAKEY")
+                SQLcmd.Parameters.Add("@NTIDFA_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NTIDFA_DESC")
+                SQLcmd.Parameters.Add("@NTIDFA_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NTIDFA_AMOUNT")
+                SQLcmd.Parameters.Add("@NTIDFA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIDFA_NOTE")
+                SQLcmd.Parameters.Add("@NTIDFA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIDFA_DETAIL")
+                SQLcmd.Parameters.Add("@NTIDFA_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIDFA_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NTDISPOSALFA_DETAIL WHERE NTIDFAD_KEY=@NTIDFAD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIDFAD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NTDISPOSALFA_DETAIL(NTIDFAD_KEY,NTIDFAD_NTIDFAKEY,NTIDFAD_NTIDFADKEY,NTIDFAD_DESC,NTIDFAD_AMOUNT,NTIDFAD_NOTE,NTIDFAD_SOURCENO) VALUES (@NTIDFAD_KEY,@NTIDFAD_NTIDFAKEY,@NTIDFAD_NTIDFADKEY,@NTIDFAD_DESC,@NTIDFAD_AMOUNT,@NTIDFAD_NOTE,@NTIDFAD_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTIDFAD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTIDFAD_NTIDFAKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDFAD_NTIDFAKEY")
+                    SQLcmd.Parameters.Add("@NTIDFAD_NTIDFADKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDFAD_NTIDFADKEY")
+                    SQLcmd.Parameters.Add("@NTIDFAD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTIDFAD_DESC")
+                    SQLcmd.Parameters.Add("@NTIDFAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIDFAD_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTIDFAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIDFAD_NOTE")
+                    SQLcmd.Parameters.Add("@NTIDFAD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDFAD_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NTDISPOSALINVEST(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY=@NTIDI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIDI_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NTDISPOSALINVEST(NTIDI_KEY,NTIDI_NTIDIKEY,NTIDI_DESC,NTIDI_AMOUNT,NTIDI_NOTE,NTIDI_DETAIL,NTIDI_SOURCENO) VALUES (@NTIDI_KEY,@NTIDI_NTIDIKEY,@NTIDI_DESC,@NTIDI_AMOUNT,@NTIDI_NOTE,@NTIDI_DETAIL,@NTIDI_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIDI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NTIDI_NTIDIKEY", SqlDbType.Int).Value = dt.Rows(i)("NTIDI_NTIDIKEY")
+                SQLcmd.Parameters.Add("@NTIDI_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NTIDI_DESC")
+                SQLcmd.Parameters.Add("@NTIDI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NTIDI_AMOUNT")
+                SQLcmd.Parameters.Add("@NTIDI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIDI_NOTE")
+                SQLcmd.Parameters.Add("@NTIDI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIDI_DETAIL")
+                SQLcmd.Parameters.Add("@NTIDI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIDI_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NTDISPOSALINVEST_DETAIL WHERE NTIDID_KEY=@NTIDID_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIDID_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NTDISPOSALINVEST_DETAIL(NTIDID_KEY,NTIDID_NTIDIKEY,NTIDID_NTIDIDKEY,NTIDID_DESC,NTIDID_AMOUNT,NTIDID_NOTE,NTIDID_SOURCENO) VALUES (@NTIDID_KEY,@NTIDID_NTIDIKEY,@NTIDID_NTIDIDKEY,@NTIDID_DESC,@NTIDID_AMOUNT,@NTIDID_NOTE,@NTIDID_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTIDID_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTIDID_NTIDIKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDID_NTIDIKEY")
+                    SQLcmd.Parameters.Add("@NTIDID_NTIDIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDID_NTIDIDKEY")
+                    SQLcmd.Parameters.Add("@NTIDID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTIDID_DESC")
+                    SQLcmd.Parameters.Add("@NTIDID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIDID_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTIDID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIDID_NOTE")
+                    SQLcmd.Parameters.Add("@NTIDID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDID_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NTFOREIGNINCREM(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY=@NTIFIR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIFIR_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NTFOREIGNINCREM(NTIFIR_KEY,NTIFIR_NTIFIRKEY,NTIFIR_DESC,NTIFIR_AMOUNT,NTIFIR_NOTE,NTIFIR_DETAIL,NTIFIR_SOURCENO) VALUES (@NTIFIR_KEY,@NTIFIR_NTIFIRKEY,@NTIFIR_DESC,@NTIFIR_AMOUNT,@NTIFIR_NOTE,@NTIFIR_DETAIL,@NTIFIR_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIFIR_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NTIFIR_NTIFIRKEY", SqlDbType.Int).Value = dt.Rows(i)("NTIFIR_NTIFIRKEY")
+                SQLcmd.Parameters.Add("@NTIFIR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NTIFIR_DESC")
+                SQLcmd.Parameters.Add("@NTIFIR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NTIFIR_AMOUNT")
+                SQLcmd.Parameters.Add("@NTIFIR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIFIR_NOTE")
+                SQLcmd.Parameters.Add("@NTIFIR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIFIR_DETAIL")
+                SQLcmd.Parameters.Add("@NTIFIR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIFIR_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NTFOREIGNINCREM_DETAIL WHERE NTIFIRD_KEY=@NTIFIRD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIFIRD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NTFOREIGNINCREM_DETAIL(NTIFIRD_KEY,NTIFIRD_NTIFIRKEY,NTIFIRD_NTIFIRDKEY,NTIFIRD_DESC,NTIFIRD_AMOUNT,NTIFIRD_NOTE,NTIFIRD_SOURCENO) VALUES (@NTIFIRD_KEY,@NTIFIRD_NTIFIRKEY,@NTIFIRD_NTIFIRDKEY,@NTIFIRD_DESC,@NTIFIRD_AMOUNT,@NTIFIRD_NOTE,@NTIFIRD_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTIFIRD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTIFIRD_NTIFIRKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIFIRD_NTIFIRKEY")
+                    SQLcmd.Parameters.Add("@NTIFIRD_NTIFIRDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIFIRD_NTIFIRDKEY")
+                    SQLcmd.Parameters.Add("@NTIFIRD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTIFIRD_DESC")
+                    SQLcmd.Parameters.Add("@NTIFIRD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIFIRD_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTIFIRD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIFIRD_NOTE")
+                    SQLcmd.Parameters.Add("@NTIFIRD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIFIRD_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NTREALFE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NTREALFE WHERE NTIRFECT_KEY=@NTIRFECT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIRFECT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NTREALFE(NTIRFECT_KEY,NTIRFECT_NTIRFECTKEY,NTIRFECT_DESC,NTIRFECT_AMOUNT,NTIRFECT_NOTE,NTIRFECT_DETAIL,NTIRFECT_SOURCENO) VALUES (@NTIRFECT_KEY,@NTIRFECT_NTIRFECTKEY,@NTIRFECT_DESC,@NTIRFECT_AMOUNT,@NTIRFECT_NOTE,@NTIRFECT_DETAIL,@NTIRFECT_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIRFECT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NTIRFECT_NTIRFECTKEY", SqlDbType.Int).Value = dt.Rows(i)("NTIRFECT_NTIRFECTKEY")
+                SQLcmd.Parameters.Add("@NTIRFECT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NTIRFECT_DESC")
+                SQLcmd.Parameters.Add("@NTIRFECT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NTIRFECT_AMOUNT")
+                SQLcmd.Parameters.Add("@NTIRFECT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIRFECT_NOTE")
+                SQLcmd.Parameters.Add("@NTIRFECT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIRFECT_DETAIL")
+                SQLcmd.Parameters.Add("@NTIRFECT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIRFECT_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NTREALFE_DETAIL WHERE NTIRFECTD_KEY=@NTIRFECTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIRFECTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NTREALFE_DETAIL(NTIRFECTD_KEY,NTIRFECTD_NTIRFECTKEY,NTIRFECTD_NTIRFECTDKEY,NTIRFECTD_DESC,NTIRFECTD_AMOUNT,NTIRFECTD_NOTE,NTIRFECTD_SOURCENO) VALUES (@NTIRFECTD_KEY,@NTIRFECTD_NTIRFECTKEY,@NTIRFECTD_NTIRFECTDKEY,@NTIRFECTD_DESC,@NTIRFECTD_AMOUNT,@NTIRFECTD_NOTE,@NTIRFECTD_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTIRFECTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTIRFECTD_NTIRFECTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIRFECTD_NTIRFECTKEY")
+                    SQLcmd.Parameters.Add("@NTIRFECTD_NTIRFECTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIRFECTD_NTIRFECTDKEY")
+                    SQLcmd.Parameters.Add("@NTIRFECTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTIRFECTD_DESC")
+                    SQLcmd.Parameters.Add("@NTIRFECTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIRFECTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTIRFECTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIRFECTD_NOTE")
+                    SQLcmd.Parameters.Add("@NTIRFECTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIRFECTD_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NTUREALFENT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NTUREALFENT WHERE NTIUNT_KEY=@NTIUNT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIUNT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NTUREALFENT(NTIUNT_KEY,NTIUNT_NTIUNTKEY,NTIUNT_DESC,NTIUNT_AMOUNT,NTIUNT_NOTE,NTIUNT_DETAIL,NTIUNT_SOURCENO) VALUES (@NTIUNT_KEY,@NTIUNT_NTIUNTKEY,@NTIUNT_DESC,@NTIUNT_AMOUNT,@NTIUNT_NOTE,@NTIUNT_DETAIL,@NTIUNT_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIUNT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NTIUNT_NTIUNTKEY", SqlDbType.Int).Value = dt.Rows(i)("NTIUNT_NTIUNTKEY")
+                SQLcmd.Parameters.Add("@NTIUNT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NTIUNT_DESC")
+                SQLcmd.Parameters.Add("@NTIUNT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NTIUNT_AMOUNT")
+                SQLcmd.Parameters.Add("@NTIUNT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIUNT_NOTE")
+                SQLcmd.Parameters.Add("@NTIUNT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIUNT_DETAIL")
+                SQLcmd.Parameters.Add("@NTIUNT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIUNT_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NTUREALFENT_DETAIL WHERE NTIUNTD_KEY=@NTIUNTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIUNTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NTUREALFENT_DETAIL(NTIUNTD_KEY,NTIUNTD_NTIUNTKEY,NTIUNTD_NTIUNTDKEY,NTIUNTD_DESC,NTIUNTD_AMOUNT,NTIUNTD_NOTE,NTIUNTD_SOURCENO) VALUES (@NTIUNTD_KEY,@NTIUNTD_NTIUNTKEY,@NTIUNTD_NTIUNTDKEY,@NTIUNTD_DESC,@NTIUNTD_AMOUNT,@NTIUNTD_NOTE,@NTIUNTD_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTIUNTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTIUNTD_NTIUNTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUNTD_NTIUNTKEY")
+                    SQLcmd.Parameters.Add("@NTIUNTD_NTIUNTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUNTD_NTIUNTDKEY")
+                    SQLcmd.Parameters.Add("@NTIUNTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTIUNTD_DESC")
+                    SQLcmd.Parameters.Add("@NTIUNTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIUNTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTIUNTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIUNTD_NOTE")
+                    SQLcmd.Parameters.Add("@NTIUNTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUNTD_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_NTUREALFET(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_NTUREALFET WHERE NTIUT_KEY=@NTIUT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIUT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_NTUREALFET(NTIUT_KEY,NTIUT_NTIUTKEY,NTIUT_DESC,NTIUT_AMOUNT,NTIUT_NOTE,NTIUT_DETAIL,NTIUT_SOURCENO) VALUES (@NTIUT_KEY,@NTIUT_NTIUTKEY,@NTIUT_DESC,@NTIUT_AMOUNT,@NTIUT_NOTE,@NTIUT_DETAIL,@NTIUT_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIUT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NTIUT_NTIUTKEY", SqlDbType.Int).Value = dt.Rows(i)("NTIUT_NTIUTKEY")
+                SQLcmd.Parameters.Add("@NTIUT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NTIUT_DESC")
+                SQLcmd.Parameters.Add("@NTIUT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NTIUT_AMOUNT")
+                SQLcmd.Parameters.Add("@NTIUT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIUT_NOTE")
+                SQLcmd.Parameters.Add("@NTIUT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIUT_DETAIL")
+                SQLcmd.Parameters.Add("@NTIUT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIUT_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_NTUREALFET_DETAIL WHERE NTIUTD_KEY=@NTIUTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTIUTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_NTUREALFET_DETAIL(NTIUTD_KEY,NTIUTD_NTIUTKEY,NTIUTD_NTIUTDKEY,NTIUTD_DESC,NTIUTD_AMOUNT,NTIUTD_NOTE,NTIUTD_SOURCENO) VALUES (@NTIUTD_KEY,@NTIUTD_NTIUTKEY,@NTIUTD_NTIUTDKEY,@NTIUTD_DESC,@NTIUTD_AMOUNT,@NTIUTD_NOTE,@NTIUTD_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTIUTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTIUTD_NTIUTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUTD_NTIUTKEY")
+                    SQLcmd.Parameters.Add("@NTIUTD_NTIUTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUTD_NTIUTDKEY")
+                    SQLcmd.Parameters.Add("@NTIUTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTIUTD_DESC")
+                    SQLcmd.Parameters.Add("@NTIUTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIUTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTIUTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIUTD_NOTE")
+                    SQLcmd.Parameters.Add("@NTIUTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUTD_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_INCOME_REALFET(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE INCOME_REALFET WHERE IRFET_KEY=@IRFET_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@IRFET_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO INCOME_REALFET(IRFET_KEY,IRFET_IRFETKEY,IRFET_DESC,IRFET_AMOUNT,IRFET_NOTE,IRFET_DETAIL,IRFET_SOURCENO) VALUES (@IRFET_KEY,@IRFET_IRFETKEY,@IRFET_DESC,@IRFET_AMOUNT,@IRFET_NOTE,@IRFET_DETAIL,@IRFET_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@IRFET_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@IRFET_IRFETKEY", SqlDbType.Int).Value = dt.Rows(i)("IRFET_IRFETKEY")
+                SQLcmd.Parameters.Add("@IRFET_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("IRFET_DESC")
+                SQLcmd.Parameters.Add("@IRFET_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("IRFET_AMOUNT")
+                SQLcmd.Parameters.Add("@IRFET_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("IRFET_NOTE")
+                SQLcmd.Parameters.Add("@IRFET_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("IRFET_DETAIL")
+                SQLcmd.Parameters.Add("@IRFET_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("IRFET_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE INCOME_REALFET_DETAIL WHERE IRFETD_KEY=@IRFETD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@IRFETD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO INCOME_REALFET_DETAIL(IRFETD_KEY,IRFETD_IRFETKEY,IRFETD_IRFETDKEY,IRFETD_DESC,IRFETD_AMOUNT,IRFETD_NOTE,IRFETD_SOURCENO) VALUES (@IRFETD_KEY,@IRFETD_IRFETKEY,@IRFETD_IRFETDKEY,@IRFETD_DESC,@IRFETD_AMOUNT,@IRFETD_NOTE,@IRFETD_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@IRFETD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@IRFETD_IRFETKEY", SqlDbType.Int).Value = dt_child.Rows(x)("IRFETD_IRFETKEY")
+                    SQLcmd.Parameters.Add("@IRFETD_IRFETDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("IRFETD_IRFETDKEY")
+                    SQLcmd.Parameters.Add("@IRFETD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("IRFETD_DESC")
+                    SQLcmd.Parameters.Add("@IRFETD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("IRFETD_AMOUNT")
+                    SQLcmd.Parameters.Add("@IRFETD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("IRFETD_NOTE")
+                    SQLcmd.Parameters.Add("@IRFETD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("IRFETD_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_NON_TAXABLE_INCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE NON_TAXABLE_INCOME WHERE NT_KEY=@NT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO NON_TAXABLE_INCOME(NT_KEY,NT_REF_NO,NT_YA,NT_DESC,NT_AMOUNT,NT_CATEGORIZED,NT_NOTE,NT_DETAIL,NT_SOURCENO,NT_NTKEY) VALUES (@NT_KEY,@NT_REF_NO,@NT_YA,@NT_DESC,@NT_AMOUNT,@NT_CATEGORIZED,@NT_NOTE,@NT_DETAIL,@NT_SOURCENO,@NT_NTKEY)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NT_REF_NO", SqlDbType.NVarChar, 20).Value = dt.Rows(i)("NT_REF_NO")
+                SQLcmd.Parameters.Add("@NT_YA", SqlDbType.NVarChar, 5).Value = dt.Rows(i)("NT_YA")
+                SQLcmd.Parameters.Add("@NT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NT_DESC")
+                SQLcmd.Parameters.Add("@NT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NT_AMOUNT")
+                SQLcmd.Parameters.Add("@NT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NT_NOTE")
+                SQLcmd.Parameters.Add("@NT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NT_DETAIL")
+                SQLcmd.Parameters.Add("@NT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NT_SOURCENO")
+                SQLcmd.Parameters.Add("@NT_NTKEY", SqlDbType.Float).Value = dt.Rows(i)("NT_NTKEY")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE NON_TAXABLE_INCOME_DETAIL WHERE NTD_KEY=@NTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO NON_TAXABLE_INCOME_DETAIL(NTD_KEY,NTD_NTKEY,NTD_NTDKEY,NTD_DESC,NTD_AMOUNT,NTD_NOTE,NTD_SOURCENO,NTD_NTKEYN) VALUES (@NTD_KEY,@NTD_NTKEY,@NTD_NTDKEY,@NTD_DESC,@NTD_AMOUNT,@NTD_NOTE,@NTD_SOURCENO,@NTD_NTKEYN)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NTD_NTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTD_NTKEY")
+                    SQLcmd.Parameters.Add("@NTD_NTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NTD_NTDKEY")
+                    SQLcmd.Parameters.Add("@NTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NTD_DESC")
+                    SQLcmd.Parameters.Add("@NTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@NTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTD_NOTE")
+                    SQLcmd.Parameters.Add("@NTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@NTD_NTKEYN", SqlDbType.Float).Value = dt_child.Rows(x)("NTD_NTKEYN")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_NONSOURCE_BUSINESSINCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY=@NSBI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NSBI_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO NONSOURCE_BUSINESSINCOME(NSBI_KEY,NSBI_NSBIKEY,NSBI_DESC,NSBI_AMOUNT,NSBI_NOTE,NSBI_DETAIL,NSBI_SOURCENO) VALUES (@NSBI_KEY,@NSBI_NSBIKEY,@NSBI_DESC,@NSBI_AMOUNT,@NSBI_NOTE,@NSBI_DETAIL,@NSBI_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NSBI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NSBI_NSBIKEY", SqlDbType.Int).Value = dt.Rows(i)("NSBI_NSBIKEY")
+                SQLcmd.Parameters.Add("@NSBI_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NSBI_DESC")
+                SQLcmd.Parameters.Add("@NSBI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NSBI_AMOUNT")
+                SQLcmd.Parameters.Add("@NSBI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NSBI_NOTE")
+                SQLcmd.Parameters.Add("@NSBI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NSBI_DETAIL")
+                SQLcmd.Parameters.Add("@NSBI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NSBI_SOURCENO")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE NONSOURCE_BUSINESSINCOME_DETAIL WHERE NSBID_KEY=@NSBID_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@NSBID_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO NONSOURCE_BUSINESSINCOME_DETAIL(NSBID_KEY,NSBID_NSBIKEY,NSBID_NSBIDKEY,NSBID_DESC,NSBID_AMOUNT,NSBID_NOTE,NSBID_SOURCENO) VALUES (@NSBID_KEY,@NSBID_NSBIKEY,@NSBID_NSBIDKEY,@NSBID_DESC,@NSBID_AMOUNT,@NSBID_NOTE,@NSBID_SOURCENO)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@NSBID_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@NSBID_NSBIKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NSBID_NSBIKEY")
+                    SQLcmd.Parameters.Add("@NSBID_NSBIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("NSBID_NSBIDKEY")
+                    SQLcmd.Parameters.Add("@NSBID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("NSBID_DESC")
+                    SQLcmd.Parameters.Add("@NSBID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NSBID_AMOUNT")
+                    SQLcmd.Parameters.Add("@NSBID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NSBID_NOTE")
+                    SQLcmd.Parameters.Add("@NSBID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NSBID_SOURCENO")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_ENTERTAINNSTAFF(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_ENTERTAINNSTAFF WHERE EXOENS_KEY=@EXOENS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOENS_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF(EXOENS_KEY,EXOENS_EXOENSKEY,EXOENS_SOURCENO,EXOENS_DESC,EXOENS_AMOUNT,EXOENS_DEDUCTIBLE,EXOENS_NOTE,EXOENS_DETAIL) VALUES (@EXOENS_KEY,@EXOENS_EXOENSKEY,@EXOENS_SOURCENO,@EXOENS_DESC,@EXOENS_AMOUNT,@EXOENS_DEDUCTIBLE,@EXOENS_NOTE,@EXOENS_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOENS_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOENS_EXOENSKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOENS_EXOENSKEY")
+                SQLcmd.Parameters.Add("@EXOENS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOENS_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOENS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOENS_DESC")
+                SQLcmd.Parameters.Add("@EXOENS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOENS_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOENS_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOENS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOENS_NOTE")
+                SQLcmd.Parameters.Add("@EXOENS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOENS_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENSD_KEY=@EXOENSD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOENSD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF_DETAIL(EXOENSD_KEY,EXOENSD_EXOENSKEY,EXOENSD_SOURCENO,EXOENSD_EXOENSDKEY,EXOENSD_DESC,EXOENSD_DEDUCTIBLE,EXOENSD_AMOUNT,EXOENSD_NOTE) VALUES (@EXOENSD_KEY,@EXOENSD_EXOENSKEY,@EXOENSD_SOURCENO,@EXOENSD_EXOENSDKEY,@EXOENSD_DESC,@EXOENSD_DEDUCTIBLE,@EXOENSD_AMOUNT,@EXOENSD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOENSD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOENSD_EXOENSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOENSD_EXOENSKEY")
+                    SQLcmd.Parameters.Add("@EXOENSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOENSD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOENSD_EXOENSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOENSD_EXOENSDKEY")
+                    SQLcmd.Parameters.Add("@EXOENSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOENSD_DESC")
+                    SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOENSD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOENSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOENSD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOENSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOENSD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_ENTERTAINSTAFF(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_ENTERTAINSTAFF WHERE EXOES_KEY=@EXOES_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOES_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF(EXOES_KEY,EXOES_EXOESKEY,EXOES_SOURCENO,EXOES_DESC,EXOES_AMOUNT,EXOES_DEDUCTIBLE,EXOES_NOTE,EXOES_DETAIL) VALUES (@EXOES_KEY,@EXOES_EXOESKEY,@EXOES_SOURCENO,@EXOES_DESC,@EXOES_AMOUNT,@EXOES_DEDUCTIBLE,@EXOES_NOTE,@EXOES_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOES_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOES_EXOESKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOES_EXOESKEY")
+                SQLcmd.Parameters.Add("@EXOES_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOES_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOES_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOES_DESC")
+                SQLcmd.Parameters.Add("@EXOES_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOES_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOES_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOES_NOTE")
+                SQLcmd.Parameters.Add("@EXOES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOES_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_ENTERTAINSTAFF_DETAIL WHERE EXOESD_KEY=@EXOESD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOESD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF_DETAIL(EXOESD_KEY,EXOESD_EXOESKEY,EXOESD_SOURCENO,EXOESD_EXOESDKEY,EXOESD_DESC,EXOESD_DEDUCTIBLE,EXOESD_AMOUNT,EXOESD_NOTE) VALUES (@EXOESD_KEY,@EXOESD_EXOESKEY,@EXOESD_SOURCENO,@EXOESD_EXOESDKEY,@EXOESD_DESC,@EXOESD_DEDUCTIBLE,@EXOESD_AMOUNT,@EXOESD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOESD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOESD_EXOESKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOESD_EXOESKEY")
+                    SQLcmd.Parameters.Add("@EXOESD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOESD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOESD_EXOESDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOESD_EXOESDKEY")
+                    SQLcmd.Parameters.Add("@EXOESD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOESD_DESC")
+                    SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOESD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOESD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOESD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXAPPRDONATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXAPPRDONATION WHERE EXOAD_KEY=@EXOAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOAD_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,EXOAD_TYPE)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOAD_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOAD_EXOADKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOAD_EXOADKEY")
+                SQLcmd.Parameters.Add("@EXOAD_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOAD_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOAD_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOAD_DESC")
+                SQLcmd.Parameters.Add("@EXOAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOAD_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOAD_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOAD_NOTE")
+                SQLcmd.Parameters.Add("@EXOAD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOAD_DETAIL")
+                SQLcmd.Parameters.Add("@EXOAD_TYPE", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOAD_TYPE")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXAPPRDONATION_DETAIL WHERE EXOADD_KEY=@EXOADD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOADD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXAPPRDONATION_DETAIL(EXOADD_KEY,EXOADD_EXOADKEY,EXOADD_SOURCENO,EXOADD_EXOADDKEY,EXOADD_DESC,EXOADD_DEDUCTIBLE,EXOADD_AMOUNT,EXOADD_NOTE,EXOADD_TYPE) VALUES (@EXOADD_KEY,@EXOADD_EXOADKEY,@EXOADD_SOURCENO,@EXOADD_EXOADDKEY,@EXOADD_DESC,@EXOADD_DEDUCTIBLE,@EXOADD_AMOUNT,@EXOADD_NOTE,@EXOADD_TYPE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOADD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOADD_EXOADKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOADD_EXOADKEY")
+                    SQLcmd.Parameters.Add("@EXOADD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOADD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOADD_EXOADDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOADD_EXOADDKEY")
+                    SQLcmd.Parameters.Add("@EXOADD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOADD_DESC")
+                    SQLcmd.Parameters.Add("@EXOADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOADD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOADD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOADD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOADD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOADD_NOTE")
+                    SQLcmd.Parameters.Add("@EXOADD_TYPE", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOADD_TYPE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXCAPITALEXP(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXCAPITALEXP WHERE EXOCE_KEY=@EXOCE_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOCE_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXCAPITALEXP(EXOCE_KEY,EXOCE_EXOCEKEY,EXOCE_SOURCENO,EXOCE_DESC,EXOCE_AMOUNT,EXOCE_DEDUCTIBLE,EXOCE_NOTE,EXOCE_DETAIL) VALUES (@EXOCE_KEY,@EXOCE_EXOCEKEY,@EXOCE_SOURCENO,@EXOCE_DESC,@EXOCE_AMOUNT,@EXOCE_DEDUCTIBLE,@EXOCE_NOTE,@EXOCE_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOCE_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOCE_EXOCEKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOCE_EXOCEKEY")
+                SQLcmd.Parameters.Add("@EXOCE_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOCE_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOCE_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOCE_DESC")
+                SQLcmd.Parameters.Add("@EXOCE_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOCE_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOCE_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOCE_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOCE_NOTE")
+                SQLcmd.Parameters.Add("@EXOCE_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOCE_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXCAPITALEXP_DETAIL WHERE EXOCED_KEY=@EXOCED_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOCED_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXCAPITALEXP_DETAIL(EXOCED_KEY,EXOCED_EXOCEKEY,EXOCED_SOURCENO,EXOCED_EXOCEDKEY,EXOCED_DESC,EXOCED_DEDUCTIBLE,EXOCED_AMOUNT,EXOCED_NOTE) VALUES (@EXOCED_KEY,@EXOCED_EXOCEKEY,@EXOCED_SOURCENO,@EXOCED_EXOCEDKEY,@EXOCED_DESC,@EXOCED_DEDUCTIBLE,@EXOCED_AMOUNT,@EXOCED_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOCED_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOCED_EXOCEKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOCED_EXOCEKEY")
+                    SQLcmd.Parameters.Add("@EXOCED_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOCED_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOCED_EXOCEDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOCED_EXOCEDKEY")
+                    SQLcmd.Parameters.Add("@EXOCED_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOCED_DESC")
+                    SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOCED_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOCED_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOCED_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOCED_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOCED_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXDEPRECIATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXDEPRECIATION WHERE EXODEP_KEY=@EXODEP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXODEP_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXDEPRECIATION(EXODEP_KEY,EXODEP_EXODEPKEY,EXODEP_SOURCENO,EXODEP_DESC,EXODEP_AMOUNT,EXODEP_DEDUCTIBLE,EXODEP_NOTE,EXODEP_DETAIL) VALUES (@EXODEP_KEY,@EXODEP_EXODEPKEY,@EXODEP_SOURCENO,@EXODEP_DESC,@EXODEP_AMOUNT,@EXODEP_DEDUCTIBLE,@EXODEP_NOTE,@EXODEP_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXODEP_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXODEP_EXODEPKEY", SqlDbType.Int).Value = dt.Rows(i)("EXODEP_EXODEPKEY")
+                SQLcmd.Parameters.Add("@EXODEP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXODEP_SOURCENO")
+                SQLcmd.Parameters.Add("@EXODEP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXODEP_DESC")
+                SQLcmd.Parameters.Add("@EXODEP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXODEP_AMOUNT")
+                SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXODEP_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXODEP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXODEP_NOTE")
+                SQLcmd.Parameters.Add("@EXODEP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXODEP_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXDEPRECIATION_DETAIL WHERE EXODEPD_KEY=@EXODEPD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXODEPD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXDEPRECIATION_DETAIL(EXODEPD_KEY,EXODEPD_EXODEPKEY,EXODEPD_SOURCENO,EXODEPD_EXODEPDKEY,EXODEPD_DESC,EXODEPD_DEDUCTIBLE,EXODEPD_AMOUNT,EXODEPD_NOTE) VALUES (@EXODEPD_KEY,@EXODEPD_EXODEPKEY,@EXODEPD_SOURCENO,@EXODEPD_EXODEPDKEY,@EXODEPD_DESC,@EXODEPD_DEDUCTIBLE,@EXODEPD_AMOUNT,@EXODEPD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXODEPD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXODEPD_EXODEPKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXODEPD_EXODEPKEY")
+                    SQLcmd.Parameters.Add("@EXODEPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXODEPD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXODEPD_EXODEPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXODEPD_EXODEPDKEY")
+                    SQLcmd.Parameters.Add("@EXODEPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXODEPD_DESC")
+                    SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXODEPD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXODEPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXODEPD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXODEPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXODEPD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXFAWRITTENOFF(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXFAWRITTENOFF WHERE EXOWO_KEY=@EXOWO_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOWO_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF(EXOWO_KEY,EXOWO_EXOWOKEY,EXOWO_SOURCENO,EXOWO_DESC,EXOWO_AMOUNT,EXOWO_DEDUCTIBLE,EXOWO_NOTE,EXOWO_DETAIL) VALUES (@EXOWO_KEY,@EXOWO_EXOWOKEY,@EXOWO_SOURCENO,@EXOWO_DESC,@EXOWO_AMOUNT,@EXOWO_DEDUCTIBLE,@EXOWO_NOTE,@EXOWO_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOWO_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOWO_EXOWOKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOWO_EXOWOKEY")
+                SQLcmd.Parameters.Add("@EXOWO_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOWO_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOWO_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOWO_DESC")
+                SQLcmd.Parameters.Add("@EXOWO_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOWO_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOWO_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOWO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOWO_NOTE")
+                SQLcmd.Parameters.Add("@EXOWO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOWO_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXFAWRITTENOFF_DETAIL WHERE EXOWOD_KEY=@EXOWOD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOWOD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF_DETAIL(EXOWOD_KEY,EXOWOD_EXOWOKEY,EXOWOD_SOURCENO,EXOWOD_EXOWODKEY,EXOWOD_DESC,EXOWOD_DEDUCTIBLE,EXOWOD_AMOUNT,EXOWOD_NOTE) VALUES (@EXOWOD_KEY,@EXOWOD_EXOWOKEY,@EXOWOD_SOURCENO,@EXOWOD_EXOWODKEY,@EXOWOD_DESC,@EXOWOD_DEDUCTIBLE,@EXOWOD_AMOUNT,@EXOWOD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOWOD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOWOD_EXOWOKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOWOD_EXOWOKEY")
+                    SQLcmd.Parameters.Add("@EXOWOD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOWOD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOWOD_EXOWODKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOWOD_EXOWODKEY")
+                    SQLcmd.Parameters.Add("@EXOWOD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOWOD_DESC")
+                    SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOWOD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOWOD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOWOD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOWOD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOWOD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXINITIALSUB(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXINITIALSUB WHERE EXOIS_KEY=@EXOIS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOIS_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXINITIALSUB(EXOIS_KEY,EXOIS_EXOISKEY,EXOIS_SOURCENO,EXOIS_DESC,EXOIS_AMOUNT,EXOIS_DEDUCTIBLE,EXOIS_NOTE,EXOIS_DETAIL) VALUES (@EXOIS_KEY,@EXOIS_EXOISKEY,@EXOIS_SOURCENO,@EXOIS_DESC,@EXOIS_AMOUNT,@EXOIS_DEDUCTIBLE,@EXOIS_NOTE,@EXOIS_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOIS_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOIS_EXOISKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOIS_EXOISKEY")
+                SQLcmd.Parameters.Add("@EXOIS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOIS_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOIS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOIS_DESC")
+                SQLcmd.Parameters.Add("@EXOIS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOIS_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOIS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOIS_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOIS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOIS_NOTE")
+                SQLcmd.Parameters.Add("@EXOIS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOIS_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXINITIALSUB_DETAIL WHERE EXOISD_KEY=@EXOISD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOISD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXINITIALSUB_DETAIL(EXOISD_KEY,EXOISD_EXOISKEY,EXOISD_SOURCENO,EXOISD_EXOISDKEY,EXOISD_DESC,EXOISD_DEDUCTIBLE,EXOISD_AMOUNT,EXOISD_NOTE) VALUES (@EXOISD_KEY,@EXOISD_EXOISKEY,@EXOISD_SOURCENO,@EXOISD_EXOISDKEY,@EXOISD_DESC,@EXOISD_DEDUCTIBLE,@EXOISD_AMOUNT,@EXOISD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOISD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOISD_EXOISKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOISD_EXOISKEY")
+                    SQLcmd.Parameters.Add("@EXOISD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOISD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOISD_EXOISDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOISD_EXOISDKEY")
+                    SQLcmd.Parameters.Add("@EXOISD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOISD_DESC")
+                    SQLcmd.Parameters.Add("@EXOISD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOISD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOISD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOISD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOISD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOISD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXLEAVEPASSAGE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXLEAVEPASSAGE WHERE EXOLP_KEY=@EXOLP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOLP_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE(EXOLP_KEY,EXOLP_EXOLPKEY,EXOLP_SOURCENO,EXOLP_DESC,EXOLP_AMOUNT,EXOLP_DEDUCTIBLE,EXOLP_NOTE,EXOLP_DETAIL) VALUES (@EXOLP_KEY,@EXOLP_EXOLPKEY,@EXOLP_SOURCENO,@EXOLP_DESC,@EXOLP_AMOUNT,@EXOLP_DEDUCTIBLE,@EXOLP_NOTE,@EXOLP_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOLP_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOLP_EXOLPKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOLP_EXOLPKEY")
+                SQLcmd.Parameters.Add("@EXOLP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOLP_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOLP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOLP_DESC")
+                SQLcmd.Parameters.Add("@EXOLP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOLP_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLP_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOLP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOLP_NOTE")
+                SQLcmd.Parameters.Add("@EXOLP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLP_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXLEAVEPASSAGE_DETAIL WHERE EXOLPD_KEY=@EXOLPD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOLPD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE_DETAIL(EXOLPD_KEY,EXOLPD_EXOLPKEY,EXOLPD_SOURCENO,EXOLPD_EXOLPDKEY,EXOLPD_DESC,EXOLPD_DEDUCTIBLE,EXOLPD_AMOUNT,EXOLPD_NOTE) VALUES (@EXOLPD_KEY,@EXOLPD_EXOLPKEY,@EXOLPD_SOURCENO,@EXOLPD_EXOLPDKEY,@EXOLPD_DESC,@EXOLPD_DEDUCTIBLE,@EXOLPD_AMOUNT,@EXOLPD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOLPD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOLPD_EXOLPKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLPD_EXOLPKEY")
+                    SQLcmd.Parameters.Add("@EXOLPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLPD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOLPD_EXOLPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLPD_EXOLPDKEY")
+                    SQLcmd.Parameters.Add("@EXOLPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOLPD_DESC")
+                    SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOLPD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOLPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOLPD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOLPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOLPD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXLOSSDISPOSALFA(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXLOSSDISPOSALFA WHERE EXOLD_KEY=@EXOLD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOLD_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA(EXOLD_KEY,EXOLD_EXOLDKEY,EXOLD_SOURCENO,EXOLD_DESC,EXOLD_AMOUNT,EXOLD_DEDUCTIBLE,EXOLD_NOTE,EXOLD_DETAIL) VALUES (@EXOLD_KEY,@EXOLD_EXOLDKEY,@EXOLD_SOURCENO,@EXOLD_DESC,@EXOLD_AMOUNT,@EXOLD_DEDUCTIBLE,@EXOLD_NOTE,@EXOLD_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOLD_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOLD_EXOLDKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOLD_EXOLDKEY")
+                SQLcmd.Parameters.Add("@EXOLD_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOLD_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOLD_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOLD_DESC")
+                SQLcmd.Parameters.Add("@EXOLD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOLD_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLD_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOLD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOLD_NOTE")
+                SQLcmd.Parameters.Add("@EXOLD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLD_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXLOSSDISPOSALFA_DETAIL WHERE EXOLDD_KEY=@EXOLDD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOLDD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA_DETAIL(EXOLDD_KEY,EXOLDD_EXOLDKEY,EXOLDD_SOURCENO,EXOLDD_EXOLDDKEY,EXOLDD_DESC,EXOLDD_DEDUCTIBLE,EXOLDD_AMOUNT,EXOLDD_NOTE) VALUES (@EXOLDD_KEY,@EXOLDD_EXOLDKEY,@EXOLDD_SOURCENO,@EXOLDD_EXOLDDKEY,@EXOLDD_DESC,@EXOLDD_DEDUCTIBLE,@EXOLDD_AMOUNT,@EXOLDD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOLDD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOLDD_EXOLDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLDD_EXOLDKEY")
+                    SQLcmd.Parameters.Add("@EXOLDD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLDD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOLDD_EXOLDDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLDD_EXOLDDKEY")
+                    SQLcmd.Parameters.Add("@EXOLDD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOLDD_DESC")
+                    SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOLDD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOLDD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOLDD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOLDD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOLDD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXNAPPRDONATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXNAPPRDONATION WHERE EXONAD_KEY=@EXONAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXONAD_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION(EXONAD_KEY,EXONAD_EXONADKEY,EXONAD_SOURCENO,EXONAD_DESC,EXONAD_AMOUNT,EXONAD_DEDUCTIBLE,EXONAD_NOTE,EXONAD_DETAIL) VALUES (@EXONAD_KEY,@EXONAD_EXONADKEY,@EXONAD_SOURCENO,@EXONAD_DESC,@EXONAD_AMOUNT,@EXONAD_DEDUCTIBLE,@EXONAD_NOTE,@EXONAD_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXONAD_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXONAD_EXONADKEY", SqlDbType.Int).Value = dt.Rows(i)("EXONAD_EXONADKEY")
+                SQLcmd.Parameters.Add("@EXONAD_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXONAD_SOURCENO")
+                SQLcmd.Parameters.Add("@EXONAD_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXONAD_DESC")
+                SQLcmd.Parameters.Add("@EXONAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXONAD_AMOUNT")
+                SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXONAD_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXONAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXONAD_NOTE")
+                SQLcmd.Parameters.Add("@EXONAD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXONAD_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXNAPPRDONATION_DETAIL WHERE EXONADD_KEY=@EXONADD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXONADD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION_DETAIL(EXONADD_KEY,EXONADD_EXONADKEY,EXONADD_SOURCENO,EXONADD_EXONADDKEY,EXONADD_DESC,EXONADD_DEDUCTIBLE,EXONADD_AMOUNT,EXONADD_NOTE) VALUES (@EXONADD_KEY,@EXONADD_EXONADKEY,@EXONADD_SOURCENO,@EXONADD_EXONADDKEY,@EXONADD_DESC,@EXONADD_DEDUCTIBLE,@EXONADD_AMOUNT,@EXONADD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXONADD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXONADD_EXONADKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXONADD_EXONADKEY")
+                    SQLcmd.Parameters.Add("@EXONADD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXONADD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXONADD_EXONADDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXONADD_EXONADDKEY")
+                    SQLcmd.Parameters.Add("@EXONADD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXONADD_DESC")
+                    SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXONADD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXONADD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXONADD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXONADD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXONADD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXPENALTY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXPENALTY WHERE EXOP_KEY=@EXOP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOP_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXPENALTY(EXOP_KEY,EXOP_EXOPKEY,EXOP_SOURCENO,EXOP_DESC,EXOP_AMOUNT,EXOP_DEDUCTIBLE,EXOP_NOTE,EXOP_DETAIL) VALUES (@EXOP_KEY,@EXOP_EXOPKEY,@EXOP_SOURCENO,@EXOP_DESC,@EXOP_AMOUNT,@EXOP_DEDUCTIBLE,@EXOP_NOTE,@EXOP_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOP_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOP_EXOPKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOP_EXOPKEY")
+                SQLcmd.Parameters.Add("@EXOP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOP_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOP_DESC")
+                SQLcmd.Parameters.Add("@EXOP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOP_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOP_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOP_NOTE")
+                SQLcmd.Parameters.Add("@EXOP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOP_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXPENALTY_DETAIL WHERE EXOPD_KEY=@EXOPD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOPD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXPENALTY_DETAIL(EXOPD_KEY,EXOPD_EXOPKEY,EXOPD_SOURCENO,EXOPD_EXOPDKEY,EXOPD_DESC,EXOPD_DEDUCTIBLE,EXOPD_AMOUNT,EXOPD_NOTE) VALUES (@EXOPD_KEY,@EXOPD_EXOPKEY,@EXOPD_SOURCENO,@EXOPD_EXOPDKEY,@EXOPD_DESC,@EXOPD_DEDUCTIBLE,@EXOPD_AMOUNT,@EXOPD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOPD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOPD_EXOPKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPD_EXOPKEY")
+                    SQLcmd.Parameters.Add("@EXOPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOPD_EXOPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPD_EXOPDKEY")
+                    SQLcmd.Parameters.Add("@EXOPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOPD_DESC")
+                    SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOPD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOPD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOPD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXPENSES(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXPENSES WHERE EXO_KEY=@EXO_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXO_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXPENSES(EXO_KEY,EXO_EXOKEY,EXO_SOURCENO,EXO_DESC,EXO_AMOUNT,EXO_DEDUCTIBLE,EXO_NOTE,EXO_DETAIL) VALUES (@EXO_KEY,@EXO_EXOKEY,@EXO_SOURCENO,@EXO_DESC,@EXO_AMOUNT,@EXO_DEDUCTIBLE,@EXO_NOTE,@EXO_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXO_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXO_EXOKEY", SqlDbType.Int).Value = dt.Rows(i)("EXO_EXOKEY")
+                SQLcmd.Parameters.Add("@EXO_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXO_SOURCENO")
+                SQLcmd.Parameters.Add("@EXO_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXO_DESC")
+                SQLcmd.Parameters.Add("@EXO_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXO_AMOUNT")
+                SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXO_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXO_NOTE")
+                SQLcmd.Parameters.Add("@EXO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXO_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXPENSES_DETAIL WHERE EXOD_KEY=@EXOD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXPENSES_DETAIL(EXOD_KEY,EXOD_EXOKEY,EXOD_SOURCENO,EXOD_EXODKEY,EXOD_DESC,EXOD_DEDUCTIBLE,EXOD_AMOUNT,EXOD_NOTE) VALUES (@EXOD_KEY,@EXOD_EXOKEY,@EXOD_SOURCENO,@EXOD_EXODKEY,@EXOD_DESC,@EXOD_DEDUCTIBLE,@EXOD_AMOUNT,@EXOD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOD_EXOKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOD_EXOKEY")
+                    SQLcmd.Parameters.Add("@EXOD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOD_EXODKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOD_EXODKEY")
+                    SQLcmd.Parameters.Add("@EXOD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOD_DESC")
+                    SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXPROVISIONACC(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXPROVISIONACC WHERE EXOPA_KEY=@EXOPA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOPA_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXPROVISIONACC(EXOPA_KEY,EXOPA_EXOPAKEY,EXOPA_SOURCENO,EXOPA_DESC,EXOPA_AMOUNT,EXOPA_DEDUCTIBLE,EXOPA_NOTE,EXOPA_DETAIL) VALUES (@EXOPA_KEY,@EXOPA_EXOPAKEY,@EXOPA_SOURCENO,@EXOPA_DESC,@EXOPA_AMOUNT,@EXOPA_DEDUCTIBLE,@EXOPA_NOTE,@EXOPA_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOPA_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOPA_EXOPAKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOPA_EXOPAKEY")
+                SQLcmd.Parameters.Add("@EXOPA_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOPA_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOPA_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOPA_DESC")
+                SQLcmd.Parameters.Add("@EXOPA_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOPA_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOPA_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOPA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOPA_NOTE")
+                SQLcmd.Parameters.Add("@EXOPA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOPA_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXPROVISIONACC_DETAIL WHERE EXOPAD_KEY=@EXOPAD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOPAD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXPROVISIONACC_DETAIL(EXOPAD_KEY,EXOPAD_EXOPAKEY,EXOPAD_SOURCENO,EXOPAD_EXOPADKEY,EXOPAD_DESC,EXOPAD_DEDUCTIBLE,EXOPAD_AMOUNT,EXOPAD_NOTE) VALUES (@EXOPAD_KEY,@EXOPAD_EXOPAKEY,@EXOPAD_SOURCENO,@EXOPAD_EXOPADKEY,@EXOPAD_DESC,@EXOPAD_DEDUCTIBLE,@EXOPAD_AMOUNT,@EXOPAD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOPAD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOPAD_EXOPAKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPAD_EXOPAKEY")
+                    SQLcmd.Parameters.Add("@EXOPAD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPAD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOPAD_EXOPADKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPAD_EXOPADKEY")
+                    SQLcmd.Parameters.Add("@EXOPAD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOPAD_DESC")
+                    SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOPAD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOPAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOPAD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOPAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOPAD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXRLOSSFOREIGN(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXRLOSSFOREIGN WHERE EXOR_KEY=@EXOR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOR_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN(EXOR_KEY,EXOR_EXORKEY,EXOR_SOURCENO,EXOR_DESC,EXOR_AMOUNT,EXOR_DEDUCTIBLE,EXOR_NOTE,EXOR_DETAIL) VALUES (@EXOR_KEY,@EXOR_EXORKEY,@EXOR_SOURCENO,@EXOR_DESC,@EXOR_AMOUNT,@EXOR_DEDUCTIBLE,@EXOR_NOTE,@EXOR_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOR_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOR_EXORKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOR_EXORKEY")
+                SQLcmd.Parameters.Add("@EXOR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOR_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOR_DESC")
+                SQLcmd.Parameters.Add("@EXOR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOR_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOR_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOR_NOTE")
+                SQLcmd.Parameters.Add("@EXOR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOR_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXRLOSSFOREIGN_DETAIL WHERE EXORD_KEY=@EXORD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXORD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN_DETAIL(EXORD_KEY,EXORD_EXORKEY,EXORD_SOURCENO,EXORD_EXORDKEY,EXORD_DESC,EXORD_DEDUCTIBLE,EXORD_AMOUNT,EXORD_NOTE) VALUES (@EXORD_KEY,@EXORD_EXORKEY,@EXORD_SOURCENO,@EXORD_EXORDKEY,@EXORD_DESC,@EXORD_DEDUCTIBLE,@EXORD_AMOUNT,@EXORD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXORD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXORD_EXORKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXORD_EXORKEY")
+                    SQLcmd.Parameters.Add("@EXORD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXORD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXORD_EXORDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXORD_EXORDKEY")
+                    SQLcmd.Parameters.Add("@EXORD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXORD_DESC")
+                    SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXORD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXORD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXORD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXORD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXORD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXRLOSSFOREIGNT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXRLOSSFOREIGNT WHERE EXORT_KEY=@EXORT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXORT_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT(EXORT_KEY,EXORT_EXORTKEY,EXORT_SOURCENO,EXORT_DESC,EXORT_AMOUNT,EXORT_DEDUCTIBLE,EXORT_NOTE,EXORT_DETAIL) VALUES (@EXORT_KEY,@EXORT_EXORTKEY,@EXORT_SOURCENO,@EXORT_DESC,@EXORT_AMOUNT,@EXORT_DEDUCTIBLE,@EXORT_NOTE,@EXORT_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXORT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXORT_EXORTKEY", SqlDbType.Int).Value = dt.Rows(i)("EXORT_EXORTKEY")
+                SQLcmd.Parameters.Add("@EXORT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXORT_SOURCENO")
+                SQLcmd.Parameters.Add("@EXORT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXORT_DESC")
+                SQLcmd.Parameters.Add("@EXORT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXORT_AMOUNT")
+                SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXORT_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXORT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXORT_NOTE")
+                SQLcmd.Parameters.Add("@EXORT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXORT_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXRLOSSFOREIGNT_DETAIL WHERE EXORTD_KEY=@EXORTD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXORTD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT_DETAIL(EXORTD_KEY,EXORTD_EXORTKEY,EXORTD_SOURCENO,EXORTD_EXORTDKEY,EXORTD_DESC,EXORTD_DEDUCTIBLE,EXORTD_AMOUNT,EXORTD_NOTE) VALUES (@EXORTD_KEY,@EXORTD_EXORTKEY,@EXORTD_SOURCENO,@EXORTD_EXORTDKEY,@EXORTD_DESC,@EXORTD_DEDUCTIBLE,@EXORTD_AMOUNT,@EXORTD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXORTD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXORTD_EXORTKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXORTD_EXORTKEY")
+                    SQLcmd.Parameters.Add("@EXORTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXORTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXORTD_EXORTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXORTD_EXORTDKEY")
+                    SQLcmd.Parameters.Add("@EXORTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXORTD_DESC")
+                    SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXORTD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXORTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXORTD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXORTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXORTD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXURLOSSFOREIGN(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXURLOSSFOREIGN WHERE EXOUR_KEY=@EXOUR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOUR_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN(EXOUR_KEY,EXOUR_EXOURKEY,EXOUR_SOURCENO,EXOUR_DESC,EXOUR_AMOUNT,EXOUR_DEDUCTIBLE,EXOUR_NOTE,EXOUR_DETAIL) VALUES (@EXOUR_KEY,@EXOUR_EXOURKEY,@EXOUR_SOURCENO,@EXOUR_DESC,@EXOUR_AMOUNT,@EXOUR_DEDUCTIBLE,@EXOUR_NOTE,@EXOUR_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOUR_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOUR_EXOURKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOUR_EXOURKEY")
+                SQLcmd.Parameters.Add("@EXOUR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOUR_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOUR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOUR_DESC")
+                SQLcmd.Parameters.Add("@EXOUR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOUR_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOUR_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOUR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOUR_NOTE")
+                SQLcmd.Parameters.Add("@EXOUR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOUR_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXURLOSSFOREIGN_DETAIL WHERE EXOURD_KEY=@EXOURD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOURD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN_DETAIL(EXOURD_KEY,EXOURD_EXOURKEY,EXOURD_SOURCENO,EXOURD_EXOURDKEY,EXOURD_DESC,EXOURD_DEDUCTIBLE,EXOURD_AMOUNT,EXOURD_NOTE) VALUES (@EXOURD_KEY,@EXOURD_EXOURKEY,@EXOURD_SOURCENO,@EXOURD_EXOURDKEY,@EXOURD_DESC,@EXOURD_DEDUCTIBLE,@EXOURD_AMOUNT,@EXOURD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOURD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOURD_EXOURKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOURD_EXOURKEY")
+                    SQLcmd.Parameters.Add("@EXOURD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOURD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOURD_EXOURDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOURD_EXOURDKEY")
+                    SQLcmd.Parameters.Add("@EXOURD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOURD_DESC")
+                    SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOURD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOURD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOURD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOURD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOURD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_EXZAKAT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_EXZAKAT WHERE EXOZ_KEY=@EXOZ_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOZ_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_EXZAKAT(EXOZ_KEY,EXOZ_EXOZKEY,EXOZ_SOURCENO,EXOZ_DESC,EXOZ_AMOUNT,EXOZ_DEDUCTIBLE,EXOZ_NOTE,EXOZ_DETAIL) VALUES (@EXOZ_KEY,@EXOZ_EXOZKEY,@EXOZ_SOURCENO,@EXOZ_DESC,@EXOZ_AMOUNT,@EXOZ_DEDUCTIBLE,@EXOZ_NOTE,@EXOZ_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOZ_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@EXOZ_EXOZKEY", SqlDbType.Int).Value = dt.Rows(i)("EXOZ_EXOZKEY")
+                SQLcmd.Parameters.Add("@EXOZ_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOZ_SOURCENO")
+                SQLcmd.Parameters.Add("@EXOZ_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOZ_DESC")
+                SQLcmd.Parameters.Add("@EXOZ_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOZ_AMOUNT")
+                SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOZ_DEDUCTIBLE")
+                SQLcmd.Parameters.Add("@EXOZ_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOZ_NOTE")
+                SQLcmd.Parameters.Add("@EXOZ_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOZ_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_EXZAKAT_DETAIL WHERE EXOZD_KEY=@EXOZD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@EXOZD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_EXZAKAT_DETAIL(EXOZD_KEY,EXOZD_EXOZKEY,EXOZD_SOURCENO,EXOZD_EXOZDKEY,EXOZD_DESC,EXOZD_DEDUCTIBLE,EXOZD_AMOUNT,EXOZD_NOTE) VALUES (@EXOZD_KEY,@EXOZD_EXOZKEY,@EXOZD_SOURCENO,@EXOZD_EXOZDKEY,@EXOZD_DESC,@EXOZD_DEDUCTIBLE,@EXOZD_AMOUNT,@EXOZD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@EXOZD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@EXOZD_EXOZKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOZD_EXOZKEY")
+                    SQLcmd.Parameters.Add("@EXOZD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOZD_SOURCENO")
+                    SQLcmd.Parameters.Add("@EXOZD_EXOZDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOZD_EXOZDKEY")
+                    SQLcmd.Parameters.Add("@EXOZD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOZD_DESC")
+                    SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOZD_DEDUCTIBLE")
+                    SQLcmd.Parameters.Add("@EXOZD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOZD_AMOUNT")
+                    SQLcmd.Parameters.Add("@EXOZD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOZD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_OTHER_INCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE OTHER_INCOME WHERE OI_KEY=@OI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@OI_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO OTHER_INCOME(OI_KEY,OI_OIKEY,OI_SOURCENO,OI_DESC,OI_AMOUNT,OI_NOTE,OI_DETAIL) VALUES (@OI_KEY,@OI_OIKEY,@OI_SOURCENO,@OI_DESC,@OI_AMOUNT,@OI_NOTE,@OI_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@OI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@OI_OIKEY", SqlDbType.Int).Value = dt.Rows(i)("OI_OIKEY")
+                SQLcmd.Parameters.Add("@OI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("OI_SOURCENO")
+                SQLcmd.Parameters.Add("@OI_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("OI_DESC")
+                SQLcmd.Parameters.Add("@OI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("OI_AMOUNT")
+                SQLcmd.Parameters.Add("@OI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("OI_NOTE")
+                SQLcmd.Parameters.Add("@OI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("OI_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE OTHER_INCOME_DETAIL WHERE OID_KEY=@OID_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@OID_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO OTHER_INCOME_DETAIL(OID_KEY,OID_OIKEY,OID_SOURCENO,OID_OIDKEY,OID_DESC,OID_AMOUNT,OID_NOTE) VALUES (@OID_KEY,@OID_OIKEY,@OID_SOURCENO,@OID_OIDKEY,@OID_DESC,@OID_AMOUNT,@OID_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@OID_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@OID_OIKEY", SqlDbType.Int).Value = dt_child.Rows(x)("OID_OIKEY")
+                    SQLcmd.Parameters.Add("@OID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("OID_SOURCENO")
+                    SQLcmd.Parameters.Add("@OID_OIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("OID_OIDKEY")
+                    SQLcmd.Parameters.Add("@OID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("OID_DESC")
+                    SQLcmd.Parameters.Add("@OID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("OID_AMOUNT")
+                    SQLcmd.Parameters.Add("@OID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("OID_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_PLFST_CLOSESTOCK(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE PLFST_CLOSESTOCK WHERE PLFCS_KEY=@PLFCS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFCS_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO PLFST_CLOSESTOCK(PLFCS_KEY,PLFCS_PLFCSKEY,PLFCS_SOURCENO,PLFCS_DESC,PLFCS_AMOUNT,PLFCS_NOTE,PLFCS_DETAIL) VALUES (@PLFCS_KEY,@PLFCS_PLFCSKEY,@PLFCS_SOURCENO,@PLFCS_DESC,@PLFCS_AMOUNT,@PLFCS_NOTE,@PLFCS_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFCS_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@PLFCS_PLFCSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFCS_PLFCSKEY")
+                SQLcmd.Parameters.Add("@PLFCS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFCS_SOURCENO")
+                SQLcmd.Parameters.Add("@PLFCS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFCS_DESC")
+                SQLcmd.Parameters.Add("@PLFCS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFCS_AMOUNT")
+                SQLcmd.Parameters.Add("@PLFCS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFCS_NOTE")
+                SQLcmd.Parameters.Add("@PLFCS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFCS_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE PLFST_CLOSESTOCK_DETAIL WHERE PLFCSD_KEY=@PLFCSD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFCSD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO PLFST_CLOSESTOCK_DETAIL(PLFCSD_KEY,PLFCSD_PLFCSKEY,PLFCSD_SOURCENO,PLFCSD_PLFCSDKEY,PLFCSD_DESC,PLFCSD_AMOUNT,PLFCSD_NOTE) VALUES (@PLFCSD_KEY,@PLFCSD_PLFCSKEY,@PLFCSD_SOURCENO,@PLFCSD_PLFCSDKEY,@PLFCSD_DESC,@PLFCSD_AMOUNT,@PLFCSD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@PLFCSD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@PLFCSD_PLFCSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFCSD_PLFCSKEY")
+                    SQLcmd.Parameters.Add("@PLFCSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFCSD_SOURCENO")
+                    SQLcmd.Parameters.Add("@PLFCSD_PLFCSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFCSD_PLFCSDKEY")
+                    SQLcmd.Parameters.Add("@PLFCSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFCSD_DESC")
+                    SQLcmd.Parameters.Add("@PLFCSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFCSD_AMOUNT")
+                    SQLcmd.Parameters.Add("@PLFCSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFCSD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_PLFST_OPENSTOCK(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE PLFST_OPENSTOCK WHERE PLFOS_KEY=@PLFOS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFOS_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO PLFST_OPENSTOCK(PLFOS_KEY,PLFOS_PLFOSKEY,PLFOS_SOURCENO,PLFOS_DESC,PLFOS_AMOUNT,PLFOS_NOTE,PLFOS_DETAIL) VALUES (@PLFOS_KEY,@PLFOS_PLFOSKEY,@PLFOS_SOURCENO,@PLFOS_DESC,@PLFOS_AMOUNT,@PLFOS_NOTE,@PLFOS_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFOS_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@PLFOS_PLFOSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFOS_PLFOSKEY")
+                SQLcmd.Parameters.Add("@PLFOS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFOS_SOURCENO")
+                SQLcmd.Parameters.Add("@PLFOS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFOS_DESC")
+                SQLcmd.Parameters.Add("@PLFOS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFOS_AMOUNT")
+                SQLcmd.Parameters.Add("@PLFOS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFOS_NOTE")
+                SQLcmd.Parameters.Add("@PLFOS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFOS_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE PLFST_OPENSTOCK_DETAIL WHERE PLFOSD_KEY=@PLFOSD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFOSD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO PLFST_OPENSTOCK_DETAIL(PLFOSD_KEY,PLFOSD_PLFOSKEY,PLFOSD_SOURCENO,PLFOSD_PLFOSDKEY,PLFOSD_DESC,PLFOSD_AMOUNT,PLFOSD_NOTE) VALUES (@PLFOSD_KEY,@PLFOSD_PLFOSKEY,@PLFOSD_SOURCENO,@PLFOSD_PLFOSDKEY,@PLFOSD_DESC,@PLFOSD_AMOUNT,@PLFOSD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@PLFOSD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@PLFOSD_PLFOSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_PLFOSKEY")
+                    SQLcmd.Parameters.Add("@PLFOSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_SOURCENO")
+                    SQLcmd.Parameters.Add("@PLFOSD_PLFOSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_PLFOSDKEY")
+                    SQLcmd.Parameters.Add("@PLFOSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFOSD_DESC")
+                    SQLcmd.Parameters.Add("@PLFOSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFOSD_AMOUNT")
+                    SQLcmd.Parameters.Add("@PLFOSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFOSD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_PLFST_PURCHASE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE PLFST_PURCHASE WHERE PLFPUR_KEY=@PLFPUR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFPUR_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO PLFST_PURCHASE(PLFPUR_KEY,PLFPUR_PLFPURKEY,PLFPUR_SOURCENO,PLFPUR_DESC,PLFPUR_AMOUNT,PLFPUR_NOTE,PLFPUR_DETAIL) VALUES (@PLFPUR_KEY,@PLFPUR_PLFPURKEY,@PLFPUR_SOURCENO,@PLFPUR_DESC,@PLFPUR_AMOUNT,@PLFPUR_NOTE,@PLFPUR_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFPUR_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@PLFPUR_PLFPURKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFPUR_PLFPURKEY")
+                SQLcmd.Parameters.Add("@PLFPUR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFPUR_SOURCENO")
+                SQLcmd.Parameters.Add("@PLFPUR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFPUR_DESC")
+                SQLcmd.Parameters.Add("@PLFPUR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFPUR_AMOUNT")
+                SQLcmd.Parameters.Add("@PLFPUR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFPUR_NOTE")
+                SQLcmd.Parameters.Add("@PLFPUR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFPUR_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE PLFST_PURCHASE_DETAIL WHERE PLFPURD_KEY=@PLFPURD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFPURD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO PLFST_PURCHASE_DETAIL(PLFPURD_KEY,PLFPURD_PLFPURKEY,PLFPURD_SOURCENO,PLFPURD_PLFPURDKEY,PLFPURD_DESC,PLFPURD_AMOUNT,PLFPURD_NOTE) VALUES (@PLFPURD_KEY,@PLFPURD_PLFPURKEY,@PLFPURD_SOURCENO,@PLFPURD_PLFPURDKEY,@PLFPURD_DESC,@PLFPURD_AMOUNT,@PLFPURD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@PLFPURD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@PLFPURD_PLFPURKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFPURD_PLFPURKEY")
+                    SQLcmd.Parameters.Add("@PLFPURD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFPURD_SOURCENO")
+                    SQLcmd.Parameters.Add("@PLFPURD_PLFPURDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFPURD_PLFPURDKEY")
+                    SQLcmd.Parameters.Add("@PLFPURD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFPURD_DESC")
+                    SQLcmd.Parameters.Add("@PLFPURD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFPURD_AMOUNT")
+                    SQLcmd.Parameters.Add("@PLFPURD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFPURD_NOTE")
+
+                    ListofCmd.Add(SQLcmd)
+
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_PLFST_SALES(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE PLFST_SALES WHERE PLFS_KEY=@PLFS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFS_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO PLFST_SALES(PLFS_KEY,PLFS_PLFSKEY,PLFS_SOURCENO,PLFS_DESC,PLFS_AMOUNT,PLFS_NOTE,PLFS_DETAIL) VALUES (@PLFS_KEY,@PLFS_PLFSKEY,@PLFS_SOURCENO,@PLFS_DESC,@PLFS_AMOUNT,@PLFS_NOTE,@PLFS_DETAIL)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFS_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@PLFS_PLFSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFS_PLFSKEY")
+                SQLcmd.Parameters.Add("@PLFS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFS_SOURCENO")
+                SQLcmd.Parameters.Add("@PLFS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFS_DESC")
+                SQLcmd.Parameters.Add("@PLFS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFS_AMOUNT")
+                SQLcmd.Parameters.Add("@PLFS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFS_NOTE")
+                SQLcmd.Parameters.Add("@PLFS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFS_DETAIL")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            If dt_child.Rows.Count > 0 Then
+                'THIS IS CHILD
+
+                StrSQL = "DELETE PLFST_SALES_DETAIL WHERE PLFSD_KEY=@PLFSD_KEY"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@PLFSD_KEY", SqlDbType.Int).Value = PNL_Key
+                ListofCmd.Add(SQLcmd)
+
+                For x As Integer = 0 To dt_child.Rows.Count - 1
+
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO PLFST_SALES_DETAIL(PLFSD_KEY,PLFSD_PLFSKEY,PLFSD_SOURCENO,PLFSD_PLFSDKEY,PLFSD_DESC,PLFSD_AMOUNT,PLFSD_NOTE) VALUES (@PLFSD_KEY,@PLFSD_PLFSKEY,@PLFSD_SOURCENO,@PLFSD_PLFSDKEY,@PLFSD_DESC,@PLFSD_AMOUNT,@PLFSD_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@PLFSD_KEY", SqlDbType.Int).Value = PNL_Key
+                    SQLcmd.Parameters.Add("@PLFSD_PLFSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_PLFSKEY")
+                    SQLcmd.Parameters.Add("@PLFSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_SOURCENO")
+                    SQLcmd.Parameters.Add("@PLFSD_PLFSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_PLFSDKEY")
+                    SQLcmd.Parameters.Add("@PLFSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFSD_DESC")
+                    SQLcmd.Parameters.Add("@PLFSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFSD_AMOUNT")
+                    SQLcmd.Parameters.Add("@PLFSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFSD_NOTE")
 
                     ListofCmd.Add(SQLcmd)
 

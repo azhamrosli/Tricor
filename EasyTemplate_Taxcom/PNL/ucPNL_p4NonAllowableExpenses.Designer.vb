@@ -41,13 +41,13 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.colRowIndex1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colEXORD_DEDUCTIBLE_ADD = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.NonAllowableExpensesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTitleKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colDescription = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colAmount = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colTitleKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,8 +57,8 @@ Partial Class ucPNL_p4NonAllowableExpenses
         CType(Me.txtPercentage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NonAllowableExpensesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DsPNL1
@@ -233,6 +233,11 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
         '
+        'NonAllowableExpensesBindingSource
+        '
+        Me.NonAllowableExpensesBindingSource.DataMember = "NonAllowable_Expenses"
+        Me.NonAllowableExpensesBindingSource.DataSource = Me.DsPNL1
+        '
         'GridView1
         '
         Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colKeyName, Me.colTitleKeyName, Me.colDescription, Me.colAmount})
@@ -251,11 +256,6 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.GridView1.OptionsView.RowAutoHeight = True
         Me.GridView1.OptionsView.ShowFooter = True
         '
-        'NonAllowableExpensesBindingSource
-        '
-        Me.NonAllowableExpensesBindingSource.DataMember = "NonAllowable_Expenses"
-        Me.NonAllowableExpensesBindingSource.DataSource = Me.DsPNL1
-        '
         'colID
         '
         Me.colID.FieldName = "ID"
@@ -266,6 +266,15 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.colKeyName.FieldName = "KeyName"
         Me.colKeyName.Name = "colKeyName"
         '
+        'colTitleKeyName
+        '
+        Me.colTitleKeyName.Caption = "From"
+        Me.colTitleKeyName.FieldName = "TitleKeyName"
+        Me.colTitleKeyName.Name = "colTitleKeyName"
+        Me.colTitleKeyName.Visible = True
+        Me.colTitleKeyName.VisibleIndex = 0
+        Me.colTitleKeyName.Width = 250
+        '
         'colDescription
         '
         Me.colDescription.Caption = "Description"
@@ -274,7 +283,7 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.colDescription.Name = "colDescription"
         Me.colDescription.Visible = True
         Me.colDescription.VisibleIndex = 1
-        Me.colDescription.Width = 300
+        Me.colDescription.Width = 500
         '
         'colAmount
         '
@@ -286,15 +295,6 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.colAmount.Visible = True
         Me.colAmount.VisibleIndex = 2
         Me.colAmount.Width = 120
-        '
-        'colTitleKeyName
-        '
-        Me.colTitleKeyName.Caption = "From"
-        Me.colTitleKeyName.FieldName = "TitleKeyName"
-        Me.colTitleKeyName.Name = "colTitleKeyName"
-        Me.colTitleKeyName.Visible = True
-        Me.colTitleKeyName.VisibleIndex = 0
-        Me.colTitleKeyName.Width = 150
         '
         'ucPNL_p4NonAllowableExpenses
         '
@@ -312,8 +312,8 @@ Partial Class ucPNL_p4NonAllowableExpenses
         CType(Me.txtPercentage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NonAllowableExpensesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

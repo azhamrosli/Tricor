@@ -1,4 +1,6 @@
 ﻿Imports DevExpress.XtraBars.Docking
+Imports System.Data.SqlClient
+
 Module mdlPNL
 
     Public P1_docSales As DockPanel
@@ -21,7 +23,10 @@ Module mdlPNL
     Public P2_docReaForeExGainNonTrade As DockPanel
     Public P2_docUnreaGainForeEx As DockPanel
     Public P2_docUnreaGainForeExNon As DockPanel
+    Public P2_docOther As DockPanel
+    Public P2_docExemptDividend As DockPanel
 
+    Public P3_docInterestResPurS33 As DockPanel
     Public P3_docOtherInterestExHirePur As DockPanel
     Public P3_docProTechManLeganFees As DockPanel
     Public P3_docTechPayNonResis As DockPanel
@@ -84,7 +89,7 @@ Module mdlPNL
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2ReaForeExGainNonTrade", "Realised Foreign Exchange Gain Arising from Capital Transaction", "", TaxComPNLEnuItem.REALFE))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeEx", "Unrealised Gain on Foreign Exchange - Trade", "Realised foreign exchange gain - non trade", TaxComPNLEnuItem.UNREALFETRADE))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeExNon", "Unrealised Gain on Foregin Exchange - Non-Trade", "Unrealised gain on foreign exchange", TaxComPNLEnuItem.UNREALFENONTRADE))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p2Other", "Other", "Other", TaxComPNLEnuItem.OTHERINC))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p2Other", "Other", "Other", TaxComPNLEnuItem.OTHERNONTAXINC))
 
 
             'Page 3
@@ -302,6 +307,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
                     p4_docNonAllowableExpenses.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
                     DockDocument.View.RemoveDocument(p4_docNonAllowableExpenses)
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    P2_docOther.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
+                    DockDocument.View.RemoveDocument(P2_docOther)
+                Case TaxComPNLEnuItem.EXEMDIV
+                    P2_docExemptDividend.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
+                    DockDocument.View.RemoveDocument(P2_docExemptDividend)
+                Case TaxComPNLEnuItem.EXEMDIV
+                    P3_docInterestResPurS33.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
+                    DockDocument.View.RemoveDocument(P3_docInterestResPurS33)
             End Select
             Return False
         Catch ex As Exception
@@ -345,7 +359,7 @@ Module mdlPNL
 
                         doc = DockDocument.View.AddDocument(P1_docSales)
                     Else
-                        
+
                         If P1_docSales.IsHandleCreated = False Then
                             P1_docSales.Visibility = DockVisibility.Visible
                             doc = DockDocument.View.AddDocument(P1_docSales)
@@ -1095,7 +1109,7 @@ Module mdlPNL
                         P3_docDonationNonApp.Visibility = DockVisibility.Visible
                         DockDocument.View.AddDocument(P3_docDonationNonApp)
                     End If
-                    DockDocument.View.ActivateDocument(P3_docDonationNonApp)     
+                    DockDocument.View.ActivateDocument(P3_docDonationNonApp)
 
                 Case TaxComPNLEnuItem.EXPZAKAT
                     If p3_docZakat Is Nothing Then
@@ -1463,6 +1477,72 @@ Module mdlPNL
                         DockDocument.View.AddDocument(p4_docNonAllowableExpenses)
                     End If
                     DockDocument.View.ActivateDocument(p4_docNonAllowableExpenses)
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    If P2_docOther Is Nothing Then
+                        P2_docOther = New DockPanel
+                        Dim uc As New ucPNL_p2Other
+
+                        uc.RefNo = RefNo
+                        uc.YA = YA
+                        uc.Dock = DockStyle.Fill
+                        uc.txtAmount = txtAmount
+                        P2_docOther.Text = lbl.Text
+                        P2_docOther.Name = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
+                        P2_docOther.Controls.Add(uc)
+                        P2_docOther.DockedAsTabbedDocument = True
+                        P2_docOther.Register(DockingManager)
+
+
+                        DockDocument.View.AddDocument(P2_docOther)
+                    Else
+                        P2_docOther.Visibility = DockVisibility.Visible
+                        DockDocument.View.AddDocument(P2_docOther)
+                    End If
+                    DockDocument.View.ActivateDocument(P2_docOther)
+                Case TaxComPNLEnuItem.EXEMDIV
+                    If P2_docExemptDividend Is Nothing Then
+                        P2_docExemptDividend = New DockPanel
+                        Dim uc As New ucPNL_p2ExemptDividend
+
+                        uc.RefNo = RefNo
+                        uc.YA = YA
+                        uc.Dock = DockStyle.Fill
+                        uc.txtAmount = txtAmount
+                        P2_docExemptDividend.Text = lbl.Text
+                        P2_docExemptDividend.Name = TaxComPNLEnuItem.EXEMDIV.ToString
+                        P2_docExemptDividend.Controls.Add(uc)
+                        P2_docExemptDividend.DockedAsTabbedDocument = True
+                        P2_docExemptDividend.Register(DockingManager)
+
+
+                        DockDocument.View.AddDocument(P2_docExemptDividend)
+                    Else
+                        P2_docExemptDividend.Visibility = DockVisibility.Visible
+                        DockDocument.View.AddDocument(P2_docExemptDividend)
+                    End If
+                    DockDocument.View.ActivateDocument(P2_docExemptDividend)
+                Case TaxComPNLEnuItem.INTERESTRESTRICT
+                    If P3_docInterestResPurS33 Is Nothing Then
+                        P3_docInterestResPurS33 = New DockPanel
+                        Dim uc As New ucPNL_p3InterestResPurS33
+
+                        uc.RefNo = RefNo
+                        uc.YA = YA
+                        uc.Dock = DockStyle.Fill
+                        uc.txtAmount = txtAmount
+                        P3_docInterestResPurS33.Text = lbl.Text
+                        P3_docInterestResPurS33.Name = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
+                        P3_docInterestResPurS33.Controls.Add(uc)
+                        P3_docInterestResPurS33.DockedAsTabbedDocument = True
+                        P3_docInterestResPurS33.Register(DockingManager)
+
+
+                        DockDocument.View.AddDocument(P3_docInterestResPurS33)
+                    Else
+                        P3_docInterestResPurS33.Visibility = DockVisibility.Visible
+                        DockDocument.View.AddDocument(P3_docInterestResPurS33)
+                    End If
+                    DockDocument.View.ActivateDocument(P3_docInterestResPurS33)
             End Select
 
             Return False
@@ -1542,7 +1622,7 @@ Module mdlPNL
                     Else
                         indx = intIndex + 1
                     End If
-                  
+
                     Dim KeyNo As Integer = 0
                     row = Nothing
                     row = ds.Tables(MainTable).NewRow
@@ -1599,17 +1679,39 @@ Module mdlPNL
             gridview.Focus()
         End Try
     End Sub
-#Region "GENERAL"
 
 
-    Public Function GetNonAllowanbleExpenses(Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function PNL_GetSaveData(ByVal PNL_Key As Decimal, ByVal Type As TaxComPNLEnuItem, _
+                                    ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            'Get Data
-
+            Dim contrl As Control = Nothing
             Dim ds As DataSet = Nothing
 
+            Select Case Type
+                Case TaxComPNLEnuItem.SALES
+                    If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
+                        contrl = P1_docSales.Controls(0)
 
-            Return True
+                        If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
+                            Return False
+                        End If
+                        Dim uc As ucPNL_p1Sales = CType(contrl, ucPNL_p1Sales)
+
+                        ds = uc.DataView_Main
+
+                        If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count <= 0 Then
+                            Return False
+                        End If
+
+                        mdlProcess.Save_PLFST_SALES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                    End If
+
+
+
+
+            End Select
+
+            Return False
         Catch ex As Exception
             If Errorlog Is Nothing Then
                 Errorlog = New clsError
@@ -1620,11 +1722,1777 @@ Module mdlPNL
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
-            Return True
+            Return False
         End Try
     End Function
 
 
+
+#Region "GENERAL"
+    Public Function GetNonAllowanbleExpenses(ByRef dsNonAllowableExpenses As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+        Try
+            'Get Data
+
+            If dsNonAllowableExpenses Is Nothing OrElse dsNonAllowableExpenses.Tables("NonAllowable_Expenses") Is Nothing Then
+                If Errorlog Is Nothing Then
+                    Errorlog = New clsError
+                End If
+                With Errorlog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "000000"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "Dataset or datatable not found."
+                End With
+                Return 0
+            End If
+
+            Dim ds As DataSet = Nothing
+            Dim dtRow As DataRow = Nothing
+            Dim contrl As Control = Nothing
+            Dim obj As Object = Nothing
+            Dim NonAllowableExpenses As Decimal = 0
+
+            'EXPOTHERINTEREST
+            contrl = P3_docOtherInterestExHirePur.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3OtherInterestExHirePur Then
+                Dim uc As ucPNL_p3OtherInterestExHirePur = CType(contrl, ucPNL_p3OtherInterestExHirePur)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+            'ProTechManLeganFees
+            contrl = P3_docProTechManLeganFees.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3ProTechManLeganFees Then
+                Dim uc As ucPNL_p3ProTechManLeganFees = CType(contrl, ucPNL_p3ProTechManLeganFees)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'TechPayNonResis
+            contrl = P3_docTechPayNonResis.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3TechPayNonResis Then
+                Dim uc As ucPNL_p3TechPayNonResis = CType(contrl, ucPNL_p3TechPayNonResis)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'ContractPay
+            contrl = P3_docContractPay.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3ContractPay Then
+                Dim uc As ucPNL_p3ContractPay = CType(contrl, ucPNL_p3ContractPay)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'DirectorFee
+            contrl = P3_docDirectorFee.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3DirectorFee Then
+                Dim uc As ucPNL_p3DirectorFee = CType(contrl, ucPNL_p3DirectorFee)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Salary
+            contrl = P3_docSalary.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3Salary Then
+                Dim uc As ucPNL_p3Salary = CType(contrl, ucPNL_p3Salary)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'COEStock
+            contrl = P3_docCOEStock.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3COEStock Then
+                Dim uc As ucPNL_p3COEStock = CType(contrl, ucPNL_p3COEStock)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Royalty
+            contrl = P3_docRoyalty.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3Royalty Then
+                Dim uc As ucPNL_p3Royalty = CType(contrl, ucPNL_p3Royalty)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Rental
+            contrl = P3_docRental.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3Rental Then
+                Dim uc As ucPNL_p3Rental = CType(contrl, ucPNL_p3Rental)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'RepairMain
+            contrl = P3_docRepairMain.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3RepairMain Then
+                Dim uc As ucPNL_p3RepairMain = CType(contrl, ucPNL_p3RepairMain)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'ResearchDev
+            contrl = P3_docResearchDev.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3ResearchDev Then
+                Dim uc As ucPNL_p3ResearchDev = CType(contrl, ucPNL_p3ResearchDev)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'PromotionAds
+            contrl = P3_docPromotionAds.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3PromotionAds Then
+                Dim uc As ucPNL_p3PromotionAds = CType(contrl, ucPNL_p3PromotionAds)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Travelling
+            contrl = P3_docTravelling.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3Travelling Then
+                Dim uc As ucPNL_p3Travelling = CType(contrl, ucPNL_p3Travelling)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            ''ForeignCurrExLoss
+            'contrl = P3_docForeignCurrExLoss.Controls(0)
+
+            'If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3ForeignCurrExLoss Then
+            '    Dim uc As ucPNL_p3ForeignCurrExLoss = CType(contrl, ucPNL_p3ForeignCurrExLoss)
+
+            '    ds = uc.DataView_Main
+
+            '    If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+            '        For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+            '            If IsDBNull(rows(uc.MainKey)) = False Then
+
+            '                obj = Nothing
+            '                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+            '                If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+            '                    For Each detailsrows As DataRow In obj
+
+            '                        If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+            '                            dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+            '                            dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+            '                            dtRow("KeyName") = uc.Parent.Name
+            '                            dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+            '                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+            '                            dtRow("TitleKeyName") = uc.Parent.Text
+            '                            dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+            '                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+            '                        End If
+
+            '                    Next
+
+            '                Else
+            '                    If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+            '                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+            '                        dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+            '                        dtRow("KeyName") = uc.Parent.Name
+            '                        dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+            '                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+            '                        dtRow("TitleKeyName") = uc.Parent.Text
+            '                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+            '                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+            '                    End If
+            '                End If
+
+            '            End If
+
+            '        Next
+            '    End If
+
+            'End If
+
+            'JKDM
+            contrl = P3_docJKDM.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3JKDM Then
+                Dim uc As ucPNL_p3JKDM = CType(contrl, ucPNL_p3JKDM)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Depreciation
+            contrl = P3_docDepreciation.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3Depreciation Then
+                Dim uc As ucPNL_p3Depreciation = CType(contrl, ucPNL_p3Depreciation)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'DonationApp
+            contrl = P3_docDonationApp.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3DonationApp Then
+                Dim uc As ucPNL_p3DonationApp = CType(contrl, ucPNL_p3DonationApp)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'DonationNonApp
+            contrl = P3_docDonationNonApp.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3DonationNonApp Then
+                Dim uc As ucPNL_p3DonationNonApp = CType(contrl, ucPNL_p3DonationNonApp)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Zakat
+            contrl = p3_docZakat.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p3Zakat Then
+                Dim uc As ucPNL_p3Zakat = CType(contrl, ucPNL_p3Zakat)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'LossDispFA
+            contrl = p4_docLossDispFA.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4LossDispFA Then
+                Dim uc As ucPNL_p4LossDispFA = CType(contrl, ucPNL_p4LossDispFA)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'EntNonStaff
+            contrl = p4_docEntNonStaff.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4EntNonStaff Then
+                Dim uc As ucPNL_p4EntNonStaff = CType(contrl, ucPNL_p4EntNonStaff)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'EntStaff
+            contrl = p4_docEntStaff.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4EntStaff Then
+                Dim uc As ucPNL_p4EntStaff = CType(contrl, ucPNL_p4EntStaff)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Compound
+            contrl = p4_docCompound.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4Compound Then
+                Dim uc As ucPNL_p4Compound = CType(contrl, ucPNL_p4Compound)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'ProvisionAcc
+            contrl = p4_docProvisionAcc.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4ProvisionAcc Then
+                Dim uc As ucPNL_p4ProvisionAcc = CType(contrl, ucPNL_p4ProvisionAcc)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'LeavePass
+            contrl = p4_docLeavePass.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4LeavePass Then
+                Dim uc As ucPNL_p4LeavePass = CType(contrl, ucPNL_p4LeavePass)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'FAWrittenOff
+            contrl = p4_docFAWrittenOff.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4FAWrittenOff Then
+                Dim uc As ucPNL_p4FAWrittenOff = CType(contrl, ucPNL_p4FAWrittenOff)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'UnreaLossForeEx
+            contrl = p4_docUnreaLossForeEx.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4UnreaLossForeEx Then
+                Dim uc As ucPNL_p4UnreaLossForeEx = CType(contrl, ucPNL_p4UnreaLossForeEx)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'ReaLossForeExTrade
+            contrl = p4_docReaLossForeExTrade.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4ReaLossForeExTrade Then
+                Dim uc As ucPNL_p4ReaLossForeExTrade = CType(contrl, ucPNL_p4ReaLossForeExTrade)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'ReaLossForeExNonTrade
+            contrl = p4_docReaLossForeExNonTrade.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4ReaLossForeExNonTrade Then
+                Dim uc As ucPNL_p4ReaLossForeExNonTrade = CType(contrl, ucPNL_p4ReaLossForeExNonTrade)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'InitSub
+            contrl = p4_docInitSub.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4InitSub Then
+                Dim uc As ucPNL_p4InitSub = CType(contrl, ucPNL_p4InitSub)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'CAExpenditure
+            contrl = p4_docCAExpenditure.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4CAExpenditure Then
+                Dim uc As ucPNL_p4CAExpenditure = CType(contrl, ucPNL_p4CAExpenditure)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            'Other
+            contrl = p4_docOther.Controls(0)
+
+            If contrl IsNot Nothing AndAlso TypeOf contrl Is ucPNL_p4Other Then
+                Dim uc As ucPNL_p4Other = CType(contrl, ucPNL_p4Other)
+
+                ds = uc.DataView_Main
+
+                If ds IsNot Nothing AndAlso ds.Tables(uc.MainTable) IsNot Nothing AndAlso ds.Tables(uc.MainTable).Rows.Count > 0 Then
+
+                    For Each rows As DataRow In ds.Tables(uc.MainTable).Rows
+
+                        If IsDBNull(rows(uc.MainKey)) = False Then
+
+                            obj = Nothing
+                            obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rows(uc.MainKey))
+
+                            If obj IsNot Nothing AndAlso TypeOf obj Is DataRow() AndAlso CType(obj, DataRow()).Length > 0 Then
+
+                                For Each detailsrows As DataRow In obj
+
+                                    If TypeOf detailsrows(uc.MainDetails_Addback) Is Boolean AndAlso CBool(detailsrows(uc.MainDetails_Addback)) = True Then
+                                        dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                        dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
+                                        dtRow("KeyName") = uc.Parent.Name
+                                        dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
+                                        dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                        dtRow("TitleKeyName") = uc.Parent.Text
+                                        dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                        NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                    End If
+
+                                Next
+
+                            Else
+                                If TypeOf rows(uc.Main_Addback) Is Boolean AndAlso CBool(rows(uc.Main_Addback)) = True Then
+                                    dtRow = dsNonAllowableExpenses.Tables("NonAllowable_Expenses").NewRow
+                                    dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
+                                    dtRow("KeyName") = uc.Parent.Name
+                                    dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
+                                    dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                    dtRow("TitleKeyName") = uc.Parent.Text
+                                    dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
+                                    NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                End If
+                            End If
+
+                        End If
+
+                    Next
+                End If
+
+            End If
+
+            Return NonAllowableExpenses
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return 0
+        End Try
+    End Function
 
     Public Function CalcProductofCost(ByVal p1Depreciation As Decimal, ByVal p1AllowanceExpenses As Decimal, ByVal p1NonAllowableExpenses As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
         Try
@@ -1946,7 +3814,7 @@ Module mdlPNL
         End Try
     End Function
 #End Region
-End Module 
+End Module
 Class clsPNL_LabelName
     Public LabelName As String = Nothing
     Public LabelText As String = Nothing
