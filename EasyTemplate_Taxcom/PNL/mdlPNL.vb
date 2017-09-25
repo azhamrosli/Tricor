@@ -1706,6 +1706,63 @@ Module mdlPNL
                         mdlProcess.Save_PLFST_SALES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
+                Case TaxComPNLEnuItem.OPENSTOCK
+                    If P1_docOpeningStock IsNot Nothing AndAlso P1_docOpeningStock.Controls.Count > 0 Then
+                        contrl = P1_docOpeningStock.Controls(0)
+
+                        If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1OpeningStock = False Then
+                            Return False
+                        End If
+                        Dim uc As ucPNL_p1OpeningStock = CType(contrl, ucPNL_p1OpeningStock)
+
+                        ds = uc.DataView_Main
+
+                        If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count <= 0 Then
+                            Return False
+                        End If
+
+                        mdlProcess.Save_PLFST_OPENSTOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                    End If
+
+                Case TaxComPNLEnuItem.PURCHASE
+                    If P1_docPurchase IsNot Nothing AndAlso P1_docPurchase.Controls.Count > 0 Then
+                        contrl = P1_docPurchase.Controls(0)
+
+                        If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Purchase = False Then
+                            Return False
+                        End If
+                        Dim uc As ucPNL_p1Purchase = CType(contrl, ucPNL_p1Purchase)
+
+                        ds = uc.DataView_Main
+
+                        If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count <= 0 Then
+                            Return False
+                        End If
+
+                        mdlProcess.Save_PLFST_PURCHASE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                    End If
+
+                Case TaxComPNLEnuItem.DEPRECIATION
+                    If P1_docDepreciation IsNot Nothing AndAlso P1_docDepreciation.Controls.Count > 0 Then
+                        contrl = P1_docDepreciation.Controls(0)
+
+                        If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Depreciation = False Then
+                            Return False
+                        End If
+                        Dim uc As ucPNL_p1Depreciation = CType(contrl, ucPNL_p1Depreciation)
+
+                        ds = uc.DataView_Main
+
+                        If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count <= 0 Then
+                            Return False
+                        End If
+
+                        mdlProcess.Save_EXPENSES_DEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                    End If
+
+
+
+
 
 
 

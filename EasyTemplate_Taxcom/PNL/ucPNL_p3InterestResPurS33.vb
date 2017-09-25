@@ -25,7 +25,7 @@ Public Class ucPNL_p3InterestResPurS33
             Return DsPNL1
         End Get
         Set(ByVal value As DataSet)
-            MainViews = value
+            DsPNL1 = value
         End Set
     End Property
 
@@ -67,6 +67,8 @@ Public Class ucPNL_p3InterestResPurS33
             Dim frm As New frmPNL_InterestResPurS33_Yearly
             frm.RefNo = RefNo
             frm.YA = YA
+            frm.txtAmount = txtAmount
+            frm.DataView_Main = DsPNL1
             frm.isEdit = True
             frm.ShowDialog()
         Catch ex As Exception

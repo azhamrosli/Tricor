@@ -272,6 +272,8 @@ Module mdlProcess
 
             If dt IsNot Nothing Then
                 Dim dtrow As DataRow
+                dsSourceNo.Tables(TableName).Clear()
+
                 For i As Integer = 0 To dt.Rows.Count - 1
                     dtrow = dsSourceNo.Tables(TableName).NewRow
                     dtrow("BC_SOURCEKEY") = IIf(IsDBNull(dt.Rows(i)("BC_SOURCEKEY")), 0, dt.Rows(i)("BC_SOURCEKEY"))
