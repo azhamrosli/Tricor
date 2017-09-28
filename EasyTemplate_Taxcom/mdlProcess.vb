@@ -1788,6 +1788,70 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+
+    Public Function Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIRD_KEY=@RIRD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_interestRestricSchedule(ByVal RefNo As String, ByVal YA As String, _
+                                                 ByVal SourceNo As Integer, ByVal Type As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "select column_name as [Item], ref_num as [Item Ref], type as [Item Type], type_income as [Income Type], basicperiod as [Basic Period],  duration as [Month] from ref_interest_restric where tp_ref_no=@refno and yoa=@ya and rir_sourceno=@sourceno and type=@type order by ref_num"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 30).Value = RefNo
+            SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 10).Value = YA
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+            SQLcmd.Parameters.Add("@type", SqlDbType.NVarChar, 10).Value = Type
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
     Public Function Load_PNL_NonAllowDetails(ByVal DetailsName As String, ByVal PL_KEY As Integer, ByVal BC_SOURCENO As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -3310,6 +3374,65 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+    Public Function Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal dt As DataTable, ByVal KeyID As Integer, ByRef Amount As Decimal, Optional ByRef ErrorLog As clsError = Nothing, Optional IsMonthly As Boolean = False) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Amount = 0
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim ListofCmd As New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIRD_KEY=@RIRD_KEY"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = KeyID
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO REF_INTEREST_RESTRIC_DETAIL_TEMP(RIRD_KEY,RIR_REF_NUM,RIRD_MONTH,RIRD_TYPE,RIRD_DESC,RIRD_AMOUNT,RIRD_NOTE,RIRD_SOURCENO,RIRD_TYPE_INCOME) VALUES (@RIRD_KEY,@RIR_REF_NUM,@RIRD_MONTH,@RIRD_TYPE,@RIRD_DESC,@RIRD_AMOUNT,@RIRD_NOTE,@RIRD_SOURCENO,@RIRD_TYPE_INCOME)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = KeyID
+                SQLcmd.Parameters.Add("@RIR_REF_NUM", SqlDbType.Int).Value = 0
+                If IsMonthly Then
+                    SQLcmd.Parameters.Add("@RIRD_MONTH", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_MONTH")), "0", dt.Rows(i)("RIRD_MONTH"))
+                Else
+                    SQLcmd.Parameters.Add("@RIRD_MONTH", SqlDbType.NVarChar, 50).Value = CStr(i + 1)
+                End If
+
+                SQLcmd.Parameters.Add("@RIRD_TYPE", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_TYPE")), "", dt.Rows(i)("RIRD_TYPE"))
+                SQLcmd.Parameters.Add("@RIRD_DESC", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_DESC")), "", dt.Rows(i)("RIRD_DESC"))
+
+                Amount += CDec(IIf(IsDBNull(dt.Rows(i)("RIRD_AMOUNT")), 0, dt.Rows(i)("RIRD_AMOUNT")))
+                SQLcmd.Parameters.Add("@RIRD_AMOUNT", SqlDbType.NVarChar, 255).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_AMOUNT")), "", dt.Rows(i)("RIRD_AMOUNT"))
+                SQLcmd.Parameters.Add("@RIRD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_NOTE")), "", dt.Rows(i)("RIRD_NOTE"))
+                SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_SOURCENO")), 0, dt.Rows(i)("RIRD_SOURCENO"))
+                SQLcmd.Parameters.Add("@RIRD_TYPE_INCOME", SqlDbType.NVarChar, 255).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_TYPE_INCOME")), "", dt.Rows(i)("RIRD_TYPE_INCOME"))
+
+                ListofCmd.Add(SQLcmd)
+            Next
+
+
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Save_EXPENSES_ALLOW(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                          ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try

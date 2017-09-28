@@ -34,7 +34,7 @@ Public Class ucPNL_p3COEStock
             Return DsPNL1
         End Get
         Set(ByVal value As DataSet)
-            MainViews = value
+            DsPNL1 = value
         End Set
     End Property
 

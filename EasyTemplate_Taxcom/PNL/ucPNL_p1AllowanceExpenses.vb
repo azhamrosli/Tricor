@@ -31,7 +31,7 @@ Public Class ucPNL_p1AllowanceExpenses
             Return DsPNL1
         End Get
         Set(ByVal value As DataSet)
-            MainViews = value
+            DsPNL1 = value
         End Set
     End Property
     Private Sub ucPNLTest_Load(sender As Object, e As EventArgs) Handles Me.Load

@@ -1,5 +1,6 @@
 ﻿Imports DevExpress.XtraBars.Docking
 Imports System.Data.SqlClient
+Imports DevExpress.XtraEditors.Repository
 
 Module mdlPNL
 
@@ -313,7 +314,7 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXEMDIV
                     P2_docExemptDividend.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
                     DockDocument.View.RemoveDocument(P2_docExemptDividend)
-                Case TaxComPNLEnuItem.EXEMDIV
+                Case TaxComPNLEnuItem.INTERESTRESTRICT
                     P3_docInterestResPurS33.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
                     DockDocument.View.RemoveDocument(P3_docInterestResPurS33)
             End Select
@@ -1679,8 +1680,6 @@ Module mdlPNL
             gridview.Focus()
         End Try
     End Sub
-
-
     Public Function PNL_GetSaveData(ByVal PNL_Key As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                     ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
@@ -1760,12 +1759,6 @@ Module mdlPNL
                         mdlProcess.Save_EXPENSES_DEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
-
-
-
-
-
-
             End Select
 
             Return False
@@ -1782,8 +1775,359 @@ Module mdlPNL
             Return False
         End Try
     End Function
+    Public Function GetColumn_InterestRestrictMonthly(ByVal RefNo As String, ByVal YA As String, _
+                                                      ByVal SourceNo As Integer, ByRef dsPNL As DataSet, _
+                                                      ByRef GridView1 As DevExpress.XtraGrid.Views.Grid.GridView, _
+                                                      Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dt As DataTable = Nothing
+            Dim clm As System.Data.DataColumn
+            Dim col As DevExpress.XtraGrid.Columns.GridColumn
+            Dim txt As RepositoryItemTextEdit
+
+            Dim infx As Integer = 0
+
+            GridView1.Columns.Clear()
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Clear()
+
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "Month"
+            clm.Caption = "Month"
+            clm.DataType = Type.GetType("System.DateTime")
+            clm.DefaultValue = Now
+            clm.AllowDBNull = True
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Month"
+            col.Name = "Month"
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.ColumnEdit = New RepositoryItemDateEdit()
+            col.Width = 150
+            col.FieldName = "Month"
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+            GridView1.Columns.Add(col)
+
+            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "inv", Errorlog)
+
+            If dt IsNot Nothing Then
+                For Each row As DataRow In dt.Rows
+                    infx += 1
+                    clm = Nothing
+                    clm = New System.Data.DataColumn
+                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    clm.Caption = "inv"
+                    clm.DefaultValue = 0
+                    clm.DataType = Type.GetType("System.Decimal")
+                    dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+                    '------------------------------------------------------------------
+
+                    col = New DevExpress.XtraGrid.Columns.GridColumn
+                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
+                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    col.Tag = "inv"
+                    col.VisibleIndex = infx
+                    col.Visible = True
+                    txt = New RepositoryItemTextEdit
+                    txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+                    txt.Mask.EditMask = "c"
+                    txt.Mask.UseMaskAsDisplayFormat = True
+
+                    col.ColumnEdit = txt
+                    col.Width = 120
+                    col.FieldName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    GridView1.Columns.Add(col)
+                Next
+            End If
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalIncProInv"
+            clm.Caption = "Total Income Producing Investment"
+            clm.DefaultValue = 0
+            clm.DataType = Type.GetType("System.Decimal")
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Total Income Producing Investment"
+            col.Name = "TotalIncProInv"
+            infx += 1
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+
+            txt = New RepositoryItemTextEdit
+            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+            txt.Mask.EditMask = "c"
+            txt.Mask.UseMaskAsDisplayFormat = True
+
+            col.ColumnEdit = txt
+            col.Width = 150
+            col.FieldName = "TotalIncProInv"
+            GridView1.Columns.Add(col)
+
+            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "invNon", Errorlog)
+
+            If dt IsNot Nothing Then
+                For Each row As DataRow In dt.Rows
+                    infx += 1
+                    clm = Nothing
+                    clm = New System.Data.DataColumn
+                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    clm.Caption = "invNon"
+                    clm.DefaultValue = 0
+                    clm.DataType = Type.GetType("System.Decimal")
+                    dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+                    '------------------------------------------------------------------
+
+                    col = New DevExpress.XtraGrid.Columns.GridColumn
+                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
+                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    col.Tag = "invNon"
+                    col.VisibleIndex = infx
+                    col.Visible = True
+                    txt = New RepositoryItemTextEdit
+                    txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+                    txt.Mask.EditMask = "c"
+                    txt.Mask.UseMaskAsDisplayFormat = True
+
+                    col.ColumnEdit = txt
+                    col.Width = 120
+                    col.FieldName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    GridView1.Columns.Add(col)
+                Next
+            End If
 
 
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalIncNonProInv"
+            clm.Caption = "Total Income Non Producing Investment"
+            clm.DefaultValue = 0
+            clm.DataType = Type.GetType("System.Decimal")
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Total Income Non Producing Investment"
+            col.Name = "TotalIncNonProInv"
+            infx += 1
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+
+            txt = New RepositoryItemTextEdit
+            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+            txt.Mask.EditMask = "c"
+            txt.Mask.UseMaskAsDisplayFormat = True
+
+            col.ColumnEdit = txt
+            col.Width = 150
+            col.FieldName = "TotalIncNonProInv"
+            GridView1.Columns.Add(col)
+
+            '==============================================================
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalInv"
+            clm.Caption = "Total Investment"
+            clm.DefaultValue = 0
+            clm.DataType = Type.GetType("System.Decimal")
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Total Investment"
+            col.Name = "TotalInv"
+            infx += 1
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+
+            txt = New RepositoryItemTextEdit
+            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+            txt.Mask.EditMask = "c"
+            txt.Mask.UseMaskAsDisplayFormat = True
+
+            col.ColumnEdit = txt
+            col.Width = 150
+            col.FieldName = "TotalInv"
+            GridView1.Columns.Add(col)
+
+
+            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Borr", Errorlog)
+
+            If dt IsNot Nothing Then
+                For Each row As DataRow In dt.Rows
+                    infx += 1
+                    clm = Nothing
+                    clm = New System.Data.DataColumn
+                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    clm.Caption = "Borr"
+                    clm.DefaultValue = 0
+                    clm.DataType = Type.GetType("System.Decimal")
+                    dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+                    '------------------------------------------------------------------
+
+                    col = New DevExpress.XtraGrid.Columns.GridColumn
+                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
+                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    col.Tag = "Borr"
+                    col.VisibleIndex = infx
+                    col.Visible = True
+                    txt = New RepositoryItemTextEdit
+                    txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+                    txt.Mask.EditMask = "c"
+                    txt.Mask.UseMaskAsDisplayFormat = True
+
+                    col.ColumnEdit = txt
+                    col.Width = 120
+                    col.FieldName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    GridView1.Columns.Add(col)
+                Next
+            End If
+
+            '==============================================================
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalBorr"
+            clm.Caption = "Total Borrowing"
+            clm.DefaultValue = 0
+            clm.DataType = Type.GetType("System.Decimal")
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Total Borrowing"
+            col.Name = "TotalBorr"
+            infx += 1
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+
+            txt = New RepositoryItemTextEdit
+            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+            txt.Mask.EditMask = "c"
+            txt.Mask.UseMaskAsDisplayFormat = True
+
+            col.ColumnEdit = txt
+            col.Width = 150
+            col.FieldName = "TotalBorr"
+            GridView1.Columns.Add(col)
+
+            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Interest", Errorlog)
+
+            If dt IsNot Nothing Then
+                For Each row As DataRow In dt.Rows
+                    infx += 1
+                    clm = Nothing
+                    clm = New System.Data.DataColumn
+                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    clm.Caption = "Interest"
+                    clm.DefaultValue = 0
+                    clm.DataType = Type.GetType("System.Decimal")
+                    dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+                    '------------------------------------------------------------------
+
+                    col = New DevExpress.XtraGrid.Columns.GridColumn
+                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
+                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    col.Tag = "Interest"
+                    col.VisibleIndex = infx
+                    col.Visible = True
+                    txt = New RepositoryItemTextEdit
+                    txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+                    txt.Mask.EditMask = "c"
+                    txt.Mask.UseMaskAsDisplayFormat = True
+
+                    col.ColumnEdit = txt
+                    col.Width = 120
+                    col.FieldName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
+                    GridView1.Columns.Add(col)
+                Next
+            End If
+
+            '==============================================================
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalInterest"
+            clm.Caption = "Total Expenses"
+            clm.DefaultValue = 0
+            clm.DataType = Type.GetType("System.Decimal")
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Total Interest"
+            col.Name = "TotalInterest"
+            infx += 1
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+
+            txt = New RepositoryItemTextEdit
+            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+            txt.Mask.EditMask = "c"
+            txt.Mask.UseMaskAsDisplayFormat = True
+
+            col.ColumnEdit = txt
+            col.Width = 150
+            col.FieldName = "TotalInterest"
+            GridView1.Columns.Add(col)
+
+            '==============================================================
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalRestrict"
+            clm.Caption = "Interest Restrict"
+            clm.DefaultValue = 0
+            clm.DataType = Type.GetType("System.Decimal")
+            dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
+
+            col = New DevExpress.XtraGrid.Columns.GridColumn
+            col.Caption = "Total Restrict"
+            col.Name = "TotalRestrict"
+            infx += 1
+            col.VisibleIndex = infx
+            col.Visible = True
+            col.OptionsColumn.ReadOnly = True
+            col.OptionsColumn.TabStop = False
+
+            txt = New RepositoryItemTextEdit
+            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+            txt.Mask.EditMask = "c"
+            txt.Mask.UseMaskAsDisplayFormat = True
+
+            col.ColumnEdit = txt
+            col.Width = 150
+            col.FieldName = "TotalRestrict"
+            GridView1.Columns.Add(col)
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return True
+        End Try
+    End Function
 
 #Region "GENERAL"
     Public Function GetNonAllowanbleExpenses(ByRef dsNonAllowableExpenses As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Decimal
@@ -3628,6 +3972,7 @@ Module mdlPNL
             'Dim p3DirectorFee As Decimal = IIf(IsNumeric(txt_p3Depreciation.EditValue) = False, 0, txt_p3Depreciation.EditValue)
 
             Dim subTotal As Decimal = p3ForeignCurrExLoss + p3OtherInterestExHirePur + p3ProTechManLeganFees + p3TechPayNonResis + p3ContractPay + p3DirectorFee + p3Salary + p3COEStock + p3Royalty + p3Rental + p3RepairMain + p3ResearchDev + p3PromotionAds + p3Travelling + p3JKDM + p3InterestResPurS33 + p4TotalOtherExpenses
+
             Return subTotal
         Catch ex As Exception
             If Errorlog Is Nothing Then
