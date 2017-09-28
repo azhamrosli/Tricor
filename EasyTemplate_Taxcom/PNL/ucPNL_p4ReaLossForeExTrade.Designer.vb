@@ -260,6 +260,7 @@ Partial Class ucPNL_p4ReaLossForeExTrade
         '
         'OTHEREXRLOSSFOREIGNTBindingSource
         '
+        Me.OTHEREXRLOSSFOREIGNTBindingSource.AllowNew = True
         Me.OTHEREXRLOSSFOREIGNTBindingSource.DataMember = "OTHER_EXRLOSSFOREIGNT"
         Me.OTHEREXRLOSSFOREIGNTBindingSource.DataSource = Me.DsPNL1
         '

@@ -193,6 +193,8 @@ Partial Class frmPNL
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RepositoryItemRadioGroup1 = New DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup()
+        Me.txtNonAllowableExpense = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemTextEdit4 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DockPanel1.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
@@ -281,6 +283,7 @@ Partial Class frmPNL
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DockManager1
@@ -707,7 +710,7 @@ Partial Class frmPNL
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
         Me.XtraTabPage2.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage2.Size = New System.Drawing.Size(516, 553)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(604, 553)
         Me.XtraTabPage2.Text = "Page 2"
         '
         'lbl_p2UnreaGainForeExNon
@@ -1229,7 +1232,7 @@ Partial Class frmPNL
         Me.XtraTabPage3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
         Me.XtraTabPage3.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage3.Size = New System.Drawing.Size(516, 553)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(604, 553)
         Me.XtraTabPage3.Tag = ""
         Me.XtraTabPage3.Text = "Page 3"
         '
@@ -2399,13 +2402,13 @@ Partial Class frmPNL
         'RibbonControl1
         '
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
-        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.BarButtonItem4, Me.BarButtonItem5, Me.BarEditItem1, Me.BarEditItem2, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2})
+        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.BarButtonItem4, Me.BarButtonItem5, Me.BarEditItem1, Me.BarEditItem2, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.MaxItemId = 19
+        Me.RibbonControl1.MaxItemId = 20
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1})
-        Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3})
-        Me.RibbonControl1.Size = New System.Drawing.Size(1149, 141)
+        Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4})
+        Me.RibbonControl1.Size = New System.Drawing.Size(1267, 141)
         '
         'btnSave
         '
@@ -2458,7 +2461,7 @@ Partial Class frmPNL
         Me.BarEditItem1.Edit = Me.RepositoryItemComboBox1
         Me.BarEditItem1.Id = 10
         Me.BarEditItem1.Name = "BarEditItem1"
-        Me.BarEditItem1.Width = 150
+        Me.BarEditItem1.Width = 160
         '
         'RepositoryItemComboBox1
         '
@@ -2550,7 +2553,7 @@ Partial Class frmPNL
         Me.txtNetProfit2.Edit = Me.RepositoryItemTextEdit3
         Me.txtNetProfit2.Id = 18
         Me.txtNetProfit2.Name = "txtNetProfit2"
-        Me.txtNetProfit2.Width = 150
+        Me.txtNetProfit2.Width = 175
         '
         'RepositoryItemTextEdit3
         '
@@ -2593,6 +2596,7 @@ Partial Class frmPNL
         Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem5)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.BarEditItem2, True)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.BarEditItem1)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.txtNonAllowableExpense, True)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.txtNetProfit2)
         Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
         Me.RibbonPageGroup2.Text = "Advance"
@@ -2601,11 +2605,28 @@ Partial Class frmPNL
         '
         Me.RepositoryItemRadioGroup1.Name = "RepositoryItemRadioGroup1"
         '
+        'txtNonAllowableExpense
+        '
+        Me.txtNonAllowableExpense.Caption = "Non Allowable Expenses : "
+        Me.txtNonAllowableExpense.Edit = Me.RepositoryItemTextEdit4
+        Me.txtNonAllowableExpense.Id = 19
+        Me.txtNonAllowableExpense.Name = "txtNonAllowableExpense"
+        Me.txtNonAllowableExpense.Width = 100
+        '
+        'RepositoryItemTextEdit4
+        '
+        Me.RepositoryItemTextEdit4.AutoHeight = False
+        Me.RepositoryItemTextEdit4.DisplayFormat.FormatString = "n0"
+        Me.RepositoryItemTextEdit4.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit4.Name = "RepositoryItemTextEdit4"
+        Me.RepositoryItemTextEdit4.NullText = "0"
+        Me.RepositoryItemTextEdit4.ReadOnly = True
+        '
         'frmPNL
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1149, 749)
+        Me.ClientSize = New System.Drawing.Size(1267, 749)
         Me.Controls.Add(Me.DockPanel1)
         Me.Controls.Add(Me.RibbonControl1)
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2705,6 +2726,7 @@ Partial Class frmPNL
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2881,4 +2903,6 @@ Partial Class frmPNL
     Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents txt_p4ExpectedExpenses As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtNonAllowableExpense As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemTextEdit4 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
 End Class

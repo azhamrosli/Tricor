@@ -2,6 +2,16 @@
     Public isEdit As Boolean = False
     Public ID As Decimal = 0
     Dim ErrorLog As clsError = Nothing
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+        If dsDataSet Is Nothing Then
+            dsDataSet = New dsPNL
+        End If
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
     Private Sub frmPNL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
     End Sub
@@ -18,6 +28,7 @@
                 Me.Close()
             End If
             Application.DoEvents()
+         
 
 
             Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
@@ -247,16 +258,17 @@
         Me.Close()
     End Sub
 
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged, cboYA.EditValueChanged
         Try
-            If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" Then
+            If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" AndAlso cboYA IsNot Nothing AndAlso cboYA.EditValue.ToString <> "" Then
                 txtRefNo.EditValue = cboRefNo.EditValue
+                mdlProcess.CreateLookUpSourceNO(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
+                Application.DoEvents()
             End If
         Catch ex As Exception
 
         End Try
     End Sub
-
     Private Sub txt_p1Depreciation_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p1Depreciation.EditValueChanged, txt_p1AllowanceExpenses.EditValueChanged, txt_p1NonAllowableExpenses.EditValueChanged
         Try
             txt_p1COP.EditValue = mdlPNL.CalcProductofCost(IIf(IsNumeric(txt_p1Depreciation.EditValue) = False, 0, txt_p1Depreciation.EditValue), IIf(IsNumeric(txt_p1AllowanceExpenses.EditValue) = False, 0, txt_p1AllowanceExpenses.EditValue), IIf(IsNumeric(txt_p1NonAllowableExpenses.EditValue) = False, 0, txt_p1NonAllowableExpenses.EditValue))
@@ -417,9 +429,10 @@
                 txt_p4OtherBalacingFigure.EditValue = 0
             End If
 
-            Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, BalacingFigure, ErrorLog)
+            Dim NonAllowableExpenses As Decimal = 0
+            Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, BalacingFigure, NonAllowableExpenses, ErrorLog)
 
-
+            txt_p4NonAllowableExpenses.EditValue = NonAllowableExpenses
             txt_p4TotalExpenses.EditValue = TotalExpenses
             Application.DoEvents()
             Dim p4ExpectedExpenses As Decimal = IIf(IsNumeric(txt_p4ExpectedExpenses.EditValue) = False, 0, txt_p4ExpectedExpenses.EditValue)
@@ -509,6 +522,16 @@
             Dim TotalExpenses As Decimal = IIf(IsNumeric(txt_p4TotalExpenses.EditValue) = False, 0, txt_p4TotalExpenses.EditValue)
             Dim p4ExpectedExpenses As Decimal = IIf(IsNumeric(txt_p4ExpectedExpenses.EditValue) = False, 0, txt_p4ExpectedExpenses.EditValue)
             GetOtherBalancingFigureRefresh(TotalExpenses, p4ExpectedExpenses)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txt_p4NonAllowableExpenses_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p4NonAllowableExpenses.EditValueChanged
+        Try
+            If txt_p4NonAllowableExpenses IsNot Nothing Then
+                txtNonAllowableExpense.EditValue = txt_p4NonAllowableExpenses.EditValue
+            End If
         Catch ex As Exception
 
         End Try

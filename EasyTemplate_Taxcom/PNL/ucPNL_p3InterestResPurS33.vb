@@ -46,8 +46,8 @@ Public Class ucPNL_p3InterestResPurS33
 
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
-            mdlProcess.CreateLookUpSourceNO(DsPNL1, RefNo, YA, "BUSINESS_SOURCE", Errorlog)
-
+            BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
+            EXPENSESINTERESTRESTRICTBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
 
         Catch ex As Exception

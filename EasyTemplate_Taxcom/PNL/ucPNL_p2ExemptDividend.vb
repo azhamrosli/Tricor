@@ -40,8 +40,8 @@ Public Class ucPNL_p2ExemptDividend
 
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
-            mdlProcess.CreateLookUpSourceNO(DsPNL1, RefNo, YA, "BUSINESS_SOURCE", Errorlog)
-
+            BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
+            EXEMPTDIVIDENDBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
             If isEdit Then
 

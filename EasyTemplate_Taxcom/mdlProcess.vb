@@ -7538,6 +7538,105 @@ tryagain:
             Return False
         End Try
     End Function
+    Public Function Save_RENTAL_INCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE RENTAL_INCOME WHERE RI_RENTKEY=@RI_RENTKEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RI_RENTKEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO RENTAL_INCOME(RI_KEY,RI_RENTKEY,RI_TYPE,RI_ADDRESS,RI_DATE,RI_AMOUNT,RI_SOURCENO,RI_STATUS4d,RI_DATE_END) VALUES (@RI_KEY,@RI_RENTKEY,@RI_TYPE,@RI_ADDRESS,@RI_DATE,@RI_AMOUNT,@RI_SOURCENO,@RI_STATUS4d,@RI_DATE_END)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@RI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@RI_RENTKEY", SqlDbType.Int).Value = dt.Rows(i)("RI_RENTKEY")
+                SQLcmd.Parameters.Add("@RI_TYPE", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("RI_TYPE")
+                SQLcmd.Parameters.Add("@RI_ADDRESS", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("RI_ADDRESS")
+                SQLcmd.Parameters.Add("@RI_DATE", SqlDbType.DateTime).Value = dt.Rows(i)("RI_DATE")
+                SQLcmd.Parameters.Add("@RI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("RI_AMOUNT")
+                SQLcmd.Parameters.Add("@RI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("RI_SOURCENO")
+                SQLcmd.Parameters.Add("@RI_STATUS4d", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("RI_STATUS4d")
+                SQLcmd.Parameters.Add("@RI_DATE_END", SqlDbType.DateTime).Value = dt.Rows(i)("RI_DATE_END")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+    Public Function Save_EXEMPT_DIVIDEND(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal oConn As SqlConnection, _
+                                        ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE EXEMPT_DIVIDEND WHERE ED_KEY=@ED_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ED_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO RENTAL_INCOME(ED_KEY,ED_EDKEY,ED_DATE,ED_COMPANY,ED_AMOUNT,ED_TIERSTATUS,ED_SOURCENO) VALUES (@ED_KEY,@ED_EDKEY,ED_DATE,@ED_COMPANY,@ED_AMOUNT,@ED_TIERSTATUS,@ED_SOURCENO)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@ED_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@ED_EDKEY", SqlDbType.Int).Value = dt.Rows(i)("ED_EDKEY")
+                SQLcmd.Parameters.Add("@ED_DATE", SqlDbType.DateTime).Value = dt.Rows(i)("ED_DATE")
+                SQLcmd.Parameters.Add("@ED_COMPANY", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("ED_COMPANY")
+                SQLcmd.Parameters.Add("@ED_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("ED_AMOUNT")
+                SQLcmd.Parameters.Add("@ED_TIERSTATUS", SqlDbType.NVarChar, 50).Value = dt.Rows(i)("ED_TIERSTATUS")
+                SQLcmd.Parameters.Add("@ED_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("ED_SOURCENO")
+
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
 #End Region
 #Region "OTHER"
     Public Function Save_REPORT1_AI_DETAIL(ByVal R_KEY As Integer, ByVal RD_HEARDERNO As Integer, ByVal R_RKEY As String, _

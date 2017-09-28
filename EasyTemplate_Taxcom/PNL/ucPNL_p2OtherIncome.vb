@@ -46,8 +46,8 @@ Public Class ucPNL_p2OtherIncome
 
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
-            mdlProcess.CreateLookUpSourceNO(DsPNL1, RefNo, YA, "BUSINESS_SOURCE", Errorlog)
-
+            BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
+            OTHERINCOMEBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
             If isEdit Then
 
