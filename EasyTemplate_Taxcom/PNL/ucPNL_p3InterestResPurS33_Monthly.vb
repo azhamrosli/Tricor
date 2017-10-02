@@ -60,11 +60,11 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
             REFINTERESTRESTRICTMPBindingSource.DataSource = DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP")
 
-            Dim dt As DataTable = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(KeyID, Errorlog)
+            Dim dt As DataTable = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(KeyID, RefNo, YA, Errorlog)
 
             DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Clear()
 
-            GridView1.BeginUpdate()
+
             Dim dtrow As DataRow = Nothing
             If dt Is Nothing Then
                 For i As Integer = 0 To 11
@@ -83,6 +83,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 Next
 
             Else
+                GridView1.BeginUpdate()
                 'Create the row first
                 For i As Integer = 0 To 11
                     dtrow = Nothing
@@ -112,7 +113,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                                     rowinx = rowinx - 1
                                     DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Rows(rowinx)(clm.ColumnName) = IIf(IsDBNull(dt.Rows(x)("RIRD_AMOUNT")), 1, dt.Rows(x)("RIRD_AMOUNT"))
                                 End If
-                            Next                           
+                            Next
                     End Select
                 Next
                 GridView1.EndUpdate()
@@ -219,7 +220,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 Next
 
 
-                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), KeyID, _
+                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, KeyID, _
                                                                     Amount_tmp, ErrorLog, True) = False Then
                     MsgBox("Unsuccessfully save your data.", MsgBoxStyle.Critical)
                 Else

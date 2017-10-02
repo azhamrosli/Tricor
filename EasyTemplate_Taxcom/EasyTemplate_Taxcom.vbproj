@@ -303,6 +303,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PNL\mdlPNL.vb" />
+    <Compile Include="PNL\ucPNL_p2DivIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2DivIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2DivIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PNL\ucPNL_p3InterestResPurS33_Monthly.Designer.vb">
       <DependentUpon>ucPNL_p3InterestResPurS33_Monthly.vb</DependentUpon>
     </Compile>
@@ -695,6 +701,9 @@
     </Compile>
     <EmbeddedResource Include="PNL\frmPNL_InterestResPurS33_Monthly.resx">
       <DependentUpon>frmPNL_InterestResPurS33_Monthly.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2DivIncome.resx">
+      <DependentUpon>ucPNL_p2DivIncome.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL_p3InterestResPurS33_Monthly.resx">
       <DependentUpon>ucPNL_p3InterestResPurS33_Monthly.vb</DependentUpon>

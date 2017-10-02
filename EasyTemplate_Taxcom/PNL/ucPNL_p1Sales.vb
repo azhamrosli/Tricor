@@ -49,11 +49,9 @@ Public Class ucPNL_p1Sales
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             PLFSTSALESBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
-
             If isEdit Then
 
             End If
-
 
         Catch ex As Exception
             If Errorlog Is Nothing Then

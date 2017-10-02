@@ -1,4 +1,6 @@
-﻿Public Class frmPNL 
+﻿Imports System.Data.SqlClient
+
+Public Class frmPNL
     Public isEdit As Boolean = False
     Public ID As Decimal = 0
     Dim ErrorLog As clsError = Nothing
@@ -28,7 +30,7 @@
                 Me.Close()
             End If
             Application.DoEvents()
-         
+
 
 
             Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
@@ -247,7 +249,7 @@
         End Try
     End Sub
 
-  
+
     Private Sub TabbedView1_DocumentClosing(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventArgs) Handles TabbedView1.DocumentClosing
         e.Cancel = True
 
@@ -264,6 +266,7 @@
                 txtRefNo.EditValue = cboRefNo.EditValue
                 mdlProcess.CreateLookUpSourceNO(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
                 Application.DoEvents()
+                BUSINESSSOURCEBindingSource.DataSource = dsDataSet.Tables("BUSINESS_SOURCE")
             End If
         Catch ex As Exception
 
@@ -308,15 +311,109 @@
 
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Try
-            Dim x As Control = P1_docSales.Controls(0)
 
-            If x IsNot Nothing Then
+            If isValid() Then
+                Dim ListofCmd As New List(Of SqlCommand)
 
-                If TypeOf x Is ucPNL_p1Sales Then
+                dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Clear()
+                Dim dtrow As DataRow = Nothing
+                If isEdit Then
+                    'edit
+                Else
+                    'new
+                    Dim tmpID As Integer = GETPNLKEY(ErrorLog)
 
-                    Dim uc As ucPNL_p1Sales = CType(x, ucPNL_p1Sales)
+                    tmpID += 1
 
-                    'Dim cp As DataTable = uc.DataView_Main
+                    dtrow = dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").NewRow
+
+                    dtrow("PL_KEY") = tmpID
+                    dtrow("PL_REF_NO") = cboRefNo.EditValue
+                    dtrow("PL_YA") = cboYA.EditValue
+                    dtrow("PL_SALES") = txt_p1Sales.EditValue
+                    dtrow("PL_OP_STK") = txt_p1OpenStock.EditValue
+                    dtrow("PL_PURCHASES") = txt_p1Purchase.EditValue
+                    dtrow("PL_PRO_COST") = txt_p1PCP.EditValue
+                    dtrow("PL_PRO_COST_DPC") = txt_p1Depreciation.EditValue
+                    dtrow("PL_PRO_COST_OAE") = txt_p1AllowanceExpenses.EditValue
+                    dtrow("PL_PRO_COST_ONAE") = txt_p1NonAllowableExpenses.EditValue
+                    dtrow("PL_PURCHASES_PRO_COST") = txt_p1PCP.EditValue
+                    dtrow("PL_CLS_STK") = txt_p1CloseStock.EditValue
+                    dtrow("PL_COGS") = txt_p1COS.EditValue
+                    dtrow("PL_GROSS_PROFIT") = txt_p1GrossProfitLoss.EditValue
+                    dtrow("PL_OTH_BSIN") = txt_p2OtherBizIncome.EditValue
+                    dtrow("PL_OTH_BSIN_UNREALGT") = txt_p2UnreaGainForeEx.EditValue
+                    dtrow("PL_OTH_BSIN_REALGT") = txt_p2ForeignCurrExGain.EditValue
+                    dtrow("PL_OTH_BSIN_RENTAL") = "0"
+                    dtrow("PL_OTH_BSIN_OTHER") = "0"
+                    dtrow("PL_OTH_IN") = txt_p2NonBizIncome.EditValue
+                    dtrow("PL_OTH_IN_DIVIDEND") = txt_p2DivIncome.EditValue
+                    dtrow("PL_OTH_IN_INTEREST") = txt_p2InterestIncome.EditValue
+                    dtrow("PL_OTH_IN_RENTAL") = txt_p2RentalIncome.EditValue
+                    dtrow("PL_OTH_IN_ROYALTY") = txt_p2RoyaltyIncome.EditValue
+                    dtrow("PL_OTH_IN_OTHER") = txt_p2OtherIncome.EditValue
+                    dtrow("PL_NONTAX_IN") = txt_p2NonTaxProfit.EditValue
+                    dtrow("PL_NONTAX_IN_FA_DISP") = txt_p2ProDispPlantEq.EditValue
+                    dtrow("PL_NONTAX_IN_INV_DISP") = txt_p2ProDisInvestment.EditValue
+                    dtrow("PL_NONTAX_IN_EXM_DIV") = txt_p2ExemptDividend.EditValue
+                    dtrow("PL_NONTAX_IN_FIR") = txt_p2ForeIncomeRemmit.EditValue
+                    dtrow("PL_NONTAX_IN_REALG") = txt_p2ReaForeExGainNonTrade.EditValue
+                    dtrow("PL_NONTAX_IN_UNREALG") = txt_p2UnreaGainForeExNon.EditValue
+                    dtrow("PL_NONTAX_IN_INSU_COMP") = txt_p2Other.EditValue
+                    dtrow("PL_EXP_INT") = txt_p3InterestResPurS33.EditValue
+                    dtrow("PL_LAWYER_COST") = txt_p3ProTechManLeganFees.EditValue
+                    dtrow("PL_CONTRACT_EXP") = txt_p3ContractPay.EditValue
+                    dtrow("PL_EXP_SALARY") = txt_p3Salary.EditValue
+                    dtrow("PL_ROYALTY") = txt_p3Royalty.EditValue
+                    dtrow("PL_EXP_RENT") = txt_p3Rental.EditValue
+                    dtrow("PL_EXP_MAINTENANCE") = txt_p3RepairMain.EditValue
+                    dtrow("PL_RND") = txt_p3ResearchDev.EditValue
+                    dtrow("PL_ADVERT") = txt_p3PromotionAds.EditValue
+                    dtrow("PL_TRAVEL") = txt_p3Travelling.EditValue
+                    dtrow("PL_OTHER_EXP") = txt_p4TotalOtherExpenses.EditValue
+                    dtrow("PL_OTHER_EXP_DPC") = txt_p3Depreciation.EditValue
+                    dtrow("PL_OTHER_EXP_DNT") = GetTotalDonaiton(ErrorLog)
+                    dtrow("PL_OTHER_EXP_DNT_APP") = txt_p3DonationApp.EditValue
+                    dtrow("PL_OTHER_EXP_DNT_NAPP") = txt_p3DonationNonApp.EditValue
+                    dtrow("PL_OTHER_EXP_FA_DISP") = txt_p4LossDispFA.EditValue
+                    dtrow("PL_OTHER_EXP_ENTM") = "0"
+                    dtrow("PL_OTHER_EXP_ENTM_CLNT") = txt_p4EntNonStaff.EditValue
+                    dtrow("PL_OTHER_EXP_ENTM_STFF") = txt_p4EntStaff.EditValue
+                    dtrow("PL_OTHER_EXP_PENALTY") = txt_p4Compound.EditValue
+                    dtrow("PL_OTHER_EXP_PROV_ACC") = txt_p4ProvisionAcc.EditValue
+                    dtrow("PL_OTHER_EXP_LEAVE") = txt_p4LeavePass.EditValue
+                    dtrow("PL_OTHER_EXP_FA_WO") = txt_p4FAWrittenOff.EditValue
+                    dtrow("PL_OTHER_EXP_UNREALOSS") = txt_p4UnreaLossForeEx.EditValue
+                    dtrow("PL_OTHER_EXP_REALOSS") = txt_p4ReaLossForeExTrade.EditValue
+                    dtrow("PL_OTHER_EXP_INI_SUB") = txt_p4InitSub.EditValue
+                    dtrow("PL_OTHER_EXP_CAP_EXP") = txt_p4CAExpenditure.EditValue
+                    dtrow("PL_OTHER_EXP_OTHERS") = txt_p4Other.EditValue
+                    dtrow("PL_TOT_EXP") = txt_p4TotalExpenses.EditValue
+                    dtrow("PL_NET_PROFIT_LOSS") = txt_p4NetProfitLoss.EditValue
+                    dtrow("PL_DISALLOWED_EXP") = txt_p4NonAllowableExpenses.EditValue
+                    dtrow("PL_TOTALX") = "0"
+                    dtrow("PL_TOTALY") = "0"
+                    dtrow("PL_EXP_INTRESTRICT") = txt_p3InterestResPurS33.EditValue
+                    dtrow("PL_OTH_BSIN_NONSOURCE") = txt_p2OtherBizIncome.EditValue
+                    dtrow("PL_S60F") = IIf(cboS60F.EditValue = "Yes", "Y", "N")
+                    dtrow("PL_MAINBUZ") = CInt(IIf(IsDBNull(cboMainSource.EditValue), 1, cboMainSource.EditValue))
+                    dtrow("PL_OTHER_EXP_ZAKAT") = txt_p3Zakat.EditValue
+                    dtrow("PL_COMPANY") = "C"
+                    dtrow("PL_TREGROSS") = "0"
+                    dtrow("PL_TTAXDEDUCTION") = "0"
+                    dtrow("PL_TNETDEDUCTION") = "0"
+                    dtrow("PL_TECH_FEE") = txt_p3TechPayNonResis.EditValue
+                    dtrow("PL_EMPL_STOCK") = txt_p3COEStock.EditValue
+                    dtrow("PL_S60FA") = IIf(cboS60FA.EditValue = "Yes", "Y", "N")
+                    dtrow("PL_OTHER_EXP_BALANCE") = txt_p4OtherBalacingFigure.EditValue
+                    dtrow("PL_OTHER_EXRLOSSFOREIGNT") = txt_p4ReaLossForeExNonTrade.EditValue
+                    dtrow("PL_DIRECTORS_FEE") = txt_p3DirectorFee.EditValue
+                    dtrow("PL_JKDM") = txt_p3JKDM.EditValue
+                    dtrow("ModifiedBy") = My.Computer.Name
+                    dtrow("ModifiedDateTime") = Now
+
+                    mdlProcess.Save_ProfitAndLoss_Query(Nothing, ListofCmd, ErrorLog)
+
 
                 End If
 
@@ -326,6 +423,66 @@
 
         End Try
     End Sub
+    Private Function isValid() As Boolean
+        Try
+            If cboRefNo Is Nothing OrElse cboRefNo.EditValue.ToString = "" Then
+                MsgBox("Please select company reference number.", MsgBoxStyle.Exclamation)
+                Return False
+            End If
+
+            If cboYA Is Nothing OrElse cboYA.EditValue.ToString = "" Then
+                MsgBox("Please select year assesment.", MsgBoxStyle.Exclamation)
+                Return False
+            End If
+
+            If cboMainSource Is Nothing OrElse cboMainSource.EditValue.ToString = "" Then
+                MsgBox("Please select main source number.", MsgBoxStyle.Exclamation)
+                Return False
+            End If
+
+            If isEdit = False Then
+                If mdlProcess.Check_PNLExist(cboRefNo.EditValue, CInt(cboYA.EditValue), ErrorLog) Then
+                    MsgBox("Profit and loss already exist.", MsgBoxStyle.Exclamation)
+                    Return False
+                End If
+            End If
+
+
+            If dsDataSet Is Nothing OrElse dsDataSet.Tables("PROFIT_LOSS_ACCOUNT") Is Nothing Then
+                MsgBox("Unable to get dataset.", MsgBoxStyle.Critical)
+                Return False
+            End If
+
+
+            Return True
+
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+
+
+    Public Function GetTotalDonaiton(Optional ByRef Errorlog As clsError = Nothing) As Decimal
+        Try
+            Dim Total As Decimal = 0
+
+            Total = IIf(IsNumeric(txt_p3DonationApp.EditValue), txt_p3DonationApp.EditValue, 0) + IIf(IsNumeric(txt_p3DonationNonApp.EditValue), txt_p3DonationNonApp.EditValue, 0)
+            Return 0
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return 0
+        End Try
+    End Function
+
+
 
     Private Sub txt_p2DivIncome_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p2DivIncome.EditValueChanged, txt_p2InterestIncome.EditValueChanged, txt_p2RentalIncome.EditValueChanged, txt_p2RoyaltyIncome.EditValueChanged, txt_p2OtherIncome.EditValueChanged
         Try
@@ -396,7 +553,7 @@
 
     Private Sub txt_p3ForeignCurrExLoss_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p3ForeignCurrExLoss.EditValueChanged, txt_p3OtherInterestExHirePur.EditValueChanged, txt_p3ProTechManLeganFees.EditValueChanged, txt_p3TechPayNonResis.EditValueChanged, txt_p3ContractPay.EditValueChanged, txt_p3DirectorFee.EditValueChanged, txt_p3Salary.EditValueChanged, txt_p3COEStock.EditValueChanged, txt_p3Royalty.EditValueChanged, txt_p3Rental.EditValueChanged, txt_p3RepairMain.EditValueChanged, txt_p3ResearchDev.EditValueChanged, txt_p3PromotionAds.EditValueChanged, txt_p3Travelling.EditValueChanged, txt_p3JKDM.EditValueChanged, txt_p3InterestResPurS33.EditValueChanged, txt_p4TotalOtherExpenses.EditValueChanged
         Try
-          CalcTotalExpenses
+            CalcTotalExpenses()
         Catch ex As Exception
 
         End Try
@@ -536,4 +693,5 @@
 
         End Try
     End Sub
+
 End Class
