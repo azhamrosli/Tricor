@@ -205,7 +205,7 @@ Public Class ucPNL_p1AllowanceExpenses
             If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
                                           MainAmount, MainAmount_Details, DsPNL1, ErrorLog) = False Then
 
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 If MappingSourceNo(MainTable, MainTable_Details, MainKey, MainKey_Details, _
                                           MainSourceNo, MainSourceNo_Details, DsPNL1, ErrorLog) = False Then

@@ -206,9 +206,14 @@ Public Class ucPNL_p2ForeIncomeRemmit
             If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
                                           MainAmount, MainAmount_Details, DsPNL1, ErrorLog) = False Then
 
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
-                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                If MappingSourceNo(MainTable, MainTable_Details, MainKey, MainKey_Details, _
+                                          MainSourceNo, MainSourceNo_Details, DsPNL1, ErrorLog) = False Then
+                    MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                Else
+                    CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                End If
             End If
         Catch ex As Exception
 
