@@ -11,6 +11,9 @@ Public Class frmPNL
         If dsDataSet Is Nothing Then
             dsDataSet = New dsPNL
         End If
+        If dsDataSet2 Is Nothing Then
+            dsDataSet2 = New dsPNL2
+        End If
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
@@ -86,23 +89,29 @@ Public Class frmPNL
 
                 End If
             Next
-
-
             If isEdit Then
                 cboRefNo.Edit.ReadOnly = True
                 cboYA.Edit.ReadOnly = True
+                cboMainSource.Edit.ReadOnly = True
+            
             Else
                 cboRefNo.Edit.ReadOnly = False
                 cboYA.Edit.ReadOnly = False
+                cboMainSource.Edit.ReadOnly = False
+                cboS60FA.EditValue = "No"
 
                 cboRefNo.EditValue = mdlProcess.ArgParam2
                 cboYA.EditValue = mdlProcess.ArgParam3
 
             End If
+
+
         Catch ex As Exception
 
         End Try
     End Sub
+
+
     Private Sub DetailsClick(ByVal lbl As DevExpress.XtraEditors.LabelControl, Optional ByVal Type As mdlEnum.TaxComPNLEnuItem = TaxComPNLEnuItem.SALES)
         Try
             Dim doc As New DevExpress.XtraBars.Docking.DockPanel
@@ -218,6 +227,8 @@ Public Class frmPNL
                     txtamount = txt_p2ExemptDividend
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     txtamount = txt_p3InterestResPurS33
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    txtamount = txt_p2DivIncome
             End Select
 
             If cboRefNo Is Nothing OrElse cboYA Is Nothing OrElse cboRefNo.EditValue.ToString = "" OrElse cboYA.EditValue.ToString = "" Then
@@ -226,7 +237,7 @@ Public Class frmPNL
             End If
 
 
-            mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, cboYA.EditValue)
+            mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, cboYA.EditValue, ErrorLog, txt_p1Sales, cboMainSource.EditValue)
             '.View.AddDocument(doc)
 
         Catch ex As Exception
@@ -234,8 +245,24 @@ Public Class frmPNL
         End Try
     End Sub
 
-    Private Sub lblSales_DoubleClick(sender As Object, e As EventArgs) Handles lbl_p1Sales.DoubleClick, lbl_p1OpenStock.DoubleClick, lbl_p1Purchase.DoubleClick, lbl_p1Depreciation.DoubleClick, lbl_p1AllowanceExpenses.DoubleClick, lbl_p1NonAllowableExpenses.DoubleClick, lbl_p1CloseStock.DoubleClick, lbl_p2OtherBizIncome.DoubleClick, lbl_p2ForeignCurrExGain.DoubleClick, lbl_p2InterestIncome.DoubleClick, lbl_p2RoyaltyIncome.DoubleClick, lbl_p2OtherIncome.DoubleClick, lbl_p2ProDispPlantEq.DoubleClick, lbl_p2ProDisInvestment.DoubleClick, lbl_p2ForeIncomeRemmit.DoubleClick, lbl_p2ReaForeExGainNonTrade.DoubleClick, lbl_p2UnreaGainForeEx.DoubleClick, lbl_p2UnreaGainForeExNon.DoubleClick, lbl_p3OtherInterestExHirePur.DoubleClick, lbl_p3ProTechManLeganFees.DoubleClick, lbl_p3TechPayNonResis.DoubleClick, lbl_p3ContractPay.DoubleClick, lbl_p3DirectorFee.DoubleClick, lbl_p3Salary.DoubleClick, lbl_p3COEStock.DoubleClick, lbl_p3Royalty.DoubleClick, lbl_p3Rental.DoubleClick, lbl_p3RepairMain.DoubleClick, lbl_p3ResearchDev.DoubleClick, lbl_p3PromotionAds.DoubleClick, lbl_p3Travelling.DoubleClick, lbl_p3JKDM.DoubleClick, lbl_p3Depreciation.DoubleClick, lbl_p3DonationApp.DoubleClick, lbl_p3DonationNonApp.DoubleClick, lbl_p3Zakat.DoubleClick, lbl_p4LossDispFA.DoubleClick, lbl_p4EntNonStaff.DoubleClick, lbl_p4EntStaff.DoubleClick, lbl_p4Compound.DoubleClick, lbl_p4ProvisionAcc.DoubleClick, lbl_p4LeavePass.DoubleClick, lbl_p4FAWrittenOff.DoubleClick, lbl_p4UnreaLossForeEx.DoubleClick, lbl_p4ReaLossForeExTrade.DoubleClick, lbl_p4ReaLossForeExNonTrade.DoubleClick, lbl_p4InitSub.DoubleClick, lbl_p4CAExpenditure.DoubleClick, lbl_p4Other.DoubleClick, lbl_p2RentalIncome.DoubleClick, lblP4NonAllowableExpenses.DoubleClick, lbl_p2Other.DoubleClick, lbl_p2ExemptDividend.DoubleClick, lbl_p3InterestResPurS33.DoubleClick
+    Private Sub lblSales_DoubleClick(sender As Object, e As EventArgs) Handles lbl_p1Sales.DoubleClick, lbl_p1OpenStock.DoubleClick, lbl_p1Purchase.DoubleClick, lbl_p1Depreciation.DoubleClick, lbl_p1AllowanceExpenses.DoubleClick, lbl_p1NonAllowableExpenses.DoubleClick, lbl_p1CloseStock.DoubleClick, lbl_p2OtherBizIncome.DoubleClick, lbl_p2ForeignCurrExGain.DoubleClick, lbl_p2InterestIncome.DoubleClick, lbl_p2RoyaltyIncome.DoubleClick, lbl_p2OtherIncome.DoubleClick, lbl_p2ProDispPlantEq.DoubleClick, lbl_p2ProDisInvestment.DoubleClick, lbl_p2ForeIncomeRemmit.DoubleClick, lbl_p2ReaForeExGainNonTrade.DoubleClick, lbl_p2UnreaGainForeEx.DoubleClick, lbl_p2UnreaGainForeExNon.DoubleClick, lbl_p3OtherInterestExHirePur.DoubleClick, lbl_p3ProTechManLeganFees.DoubleClick, lbl_p3TechPayNonResis.DoubleClick, lbl_p3ContractPay.DoubleClick, lbl_p3DirectorFee.DoubleClick, lbl_p3Salary.DoubleClick, lbl_p3COEStock.DoubleClick, lbl_p3Royalty.DoubleClick, lbl_p3Rental.DoubleClick, lbl_p3RepairMain.DoubleClick, lbl_p3ResearchDev.DoubleClick, lbl_p3PromotionAds.DoubleClick, lbl_p3Travelling.DoubleClick, lbl_p3JKDM.DoubleClick, lbl_p3Depreciation.DoubleClick, lbl_p3DonationApp.DoubleClick, lbl_p3DonationNonApp.DoubleClick, lbl_p3Zakat.DoubleClick, lbl_p4LossDispFA.DoubleClick, lbl_p4EntNonStaff.DoubleClick, lbl_p4EntStaff.DoubleClick, lbl_p4Compound.DoubleClick, lbl_p4ProvisionAcc.DoubleClick, lbl_p4LeavePass.DoubleClick, lbl_p4FAWrittenOff.DoubleClick, lbl_p4UnreaLossForeEx.DoubleClick, lbl_p4ReaLossForeExTrade.DoubleClick, lbl_p4ReaLossForeExNonTrade.DoubleClick, lbl_p4InitSub.DoubleClick, lbl_p4CAExpenditure.DoubleClick, lbl_p4Other.DoubleClick, lbl_p2RentalIncome.DoubleClick, lblP4NonAllowableExpenses.DoubleClick, lbl_p2Other.DoubleClick, lbl_p2ExemptDividend.DoubleClick, lbl_p3InterestResPurS33.DoubleClick, lbl_p2DivIncome.DoubleClick, lbl_p3ForeignCurrExLoss.DoubleClick
         Try
+
+            If cboRefNo Is Nothing OrElse cboRefNo.EditValue = "" Then
+                MsgBox("Please select tax payer.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+            If cboYA Is Nothing OrElse cboYA.EditValue = "" Then
+                MsgBox("Please select year assessment.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+            If cboMainSource Is Nothing OrElse IsNumeric(cboMainSource.EditValue) = False Then
+                MsgBox("Please select source no.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
             If TypeOf sender Is DevExpress.XtraEditors.LabelControl Then
 
                 Dim lbl As DevExpress.XtraEditors.LabelControl = CType(sender, DevExpress.XtraEditors.LabelControl)
@@ -258,19 +285,6 @@ Public Class frmPNL
 
     Private Sub BarButtonItem3_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem3.ItemClick
         Me.Close()
-    End Sub
-
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged, cboYA.EditValueChanged
-        Try
-            If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" AndAlso cboYA IsNot Nothing AndAlso cboYA.EditValue.ToString <> "" Then
-                txtRefNo.EditValue = cboRefNo.EditValue
-                mdlProcess.CreateLookUpSourceNO(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
-                Application.DoEvents()
-                BUSINESSSOURCEBindingSource.DataSource = dsDataSet.Tables("BUSINESS_SOURCE")
-            End If
-        Catch ex As Exception
-
-        End Try
     End Sub
     Private Sub txt_p1Depreciation_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p1Depreciation.EditValueChanged, txt_p1AllowanceExpenses.EditValueChanged, txt_p1NonAllowableExpenses.EditValueChanged
         Try
@@ -298,7 +312,6 @@ Public Class frmPNL
         End Try
 
     End Sub
-
     Private Sub txt_p1Sales_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p1Sales.EditValueChanged, txt_p1COS.EditValueChanged
         Try
             txt_p1GrossProfitLoss.EditValue = mdlPNL.CalcGrossProfitLoss(IIf(IsNumeric(txt_p1Sales.EditValue) = False, 0, txt_p1Sales.EditValue), IIf(IsNumeric(txt_p1COS.EditValue) = False, 0, txt_p1COS.EditValue))
@@ -399,7 +412,7 @@ Public Class frmPNL
                     dtrow("PL_MAINBUZ") = CInt(IIf(IsDBNull(cboMainSource.EditValue), 1, cboMainSource.EditValue))
                     dtrow("PL_OTHER_EXP_ZAKAT") = txt_p3Zakat.EditValue
                     dtrow("PL_COMPANY") = "C"
-                    dtrow("PL_TREGROSS") = "0"
+                    dtrow("PL_TREGROSS") = GetTotalTaxDeductuibDividendIncome(ErrorLog)
                     dtrow("PL_TTAXDEDUCTION") = "0"
                     dtrow("PL_TNETDEDUCTION") = "0"
                     dtrow("PL_TECH_FEE") = txt_p3TechPayNonResis.EditValue
@@ -412,9 +425,10 @@ Public Class frmPNL
                     dtrow("ModifiedBy") = My.Computer.Name
                     dtrow("ModifiedDateTime") = Now
 
+                    dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
+
+
                     mdlProcess.Save_ProfitAndLoss_Query(Nothing, ListofCmd, ErrorLog)
-
-
                 End If
 
             End If
@@ -423,6 +437,29 @@ Public Class frmPNL
 
         End Try
     End Sub
+    Public Function GetTotalTaxDeductuibDividendIncome(Optional ByRef Errorlog As clsError = Nothing) As Decimal
+        Try
+            Dim obj As Object = dsDataSet2.Tables("DIVIDEND_INCOME").Compute("sum('di_taxdeduction')", "")
+
+            If obj IsNot Nothing AndAlso IsNumeric(obj) Then
+                Return CDec(obj)
+            End If
+
+            Return 0
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return 0
+        End Try
+    End Function
+
     Private Function isValid() As Boolean
         Try
             If cboRefNo Is Nothing OrElse cboRefNo.EditValue.ToString = "" Then
@@ -482,8 +519,6 @@ Public Class frmPNL
         End Try
     End Function
 
-
-
     Private Sub txt_p2DivIncome_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p2DivIncome.EditValueChanged, txt_p2InterestIncome.EditValueChanged, txt_p2RentalIncome.EditValueChanged, txt_p2RoyaltyIncome.EditValueChanged, txt_p2OtherIncome.EditValueChanged
         Try
             Dim Dividen As Decimal = IIf(IsNumeric(txt_p2DivIncome.EditValue) = False, 0, txt_p2DivIncome.EditValue)
@@ -499,7 +534,6 @@ Public Class frmPNL
 
         End Try
     End Sub
-
     Private Sub txt_p2ProDispPlantEq_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p2ProDispPlantEq.EditValueChanged, txt_p2Other.EditValueChanged, txt_p2ExemptDividend.EditValueChanged, txt_p2ForeIncomeRemmit.EditValueChanged, txt_p2ReaForeExGainNonTrade.EditValueChanged, txt_p2UnreaGainForeEx.EditValueChanged, txt_p2UnreaGainForeExNon.EditValueChanged, txt_p2ProDisInvestment.EditValueChanged
 
         Try
@@ -520,7 +554,6 @@ Public Class frmPNL
 
         End Try
     End Sub
-
     Private Sub txt_p3Depreciation_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p3Depreciation.EditValueChanged, txt_p3DonationApp.EditValueChanged, txt_p3DonationNonApp.EditValueChanged, txt_p3Zakat.EditValueChanged, txt_p4EntNonStaff.EditValueChanged, txt_p4EntStaff.EditValueChanged, txt_p4Compound.EditValueChanged, txt_p4ProvisionAcc.EditValueChanged, txt_p4LeavePass.EditValueChanged, txt_p4FAWrittenOff.EditValueChanged, txt_p4UnreaLossForeEx.EditValueChanged, txt_p4ReaLossForeExTrade.EditValueChanged, txt_p4ReaLossForeExNonTrade.EditValueChanged, txt_p4InitSub.EditValueChanged, txt_p4CAExpenditure.EditValueChanged, txt_p4Other.EditValueChanged, txt_p4LossDispFA.EditValueChanged
 
         Try
@@ -550,7 +583,6 @@ Public Class frmPNL
         End Try
 
     End Sub
-
     Private Sub txt_p3ForeignCurrExLoss_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p3ForeignCurrExLoss.EditValueChanged, txt_p3OtherInterestExHirePur.EditValueChanged, txt_p3ProTechManLeganFees.EditValueChanged, txt_p3TechPayNonResis.EditValueChanged, txt_p3ContractPay.EditValueChanged, txt_p3DirectorFee.EditValueChanged, txt_p3Salary.EditValueChanged, txt_p3COEStock.EditValueChanged, txt_p3Royalty.EditValueChanged, txt_p3Rental.EditValueChanged, txt_p3RepairMain.EditValueChanged, txt_p3ResearchDev.EditValueChanged, txt_p3PromotionAds.EditValueChanged, txt_p3Travelling.EditValueChanged, txt_p3JKDM.EditValueChanged, txt_p3InterestResPurS33.EditValueChanged, txt_p4TotalOtherExpenses.EditValueChanged
         Try
             CalcTotalExpenses()
@@ -637,8 +669,6 @@ Public Class frmPNL
         End Try
     End Sub
 
-
-
     Public Sub CalcNetProfit(Optional ByRef Errorlog As clsError = Nothing)
         Try
             'Dim dblNetProfitLoss As Double 'weihong add RealFETrade
@@ -662,9 +692,6 @@ Public Class frmPNL
 
         End Try
     End Sub
-
-
-
     Private Sub txt_p2OtherBizIncome_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p2OtherBizIncome.EditValueChanged, txt_p2ForeignCurrExGain.EditValueChanged
         Try
             CalcNetProfit()
@@ -693,5 +720,41 @@ Public Class frmPNL
 
         End Try
     End Sub
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged, cboYA.EditValueChanged, cboYA.EditValueChanged
+        Try
+            If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" AndAlso cboYA IsNot Nothing AndAlso cboYA.EditValue.ToString <> "" Then
+                txtRefNo.EditValue = cboRefNo.EditValue
+                mdlProcess.CreateLookUpSourceNO(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
+                mdlProcess.CreateLookUpSourceNO(dsDataSet2, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
+                Application.DoEvents()
+                BUSINESSSOURCEBindingSource.DataSource = dsDataSet.Tables("BUSINESS_SOURCE")
 
+                If isEdit = False Then
+                    'Dim editor As DevExpress.XtraEditors.ComboBoxEdit
+                    'editor = CType(cboMainSource, DevExpress.XtraEditors.ComboBoxEdit)
+                    '' editor = TryCast(cboMainSource, DevExpress.XtraEditors.ComboBoxEdit)
+                    'editor.SelectedIndex = 0
+                    For i As Integer = 0 To dsDataSet.Tables("BUSINESS_SOURCE").Rows.Count - 1
+                        If i = 0 Then
+                            cboMainSource.EditValue = dsDataSet.Tables("BUSINESS_SOURCE").Rows(i)("BC_SOURCENO")
+                        End If
+                    Next
+
+                End If
+                If mdlProcess.VerifyInvestmentHolding(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                    cboS60F.Edit.ReadOnly = True
+                    cboS60F.EditValue = "Yes"
+                Else
+                    cboS60F.Edit.ReadOnly = False
+                    cboS60F.EditValue = "No"
+                End If
+
+                DockPanel1.Enabled = True
+            Else
+                DockPanel1.Enabled = False
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

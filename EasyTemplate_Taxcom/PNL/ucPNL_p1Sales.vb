@@ -144,6 +144,14 @@ Public Class ucPNL_p1Sales
         Try
             If TypeOf sender Is GridView Then
                 Dim view As GridView = CType(sender, GridView)
+
+                Dim dtNote As DataRow = view.GetDataRow(view.FocusedRowHandle)
+
+                If dtNote IsNot Nothing AndAlso IsDBNull(dtNote("PLFS_NOTE")) = False AndAlso dtNote("PLFS_NOTE") = "Dividend income Section 4a" Then
+                    e.Cancel = True
+                    Exit Sub
+                End If
+
                 e.Cancel = mdlPNL.DisableAmountIfGotChild(MainTable_Details, MainKey, MainKey_Details, MainDetail, view, DsPNL1, ErrorLog)
 
 

@@ -296,6 +296,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
+    <Compile Include="PNL\dsPNL21.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPNL2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="PNL\frmPNL_InterestResPurS33_Monthly.Designer.vb">
       <DependentUpon>frmPNL_InterestResPurS33_Monthly.vb</DependentUpon>
     </Compile>
@@ -918,6 +923,17 @@
     </None>
     <None Include="PNL\dsPNL.xss">
       <DependentUpon>dsPNL.xsd</DependentUpon>
+    </None>
+    <None Include="PNL\dsPNL2.xsc">
+      <DependentUpon>dsPNL2.xsd</DependentUpon>
+    </None>
+    <None Include="PNL\dsPNL2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPNL21.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="PNL\dsPNL2.xss">
+      <DependentUpon>dsPNL2.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

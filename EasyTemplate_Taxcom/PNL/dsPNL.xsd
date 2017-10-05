@@ -3870,60 +3870,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="DIVIDEND_INCOME" msprop:Generator_TableClassName="DIVIDEND_INCOMEDataTable" msprop:Generator_TableVarName="tableDIVIDEND_INCOME" msprop:Generator_TablePropName="DIVIDEND_INCOME" msprop:Generator_RowDeletingName="DIVIDEND_INCOMERowDeleting" msprop:Generator_RowChangingName="DIVIDEND_INCOMERowChanging" msprop:Generator_RowEvHandlerName="DIVIDEND_INCOMERowChangeEventHandler" msprop:Generator_RowDeletedName="DIVIDEND_INCOMERowDeleted" msprop:Generator_UserTableName="DIVIDEND_INCOME" msprop:Generator_RowChangedName="DIVIDEND_INCOMERowChanged" msprop:Generator_RowEvArgName="DIVIDEND_INCOMERowChangeEvent" msprop:Generator_RowClassName="DIVIDEND_INCOMERow">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="DI_KEY" msprop:Generator_ColumnVarNameInTable="columnDI_KEY" msprop:Generator_ColumnPropNameInRow="DI_KEY" msprop:Generator_ColumnPropNameInTable="DI_KEYColumn" msprop:Generator_UserColumnName="DI_KEY" type="xs:int" />
-              <xs:element name="DI_DIVIDENDKEY" msprop:Generator_ColumnVarNameInTable="columnDI_DIVIDENDKEY" msprop:Generator_ColumnPropNameInRow="DI_DIVIDENDKEY" msprop:Generator_ColumnPropNameInTable="DI_DIVIDENDKEYColumn" msprop:Generator_UserColumnName="DI_DIVIDENDKEY" type="xs:int" />
-              <xs:element name="DI_DATE" msprop:Generator_ColumnVarNameInTable="columnDI_DATE" msprop:Generator_ColumnPropNameInRow="DI_DATE" msprop:Generator_ColumnPropNameInTable="DI_DATEColumn" msprop:Generator_UserColumnName="DI_DATE" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="DI_COMPANY" msprop:Generator_ColumnVarNameInTable="columnDI_COMPANY" msprop:Generator_ColumnPropNameInRow="DI_COMPANY" msprop:Generator_ColumnPropNameInTable="DI_COMPANYColumn" msprop:Generator_UserColumnName="DI_COMPANY" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="100" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DI_GROSS" msprop:Generator_ColumnVarNameInTable="columnDI_GROSS" msprop:Generator_ColumnPropNameInRow="DI_GROSS" msprop:Generator_ColumnPropNameInTable="DI_GROSSColumn" msprop:Generator_UserColumnName="DI_GROSS" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_TAX" msprop:Generator_ColumnVarNameInTable="columnDI_TAX" msprop:Generator_ColumnPropNameInRow="DI_TAX" msprop:Generator_ColumnPropNameInTable="DI_TAXColumn" msprop:Generator_UserColumnName="DI_TAX" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_NET" msprop:Generator_ColumnVarNameInTable="columnDI_NET" msprop:Generator_ColumnPropNameInRow="DI_NET" msprop:Generator_ColumnPropNameInTable="DI_NETColumn" msprop:Generator_UserColumnName="DI_NET" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_WARANT_NO" msprop:Generator_ColumnVarNameInTable="columnDI_WARANT_NO" msprop:Generator_ColumnPropNameInRow="DI_WARANT_NO" msprop:Generator_ColumnPropNameInTable="DI_WARANT_NOColumn" msprop:Generator_UserColumnName="DI_WARANT_NO" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DI_CHKREGROSS" msprop:Generator_ColumnVarNameInTable="columnDI_CHKREGROSS" msprop:Generator_ColumnPropNameInRow="DI_CHKREGROSS" msprop:Generator_ColumnPropNameInTable="DI_CHKREGROSSColumn" msprop:Generator_UserColumnName="DI_CHKREGROSS" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="3" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DI_TAXRATE" msprop:Generator_ColumnVarNameInTable="columnDI_TAXRATE" msprop:Generator_ColumnPropNameInRow="DI_TAXRATE" msprop:Generator_ColumnPropNameInTable="DI_TAXRATEColumn" msprop:Generator_UserColumnName="DI_TAXRATE" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_REGROSS" msprop:Generator_ColumnVarNameInTable="columnDI_REGROSS" msprop:Generator_ColumnPropNameInRow="DI_REGROSS" msprop:Generator_ColumnPropNameInTable="DI_REGROSSColumn" msprop:Generator_UserColumnName="DI_REGROSS" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_TAXDEDUCTION" msprop:Generator_ColumnVarNameInTable="columnDI_TAXDEDUCTION" msprop:Generator_ColumnPropNameInRow="DI_TAXDEDUCTION" msprop:Generator_ColumnPropNameInTable="DI_TAXDEDUCTIONColumn" msprop:Generator_UserColumnName="DI_TAXDEDUCTION" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_NETDEDUCTION" msprop:Generator_ColumnVarNameInTable="columnDI_NETDEDUCTION" msprop:Generator_ColumnPropNameInRow="DI_NETDEDUCTION" msprop:Generator_ColumnPropNameInTable="DI_NETDEDUCTIONColumn" msprop:Generator_UserColumnName="DI_NETDEDUCTION" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_ENDDATE" msprop:Generator_ColumnVarNameInTable="columnDI_ENDDATE" msprop:Generator_ColumnPropNameInRow="DI_ENDDATE" msprop:Generator_ColumnPropNameInTable="DI_ENDDATEColumn" msprop:Generator_UserColumnName="DI_ENDDATE" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="DI_TRATE" msprop:Generator_ColumnVarNameInTable="columnDI_TRATE" msprop:Generator_ColumnPropNameInRow="DI_TRATE" msprop:Generator_ColumnPropNameInTable="DI_TRATEColumn" msprop:Generator_UserColumnName="DI_TRATE" type="xs:decimal" minOccurs="0" />
-              <xs:element name="DI_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnDI_SOURCENO" msprop:Generator_ColumnPropNameInRow="DI_SOURCENO" msprop:Generator_ColumnPropNameInTable="DI_SOURCENOColumn" msprop:Generator_UserColumnName="DI_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="DI_DISCLOSE" msprop:Generator_ColumnVarNameInTable="columnDI_DISCLOSE" msprop:Generator_ColumnPropNameInRow="DI_DISCLOSE" msprop:Generator_ColumnPropNameInTable="DI_DISCLOSEColumn" msprop:Generator_UserColumnName="DI_DISCLOSE" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="3" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="DI_TRANSFER" msprop:Generator_ColumnVarNameInTable="columnDI_TRANSFER" msprop:Generator_ColumnPropNameInRow="DI_TRANSFER" msprop:Generator_ColumnPropNameInTable="DI_TRANSFERColumn" msprop:Generator_UserColumnName="DI_TRANSFER" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1">
@@ -4337,11 +4283,6 @@
     <xs:unique name="PROFIT_LOSS_ACCOUNT_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PROFIT_LOSS_ACCOUNT" />
       <xs:field xpath="mstns:PL_KEY" />
-    </xs:unique>
-    <xs:unique name="DIVIDEND_INCOME_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:DIVIDEND_INCOME" />
-      <xs:field xpath="mstns:DI_KEY" />
-      <xs:field xpath="mstns:DI_DIVIDENDKEY" />
     </xs:unique>
     <xs:keyref name="FK_NON_TAXABLE_INCOME_NON_TAXABLE_INCOME_DETAIL" refer="NON_TAXABLE_INCOME_Constraint1" msprop:rel_Generator_UserChildTable="NON_TAXABLE_INCOME_DETAIL" msprop:rel_Generator_ChildPropName="GetNON_TAXABLE_INCOME_DETAILRows" msprop:rel_Generator_UserRelationName="FK_NON_TAXABLE_INCOME_NON_TAXABLE_INCOME_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_NON_TAXABLE_INCOME_NON_TAXABLE_INCOME_DETAIL" msprop:rel_Generator_UserParentTable="NON_TAXABLE_INCOME" msprop:rel_Generator_ParentPropName="NON_TAXABLE_INCOMERow" msdata:UpdateRule="None">
       <xs:selector xpath=".//mstns:NON_TAXABLE_INCOME_DETAIL" />

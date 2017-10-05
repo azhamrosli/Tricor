@@ -26,6 +26,7 @@ Module mdlPNL
     Public P2_docUnreaGainForeExNon As DockPanel
     Public P2_docOther As DockPanel
     Public P2_docExemptDividend As DockPanel
+    Public P2_docDivIncome As DockPanel
 
     Public P3_docInterestResPurS33 As DockPanel
     Public P3_docOtherInterestExHirePur As DockPanel
@@ -63,6 +64,7 @@ Module mdlPNL
     Public p4_docNonAllowableExpenses As DockPanel
 
     Public dsDataSet As DataSet
+    Public dsDataSet2 As DataSet
     Public Function GetPNLLabelName(Optional ByRef Errorlog As clsError = Nothing) As List(Of clsPNL_LabelName)
         Try
             Dim ListofLabel As New List(Of clsPNL_LabelName)
@@ -109,7 +111,7 @@ Module mdlPNL
             ListofLabel.Add(New clsPNL_LabelName("lbl_p3ResearchDev", "Research & Development", "Research and development", TaxComPNLEnuItem.EXPRND))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p3PromotionAds", "Promotion & Advertisement", "Promotion and advertisement", TaxComPNLEnuItem.EXPADVERTISEMENT))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p3Travelling", "Travelling & Accommodation", "Travelling and accommodation", TaxComPNLEnuItem.EXPTRAVEL))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p3ForeignCurrExLoss", "", "Foreign currency exchange loss", TaxComPNLEnuItem.FORECURREXLOSS))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p3ForeignCurrExLoss", "", "Foreign currency exchange loss", TaxComPNLEnuItem.EXPUNREALLOSSFE))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p3JKDM", "Input Tax Not Claimable from JKDM", "Input tax not claimable from RMCD", TaxComPNLEnuItem.EXPJKDM))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p3Depreciation", "Depreciation", "Depreciation of property, plant and equipment", TaxComPNLEnuItem.EXPDEPRECIATION))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p3DonationApp", "Donation Approved", "Approved donations and contributions", TaxComPNLEnuItem.EXPDONATIONAPPR))
@@ -124,9 +126,9 @@ Module mdlPNL
             ListofLabel.Add(New clsPNL_LabelName("lbl_p4ProvisionAcc", "Provision Account", "Provision account", TaxComPNLEnuItem.EXPPROVISION))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p4LeavePass", "Leave Passage", "Leave passage", TaxComPNLEnuItem.EXPLEAVEPASSAGE))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p4FAWrittenOff", "Fixed Asset Written Off", "Property, plant and equipment written - off", TaxComPNLEnuItem.EXPFAWRITTENOFF))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p4UnreaLossForeEx", "Unrealised Loss on Foreign Exchange", "Unrealised loss on foreign exchange", TaxComPNLEnuItem.EXPUNREALLOSSFE))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExTrade", "Realised Loss on Foreign Exchange - Trade", "Realised loss on foreign exchange - trade", TaxComPNLEnuItem.EXPREALLOSSFETRADE))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExNonTrade", "Realised Loss on Foreign Exchange - Non-Trade", "Realised loss on foreign exchange - non - trade", TaxComPNLEnuItem.EXPREALLOSSFENONTRADE))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p4UnreaLossForeEx", "Unrealised Loss on Foreign Exchange", "", TaxComPNLEnuItem.EXPUNREALLOSSFE))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExTrade", "Realised Loss on Foreign Exchange - Trade", "", TaxComPNLEnuItem.EXPREALLOSSFETRADE))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExNonTrade", "Realised Loss on Foreign Exchange - Non-Trade", "", TaxComPNLEnuItem.EXPREALLOSSFENONTRADE))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p4InitSub", "Initial Subscription", "Subscription", TaxComPNLEnuItem.EXPINITIALSUBSCRIPT))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p4CAExpenditure", "Capital Expenditure", "Capital expenditure", TaxComPNLEnuItem.EXPCAPITALEXPENDITURE))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p4Other", "Others", "Others", TaxComPNLEnuItem.EXPOTHERSEXPENSES))
@@ -340,7 +342,7 @@ Module mdlPNL
                             ByVal txtAmount As DevExpress.XtraEditors.TextEdit, _
                             ByVal tabView As DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView, _
                             ByVal RefNo As String, ByVal YA As String,
-                            Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                            Optional ByRef Errorlog As clsError = Nothing, Optional ByRef txtSales As DevExpress.XtraEditors.TextEdit = Nothing, Optional ByRef SourceNo As Integer = 0) As Boolean
         Try
             DockDocument.BeginUpdate()
             Select Case Type
@@ -1489,6 +1491,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.txtSales = txtSales
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -1597,6 +1600,32 @@ Module mdlPNL
                         DockDocument.View.AddDocument(P3_docInterestResPurS33)
                     End If
                     DockDocument.View.ActivateDocument(P3_docInterestResPurS33)
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    If P2_docDivIncome Is Nothing Then
+                        P2_docDivIncome = New DockPanel
+                        Dim uc As New ucPNL_p2DivIncome
+
+                        uc.RefNo = RefNo
+                        uc.YA = YA
+                        uc.txtSales = txtSales
+                        uc.DataView_Main = dsDataSet
+                        uc.DataView_Main2 = dsDataSet2
+                        uc.SourceNo = SourceNo
+                        uc.Dock = DockStyle.Fill
+                        uc.txtAmount = txtAmount
+                        P2_docDivIncome.Text = lbl.Text
+                        P2_docDivIncome.Name = TaxComPNLEnuItem.DIVIDENDINC.ToString
+                        P2_docDivIncome.Controls.Add(uc)
+                        P2_docDivIncome.DockedAsTabbedDocument = True
+                        P2_docDivIncome.Register(DockingManager)
+
+
+                        DockDocument.View.AddDocument(P2_docDivIncome)
+                    Else
+                        P2_docDivIncome.Visibility = DockVisibility.Visible
+                        DockDocument.View.AddDocument(P2_docDivIncome)
+                    End If
+                    DockDocument.View.ActivateDocument(P2_docDivIncome)
             End Select
 
             Return False

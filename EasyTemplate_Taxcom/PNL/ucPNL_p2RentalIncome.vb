@@ -6,6 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p2RentalIncome
     Public txtAmount As DevExpress.XtraEditors.TextEdit
+    Public txtSales As DevExpress.XtraEditors.TextEdit
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False
@@ -77,9 +78,64 @@ Public Class ucPNL_p2RentalIncome
             Dim rslt As DialogResult = MessageBox.Show("Are sure want to remove this item?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
             If rslt = DialogResult.Yes Then
-
                 GridView1.DeleteSelectedRows()
 
+                Dim dtRow As DataRow = Nothing
+                Dim tmpDs As DataSet = New dsPNL
+                Dim ds As DataSet = Nothing
+
+                If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
+                    Dim contrl As Control = Nothing
+                    contrl = P1_docSales.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
+                        Exit Sub
+                    End If
+
+                    Dim uc As ucPNL_p1Sales = CType(contrl, ucPNL_p1Sales)
+
+                    ds = uc.DataView_Main
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count <= 0 Then
+                        Exit Sub
+                    End If
+
+                    If ds IsNot Nothing AndAlso ds.Tables("PLFST_SALES") IsNot Nothing AndAlso ds.Tables("PLFST_SALES").Rows.Count > 0 Then
+
+                        For Each row As DataRow In ds.Tables("PLFST_SALES").Rows
+                            If IsDBNull(row("PLFS_NOTE")) = True OrElse row("PLFS_NOTE") <> "Rental income Section 4a" Then
+                                tmpDs.Tables("PLFST_SALES").ImportRow(row)
+                            End If
+                        Next
+                        If tmpDs.Tables("PLFST_SALES").Rows.Count > 0 Then
+                            Dim infx As Integer = 0
+                            ds.Tables("PLFST_SALES").Rows.Clear()
+                            Application.DoEvents()
+                            For Each row As DataRow In tmpDs.Tables("PLFST_SALES").Rows
+                                'infx += 1
+                                'row(uc.MainKey) = infx
+                                ds.Tables("PLFST_SALES").ImportRow(row)
+                            Next
+                        End If
+                    End If
+                End If
+
+                For Each row As DataRow In DsPNL1.Tables("RENTAL_INCOME").Rows
+
+                    If row("RI_STATUS4d") = "Section 4a" Then
+                        dtRow = Nothing
+                        dtRow = dsDataSet.Tables("PLFST_SALES").NewRow
+                        dtRow("PLFS_PLFSKEY") = 0
+                        dtRow("PLFS_SOURCENO") = row(MainSourceNo)
+                        dtRow("PLFS_DESC") = row("RI_ADDRESS")
+                        dtRow("PLFS_AMOUNT") = row("RI_AMOUNT")
+                        dtRow("PLFS_NOTE") = "Rental income Section 4a"
+                        dtRow("PLFS_DETAIL") = "No"
+                        dsDataSet.Tables("PLFST_SALES").Rows.Add(dtRow)
+
+                        CalcTotalofView(txtSales, dsDataSet, "PLFST_SALES", "PLFS_AMOUNT", 0, ErrorLog)
+                    End If
+
+                Next
             End If
         Catch ex As Exception
 
@@ -112,14 +168,29 @@ Public Class ucPNL_p2RentalIncome
                             e.ErrorText = "Start date cannot less than end date."
                             e.Valid = False
                         End If
+
+                        If row("RI_STATUS4d") = "Section 4a" Then
+                            Dim dtRow As DataRow = Nothing
+
+                            dtRow = dsDataSet.Tables("PLFST_SALES").NewRow
+                            dtRow("PLFS_PLFSKEY") = 0
+                            dtRow("PLFS_SOURCENO") = row(MainSourceNo)
+                            dtRow("PLFS_DESC") = row("RI_ADDRESS")
+                            dtRow("PLFS_AMOUNT") = row("RI_AMOUNT")
+                            dtRow("PLFS_NOTE") = "Rental income Section 4a"
+                            dtRow("PLFS_DETAIL") = "No"
+                            dsDataSet.Tables("PLFST_SALES").Rows.Add(dtRow)
+
+                            CalcTotalofView(txtSales, dsDataSet, "PLFST_SALES", "PLFS_AMOUNT", 0, ErrorLog)
+                        End If
                     End If
+                     
                 End If
             End If
         Catch ex As Exception
 
         End Try
     End Sub
-
     Private Sub btnExpand_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
         Try
             GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
@@ -129,7 +200,7 @@ Public Class ucPNL_p2RentalIncome
     End Sub
     Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
-            GridView1.GetDataRow(e.RowHandle)("RI_STATUS4d") = "No"
+            GridView1.GetDataRow(e.RowHandle)("RI_STATUS4d") = "Section 4d"
             GridView1.GetDataRow(e.RowHandle)("RI_DATE") = Now
             GridView1.GetDataRow(e.RowHandle)("RI_DATE_END") = Now.AddDays(+7)
         Catch ex As Exception

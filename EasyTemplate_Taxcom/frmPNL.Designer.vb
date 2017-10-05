@@ -21,7 +21,7 @@ Partial Class frmPNL
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPNL))
-        Dim PushTransition2 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
+        Dim PushTransition1 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
         Me.DockManager1 = New DevExpress.XtraBars.Docking.DockManager(Me.components)
         Me.DockPanel1 = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel1_Container = New DevExpress.XtraBars.Docking.ControlContainer()
@@ -195,17 +195,18 @@ Partial Class frmPNL
         Me.RepositoryItemLookUpEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.BUSINESSSOURCEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
+        Me.cboS60F = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.cboS60FA = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemComboBox4 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPageGroup4 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPage2 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RepositoryItemRadioGroup1 = New DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup()
-        Me.RibbonPage2 = New DevExpress.XtraBars.Ribbon.RibbonPage()
-        Me.cboS60F = New DevExpress.XtraBars.BarEditItem()
-        Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.WorkspaceManager1 = New DevExpress.Utils.WorkspaceManager()
-        Me.cboS60FA = New DevExpress.XtraBars.BarEditItem()
-        Me.RepositoryItemComboBox4 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DockPanel1.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
@@ -297,9 +298,9 @@ Partial Class frmPNL
         CType(Me.RepositoryItemLookUpEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DockManager1
@@ -2417,14 +2418,18 @@ Partial Class frmPNL
         '
         'RibbonControl1
         '
+        Me.RibbonControl1.AllowMinimizeRibbon = False
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
         Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.BarButtonItem4, Me.BarButtonItem5, Me.BarEditItem1, Me.BarEditItem2, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.MaxItemId = 24
+        Me.RibbonControl1.MaxItemId = 1
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4})
+        Me.RibbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
+        Me.RibbonControl1.ShowToolbarCustomizeItem = False
         Me.RibbonControl1.Size = New System.Drawing.Size(1267, 141)
+        Me.RibbonControl1.Toolbar.ShowCustomizeItem = False
         '
         'btnSave
         '
@@ -2620,6 +2625,7 @@ Partial Class frmPNL
         Me.RepositoryItemLookUpEdit2.Name = "RepositoryItemLookUpEdit2"
         Me.RepositoryItemLookUpEdit2.NullText = "Please select"
         Me.RepositoryItemLookUpEdit2.PopupFormMinSize = New System.Drawing.Size(300, 120)
+        Me.RepositoryItemLookUpEdit2.ValueMember = "BC_SOURCENO"
         '
         'BUSINESSSOURCEBindingSource
         '
@@ -2631,9 +2637,46 @@ Partial Class frmPNL
         Me.DsPNL.DataSetName = "dsPNL"
         Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
+        'cboS60F
+        '
+        Me.cboS60F.Caption = "S60F Applicable :   "
+        Me.cboS60F.Edit = Me.RepositoryItemComboBox3
+        Me.cboS60F.Id = 21
+        Me.cboS60F.Name = "cboS60F"
+        Me.cboS60F.Width = 100
+        '
+        'RepositoryItemComboBox3
+        '
+        Me.RepositoryItemComboBox3.AutoHeight = False
+        Me.RepositoryItemComboBox3.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemComboBox3.Items.AddRange(New Object() {"Yes", "No"})
+        Me.RepositoryItemComboBox3.Name = "RepositoryItemComboBox3"
+        Me.RepositoryItemComboBox3.NullText = "Yes"
+        Me.RepositoryItemComboBox3.NullValuePrompt = "Yes"
+        Me.RepositoryItemComboBox3.NullValuePromptShowForEmptyValue = True
+        Me.RepositoryItemComboBox3.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        '
+        'cboS60FA
+        '
+        Me.cboS60FA.Caption = "S60FA Applicable : "
+        Me.cboS60FA.Edit = Me.RepositoryItemComboBox4
+        Me.cboS60FA.Id = 23
+        Me.cboS60FA.Name = "cboS60FA"
+        Me.cboS60FA.Width = 100
+        '
+        'RepositoryItemComboBox4
+        '
+        Me.RepositoryItemComboBox4.AutoHeight = False
+        Me.RepositoryItemComboBox4.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemComboBox4.Items.AddRange(New Object() {"Yes", "No"})
+        Me.RepositoryItemComboBox4.Name = "RepositoryItemComboBox4"
+        Me.RepositoryItemComboBox4.NullText = "No"
+        Me.RepositoryItemComboBox4.NullValuePrompt = "No"
+        Me.RepositoryItemComboBox4.NullValuePromptShowForEmptyValue = True
+        '
         'RibbonPage1
         '
-        Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup1, Me.RibbonPageGroup3})
+        Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup1, Me.RibbonPageGroup3, Me.RibbonPageGroup4})
         Me.RibbonPage1.Name = "RibbonPage1"
         Me.RibbonPage1.Text = "Home"
         '
@@ -2656,20 +2699,12 @@ Partial Class frmPNL
         Me.RibbonPageGroup3.Name = "RibbonPageGroup3"
         Me.RibbonPageGroup3.Text = "General Information"
         '
-        'RibbonPageGroup2
+        'RibbonPageGroup4
         '
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem4)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem5)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarEditItem2, True)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarEditItem1)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.txtNonAllowableExpense, True)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.txtNetProfit2)
-        Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
-        Me.RibbonPageGroup2.Text = "Advance"
-        '
-        'RepositoryItemRadioGroup1
-        '
-        Me.RepositoryItemRadioGroup1.Name = "RepositoryItemRadioGroup1"
+        Me.RibbonPageGroup4.ItemLinks.Add(Me.txtNonAllowableExpense)
+        Me.RibbonPageGroup4.ItemLinks.Add(Me.txtNetProfit2)
+        Me.RibbonPageGroup4.Name = "RibbonPageGroup4"
+        Me.RibbonPageGroup4.Text = "Advance Information"
         '
         'RibbonPage2
         '
@@ -2677,47 +2712,23 @@ Partial Class frmPNL
         Me.RibbonPage2.Name = "RibbonPage2"
         Me.RibbonPage2.Text = "Advance"
         '
-        'cboS60F
+        'RibbonPageGroup2
         '
-        Me.cboS60F.Caption = "S60F Applicable :   "
-        Me.cboS60F.Edit = Me.RepositoryItemComboBox3
-        Me.cboS60F.Id = 21
-        Me.cboS60F.Name = "cboS60F"
-        Me.cboS60F.Width = 100
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem4)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem5)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarEditItem2, True)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarEditItem1)
+        Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
+        Me.RibbonPageGroup2.Text = "Advance"
         '
-        'RepositoryItemComboBox3
+        'RepositoryItemRadioGroup1
         '
-        Me.RepositoryItemComboBox3.AutoHeight = False
-        Me.RepositoryItemComboBox3.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemComboBox3.Items.AddRange(New Object() {"Yes", "No"})
-        Me.RepositoryItemComboBox3.Name = "RepositoryItemComboBox3"
-        Me.RepositoryItemComboBox3.NullText = "Yes"
-        Me.RepositoryItemComboBox3.NullValuePrompt = "Yes"
-        Me.RepositoryItemComboBox3.NullValuePromptShowForEmptyValue = True
-        Me.RepositoryItemComboBox3.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.RepositoryItemRadioGroup1.Name = "RepositoryItemRadioGroup1"
         '
         'WorkspaceManager1
         '
         Me.WorkspaceManager1.TargetControl = Me.RibbonControl1
-        Me.WorkspaceManager1.TransitionType = PushTransition2
-        '
-        'cboS60FA
-        '
-        Me.cboS60FA.Caption = "S60FA Applicable : "
-        Me.cboS60FA.Edit = Me.RepositoryItemComboBox4
-        Me.cboS60FA.Id = 23
-        Me.cboS60FA.Name = "cboS60FA"
-        Me.cboS60FA.Width = 100
-        '
-        'RepositoryItemComboBox4
-        '
-        Me.RepositoryItemComboBox4.AutoHeight = False
-        Me.RepositoryItemComboBox4.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemComboBox4.Items.AddRange(New Object() {"Yes", "No"})
-        Me.RepositoryItemComboBox4.Name = "RepositoryItemComboBox4"
-        Me.RepositoryItemComboBox4.NullText = "No"
-        Me.RepositoryItemComboBox4.NullValuePrompt = "No"
-        Me.RepositoryItemComboBox4.NullValuePromptShowForEmptyValue = True
+        Me.WorkspaceManager1.TransitionType = PushTransition1
         '
         'frmPNL
         '
@@ -2826,9 +2837,9 @@ Partial Class frmPNL
         CType(Me.RepositoryItemLookUpEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3017,4 +3028,5 @@ Partial Class frmPNL
     Friend WithEvents RepositoryItemComboBox4 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
     Friend WithEvents RibbonPage2 As DevExpress.XtraBars.Ribbon.RibbonPage
     Friend WithEvents WorkspaceManager1 As DevExpress.Utils.WorkspaceManager
+    Friend WithEvents RibbonPageGroup4 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
 End Class

@@ -33,9 +33,10 @@ Partial Class frmTestCaller
         '
         'btnStart
         '
-        Me.btnStart.Location = New System.Drawing.Point(138, 130)
+        Me.btnStart.Location = New System.Drawing.Point(184, 160)
+        Me.btnStart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnStart.Name = "btnStart"
-        Me.btnStart.Size = New System.Drawing.Size(184, 59)
+        Me.btnStart.Size = New System.Drawing.Size(245, 73)
         Me.btnStart.TabIndex = 0
         Me.btnStart.Text = "Start Application"
         Me.btnStart.UseVisualStyleBackColor = True
@@ -43,58 +44,64 @@ Partial Class frmTestCaller
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 21)
+        Me.Label1.Location = New System.Drawing.Point(16, 26)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(67, 13)
+        Me.Label1.Size = New System.Drawing.Size(89, 17)
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Form Name :"
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(127, 47)
+        Me.txtRefNo.Location = New System.Drawing.Point(169, 58)
+        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Size = New System.Drawing.Size(204, 20)
+        Me.txtRefNo.Size = New System.Drawing.Size(271, 22)
         Me.txtRefNo.TabIndex = 3
         '
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"frmCA", "frmHP", "frmDisposal"})
-        Me.ComboBox1.Location = New System.Drawing.Point(127, 18)
+        Me.ComboBox1.Items.AddRange(New Object() {"frmCA", "frmHP", "frmDisposal", "frmPNL"})
+        Me.ComboBox1.Location = New System.Drawing.Point(169, 22)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(204, 21)
+        Me.ComboBox1.Size = New System.Drawing.Size(271, 24)
         Me.ComboBox1.TabIndex = 4
         '
         'txtYA
         '
-        Me.txtYA.Location = New System.Drawing.Point(127, 73)
+        Me.txtYA.Location = New System.Drawing.Point(169, 90)
+        Me.txtYA.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtYA.Name = "txtYA"
-        Me.txtYA.Size = New System.Drawing.Size(204, 20)
+        Me.txtYA.Size = New System.Drawing.Size(271, 22)
         Me.txtYA.TabIndex = 5
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 50)
+        Me.Label2.Location = New System.Drawing.Point(16, 62)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(80, 13)
+        Me.Label2.Size = New System.Drawing.Size(104, 17)
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "Reference No :"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 76)
+        Me.Label3.Location = New System.Drawing.Point(16, 94)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(21, 13)
+        Me.Label3.Size = New System.Drawing.Size(26, 17)
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "YA"
         '
         'frmTestCaller
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(343, 204)
+        Me.ClientSize = New System.Drawing.Size(457, 251)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.txtYA)
@@ -102,6 +109,7 @@ Partial Class frmTestCaller
         Me.Controls.Add(Me.txtRefNo)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnStart)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "frmTestCaller"
         Me.Text = "frmTestCaller"
         Me.ResumeLayout(False)
