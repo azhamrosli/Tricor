@@ -17,6 +17,7 @@ Public Class ucPNL_p2ProDisInvestment
     Public Const MainAmount As String = "NTIDI_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NTIDID_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NTIDI_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NTIDID_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NTIDI_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NTIDID_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NTIDI_DESC"  'PLFSD_DESC

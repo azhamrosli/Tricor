@@ -17,6 +17,7 @@ Public Class ucPNL_p2Other
     Public Const MainAmount As String = "NT_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NTD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NT_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NTD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NT_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NTD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NT_DESC"  'PLFSD_DESC

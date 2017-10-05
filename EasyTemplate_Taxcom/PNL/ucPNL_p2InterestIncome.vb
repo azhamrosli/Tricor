@@ -17,6 +17,7 @@ Public Class ucPNL_p2InterestIncome
     Public Const MainAmount As String = "NOBII_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NOBIID_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NOBII_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NOBIID_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NOBII_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NOBIID_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NOBII_DESC"  'PLFSD_DESC

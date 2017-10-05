@@ -17,6 +17,7 @@ Public Class ucPNL_p3Rental
     Public Const MainAmount As String = "EXRENT_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXRENTD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXRENT_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXRENTD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXRENT_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXRENTD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXRENT_DESC"  'PLFSD_DESC

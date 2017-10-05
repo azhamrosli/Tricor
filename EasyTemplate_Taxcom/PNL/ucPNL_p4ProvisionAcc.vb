@@ -17,6 +17,7 @@ Public Class ucPNL_p4ProvisionAcc
     Public Const MainAmount As String = "EXOPA_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXOPAD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXOPA_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXOPAD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXOPA_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXOPAD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXOPA_DESC"  'PLFSD_DESC

@@ -17,6 +17,7 @@ Public Class ucPNL_p3Travelling
     Public Const MainAmount As String = "EXT_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXTD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXT_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXTD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXT_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXTD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXT_DESC"  'PLFSD_DESC

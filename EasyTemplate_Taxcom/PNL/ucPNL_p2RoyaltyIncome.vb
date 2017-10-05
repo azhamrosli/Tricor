@@ -17,6 +17,7 @@ Public Class ucPNL_p2RoyaltyIncome
     Public Const MainAmount As String = "NOBRI_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NOBRID_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NOBRI_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NOBRID_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NOBRI_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NOBRID_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NOBRI_DESC"  'PLFSD_DESC

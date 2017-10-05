@@ -17,6 +17,7 @@ Public Class ucPNL_p2OtherIncome
     Public Const MainAmount As String = "OI_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "OID_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "OI_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "OID_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "OI_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "OID_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "OI_DESC"  'PLFSD_DESC

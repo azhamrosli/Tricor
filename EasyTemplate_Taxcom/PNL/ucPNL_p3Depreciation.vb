@@ -17,6 +17,7 @@ Public Class ucPNL_p3Depreciation
     Public Const MainAmount As String = "EXODEP_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXODEPD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXODEP_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXODEPD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXODEP_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXODEPD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXODEP_DESC"  'PLFSD_DESC

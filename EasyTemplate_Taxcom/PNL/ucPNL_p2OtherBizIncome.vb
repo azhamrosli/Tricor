@@ -17,6 +17,7 @@ Public Class ucPNL_p2OtherBizIncome
     Public Const MainAmount As String = "NSBI_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NSBID_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NSBI_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NSBID_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NSBI_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NSBID_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NSBI_DESC"  'PLFSD_DESC

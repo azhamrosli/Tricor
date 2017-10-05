@@ -17,6 +17,7 @@ Public Class ucPNL_p2ProDispPlantEq
     Public Const MainAmount As String = "NTIDFA_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NTIDFAD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NTIDFA_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NTIDFAD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NTIDFA_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NTIDFAD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NTIDFA_DESC"  'PLFSD_DESC

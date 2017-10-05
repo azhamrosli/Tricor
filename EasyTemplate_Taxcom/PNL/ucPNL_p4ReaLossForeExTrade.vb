@@ -17,6 +17,7 @@ Public Class ucPNL_p4ReaLossForeExTrade
     Public Const MainAmount As String = "EXORT_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXORTD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXORT_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXORTD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXORT_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXORTD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXORT_DESC"  'PLFSD_DESC

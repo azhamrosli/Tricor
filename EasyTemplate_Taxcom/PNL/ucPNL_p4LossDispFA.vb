@@ -17,6 +17,7 @@ Public Class ucPNL_p4LossDispFA
     Public Const MainAmount As String = "EXOLD_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXOLDD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXOLD_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXOLDD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXOLD_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXOLDD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXOLD_DESC"  'PLFSD_DESC

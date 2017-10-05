@@ -17,6 +17,7 @@ Public Class ucPNL_p3ProTechManLeganFees
     Public Const MainAmount As String = "EXL_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXLD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXL_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXLD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXL_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXLD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXL_DESC"  'PLFSD_DESC

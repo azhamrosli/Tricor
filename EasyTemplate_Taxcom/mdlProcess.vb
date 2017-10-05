@@ -167,6 +167,47 @@ Module mdlProcess
             Return Nothing
         End Try
     End Function
+    Public Function GetServerName(Optional type As Integer = 0, Optional DatabaseName As String = "TAXCOM_C", Optional ErrorLog As clsError = Nothing) As String
+        Try
+            Dim regVersion As RegistryKey
+            If Environment.Is64BitOperatingSystem Then
+                regVersion = Registry.LocalMachine.OpenSubKey("SOFTWARE\Wow6432Node\TAXOFFICE", False)
+            Else
+                regVersion = Registry.LocalMachine.OpenSubKey("SOFTWARE\TAXOFFICE", False)
+            End If
+
+            If regVersion Is Nothing Then
+                If ErrorLog Is Nothing Then
+                    ErrorLog = New clsError
+                End If
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "X100"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "Unable to find registry TAXOFFICE"
+                End With
+                Return Nothing
+
+            End If
+            Dim Server As String = CStr(regVersion.GetValue("value1", ""))
+
+
+            Return "Server=" & Server
+            'End If
+            ' Return System.Configuration.ConfigurationManager.ConnectionStrings("dbEmployeeManagementConnectionString").ConnectionString
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
 #End Region
 #Region "ENCRYPT DECRYPT"
     Public Function EncryptPass(ByVal Password As String) As String
@@ -1788,6 +1829,127 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+    Public Function Load_PNL_PLFST_SALES(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_SALES WHERE PLFS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_SALES_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_SALES_DETAIL WHERE PLFSD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function Load_PNL_ByKey(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PROFIT_LOSS_ACCOUNT WHERE PL_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function Load_PNLLastModified(ByVal Key As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT ModifiedDateTime FROM PROFIT_LOSS_ACCOUNT WHERE PL_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = Key
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+
+
     Public Function VerifyInvestmentHolding(ByVal RefNo As String, ByVal YA As String, _
                                             Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -1825,9 +1987,6 @@ tryagain:
             Return False
         End Try
     End Function
-
-
-
     Public Function GETPNLKEY(Optional ByRef ErrorLog As clsError = Nothing) As Integer
         Try
             ADO = New SQLDataObject()
@@ -1861,9 +2020,6 @@ tryagain:
             Return -1
         End Try
     End Function
-
-
-
 
     Public Function Check_PNLExist(ByVal RefNo As String, ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -3490,6 +3646,29 @@ tryagain:
 #End Region
 #Region "PNL"
 
+    Public Function Save_PNLExecute(ByVal ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Save_ProfitAndLoss_Query(ByVal dt As DataTable, ByRef Listofcmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -3500,7 +3679,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "INSERT INTO PROFIT_LOSS_ACCOUNT (PL_KEY,PL_REF_NO,PL_YA,PL_SALES,PL_OP_STK,PL_PURCHASES,PL_PRO_COST,PL_PRO_COST_DPC,PL_PRO_COST_OAE,PL_PRO_COST_ONAE,PL_PURCHASES_PRO_COST,PL_CLS_STK,PL_COGS,PL_GROSS_PROFIT,PL_OTH_BSIN,PL_OTH_BSIN_UNREALGT,PL_OTH_BSIN_REALGT,PL_OTH_BSIN_RENTAL,PL_OTH_BSIN_OTHER,PL_OTH_IN,PL_OTH_IN_DIVIDEND,PL_OTH_IN_INTEREST,PL_OTH_IN_RENTAL,PL_OTH_IN_ROYALTY,PL_OTH_IN_OTHER,PL_NONTAX_IN,PL_NONTAX_IN_FA_DISP,PL_NONTAX_IN_INV_DISP,PL_NONTAX_IN_EXM_DIV,PL_NONTAX_IN_FIR,PL_NONTAX_IN_REALG,PL_NONTAX_IN_UNREALG,PL_NONTAX_IN_INSU_COMP,PL_EXP_INT,PL_LAWYER_COST,PL_CONTRACT_EXP,PL_EXP_SALARY,PL_ROYALTY,PL_EXP_RENT,PL_EXP_MAINTENANCE,PL_RND,PL_ADVERT,PL_TRAVEL,PL_OTHER_EXP,PL_OTHER_EXP_DPC,PL_OTHER_EXP_DNT,PL_OTHER_EXP_DNT_APP,PL_OTHER_EXP_DNT_NAPP,PL_OTHER_EXP_FA_DISP,PL_OTHER_EXP_ENTM,PL_OTHER_EXP_ENTM_CLNT,PL_OTHER_EXP_ENTM_STFF,PL_OTHER_EXP_PENALTY,PL_OTHER_EXP_PROV_ACC,PL_OTHER_EXP_LEAVE,PL_OTHER_EXP_FA_WO,PL_OTHER_EXP_UNREALOSS,PL_OTHER_EXP_REALOSS,PL_OTHER_EXP_INI_SUB,PL_OTHER_EXP_CAP_EXP,PL_OTHER_EXP_OTHERS,PL_TOT_EXP,PL_NET_PROFIT_LOSS,PL_DISALLOWED_EXP,PL_TOTALX,PL_TOTALY,PL_EXP_INTRESTRICT,PL_OTH_BSIN_NONSOURCE,PL_S60F,PL_MAINBUZ,PL_OTHER_EXP_ZAKAT,PL_COMPANY,PL_TREGROSS,PL_TTAXDEDUCTION,PL_TNETDEDUCTION,PL_TECH_FEE,PL_EMPL_STOCK,PL_S60FA,PL_OTHER_EXP_BALANCE,PL_OTHER_EXRLOSSFOREIGNT,PL_DIRECTORS_FEE,PL_JKDM,ModifiedBy,ModifiedDateTime) VALUES (PL_KEY,@PL_REF_NO,@PL_YA,@PL_SALES,@PL_OP_STK,@PL_PURCHASES,@PL_PRO_COST,@PL_PRO_COST_DPC,@PL_PRO_COST_OAE,@PL_PRO_COST_ONAE,@PL_PURCHASES_PRO_COST,@PL_CLS_STK,@PL_COGS,@PL_GROSS_PROFIT,@PL_OTH_BSIN,@PL_OTH_BSIN_UNREALGT,@PL_OTH_BSIN_REALGT,@PL_OTH_BSIN_RENTAL,@PL_OTH_BSIN_OTHER,@PL_OTH_IN,@PL_OTH_IN_DIVIDEND,@PL_OTH_IN_INTEREST,@PL_OTH_IN_RENTAL,@PL_OTH_IN_ROYALTY,@PL_OTH_IN_OTHER,@PL_NONTAX_IN,@PL_NONTAX_IN_FA_DISP,@PL_NONTAX_IN_INV_DISP,@PL_NONTAX_IN_EXM_DIV,@PL_NONTAX_IN_FIR,@PL_NONTAX_IN_REALG,@PL_NONTAX_IN_UNREALG,@PL_NONTAX_IN_INSU_COMP,@PL_EXP_INT,@PL_LAWYER_COST,@PL_CONTRACT_EXP,@PL_EXP_SALARY,@PL_ROYALTY,@PL_EXP_RENT,@PL_EXP_MAINTENANCE,@PL_RND,@PL_ADVERT,@PL_TRAVEL,@PL_OTHER_EXP,@PL_OTHER_EXP_DPC,@PL_OTHER_EXP_DNT,@PL_OTHER_EXP_DNT_APP,@PL_OTHER_EXP_DNT_NAPP,@PL_OTHER_EXP_FA_DISP,@PL_OTHER_EXP_ENTM,@PL_OTHER_EXP_ENTM_CLNT,@PL_OTHER_EXP_ENTM_STFF,@PL_OTHER_EXP_PENALTY,@PL_OTHER_EXP_PROV_ACC,@PL_OTHER_EXP_LEAVE,@PL_OTHER_EXP_FA_WO,@PL_OTHER_EXP_UNREALOSS,@PL_OTHER_EXP_REALOSS,@PL_OTHER_EXP_INI_SUB,@PL_OTHER_EXP_CAP_EXP,@PL_OTHER_EXP_OTHERS,@PL_TOT_EXP,@PL_NET_PROFIT_LOSS,@PL_DISALLOWED_EXP,@PL_TOTALX,@PL_TOTALY,@PL_EXP_INTRESTRICT,@PL_OTH_BSIN_NONSOURCE,@PL_S60F,@PL_MAINBUZ,@PL_OTHER_EXP_ZAKAT,@PL_COMPANY,@PL_TREGROSS,@PL_TTAXDEDUCTION,@PL_TNETDEDUCTION,@PL_TECH_FEE,@PL_EMPL_STOCK,@PL_S60FA,@PL_OTHER_EXP_BALANCE,@PL_OTHER_EXRLOSSFOREIGNT,@PL_DIRECTORS_FEE,@PL_JKDM,@ModifiedBy,@ModifiedDateTime)"
+            Dim StrSQL As String = "INSERT INTO PROFIT_LOSS_ACCOUNT (PL_KEY,PL_REF_NO,PL_YA,PL_SALES,PL_OP_STK,PL_PURCHASES,PL_PRO_COST,PL_PRO_COST_DPC,PL_PRO_COST_OAE,PL_PRO_COST_ONAE,PL_PURCHASES_PRO_COST,PL_CLS_STK,PL_COGS,PL_GROSS_PROFIT,PL_OTH_BSIN,PL_OTH_BSIN_UNREALGT,PL_OTH_BSIN_REALGT,PL_OTH_BSIN_RENTAL,PL_OTH_BSIN_OTHER,PL_OTH_IN,PL_OTH_IN_DIVIDEND,PL_OTH_IN_INTEREST,PL_OTH_IN_RENTAL,PL_OTH_IN_ROYALTY,PL_OTH_IN_OTHER,PL_NONTAX_IN,PL_NONTAX_IN_FA_DISP,PL_NONTAX_IN_INV_DISP,PL_NONTAX_IN_EXM_DIV,PL_NONTAX_IN_FIR,PL_NONTAX_IN_REALG,PL_NONTAX_IN_UNREALG,PL_NONTAX_IN_INSU_COMP,PL_EXP_INT,PL_LAWYER_COST,PL_CONTRACT_EXP,PL_EXP_SALARY,PL_ROYALTY,PL_EXP_RENT,PL_EXP_MAINTENANCE,PL_RND,PL_ADVERT,PL_TRAVEL,PL_OTHER_EXP,PL_OTHER_EXP_DPC,PL_OTHER_EXP_DNT,PL_OTHER_EXP_DNT_APP,PL_OTHER_EXP_DNT_NAPP,PL_OTHER_EXP_FA_DISP,PL_OTHER_EXP_ENTM,PL_OTHER_EXP_ENTM_CLNT,PL_OTHER_EXP_ENTM_STFF,PL_OTHER_EXP_PENALTY,PL_OTHER_EXP_PROV_ACC,PL_OTHER_EXP_LEAVE,PL_OTHER_EXP_FA_WO,PL_OTHER_EXP_UNREALOSS,PL_OTHER_EXP_REALOSS,PL_OTHER_EXP_INI_SUB,PL_OTHER_EXP_CAP_EXP,PL_OTHER_EXP_OTHERS,PL_TOT_EXP,PL_NET_PROFIT_LOSS,PL_DISALLOWED_EXP,PL_TOTALX,PL_TOTALY,PL_EXP_INTRESTRICT,PL_OTH_BSIN_NONSOURCE,PL_S60F,PL_MAINBUZ,PL_OTHER_EXP_ZAKAT,PL_COMPANY,PL_TREGROSS,PL_TTAXDEDUCTION,PL_TNETDEDUCTION,PL_TECH_FEE,PL_EMPL_STOCK,PL_S60FA,PL_OTHER_EXP_BALANCE,PL_OTHER_EXRLOSSFOREIGNT,PL_DIRECTORS_FEE,PL_JKDM,ModifiedBy,ModifiedDateTime) VALUES (@PL_KEY,@PL_REF_NO,@PL_YA,@PL_SALES,@PL_OP_STK,@PL_PURCHASES,@PL_PRO_COST,@PL_PRO_COST_DPC,@PL_PRO_COST_OAE,@PL_PRO_COST_ONAE,@PL_PURCHASES_PRO_COST,@PL_CLS_STK,@PL_COGS,@PL_GROSS_PROFIT,@PL_OTH_BSIN,@PL_OTH_BSIN_UNREALGT,@PL_OTH_BSIN_REALGT,@PL_OTH_BSIN_RENTAL,@PL_OTH_BSIN_OTHER,@PL_OTH_IN,@PL_OTH_IN_DIVIDEND,@PL_OTH_IN_INTEREST,@PL_OTH_IN_RENTAL,@PL_OTH_IN_ROYALTY,@PL_OTH_IN_OTHER,@PL_NONTAX_IN,@PL_NONTAX_IN_FA_DISP,@PL_NONTAX_IN_INV_DISP,@PL_NONTAX_IN_EXM_DIV,@PL_NONTAX_IN_FIR,@PL_NONTAX_IN_REALG,@PL_NONTAX_IN_UNREALG,@PL_NONTAX_IN_INSU_COMP,@PL_EXP_INT,@PL_LAWYER_COST,@PL_CONTRACT_EXP,@PL_EXP_SALARY,@PL_ROYALTY,@PL_EXP_RENT,@PL_EXP_MAINTENANCE,@PL_RND,@PL_ADVERT,@PL_TRAVEL,@PL_OTHER_EXP,@PL_OTHER_EXP_DPC,@PL_OTHER_EXP_DNT,@PL_OTHER_EXP_DNT_APP,@PL_OTHER_EXP_DNT_NAPP,@PL_OTHER_EXP_FA_DISP,@PL_OTHER_EXP_ENTM,@PL_OTHER_EXP_ENTM_CLNT,@PL_OTHER_EXP_ENTM_STFF,@PL_OTHER_EXP_PENALTY,@PL_OTHER_EXP_PROV_ACC,@PL_OTHER_EXP_LEAVE,@PL_OTHER_EXP_FA_WO,@PL_OTHER_EXP_UNREALOSS,@PL_OTHER_EXP_REALOSS,@PL_OTHER_EXP_INI_SUB,@PL_OTHER_EXP_CAP_EXP,@PL_OTHER_EXP_OTHERS,@PL_TOT_EXP,@PL_NET_PROFIT_LOSS,@PL_DISALLOWED_EXP,@PL_TOTALX,@PL_TOTALY,@PL_EXP_INTRESTRICT,@PL_OTH_BSIN_NONSOURCE,@PL_S60F,@PL_MAINBUZ,@PL_OTHER_EXP_ZAKAT,@PL_COMPANY,@PL_TREGROSS,@PL_TTAXDEDUCTION,@PL_TNETDEDUCTION,@PL_TECH_FEE,@PL_EMPL_STOCK,@PL_S60FA,@PL_OTHER_EXP_BALANCE,@PL_OTHER_EXRLOSSFOREIGNT,@PL_DIRECTORS_FEE,@PL_JKDM,@ModifiedBy,@ModifiedDateTime)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = dt.Rows(0)("PL_KEY")
@@ -3588,7 +3767,8 @@ tryagain:
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = dt.Rows(0)("ModifiedBy")
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = dt.Rows(0)("ModifiedDateTime")
 
-            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            Listofcmd.Add(SQLcmd)
+            Return True
         Catch ex As Exception
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
@@ -7556,11 +7736,11 @@ tryagain:
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFOS_KEY", SqlDbType.Int).Value = PNL_Key
-                SQLcmd.Parameters.Add("@PLFOS_PLFOSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFOS_PLFOSKEY")
+                SQLcmd.Parameters.Add("@PLFOS_PLFOSKEY", SqlDbType.Int).Value = i
                 SQLcmd.Parameters.Add("@PLFOS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFOS_SOURCENO")
                 SQLcmd.Parameters.Add("@PLFOS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFOS_DESC")
                 SQLcmd.Parameters.Add("@PLFOS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFOS_AMOUNT")
-                SQLcmd.Parameters.Add("@PLFOS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFOS_NOTE")
+                SQLcmd.Parameters.Add("@PLFOS_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt.Rows(i)("PLFOS_NOTE")), "", dt.Rows(i)("PLFOS_NOTE"))
                 SQLcmd.Parameters.Add("@PLFOS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFOS_DETAIL")
 
                 ListofCmd.Add(SQLcmd)
@@ -7586,10 +7766,10 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFOSD_KEY", SqlDbType.Int).Value = PNL_Key
                     SQLcmd.Parameters.Add("@PLFOSD_PLFOSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_PLFOSKEY")
                     SQLcmd.Parameters.Add("@PLFOSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_SOURCENO")
-                    SQLcmd.Parameters.Add("@PLFOSD_PLFOSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_PLFOSDKEY")
+                    SQLcmd.Parameters.Add("@PLFOSD_PLFOSDKEY", SqlDbType.Int).Value = x
                     SQLcmd.Parameters.Add("@PLFOSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFOSD_DESC")
                     SQLcmd.Parameters.Add("@PLFOSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFOSD_AMOUNT")
-                    SQLcmd.Parameters.Add("@PLFOSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFOSD_NOTE")
+                    SQLcmd.Parameters.Add("@PLFOSD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt_child.Rows(x)("PLFOSD_NOTE")), "", dt_child.Rows(x)("PLFOSD_NOTE"))
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7714,11 +7894,11 @@ tryagain:
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFS_KEY", SqlDbType.Int).Value = PNL_Key
-                SQLcmd.Parameters.Add("@PLFS_PLFSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFS_PLFSKEY")
+                SQLcmd.Parameters.Add("@PLFS_PLFSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFS_KEY")
                 SQLcmd.Parameters.Add("@PLFS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFS_SOURCENO")
                 SQLcmd.Parameters.Add("@PLFS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFS_DESC")
                 SQLcmd.Parameters.Add("@PLFS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFS_AMOUNT")
-                SQLcmd.Parameters.Add("@PLFS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFS_NOTE")
+                SQLcmd.Parameters.Add("@PLFS_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt.Rows(i)("PLFS_NOTE")), "", dt.Rows(i)("PLFS_NOTE"))
                 SQLcmd.Parameters.Add("@PLFS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFS_DETAIL")
 
                 ListofCmd.Add(SQLcmd)
@@ -7744,10 +7924,10 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFSD_KEY", SqlDbType.Int).Value = PNL_Key
                     SQLcmd.Parameters.Add("@PLFSD_PLFSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_PLFSKEY")
                     SQLcmd.Parameters.Add("@PLFSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_SOURCENO")
-                    SQLcmd.Parameters.Add("@PLFSD_PLFSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_PLFSDKEY")
+                    SQLcmd.Parameters.Add("@PLFSD_PLFSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_KEY")
                     SQLcmd.Parameters.Add("@PLFSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFSD_DESC")
                     SQLcmd.Parameters.Add("@PLFSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFSD_AMOUNT")
-                    SQLcmd.Parameters.Add("@PLFSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFSD_NOTE")
+                    SQLcmd.Parameters.Add("@PLFSD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt_child.Rows(x)("PLFSD_NOTE")), "", dt_child.Rows(x)("PLFSD_NOTE"))
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8392,7 +8572,120 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+    Public Function Update_ProfitAndLoss_Query(ByVal dt As DataTable, ByRef Listofcmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "UPDATE PROFIT_LOSS_ACCOUNT SET PL_REF_NO=@PL_REF_NO,PL_YA=@PL_YA,PL_SALES=@PL_SALES,PL_OP_STK=@PL_OP_STK,PL_PURCHASES=@PL_PURCHASES,PL_PRO_COST=@PL_PRO_COST,PL_PRO_COST_DPC=@PL_PRO_COST_DPC,PL_PRO_COST_OAE=@PL_PRO_COST_OAE,PL_PRO_COST_ONAE=@PL_PRO_COST_ONAE,PL_PURCHASES_PRO_COST=@PL_PURCHASES_PRO_COST,PL_CLS_STK=@PL_CLS_STK,PL_COGS=@PL_COGS,PL_GROSS_PROFIT=@PL_GROSS_PROFIT,PL_OTH_BSIN=@PL_OTH_BSIN,PL_OTH_BSIN_UNREALGT=@PL_OTH_BSIN_UNREALGT,PL_OTH_BSIN_REALGT=@PL_OTH_BSIN_REALGT,PL_OTH_BSIN_RENTAL=@PL_OTH_BSIN_RENTAL,PL_OTH_BSIN_OTHER=@PL_OTH_BSIN_OTHER,PL_OTH_IN=@PL_OTH_IN,PL_OTH_IN_DIVIDEND=@PL_OTH_IN_DIVIDEND,PL_OTH_IN_INTEREST=@PL_OTH_IN_INTEREST,PL_OTH_IN_RENTAL=@PL_OTH_IN_RENTAL,PL_OTH_IN_ROYALTY=@PL_OTH_IN_ROYALTY,PL_OTH_IN_OTHER=@PL_OTH_IN_OTHER,PL_NONTAX_IN=@PL_NONTAX_IN,PL_NONTAX_IN_FA_DISP=@PL_NONTAX_IN_FA_DISP,PL_NONTAX_IN_INV_DISP=@PL_NONTAX_IN_INV_DISP,PL_NONTAX_IN_EXM_DIV=@PL_NONTAX_IN_EXM_DIV,PL_NONTAX_IN_FIR=@PL_NONTAX_IN_FIR,PL_NONTAX_IN_REALG=@PL_NONTAX_IN_REALG,PL_NONTAX_IN_UNREALG=@PL_NONTAX_IN_UNREALG,PL_NONTAX_IN_INSU_COMP=@PL_NONTAX_IN_INSU_COMP,PL_EXP_INT=@PL_EXP_INT,PL_LAWYER_COST=@PL_LAWYER_COST,PL_CONTRACT_EXP=@PL_CONTRACT_EXP,PL_EXP_SALARY=@PL_EXP_SALARY,PL_ROYALTY=@PL_ROYALTY,PL_EXP_RENT=@PL_EXP_RENT,PL_EXP_MAINTENANCE=@PL_EXP_MAINTENANCE,PL_RND=@PL_RND,PL_ADVERT=@PL_ADVERT,PL_TRAVEL=@PL_TRAVEL,PL_OTHER_EXP=@PL_OTHER_EXP,PL_OTHER_EXP_DPC=@PL_OTHER_EXP_DPC,PL_OTHER_EXP_DNT=@PL_OTHER_EXP_DNT,PL_OTHER_EXP_DNT_APP=@PL_OTHER_EXP_DNT_APP,PL_OTHER_EXP_DNT_NAPP=@PL_OTHER_EXP_DNT_NAPP,PL_OTHER_EXP_FA_DISP=@PL_OTHER_EXP_FA_DISP,PL_OTHER_EXP_ENTM=@PL_OTHER_EXP_ENTM,PL_OTHER_EXP_ENTM_CLNT=@PL_OTHER_EXP_ENTM_CLNT,PL_OTHER_EXP_ENTM_STFF=@PL_OTHER_EXP_ENTM_STFF,PL_OTHER_EXP_PENALTY=@PL_OTHER_EXP_PENALTY,PL_OTHER_EXP_PROV_ACC=@PL_OTHER_EXP_PROV_ACC,PL_OTHER_EXP_LEAVE=@PL_OTHER_EXP_LEAVE,PL_OTHER_EXP_FA_WO=@PL_OTHER_EXP_FA_WO,PL_OTHER_EXP_UNREALOSS=@PL_OTHER_EXP_UNREALOSS,PL_OTHER_EXP_REALOSS=@PL_OTHER_EXP_REALOSS,PL_OTHER_EXP_INI_SUB=@PL_OTHER_EXP_INI_SUB,PL_OTHER_EXP_CAP_EXP=@PL_OTHER_EXP_CAP_EXP,PL_OTHER_EXP_OTHERS=@PL_OTHER_EXP_OTHERS,PL_TOT_EXP=@PL_TOT_EXP,PL_NET_PROFIT_LOSS=@PL_NET_PROFIT_LOSS,PL_DISALLOWED_EXP=@PL_DISALLOWED_EXP,PL_TOTALX=@PL_TOTALX,PL_TOTALY=@PL_TOTALY,PL_EXP_INTRESTRICT=@PL_EXP_INTRESTRICT,PL_OTH_BSIN_NONSOURCE=@PL_OTH_BSIN_NONSOURCE,PL_S60F=@PL_S60F,PL_MAINBUZ=@PL_MAINBUZ,PL_OTHER_EXP_ZAKAT=@PL_OTHER_EXP_ZAKAT,PL_COMPANY=@PL_COMPANY,PL_TREGROSS=@PL_TREGROSS,PL_TTAXDEDUCTION=@PL_TTAXDEDUCTION,PL_TNETDEDUCTION=@PL_TNETDEDUCTION,PL_TECH_FEE=@PL_TECH_FEE,PL_EMPL_STOCK=@PL_EMPL_STOCK,PL_S60FA=@PL_S60FA,PL_OTHER_EXP_BALANCE=@PL_OTHER_EXP_BALANCE,PL_OTHER_EXRLOSSFOREIGNT=@PL_OTHER_EXRLOSSFOREIGNT,PL_DIRECTORS_FEE=@PL_DIRECTORS_FEE,PL_JKDM=@PL_JKDM,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime WHERE PL_KEY=@PL_KEY"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = dt.Rows(0)("PL_KEY")
+            SQLcmd.Parameters.Add("@PL_REF_NO", SqlDbType.NVarChar, 20).Value = dt.Rows(0)("PL_REF_NO")
+            SQLcmd.Parameters.Add("@PL_YA", SqlDbType.NVarChar, 5).Value = dt.Rows(0)("PL_YA")
+            SQLcmd.Parameters.Add("@PL_SALES", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_SALES")
+            SQLcmd.Parameters.Add("@PL_OP_STK", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OP_STK")
+            SQLcmd.Parameters.Add("@PL_PURCHASES", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_PURCHASES")
+            SQLcmd.Parameters.Add("@PL_PRO_COST", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_PRO_COST")
+            SQLcmd.Parameters.Add("@PL_PRO_COST_DPC", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_PRO_COST_DPC")
+            SQLcmd.Parameters.Add("@PL_PRO_COST_OAE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_PRO_COST_OAE")
+            SQLcmd.Parameters.Add("@PL_PRO_COST_ONAE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_PRO_COST_ONAE")
+            SQLcmd.Parameters.Add("@PL_PURCHASES_PRO_COST", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_PURCHASES_PRO_COST")
+            SQLcmd.Parameters.Add("@PL_CLS_STK", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_CLS_STK")
+            SQLcmd.Parameters.Add("@PL_COGS", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_COGS")
+            SQLcmd.Parameters.Add("@PL_GROSS_PROFIT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_GROSS_PROFIT")
+            SQLcmd.Parameters.Add("@PL_OTH_BSIN", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_BSIN")
+            SQLcmd.Parameters.Add("@PL_OTH_BSIN_UNREALGT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_BSIN_UNREALGT")
+            SQLcmd.Parameters.Add("@PL_OTH_BSIN_REALGT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_BSIN_REALGT")
+            SQLcmd.Parameters.Add("@PL_OTH_BSIN_RENTAL", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_BSIN_RENTAL")
+            SQLcmd.Parameters.Add("@PL_OTH_BSIN_OTHER", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_BSIN_OTHER")
+            SQLcmd.Parameters.Add("@PL_OTH_IN", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_IN")
+            SQLcmd.Parameters.Add("@PL_OTH_IN_DIVIDEND", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_IN_DIVIDEND")
+            SQLcmd.Parameters.Add("@PL_OTH_IN_INTEREST", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_IN_INTEREST")
+            SQLcmd.Parameters.Add("@PL_OTH_IN_RENTAL", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_IN_RENTAL")
+            SQLcmd.Parameters.Add("@PL_OTH_IN_ROYALTY", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_IN_ROYALTY")
+            SQLcmd.Parameters.Add("@PL_OTH_IN_OTHER", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_IN_OTHER")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_FA_DISP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_FA_DISP")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_INV_DISP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_INV_DISP")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_EXM_DIV", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_EXM_DIV")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_FIR", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_FIR")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_REALG", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_REALG")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_UNREALG", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_UNREALG")
+            SQLcmd.Parameters.Add("@PL_NONTAX_IN_INSU_COMP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NONTAX_IN_INSU_COMP")
+            SQLcmd.Parameters.Add("@PL_EXP_INT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_EXP_INT")
+            SQLcmd.Parameters.Add("@PL_LAWYER_COST", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_LAWYER_COST")
+            SQLcmd.Parameters.Add("@PL_CONTRACT_EXP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_CONTRACT_EXP")
+            SQLcmd.Parameters.Add("@PL_EXP_SALARY", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_EXP_SALARY")
+            SQLcmd.Parameters.Add("@PL_ROYALTY", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_ROYALTY")
+            SQLcmd.Parameters.Add("@PL_EXP_RENT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_EXP_RENT")
+            SQLcmd.Parameters.Add("@PL_EXP_MAINTENANCE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_EXP_MAINTENANCE")
+            SQLcmd.Parameters.Add("@PL_RND", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_RND")
+            SQLcmd.Parameters.Add("@PL_ADVERT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_ADVERT")
+            SQLcmd.Parameters.Add("@PL_TRAVEL", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TRAVEL")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_DPC", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_DPC")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_DNT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_DNT")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_DNT_APP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_DNT_APP")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_DNT_NAPP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_DNT_NAPP")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_FA_DISP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_FA_DISP")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_ENTM", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_ENTM")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_ENTM_CLNT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_ENTM_CLNT")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_ENTM_STFF", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_ENTM_STFF")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_PENALTY", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_PENALTY")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_PROV_ACC", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_PROV_ACC")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_LEAVE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_LEAVE")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_FA_WO", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_FA_WO")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_UNREALOSS", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_UNREALOSS")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_REALOSS", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_REALOSS")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_INI_SUB", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_INI_SUB")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_CAP_EXP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_CAP_EXP")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_OTHERS", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_OTHERS")
+            SQLcmd.Parameters.Add("@PL_TOT_EXP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TOT_EXP")
+            SQLcmd.Parameters.Add("@PL_NET_PROFIT_LOSS", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_NET_PROFIT_LOSS")
+            SQLcmd.Parameters.Add("@PL_DISALLOWED_EXP", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_DISALLOWED_EXP")
+            SQLcmd.Parameters.Add("@PL_TOTALX", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TOTALX")
+            SQLcmd.Parameters.Add("@PL_TOTALY", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TOTALY")
+            SQLcmd.Parameters.Add("@PL_EXP_INTRESTRICT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_EXP_INTRESTRICT")
+            SQLcmd.Parameters.Add("@PL_OTH_BSIN_NONSOURCE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTH_BSIN_NONSOURCE")
+            SQLcmd.Parameters.Add("@PL_S60F", SqlDbType.NVarChar, 1).Value = dt.Rows(0)("PL_S60F")
+            SQLcmd.Parameters.Add("@PL_MAINBUZ", SqlDbType.Int).Value = dt.Rows(0)("PL_MAINBUZ")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_ZAKAT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_ZAKAT")
+            SQLcmd.Parameters.Add("@PL_COMPANY", SqlDbType.NVarChar, 8).Value = dt.Rows(0)("PL_COMPANY")
+            SQLcmd.Parameters.Add("@PL_TREGROSS", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TREGROSS")
+            SQLcmd.Parameters.Add("@PL_TTAXDEDUCTION", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TTAXDEDUCTION")
+            SQLcmd.Parameters.Add("@PL_TNETDEDUCTION", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TNETDEDUCTION")
+            SQLcmd.Parameters.Add("@PL_TECH_FEE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_TECH_FEE")
+            SQLcmd.Parameters.Add("@PL_EMPL_STOCK", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_EMPL_STOCK")
+            SQLcmd.Parameters.Add("@PL_S60FA", SqlDbType.NVarChar, 1).Value = dt.Rows(0)("PL_S60FA")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXP_BALANCE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXP_BALANCE")
+            SQLcmd.Parameters.Add("@PL_OTHER_EXRLOSSFOREIGNT", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")
+            SQLcmd.Parameters.Add("@PL_DIRECTORS_FEE", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_DIRECTORS_FEE")
+            SQLcmd.Parameters.Add("@PL_JKDM", SqlDbType.NVarChar, 25).Value = dt.Rows(0)("PL_JKDM")
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = dt.Rows(0)("ModifiedBy")
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = dt.Rows(0)("ModifiedDateTime")
+
+            Listofcmd.Add(SQLcmd)
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
 #End Region
 #Region "OTHER"
 

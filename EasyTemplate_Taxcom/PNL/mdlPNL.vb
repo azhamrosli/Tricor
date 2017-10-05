@@ -2727,6 +2727,18 @@ Module mdlPNL
             Return False
         End Try
     End Function
+    Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+
+            Select Case Type
+                Case TaxComPNLEnuItem.SALES
+
+            End Select
+        Catch ex As Exception
+
+            Return False
+        End Try
+    End Function
     Public Function GetColumn_InterestRestrictMonthly(ByVal RefNo As String, ByVal YA As String, _
                                                       ByVal SourceNo As Integer, ByRef dsPNL As DataSet, _
                                                       ByRef GridView1 As DevExpress.XtraGrid.Views.Grid.GridView, _
@@ -5130,6 +5142,41 @@ Module mdlPNL
             Return True
         End Try
     End Function
+    Public Function MappingSourceNo(ByVal TableName As String, ByVal TableName_Details As String, ByVal ColumnName_Key As String, _
+                                        ByVal ColumnNameDetails_Key As String, ByVal Column_SourceNo As String, ByVal ColumnDetails_SourceNo As String, _
+                                        ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            If ds IsNot Nothing Then
+                Dim obj As Object = Nothing
+                Dim dtRow As DataRow = Nothing
+                For i As Integer = 0 To ds.Tables(TableName).Rows.Count - 1
+                    obj = ds.Tables(TableName_Details).Select(ColumnNameDetails_Key & "=" & ds.Tables(TableName).Rows(i)(ColumnName_Key))
+
+                    If obj IsNot Nothing Then
+                        Dim ListofRow() As DataRow = obj
+                        For x As Integer = 0 To ListofRow.Count - 1
+                            dtRow = ListofRow(x)
+                            dtRow(ColumnDetails_SourceNo) = ds.Tables(TableName).Rows(i)(Column_SourceNo)
+                        Next
+
+                    End If
+                Next
+
+            End If
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return True
+        End Try
+    End Function
     Public Function reCalc_SubTotalView(ByVal TableName As String, ByVal TableName_Details As String, ByVal ColumnName_Key As String, _
                                         ByVal ColumnNameDetails_Key As String, ByVal Column_Total As String, ByVal ColumnDetails_Total As String, _
                                         ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
@@ -5147,6 +5194,8 @@ Module mdlPNL
                 Next
 
             End If
+
+
             Return True
         Catch ex As Exception
             If Errorlog Is Nothing Then

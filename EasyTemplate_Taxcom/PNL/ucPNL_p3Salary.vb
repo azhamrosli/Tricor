@@ -17,6 +17,7 @@ Public Class ucPNL_p3Salary
     Public Const MainAmount As String = "EXS_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXSD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXS_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXSD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXS_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXSD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXS_DESC"  'PLFSD_DESC

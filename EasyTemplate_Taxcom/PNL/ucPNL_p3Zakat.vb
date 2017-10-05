@@ -17,6 +17,7 @@ Public Class ucPNL_p3Zakat
     Public Const MainAmount As String = "EXOZ_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXOZD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXOZ_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXOZD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXOZ_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXOZD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXOZ_DESC"  'PLFSD_DESC

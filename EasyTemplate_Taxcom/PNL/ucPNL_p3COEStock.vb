@@ -17,6 +17,7 @@ Public Class ucPNL_p3COEStock
     Public Const MainAmount As String = "EXES_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXESD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXES_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXESD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXES_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXESD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXES_DESC"  'PLFSD_DESC

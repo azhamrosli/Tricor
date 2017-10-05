@@ -29,6 +29,8 @@ Partial Public Class dsPNL2
 
     Private tableBUSINESS_SOURCE As BUSINESS_SOURCEDataTable
 
+    Private tablePROFIT_LOSS_ACCOUNT As PROFIT_LOSS_ACCOUNTDataTable
+
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -64,6 +66,9 @@ Partial Public Class dsPNL2
             If (Not (ds.Tables("BUSINESS_SOURCE")) Is Nothing) Then
                 MyBase.Tables.Add(New BUSINESS_SOURCEDataTable(ds.Tables("BUSINESS_SOURCE")))
             End If
+            If (Not (ds.Tables("PROFIT_LOSS_ACCOUNT")) Is Nothing) Then
+                MyBase.Tables.Add(New PROFIT_LOSS_ACCOUNTDataTable(ds.Tables("PROFIT_LOSS_ACCOUNT")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
@@ -98,6 +103,16 @@ Partial Public Class dsPNL2
     Public ReadOnly Property BUSINESS_SOURCE() As BUSINESS_SOURCEDataTable
         Get
             Return Me.tableBUSINESS_SOURCE
+        End Get
+    End Property
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+     Global.System.ComponentModel.Browsable(False), _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)> _
+    Public ReadOnly Property PROFIT_LOSS_ACCOUNT() As PROFIT_LOSS_ACCOUNTDataTable
+        Get
+            Return Me.tablePROFIT_LOSS_ACCOUNT
         End Get
     End Property
 
@@ -174,6 +189,9 @@ Partial Public Class dsPNL2
             If (Not (ds.Tables("BUSINESS_SOURCE")) Is Nothing) Then
                 MyBase.Tables.Add(New BUSINESS_SOURCEDataTable(ds.Tables("BUSINESS_SOURCE")))
             End If
+            If (Not (ds.Tables("PROFIT_LOSS_ACCOUNT")) Is Nothing) Then
+                MyBase.Tables.Add(New PROFIT_LOSS_ACCOUNTDataTable(ds.Tables("PROFIT_LOSS_ACCOUNT")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
@@ -218,6 +236,12 @@ Partial Public Class dsPNL2
                 Me.tableBUSINESS_SOURCE.InitVars()
             End If
         End If
+        Me.tablePROFIT_LOSS_ACCOUNT = CType(MyBase.Tables("PROFIT_LOSS_ACCOUNT"), PROFIT_LOSS_ACCOUNTDataTable)
+        If (initTable = True) Then
+            If (Not (Me.tablePROFIT_LOSS_ACCOUNT) Is Nothing) Then
+                Me.tablePROFIT_LOSS_ACCOUNT.InitVars()
+            End If
+        End If
     End Sub
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -232,6 +256,8 @@ Partial Public Class dsPNL2
         MyBase.Tables.Add(Me.tableDIVIDEND_INCOME)
         Me.tableBUSINESS_SOURCE = New BUSINESS_SOURCEDataTable()
         MyBase.Tables.Add(Me.tableBUSINESS_SOURCE)
+        Me.tablePROFIT_LOSS_ACCOUNT = New PROFIT_LOSS_ACCOUNTDataTable()
+        MyBase.Tables.Add(Me.tablePROFIT_LOSS_ACCOUNT)
     End Sub
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -243,6 +269,12 @@ Partial Public Class dsPNL2
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Private Function ShouldSerializeBUSINESS_SOURCE() As Boolean
+        Return False
+    End Function
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Private Function ShouldSerializePROFIT_LOSS_ACCOUNT() As Boolean
         Return False
     End Function
 
@@ -309,6 +341,9 @@ Partial Public Class dsPNL2
 
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Public Delegate Sub BUSINESS_SOURCERowChangeEventHandler(ByVal sender As Object, ByVal e As BUSINESS_SOURCERowChangeEvent)
+
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Delegate Sub PROFIT_LOSS_ACCOUNTRowChangeEventHandler(ByVal sender As Object, ByVal e As PROFIT_LOSS_ACCOUNTRowChangeEvent)
 
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -1155,6 +1190,1526 @@ Partial Public Class dsPNL2
     End Class
 
     '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(), _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    Partial Public Class PROFIT_LOSS_ACCOUNTDataTable
+        Inherits Global.System.Data.TypedTableBase(Of PROFIT_LOSS_ACCOUNTRow)
+
+        Private columnPL_KEY As Global.System.Data.DataColumn
+
+        Private columnPL_REF_NO As Global.System.Data.DataColumn
+
+        Private columnPL_YA As Global.System.Data.DataColumn
+
+        Private columnPL_SALES As Global.System.Data.DataColumn
+
+        Private columnPL_OP_STK As Global.System.Data.DataColumn
+
+        Private columnPL_PURCHASES As Global.System.Data.DataColumn
+
+        Private columnPL_PRO_COST As Global.System.Data.DataColumn
+
+        Private columnPL_PRO_COST_DPC As Global.System.Data.DataColumn
+
+        Private columnPL_PRO_COST_OAE As Global.System.Data.DataColumn
+
+        Private columnPL_PRO_COST_ONAE As Global.System.Data.DataColumn
+
+        Private columnPL_PURCHASES_PRO_COST As Global.System.Data.DataColumn
+
+        Private columnPL_CLS_STK As Global.System.Data.DataColumn
+
+        Private columnPL_COGS As Global.System.Data.DataColumn
+
+        Private columnPL_GROSS_PROFIT As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_BSIN As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_BSIN_UNREALGT As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_BSIN_REALGT As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_BSIN_RENTAL As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_BSIN_OTHER As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_IN As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_IN_DIVIDEND As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_IN_INTEREST As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_IN_RENTAL As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_IN_ROYALTY As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_IN_OTHER As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_FA_DISP As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_INV_DISP As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_EXM_DIV As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_FIR As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_REALG As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_UNREALG As Global.System.Data.DataColumn
+
+        Private columnPL_NONTAX_IN_INSU_COMP As Global.System.Data.DataColumn
+
+        Private columnPL_EXP_INT As Global.System.Data.DataColumn
+
+        Private columnPL_LAWYER_COST As Global.System.Data.DataColumn
+
+        Private columnPL_CONTRACT_EXP As Global.System.Data.DataColumn
+
+        Private columnPL_EXP_SALARY As Global.System.Data.DataColumn
+
+        Private columnPL_ROYALTY As Global.System.Data.DataColumn
+
+        Private columnPL_EXP_RENT As Global.System.Data.DataColumn
+
+        Private columnPL_EXP_MAINTENANCE As Global.System.Data.DataColumn
+
+        Private columnPL_RND As Global.System.Data.DataColumn
+
+        Private columnPL_ADVERT As Global.System.Data.DataColumn
+
+        Private columnPL_TRAVEL As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_DPC As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_DNT As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_DNT_APP As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_DNT_NAPP As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_FA_DISP As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_ENTM As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_ENTM_CLNT As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_ENTM_STFF As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_PENALTY As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_PROV_ACC As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_LEAVE As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_FA_WO As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_UNREALOSS As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_REALOSS As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_INI_SUB As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_CAP_EXP As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_OTHERS As Global.System.Data.DataColumn
+
+        Private columnPL_TOT_EXP As Global.System.Data.DataColumn
+
+        Private columnPL_NET_PROFIT_LOSS As Global.System.Data.DataColumn
+
+        Private columnPL_DISALLOWED_EXP As Global.System.Data.DataColumn
+
+        Private columnPL_TOTALX As Global.System.Data.DataColumn
+
+        Private columnPL_TOTALY As Global.System.Data.DataColumn
+
+        Private columnPL_EXP_INTRESTRICT As Global.System.Data.DataColumn
+
+        Private columnPL_OTH_BSIN_NONSOURCE As Global.System.Data.DataColumn
+
+        Private columnPL_S60F As Global.System.Data.DataColumn
+
+        Private columnPL_MAINBUZ As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_ZAKAT As Global.System.Data.DataColumn
+
+        Private columnPL_COMPANY As Global.System.Data.DataColumn
+
+        Private columnPL_TREGROSS As Global.System.Data.DataColumn
+
+        Private columnPL_TTAXDEDUCTION As Global.System.Data.DataColumn
+
+        Private columnPL_TNETDEDUCTION As Global.System.Data.DataColumn
+
+        Private columnPL_TECH_FEE As Global.System.Data.DataColumn
+
+        Private columnPL_EMPL_STOCK As Global.System.Data.DataColumn
+
+        Private columnPL_S60FA As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXP_BALANCE As Global.System.Data.DataColumn
+
+        Private columnPL_OTHER_EXRLOSSFOREIGNT As Global.System.Data.DataColumn
+
+        Private columnPL_DIRECTORS_FEE As Global.System.Data.DataColumn
+
+        Private columnPL_JKDM As Global.System.Data.DataColumn
+
+        Private columnModifiedBy As Global.System.Data.DataColumn
+
+        Private columnModifiedDateTime As Global.System.Data.DataColumn
+
+        Private columnPNL_Status As Global.System.Data.DataColumn
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New()
+            MyBase.New()
+            Me.TableName = "PROFIT_LOSS_ACCOUNT"
+            Me.BeginInit()
+            Me.InitClass()
+            Me.EndInit()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New()
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_KEYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_KEY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_REF_NOColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_REF_NO
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_YAColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_YA
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_SALESColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_SALES
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OP_STKColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OP_STK
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_PURCHASESColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_PURCHASES
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_PRO_COSTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_PRO_COST
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_PRO_COST_DPCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_PRO_COST_DPC
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_PRO_COST_OAEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_PRO_COST_OAE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_PRO_COST_ONAEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_PRO_COST_ONAE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_PURCHASES_PRO_COSTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_PURCHASES_PRO_COST
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_CLS_STKColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_CLS_STK
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_COGSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_COGS
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_GROSS_PROFITColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_GROSS_PROFIT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_BSINColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_BSIN
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_BSIN_UNREALGTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_BSIN_UNREALGT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_BSIN_REALGTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_BSIN_REALGT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_BSIN_RENTALColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_BSIN_RENTAL
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_BSIN_OTHERColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_BSIN_OTHER
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_INColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_IN
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_IN_DIVIDENDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_IN_DIVIDEND
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_IN_INTERESTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_IN_INTEREST
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_IN_RENTALColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_IN_RENTAL
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_IN_ROYALTYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_IN_ROYALTY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_IN_OTHERColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_IN_OTHER
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_INColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_FA_DISPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_FA_DISP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_INV_DISPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_INV_DISP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_EXM_DIVColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_EXM_DIV
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_FIRColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_FIR
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_REALGColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_REALG
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_UNREALGColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_UNREALG
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NONTAX_IN_INSU_COMPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NONTAX_IN_INSU_COMP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_EXP_INTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_EXP_INT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_LAWYER_COSTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_LAWYER_COST
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_CONTRACT_EXPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_CONTRACT_EXP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_EXP_SALARYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_EXP_SALARY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_ROYALTYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_ROYALTY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_EXP_RENTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_EXP_RENT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_EXP_MAINTENANCEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_EXP_MAINTENANCE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_RNDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_RND
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_ADVERTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_ADVERT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TRAVELColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TRAVEL
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_DPCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_DPC
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_DNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_DNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_DNT_APPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_DNT_APP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_DNT_NAPPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_DNT_NAPP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_FA_DISPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_FA_DISP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_ENTMColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_ENTM
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_ENTM_CLNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_ENTM_CLNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_ENTM_STFFColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_ENTM_STFF
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_PENALTYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_PENALTY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_PROV_ACCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_PROV_ACC
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_LEAVEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_LEAVE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_FA_WOColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_FA_WO
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_UNREALOSSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_UNREALOSS
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_REALOSSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_REALOSS
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_INI_SUBColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_INI_SUB
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_CAP_EXPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_CAP_EXP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_OTHERSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_OTHERS
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TOT_EXPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TOT_EXP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_NET_PROFIT_LOSSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_NET_PROFIT_LOSS
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_DISALLOWED_EXPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_DISALLOWED_EXP
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TOTALXColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TOTALX
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TOTALYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TOTALY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_EXP_INTRESTRICTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_EXP_INTRESTRICT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTH_BSIN_NONSOURCEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTH_BSIN_NONSOURCE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_S60FColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_S60F
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_MAINBUZColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_MAINBUZ
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_ZAKATColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_ZAKAT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_COMPANYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_COMPANY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TREGROSSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TREGROSS
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TTAXDEDUCTIONColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TTAXDEDUCTION
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TNETDEDUCTIONColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TNETDEDUCTION
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_TECH_FEEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_TECH_FEE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_EMPL_STOCKColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_EMPL_STOCK
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_S60FAColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_S60FA
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXP_BALANCEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXP_BALANCE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_OTHER_EXRLOSSFOREIGNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_OTHER_EXRLOSSFOREIGNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_DIRECTORS_FEEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_DIRECTORS_FEE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PL_JKDMColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPL_JKDM
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ModifiedByColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnModifiedBy
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ModifiedDateTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnModifiedDateTime
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property PNL_StatusColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPNL_Status
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Browsable(False)> _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Default Public ReadOnly Property Item(ByVal index As Integer) As PROFIT_LOSS_ACCOUNTRow
+            Get
+                Return CType(Me.Rows(index), PROFIT_LOSS_ACCOUNTRow)
+            End Get
+        End Property
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event PROFIT_LOSS_ACCOUNTRowChanging As PROFIT_LOSS_ACCOUNTRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event PROFIT_LOSS_ACCOUNTRowChanged As PROFIT_LOSS_ACCOUNTRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event PROFIT_LOSS_ACCOUNTRowDeleting As PROFIT_LOSS_ACCOUNTRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event PROFIT_LOSS_ACCOUNTRowDeleted As PROFIT_LOSS_ACCOUNTRowChangeEventHandler
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Sub AddPROFIT_LOSS_ACCOUNTRow(ByVal row As PROFIT_LOSS_ACCOUNTRow)
+            Me.Rows.Add(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Function AddPROFIT_LOSS_ACCOUNTRow( _
+                    ByVal PL_KEY As Integer, _
+                    ByVal PL_REF_NO As String, _
+                    ByVal PL_YA As String, _
+                    ByVal PL_SALES As String, _
+                    ByVal PL_OP_STK As String, _
+                    ByVal PL_PURCHASES As String, _
+                    ByVal PL_PRO_COST As String, _
+                    ByVal PL_PRO_COST_DPC As String, _
+                    ByVal PL_PRO_COST_OAE As String, _
+                    ByVal PL_PRO_COST_ONAE As String, _
+                    ByVal PL_PURCHASES_PRO_COST As String, _
+                    ByVal PL_CLS_STK As String, _
+                    ByVal PL_COGS As String, _
+                    ByVal PL_GROSS_PROFIT As String, _
+                    ByVal PL_OTH_BSIN As String, _
+                    ByVal PL_OTH_BSIN_UNREALGT As String, _
+                    ByVal PL_OTH_BSIN_REALGT As String, _
+                    ByVal PL_OTH_BSIN_RENTAL As String, _
+                    ByVal PL_OTH_BSIN_OTHER As String, _
+                    ByVal PL_OTH_IN As String, _
+                    ByVal PL_OTH_IN_DIVIDEND As String, _
+                    ByVal PL_OTH_IN_INTEREST As String, _
+                    ByVal PL_OTH_IN_RENTAL As String, _
+                    ByVal PL_OTH_IN_ROYALTY As String, _
+                    ByVal PL_OTH_IN_OTHER As String, _
+                    ByVal PL_NONTAX_IN As String, _
+                    ByVal PL_NONTAX_IN_FA_DISP As String, _
+                    ByVal PL_NONTAX_IN_INV_DISP As String, _
+                    ByVal PL_NONTAX_IN_EXM_DIV As String, _
+                    ByVal PL_NONTAX_IN_FIR As String, _
+                    ByVal PL_NONTAX_IN_REALG As String, _
+                    ByVal PL_NONTAX_IN_UNREALG As String, _
+                    ByVal PL_NONTAX_IN_INSU_COMP As String, _
+                    ByVal PL_EXP_INT As String, _
+                    ByVal PL_LAWYER_COST As String, _
+                    ByVal PL_CONTRACT_EXP As String, _
+                    ByVal PL_EXP_SALARY As String, _
+                    ByVal PL_ROYALTY As String, _
+                    ByVal PL_EXP_RENT As String, _
+                    ByVal PL_EXP_MAINTENANCE As String, _
+                    ByVal PL_RND As String, _
+                    ByVal PL_ADVERT As String, _
+                    ByVal PL_TRAVEL As String, _
+                    ByVal PL_OTHER_EXP As String, _
+                    ByVal PL_OTHER_EXP_DPC As String, _
+                    ByVal PL_OTHER_EXP_DNT As String, _
+                    ByVal PL_OTHER_EXP_DNT_APP As String, _
+                    ByVal PL_OTHER_EXP_DNT_NAPP As String, _
+                    ByVal PL_OTHER_EXP_FA_DISP As String, _
+                    ByVal PL_OTHER_EXP_ENTM As String, _
+                    ByVal PL_OTHER_EXP_ENTM_CLNT As String, _
+                    ByVal PL_OTHER_EXP_ENTM_STFF As String, _
+                    ByVal PL_OTHER_EXP_PENALTY As String, _
+                    ByVal PL_OTHER_EXP_PROV_ACC As String, _
+                    ByVal PL_OTHER_EXP_LEAVE As String, _
+                    ByVal PL_OTHER_EXP_FA_WO As String, _
+                    ByVal PL_OTHER_EXP_UNREALOSS As String, _
+                    ByVal PL_OTHER_EXP_REALOSS As String, _
+                    ByVal PL_OTHER_EXP_INI_SUB As String, _
+                    ByVal PL_OTHER_EXP_CAP_EXP As String, _
+                    ByVal PL_OTHER_EXP_OTHERS As String, _
+                    ByVal PL_TOT_EXP As String, _
+                    ByVal PL_NET_PROFIT_LOSS As String, _
+                    ByVal PL_DISALLOWED_EXP As String, _
+                    ByVal PL_TOTALX As String, _
+                    ByVal PL_TOTALY As String, _
+                    ByVal PL_EXP_INTRESTRICT As String, _
+                    ByVal PL_OTH_BSIN_NONSOURCE As String, _
+                    ByVal PL_S60F As String, _
+                    ByVal PL_MAINBUZ As Integer, _
+                    ByVal PL_OTHER_EXP_ZAKAT As String, _
+                    ByVal PL_COMPANY As String, _
+                    ByVal PL_TREGROSS As String, _
+                    ByVal PL_TTAXDEDUCTION As String, _
+                    ByVal PL_TNETDEDUCTION As String, _
+                    ByVal PL_TECH_FEE As String, _
+                    ByVal PL_EMPL_STOCK As String, _
+                    ByVal PL_S60FA As String, _
+                    ByVal PL_OTHER_EXP_BALANCE As String, _
+                    ByVal PL_OTHER_EXRLOSSFOREIGNT As String, _
+                    ByVal PL_DIRECTORS_FEE As String, _
+                    ByVal PL_JKDM As String, _
+                    ByVal ModifiedBy As String, _
+                    ByVal ModifiedDateTime As Date, _
+                    ByVal PNL_Status As String) As PROFIT_LOSS_ACCOUNTRow
+            Dim rowPROFIT_LOSS_ACCOUNTRow As PROFIT_LOSS_ACCOUNTRow = CType(Me.NewRow, PROFIT_LOSS_ACCOUNTRow)
+            Dim columnValuesArray() As Object = New Object() {PL_KEY, PL_REF_NO, PL_YA, PL_SALES, PL_OP_STK, PL_PURCHASES, PL_PRO_COST, PL_PRO_COST_DPC, PL_PRO_COST_OAE, PL_PRO_COST_ONAE, PL_PURCHASES_PRO_COST, PL_CLS_STK, PL_COGS, PL_GROSS_PROFIT, PL_OTH_BSIN, PL_OTH_BSIN_UNREALGT, PL_OTH_BSIN_REALGT, PL_OTH_BSIN_RENTAL, PL_OTH_BSIN_OTHER, PL_OTH_IN, PL_OTH_IN_DIVIDEND, PL_OTH_IN_INTEREST, PL_OTH_IN_RENTAL, PL_OTH_IN_ROYALTY, PL_OTH_IN_OTHER, PL_NONTAX_IN, PL_NONTAX_IN_FA_DISP, PL_NONTAX_IN_INV_DISP, PL_NONTAX_IN_EXM_DIV, PL_NONTAX_IN_FIR, PL_NONTAX_IN_REALG, PL_NONTAX_IN_UNREALG, PL_NONTAX_IN_INSU_COMP, PL_EXP_INT, PL_LAWYER_COST, PL_CONTRACT_EXP, PL_EXP_SALARY, PL_ROYALTY, PL_EXP_RENT, PL_EXP_MAINTENANCE, PL_RND, PL_ADVERT, PL_TRAVEL, PL_OTHER_EXP, PL_OTHER_EXP_DPC, PL_OTHER_EXP_DNT, PL_OTHER_EXP_DNT_APP, PL_OTHER_EXP_DNT_NAPP, PL_OTHER_EXP_FA_DISP, PL_OTHER_EXP_ENTM, PL_OTHER_EXP_ENTM_CLNT, PL_OTHER_EXP_ENTM_STFF, PL_OTHER_EXP_PENALTY, PL_OTHER_EXP_PROV_ACC, PL_OTHER_EXP_LEAVE, PL_OTHER_EXP_FA_WO, PL_OTHER_EXP_UNREALOSS, PL_OTHER_EXP_REALOSS, PL_OTHER_EXP_INI_SUB, PL_OTHER_EXP_CAP_EXP, PL_OTHER_EXP_OTHERS, PL_TOT_EXP, PL_NET_PROFIT_LOSS, PL_DISALLOWED_EXP, PL_TOTALX, PL_TOTALY, PL_EXP_INTRESTRICT, PL_OTH_BSIN_NONSOURCE, PL_S60F, PL_MAINBUZ, PL_OTHER_EXP_ZAKAT, PL_COMPANY, PL_TREGROSS, PL_TTAXDEDUCTION, PL_TNETDEDUCTION, PL_TECH_FEE, PL_EMPL_STOCK, PL_S60FA, PL_OTHER_EXP_BALANCE, PL_OTHER_EXRLOSSFOREIGNT, PL_DIRECTORS_FEE, PL_JKDM, ModifiedBy, ModifiedDateTime, PNL_Status}
+            rowPROFIT_LOSS_ACCOUNTRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowPROFIT_LOSS_ACCOUNTRow)
+            Return rowPROFIT_LOSS_ACCOUNTRow
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function FindByPL_KEY(ByVal PL_KEY As Integer) As PROFIT_LOSS_ACCOUNTRow
+            Return CType(Me.Rows.Find(New Object() {PL_KEY}), PROFIT_LOSS_ACCOUNTRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As PROFIT_LOSS_ACCOUNTDataTable = CType(MyBase.Clone, PROFIT_LOSS_ACCOUNTDataTable)
+            cln.InitVars()
+            Return cln
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New PROFIT_LOSS_ACCOUNTDataTable()
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub InitVars()
+            Me.columnPL_KEY = MyBase.Columns("PL_KEY")
+            Me.columnPL_REF_NO = MyBase.Columns("PL_REF_NO")
+            Me.columnPL_YA = MyBase.Columns("PL_YA")
+            Me.columnPL_SALES = MyBase.Columns("PL_SALES")
+            Me.columnPL_OP_STK = MyBase.Columns("PL_OP_STK")
+            Me.columnPL_PURCHASES = MyBase.Columns("PL_PURCHASES")
+            Me.columnPL_PRO_COST = MyBase.Columns("PL_PRO_COST")
+            Me.columnPL_PRO_COST_DPC = MyBase.Columns("PL_PRO_COST_DPC")
+            Me.columnPL_PRO_COST_OAE = MyBase.Columns("PL_PRO_COST_OAE")
+            Me.columnPL_PRO_COST_ONAE = MyBase.Columns("PL_PRO_COST_ONAE")
+            Me.columnPL_PURCHASES_PRO_COST = MyBase.Columns("PL_PURCHASES_PRO_COST")
+            Me.columnPL_CLS_STK = MyBase.Columns("PL_CLS_STK")
+            Me.columnPL_COGS = MyBase.Columns("PL_COGS")
+            Me.columnPL_GROSS_PROFIT = MyBase.Columns("PL_GROSS_PROFIT")
+            Me.columnPL_OTH_BSIN = MyBase.Columns("PL_OTH_BSIN")
+            Me.columnPL_OTH_BSIN_UNREALGT = MyBase.Columns("PL_OTH_BSIN_UNREALGT")
+            Me.columnPL_OTH_BSIN_REALGT = MyBase.Columns("PL_OTH_BSIN_REALGT")
+            Me.columnPL_OTH_BSIN_RENTAL = MyBase.Columns("PL_OTH_BSIN_RENTAL")
+            Me.columnPL_OTH_BSIN_OTHER = MyBase.Columns("PL_OTH_BSIN_OTHER")
+            Me.columnPL_OTH_IN = MyBase.Columns("PL_OTH_IN")
+            Me.columnPL_OTH_IN_DIVIDEND = MyBase.Columns("PL_OTH_IN_DIVIDEND")
+            Me.columnPL_OTH_IN_INTEREST = MyBase.Columns("PL_OTH_IN_INTEREST")
+            Me.columnPL_OTH_IN_RENTAL = MyBase.Columns("PL_OTH_IN_RENTAL")
+            Me.columnPL_OTH_IN_ROYALTY = MyBase.Columns("PL_OTH_IN_ROYALTY")
+            Me.columnPL_OTH_IN_OTHER = MyBase.Columns("PL_OTH_IN_OTHER")
+            Me.columnPL_NONTAX_IN = MyBase.Columns("PL_NONTAX_IN")
+            Me.columnPL_NONTAX_IN_FA_DISP = MyBase.Columns("PL_NONTAX_IN_FA_DISP")
+            Me.columnPL_NONTAX_IN_INV_DISP = MyBase.Columns("PL_NONTAX_IN_INV_DISP")
+            Me.columnPL_NONTAX_IN_EXM_DIV = MyBase.Columns("PL_NONTAX_IN_EXM_DIV")
+            Me.columnPL_NONTAX_IN_FIR = MyBase.Columns("PL_NONTAX_IN_FIR")
+            Me.columnPL_NONTAX_IN_REALG = MyBase.Columns("PL_NONTAX_IN_REALG")
+            Me.columnPL_NONTAX_IN_UNREALG = MyBase.Columns("PL_NONTAX_IN_UNREALG")
+            Me.columnPL_NONTAX_IN_INSU_COMP = MyBase.Columns("PL_NONTAX_IN_INSU_COMP")
+            Me.columnPL_EXP_INT = MyBase.Columns("PL_EXP_INT")
+            Me.columnPL_LAWYER_COST = MyBase.Columns("PL_LAWYER_COST")
+            Me.columnPL_CONTRACT_EXP = MyBase.Columns("PL_CONTRACT_EXP")
+            Me.columnPL_EXP_SALARY = MyBase.Columns("PL_EXP_SALARY")
+            Me.columnPL_ROYALTY = MyBase.Columns("PL_ROYALTY")
+            Me.columnPL_EXP_RENT = MyBase.Columns("PL_EXP_RENT")
+            Me.columnPL_EXP_MAINTENANCE = MyBase.Columns("PL_EXP_MAINTENANCE")
+            Me.columnPL_RND = MyBase.Columns("PL_RND")
+            Me.columnPL_ADVERT = MyBase.Columns("PL_ADVERT")
+            Me.columnPL_TRAVEL = MyBase.Columns("PL_TRAVEL")
+            Me.columnPL_OTHER_EXP = MyBase.Columns("PL_OTHER_EXP")
+            Me.columnPL_OTHER_EXP_DPC = MyBase.Columns("PL_OTHER_EXP_DPC")
+            Me.columnPL_OTHER_EXP_DNT = MyBase.Columns("PL_OTHER_EXP_DNT")
+            Me.columnPL_OTHER_EXP_DNT_APP = MyBase.Columns("PL_OTHER_EXP_DNT_APP")
+            Me.columnPL_OTHER_EXP_DNT_NAPP = MyBase.Columns("PL_OTHER_EXP_DNT_NAPP")
+            Me.columnPL_OTHER_EXP_FA_DISP = MyBase.Columns("PL_OTHER_EXP_FA_DISP")
+            Me.columnPL_OTHER_EXP_ENTM = MyBase.Columns("PL_OTHER_EXP_ENTM")
+            Me.columnPL_OTHER_EXP_ENTM_CLNT = MyBase.Columns("PL_OTHER_EXP_ENTM_CLNT")
+            Me.columnPL_OTHER_EXP_ENTM_STFF = MyBase.Columns("PL_OTHER_EXP_ENTM_STFF")
+            Me.columnPL_OTHER_EXP_PENALTY = MyBase.Columns("PL_OTHER_EXP_PENALTY")
+            Me.columnPL_OTHER_EXP_PROV_ACC = MyBase.Columns("PL_OTHER_EXP_PROV_ACC")
+            Me.columnPL_OTHER_EXP_LEAVE = MyBase.Columns("PL_OTHER_EXP_LEAVE")
+            Me.columnPL_OTHER_EXP_FA_WO = MyBase.Columns("PL_OTHER_EXP_FA_WO")
+            Me.columnPL_OTHER_EXP_UNREALOSS = MyBase.Columns("PL_OTHER_EXP_UNREALOSS")
+            Me.columnPL_OTHER_EXP_REALOSS = MyBase.Columns("PL_OTHER_EXP_REALOSS")
+            Me.columnPL_OTHER_EXP_INI_SUB = MyBase.Columns("PL_OTHER_EXP_INI_SUB")
+            Me.columnPL_OTHER_EXP_CAP_EXP = MyBase.Columns("PL_OTHER_EXP_CAP_EXP")
+            Me.columnPL_OTHER_EXP_OTHERS = MyBase.Columns("PL_OTHER_EXP_OTHERS")
+            Me.columnPL_TOT_EXP = MyBase.Columns("PL_TOT_EXP")
+            Me.columnPL_NET_PROFIT_LOSS = MyBase.Columns("PL_NET_PROFIT_LOSS")
+            Me.columnPL_DISALLOWED_EXP = MyBase.Columns("PL_DISALLOWED_EXP")
+            Me.columnPL_TOTALX = MyBase.Columns("PL_TOTALX")
+            Me.columnPL_TOTALY = MyBase.Columns("PL_TOTALY")
+            Me.columnPL_EXP_INTRESTRICT = MyBase.Columns("PL_EXP_INTRESTRICT")
+            Me.columnPL_OTH_BSIN_NONSOURCE = MyBase.Columns("PL_OTH_BSIN_NONSOURCE")
+            Me.columnPL_S60F = MyBase.Columns("PL_S60F")
+            Me.columnPL_MAINBUZ = MyBase.Columns("PL_MAINBUZ")
+            Me.columnPL_OTHER_EXP_ZAKAT = MyBase.Columns("PL_OTHER_EXP_ZAKAT")
+            Me.columnPL_COMPANY = MyBase.Columns("PL_COMPANY")
+            Me.columnPL_TREGROSS = MyBase.Columns("PL_TREGROSS")
+            Me.columnPL_TTAXDEDUCTION = MyBase.Columns("PL_TTAXDEDUCTION")
+            Me.columnPL_TNETDEDUCTION = MyBase.Columns("PL_TNETDEDUCTION")
+            Me.columnPL_TECH_FEE = MyBase.Columns("PL_TECH_FEE")
+            Me.columnPL_EMPL_STOCK = MyBase.Columns("PL_EMPL_STOCK")
+            Me.columnPL_S60FA = MyBase.Columns("PL_S60FA")
+            Me.columnPL_OTHER_EXP_BALANCE = MyBase.Columns("PL_OTHER_EXP_BALANCE")
+            Me.columnPL_OTHER_EXRLOSSFOREIGNT = MyBase.Columns("PL_OTHER_EXRLOSSFOREIGNT")
+            Me.columnPL_DIRECTORS_FEE = MyBase.Columns("PL_DIRECTORS_FEE")
+            Me.columnPL_JKDM = MyBase.Columns("PL_JKDM")
+            Me.columnModifiedBy = MyBase.Columns("ModifiedBy")
+            Me.columnModifiedDateTime = MyBase.Columns("ModifiedDateTime")
+            Me.columnPNL_Status = MyBase.Columns("PNL_Status")
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Private Sub InitClass()
+            Me.columnPL_KEY = New Global.System.Data.DataColumn("PL_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_KEY)
+            Me.columnPL_REF_NO = New Global.System.Data.DataColumn("PL_REF_NO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_REF_NO)
+            Me.columnPL_YA = New Global.System.Data.DataColumn("PL_YA", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_YA)
+            Me.columnPL_SALES = New Global.System.Data.DataColumn("PL_SALES", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_SALES)
+            Me.columnPL_OP_STK = New Global.System.Data.DataColumn("PL_OP_STK", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OP_STK)
+            Me.columnPL_PURCHASES = New Global.System.Data.DataColumn("PL_PURCHASES", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_PURCHASES)
+            Me.columnPL_PRO_COST = New Global.System.Data.DataColumn("PL_PRO_COST", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_PRO_COST)
+            Me.columnPL_PRO_COST_DPC = New Global.System.Data.DataColumn("PL_PRO_COST_DPC", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_PRO_COST_DPC)
+            Me.columnPL_PRO_COST_OAE = New Global.System.Data.DataColumn("PL_PRO_COST_OAE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_PRO_COST_OAE)
+            Me.columnPL_PRO_COST_ONAE = New Global.System.Data.DataColumn("PL_PRO_COST_ONAE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_PRO_COST_ONAE)
+            Me.columnPL_PURCHASES_PRO_COST = New Global.System.Data.DataColumn("PL_PURCHASES_PRO_COST", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_PURCHASES_PRO_COST)
+            Me.columnPL_CLS_STK = New Global.System.Data.DataColumn("PL_CLS_STK", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_CLS_STK)
+            Me.columnPL_COGS = New Global.System.Data.DataColumn("PL_COGS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_COGS)
+            Me.columnPL_GROSS_PROFIT = New Global.System.Data.DataColumn("PL_GROSS_PROFIT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_GROSS_PROFIT)
+            Me.columnPL_OTH_BSIN = New Global.System.Data.DataColumn("PL_OTH_BSIN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_BSIN)
+            Me.columnPL_OTH_BSIN_UNREALGT = New Global.System.Data.DataColumn("PL_OTH_BSIN_UNREALGT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_BSIN_UNREALGT)
+            Me.columnPL_OTH_BSIN_REALGT = New Global.System.Data.DataColumn("PL_OTH_BSIN_REALGT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_BSIN_REALGT)
+            Me.columnPL_OTH_BSIN_RENTAL = New Global.System.Data.DataColumn("PL_OTH_BSIN_RENTAL", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_BSIN_RENTAL)
+            Me.columnPL_OTH_BSIN_OTHER = New Global.System.Data.DataColumn("PL_OTH_BSIN_OTHER", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_BSIN_OTHER)
+            Me.columnPL_OTH_IN = New Global.System.Data.DataColumn("PL_OTH_IN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_IN)
+            Me.columnPL_OTH_IN_DIVIDEND = New Global.System.Data.DataColumn("PL_OTH_IN_DIVIDEND", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_IN_DIVIDEND)
+            Me.columnPL_OTH_IN_INTEREST = New Global.System.Data.DataColumn("PL_OTH_IN_INTEREST", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_IN_INTEREST)
+            Me.columnPL_OTH_IN_RENTAL = New Global.System.Data.DataColumn("PL_OTH_IN_RENTAL", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_IN_RENTAL)
+            Me.columnPL_OTH_IN_ROYALTY = New Global.System.Data.DataColumn("PL_OTH_IN_ROYALTY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_IN_ROYALTY)
+            Me.columnPL_OTH_IN_OTHER = New Global.System.Data.DataColumn("PL_OTH_IN_OTHER", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_IN_OTHER)
+            Me.columnPL_NONTAX_IN = New Global.System.Data.DataColumn("PL_NONTAX_IN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN)
+            Me.columnPL_NONTAX_IN_FA_DISP = New Global.System.Data.DataColumn("PL_NONTAX_IN_FA_DISP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_FA_DISP)
+            Me.columnPL_NONTAX_IN_INV_DISP = New Global.System.Data.DataColumn("PL_NONTAX_IN_INV_DISP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_INV_DISP)
+            Me.columnPL_NONTAX_IN_EXM_DIV = New Global.System.Data.DataColumn("PL_NONTAX_IN_EXM_DIV", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_EXM_DIV)
+            Me.columnPL_NONTAX_IN_FIR = New Global.System.Data.DataColumn("PL_NONTAX_IN_FIR", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_FIR)
+            Me.columnPL_NONTAX_IN_REALG = New Global.System.Data.DataColumn("PL_NONTAX_IN_REALG", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_REALG)
+            Me.columnPL_NONTAX_IN_UNREALG = New Global.System.Data.DataColumn("PL_NONTAX_IN_UNREALG", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_UNREALG)
+            Me.columnPL_NONTAX_IN_INSU_COMP = New Global.System.Data.DataColumn("PL_NONTAX_IN_INSU_COMP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NONTAX_IN_INSU_COMP)
+            Me.columnPL_EXP_INT = New Global.System.Data.DataColumn("PL_EXP_INT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_EXP_INT)
+            Me.columnPL_LAWYER_COST = New Global.System.Data.DataColumn("PL_LAWYER_COST", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_LAWYER_COST)
+            Me.columnPL_CONTRACT_EXP = New Global.System.Data.DataColumn("PL_CONTRACT_EXP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_CONTRACT_EXP)
+            Me.columnPL_EXP_SALARY = New Global.System.Data.DataColumn("PL_EXP_SALARY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_EXP_SALARY)
+            Me.columnPL_ROYALTY = New Global.System.Data.DataColumn("PL_ROYALTY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_ROYALTY)
+            Me.columnPL_EXP_RENT = New Global.System.Data.DataColumn("PL_EXP_RENT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_EXP_RENT)
+            Me.columnPL_EXP_MAINTENANCE = New Global.System.Data.DataColumn("PL_EXP_MAINTENANCE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_EXP_MAINTENANCE)
+            Me.columnPL_RND = New Global.System.Data.DataColumn("PL_RND", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_RND)
+            Me.columnPL_ADVERT = New Global.System.Data.DataColumn("PL_ADVERT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_ADVERT)
+            Me.columnPL_TRAVEL = New Global.System.Data.DataColumn("PL_TRAVEL", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TRAVEL)
+            Me.columnPL_OTHER_EXP = New Global.System.Data.DataColumn("PL_OTHER_EXP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP)
+            Me.columnPL_OTHER_EXP_DPC = New Global.System.Data.DataColumn("PL_OTHER_EXP_DPC", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_DPC)
+            Me.columnPL_OTHER_EXP_DNT = New Global.System.Data.DataColumn("PL_OTHER_EXP_DNT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_DNT)
+            Me.columnPL_OTHER_EXP_DNT_APP = New Global.System.Data.DataColumn("PL_OTHER_EXP_DNT_APP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_DNT_APP)
+            Me.columnPL_OTHER_EXP_DNT_NAPP = New Global.System.Data.DataColumn("PL_OTHER_EXP_DNT_NAPP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_DNT_NAPP)
+            Me.columnPL_OTHER_EXP_FA_DISP = New Global.System.Data.DataColumn("PL_OTHER_EXP_FA_DISP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_FA_DISP)
+            Me.columnPL_OTHER_EXP_ENTM = New Global.System.Data.DataColumn("PL_OTHER_EXP_ENTM", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_ENTM)
+            Me.columnPL_OTHER_EXP_ENTM_CLNT = New Global.System.Data.DataColumn("PL_OTHER_EXP_ENTM_CLNT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_ENTM_CLNT)
+            Me.columnPL_OTHER_EXP_ENTM_STFF = New Global.System.Data.DataColumn("PL_OTHER_EXP_ENTM_STFF", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_ENTM_STFF)
+            Me.columnPL_OTHER_EXP_PENALTY = New Global.System.Data.DataColumn("PL_OTHER_EXP_PENALTY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_PENALTY)
+            Me.columnPL_OTHER_EXP_PROV_ACC = New Global.System.Data.DataColumn("PL_OTHER_EXP_PROV_ACC", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_PROV_ACC)
+            Me.columnPL_OTHER_EXP_LEAVE = New Global.System.Data.DataColumn("PL_OTHER_EXP_LEAVE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_LEAVE)
+            Me.columnPL_OTHER_EXP_FA_WO = New Global.System.Data.DataColumn("PL_OTHER_EXP_FA_WO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_FA_WO)
+            Me.columnPL_OTHER_EXP_UNREALOSS = New Global.System.Data.DataColumn("PL_OTHER_EXP_UNREALOSS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_UNREALOSS)
+            Me.columnPL_OTHER_EXP_REALOSS = New Global.System.Data.DataColumn("PL_OTHER_EXP_REALOSS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_REALOSS)
+            Me.columnPL_OTHER_EXP_INI_SUB = New Global.System.Data.DataColumn("PL_OTHER_EXP_INI_SUB", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_INI_SUB)
+            Me.columnPL_OTHER_EXP_CAP_EXP = New Global.System.Data.DataColumn("PL_OTHER_EXP_CAP_EXP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_CAP_EXP)
+            Me.columnPL_OTHER_EXP_OTHERS = New Global.System.Data.DataColumn("PL_OTHER_EXP_OTHERS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_OTHERS)
+            Me.columnPL_TOT_EXP = New Global.System.Data.DataColumn("PL_TOT_EXP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TOT_EXP)
+            Me.columnPL_NET_PROFIT_LOSS = New Global.System.Data.DataColumn("PL_NET_PROFIT_LOSS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_NET_PROFIT_LOSS)
+            Me.columnPL_DISALLOWED_EXP = New Global.System.Data.DataColumn("PL_DISALLOWED_EXP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_DISALLOWED_EXP)
+            Me.columnPL_TOTALX = New Global.System.Data.DataColumn("PL_TOTALX", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TOTALX)
+            Me.columnPL_TOTALY = New Global.System.Data.DataColumn("PL_TOTALY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TOTALY)
+            Me.columnPL_EXP_INTRESTRICT = New Global.System.Data.DataColumn("PL_EXP_INTRESTRICT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_EXP_INTRESTRICT)
+            Me.columnPL_OTH_BSIN_NONSOURCE = New Global.System.Data.DataColumn("PL_OTH_BSIN_NONSOURCE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTH_BSIN_NONSOURCE)
+            Me.columnPL_S60F = New Global.System.Data.DataColumn("PL_S60F", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_S60F)
+            Me.columnPL_MAINBUZ = New Global.System.Data.DataColumn("PL_MAINBUZ", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_MAINBUZ)
+            Me.columnPL_OTHER_EXP_ZAKAT = New Global.System.Data.DataColumn("PL_OTHER_EXP_ZAKAT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_ZAKAT)
+            Me.columnPL_COMPANY = New Global.System.Data.DataColumn("PL_COMPANY", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_COMPANY)
+            Me.columnPL_TREGROSS = New Global.System.Data.DataColumn("PL_TREGROSS", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TREGROSS)
+            Me.columnPL_TTAXDEDUCTION = New Global.System.Data.DataColumn("PL_TTAXDEDUCTION", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TTAXDEDUCTION)
+            Me.columnPL_TNETDEDUCTION = New Global.System.Data.DataColumn("PL_TNETDEDUCTION", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TNETDEDUCTION)
+            Me.columnPL_TECH_FEE = New Global.System.Data.DataColumn("PL_TECH_FEE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_TECH_FEE)
+            Me.columnPL_EMPL_STOCK = New Global.System.Data.DataColumn("PL_EMPL_STOCK", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_EMPL_STOCK)
+            Me.columnPL_S60FA = New Global.System.Data.DataColumn("PL_S60FA", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_S60FA)
+            Me.columnPL_OTHER_EXP_BALANCE = New Global.System.Data.DataColumn("PL_OTHER_EXP_BALANCE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXP_BALANCE)
+            Me.columnPL_OTHER_EXRLOSSFOREIGNT = New Global.System.Data.DataColumn("PL_OTHER_EXRLOSSFOREIGNT", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_OTHER_EXRLOSSFOREIGNT)
+            Me.columnPL_DIRECTORS_FEE = New Global.System.Data.DataColumn("PL_DIRECTORS_FEE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_DIRECTORS_FEE)
+            Me.columnPL_JKDM = New Global.System.Data.DataColumn("PL_JKDM", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPL_JKDM)
+            Me.columnModifiedBy = New Global.System.Data.DataColumn("ModifiedBy", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnModifiedBy)
+            Me.columnModifiedDateTime = New Global.System.Data.DataColumn("ModifiedDateTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnModifiedDateTime)
+            Me.columnPNL_Status = New Global.System.Data.DataColumn("PNL_Status", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPNL_Status)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnPL_KEY}, True))
+            Me.columnPL_KEY.AllowDBNull = False
+            Me.columnPL_KEY.Unique = True
+            Me.columnPL_REF_NO.MaxLength = 20
+            Me.columnPL_YA.MaxLength = 5
+            Me.columnPL_SALES.MaxLength = 25
+            Me.columnPL_OP_STK.MaxLength = 25
+            Me.columnPL_PURCHASES.MaxLength = 25
+            Me.columnPL_PRO_COST.MaxLength = 25
+            Me.columnPL_PRO_COST_DPC.MaxLength = 25
+            Me.columnPL_PRO_COST_OAE.MaxLength = 25
+            Me.columnPL_PRO_COST_ONAE.MaxLength = 25
+            Me.columnPL_PURCHASES_PRO_COST.MaxLength = 25
+            Me.columnPL_CLS_STK.MaxLength = 25
+            Me.columnPL_COGS.MaxLength = 25
+            Me.columnPL_GROSS_PROFIT.MaxLength = 25
+            Me.columnPL_OTH_BSIN.MaxLength = 25
+            Me.columnPL_OTH_BSIN_UNREALGT.MaxLength = 25
+            Me.columnPL_OTH_BSIN_REALGT.MaxLength = 25
+            Me.columnPL_OTH_BSIN_RENTAL.MaxLength = 25
+            Me.columnPL_OTH_BSIN_OTHER.MaxLength = 25
+            Me.columnPL_OTH_IN.MaxLength = 25
+            Me.columnPL_OTH_IN_DIVIDEND.MaxLength = 25
+            Me.columnPL_OTH_IN_INTEREST.MaxLength = 25
+            Me.columnPL_OTH_IN_RENTAL.MaxLength = 25
+            Me.columnPL_OTH_IN_ROYALTY.MaxLength = 25
+            Me.columnPL_OTH_IN_OTHER.MaxLength = 25
+            Me.columnPL_NONTAX_IN.MaxLength = 25
+            Me.columnPL_NONTAX_IN_FA_DISP.MaxLength = 25
+            Me.columnPL_NONTAX_IN_INV_DISP.MaxLength = 25
+            Me.columnPL_NONTAX_IN_EXM_DIV.MaxLength = 25
+            Me.columnPL_NONTAX_IN_FIR.MaxLength = 25
+            Me.columnPL_NONTAX_IN_REALG.MaxLength = 25
+            Me.columnPL_NONTAX_IN_UNREALG.MaxLength = 25
+            Me.columnPL_NONTAX_IN_INSU_COMP.MaxLength = 25
+            Me.columnPL_EXP_INT.MaxLength = 25
+            Me.columnPL_LAWYER_COST.MaxLength = 25
+            Me.columnPL_CONTRACT_EXP.MaxLength = 25
+            Me.columnPL_EXP_SALARY.MaxLength = 25
+            Me.columnPL_ROYALTY.MaxLength = 25
+            Me.columnPL_EXP_RENT.MaxLength = 25
+            Me.columnPL_EXP_MAINTENANCE.MaxLength = 25
+            Me.columnPL_RND.MaxLength = 25
+            Me.columnPL_ADVERT.MaxLength = 25
+            Me.columnPL_TRAVEL.MaxLength = 25
+            Me.columnPL_OTHER_EXP.MaxLength = 25
+            Me.columnPL_OTHER_EXP_DPC.MaxLength = 25
+            Me.columnPL_OTHER_EXP_DNT.MaxLength = 25
+            Me.columnPL_OTHER_EXP_DNT_APP.MaxLength = 25
+            Me.columnPL_OTHER_EXP_DNT_NAPP.MaxLength = 25
+            Me.columnPL_OTHER_EXP_FA_DISP.MaxLength = 25
+            Me.columnPL_OTHER_EXP_ENTM.MaxLength = 25
+            Me.columnPL_OTHER_EXP_ENTM_CLNT.MaxLength = 25
+            Me.columnPL_OTHER_EXP_ENTM_STFF.MaxLength = 25
+            Me.columnPL_OTHER_EXP_PENALTY.MaxLength = 25
+            Me.columnPL_OTHER_EXP_PROV_ACC.MaxLength = 25
+            Me.columnPL_OTHER_EXP_LEAVE.MaxLength = 25
+            Me.columnPL_OTHER_EXP_FA_WO.MaxLength = 25
+            Me.columnPL_OTHER_EXP_UNREALOSS.MaxLength = 25
+            Me.columnPL_OTHER_EXP_REALOSS.MaxLength = 25
+            Me.columnPL_OTHER_EXP_INI_SUB.MaxLength = 25
+            Me.columnPL_OTHER_EXP_CAP_EXP.MaxLength = 25
+            Me.columnPL_OTHER_EXP_OTHERS.MaxLength = 25
+            Me.columnPL_TOT_EXP.MaxLength = 25
+            Me.columnPL_NET_PROFIT_LOSS.MaxLength = 25
+            Me.columnPL_DISALLOWED_EXP.MaxLength = 25
+            Me.columnPL_TOTALX.MaxLength = 25
+            Me.columnPL_TOTALY.MaxLength = 25
+            Me.columnPL_EXP_INTRESTRICT.MaxLength = 25
+            Me.columnPL_OTH_BSIN_NONSOURCE.MaxLength = 25
+            Me.columnPL_S60F.AllowDBNull = False
+            Me.columnPL_S60F.MaxLength = 1
+            Me.columnPL_OTHER_EXP_ZAKAT.MaxLength = 25
+            Me.columnPL_COMPANY.MaxLength = 8
+            Me.columnPL_TREGROSS.MaxLength = 25
+            Me.columnPL_TTAXDEDUCTION.MaxLength = 25
+            Me.columnPL_TNETDEDUCTION.MaxLength = 25
+            Me.columnPL_TECH_FEE.MaxLength = 25
+            Me.columnPL_EMPL_STOCK.MaxLength = 25
+            Me.columnPL_S60FA.MaxLength = 1
+            Me.columnPL_OTHER_EXP_BALANCE.MaxLength = 25
+            Me.columnPL_OTHER_EXRLOSSFOREIGNT.MaxLength = 25
+            Me.columnPL_DIRECTORS_FEE.MaxLength = 25
+            Me.columnPL_JKDM.MaxLength = 25
+            Me.columnModifiedBy.MaxLength = 100
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function NewPROFIT_LOSS_ACCOUNTRow() As PROFIT_LOSS_ACCOUNTRow
+            Return CType(Me.NewRow, PROFIT_LOSS_ACCOUNTRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New PROFIT_LOSS_ACCOUNTRow(builder)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(PROFIT_LOSS_ACCOUNTRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.PROFIT_LOSS_ACCOUNTRowChangedEvent) Is Nothing) Then
+                RaiseEvent PROFIT_LOSS_ACCOUNTRowChanged(Me, New PROFIT_LOSS_ACCOUNTRowChangeEvent(CType(e.Row, PROFIT_LOSS_ACCOUNTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.PROFIT_LOSS_ACCOUNTRowChangingEvent) Is Nothing) Then
+                RaiseEvent PROFIT_LOSS_ACCOUNTRowChanging(Me, New PROFIT_LOSS_ACCOUNTRowChangeEvent(CType(e.Row, PROFIT_LOSS_ACCOUNTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.PROFIT_LOSS_ACCOUNTRowDeletedEvent) Is Nothing) Then
+                RaiseEvent PROFIT_LOSS_ACCOUNTRowDeleted(Me, New PROFIT_LOSS_ACCOUNTRowChangeEvent(CType(e.Row, PROFIT_LOSS_ACCOUNTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.PROFIT_LOSS_ACCOUNTRowDeletingEvent) Is Nothing) Then
+                RaiseEvent PROFIT_LOSS_ACCOUNTRowDeleting(Me, New PROFIT_LOSS_ACCOUNTRowChangeEvent(CType(e.Row, PROFIT_LOSS_ACCOUNTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub RemovePROFIT_LOSS_ACCOUNTRow(ByVal row As PROFIT_LOSS_ACCOUNTRow)
+            Me.Rows.Remove(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsPNL2 = New dsPNL2()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "PROFIT_LOSS_ACCOUNTDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+
+                            Do While ((s1.Position <> s1.Length) _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+
+
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close()
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close()
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+
+    '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class DIVIDEND_INCOMERow
@@ -1846,6 +3401,2331 @@ Partial Public Class dsPNL2
     End Class
 
     '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class PROFIT_LOSS_ACCOUNTRow
+        Inherits Global.System.Data.DataRow
+
+        Private tablePROFIT_LOSS_ACCOUNT As PROFIT_LOSS_ACCOUNTDataTable
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablePROFIT_LOSS_ACCOUNT = CType(Me.Table, PROFIT_LOSS_ACCOUNTDataTable)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_KEY() As Integer
+            Get
+                Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_KEYColumn), Integer)
+            End Get
+            Set(value As Integer)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_KEYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_REF_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_REF_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_REF_NO' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_REF_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_YA() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_YAColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_YA' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_YAColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_SALES() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_SALESColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_SALES' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_SALESColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OP_STK() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OP_STKColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OP_STK' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OP_STKColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_PURCHASES() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASESColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_PURCHASES' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASESColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_PRO_COST() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COSTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_PRO_COST' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COSTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_PRO_COST_DPC() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_DPCColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_PRO_COST_DPC' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_DPCColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_PRO_COST_OAE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_OAEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_PRO_COST_OAE' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_OAEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_PRO_COST_ONAE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_ONAEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_PRO_COST_ONAE' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_ONAEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_PURCHASES_PRO_COST() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASES_PRO_COSTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_PURCHASES_PRO_COST' in table 'PROFIT_LOSS_ACCOUNT' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASES_PRO_COSTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_CLS_STK() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_CLS_STKColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_CLS_STK' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_CLS_STKColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_COGS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_COGSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_COGS' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_COGSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_GROSS_PROFIT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_GROSS_PROFITColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_GROSS_PROFIT' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_GROSS_PROFITColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_BSIN() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSINColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_BSIN' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSINColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_BSIN_UNREALGT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_UNREALGTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_BSIN_UNREALGT' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_UNREALGTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_BSIN_REALGT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_REALGTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_BSIN_REALGT' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_REALGTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_BSIN_RENTAL() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_RENTALColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_BSIN_RENTAL' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_RENTALColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_BSIN_OTHER() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_OTHERColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_BSIN_OTHER' in table 'PROFIT_LOSS_ACCOUNT' is DBNull" & _
+                            ".", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_OTHERColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_IN() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_INColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_IN' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_INColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_IN_DIVIDEND() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_DIVIDENDColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_IN_DIVIDEND' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_DIVIDENDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_IN_INTEREST() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_INTERESTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_IN_INTEREST' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_INTERESTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_IN_RENTAL() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_RENTALColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_IN_RENTAL' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_RENTALColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_IN_ROYALTY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_ROYALTYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_IN_ROYALTY' in table 'PROFIT_LOSS_ACCOUNT' is DBNull" & _
+                            ".", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_ROYALTYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_IN_OTHER() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_OTHERColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_IN_OTHER' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_OTHERColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_INColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_INColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_FA_DISP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FA_DISPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_FA_DISP' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FA_DISPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_INV_DISP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INV_DISPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_INV_DISP' in table 'PROFIT_LOSS_ACCOUNT' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INV_DISPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_EXM_DIV() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_EXM_DIVColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_EXM_DIV' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_EXM_DIVColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_FIR() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FIRColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_FIR' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FIRColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_REALG() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_REALGColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_REALG' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_REALGColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_UNREALG() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_UNREALGColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_UNREALG' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_UNREALGColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NONTAX_IN_INSU_COMP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INSU_COMPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NONTAX_IN_INSU_COMP' in table 'PROFIT_LOSS_ACCOUNT' is D" & _
+                            "BNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INSU_COMPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_EXP_INT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_EXP_INT' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_LAWYER_COST() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_LAWYER_COSTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_LAWYER_COST' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_LAWYER_COSTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_CONTRACT_EXP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_CONTRACT_EXPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_CONTRACT_EXP' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_CONTRACT_EXPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_EXP_SALARY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_SALARYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_EXP_SALARY' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_SALARYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_ROYALTY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_ROYALTYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_ROYALTY' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_ROYALTYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_EXP_RENT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_RENTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_EXP_RENT' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_RENTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_EXP_MAINTENANCE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_MAINTENANCEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_EXP_MAINTENANCE' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_MAINTENANCEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_RND() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_RNDColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_RND' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_RNDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_ADVERT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_ADVERTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_ADVERT' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_ADVERTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TRAVEL() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TRAVELColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TRAVEL' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TRAVELColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_DPC() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DPCColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_DPC' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DPCColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_DNT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_DNT' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_DNT_APP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_APPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_DNT_APP' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_APPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_DNT_NAPP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_NAPPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_DNT_NAPP' in table 'PROFIT_LOSS_ACCOUNT' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_NAPPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_FA_DISP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_DISPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_FA_DISP' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_DISPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_ENTM() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTMColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_ENTM' in table 'PROFIT_LOSS_ACCOUNT' is DBNull" & _
+                            ".", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTMColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_ENTM_CLNT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_CLNTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_ENTM_CLNT' in table 'PROFIT_LOSS_ACCOUNT' is D" & _
+                            "BNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_CLNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_ENTM_STFF() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_STFFColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_ENTM_STFF' in table 'PROFIT_LOSS_ACCOUNT' is D" & _
+                            "BNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_STFFColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_PENALTY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PENALTYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_PENALTY' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PENALTYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_PROV_ACC() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PROV_ACCColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_PROV_ACC' in table 'PROFIT_LOSS_ACCOUNT' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PROV_ACCColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_LEAVE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_LEAVEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_LEAVE' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_LEAVEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_FA_WO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_WOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_FA_WO' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_WOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_UNREALOSS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_UNREALOSSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_UNREALOSS' in table 'PROFIT_LOSS_ACCOUNT' is D" & _
+                            "BNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_UNREALOSSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_REALOSS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_REALOSSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_REALOSS' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_REALOSSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_INI_SUB() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_INI_SUBColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_INI_SUB' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_INI_SUBColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_CAP_EXP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_CAP_EXPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_CAP_EXP' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_CAP_EXPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_OTHERS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_OTHERSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_OTHERS' in table 'PROFIT_LOSS_ACCOUNT' is DBNu" & _
+                            "ll.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_OTHERSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TOT_EXP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOT_EXPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TOT_EXP' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOT_EXPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_NET_PROFIT_LOSS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NET_PROFIT_LOSSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_NET_PROFIT_LOSS' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NET_PROFIT_LOSSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_DISALLOWED_EXP() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_DISALLOWED_EXPColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_DISALLOWED_EXP' in table 'PROFIT_LOSS_ACCOUNT' is DBNull" & _
+                            ".", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_DISALLOWED_EXPColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TOTALX() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALXColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TOTALX' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALXColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TOTALY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TOTALY' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_EXP_INTRESTRICT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTRESTRICTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_EXP_INTRESTRICT' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTRESTRICTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTH_BSIN_NONSOURCE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_NONSOURCEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTH_BSIN_NONSOURCE' in table 'PROFIT_LOSS_ACCOUNT' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_NONSOURCEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_S60F() As String
+            Get
+                Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_S60FColumn), String)
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_S60FColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_MAINBUZ() As Integer
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_MAINBUZColumn), Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_MAINBUZ' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Integer)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_MAINBUZColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_ZAKAT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ZAKATColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_ZAKAT' in table 'PROFIT_LOSS_ACCOUNT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ZAKATColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_COMPANY() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_COMPANYColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_COMPANY' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_COMPANYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TREGROSS() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TREGROSSColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TREGROSS' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TREGROSSColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TTAXDEDUCTION() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TTAXDEDUCTIONColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TTAXDEDUCTION' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TTAXDEDUCTIONColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TNETDEDUCTION() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TNETDEDUCTIONColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TNETDEDUCTION' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TNETDEDUCTIONColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_TECH_FEE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TECH_FEEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_TECH_FEE' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TECH_FEEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_EMPL_STOCK() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EMPL_STOCKColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_EMPL_STOCK' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EMPL_STOCKColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_S60FA() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_S60FAColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_S60FA' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_S60FAColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXP_BALANCE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_BALANCEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXP_BALANCE' in table 'PROFIT_LOSS_ACCOUNT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_BALANCEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_OTHER_EXRLOSSFOREIGNT() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXRLOSSFOREIGNTColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_OTHER_EXRLOSSFOREIGNT' in table 'PROFIT_LOSS_ACCOUNT' is" & _
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXRLOSSFOREIGNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_DIRECTORS_FEE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_DIRECTORS_FEEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_DIRECTORS_FEE' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_DIRECTORS_FEEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PL_JKDM() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_JKDMColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PL_JKDM' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_JKDMColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property ModifiedBy() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedByColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ModifiedBy' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedByColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property ModifiedDateTime() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedDateTimeColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ModifiedDateTime' in table 'PROFIT_LOSS_ACCOUNT' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedDateTimeColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property PNL_Status() As String
+            Get
+                Try
+                    Return CType(Me(Me.tablePROFIT_LOSS_ACCOUNT.PNL_StatusColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PNL_Status' in table 'PROFIT_LOSS_ACCOUNT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tablePROFIT_LOSS_ACCOUNT.PNL_StatusColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_REF_NONull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_REF_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_REF_NONull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_REF_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_YANull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_YAColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_YANull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_YAColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_SALESNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_SALESColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_SALESNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_SALESColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OP_STKNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OP_STKColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OP_STKNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OP_STKColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_PURCHASESNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASESColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_PURCHASESNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASESColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_PRO_COSTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COSTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_PRO_COSTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COSTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_PRO_COST_DPCNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_DPCColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_PRO_COST_DPCNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_DPCColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_PRO_COST_OAENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_OAEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_PRO_COST_OAENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_OAEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_PRO_COST_ONAENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_ONAEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_PRO_COST_ONAENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PRO_COST_ONAEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_PURCHASES_PRO_COSTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASES_PRO_COSTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_PURCHASES_PRO_COSTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_PURCHASES_PRO_COSTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_CLS_STKNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_CLS_STKColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_CLS_STKNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_CLS_STKColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_COGSNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_COGSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_COGSNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_COGSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_GROSS_PROFITNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_GROSS_PROFITColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_GROSS_PROFITNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_GROSS_PROFITColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_BSINNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSINColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_BSINNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSINColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_BSIN_UNREALGTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_UNREALGTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_BSIN_UNREALGTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_UNREALGTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_BSIN_REALGTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_REALGTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_BSIN_REALGTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_REALGTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_BSIN_RENTALNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_RENTALColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_BSIN_RENTALNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_RENTALColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_BSIN_OTHERNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_OTHERColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_BSIN_OTHERNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_OTHERColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_INNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_INColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_INNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_INColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_IN_DIVIDENDNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_DIVIDENDColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_IN_DIVIDENDNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_DIVIDENDColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_IN_INTERESTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_INTERESTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_IN_INTERESTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_INTERESTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_IN_RENTALNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_RENTALColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_IN_RENTALNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_RENTALColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_IN_ROYALTYNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_ROYALTYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_IN_ROYALTYNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_ROYALTYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_IN_OTHERNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_OTHERColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_IN_OTHERNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_IN_OTHERColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_INNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_INColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_INNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_INColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_FA_DISPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FA_DISPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_FA_DISPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FA_DISPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_INV_DISPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INV_DISPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_INV_DISPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INV_DISPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_EXM_DIVNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_EXM_DIVColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_EXM_DIVNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_EXM_DIVColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_FIRNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FIRColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_FIRNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_FIRColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_REALGNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_REALGColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_REALGNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_REALGColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_UNREALGNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_UNREALGColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_UNREALGNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_UNREALGColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NONTAX_IN_INSU_COMPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INSU_COMPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NONTAX_IN_INSU_COMPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NONTAX_IN_INSU_COMPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_EXP_INTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_EXP_INTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_LAWYER_COSTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_LAWYER_COSTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_LAWYER_COSTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_LAWYER_COSTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_CONTRACT_EXPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_CONTRACT_EXPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_CONTRACT_EXPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_CONTRACT_EXPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_EXP_SALARYNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_SALARYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_EXP_SALARYNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_SALARYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_ROYALTYNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_ROYALTYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_ROYALTYNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_ROYALTYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_EXP_RENTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_RENTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_EXP_RENTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_RENTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_EXP_MAINTENANCENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_MAINTENANCEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_EXP_MAINTENANCENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_MAINTENANCEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_RNDNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_RNDColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_RNDNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_RNDColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_ADVERTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_ADVERTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_ADVERTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_ADVERTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TRAVELNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TRAVELColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TRAVELNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TRAVELColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_DPCNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DPCColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_DPCNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DPCColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_DNTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_DNTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_DNT_APPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_APPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_DNT_APPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_APPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_DNT_NAPPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_NAPPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_DNT_NAPPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_DNT_NAPPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_FA_DISPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_DISPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_FA_DISPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_DISPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_ENTMNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTMColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_ENTMNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTMColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_ENTM_CLNTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_CLNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_ENTM_CLNTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_CLNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_ENTM_STFFNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_STFFColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_ENTM_STFFNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ENTM_STFFColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_PENALTYNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PENALTYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_PENALTYNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PENALTYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_PROV_ACCNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PROV_ACCColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_PROV_ACCNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_PROV_ACCColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_LEAVENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_LEAVEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_LEAVENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_LEAVEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_FA_WONull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_WOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_FA_WONull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_FA_WOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_UNREALOSSNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_UNREALOSSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_UNREALOSSNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_UNREALOSSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_REALOSSNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_REALOSSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_REALOSSNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_REALOSSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_INI_SUBNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_INI_SUBColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_INI_SUBNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_INI_SUBColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_CAP_EXPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_CAP_EXPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_CAP_EXPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_CAP_EXPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_OTHERSNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_OTHERSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_OTHERSNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_OTHERSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TOT_EXPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOT_EXPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TOT_EXPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOT_EXPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_NET_PROFIT_LOSSNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_NET_PROFIT_LOSSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_NET_PROFIT_LOSSNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_NET_PROFIT_LOSSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_DISALLOWED_EXPNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_DISALLOWED_EXPColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_DISALLOWED_EXPNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_DISALLOWED_EXPColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TOTALXNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALXColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TOTALXNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALXColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TOTALYNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TOTALYNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TOTALYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_EXP_INTRESTRICTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTRESTRICTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_EXP_INTRESTRICTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EXP_INTRESTRICTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTH_BSIN_NONSOURCENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_NONSOURCEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTH_BSIN_NONSOURCENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTH_BSIN_NONSOURCEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_MAINBUZNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_MAINBUZColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_MAINBUZNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_MAINBUZColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_ZAKATNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ZAKATColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_ZAKATNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_ZAKATColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_COMPANYNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_COMPANYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_COMPANYNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_COMPANYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TREGROSSNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TREGROSSColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TREGROSSNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TREGROSSColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TTAXDEDUCTIONNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TTAXDEDUCTIONColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TTAXDEDUCTIONNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TTAXDEDUCTIONColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TNETDEDUCTIONNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TNETDEDUCTIONColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TNETDEDUCTIONNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TNETDEDUCTIONColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_TECH_FEENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_TECH_FEEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_TECH_FEENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_TECH_FEEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_EMPL_STOCKNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_EMPL_STOCKColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_EMPL_STOCKNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_EMPL_STOCKColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_S60FANull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_S60FAColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_S60FANull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_S60FAColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXP_BALANCENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_BALANCEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXP_BALANCENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXP_BALANCEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_OTHER_EXRLOSSFOREIGNTNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXRLOSSFOREIGNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_OTHER_EXRLOSSFOREIGNTNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_OTHER_EXRLOSSFOREIGNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_DIRECTORS_FEENull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_DIRECTORS_FEEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_DIRECTORS_FEENull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_DIRECTORS_FEEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPL_JKDMNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PL_JKDMColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPL_JKDMNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PL_JKDMColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsModifiedByNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedByColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetModifiedByNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedByColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsModifiedDateTimeNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedDateTimeColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetModifiedDateTimeNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.ModifiedDateTimeColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsPNL_StatusNull() As Boolean
+            Return Me.IsNull(Me.tablePROFIT_LOSS_ACCOUNT.PNL_StatusColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetPNL_StatusNull()
+            Me(Me.tablePROFIT_LOSS_ACCOUNT.PNL_StatusColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+
+    '''<summary>
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
@@ -1903,6 +5783,42 @@ Partial Public Class dsPNL2
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property Row() As BUSINESS_SOURCERow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Class PROFIT_LOSS_ACCOUNTRowChangeEvent
+        Inherits Global.System.EventArgs
+
+        Private eventRow As PROFIT_LOSS_ACCOUNTRow
+
+        Private eventAction As Global.System.Data.DataRowAction
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New(ByVal row As PROFIT_LOSS_ACCOUNTRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New()
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Row() As PROFIT_LOSS_ACCOUNTRow
             Get
                 Return Me.eventRow
             End Get

@@ -17,6 +17,7 @@ Public Class ucPNL_p1Purchase
     Public Const MainAmount As String = "PLFPUR_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "PLFPURD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "PLFPUR_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "PLFPURD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "PLFPUR_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "PLFPURD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "PLFPUR_DESC"  'PLFSD_DESC

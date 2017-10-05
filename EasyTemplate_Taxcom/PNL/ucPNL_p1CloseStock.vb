@@ -17,6 +17,7 @@ Public Class ucPNL_p1CloseStock
     Public Const MainAmount As String = "PLFCS_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "PLFCSD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "PLFCS_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "PLFCSD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "PLFCS_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "PLFCSD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "PLFCS_DESC"  'PLFSD_DESC

@@ -17,6 +17,7 @@ Public Class ucPNL_p2UnreaGainForeEx
     Public Const MainAmount As String = "NTIUT_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NTIUTD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NTIUT_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "NTIUTD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "NTIUT_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "NTIUTD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "NTIUT_DESC"  'PLFSD_DESC

@@ -17,6 +17,7 @@ Public Class ucPNL_p4FAWrittenOff
     Public Const MainAmount As String = "EXOWO_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXOWOD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXOWO_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXOWOD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXOWO_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXOWOD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXOWO_DESC"  'PLFSD_DESC

@@ -17,6 +17,7 @@ Public Class ucPNL_p3PromotionAds
     Public Const MainAmount As String = "EXP_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXPD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "EXP_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "EXPD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "EXP_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "EXPD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXP_DESC"  'PLFSD_DESC

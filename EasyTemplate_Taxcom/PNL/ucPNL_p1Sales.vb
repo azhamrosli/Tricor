@@ -17,6 +17,7 @@ Public Class ucPNL_p1Sales
     Public Const MainAmount As String = "PLFS_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "PLFSD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "PLFS_SOURCENO" 'PLFS_SOURCENO
+    Public Const MainSourceNo_Details As String = "PLFSD_SOURCENO" 'PLFS_SOURCENO
     Public Const MainDetail As String = "PLFS_DETAIL"  'PLFS_DETAIL
     Public Const Main_Desc As String = "PLFS_DESC"  'PLFSD_DESC
     Public Const MainDetails_Desc As String = "PLFSD_DESC"  'PLFSD_DESC
@@ -214,9 +215,14 @@ Public Class ucPNL_p1Sales
             If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
                                           MainAmount, MainAmount_Details, DsPNL1, ErrorLog) = False Then
 
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
-                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                If MappingSourceNo(MainTable, MainTable_Details, MainKey, MainKey_Details, _
+                                          MainSourceNo, MainSourceNo_Details, DsPNL1, ErrorLog) = False Then
+                    MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                Else
+                    CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                End If
             End If
         Catch ex As Exception
 
