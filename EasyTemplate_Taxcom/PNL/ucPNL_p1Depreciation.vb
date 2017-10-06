@@ -12,7 +12,7 @@ Public Class ucPNL_p1Depreciation
 
     Public Const MainTable As String = "EXPENSES_DEPRECIATION" 'PLFST_SALES
     Public Const MainTable_Details As String = "EXPENSES_DEPRECIATION_DETAIL" 'PLFST_SALES_DETAIL
-    Public Const MainKey As String = "EXDEP_KEY" ' PLFS_KEY
+    Public Const MainKey As String = "EXDEP_EXDEPKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "EXDEPD_EXDEPKEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "EXDEP_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXDEPD_AMOUNT" 'PLFSD_AMOUNT

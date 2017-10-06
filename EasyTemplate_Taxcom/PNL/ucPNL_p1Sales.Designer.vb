@@ -22,21 +22,21 @@ Partial Class ucPNL_p1Sales
         Me.components = New System.ComponentModel.Container()
         Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucPNL_p1Sales))
-        Dim SuperToolTip11 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem11 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem11 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip12 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem12 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem12 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip13 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem13 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem13 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip14 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem14 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem14 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip15 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem15 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem15 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip3 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem3 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem3 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip4 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem4 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem4 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip5 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem5 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem5 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colPLFSD_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPLFSD_PLFSKEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -48,7 +48,6 @@ Partial Class ucPNL_p1Sales
         Me.colPLFSD_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.PLFSTSALESBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colPLFS_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -67,19 +66,19 @@ Partial Class ucPNL_p1Sales
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDeleteChild = New DevExpress.XtraBars.BarButtonItem()
         Me.btnExpand = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
+        Me.PLFSTSALESBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PLFSTSALESBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,6 +86,7 @@ Partial Class ucPNL_p1Sales
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PLFSTSALESBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GridView2
@@ -177,28 +177,21 @@ Partial Class ucPNL_p1Sales
         '
         Me.GridControl1.DataSource = Me.PLFSTSALESBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         GridLevelNode1.LevelTemplate = Me.GridView2
-        GridLevelNode1.RelationName = "PLFST_SALES_DETAIL_PLFST_SALES"
+        GridLevelNode1.RelationName = "FK_PLFST_SALES_PLFST_SALES_DETAIL"
         Me.GridControl1.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.GridControl1.Location = New System.Drawing.Point(0, 37)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
         Me.GridControl1.MainView = Me.GridView1
-        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo})
-        Me.GridControl1.Size = New System.Drawing.Size(1104, 476)
+        Me.GridControl1.Size = New System.Drawing.Size(946, 386)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
         '
-        'PLFSTSALESBindingSource
-        '
-        Me.PLFSTSALESBindingSource.DataMember = "PLFST_SALES"
-        Me.PLFSTSALESBindingSource.DataSource = Me.DsPNL1
-        '
         'DsPNL1
         '
-        Me.DsPNL1.DataSetName = "dsPNL"
+        Me.DsPNL1.DataSetName = "dsPNL1"
         Me.DsPNL1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'GridView1
@@ -269,10 +262,9 @@ Partial Class ucPNL_p1Sales
         Me.colPLFS_AMOUNT.ColumnEdit = Me.txtNumberic
         Me.colPLFS_AMOUNT.FieldName = "PLFS_AMOUNT"
         Me.colPLFS_AMOUNT.Name = "colPLFS_AMOUNT"
-        Me.colPLFS_AMOUNT.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PLFS_AMOUNT", "SUM={0:0.##}")})
         Me.colPLFS_AMOUNT.Visible = True
         Me.colPLFS_AMOUNT.VisibleIndex = 2
-        Me.colPLFS_AMOUNT.Width = 150
+        Me.colPLFS_AMOUNT.Width = 120
         '
         'colPLFS_NOTE
         '
@@ -280,8 +272,6 @@ Partial Class ucPNL_p1Sales
         Me.colPLFS_NOTE.ColumnEdit = Me.txtNote
         Me.colPLFS_NOTE.FieldName = "PLFS_NOTE"
         Me.colPLFS_NOTE.Name = "colPLFS_NOTE"
-        Me.colPLFS_NOTE.OptionsEditForm.RowSpan = 5
-        Me.colPLFS_NOTE.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Count, "PLFS_NOTE", "{0}")})
         Me.colPLFS_NOTE.Visible = True
         Me.colPLFS_NOTE.VisibleIndex = 3
         Me.colPLFS_NOTE.Width = 300
@@ -291,11 +281,11 @@ Partial Class ucPNL_p1Sales
         Me.colPLFS_DETAIL.Caption = "Details"
         Me.colPLFS_DETAIL.FieldName = "PLFS_DETAIL"
         Me.colPLFS_DETAIL.Name = "colPLFS_DETAIL"
-        Me.colPLFS_DETAIL.OptionsColumn.ReadOnly = True
+        Me.colPLFS_DETAIL.OptionsColumn.AllowEdit = False
         Me.colPLFS_DETAIL.OptionsColumn.TabStop = False
         Me.colPLFS_DETAIL.Visible = True
         Me.colPLFS_DETAIL.VisibleIndex = 4
-        Me.colPLFS_DETAIL.Width = 150
+        Me.colPLFS_DETAIL.Width = 100
         '
         'BarManager1
         '
@@ -332,12 +322,12 @@ Partial Class ucPNL_p1Sales
         Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem11.Text = "Add new record"
-        ToolTipItem11.LeftIndent = 6
-        ToolTipItem11.Text = "Add new record Ctrl + R"
-        SuperToolTip11.Items.Add(ToolTipTitleItem11)
-        SuperToolTip11.Items.Add(ToolTipItem11)
-        Me.btnAdd.SuperTip = SuperToolTip11
+        ToolTipTitleItem1.Text = "Add new record"
+        ToolTipItem1.LeftIndent = 6
+        ToolTipItem1.Text = "Add new record Ctrl + R"
+        SuperToolTip1.Items.Add(ToolTipTitleItem1)
+        SuperToolTip1.Items.Add(ToolTipItem1)
+        Me.btnAdd.SuperTip = SuperToolTip1
         '
         'btnAddChild
         '
@@ -348,12 +338,12 @@ Partial Class ucPNL_p1Sales
         Me.btnAddChild.LargeGlyph = CType(resources.GetObject("btnAddChild.LargeGlyph"), System.Drawing.Image)
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem12.Text = "Add new record"
-        ToolTipItem12.LeftIndent = 6
-        ToolTipItem12.Text = "Add new record Ctrl + T"
-        SuperToolTip12.Items.Add(ToolTipTitleItem12)
-        SuperToolTip12.Items.Add(ToolTipItem12)
-        Me.btnAddChild.SuperTip = SuperToolTip12
+        ToolTipTitleItem2.Text = "Add new record"
+        ToolTipItem2.LeftIndent = 6
+        ToolTipItem2.Text = "Add new record Ctrl + T"
+        SuperToolTip2.Items.Add(ToolTipTitleItem2)
+        SuperToolTip2.Items.Add(ToolTipItem2)
+        Me.btnAddChild.SuperTip = SuperToolTip2
         '
         'btnDelete
         '
@@ -364,12 +354,12 @@ Partial Class ucPNL_p1Sales
         Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem13.Text = "Delete record"
-        ToolTipItem13.LeftIndent = 6
-        ToolTipItem13.Text = "Delete record Ctrl + Y"
-        SuperToolTip13.Items.Add(ToolTipTitleItem13)
-        SuperToolTip13.Items.Add(ToolTipItem13)
-        Me.btnDelete.SuperTip = SuperToolTip13
+        ToolTipTitleItem3.Text = "Delete record"
+        ToolTipItem3.LeftIndent = 6
+        ToolTipItem3.Text = "Delete record Ctrl + Y"
+        SuperToolTip3.Items.Add(ToolTipTitleItem3)
+        SuperToolTip3.Items.Add(ToolTipItem3)
+        Me.btnDelete.SuperTip = SuperToolTip3
         '
         'btnDeleteChild
         '
@@ -380,13 +370,13 @@ Partial Class ucPNL_p1Sales
         Me.btnDeleteChild.LargeGlyph = CType(resources.GetObject("btnDeleteChild.LargeGlyph"), System.Drawing.Image)
         Me.btnDeleteChild.Name = "btnDeleteChild"
         Me.btnDeleteChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem14.Text = "Delete record"
-        ToolTipItem14.LeftIndent = 6
-        ToolTipItem14.Text = "Delete record Ctrl + U" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "How to use : Please select the main row first then contin" & _
+        ToolTipTitleItem4.Text = "Delete record"
+        ToolTipItem4.LeftIndent = 6
+        ToolTipItem4.Text = "Delete record Ctrl + U" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "How to use : Please select the main row first then contin" & _
     "ues with select child row(s)."
-        SuperToolTip14.Items.Add(ToolTipTitleItem14)
-        SuperToolTip14.Items.Add(ToolTipItem14)
-        Me.btnDeleteChild.SuperTip = SuperToolTip14
+        SuperToolTip4.Items.Add(ToolTipTitleItem4)
+        SuperToolTip4.Items.Add(ToolTipItem4)
+        Me.btnDeleteChild.SuperTip = SuperToolTip4
         '
         'btnExpand
         '
@@ -397,57 +387,12 @@ Partial Class ucPNL_p1Sales
         Me.btnExpand.LargeGlyph = CType(resources.GetObject("btnExpand.LargeGlyph"), System.Drawing.Image)
         Me.btnExpand.Name = "btnExpand"
         Me.btnExpand.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem15.Text = "Expand child"
-        ToolTipItem15.LeftIndent = 6
-        ToolTipItem15.Text = "Expand selected row Ctrl + E"
-        SuperToolTip15.Items.Add(ToolTipTitleItem15)
-        SuperToolTip15.Items.Add(ToolTipItem15)
-        Me.btnExpand.SuperTip = SuperToolTip15
-        '
-        'barDockControlTop
-        '
-        Me.barDockControlTop.CausesValidation = False
-        Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
-        Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1104, 37)
-        '
-        'barDockControlBottom
-        '
-        Me.barDockControlBottom.CausesValidation = False
-        Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1104, 0)
-        '
-        'barDockControlLeft
-        '
-        Me.barDockControlLeft.CausesValidation = False
-        Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 476)
-        '
-        'barDockControlRight
-        '
-        Me.barDockControlRight.CausesValidation = False
-        Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1104, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 476)
-        '
-        'RepositoryItemTextEdit1
-        '
-        Me.RepositoryItemTextEdit1.AutoHeight = False
-        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
-        '
-        'RepositoryItemTextEdit2
-        '
-        Me.RepositoryItemTextEdit2.AutoHeight = False
-        Me.RepositoryItemTextEdit2.DisplayFormat.FormatString = "n"
-        Me.RepositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
-        Me.RepositoryItemTextEdit2.ReadOnly = True
+        ToolTipTitleItem5.Text = "Expand child"
+        ToolTipItem5.LeftIndent = 6
+        ToolTipItem5.Text = "Expand selected row Ctrl + E"
+        SuperToolTip5.Items.Add(ToolTipTitleItem5)
+        SuperToolTip5.Items.Add(ToolTipItem5)
+        Me.btnExpand.SuperTip = SuperToolTip5
         '
         'btnMoveUp
         '
@@ -467,23 +412,67 @@ Partial Class ucPNL_p1Sales
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
+        'barDockControlTop
+        '
+        Me.barDockControlTop.CausesValidation = False
+        Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
+        Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Size = New System.Drawing.Size(946, 31)
+        '
+        'barDockControlBottom
+        '
+        Me.barDockControlBottom.CausesValidation = False
+        Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(946, 0)
+        '
+        'barDockControlLeft
+        '
+        Me.barDockControlLeft.CausesValidation = False
+        Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
+        '
+        'barDockControlRight
+        '
+        Me.barDockControlRight.CausesValidation = False
+        Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
+        Me.barDockControlRight.Location = New System.Drawing.Point(946, 31)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
+        '
+        'RepositoryItemTextEdit1
+        '
+        Me.RepositoryItemTextEdit1.AutoHeight = False
+        Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
+        '
+        'RepositoryItemTextEdit2
+        '
+        Me.RepositoryItemTextEdit2.AutoHeight = False
+        Me.RepositoryItemTextEdit2.DisplayFormat.FormatString = "n"
+        Me.RepositoryItemTextEdit2.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
+        Me.RepositoryItemTextEdit2.ReadOnly = True
+        '
+        'PLFSTSALESBindingSource
+        '
+        Me.PLFSTSALESBindingSource.DataMember = "PLFST_SALES"
+        Me.PLFSTSALESBindingSource.DataSource = Me.DsPNL1
+        '
         'ucPNL_p1Sales
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p1Sales"
-        Me.Size = New System.Drawing.Size(1104, 513)
+        Me.Size = New System.Drawing.Size(946, 417)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PLFSTSALESBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -491,19 +480,13 @@ Partial Class ucPNL_p1Sales
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PLFSTSALESBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents colPLFS_KEY As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPLFS_PLFSKEY As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPLFS_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPLFS_DESC As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPLFS_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPLFS_NOTE As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPLFS_DETAIL As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents DsPNL As EasyTemplate_Taxcom.dsPNL
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
     Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
@@ -528,10 +511,17 @@ Partial Class ucPNL_p1Sales
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents btnExpand As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents cboSourceNo As DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
-    Friend WithEvents PLFSTSALESBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DsPNL1 As EasyTemplate_Taxcom.dsPNL
-    Friend WithEvents BUSINESSSOURCEBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents colPLFS_KEY As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPLFS_PLFSKEY As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPLFS_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPLFS_DESC As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPLFS_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPLFS_NOTE As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPLFS_DETAIL As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents DsPNL1 As EasyTemplate_Taxcom.dsPNL
+    Friend WithEvents BUSINESSSOURCEBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents PLFSTSALESBindingSource As System.Windows.Forms.BindingSource
 
 End Class

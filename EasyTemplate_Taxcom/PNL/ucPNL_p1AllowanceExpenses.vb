@@ -12,7 +12,7 @@ Public Class ucPNL_p1AllowanceExpenses
 
     Public Const MainTable As String = "EXPENSES_ALLOW" 'PLFST_SALES
     Public Const MainTable_Details As String = "EXPENSES_ALLOW_DETAIL" 'PLFST_SALES_DETAIL
-    Public Const MainKey As String = "EXA_KEY" ' PLFS_KEY
+    Public Const MainKey As String = "EXA_EXAKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "EXAD_EXAKEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "EXA_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXAD_AMOUNT" 'PLFSD_AMOUNT

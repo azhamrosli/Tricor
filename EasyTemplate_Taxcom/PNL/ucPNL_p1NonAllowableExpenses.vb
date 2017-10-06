@@ -12,7 +12,7 @@ Public Class ucPNL_p1NonAllowableExpenses
 
     Public Const MainTable As String = "EXPENSES_NONALLOW" 'PLFST_SALES
     Public Const MainTable_Details As String = "EXPENSES_NONALLOW_DETAIL" 'PLFST_SALES_DETAIL
-    Public Const MainKey As String = "EXNA_KEY" ' PLFS_KEY
+    Public Const MainKey As String = "EXNA_EXNAKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "EXNAD_EXNAKEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "EXNA_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "EXNAD_AMOUNT" 'PLFSD_AMOUNT

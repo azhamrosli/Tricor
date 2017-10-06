@@ -17,10 +17,10 @@
         <xs:element name="PLFST_SALES_DETAIL" msprop:Generator_TableClassName="PLFST_SALES_DETAILDataTable" msprop:Generator_TableVarName="tablePLFST_SALES_DETAIL" msprop:Generator_RowChangedName="PLFST_SALES_DETAILRowChanged" msprop:Generator_TablePropName="PLFST_SALES_DETAIL" msprop:Generator_RowDeletingName="PLFST_SALES_DETAILRowDeleting" msprop:Generator_RowChangingName="PLFST_SALES_DETAILRowChanging" msprop:Generator_RowEvHandlerName="PLFST_SALES_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_SALES_DETAILRowDeleted" msprop:Generator_RowClassName="PLFST_SALES_DETAILRow" msprop:Generator_UserTableName="PLFST_SALES_DETAIL" msprop:Generator_RowEvArgName="PLFST_SALES_DETAILRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFSD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFSD_KEY" msprop:Generator_ColumnPropNameInRow="PLFSD_KEY" msprop:Generator_ColumnPropNameInTable="PLFSD_KEYColumn" msprop:Generator_UserColumnName="PLFSD_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFSD_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFSD_KEY" msprop:Generator_ColumnPropNameInRow="PLFSD_KEY" msprop:Generator_ColumnPropNameInTable="PLFSD_KEYColumn" msprop:Generator_UserColumnName="PLFSD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFSD_PLFSKEY" msprop:Generator_ColumnVarNameInTable="columnPLFSD_PLFSKEY" msprop:Generator_ColumnPropNameInRow="PLFSD_PLFSKEY" msprop:Generator_ColumnPropNameInTable="PLFSD_PLFSKEYColumn" msprop:Generator_UserColumnName="PLFSD_PLFSKEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFSD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFSD_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFSD_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFSD_SOURCENOColumn" msprop:Generator_UserColumnName="PLFSD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFSD_PLFSDKEY" msprop:Generator_ColumnVarNameInTable="columnPLFSD_PLFSDKEY" msprop:Generator_ColumnPropNameInRow="PLFSD_PLFSDKEY" msprop:Generator_ColumnPropNameInTable="PLFSD_PLFSDKEYColumn" msprop:Generator_UserColumnName="PLFSD_PLFSDKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFSD_PLFSDKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFSD_PLFSDKEY" msprop:Generator_ColumnPropNameInRow="PLFSD_PLFSDKEY" msprop:Generator_ColumnPropNameInTable="PLFSD_PLFSDKEYColumn" msprop:Generator_UserColumnName="PLFSD_PLFSDKEY" type="xs:int" />
               <xs:element name="PLFSD_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFSD_DESC" msprop:Generator_ColumnPropNameInRow="PLFSD_DESC" msprop:Generator_ColumnPropNameInTable="PLFSD_DESCColumn" msprop:Generator_UserColumnName="PLFSD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -42,8 +42,8 @@
         <xs:element name="PLFST_SALES" msprop:Generator_TableClassName="PLFST_SALESDataTable" msprop:Generator_TableVarName="tablePLFST_SALES" msprop:Generator_RowChangedName="PLFST_SALESRowChanged" msprop:Generator_TablePropName="PLFST_SALES" msprop:Generator_RowDeletingName="PLFST_SALESRowDeleting" msprop:Generator_RowChangingName="PLFST_SALESRowChanging" msprop:Generator_RowEvHandlerName="PLFST_SALESRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_SALESRowDeleted" msprop:Generator_RowClassName="PLFST_SALESRow" msprop:Generator_UserTableName="PLFST_SALES" msprop:Generator_RowEvArgName="PLFST_SALESRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFS_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFS_KEY" msprop:Generator_ColumnPropNameInRow="PLFS_KEY" msprop:Generator_ColumnPropNameInTable="PLFS_KEYColumn" msprop:Generator_UserColumnName="PLFS_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFS_PLFSKEY" msprop:Generator_ColumnVarNameInTable="columnPLFS_PLFSKEY" msprop:Generator_ColumnPropNameInRow="PLFS_PLFSKEY" msprop:Generator_ColumnPropNameInTable="PLFS_PLFSKEYColumn" msprop:Generator_UserColumnName="PLFS_PLFSKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFS_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFS_KEY" msprop:Generator_ColumnPropNameInRow="PLFS_KEY" msprop:Generator_ColumnPropNameInTable="PLFS_KEYColumn" msprop:Generator_UserColumnName="PLFS_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFS_PLFSKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFS_PLFSKEY" msprop:Generator_ColumnPropNameInRow="PLFS_PLFSKEY" msprop:Generator_ColumnPropNameInTable="PLFS_PLFSKEYColumn" msprop:Generator_UserColumnName="PLFS_PLFSKEY" type="xs:int" />
               <xs:element name="PLFS_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFS_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFS_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFS_SOURCENOColumn" msprop:Generator_UserColumnName="PLFS_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="PLFS_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFS_DESC" msprop:Generator_ColumnPropNameInRow="PLFS_DESC" msprop:Generator_ColumnPropNameInTable="PLFS_DESCColumn" msprop:Generator_UserColumnName="PLFS_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -83,8 +83,8 @@
         <xs:element name="PLFST_OPENSTOCK" msprop:Generator_TableClassName="PLFST_OPENSTOCKDataTable" msprop:Generator_TableVarName="tablePLFST_OPENSTOCK" msprop:Generator_TablePropName="PLFST_OPENSTOCK" msprop:Generator_RowDeletingName="PLFST_OPENSTOCKRowDeleting" msprop:Generator_RowChangingName="PLFST_OPENSTOCKRowChanging" msprop:Generator_RowEvHandlerName="PLFST_OPENSTOCKRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_OPENSTOCKRowDeleted" msprop:Generator_UserTableName="PLFST_OPENSTOCK" msprop:Generator_RowChangedName="PLFST_OPENSTOCKRowChanged" msprop:Generator_RowEvArgName="PLFST_OPENSTOCKRowChangeEvent" msprop:Generator_RowClassName="PLFST_OPENSTOCKRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFOS_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFOS_KEY" msprop:Generator_ColumnPropNameInRow="PLFOS_KEY" msprop:Generator_ColumnPropNameInTable="PLFOS_KEYColumn" msprop:Generator_UserColumnName="PLFOS_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFOS_PLFOSKEY" msprop:Generator_ColumnVarNameInTable="columnPLFOS_PLFOSKEY" msprop:Generator_ColumnPropNameInRow="PLFOS_PLFOSKEY" msprop:Generator_ColumnPropNameInTable="PLFOS_PLFOSKEYColumn" msprop:Generator_UserColumnName="PLFOS_PLFOSKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFOS_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFOS_KEY" msprop:Generator_ColumnPropNameInRow="PLFOS_KEY" msprop:Generator_ColumnPropNameInTable="PLFOS_KEYColumn" msprop:Generator_UserColumnName="PLFOS_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFOS_PLFOSKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFOS_PLFOSKEY" msprop:Generator_ColumnPropNameInRow="PLFOS_PLFOSKEY" msprop:Generator_ColumnPropNameInTable="PLFOS_PLFOSKEYColumn" msprop:Generator_UserColumnName="PLFOS_PLFOSKEY" type="xs:int" />
               <xs:element name="PLFOS_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFOS_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFOS_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFOS_SOURCENOColumn" msprop:Generator_UserColumnName="PLFOS_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="PLFOS_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFOS_DESC" msprop:Generator_ColumnPropNameInRow="PLFOS_DESC" msprop:Generator_ColumnPropNameInTable="PLFOS_DESCColumn" msprop:Generator_UserColumnName="PLFOS_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -114,10 +114,10 @@
         <xs:element name="PLFST_OPENSTOCK_DETAIL" msprop:Generator_TableClassName="PLFST_OPENSTOCK_DETAILDataTable" msprop:Generator_TableVarName="tablePLFST_OPENSTOCK_DETAIL" msprop:Generator_TablePropName="PLFST_OPENSTOCK_DETAIL" msprop:Generator_RowDeletingName="PLFST_OPENSTOCK_DETAILRowDeleting" msprop:Generator_RowChangingName="PLFST_OPENSTOCK_DETAILRowChanging" msprop:Generator_RowEvHandlerName="PLFST_OPENSTOCK_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_OPENSTOCK_DETAILRowDeleted" msprop:Generator_UserTableName="PLFST_OPENSTOCK_DETAIL" msprop:Generator_RowChangedName="PLFST_OPENSTOCK_DETAILRowChanged" msprop:Generator_RowEvArgName="PLFST_OPENSTOCK_DETAILRowChangeEvent" msprop:Generator_RowClassName="PLFST_OPENSTOCK_DETAILRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFOSD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_KEY" msprop:Generator_ColumnPropNameInRow="PLFOSD_KEY" msprop:Generator_ColumnPropNameInTable="PLFOSD_KEYColumn" msprop:Generator_UserColumnName="PLFOSD_KEY" type="xs:int" />
+              <xs:element name="PLFOSD_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_KEY" msprop:Generator_ColumnPropNameInRow="PLFOSD_KEY" msprop:Generator_ColumnPropNameInTable="PLFOSD_KEYColumn" msprop:Generator_UserColumnName="PLFOSD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFOSD_PLFOSKEY" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_PLFOSKEY" msprop:Generator_ColumnPropNameInRow="PLFOSD_PLFOSKEY" msprop:Generator_ColumnPropNameInTable="PLFOSD_PLFOSKEYColumn" msprop:Generator_UserColumnName="PLFOSD_PLFOSKEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFOSD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFOSD_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFOSD_SOURCENOColumn" msprop:Generator_UserColumnName="PLFOSD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFOSD_PLFOSDKEY" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_PLFOSDKEY" msprop:Generator_ColumnPropNameInRow="PLFOSD_PLFOSDKEY" msprop:Generator_ColumnPropNameInTable="PLFOSD_PLFOSDKEYColumn" msprop:Generator_UserColumnName="PLFOSD_PLFOSDKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFOSD_PLFOSDKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_PLFOSDKEY" msprop:Generator_ColumnPropNameInRow="PLFOSD_PLFOSDKEY" msprop:Generator_ColumnPropNameInTable="PLFOSD_PLFOSDKEYColumn" msprop:Generator_UserColumnName="PLFOSD_PLFOSDKEY" type="xs:int" />
               <xs:element name="PLFOSD_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFOSD_DESC" msprop:Generator_ColumnPropNameInRow="PLFOSD_DESC" msprop:Generator_ColumnPropNameInTable="PLFOSD_DESCColumn" msprop:Generator_UserColumnName="PLFOSD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -139,8 +139,8 @@
         <xs:element name="PLFST_PURCHASE" msprop:Generator_TableClassName="PLFST_PURCHASEDataTable" msprop:Generator_TableVarName="tablePLFST_PURCHASE" msprop:Generator_RowChangedName="PLFST_PURCHASERowChanged" msprop:Generator_TablePropName="PLFST_PURCHASE" msprop:Generator_RowDeletingName="PLFST_PURCHASERowDeleting" msprop:Generator_RowChangingName="PLFST_PURCHASERowChanging" msprop:Generator_RowEvHandlerName="PLFST_PURCHASERowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_PURCHASERowDeleted" msprop:Generator_RowClassName="PLFST_PURCHASERow" msprop:Generator_UserTableName="PLFST_PURCHASE" msprop:Generator_RowEvArgName="PLFST_PURCHASERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFPUR_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFPUR_KEY" msprop:Generator_ColumnPropNameInRow="PLFPUR_KEY" msprop:Generator_ColumnPropNameInTable="PLFPUR_KEYColumn" msprop:Generator_UserColumnName="PLFPUR_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFPUR_PLFPURKEY" msprop:Generator_ColumnVarNameInTable="columnPLFPUR_PLFPURKEY" msprop:Generator_ColumnPropNameInRow="PLFPUR_PLFPURKEY" msprop:Generator_ColumnPropNameInTable="PLFPUR_PLFPURKEYColumn" msprop:Generator_UserColumnName="PLFPUR_PLFPURKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFPUR_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFPUR_KEY" msprop:Generator_ColumnPropNameInRow="PLFPUR_KEY" msprop:Generator_ColumnPropNameInTable="PLFPUR_KEYColumn" msprop:Generator_UserColumnName="PLFPUR_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFPUR_PLFPURKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFPUR_PLFPURKEY" msprop:Generator_ColumnPropNameInRow="PLFPUR_PLFPURKEY" msprop:Generator_ColumnPropNameInTable="PLFPUR_PLFPURKEYColumn" msprop:Generator_UserColumnName="PLFPUR_PLFPURKEY" type="xs:int" />
               <xs:element name="PLFPUR_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFPUR_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFPUR_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFPUR_SOURCENOColumn" msprop:Generator_UserColumnName="PLFPUR_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="PLFPUR_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFPUR_DESC" msprop:Generator_ColumnPropNameInRow="PLFPUR_DESC" msprop:Generator_ColumnPropNameInTable="PLFPUR_DESCColumn" msprop:Generator_UserColumnName="PLFPUR_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -171,10 +171,10 @@
         <xs:element name="PLFST_PURCHASE_DETAIL" msprop:Generator_TableClassName="PLFST_PURCHASE_DETAILDataTable" msprop:Generator_TableVarName="tablePLFST_PURCHASE_DETAIL" msprop:Generator_RowChangedName="PLFST_PURCHASE_DETAILRowChanged" msprop:Generator_TablePropName="PLFST_PURCHASE_DETAIL" msprop:Generator_RowDeletingName="PLFST_PURCHASE_DETAILRowDeleting" msprop:Generator_RowChangingName="PLFST_PURCHASE_DETAILRowChanging" msprop:Generator_RowEvHandlerName="PLFST_PURCHASE_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_PURCHASE_DETAILRowDeleted" msprop:Generator_RowClassName="PLFST_PURCHASE_DETAILRow" msprop:Generator_UserTableName="PLFST_PURCHASE_DETAIL" msprop:Generator_RowEvArgName="PLFST_PURCHASE_DETAILRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFPURD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_KEY" msprop:Generator_ColumnPropNameInRow="PLFPURD_KEY" msprop:Generator_ColumnPropNameInTable="PLFPURD_KEYColumn" msprop:Generator_UserColumnName="PLFPURD_KEY" type="xs:int" />
+              <xs:element name="PLFPURD_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_KEY" msprop:Generator_ColumnPropNameInRow="PLFPURD_KEY" msprop:Generator_ColumnPropNameInTable="PLFPURD_KEYColumn" msprop:Generator_UserColumnName="PLFPURD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFPURD_PLFPURKEY" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_PLFPURKEY" msprop:Generator_ColumnPropNameInRow="PLFPURD_PLFPURKEY" msprop:Generator_ColumnPropNameInTable="PLFPURD_PLFPURKEYColumn" msprop:Generator_UserColumnName="PLFPURD_PLFPURKEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFPURD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFPURD_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFPURD_SOURCENOColumn" msprop:Generator_UserColumnName="PLFPURD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFPURD_PLFPURDKEY" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_PLFPURDKEY" msprop:Generator_ColumnPropNameInRow="PLFPURD_PLFPURDKEY" msprop:Generator_ColumnPropNameInTable="PLFPURD_PLFPURDKEYColumn" msprop:Generator_UserColumnName="PLFPURD_PLFPURDKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFPURD_PLFPURDKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_PLFPURDKEY" msprop:Generator_ColumnPropNameInRow="PLFPURD_PLFPURDKEY" msprop:Generator_ColumnPropNameInTable="PLFPURD_PLFPURDKEYColumn" msprop:Generator_UserColumnName="PLFPURD_PLFPURDKEY" type="xs:int" />
               <xs:element name="PLFPURD_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFPURD_DESC" msprop:Generator_ColumnPropNameInRow="PLFPURD_DESC" msprop:Generator_ColumnPropNameInTable="PLFPURD_DESCColumn" msprop:Generator_UserColumnName="PLFPURD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -197,8 +197,8 @@
         <xs:element name="EXPENSES_DEPRECIATION" msprop:Generator_TableClassName="EXPENSES_DEPRECIATIONDataTable" msprop:Generator_TableVarName="tableEXPENSES_DEPRECIATION" msprop:Generator_RowChangedName="EXPENSES_DEPRECIATIONRowChanged" msprop:Generator_TablePropName="EXPENSES_DEPRECIATION" msprop:Generator_RowDeletingName="EXPENSES_DEPRECIATIONRowDeleting" msprop:Generator_RowChangingName="EXPENSES_DEPRECIATIONRowChanging" msprop:Generator_RowEvHandlerName="EXPENSES_DEPRECIATIONRowChangeEventHandler" msprop:Generator_RowDeletedName="EXPENSES_DEPRECIATIONRowDeleted" msprop:Generator_RowClassName="EXPENSES_DEPRECIATIONRow" msprop:Generator_UserTableName="EXPENSES_DEPRECIATION" msprop:Generator_RowEvArgName="EXPENSES_DEPRECIATIONRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EXDEP_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXDEP_KEY" msprop:Generator_ColumnPropNameInRow="EXDEP_KEY" msprop:Generator_ColumnPropNameInTable="EXDEP_KEYColumn" msprop:Generator_UserColumnName="EXDEP_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="EXDEP_EXDEPKEY" msprop:Generator_ColumnVarNameInTable="columnEXDEP_EXDEPKEY" msprop:Generator_ColumnPropNameInRow="EXDEP_EXDEPKEY" msprop:Generator_ColumnPropNameInTable="EXDEP_EXDEPKEYColumn" msprop:Generator_UserColumnName="EXDEP_EXDEPKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXDEP_KEY" msprop:Generator_ColumnVarNameInTable="columnEXDEP_KEY" msprop:Generator_ColumnPropNameInRow="EXDEP_KEY" msprop:Generator_ColumnPropNameInTable="EXDEP_KEYColumn" msprop:Generator_UserColumnName="EXDEP_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXDEP_EXDEPKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXDEP_EXDEPKEY" msprop:Generator_ColumnPropNameInRow="EXDEP_EXDEPKEY" msprop:Generator_ColumnPropNameInTable="EXDEP_EXDEPKEYColumn" msprop:Generator_UserColumnName="EXDEP_EXDEPKEY" type="xs:int" />
               <xs:element name="EXDEP_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnEXDEP_SOURCENO" msprop:Generator_ColumnPropNameInRow="EXDEP_SOURCENO" msprop:Generator_ColumnPropNameInTable="EXDEP_SOURCENOColumn" msprop:Generator_UserColumnName="EXDEP_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="EXDEP_DESC" msprop:Generator_ColumnVarNameInTable="columnEXDEP_DESC" msprop:Generator_ColumnPropNameInRow="EXDEP_DESC" msprop:Generator_ColumnPropNameInTable="EXDEP_DESCColumn" msprop:Generator_UserColumnName="EXDEP_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -229,10 +229,10 @@
         <xs:element name="EXPENSES_DEPRECIATION_DETAIL" msprop:Generator_TableClassName="EXPENSES_DEPRECIATION_DETAILDataTable" msprop:Generator_TableVarName="tableEXPENSES_DEPRECIATION_DETAIL" msprop:Generator_RowChangedName="EXPENSES_DEPRECIATION_DETAILRowChanged" msprop:Generator_TablePropName="EXPENSES_DEPRECIATION_DETAIL" msprop:Generator_RowDeletingName="EXPENSES_DEPRECIATION_DETAILRowDeleting" msprop:Generator_RowChangingName="EXPENSES_DEPRECIATION_DETAILRowChanging" msprop:Generator_RowEvHandlerName="EXPENSES_DEPRECIATION_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="EXPENSES_DEPRECIATION_DETAILRowDeleted" msprop:Generator_RowClassName="EXPENSES_DEPRECIATION_DETAILRow" msprop:Generator_UserTableName="EXPENSES_DEPRECIATION_DETAIL" msprop:Generator_RowEvArgName="EXPENSES_DEPRECIATION_DETAILRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EXDEPD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_KEY" msprop:Generator_ColumnPropNameInRow="EXDEPD_KEY" msprop:Generator_ColumnPropNameInTable="EXDEPD_KEYColumn" msprop:Generator_UserColumnName="EXDEPD_KEY" type="xs:int" />
+              <xs:element name="EXDEPD_KEY" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_KEY" msprop:Generator_ColumnPropNameInRow="EXDEPD_KEY" msprop:Generator_ColumnPropNameInTable="EXDEPD_KEYColumn" msprop:Generator_UserColumnName="EXDEPD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="EXDEPD_EXDEPKEY" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_EXDEPKEY" msprop:Generator_ColumnPropNameInRow="EXDEPD_EXDEPKEY" msprop:Generator_ColumnPropNameInTable="EXDEPD_EXDEPKEYColumn" msprop:Generator_UserColumnName="EXDEPD_EXDEPKEY" type="xs:int" minOccurs="0" />
               <xs:element name="EXDEPD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_SOURCENO" msprop:Generator_ColumnPropNameInRow="EXDEPD_SOURCENO" msprop:Generator_ColumnPropNameInTable="EXDEPD_SOURCENOColumn" msprop:Generator_UserColumnName="EXDEPD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="EXDEPD_EXDEPDKEY" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_EXDEPDKEY" msprop:Generator_ColumnPropNameInRow="EXDEPD_EXDEPDKEY" msprop:Generator_ColumnPropNameInTable="EXDEPD_EXDEPDKEYColumn" msprop:Generator_UserColumnName="EXDEPD_EXDEPDKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXDEPD_EXDEPDKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_EXDEPDKEY" msprop:Generator_ColumnPropNameInRow="EXDEPD_EXDEPDKEY" msprop:Generator_ColumnPropNameInTable="EXDEPD_EXDEPDKEYColumn" msprop:Generator_UserColumnName="EXDEPD_EXDEPDKEY" type="xs:int" />
               <xs:element name="EXDEPD_DESC" msprop:Generator_ColumnVarNameInTable="columnEXDEPD_DESC" msprop:Generator_ColumnPropNameInRow="EXDEPD_DESC" msprop:Generator_ColumnPropNameInTable="EXDEPD_DESCColumn" msprop:Generator_UserColumnName="EXDEPD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -255,8 +255,8 @@
         <xs:element name="EXPENSES_ALLOW" msprop:Generator_TableClassName="EXPENSES_ALLOWDataTable" msprop:Generator_TableVarName="tableEXPENSES_ALLOW" msprop:Generator_RowChangedName="EXPENSES_ALLOWRowChanged" msprop:Generator_TablePropName="EXPENSES_ALLOW" msprop:Generator_RowDeletingName="EXPENSES_ALLOWRowDeleting" msprop:Generator_RowChangingName="EXPENSES_ALLOWRowChanging" msprop:Generator_RowEvHandlerName="EXPENSES_ALLOWRowChangeEventHandler" msprop:Generator_RowDeletedName="EXPENSES_ALLOWRowDeleted" msprop:Generator_RowClassName="EXPENSES_ALLOWRow" msprop:Generator_UserTableName="EXPENSES_ALLOW" msprop:Generator_RowEvArgName="EXPENSES_ALLOWRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EXA_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXA_KEY" msprop:Generator_ColumnPropNameInRow="EXA_KEY" msprop:Generator_ColumnPropNameInTable="EXA_KEYColumn" msprop:Generator_UserColumnName="EXA_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="EXA_EXAKEY" msprop:Generator_ColumnVarNameInTable="columnEXA_EXAKEY" msprop:Generator_ColumnPropNameInRow="EXA_EXAKEY" msprop:Generator_ColumnPropNameInTable="EXA_EXAKEYColumn" msprop:Generator_UserColumnName="EXA_EXAKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXA_KEY" msprop:Generator_ColumnVarNameInTable="columnEXA_KEY" msprop:Generator_ColumnPropNameInRow="EXA_KEY" msprop:Generator_ColumnPropNameInTable="EXA_KEYColumn" msprop:Generator_UserColumnName="EXA_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXA_EXAKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXA_EXAKEY" msprop:Generator_ColumnPropNameInRow="EXA_EXAKEY" msprop:Generator_ColumnPropNameInTable="EXA_EXAKEYColumn" msprop:Generator_UserColumnName="EXA_EXAKEY" type="xs:int" />
               <xs:element name="EXA_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnEXA_SOURCENO" msprop:Generator_ColumnPropNameInRow="EXA_SOURCENO" msprop:Generator_ColumnPropNameInTable="EXA_SOURCENOColumn" msprop:Generator_UserColumnName="EXA_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="EXA_DESC" msprop:Generator_ColumnVarNameInTable="columnEXA_DESC" msprop:Generator_ColumnPropNameInRow="EXA_DESC" msprop:Generator_ColumnPropNameInTable="EXA_DESCColumn" msprop:Generator_UserColumnName="EXA_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -287,10 +287,10 @@
         <xs:element name="EXPENSES_ALLOW_DETAIL" msprop:Generator_TableClassName="EXPENSES_ALLOW_DETAILDataTable" msprop:Generator_TableVarName="tableEXPENSES_ALLOW_DETAIL" msprop:Generator_RowChangedName="EXPENSES_ALLOW_DETAILRowChanged" msprop:Generator_TablePropName="EXPENSES_ALLOW_DETAIL" msprop:Generator_RowDeletingName="EXPENSES_ALLOW_DETAILRowDeleting" msprop:Generator_RowChangingName="EXPENSES_ALLOW_DETAILRowChanging" msprop:Generator_RowEvHandlerName="EXPENSES_ALLOW_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="EXPENSES_ALLOW_DETAILRowDeleted" msprop:Generator_RowClassName="EXPENSES_ALLOW_DETAILRow" msprop:Generator_UserTableName="EXPENSES_ALLOW_DETAIL" msprop:Generator_RowEvArgName="EXPENSES_ALLOW_DETAILRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EXAD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXAD_KEY" msprop:Generator_ColumnPropNameInRow="EXAD_KEY" msprop:Generator_ColumnPropNameInTable="EXAD_KEYColumn" msprop:Generator_UserColumnName="EXAD_KEY" type="xs:int" />
+              <xs:element name="EXAD_KEY" msprop:Generator_ColumnVarNameInTable="columnEXAD_KEY" msprop:Generator_ColumnPropNameInRow="EXAD_KEY" msprop:Generator_ColumnPropNameInTable="EXAD_KEYColumn" msprop:Generator_UserColumnName="EXAD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="EXAD_EXAKEY" msprop:Generator_ColumnVarNameInTable="columnEXAD_EXAKEY" msprop:Generator_ColumnPropNameInRow="EXAD_EXAKEY" msprop:Generator_ColumnPropNameInTable="EXAD_EXAKEYColumn" msprop:Generator_UserColumnName="EXAD_EXAKEY" type="xs:int" minOccurs="0" />
               <xs:element name="EXAD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnEXAD_SOURCENO" msprop:Generator_ColumnPropNameInRow="EXAD_SOURCENO" msprop:Generator_ColumnPropNameInTable="EXAD_SOURCENOColumn" msprop:Generator_UserColumnName="EXAD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="EXAD_EXADKEY" msprop:Generator_ColumnVarNameInTable="columnEXAD_EXADKEY" msprop:Generator_ColumnPropNameInRow="EXAD_EXADKEY" msprop:Generator_ColumnPropNameInTable="EXAD_EXADKEYColumn" msprop:Generator_UserColumnName="EXAD_EXADKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXAD_EXADKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXAD_EXADKEY" msprop:Generator_ColumnPropNameInRow="EXAD_EXADKEY" msprop:Generator_ColumnPropNameInTable="EXAD_EXADKEYColumn" msprop:Generator_UserColumnName="EXAD_EXADKEY" type="xs:int" />
               <xs:element name="EXAD_DESC" msprop:Generator_ColumnVarNameInTable="columnEXAD_DESC" msprop:Generator_ColumnPropNameInRow="EXAD_DESC" msprop:Generator_ColumnPropNameInTable="EXAD_DESCColumn" msprop:Generator_UserColumnName="EXAD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -313,8 +313,8 @@
         <xs:element name="EXPENSES_NONALLOW" msprop:Generator_TableClassName="EXPENSES_NONALLOWDataTable" msprop:Generator_TableVarName="tableEXPENSES_NONALLOW" msprop:Generator_RowChangedName="EXPENSES_NONALLOWRowChanged" msprop:Generator_TablePropName="EXPENSES_NONALLOW" msprop:Generator_RowDeletingName="EXPENSES_NONALLOWRowDeleting" msprop:Generator_RowChangingName="EXPENSES_NONALLOWRowChanging" msprop:Generator_RowEvHandlerName="EXPENSES_NONALLOWRowChangeEventHandler" msprop:Generator_RowDeletedName="EXPENSES_NONALLOWRowDeleted" msprop:Generator_RowClassName="EXPENSES_NONALLOWRow" msprop:Generator_UserTableName="EXPENSES_NONALLOW" msprop:Generator_RowEvArgName="EXPENSES_NONALLOWRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EXNA_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXNA_KEY" msprop:Generator_ColumnPropNameInRow="EXNA_KEY" msprop:Generator_ColumnPropNameInTable="EXNA_KEYColumn" msprop:Generator_UserColumnName="EXNA_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="EXNA_EXNAKEY" msprop:Generator_ColumnVarNameInTable="columnEXNA_EXNAKEY" msprop:Generator_ColumnPropNameInRow="EXNA_EXNAKEY" msprop:Generator_ColumnPropNameInTable="EXNA_EXNAKEYColumn" msprop:Generator_UserColumnName="EXNA_EXNAKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXNA_KEY" msprop:Generator_ColumnVarNameInTable="columnEXNA_KEY" msprop:Generator_ColumnPropNameInRow="EXNA_KEY" msprop:Generator_ColumnPropNameInTable="EXNA_KEYColumn" msprop:Generator_UserColumnName="EXNA_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXNA_EXNAKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXNA_EXNAKEY" msprop:Generator_ColumnPropNameInRow="EXNA_EXNAKEY" msprop:Generator_ColumnPropNameInTable="EXNA_EXNAKEYColumn" msprop:Generator_UserColumnName="EXNA_EXNAKEY" type="xs:int" />
               <xs:element name="EXNA_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnEXNA_SOURCENO" msprop:Generator_ColumnPropNameInRow="EXNA_SOURCENO" msprop:Generator_ColumnPropNameInTable="EXNA_SOURCENOColumn" msprop:Generator_UserColumnName="EXNA_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="EXNA_DESC" msprop:Generator_ColumnVarNameInTable="columnEXNA_DESC" msprop:Generator_ColumnPropNameInRow="EXNA_DESC" msprop:Generator_ColumnPropNameInTable="EXNA_DESCColumn" msprop:Generator_UserColumnName="EXNA_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -345,10 +345,10 @@
         <xs:element name="EXPENSES_NONALLOW_DETAIL" msprop:Generator_TableClassName="EXPENSES_NONALLOW_DETAILDataTable" msprop:Generator_TableVarName="tableEXPENSES_NONALLOW_DETAIL" msprop:Generator_RowChangedName="EXPENSES_NONALLOW_DETAILRowChanged" msprop:Generator_TablePropName="EXPENSES_NONALLOW_DETAIL" msprop:Generator_RowDeletingName="EXPENSES_NONALLOW_DETAILRowDeleting" msprop:Generator_RowChangingName="EXPENSES_NONALLOW_DETAILRowChanging" msprop:Generator_RowEvHandlerName="EXPENSES_NONALLOW_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="EXPENSES_NONALLOW_DETAILRowDeleted" msprop:Generator_RowClassName="EXPENSES_NONALLOW_DETAILRow" msprop:Generator_UserTableName="EXPENSES_NONALLOW_DETAIL" msprop:Generator_RowEvArgName="EXPENSES_NONALLOW_DETAILRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="EXNAD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXNAD_KEY" msprop:Generator_ColumnPropNameInRow="EXNAD_KEY" msprop:Generator_ColumnPropNameInTable="EXNAD_KEYColumn" msprop:Generator_UserColumnName="EXNAD_KEY" type="xs:int" />
+              <xs:element name="EXNAD_KEY" msprop:Generator_ColumnVarNameInTable="columnEXNAD_KEY" msprop:Generator_ColumnPropNameInRow="EXNAD_KEY" msprop:Generator_ColumnPropNameInTable="EXNAD_KEYColumn" msprop:Generator_UserColumnName="EXNAD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="EXNAD_EXNAKEY" msprop:Generator_ColumnVarNameInTable="columnEXNAD_EXNAKEY" msprop:Generator_ColumnPropNameInRow="EXNAD_EXNAKEY" msprop:Generator_ColumnPropNameInTable="EXNAD_EXNAKEYColumn" msprop:Generator_UserColumnName="EXNAD_EXNAKEY" type="xs:int" minOccurs="0" />
               <xs:element name="EXNAD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnEXNAD_SOURCENO" msprop:Generator_ColumnPropNameInRow="EXNAD_SOURCENO" msprop:Generator_ColumnPropNameInTable="EXNAD_SOURCENOColumn" msprop:Generator_UserColumnName="EXNAD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="EXNAD_EXNADKEY" msprop:Generator_ColumnVarNameInTable="columnEXNAD_EXNADKEY" msprop:Generator_ColumnPropNameInRow="EXNAD_EXNADKEY" msprop:Generator_ColumnPropNameInTable="EXNAD_EXNADKEYColumn" msprop:Generator_UserColumnName="EXNAD_EXNADKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="EXNAD_EXNADKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnEXNAD_EXNADKEY" msprop:Generator_ColumnPropNameInRow="EXNAD_EXNADKEY" msprop:Generator_ColumnPropNameInTable="EXNAD_EXNADKEYColumn" msprop:Generator_UserColumnName="EXNAD_EXNADKEY" type="xs:int" />
               <xs:element name="EXNAD_DESC" msprop:Generator_ColumnVarNameInTable="columnEXNAD_DESC" msprop:Generator_ColumnPropNameInRow="EXNAD_DESC" msprop:Generator_ColumnPropNameInTable="EXNAD_DESCColumn" msprop:Generator_UserColumnName="EXNAD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -371,8 +371,8 @@
         <xs:element name="PLFST_CLOSESTOCK" msprop:Generator_TableClassName="PLFST_CLOSESTOCKDataTable" msprop:Generator_TableVarName="tablePLFST_CLOSESTOCK" msprop:Generator_RowChangedName="PLFST_CLOSESTOCKRowChanged" msprop:Generator_TablePropName="PLFST_CLOSESTOCK" msprop:Generator_RowDeletingName="PLFST_CLOSESTOCKRowDeleting" msprop:Generator_RowChangingName="PLFST_CLOSESTOCKRowChanging" msprop:Generator_RowEvHandlerName="PLFST_CLOSESTOCKRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_CLOSESTOCKRowDeleted" msprop:Generator_RowClassName="PLFST_CLOSESTOCKRow" msprop:Generator_UserTableName="PLFST_CLOSESTOCK" msprop:Generator_RowEvArgName="PLFST_CLOSESTOCKRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFCS_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFCS_KEY" msprop:Generator_ColumnPropNameInRow="PLFCS_KEY" msprop:Generator_ColumnPropNameInTable="PLFCS_KEYColumn" msprop:Generator_UserColumnName="PLFCS_KEY" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFCS_PLFCSKEY" msprop:Generator_ColumnVarNameInTable="columnPLFCS_PLFCSKEY" msprop:Generator_ColumnPropNameInRow="PLFCS_PLFCSKEY" msprop:Generator_ColumnPropNameInTable="PLFCS_PLFCSKEYColumn" msprop:Generator_UserColumnName="PLFCS_PLFCSKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFCS_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFCS_KEY" msprop:Generator_ColumnPropNameInRow="PLFCS_KEY" msprop:Generator_ColumnPropNameInTable="PLFCS_KEYColumn" msprop:Generator_UserColumnName="PLFCS_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFCS_PLFCSKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFCS_PLFCSKEY" msprop:Generator_ColumnPropNameInRow="PLFCS_PLFCSKEY" msprop:Generator_ColumnPropNameInTable="PLFCS_PLFCSKEYColumn" msprop:Generator_UserColumnName="PLFCS_PLFCSKEY" type="xs:int" />
               <xs:element name="PLFCS_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFCS_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFCS_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFCS_SOURCENOColumn" msprop:Generator_UserColumnName="PLFCS_SOURCENO" type="xs:int" minOccurs="0" />
               <xs:element name="PLFCS_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFCS_DESC" msprop:Generator_ColumnPropNameInRow="PLFCS_DESC" msprop:Generator_ColumnPropNameInTable="PLFCS_DESCColumn" msprop:Generator_UserColumnName="PLFCS_DESC" minOccurs="0">
                 <xs:simpleType>
@@ -402,10 +402,10 @@
         <xs:element name="PLFST_CLOSESTOCK_DETAIL" msprop:Generator_TableClassName="PLFST_CLOSESTOCK_DETAILDataTable" msprop:Generator_TableVarName="tablePLFST_CLOSESTOCK_DETAIL" msprop:Generator_RowChangedName="PLFST_CLOSESTOCK_DETAILRowChanged" msprop:Generator_TablePropName="PLFST_CLOSESTOCK_DETAIL" msprop:Generator_RowDeletingName="PLFST_CLOSESTOCK_DETAILRowDeleting" msprop:Generator_RowChangingName="PLFST_CLOSESTOCK_DETAILRowChanging" msprop:Generator_RowEvHandlerName="PLFST_CLOSESTOCK_DETAILRowChangeEventHandler" msprop:Generator_RowDeletedName="PLFST_CLOSESTOCK_DETAILRowDeleted" msprop:Generator_RowClassName="PLFST_CLOSESTOCK_DETAILRow" msprop:Generator_UserTableName="PLFST_CLOSESTOCK_DETAIL" msprop:Generator_RowEvArgName="PLFST_CLOSESTOCK_DETAILRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="PLFCSD_KEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_KEY" msprop:Generator_ColumnPropNameInRow="PLFCSD_KEY" msprop:Generator_ColumnPropNameInTable="PLFCSD_KEYColumn" msprop:Generator_UserColumnName="PLFCSD_KEY" type="xs:int" />
+              <xs:element name="PLFCSD_KEY" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_KEY" msprop:Generator_ColumnPropNameInRow="PLFCSD_KEY" msprop:Generator_ColumnPropNameInTable="PLFCSD_KEYColumn" msprop:Generator_UserColumnName="PLFCSD_KEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFCSD_PLFCSKEY" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_PLFCSKEY" msprop:Generator_ColumnPropNameInRow="PLFCSD_PLFCSKEY" msprop:Generator_ColumnPropNameInTable="PLFCSD_PLFCSKEYColumn" msprop:Generator_UserColumnName="PLFCSD_PLFCSKEY" type="xs:int" minOccurs="0" />
               <xs:element name="PLFCSD_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_SOURCENO" msprop:Generator_ColumnPropNameInRow="PLFCSD_SOURCENO" msprop:Generator_ColumnPropNameInTable="PLFCSD_SOURCENOColumn" msprop:Generator_UserColumnName="PLFCSD_SOURCENO" type="xs:int" minOccurs="0" />
-              <xs:element name="PLFCSD_PLFCSDKEY" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_PLFCSDKEY" msprop:Generator_ColumnPropNameInRow="PLFCSD_PLFCSDKEY" msprop:Generator_ColumnPropNameInTable="PLFCSD_PLFCSDKEYColumn" msprop:Generator_UserColumnName="PLFCSD_PLFCSDKEY" type="xs:int" minOccurs="0" />
+              <xs:element name="PLFCSD_PLFCSDKEY" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_PLFCSDKEY" msprop:Generator_ColumnPropNameInRow="PLFCSD_PLFCSDKEY" msprop:Generator_ColumnPropNameInTable="PLFCSD_PLFCSDKEYColumn" msprop:Generator_UserColumnName="PLFCSD_PLFCSDKEY" type="xs:int" />
               <xs:element name="PLFCSD_DESC" msprop:Generator_ColumnVarNameInTable="columnPLFCSD_DESC" msprop:Generator_ColumnPropNameInRow="PLFCSD_DESC" msprop:Generator_ColumnPropNameInTable="PLFCSD_DESCColumn" msprop:Generator_UserColumnName="PLFCSD_DESC" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -3872,66 +3872,61 @@
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="Constraint1">
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_SALES_DETAIL" />
-      <xs:field xpath="mstns:PLFSD_KEY" />
+      <xs:field xpath="mstns:PLFSD_PLFSDKEY" />
     </xs:unique>
-    <xs:unique name="PLFST_SALES_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="PLFST_SALES_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_SALES" />
-      <xs:field xpath="mstns:PLFS_KEY" />
+      <xs:field xpath="mstns:PLFS_PLFSKEY" />
     </xs:unique>
-    <xs:unique name="Constraint2">
-      <xs:selector xpath=".//mstns:PLFST_SALES" />
-      <xs:field xpath="mstns:PLFS_KEY" />
-      <xs:field xpath="mstns:PLFS_SOURCENO" />
-    </xs:unique>
-    <xs:unique name="PLFST_OPENSTOCK_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="PLFST_OPENSTOCK_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_OPENSTOCK" />
-      <xs:field xpath="mstns:PLFOS_KEY" />
+      <xs:field xpath="mstns:PLFOS_PLFOSKEY" />
     </xs:unique>
     <xs:unique name="PLFST_OPENSTOCK_DETAIL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_OPENSTOCK_DETAIL" />
-      <xs:field xpath="mstns:PLFOSD_KEY" />
+      <xs:field xpath="mstns:PLFOSD_PLFOSDKEY" />
     </xs:unique>
-    <xs:unique name="PLFST_PURCHASE_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="PLFST_PURCHASE_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_PURCHASE" />
-      <xs:field xpath="mstns:PLFPUR_KEY" />
+      <xs:field xpath="mstns:PLFPUR_PLFPURKEY" />
     </xs:unique>
     <xs:unique name="PLFST_PURCHASE_DETAIL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_PURCHASE_DETAIL" />
-      <xs:field xpath="mstns:PLFPURD_KEY" />
+      <xs:field xpath="mstns:PLFPURD_PLFPURDKEY" />
     </xs:unique>
-    <xs:unique name="EXPENSES_DEPRECIATION_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="EXPENSES_DEPRECIATION_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EXPENSES_DEPRECIATION" />
-      <xs:field xpath="mstns:EXDEP_KEY" />
+      <xs:field xpath="mstns:EXDEP_EXDEPKEY" />
     </xs:unique>
     <xs:unique name="EXPENSES_DEPRECIATION_DETAIL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EXPENSES_DEPRECIATION_DETAIL" />
-      <xs:field xpath="mstns:EXDEPD_KEY" />
+      <xs:field xpath="mstns:EXDEPD_EXDEPDKEY" />
     </xs:unique>
-    <xs:unique name="EXPENSES_ALLOW_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="EXPENSES_ALLOW_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EXPENSES_ALLOW" />
-      <xs:field xpath="mstns:EXA_KEY" />
+      <xs:field xpath="mstns:EXA_EXAKEY" />
     </xs:unique>
     <xs:unique name="EXPENSES_ALLOW_DETAIL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EXPENSES_ALLOW_DETAIL" />
-      <xs:field xpath="mstns:EXAD_KEY" />
+      <xs:field xpath="mstns:EXAD_EXADKEY" />
     </xs:unique>
-    <xs:unique name="EXPENSES_NONALLOW_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="EXPENSES_NONALLOW_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EXPENSES_NONALLOW" />
-      <xs:field xpath="mstns:EXNA_KEY" />
+      <xs:field xpath="mstns:EXNA_EXNAKEY" />
     </xs:unique>
     <xs:unique name="EXPENSES_NONALLOW_DETAIL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:EXPENSES_NONALLOW_DETAIL" />
-      <xs:field xpath="mstns:EXNAD_KEY" />
+      <xs:field xpath="mstns:EXNAD_EXNADKEY" />
     </xs:unique>
-    <xs:unique name="PLFST_CLOSESTOCK_Constraint1" msdata:ConstraintName="Constraint1">
+    <xs:unique name="PLFST_CLOSESTOCK_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_CLOSESTOCK" />
-      <xs:field xpath="mstns:PLFCS_KEY" />
+      <xs:field xpath="mstns:PLFCS_PLFCSKEY" />
     </xs:unique>
     <xs:unique name="PLFST_CLOSESTOCK_DETAIL_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:PLFST_CLOSESTOCK_DETAIL" />
-      <xs:field xpath="mstns:PLFCSD_KEY" />
+      <xs:field xpath="mstns:PLFCSD_PLFCSDKEY" />
     </xs:unique>
     <xs:unique name="NONSOURCE_BUSINESSINCOME_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:NONSOURCE_BUSINESSINCOME" />
@@ -4461,31 +4456,31 @@
       <xs:selector xpath=".//mstns:NONSOURCE_BUSINESSINCOME_DETAIL" />
       <xs:field xpath="mstns:NSBID_NSBIKEY" />
     </xs:keyref>
-    <xs:keyref name="FK_PLFST_CLOSESTOCK_PLFST_CLOSESTOCK_DETAIL" refer="PLFST_CLOSESTOCK_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_CLOSESTOCK_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_CLOSESTOCK_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_CLOSESTOCK_PLFST_CLOSESTOCK_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_PLFST_CLOSESTOCK_PLFST_CLOSESTOCK_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_CLOSESTOCK" msprop:rel_Generator_ParentPropName="PLFST_CLOSESTOCKRow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_PLFST_CLOSESTOCK_PLFST_CLOSESTOCK_DETAIL" refer="PLFST_CLOSESTOCK_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_CLOSESTOCK_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_CLOSESTOCK_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_CLOSESTOCK_PLFST_CLOSESTOCK_DETAIL" msprop:rel_Generator_ParentPropName="PLFST_CLOSESTOCKRow" msprop:rel_Generator_RelationVarName="relationFK_PLFST_CLOSESTOCK_PLFST_CLOSESTOCK_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_CLOSESTOCK">
       <xs:selector xpath=".//mstns:PLFST_CLOSESTOCK_DETAIL" />
       <xs:field xpath="mstns:PLFCSD_PLFCSKEY" />
     </xs:keyref>
-    <xs:keyref name="FK_EXPENSES_NONALLOW_EXPENSES_NONALLOW_DETAIL" refer="EXPENSES_NONALLOW_Constraint1" msprop:rel_Generator_UserChildTable="EXPENSES_NONALLOW_DETAIL" msprop:rel_Generator_ChildPropName="GetEXPENSES_NONALLOW_DETAILRows" msprop:rel_Generator_UserRelationName="FK_EXPENSES_NONALLOW_EXPENSES_NONALLOW_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_EXPENSES_NONALLOW_EXPENSES_NONALLOW_DETAIL" msprop:rel_Generator_UserParentTable="EXPENSES_NONALLOW" msprop:rel_Generator_ParentPropName="EXPENSES_NONALLOWRow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_EXPENSES_NONALLOW_EXPENSES_NONALLOW_DETAIL" refer="EXPENSES_NONALLOW_Constraint1" msprop:rel_Generator_UserChildTable="EXPENSES_NONALLOW_DETAIL" msprop:rel_Generator_ChildPropName="GetEXPENSES_NONALLOW_DETAILRows" msprop:rel_Generator_UserRelationName="FK_EXPENSES_NONALLOW_EXPENSES_NONALLOW_DETAIL" msprop:rel_Generator_ParentPropName="EXPENSES_NONALLOWRow" msprop:rel_Generator_RelationVarName="relationFK_EXPENSES_NONALLOW_EXPENSES_NONALLOW_DETAIL" msprop:rel_Generator_UserParentTable="EXPENSES_NONALLOW">
       <xs:selector xpath=".//mstns:EXPENSES_NONALLOW_DETAIL" />
       <xs:field xpath="mstns:EXNAD_EXNAKEY" />
     </xs:keyref>
-    <xs:keyref name="FK_EXPENSES_ALLOW_EXPENSES_ALLOW_DETAIL" refer="EXPENSES_ALLOW_Constraint1" msprop:rel_Generator_UserChildTable="EXPENSES_ALLOW_DETAIL" msprop:rel_Generator_ChildPropName="GetEXPENSES_ALLOW_DETAILRows" msprop:rel_Generator_UserRelationName="FK_EXPENSES_ALLOW_EXPENSES_ALLOW_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_EXPENSES_ALLOW_EXPENSES_ALLOW_DETAIL" msprop:rel_Generator_UserParentTable="EXPENSES_ALLOW" msprop:rel_Generator_ParentPropName="EXPENSES_ALLOWRow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_EXPENSES_ALLOW_EXPENSES_ALLOW_DETAIL" refer="EXPENSES_ALLOW_Constraint1" msprop:rel_Generator_UserChildTable="EXPENSES_ALLOW_DETAIL" msprop:rel_Generator_ChildPropName="GetEXPENSES_ALLOW_DETAILRows" msprop:rel_Generator_UserRelationName="FK_EXPENSES_ALLOW_EXPENSES_ALLOW_DETAIL" msprop:rel_Generator_ParentPropName="EXPENSES_ALLOWRow" msprop:rel_Generator_RelationVarName="relationFK_EXPENSES_ALLOW_EXPENSES_ALLOW_DETAIL" msprop:rel_Generator_UserParentTable="EXPENSES_ALLOW">
       <xs:selector xpath=".//mstns:EXPENSES_ALLOW_DETAIL" />
       <xs:field xpath="mstns:EXAD_EXAKEY" />
     </xs:keyref>
-    <xs:keyref name="FK_EXPENSES_DEPRECIATION_EXPENSES_DEPRECIATION_DETAIL" refer="EXPENSES_DEPRECIATION_Constraint1" msprop:rel_Generator_UserChildTable="EXPENSES_DEPRECIATION_DETAIL" msprop:rel_Generator_ChildPropName="GetEXPENSES_DEPRECIATION_DETAILRows" msprop:rel_Generator_UserRelationName="FK_EXPENSES_DEPRECIATION_EXPENSES_DEPRECIATION_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_EXPENSES_DEPRECIATION_EXPENSES_DEPRECIATION_DETAIL" msprop:rel_Generator_UserParentTable="EXPENSES_DEPRECIATION" msprop:rel_Generator_ParentPropName="EXPENSES_DEPRECIATIONRow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_EXPENSES_DEPRECIATION_EXPENSES_DEPRECIATION_DETAIL" refer="EXPENSES_DEPRECIATION_Constraint1" msprop:rel_Generator_UserChildTable="EXPENSES_DEPRECIATION_DETAIL" msprop:rel_Generator_ChildPropName="GetEXPENSES_DEPRECIATION_DETAILRows" msprop:rel_Generator_UserRelationName="FK_EXPENSES_DEPRECIATION_EXPENSES_DEPRECIATION_DETAIL" msprop:rel_Generator_ParentPropName="EXPENSES_DEPRECIATIONRow" msprop:rel_Generator_RelationVarName="relationFK_EXPENSES_DEPRECIATION_EXPENSES_DEPRECIATION_DETAIL" msprop:rel_Generator_UserParentTable="EXPENSES_DEPRECIATION">
       <xs:selector xpath=".//mstns:EXPENSES_DEPRECIATION_DETAIL" />
       <xs:field xpath="mstns:EXDEPD_EXDEPKEY" />
     </xs:keyref>
-    <xs:keyref name="FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL" refer="PLFST_PURCHASE_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_PURCHASE_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_PURCHASE_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_PURCHASE" msprop:rel_Generator_ParentPropName="PLFST_PURCHASERow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL" refer="PLFST_PURCHASE_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_PURCHASE_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_PURCHASE_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL" msprop:rel_Generator_ParentPropName="PLFST_PURCHASERow" msprop:rel_Generator_RelationVarName="relationFK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_PURCHASE">
       <xs:selector xpath=".//mstns:PLFST_PURCHASE_DETAIL" />
       <xs:field xpath="mstns:PLFPURD_PLFPURKEY" />
     </xs:keyref>
-    <xs:keyref name="FK_PLFST_OPENSTOCK_PLFST_OPENSTOCK_DETAIL" refer="PLFST_OPENSTOCK_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_OPENSTOCK_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_OPENSTOCK_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_OPENSTOCK_PLFST_OPENSTOCK_DETAIL" msprop:rel_Generator_ParentPropName="PLFST_OPENSTOCKRow" msprop:rel_Generator_RelationVarName="relationFK_PLFST_OPENSTOCK_PLFST_OPENSTOCK_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_OPENSTOCK" msdata:UpdateRule="None">
+    <xs:keyref name="FK_PLFST_OPENSTOCK_PLFST_OPENSTOCK_DETAIL" refer="PLFST_OPENSTOCK_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_OPENSTOCK_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_OPENSTOCK_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_OPENSTOCK_PLFST_OPENSTOCK_DETAIL" msprop:rel_Generator_ParentPropName="PLFST_OPENSTOCKRow" msprop:rel_Generator_RelationVarName="relationFK_PLFST_OPENSTOCK_PLFST_OPENSTOCK_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_OPENSTOCK">
       <xs:selector xpath=".//mstns:PLFST_OPENSTOCK_DETAIL" />
       <xs:field xpath="mstns:PLFOSD_PLFOSKEY" />
     </xs:keyref>
-    <xs:keyref name="PLFST_SALES_DETAIL_PLFST_SALES" refer="PLFST_SALES_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_SALES_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_SALES_DETAILRows" msprop:rel_Generator_UserRelationName="PLFST_SALES_DETAIL_PLFST_SALES" msprop:rel_Generator_RelationVarName="relationPLFST_SALES_DETAIL_PLFST_SALES" msprop:rel_Generator_UserParentTable="PLFST_SALES" msprop:rel_Generator_ParentPropName="PLFST_SALESRow" msdata:DeleteRule="None">
+    <xs:keyref name="FK_PLFST_SALES_PLFST_SALES_DETAIL" refer="PLFST_SALES_Constraint1" msprop:rel_Generator_UserChildTable="PLFST_SALES_DETAIL" msprop:rel_Generator_ChildPropName="GetPLFST_SALES_DETAILRows" msprop:rel_Generator_UserRelationName="FK_PLFST_SALES_PLFST_SALES_DETAIL" msprop:rel_Generator_RelationVarName="relationFK_PLFST_SALES_PLFST_SALES_DETAIL" msprop:rel_Generator_UserParentTable="PLFST_SALES" msprop:rel_Generator_ParentPropName="PLFST_SALESRow" msdata:UpdateRule="None">
       <xs:selector xpath=".//mstns:PLFST_SALES_DETAIL" />
       <xs:field xpath="mstns:PLFSD_PLFSKEY" />
     </xs:keyref>

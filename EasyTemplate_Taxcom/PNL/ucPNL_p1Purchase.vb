@@ -12,7 +12,7 @@ Public Class ucPNL_p1Purchase
 
     Public Const MainTable As String = "PLFST_PURCHASE" 'PLFST_SALES
     Public Const MainTable_Details As String = "PLFST_PURCHASE_DETAIL" 'PLFST_SALES_DETAIL
-    Public Const MainKey As String = "PLFPUR_KEY" ' PLFS_KEY
+    Public Const MainKey As String = "PLFPUR_PLFPURKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "PLFPURD_PLFPURKEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "PLFPUR_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "PLFPURD_AMOUNT" 'PLFSD_AMOUNT

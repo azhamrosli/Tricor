@@ -50,7 +50,6 @@ Partial Class ucPNL_p1Depreciation
         Me.colEXDEPD_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.EXPENSESDEPRECIATIONBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colEXDEP_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -70,20 +69,20 @@ Partial Class ucPNL_p1Depreciation
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDeleteChild = New DevExpress.XtraBars.BarButtonItem()
         Me.btnExpand = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
+        Me.EXPENSESDEPRECIATIONBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.EXPENSESDEPRECIATIONBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -91,6 +90,7 @@ Partial Class ucPNL_p1Depreciation
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EXPENSESDEPRECIATIONBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GridView2
@@ -204,11 +204,6 @@ Partial Class ucPNL_p1Depreciation
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
-        '
-        'EXPENSESDEPRECIATIONBindingSource
-        '
-        Me.EXPENSESDEPRECIATIONBindingSource.DataMember = "EXPENSES_DEPRECIATION"
-        Me.EXPENSESDEPRECIATIONBindingSource.DataSource = Me.DsPNL1
         '
         'DsPNL1
         '
@@ -426,6 +421,24 @@ Partial Class ucPNL_p1Depreciation
         SuperToolTip5.Items.Add(ToolTipItem5)
         Me.btnExpand.SuperTip = SuperToolTip5
         '
+        'btnMoveUp
+        '
+        Me.btnMoveUp.Caption = "Move Up"
+        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
+        Me.btnMoveUp.Id = 9
+        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.Name = "btnMoveUp"
+        Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnMoveDown
+        '
+        Me.btnMoveDown.Caption = "Move Down"
+        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
+        Me.btnMoveDown.Id = 10
+        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.Name = "btnMoveDown"
+        Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
@@ -467,23 +480,10 @@ Partial Class ucPNL_p1Depreciation
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.ReadOnly = True
         '
-        'btnMoveUp
+        'EXPENSESDEPRECIATIONBindingSource
         '
-        Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
-        Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
-        Me.btnMoveUp.Name = "btnMoveUp"
-        Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        '
-        'btnMoveDown
-        '
-        Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
-        Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
-        Me.btnMoveDown.Name = "btnMoveDown"
-        Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        Me.EXPENSESDEPRECIATIONBindingSource.DataMember = "EXPENSES_DEPRECIATION"
+        Me.EXPENSESDEPRECIATIONBindingSource.DataSource = Me.DsPNL1
         '
         'ucPNL_p1Depreciation
         '
@@ -501,7 +501,6 @@ Partial Class ucPNL_p1Depreciation
         CType(Me.chkBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.EXPENSESDEPRECIATIONBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -509,6 +508,7 @@ Partial Class ucPNL_p1Depreciation
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EXPENSESDEPRECIATIONBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -551,8 +551,8 @@ Partial Class ucPNL_p1Depreciation
     Friend WithEvents colEXDEP_DEDUCTIBLE As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colEXDEP_NOTE As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colEXDEP_DETAIL As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents EXPENSESDEPRECIATIONBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents EXPENSESDEPRECIATIONBindingSource As System.Windows.Forms.BindingSource
 
 End Class

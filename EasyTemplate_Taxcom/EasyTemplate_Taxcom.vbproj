@@ -279,19 +279,12 @@
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="PNL\dsPNL.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsPNL.xsd</DependentUpon>
+      <DependentUpon>dsPNL.vb</DependentUpon>
     </Compile>
     <Compile Include="PNL\dsPNL.vb">
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
     <Compile Include="PNL\dsPNL1.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsPNL.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="PNL\dsPNL2.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
@@ -917,9 +910,9 @@
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </None>
     <None Include="PNL\dsPNL.xsd">
-      <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsPNL1.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <None Include="PNL\dsPNL.xss">
       <DependentUpon>dsPNL.xsd</DependentUpon>

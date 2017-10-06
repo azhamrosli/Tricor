@@ -7736,7 +7736,7 @@ tryagain:
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFOS_KEY", SqlDbType.Int).Value = PNL_Key
-                SQLcmd.Parameters.Add("@PLFOS_PLFOSKEY", SqlDbType.Int).Value = i
+                SQLcmd.Parameters.Add("@PLFOS_PLFOSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFOS_PLFOSKEY")
                 SQLcmd.Parameters.Add("@PLFOS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFOS_SOURCENO")
                 SQLcmd.Parameters.Add("@PLFOS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFOS_DESC")
                 SQLcmd.Parameters.Add("@PLFOS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFOS_AMOUNT")
@@ -7766,7 +7766,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFOSD_KEY", SqlDbType.Int).Value = PNL_Key
                     SQLcmd.Parameters.Add("@PLFOSD_PLFOSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_PLFOSKEY")
                     SQLcmd.Parameters.Add("@PLFOSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_SOURCENO")
-                    SQLcmd.Parameters.Add("@PLFOSD_PLFOSDKEY", SqlDbType.Int).Value = x
+                    SQLcmd.Parameters.Add("@PLFOSD_PLFOSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFOSD_PLFOSDKEY")
                     SQLcmd.Parameters.Add("@PLFOSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFOSD_DESC")
                     SQLcmd.Parameters.Add("@PLFOSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFOSD_AMOUNT")
                     SQLcmd.Parameters.Add("@PLFOSD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt_child.Rows(x)("PLFOSD_NOTE")), "", dt_child.Rows(x)("PLFOSD_NOTE"))
@@ -7894,7 +7894,7 @@ tryagain:
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFS_KEY", SqlDbType.Int).Value = PNL_Key
-                SQLcmd.Parameters.Add("@PLFS_PLFSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFS_KEY")
+                SQLcmd.Parameters.Add("@PLFS_PLFSKEY", SqlDbType.Int).Value = dt.Rows(i)("PLFS_PLFSKEY")
                 SQLcmd.Parameters.Add("@PLFS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("PLFS_SOURCENO")
                 SQLcmd.Parameters.Add("@PLFS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("PLFS_DESC")
                 SQLcmd.Parameters.Add("@PLFS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFS_AMOUNT")
@@ -7924,7 +7924,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFSD_KEY", SqlDbType.Int).Value = PNL_Key
                     SQLcmd.Parameters.Add("@PLFSD_PLFSKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_PLFSKEY")
                     SQLcmd.Parameters.Add("@PLFSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_SOURCENO")
-                    SQLcmd.Parameters.Add("@PLFSD_PLFSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_KEY")
+                    SQLcmd.Parameters.Add("@PLFSD_PLFSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("PLFSD_PLFSDKEY")
                     SQLcmd.Parameters.Add("@PLFSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFSD_DESC")
                     SQLcmd.Parameters.Add("@PLFSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFSD_AMOUNT")
                     SQLcmd.Parameters.Add("@PLFSD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt_child.Rows(x)("PLFSD_NOTE")), "", dt_child.Rows(x)("PLFSD_NOTE"))
@@ -7959,10 +7959,10 @@ tryagain:
             Dim StrSQL As String
             Dim SQLcmd As SqlCommand
 
-            StrSQL = "DELETE RENTAL_INCOME WHERE RI_RENTKEY=@RI_RENTKEY"
+            StrSQL = "DELETE RENTAL_INCOME WHERE RI_KEY=@RI_KEY"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@RI_RENTKEY", SqlDbType.Int).Value = PNL_Key
+            SQLcmd.Parameters.Add("@RI_KEY", SqlDbType.Int).Value = PNL_Key
 
             ListofCmd.Add(SQLcmd)
 

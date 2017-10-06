@@ -12,7 +12,7 @@ Public Class ucPNL_p1OpeningStock
 
     Public Const MainTable As String = "PLFST_OPENSTOCK" 'PLFST_SALES
     Public Const MainTable_Details As String = "PLFST_OPENSTOCK_DETAIL" 'PLFST_SALES_DETAIL
-    Public Const MainKey As String = "PLFOS_KEY" ' PLFS_KEY
+    Public Const MainKey As String = "PLFOS_PLFOSKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "PLFOSD_PLFOSKEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "PLFOS_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "PLFOSD_AMOUNT" 'PLFSD_AMOUNT

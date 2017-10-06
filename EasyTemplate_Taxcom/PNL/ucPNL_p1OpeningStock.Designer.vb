@@ -48,7 +48,6 @@ Partial Class ucPNL_p1OpeningStock
         Me.colPLFOSD_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.PLFSTOPENSTOCKBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colPLFOS_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -67,19 +66,19 @@ Partial Class ucPNL_p1OpeningStock
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDeleteChild = New DevExpress.XtraBars.BarButtonItem()
         Me.btnExpand = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
+        Me.PLFSTOPENSTOCKBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PLFSTOPENSTOCKBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -87,6 +86,7 @@ Partial Class ucPNL_p1OpeningStock
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PLFSTOPENSTOCKBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GridView2
@@ -185,11 +185,6 @@ Partial Class ucPNL_p1OpeningStock
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
-        '
-        'PLFSTOPENSTOCKBindingSource
-        '
-        Me.PLFSTOPENSTOCKBindingSource.DataMember = "PLFST_OPENSTOCK"
-        Me.PLFSTOPENSTOCKBindingSource.DataSource = Me.DsPNL1
         '
         'DsPNL1
         '
@@ -308,7 +303,7 @@ Partial Class ucPNL_p1OpeningStock
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.FloatLocation = New System.Drawing.Point(31, 109)
+        Me.Bar1.FloatLocation = New System.Drawing.Point(229, 96)
         Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDeleteChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExpand), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
@@ -397,6 +392,24 @@ Partial Class ucPNL_p1OpeningStock
         SuperToolTip5.Items.Add(ToolTipItem5)
         Me.btnExpand.SuperTip = SuperToolTip5
         '
+        'btnMoveUp
+        '
+        Me.btnMoveUp.Caption = "Move Up"
+        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
+        Me.btnMoveUp.Id = 9
+        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.Name = "btnMoveUp"
+        Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnMoveDown
+        '
+        Me.btnMoveDown.Caption = "Move Down"
+        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
+        Me.btnMoveDown.Id = 10
+        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.Name = "btnMoveDown"
+        Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
@@ -438,23 +451,10 @@ Partial Class ucPNL_p1OpeningStock
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.ReadOnly = True
         '
-        'btnMoveUp
+        'PLFSTOPENSTOCKBindingSource
         '
-        Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
-        Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
-        Me.btnMoveUp.Name = "btnMoveUp"
-        Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        '
-        'btnMoveDown
-        '
-        Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
-        Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
-        Me.btnMoveDown.Name = "btnMoveDown"
-        Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        Me.PLFSTOPENSTOCKBindingSource.DataMember = "PLFST_OPENSTOCK"
+        Me.PLFSTOPENSTOCKBindingSource.DataSource = Me.DsPNL1
         '
         'ucPNL_p1OpeningStock
         '
@@ -471,7 +471,6 @@ Partial Class ucPNL_p1OpeningStock
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PLFSTOPENSTOCKBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -479,6 +478,7 @@ Partial Class ucPNL_p1OpeningStock
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PLFSTOPENSTOCKBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -511,7 +511,6 @@ Partial Class ucPNL_p1OpeningStock
     Friend WithEvents colPLFOSD_DESC As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFOSD_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFOSD_NOTE As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents PLFSTOPENSTOCKBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents colPLFOS_KEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFOS_PLFOSKEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFOS_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
@@ -521,5 +520,6 @@ Partial Class ucPNL_p1OpeningStock
     Friend WithEvents colPLFOS_DETAIL As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents PLFSTOPENSTOCKBindingSource As System.Windows.Forms.BindingSource
 
 End Class
