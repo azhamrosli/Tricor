@@ -1,9 +1,12 @@
 ﻿Imports System.Data.SqlClient
+Imports DevExpress.Spreadsheet
+Imports DevExpress.Spreadsheet.Export
 
 Public Class frmPNL
-    Public isEdit As Boolean = False
-    Public ID As Decimal = 1278
+    Public isEdit As Boolean = True
+    Public ID As Decimal = 1267
     Dim ErrorLog As clsError = Nothing
+    Dim isReplacePNL As Boolean = False
     Dim ListofCmd As List(Of SqlCommand)
     Sub New()
 
@@ -25,7 +28,8 @@ Public Class frmPNL
     End Sub
     Private Sub LoadData()
         Try
-
+            Me.Text = "Profit and Loss - New"
+            Application.DoEvents()
             If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Failed to load tax payer." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Me.Close()
@@ -92,35 +96,139 @@ Public Class frmPNL
 
                 End If
             Next
-            If isEdit Then
-                cboRefNo.Edit.ReadOnly = True
-                cboYA.Edit.ReadOnly = True
-                cboMainSource.Edit.ReadOnly = True
-
-
-                Dim dtPNL As DataTable = mdlProcess.Load_PNL_ByKey(ID)
-
-                If dtPNL Is Nothing Then
-                    cboRefNo.Edit.ReadOnly = False
-                    cboYA.Edit.ReadOnly = False
-                    cboMainSource.Edit.ReadOnly = False
-                    isEdit = False
-                    cboRefNo.EditValue = mdlProcess.ArgParam2
-                    cboYA.EditValue = mdlProcess.ArgParam3
-                    Exit Sub
-                End If
-
-
-
-
-            Else
-                cboRefNo.Edit.ReadOnly = False
-                cboYA.Edit.ReadOnly = False
-                cboMainSource.Edit.ReadOnly = False
+            If isEdit = False Then
                 cboS60FA.EditValue = "No"
 
                 cboRefNo.EditValue = mdlProcess.ArgParam2
                 cboYA.EditValue = mdlProcess.ArgParam3
+
+                cboRefNo.Edit.ReadOnly = True
+                cboYA.Edit.ReadOnly = True
+                cboMainSource.Edit.ReadOnly = True
+
+            Else
+                Dim dtPNL As DataTable = mdlProcess.Load_PNL_ByKey(ID)
+
+                If dtPNL Is Nothing Then
+                    cboRefNo.Enabled = True
+                    cboYA.Enabled = True
+                    cboMainSource.Enabled = True
+                    isEdit = False
+                    cboRefNo.EditValue = mdlProcess.ArgParam2
+                    cboYA.EditValue = mdlProcess.ArgParam3
+                    Exit Sub
+                Else
+                    cboRefNo.Enabled = False
+                    cboYA.Enabled = False
+                    cboMainSource.Enabled = False
+                End If
+                Me.Text = "Profit and Loss - Edit"
+                Application.DoEvents()
+
+                cboRefNo.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_REF_NO")), "", dtPNL.Rows(0)("PL_REF_NO"))
+                cboYA.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_YA")), "", dtPNL.Rows(0)("PL_YA"))
+                cboMainSource.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_MAINBUZ")), 1, dtPNL.Rows(0)("PL_MAINBUZ"))
+
+                If IsDBNull(dtPNL.Rows(0)("PL_S60F")) = False AndAlso dtPNL.Rows(0)("PL_S60F") = "Y" Then
+                    cboS60F.EditValue = "Yes"
+                Else
+                    cboS60F.EditValue = "No"
+                End If
+                If IsDBNull(dtPNL.Rows(0)("PL_S60FA")) = False AndAlso dtPNL.Rows(0)("PL_S60FA") = "Y" Then
+                    cboS60FA.EditValue = "Yes"
+                Else
+                    cboS60FA.EditValue = "No"
+                End If
+
+                txtLastModified.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("ModifiedBy")), "", dtPNL.Rows(0)("ModifiedBy")) & " | " & IIf(IsDBNull(dtPNL.Rows(0)("ModifiedDateTime")), "", dtPNL.Rows(0)("ModifiedDateTime"))
+                cboPNLStatus.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PNL_STATUS")), "", dtPNL.Rows(0)("PNL_STATUS"))
+
+                '==================================================================================================
+
+                txt_p1Sales.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_SALES")), 0, dtPNL.Rows(0)("PL_SALES"))
+                txt_p1OpenStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OP_STK")), 0, dtPNL.Rows(0)("PL_OP_STK"))
+                txt_p1Purchase.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES")), 0, dtPNL.Rows(0)("PL_PURCHASES"))
+                txt_p1COP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST")), 0, dtPNL.Rows(0)("PL_PRO_COST")) '///
+                txt_p1Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_DPC")), 0, dtPNL.Rows(0)("PL_PRO_COST_DPC"))
+                txt_p1AllowanceExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_OAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_OAE"))
+                txt_p1NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_ONAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_ONAE"))
+                txt_p1PCP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")), 0, dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")) '///
+                txt_p1CloseStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CLS_STK")), 0, dtPNL.Rows(0)("PL_CLS_STK"))
+                txt_p1COS.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_COGS")), 0, dtPNL.Rows(0)("PL_COGS"))
+                txt_p1GrossProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_GROSS_PROFIT")), 0, dtPNL.Rows(0)("PL_GROSS_PROFIT"))
+                txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN")), 0, dtPNL.Rows(0)("PL_OTH_BSIN"))
+                txt_p2UnreaGainForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT"))
+                txt_p2ForeignCurrExGain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_REALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_REALGT"))
+                txt_p2NonBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN")), 0, dtPNL.Rows(0)("PL_OTH_IN"))
+                txt_p2DivIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND")), 0, dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND"))
+                txt_p2InterestIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_INTEREST")), 0, dtPNL.Rows(0)("PL_OTH_IN_INTEREST"))
+                txt_p2RentalIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_RENTAL")), 0, dtPNL.Rows(0)("PL_OTH_IN_RENTAL"))
+                txt_p2RoyaltyIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_ROYALTY")), 0, dtPNL.Rows(0)("PL_OTH_IN_ROYALTY"))
+                txt_p2OtherIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_OTHER")), 0, dtPNL.Rows(0)("PL_OTH_IN_OTHER"))
+                txt_p2NonTaxProfit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN")), 0, dtPNL.Rows(0)("PL_NONTAX_IN"))
+                txt_p2ProDispPlantEq.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP"))
+                txt_p2ProDisInvestment.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP"))
+                txt_p2ExemptDividend.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV"))
+                txt_p2ForeIncomeRemmit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FIR")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FIR"))
+                txt_p2ReaForeExGainNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_REALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_REALG"))
+                txt_p2UnreaGainForeExNon.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG"))
+                txt_p2Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP"))
+                txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INT")), 0, dtPNL.Rows(0)("PL_EXP_INT")) '///
+                txt_p3ProTechManLeganFees.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_LAWYER_COST")), 0, dtPNL.Rows(0)("PL_LAWYER_COST"))
+                txt_p3ContractPay.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CONTRACT_EXP")), 0, dtPNL.Rows(0)("PL_CONTRACT_EXP"))
+                txt_p3Salary.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_SALARY")), 0, dtPNL.Rows(0)("PL_EXP_SALARY"))
+                txt_p3Royalty.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ROYALTY")), 0, dtPNL.Rows(0)("PL_ROYALTY"))
+                txt_p3Rental.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_RENT")), 0, dtPNL.Rows(0)("PL_EXP_RENT"))
+                txt_p3RepairMain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_MAINTENANCE")), 0, dtPNL.Rows(0)("PL_EXP_MAINTENANCE"))
+                txt_p3ResearchDev.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_RND")), 0, dtPNL.Rows(0)("PL_RND"))
+                txt_p3PromotionAds.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ADVERT")), 0, dtPNL.Rows(0)("PL_ADVERT"))
+                txt_p3Travelling.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TRAVEL")), 0, dtPNL.Rows(0)("PL_TRAVEL"))
+                txt_p4TotalOtherExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP"))
+                txt_p3Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DPC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DPC"))
+                txt_p3DonationApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP"))
+                txt_p3DonationNonApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP"))
+                txt_p4LossDispFA.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP"))
+                txt_p4EntNonStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT"))
+                txt_p4EntStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF"))
+                txt_p4Compound.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY"))
+                txt_p4ProvisionAcc.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC"))
+                txt_p4LeavePass.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE"))
+                txt_p4FAWrittenOff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO"))
+                txt_p4UnreaLossForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS"))
+                txt_p4ReaLossForeExTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS"))
+                txt_p4InitSub.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB"))
+                txt_p4CAExpenditure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP"))
+                txt_p4Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS"))
+                txt_p4TotalExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
+                txt_p4NetProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NET_PROFIT_LOSS")), 0, dtPNL.Rows(0)("PL_NET_PROFIT_LOSS"))
+                txt_p4NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DISALLOWED_EXP")), 0, dtPNL.Rows(0)("PL_DISALLOWED_EXP"))
+                txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INTRESTRICT")), 0, dtPNL.Rows(0)("PL_EXP_INTRESTRICT")) '///
+                txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE"))
+                txt_p3Zakat.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT"))
+                txt_p3TechPayNonResis.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TECH_FEE")), 0, dtPNL.Rows(0)("PL_TECH_FEE"))
+                txt_p3COEStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EMPL_STOCK")), 0, dtPNL.Rows(0)("PL_EMPL_STOCK"))
+                txt_p4OtherBalacingFigure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE"))
+                txt_p4ReaLossForeExNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT"))
+                txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
+                txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
+
+
+                Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+
+                If listofclsPNLLabel IsNot Nothing Then
+                    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
+                        'If mdlProcess.isVersionLicenseType = VersionLicenseType.Tricor Then
+                        '    Progress(CurrentProgress, "Getting " & tmp.LabelTricor & " data...")
+                        'Else
+                        '    Progress(CurrentProgress, "Getting " & tmp.LabelText & " data...")
+                        'End If
+
+                        mdlPNL.PNL_GetData(ID, tmp.Type, dsDataSet, dsDataSet2, ErrorLog)
+                    Next
+                End If
+
+
+
 
             End If
 
@@ -375,7 +483,7 @@ Public Class frmPNL
                 dtrow("PL_SALES") = IIf(IsDBNull(txt_p1Sales.EditValue), 0, txt_p1Sales.EditValue)
                 dtrow("PL_OP_STK") = IIf(IsDBNull(txt_p1OpenStock.EditValue), 0, txt_p1OpenStock.EditValue)
                 dtrow("PL_PURCHASES") = IIf(IsDBNull(txt_p1Purchase.EditValue), 0, txt_p1Purchase.EditValue)
-                dtrow("PL_PRO_COST") = IIf(IsDBNull(txt_p1PCP.EditValue), 0, txt_p1PCP.EditValue)
+                dtrow("PL_PRO_COST") = IIf(IsDBNull(txt_p1COP.EditValue), 0, txt_p1COP.EditValue)
                 dtrow("PL_PRO_COST_DPC") = IIf(IsDBNull(txt_p1Depreciation.EditValue), 0, txt_p1Depreciation.EditValue)
                 dtrow("PL_PRO_COST_OAE") = IIf(IsDBNull(txt_p1AllowanceExpenses.EditValue), 0, txt_p1AllowanceExpenses.EditValue)
                 dtrow("PL_PRO_COST_ONAE") = IIf(IsDBNull(txt_p1NonAllowableExpenses.EditValue), 0, txt_p1NonAllowableExpenses.EditValue)
@@ -552,7 +660,7 @@ Public Class frmPNL
                 dtrow("PL_TTAXDEDUCTION") = "0"
                 dtrow("PL_TNETDEDUCTION") = "0"
                 dtrow("PL_TECH_FEE") = IIf(IsDBNull(txt_p3TechPayNonResis.EditValue), 0, txt_p3TechPayNonResis.EditValue)
-                dtrow("PL_EMPL_STOCK") = IIf(IsDBNull(txt_p3COEStock.EditValue),0,txt_p3COEStock.EditValue)
+                dtrow("PL_EMPL_STOCK") = IIf(IsDBNull(txt_p3COEStock.EditValue), 0, txt_p3COEStock.EditValue)
                 dtrow("PL_S60FA") = IIf(cboS60FA.EditValue = "Yes", "Y", "N")
                 dtrow("PL_OTHER_EXP_BALANCE") = IIf(IsDBNull(txt_p4OtherBalacingFigure.EditValue), 0, txt_p4OtherBalacingFigure.EditValue)
                 dtrow("PL_OTHER_EXRLOSSFOREIGNT") = IIf(IsDBNull(txt_p4ReaLossForeExNonTrade.EditValue), 0, txt_p4ReaLossForeExNonTrade.EditValue)
@@ -597,9 +705,13 @@ Public Class frmPNL
             If ListofCmd IsNot Nothing AndAlso ListofCmd.Count > 0 Then
                 If mdlProcess.Save_PNLExecute(ListofCmd, ErrorLog) Then
                     Progress(100, "Done to saved " & ListofCmd.Count & " data(s)...")
+                    isEdit = True
+                    Application.DoEvents()
                     isSuccessfullySaved(tmpID)
                 Else
                     Progress(100, "Failed to saving " & ListofCmd.Count & " data(s)...")
+                    MsgBox("Failed to save data." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+
                 End If
             End If
 
@@ -670,7 +782,13 @@ Public Class frmPNL
 
             If isEdit = False Then
                 If mdlProcess.Check_PNLExist(cboRefNo.EditValue, CInt(cboYA.EditValue), ErrorLog) Then
-                    MsgBox("Profit and loss already exist.", MsgBoxStyle.Exclamation)
+                    ' MsgBox("Profit and loss already exist.", MsgBoxStyle.Exclamation)
+                    Dim rlst As DialogResult = MessageBox.Show("Profit and loss already exist, do you want to replace with this pnl?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
+
+                    If rlst = Windows.Forms.DialogResult.Yes Then
+                        isEdit = True
+                    End If
+
                     Return False
                 End If
             End If
@@ -951,5 +1069,35 @@ Public Class frmPNL
 
     Private Sub txt_p4OtherBalacingFigure_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p4OtherBalacingFigure.EditValueChanged
         txtBalacingFigure.EditValue = txt_p4OtherBalacingFigure.EditValue
+    End Sub
+
+    Private Sub btnRefresh_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnRefresh.ItemClick
+        Try
+            Me.LoadData()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub BarButtonItem4_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnImport.ItemClick
+        Try
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExport.ItemClick
+        Try
+           
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub exporter_CellValueConversionError(ByVal sender As Object, ByVal e As CellValueConversionErrorEventArgs)
+        MessageBox.Show("Error in cell " & e.Cell.GetReferenceA1())
+        e.DataTableValue = Nothing
+        e.Action = DataTableExporterAction.Continue
     End Sub
 End Class

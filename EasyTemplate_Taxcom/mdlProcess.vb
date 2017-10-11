@@ -1887,6 +1887,2994 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_PNL_PLFST_OPENSTOCK(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_OPENSTOCK WHERE PLFOS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_OPENSTOCK_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_OPENSTOCK_DETAIL WHERE PLFOSD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_PURCHASE(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_PURCHASE WHERE PLFPUR_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_PURCHASE_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_PURCHASE_DETAIL WHERE PLFPURD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_DEPRECIATION(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_DEPRECIATION WHERE EXDEP_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_DEPRECIATION_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_DEPRECIATION_DETAIL WHERE EXDEPD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_ALLOW(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_ALLOW WHERE EXA_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_ALLOW_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_ALLOW_DETAIL WHERE EXAD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_NONALLOW(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_NONALLOW WHERE EXNA_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_NONALLOW_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_NONALLOW_DETAIL WHERE EXNAD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_CLOSESTOCK(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_CLOSESTOCK WHERE PLFCS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_CLOSESTOCK_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PLFST_CLOSESTOCK_DETAIL WHERE PLFCSD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_NONSOURCE_BUSINESSINCOME(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_NONSOURCE_BUSINESSINCOME_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM NONSOURCE_BUSINESSINCOME_DETAIL WHERE NSBID_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_REALFET(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_REALFET WHERE IRFET_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_REALFET_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_REALFET_DETAIL WHERE IRFETD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_dividend_income(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM dividend_income WHERE DI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NBINTEREST(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NBINTEREST WHERE NOBII_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NBINTEREST_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NBINTEREST_DETAIL WHERE NOBIID_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_rental_income(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM rental_income WHERE RI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NBROYALTY(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NBROYALTY WHERE NOBRI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NBROYALTY_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NBROYALTY_DETAIL WHERE NOBRID_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_INCOME(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_INCOME WHERE OI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_INCOME_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_INCOME_DETAIL WHERE OID_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTDISPOSALFA(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALFA WHERE NTIDFA_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTDISPOSALFA_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALFA_DETAIL WHERE NTIDFAD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTDISPOSALINVEST(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTDISPOSALINVEST_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALINVEST_DETAIL WHERE NTIDID_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_exempt_dividend(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM exempt_dividend WHERE ED_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTFOREIGNINCREM(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTFOREIGNINCREM_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTFOREIGNINCREM_DETAIL WHERE NTIFIRD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTUREALFET(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFET WHERE NTIUT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTUREALFET_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFET_DETAIL WHERE NTIUTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTREALFE(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTREALFE WHERE NTIRFECT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTREALFE_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTREALFE_DETAIL WHERE NTIRFECTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTUREALFENT(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFENT WHERE NTIUNT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_INCOME_NTUREALFENT_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFENT_DETAIL WHERE NTIUNTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_non_taxable_income(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM non_taxable_income WHERE NT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_NON_TAXABLE_INCOME_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM NON_TAXABLE_INCOME_DETAIL WHERE NTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_interestrestrict(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_interestrestrict WHERE EXIR_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_INTERESTRESTRICT_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_interest(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_interest WHERE EXI_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_INTEREST_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_INTEREST_DETAIL WHERE EXID_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_legal(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_legal WHERE EXL_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_LEGAL_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_LEGAL_DETAIL WHERE EXLD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_tech_fee(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_tech_fee WHERE EXTF_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_TECH_FEE_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_TECH_FEE_DETAIL WHERE EXTFD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_contract(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_contract WHERE EXC_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_CONTRACT_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_CONTRACT_DETAIL WHERE EXCD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_directors_fee(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_directors_fee WHERE EXDF_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_DIRECTORS_FEE_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_DIRECTORS_FEE_DETAIL WHERE EXDFD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_salary(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_salary WHERE EXS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_SALARY_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_SALARY_DETAIL WHERE EXSD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_empl_stock(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_empl_stock WHERE EXES_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_EMPLSTOCK_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_EMPLSTOCK_DETAIL WHERE EXESD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_royalty(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_royalty WHERE EXRO_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_ROYALTY_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_ROYALTY_DETAIL WHERE EXROD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_rental(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_rental WHERE EXRENT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_RENTAL_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_RENTAL_DETAIL WHERE EXRENTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_repair(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_repair WHERE EXREP_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_REPAIR_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_REPAIR_DETAIL WHERE EXREPD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_research(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_research WHERE EXRES_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_RESEARCH_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_RESEARCH_DETAIL WHERE EXRESD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_promote(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_promote WHERE EXP_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_PROMOTE_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_PROMOTE_DETAIL WHERE EXPD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_travel(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_travel WHERE EXT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_TRAVEL_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_TRAVEL_DETAIL WHERE EXTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_expenses_jkdm(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM expenses_jkdm WHERE EXJK_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_EXPENSES_JKDM_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_JKDM_DETAIL WHERE EXJKD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exdepreciation(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exdepreciation WHERE EXODEP_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXDEPRECIATION_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXDEPRECIATION_DETAIL WHERE EXODEPD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exapprdonation(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exapprdonation WHERE EXOAD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXAPPRDONATION_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXAPPRDONATION_DETAIL WHERE EXOADD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exnapprdonation(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exnapprdonation WHERE EXONAD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXNAPPRDONATION_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXNAPPRDONATION_DETAIL WHERE EXONADD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exzakat(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exzakat WHERE EXOZ_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXZAKAT_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXZAKAT_DETAIL WHERE EXOZD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exlossdisposalfa(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exlossdisposalfa WHERE EXOLD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXLOSSDISPOSALFA_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXLOSSDISPOSALFA_DETAIL WHERE EXOLDD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_entertainnstaff(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_entertainnstaff WHERE EXOENS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_ENTERTAINNSTAFF_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_ENTERTAINSTAFF(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINSTAFF WHERE EXOES_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_ENTERTAINSTAFF_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINSTAFF_DETAIL WHERE EXOESD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_expenalty(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_expenalty WHERE EXOP_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXPENALTY_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXPENALTY_DETAIL WHERE EXOPD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exprovisionacc(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exprovisionacc WHERE EXOPA_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXPROVISIONACC_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXPROVISIONACC_DETAIL WHERE EXOPAD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exleavepassage(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exleavepassage WHERE EXOLP_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXLEAVEPASSAGE_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXLEAVEPASSAGE_DETAIL WHERE EXOLPD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exfawrittenoff(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exfawrittenoff WHERE EXOWO_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXFAWRITTENOFF_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXFAWRITTENOFF_DETAIL WHERE EXOWOD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exurlossforeign(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exurlossforeign WHERE EXOUR_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXURLOSSFOREIGN_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXURLOSSFOREIGN_DETAIL WHERE EXOURD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exrlossforeignt(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exrlossforeignt WHERE EXORT_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXRLOSSFOREIGNT_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXRLOSSFOREIGNT_DETAIL WHERE EXORTD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exrlossforeign(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exrlossforeign WHERE EXOR_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXRLOSSFOREIGN_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXRLOSSFOREIGN_DETAIL WHERE EXORD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_exinitialsub(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_exinitialsub WHERE EXOIS_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXINITIALSUB_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXINITIALSUB_DETAIL WHERE EXOISD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_excapitalexp(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_excapitalexp WHERE EXOCE_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXCAPITALEXP_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXCAPITALEXP_DETAIL WHERE EXOCEDD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_other_expenses(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM other_expenses WHERE EXO_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_PNL_OTHER_EXPENSES_DETAIL(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXPENSES_DETAIL WHERE EXOD_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
 
     Public Function Load_PNL_ByKey(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -1917,7 +4905,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function Load_PNLLastModified(ByVal Key As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -1947,8 +4934,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
-
 
     Public Function VerifyInvestmentHolding(ByVal RefNo As String, ByVal YA As String, _
                                             Optional ByRef ErrorLog As clsError = Nothing) As Boolean

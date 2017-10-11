@@ -284,6 +284,7 @@ Public Class SQLDataObject
     Public Function ExecuteSQLTransactionBySQLCommand_NOReturnID(ByVal ListofSQLCmd As List(Of SqlCommand), ByVal oConn As SqlConnection,
                                                      Optional ByVal MethodName As String = "", Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Dim ReturnID As Integer = -1
+        Dim SQL As String = ""
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
                 Return False
@@ -297,7 +298,7 @@ Public Class SQLDataObject
 
             For i = 0 To ListofSQLCmd.Count - 1
                 ReturnID = i
-                ' ErrorLog = ListofSQLCmd(i).CommandText
+                SQL = ListofSQLCmd(i).CommandText
                 ListofSQLCmd(i).Transaction = txn
                 ListofSQLCmd(i).Connection = oConn
                 ListofSQLCmd(i).ExecuteNonQuery()
@@ -306,7 +307,16 @@ Public Class SQLDataObject
             txn.Commit() 'Commit Trans 
             Return True
         Catch ex As Exception
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            ' CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then

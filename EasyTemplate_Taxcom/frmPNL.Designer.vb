@@ -21,16 +21,22 @@ Partial Class frmPNL
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPNL))
+        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Dim PushTransition2 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
         Me.DockManager1 = New DevExpress.XtraBars.Docking.DockManager(Me.components)
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar3 = New DevExpress.XtraBars.Bar()
         Me.pnlProgress = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemProgressBar2 = New DevExpress.XtraEditors.Repository.RepositoryItemProgressBar()
+        Me.txtPCName = New DevExpress.XtraBars.BarStaticItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
+        Me.RepositoryItemTextEdit5 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.RepositoryItemTextEdit6 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.DockPanel1 = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel1_Container = New DevExpress.XtraBars.Docking.ControlContainer()
         Me.XtraTabControl1 = New DevExpress.XtraTab.XtraTabControl()
@@ -181,8 +187,8 @@ Partial Class frmPNL
         Me.btnSave = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem3 = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem4 = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem5 = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnImport = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnExport = New DevExpress.XtraBars.BarButtonItem()
         Me.cboPNLStatus = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.txtLastModified = New DevExpress.XtraBars.BarEditItem()
@@ -207,25 +213,25 @@ Partial Class frmPNL
         Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.cboS60FA = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox4 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.SkinRibbonGalleryBarItem1 = New DevExpress.XtraBars.SkinRibbonGalleryBarItem()
+        Me.txtBalacingFigure = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemTextEdit7 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.btnRefresh = New DevExpress.XtraBars.BarButtonItem()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup4 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPage2 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPageGroup5 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RepositoryItemRadioGroup1 = New DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup()
         Me.RepositoryItemProgressBar1 = New DevExpress.XtraEditors.Repository.RepositoryItemProgressBar()
         Me.WorkspaceManager1 = New DevExpress.Utils.WorkspaceManager()
-        Me.RepositoryItemTextEdit5 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.RepositoryItemTextEdit6 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.txtPCName = New DevExpress.XtraBars.BarStaticItem()
-        Me.RibbonPageGroup5 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
-        Me.SkinRibbonGalleryBarItem1 = New DevExpress.XtraBars.SkinRibbonGalleryBarItem()
-        Me.txtBalacingFigure = New DevExpress.XtraBars.BarEditItem()
-        Me.RepositoryItemTextEdit7 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemProgressBar2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit6, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DockPanel1.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
         CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -318,11 +324,9 @@ Partial Class frmPNL
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemProgressBar1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit6, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DockManager1
@@ -375,6 +379,13 @@ Partial Class frmPNL
         '
         Me.RepositoryItemProgressBar2.Name = "RepositoryItemProgressBar2"
         '
+        'txtPCName
+        '
+        Me.txtPCName.Caption = "BarStaticItem1"
+        Me.txtPCName.Id = 3
+        Me.txtPCName.Name = "txtPCName"
+        Me.txtPCName.TextAlignment = System.Drawing.StringAlignment.Near
+        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
@@ -402,6 +413,17 @@ Partial Class frmPNL
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(1267, 0)
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 724)
+        '
+        'RepositoryItemTextEdit5
+        '
+        Me.RepositoryItemTextEdit5.AutoHeight = False
+        Me.RepositoryItemTextEdit5.Name = "RepositoryItemTextEdit5"
+        '
+        'RepositoryItemTextEdit6
+        '
+        Me.RepositoryItemTextEdit6.AutoHeight = False
+        Me.RepositoryItemTextEdit6.Name = "RepositoryItemTextEdit6"
+        Me.RepositoryItemTextEdit6.ReadOnly = True
         '
         'DockPanel1
         '
@@ -2515,9 +2537,9 @@ Partial Class frmPNL
         '
         Me.RibbonControl1.AllowMinimizeRibbon = False
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
-        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.BarButtonItem4, Me.BarButtonItem5, Me.cboPNLStatus, Me.txtLastModified, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure})
+        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.MaxItemId = 4
+        Me.RibbonControl1.MaxItemId = 5
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7})
@@ -2553,23 +2575,23 @@ Partial Class frmPNL
         Me.BarButtonItem3.LargeGlyph = CType(resources.GetObject("BarButtonItem3.LargeGlyph"), System.Drawing.Image)
         Me.BarButtonItem3.Name = "BarButtonItem3"
         '
-        'BarButtonItem4
+        'btnImport
         '
-        Me.BarButtonItem4.Caption = "Import"
-        Me.BarButtonItem4.Glyph = CType(resources.GetObject("BarButtonItem4.Glyph"), System.Drawing.Image)
-        Me.BarButtonItem4.Id = 4
-        Me.BarButtonItem4.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F2)
-        Me.BarButtonItem4.LargeGlyph = CType(resources.GetObject("BarButtonItem4.LargeGlyph"), System.Drawing.Image)
-        Me.BarButtonItem4.Name = "BarButtonItem4"
+        Me.btnImport.Caption = "Import"
+        Me.btnImport.Glyph = CType(resources.GetObject("btnImport.Glyph"), System.Drawing.Image)
+        Me.btnImport.Id = 4
+        Me.btnImport.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F2)
+        Me.btnImport.LargeGlyph = CType(resources.GetObject("btnImport.LargeGlyph"), System.Drawing.Image)
+        Me.btnImport.Name = "btnImport"
         '
-        'BarButtonItem5
+        'btnExport
         '
-        Me.BarButtonItem5.Caption = "Export"
-        Me.BarButtonItem5.Glyph = CType(resources.GetObject("BarButtonItem5.Glyph"), System.Drawing.Image)
-        Me.BarButtonItem5.Id = 5
-        Me.BarButtonItem5.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F3)
-        Me.BarButtonItem5.LargeGlyph = CType(resources.GetObject("BarButtonItem5.LargeGlyph"), System.Drawing.Image)
-        Me.BarButtonItem5.Name = "BarButtonItem5"
+        Me.btnExport.Caption = "Export"
+        Me.btnExport.Glyph = CType(resources.GetObject("btnExport.Glyph"), System.Drawing.Image)
+        Me.btnExport.Id = 5
+        Me.btnExport.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F3)
+        Me.btnExport.LargeGlyph = CType(resources.GetObject("btnExport.LargeGlyph"), System.Drawing.Image)
+        Me.btnExport.Name = "btnExport"
         '
         'cboPNLStatus
         '
@@ -2593,7 +2615,7 @@ Partial Class frmPNL
         Me.txtLastModified.Edit = Me.RepositoryItemTextEdit1
         Me.txtLastModified.Id = 11
         Me.txtLastModified.Name = "txtLastModified"
-        Me.txtLastModified.Width = 150
+        Me.txtLastModified.Width = 350
         '
         'RepositoryItemTextEdit1
         '
@@ -2769,6 +2791,40 @@ Partial Class frmPNL
         Me.RepositoryItemComboBox4.NullValuePrompt = "No"
         Me.RepositoryItemComboBox4.NullValuePromptShowForEmptyValue = True
         '
+        'SkinRibbonGalleryBarItem1
+        '
+        Me.SkinRibbonGalleryBarItem1.Caption = "SkinRibbonGalleryBarItem1"
+        Me.SkinRibbonGalleryBarItem1.Id = 2
+        Me.SkinRibbonGalleryBarItem1.Name = "SkinRibbonGalleryBarItem1"
+        '
+        'txtBalacingFigure
+        '
+        Me.txtBalacingFigure.Caption = "Balacing Figure : "
+        Me.txtBalacingFigure.Edit = Me.RepositoryItemTextEdit7
+        Me.txtBalacingFigure.Id = 3
+        Me.txtBalacingFigure.Name = "txtBalacingFigure"
+        Me.txtBalacingFigure.Width = 145
+        '
+        'RepositoryItemTextEdit7
+        '
+        Me.RepositoryItemTextEdit7.AutoHeight = False
+        Me.RepositoryItemTextEdit7.Name = "RepositoryItemTextEdit7"
+        Me.RepositoryItemTextEdit7.ReadOnly = True
+        '
+        'btnRefresh
+        '
+        Me.btnRefresh.Caption = "Refresh"
+        Me.btnRefresh.Glyph = CType(resources.GetObject("btnRefresh.Glyph"), System.Drawing.Image)
+        Me.btnRefresh.Id = 4
+        Me.btnRefresh.LargeGlyph = CType(resources.GetObject("btnRefresh.LargeGlyph"), System.Drawing.Image)
+        Me.btnRefresh.Name = "btnRefresh"
+        ToolTipTitleItem2.Text = "Refresh Data"
+        ToolTipItem2.LeftIndent = 6
+        ToolTipItem2.Text = "Refresh Profit and Loss Data"
+        SuperToolTip2.Items.Add(ToolTipTitleItem2)
+        SuperToolTip2.Items.Add(ToolTipItem2)
+        Me.btnRefresh.SuperTip = SuperToolTip2
+        '
         'RibbonPage1
         '
         Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup1, Me.RibbonPageGroup3, Me.RibbonPageGroup4})
@@ -2780,6 +2836,7 @@ Partial Class frmPNL
         Me.RibbonPageGroup1.ItemLinks.Add(Me.btnSave)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.BarButtonItem2)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.BarButtonItem3)
+        Me.RibbonPageGroup1.ItemLinks.Add(Me.btnRefresh)
         Me.RibbonPageGroup1.Name = "RibbonPageGroup1"
         Me.RibbonPageGroup1.Text = "Action"
         '
@@ -2810,12 +2867,18 @@ Partial Class frmPNL
         '
         'RibbonPageGroup2
         '
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem4)
-        Me.RibbonPageGroup2.ItemLinks.Add(Me.BarButtonItem5)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btnImport)
+        Me.RibbonPageGroup2.ItemLinks.Add(Me.btnExport)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.txtLastModified, True)
         Me.RibbonPageGroup2.ItemLinks.Add(Me.cboPNLStatus)
         Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
         Me.RibbonPageGroup2.Text = "Advance"
+        '
+        'RibbonPageGroup5
+        '
+        Me.RibbonPageGroup5.ItemLinks.Add(Me.SkinRibbonGalleryBarItem1)
+        Me.RibbonPageGroup5.Name = "RibbonPageGroup5"
+        Me.RibbonPageGroup5.Text = "Theme"
         '
         'RepositoryItemRadioGroup1
         '
@@ -2829,50 +2892,6 @@ Partial Class frmPNL
         '
         Me.WorkspaceManager1.TargetControl = Me.RibbonControl1
         Me.WorkspaceManager1.TransitionType = PushTransition2
-        '
-        'RepositoryItemTextEdit5
-        '
-        Me.RepositoryItemTextEdit5.AutoHeight = False
-        Me.RepositoryItemTextEdit5.Name = "RepositoryItemTextEdit5"
-        '
-        'RepositoryItemTextEdit6
-        '
-        Me.RepositoryItemTextEdit6.AutoHeight = False
-        Me.RepositoryItemTextEdit6.Name = "RepositoryItemTextEdit6"
-        Me.RepositoryItemTextEdit6.ReadOnly = True
-        '
-        'txtPCName
-        '
-        Me.txtPCName.Caption = "BarStaticItem1"
-        Me.txtPCName.Id = 3
-        Me.txtPCName.Name = "txtPCName"
-        Me.txtPCName.TextAlignment = System.Drawing.StringAlignment.Near
-        '
-        'RibbonPageGroup5
-        '
-        Me.RibbonPageGroup5.ItemLinks.Add(Me.SkinRibbonGalleryBarItem1)
-        Me.RibbonPageGroup5.Name = "RibbonPageGroup5"
-        Me.RibbonPageGroup5.Text = "Theme"
-        '
-        'SkinRibbonGalleryBarItem1
-        '
-        Me.SkinRibbonGalleryBarItem1.Caption = "SkinRibbonGalleryBarItem1"
-        Me.SkinRibbonGalleryBarItem1.Id = 2
-        Me.SkinRibbonGalleryBarItem1.Name = "SkinRibbonGalleryBarItem1"
-        '
-        'txtBalacingFigure
-        '
-        Me.txtBalacingFigure.Caption = "Balacing Figure : "
-        Me.txtBalacingFigure.Edit = Me.RepositoryItemTextEdit7
-        Me.txtBalacingFigure.Id = 3
-        Me.txtBalacingFigure.Name = "txtBalacingFigure"
-        Me.txtBalacingFigure.Width = 145
-        '
-        'RepositoryItemTextEdit7
-        '
-        Me.RepositoryItemTextEdit7.AutoHeight = False
-        Me.RepositoryItemTextEdit7.Name = "RepositoryItemTextEdit7"
-        Me.RepositoryItemTextEdit7.ReadOnly = True
         '
         'frmPNL
         '
@@ -2893,6 +2912,8 @@ Partial Class frmPNL
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemProgressBar2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit6, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DockPanel1.ResumeLayout(False)
         Me.DockPanel1_Container.ResumeLayout(False)
         CType(Me.XtraTabControl1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2989,11 +3010,9 @@ Partial Class frmPNL
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemProgressBar1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit6, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3067,8 +3086,8 @@ Partial Class frmPNL
     Friend WithEvents btnSave As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem2 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem3 As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents BarButtonItem4 As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents BarButtonItem5 As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnImport As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnExport As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents cboPNLStatus As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemComboBox1 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
     Friend WithEvents txtLastModified As DevExpress.XtraBars.BarEditItem
@@ -3199,4 +3218,5 @@ Partial Class frmPNL
     Friend WithEvents RibbonPageGroup5 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents txtBalacingFigure As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemTextEdit7 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents btnRefresh As DevExpress.XtraBars.BarButtonItem
 End Class
