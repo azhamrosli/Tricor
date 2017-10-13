@@ -35,6 +35,14 @@ Public Class ucPNL_p1Sales
             DsPNL1 = value
         End Set
     End Property
+    Public Property GrdControl() As GridControl
+        Get
+            Return GridControl1
+        End Get
+        Set(ByVal value As GridControl)
+
+        End Set
+    End Property
 
     Private Sub ucPNLTest_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try

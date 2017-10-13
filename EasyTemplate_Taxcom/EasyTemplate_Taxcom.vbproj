@@ -228,10 +228,16 @@
     <Compile Include="frmHP_Add.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPNL.Designer.vb">
+    <Compile Include="PNL\frmPNL.Designer.vb">
       <DependentUpon>frmPNL.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmPNL.vb">
+    <Compile Include="PNL\frmPNL.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Details.Designer.vb">
+      <DependentUpon>frmPNL_Details.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Details.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmReport_Test.Designer.vb">
@@ -284,7 +290,7 @@
     <Compile Include="PNL\dsPNL.vb">
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
-    <Compile Include="PNL\dsPNL1.Designer.vb">
+    <Compile Include="PNL\dsPNL2.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
@@ -301,6 +307,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PNL\mdlPNL.vb" />
+    <Compile Include="PNL\mdlPNL2.vb" />
     <Compile Include="PNL\ucPNL_p2DivIncome.Designer.vb">
       <DependentUpon>ucPNL_p2DivIncome.vb</DependentUpon>
     </Compile>
@@ -662,8 +669,11 @@
     <EmbeddedResource Include="frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPNL.resx">
+    <EmbeddedResource Include="PNL\frmPNL.resx">
       <DependentUpon>frmPNL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\frmPNL_Details.resx">
+      <DependentUpon>frmPNL_Details.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReport_Test.resx">
       <DependentUpon>frmReport_Test.vb</DependentUpon>
@@ -910,9 +920,9 @@
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </None>
     <None Include="PNL\dsPNL.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPNL1.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
     </None>
     <None Include="PNL\dsPNL.xss">
       <DependentUpon>dsPNL.xsd</DependentUpon>

@@ -135,6 +135,8 @@ Partial Class ucPNL_p4Other
         '
         Me.colEXOD_EXOKEY.FieldName = "EXOD_EXOKEY"
         Me.colEXOD_EXOKEY.Name = "colEXOD_EXOKEY"
+        Me.colEXOD_EXOKEY.Visible = True
+        Me.colEXOD_EXOKEY.VisibleIndex = 6
         '
         'colEXOD_SOURCENO
         '
@@ -246,14 +248,16 @@ Partial Class ucPNL_p4Other
         '
         Me.GridControl1.DataSource = Me.OTHEREXPENSESBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         GridLevelNode1.LevelTemplate = Me.GridView2
         GridLevelNode1.RelationName = "FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
         Me.GridControl1.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 37)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.chkBox, Me.txtPercentage})
-        Me.GridControl1.Size = New System.Drawing.Size(758, 386)
+        Me.GridControl1.Size = New System.Drawing.Size(884, 476)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -288,11 +292,15 @@ Partial Class ucPNL_p4Other
         '
         Me.colEXO_KEY.FieldName = "EXO_KEY"
         Me.colEXO_KEY.Name = "colEXO_KEY"
+        Me.colEXO_KEY.Visible = True
+        Me.colEXO_KEY.VisibleIndex = 9
         '
         'colEXO_EXOKEY
         '
         Me.colEXO_EXOKEY.FieldName = "EXO_EXOKEY"
         Me.colEXO_EXOKEY.Name = "colEXO_EXOKEY"
+        Me.colEXO_EXOKEY.Visible = True
+        Me.colEXO_EXOKEY.VisibleIndex = 8
         '
         'colEXO_SOURCENO
         '
@@ -550,28 +558,32 @@ Partial Class ucPNL_p4Other
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(758, 31)
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(884, 37)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(758, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(884, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 476)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(758, 31)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlRight.Location = New System.Drawing.Point(884, 37)
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 476)
         '
         'RepositoryItemTextEdit1
         '
@@ -598,15 +610,16 @@ Partial Class ucPNL_p4Other
         '
         'ucPNL_p4Other
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p4Other"
-        Me.Size = New System.Drawing.Size(758, 417)
+        Me.Size = New System.Drawing.Size(884, 513)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtPercentage, System.ComponentModel.ISupportInitialize).EndInit()

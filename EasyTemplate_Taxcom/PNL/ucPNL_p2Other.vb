@@ -12,8 +12,8 @@ Public Class ucPNL_p2Other
 
     Public Const MainTable As String = "NON_TAXABLE_INCOME" 'PLFST_SALES
     Public Const MainTable_Details As String = "NON_TAXABLE_INCOME_DETAIL" 'PLFST_SALES_DETAIL
-    Public Const MainKey As String = "NT_NTKEY" ' PLFS_KEY
-    Public Const MainKey_Details As String = "NTD_NTKEY" 'PLFSD_PLFSKEY
+    Public Const MainKey As String = "NT_KEY" ' PLFS_KEY
+    Public Const MainKey_Details As String = "NTD_NTKEYN" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "NT_AMOUNT" 'PLFS_AMOUNT
     Public Const MainAmount_Details As String = "NTD_AMOUNT" 'PLFSD_AMOUNT
     Public Const MainSourceNo As String = "NT_SOURCENO" 'PLFS_SOURCENO

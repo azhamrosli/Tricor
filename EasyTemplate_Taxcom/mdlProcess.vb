@@ -409,7 +409,7 @@ Module mdlProcess
             Return False
         End Try
     End Function
-    Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As clsError = Nothing, Optional isAddEmpty As Boolean = False) As Boolean
         Try
             Dim dt As DataTable = mdlProcess.LoadYA(Errorlog)
 
@@ -421,6 +421,10 @@ Module mdlProcess
             For i As Integer = 0 To dt.Rows.Count - 1
                 cboYA.Properties.Items.Add(CInt(IIf(IsDBNull(dt.Rows(i)("YA")), "0", dt.Rows(i)("YA"))).ToString)
             Next
+
+            If isAddEmpty Then
+                cboYA.Properties.Items.Add("")
+            End If
 
             Return True
         Catch ex As Exception
@@ -1624,6 +1628,59 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function LoadPNL_Search(ByVal RefNo As String, ByVal YA As String, _
+                                   Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PROFIT_LOSS_ACCOUNT"
+            Dim isWhere As Boolean = False
+            SQLcmd = New SqlCommand
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE PL_REF_NO=@PL_REF_NO"
+                Else
+                    StrSQL += " AND PL_REF_NO=@PL_REF_NO"
+                End If
+                SQLcmd.Parameters.Add("@PL_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            If YA IsNot Nothing AndAlso YA <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE PL_YA=@PL_YA"
+                Else
+                    StrSQL += " AND PL_YA=@PL_YA"
+                End If
+                SQLcmd.Parameters.Add("@PL_YA", SqlDbType.NVarChar, 5).Value = YA
+            End If
+
+            SQLcmd.CommandText = StrSQL
+
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
     Public Function LoadCA_Search(ByVal RefNo As String, ByVal YA As String, ByVal FilterType As Integer, ByVal FilterValue As String, _
                                    Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -1829,8 +1886,10 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+
     Public Function Load_PNL_PLFST_SALES(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
+
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
@@ -2960,7 +3019,7 @@ tryagain:
             Return Nothing
         End Try
     End Function
-    Public Function Load_PNL_non_taxable_income(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_PNL_non_taxable_income(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -2970,10 +3029,12 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM non_taxable_income WHERE NT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM non_taxable_income WHERE NT_REF_NO=@NT_REF_NO AND NT_YA=@NT_YA AND NT_CATEGORIZED='Other'"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+            SQLcmd.Parameters.Add("@NT_REF_NO", SqlDbType.Int).Value = RefNo
+            SQLcmd.Parameters.Add("@NT_YA", SqlDbType.Int).Value = YA
+
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
@@ -4826,7 +4887,8 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_expenses WHERE EXO_KEY=@PL_KEY"
+            'Dim StrSQL As String = "SELECT * FROM other_expenses WHERE EXO_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXO_KEY,EXO_EXOKEY,SUM(EXO_AMOUNT) AS EXO_AMOUNT,EXO_DESC,EXO_NOTE,EXO_SOURCENO,EXO_DETAIL,RowIndex,Pecentage FROM OTHER_EXPENSES where EXO_KEY =@PL_KEY GROUP BY EXO_EXOKEY,EXO_DESC,EXO_NOTE,EXO_SOURCENO,EXO_KEY,EXO_DETAIL,RowIndex,Pecentage"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5803,6 +5865,31 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function Load_SQLCmd(ByVal SQLCmd As SqlCommand, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            SQLCmd.Connection = SqlCon
+
+            Return ADO.GetSQLDataTable(SQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_rptLampiranA1_AiNonTaxableIncome(ByVal DetailsName As String, ByVal PL_KEY As Integer, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -6849,7 +6936,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_ALLOW(EXA_KEY,EXA_EXAKEY,EXA_SOURCENO,EXA_DESC,EXA_AMOUNT,EXA_DEDUCTIBLE,EXA_NOTE,EXA_DETAIL) VALUES (@EXA_KEY,@EXA_EXAKEY,@EXA_SOURCENO,@EXA_DESC,@EXA_AMOUNT,@EXA_DEDUCTIBLE,@EXA_NOTE,@EXA_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_ALLOW(EXA_KEY,EXA_EXAKEY,EXA_SOURCENO,EXA_DESC,EXA_AMOUNT,EXA_DEDUCTIBLE,EXA_NOTE,EXA_DETAIL,RowIndex) VALUES (@EXA_KEY,@EXA_EXAKEY,@EXA_SOURCENO,@EXA_DESC,@EXA_AMOUNT,@EXA_DEDUCTIBLE,@EXA_NOTE,@EXA_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXA_KEY", SqlDbType.Int).Value = PNL_Key
@@ -6860,6 +6947,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXA_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXA_NOTE")
                 SQLcmd.Parameters.Add("@EXA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXA_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -6877,7 +6965,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_ALLOW_DETAIL(EXAD_KEY,EXAD_EXAKEY,EXAD_SOURCENO,EXAD_EXADKEY,EXAD_DESC,EXAD_AMOUNT,EXAD_DEDUCTIBLE,EXAD_NOTE) VALUES (@EXAD_KEY,@EXAD_EXAKEY,@EXAD_SOURCENO,@EXAD_EXADKEY,@EXAD_DESC,@EXAD_AMOUNT,@EXAD_DEDUCTIBLE,@EXAD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_ALLOW_DETAIL(EXAD_KEY,EXAD_EXAKEY,EXAD_SOURCENO,EXAD_EXADKEY,EXAD_DESC,EXAD_AMOUNT,EXAD_DEDUCTIBLE,EXAD_NOTE,RowIndex) VALUES (@EXAD_KEY,@EXAD_EXAKEY,@EXAD_SOURCENO,@EXAD_EXADKEY,@EXAD_DESC,@EXAD_AMOUNT,@EXAD_DEDUCTIBLE,@EXAD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -6889,6 +6977,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXAD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXAD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXAD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7011,7 +7100,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_DEPRECIATION(EXDEP_KEY,EXDEP_EXDEPKEY,EXDEP_SOURCENO,EXDEP_DESC,EXDEP_AMOUNT,EXDEP_DEDUCTIBLE,EXDEP_NOTE,EXDEP_DETAIL) VALUES (@EXDEP_KEY,@EXDEP_EXDEPKEY,@EXDEP_SOURCENO,@EXDEP_DESC,@EXDEP_AMOUNT,@EXDEP_DEDUCTIBLE,@EXDEP_NOTE,@EXDEP_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_DEPRECIATION(EXDEP_KEY,EXDEP_EXDEPKEY,EXDEP_SOURCENO,EXDEP_DESC,EXDEP_AMOUNT,EXDEP_DEDUCTIBLE,EXDEP_NOTE,EXDEP_DETAIL,RowIndex) VALUES (@EXDEP_KEY,@EXDEP_EXDEPKEY,@EXDEP_SOURCENO,@EXDEP_DESC,@EXDEP_AMOUNT,@EXDEP_DEDUCTIBLE,@EXDEP_NOTE,@EXDEP_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXDEP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7022,6 +7111,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXDEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDEP_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXDEP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXDEP_NOTE")
                 SQLcmd.Parameters.Add("@EXDEP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDEP_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7039,7 +7129,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_DEPRECIATION_DETAIL(EXDEPD_KEY,EXDEPD_EXDEPKEY,EXDEPD_SOURCENO,EXDEPD_EXDEPDKEY,EXDEPD_DESC,EXDEPD_AMOUNT,EXDEPD_DEDUCTIBLE,EXDEPD_NOTE) VALUES (@EXDEPD_KEY,@EXDEPD_EXDEPKEY,@EXDEPD_SOURCENO,@EXDEPD_EXDEPDKEY,@EXDEPD_DESC,@EXDEPD_AMOUNT,@EXDEPD_DEDUCTIBLE,@EXDEPD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_DEPRECIATION_DETAIL(EXDEPD_KEY,EXDEPD_EXDEPKEY,EXDEPD_SOURCENO,EXDEPD_EXDEPDKEY,EXDEPD_DESC,EXDEPD_AMOUNT,EXDEPD_DEDUCTIBLE,EXDEPD_NOTE,RowIndex) VALUES (@EXDEPD_KEY,@EXDEPD_EXDEPKEY,@EXDEPD_SOURCENO,@EXDEPD_EXDEPDKEY,@EXDEPD_DESC,@EXDEPD_AMOUNT,@EXDEPD_DEDUCTIBLE,@EXDEPD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7051,6 +7141,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXDEPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXDEPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXDEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXDEPD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXDEPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXDEPD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7092,7 +7183,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE(EXDF_KEY,EXDF_EXDFKEY,EXDF_SOURCENO,EXDF_DESC,EXDF_AMOUNT,EXDF_DEDUCTIBLE,EXDF_NOTE,EXDF_DETAIL) VALUES (@EXDF_KEY,@EXDF_EXDFKEY,@EXDF_SOURCENO,@EXDF_DESC,@EXDF_AMOUNT,@EXDF_DEDUCTIBLE,@EXDF_NOTE,@EXDF_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE(EXDF_KEY,EXDF_EXDFKEY,EXDF_SOURCENO,EXDF_DESC,EXDF_AMOUNT,EXDF_DEDUCTIBLE,EXDF_NOTE,EXDF_DETAIL,RowIndex) VALUES (@EXDF_KEY,@EXDF_EXDFKEY,@EXDF_SOURCENO,@EXDF_DESC,@EXDF_AMOUNT,@EXDF_DEDUCTIBLE,@EXDF_NOTE,@EXDF_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXDF_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7103,6 +7194,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDF_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXDF_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXDF_NOTE")
                 SQLcmd.Parameters.Add("@EXDF_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDF_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7120,7 +7212,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE_DETAIL(EXDFD_KEY,EXDFD_EXDFKEY,EXDFD_SOURCENO,EXDFD_EXDFDKEY,EXDFD_DESC,EXDFD_AMOUNT,EXDFD_DEDUCTIBLE,EXDFD_NOTE) VALUES (@EXDFD_KEY,@EXDFD_EXDFKEY,@EXDFD_SOURCENO,@EXDFD_EXDFDKEY,@EXDFD_DESC,@EXDFD_AMOUNT,@EXDFD_DEDUCTIBLE,@EXDFD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE_DETAIL(EXDFD_KEY,EXDFD_EXDFKEY,EXDFD_SOURCENO,EXDFD_EXDFDKEY,EXDFD_DESC,EXDFD_AMOUNT,EXDFD_DEDUCTIBLE,EXDFD_NOTE,RowIndex) VALUES (@EXDFD_KEY,@EXDFD_EXDFKEY,@EXDFD_SOURCENO,@EXDFD_EXDFDKEY,@EXDFD_DESC,@EXDFD_AMOUNT,@EXDFD_DEDUCTIBLE,@EXDFD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7132,7 +7224,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXDFD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXDFD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXDFD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXDFD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXDFD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7173,7 +7265,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK(EXES_KEY,EXES_EXESKEY,EXES_SOURCENO,EXES_DESC,EXES_AMOUNT,EXES_DEDUCTIBLE,EXES_NOTE,EXES_DETAIL) VALUES (@EXES_KEY,@EXES_EXESKEY,@EXES_SOURCENO,@EXES_DESC,@EXES_AMOUNT,@EXES_DEDUCTIBLE,@EXES_NOTE,@EXES_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK(EXES_KEY,EXES_EXESKEY,EXES_SOURCENO,EXES_DESC,EXES_AMOUNT,EXES_DEDUCTIBLE,EXES_NOTE,EXES_DETAIL,RowIndex) VALUES (@EXES_KEY,@EXES_EXESKEY,@EXES_SOURCENO,@EXES_DESC,@EXES_AMOUNT,@EXES_DEDUCTIBLE,@EXES_NOTE,@EXES_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXES_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7184,7 +7276,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXES_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXES_NOTE")
                 SQLcmd.Parameters.Add("@EXES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXES_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -7201,7 +7293,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK_DETAIL(EXESD_KEY,EXESD_EXESKEY,EXESD_SOURCENO,EXESD_EXESDKEY,EXESD_DESC,EXESD_AMOUNT,EXESD_DEDUCTIBLE,EXESD_NOTE) VALUES (@EXESD_KEY,@EXESD_EXESKEY,@EXESD_SOURCENO,@EXESD_EXESDKEY,@EXESD_DESC,@EXESD_AMOUNT,@EXESD_DEDUCTIBLE,@EXESD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK_DETAIL(EXESD_KEY,EXESD_EXESKEY,EXESD_SOURCENO,EXESD_EXESDKEY,EXESD_DESC,EXESD_AMOUNT,EXESD_DEDUCTIBLE,EXESD_NOTE,RowIndex) VALUES (@EXESD_KEY,@EXESD_EXESKEY,@EXESD_SOURCENO,@EXESD_EXESDKEY,@EXESD_DESC,@EXESD_AMOUNT,@EXESD_DEDUCTIBLE,@EXESD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7213,7 +7305,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXESD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXESD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXESD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7254,7 +7346,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_INTEREST(EXI_KEY,EXI_EXIKEY,EXI_SOURCENO,EXI_DESC,EXI_AMOUNT,EXI_DEDUCTIBLE,EXI_NOTE,EXI_DETAIL) VALUES (@EXI_KEY,@EXI_EXIKEY,@EXI_SOURCENO,@EXI_DESC,@EXI_AMOUNT,@EXI_DEDUCTIBLE,@EXI_NOTE,@EXI_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_INTEREST(EXI_KEY,EXI_EXIKEY,EXI_SOURCENO,EXI_DESC,EXI_AMOUNT,EXI_DEDUCTIBLE,EXI_NOTE,EXI_DETAIL,RowIndex) VALUES (@EXI_KEY,@EXI_EXIKEY,@EXI_SOURCENO,@EXI_DESC,@EXI_AMOUNT,@EXI_DEDUCTIBLE,@EXI_NOTE,@EXI_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7265,6 +7357,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXI_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXI_NOTE")
                 SQLcmd.Parameters.Add("@EXI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXI_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7282,7 +7375,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_INTEREST_DETAIL(EXID_KEY,EXID_EXIKEY,EXID_SOURCENO,EXID_EXIDKEY,EXID_DESC,EXID_AMOUNT,EXID_DEDUCTIBLE,EXID_NOTE) VALUES (@EXID_KEY,@EXID_EXIKEY,@EXID_SOURCENO,@EXID_EXIDKEY,@EXID_DESC,@EXID_AMOUNT,@EXID_DEDUCTIBLE,@EXID_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_INTEREST_DETAIL(EXID_KEY,EXID_EXIKEY,EXID_SOURCENO,EXID_EXIDKEY,EXID_DESC,EXID_AMOUNT,EXID_DEDUCTIBLE,EXID_NOTE,RowIndex) VALUES (@EXID_KEY,@EXID_EXIKEY,@EXID_SOURCENO,@EXID_EXIDKEY,@EXID_DESC,@EXID_AMOUNT,@EXID_DEDUCTIBLE,@EXID_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7294,7 +7387,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXID_AMOUNT")
                     SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXID_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXID_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7335,7 +7428,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT(EXIR_KEY,EXIR_EXIRKEY,EXIR_SOURCENO,EXIR_DESC,EXIR_AMOUNT,EXIR_DEDUCTIBLE,EXIR_NOTE,EXIR_DETAIL,EXIR_YEAREND,EXIR_STATUS) VALUES (@EXIR_KEY,@EXIR_EXIRKEY,@EXIR_SOURCENO,@EXIR_DESC,@EXIR_AMOUNT,@EXIR_DEDUCTIBLE,@EXIR_NOTE,@EXIR_DETAIL,@EXIR_YEAREND,@EXIR_STATUS)"
+                StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT(EXIR_KEY,EXIR_EXIRKEY,EXIR_SOURCENO,EXIR_DESC,EXIR_AMOUNT,EXIR_DEDUCTIBLE,EXIR_NOTE,EXIR_DETAIL,EXIR_YEAREND,EXIR_STATUS,RowIndex) VALUES (@EXIR_KEY,@EXIR_EXIRKEY,@EXIR_SOURCENO,@EXIR_DESC,@EXIR_AMOUNT,@EXIR_DEDUCTIBLE,@EXIR_NOTE,@EXIR_DETAIL,@EXIR_YEAREND,@EXIR_STATUS,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXIR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7348,6 +7441,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXIR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXIR_DETAIL")
                 SQLcmd.Parameters.Add("@EXIR_YEAREND", SqlDbType.NVarChar, 50).Value = dt.Rows(i)("EXIR_YEAREND")
                 SQLcmd.Parameters.Add("@EXIR_STATUS", SqlDbType.NVarChar, 10).Value = dt.Rows(i)("EXIR_STATUS")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7365,7 +7459,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT_DETAIL(EXIRD_KEY,EXIRD_EXIRKEY,EXIRD_SOURCENO,EXIRD_EXIRDKEY,EXIRD_DESC,EXIRD_AMOUNT,EXIRD_DEDUCTIBLE,EXIRD_NOTE) VALUES (@EXIRD_KEY,@EXIRD_EXIRKEY,@EXIRD_SOURCENO,@EXIRD_EXIRDKEY,@EXIRD_DESC,@EXIRD_AMOUNT,@EXIRD_DEDUCTIBLE,@EXIRD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT_DETAIL(EXIRD_KEY,EXIRD_EXIRKEY,EXIRD_SOURCENO,EXIRD_EXIRDKEY,EXIRD_DESC,EXIRD_AMOUNT,EXIRD_DEDUCTIBLE,EXIRD_NOTE,RowIndex) VALUES (@EXIRD_KEY,@EXIRD_EXIRKEY,@EXIRD_SOURCENO,@EXIRD_EXIRDKEY,@EXIRD_DESC,@EXIRD_AMOUNT,@EXIRD_DEDUCTIBLE,@EXIRD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7377,7 +7471,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXIRD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXIRD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXIRD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXIRD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXIRD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXIRD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7418,7 +7512,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_JKDM(EXJK_KEY,EXJK_EXJKKEY,EXJK_SOURCENO,EXJK_DESC,EXJK_AMOUNT,EXJK_DEDUCTIBLE,EXJK_NOTE,EXJK_DETAIL) VALUES (@EXJK_KEY,@EXJK_EXJKKEY,@EXJK_SOURCENO,@EXJK_DESC,@EXJK_AMOUNT,@EXJK_DEDUCTIBLE,@EXJK_NOTE,@EXJK_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_JKDM(EXJK_KEY,EXJK_EXJKKEY,EXJK_SOURCENO,EXJK_DESC,EXJK_AMOUNT,EXJK_DEDUCTIBLE,EXJK_NOTE,EXJK_DETAIL,RowIndex) VALUES (@EXJK_KEY,@EXJK_EXJKKEY,@EXJK_SOURCENO,@EXJK_DESC,@EXJK_AMOUNT,@EXJK_DEDUCTIBLE,@EXJK_NOTE,@EXJK_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXJK_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7429,6 +7523,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXJK_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXJK_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXJK_NOTE")
                 SQLcmd.Parameters.Add("@EXJK_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXJK_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7446,7 +7541,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_JKDM_DETAIL(EXJKD_KEY,EXJKD_EXJKKEY,EXJKD_SOURCENO,EXJKD_EXJKDKEY,EXJKD_DESC,EXJKD_AMOUNT,EXJKD_DEDUCTIBLE,EXJKD_NOTE) VALUES (@EXJKD_KEY,@EXJKD_EXJKKEY,@EXJKD_SOURCENO,@EXJKD_EXJKDKEY,@EXJKD_DESC,@EXJKD_AMOUNT,@EXJKD_DEDUCTIBLE,@EXJKD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_JKDM_DETAIL(EXJKD_KEY,EXJKD_EXJKKEY,EXJKD_SOURCENO,EXJKD_EXJKDKEY,EXJKD_DESC,EXJKD_AMOUNT,EXJKD_DEDUCTIBLE,EXJKD_NOTE,RowIndex) VALUES (@EXJKD_KEY,@EXJKD_EXJKKEY,@EXJKD_SOURCENO,@EXJKD_EXJKDKEY,@EXJKD_DESC,@EXJKD_AMOUNT,@EXJKD_DEDUCTIBLE,@EXJKD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7458,6 +7553,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXJKD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXJKD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXJKD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXJKD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXJKD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7499,7 +7595,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_LEGAL(EXL_KEY,EXL_EXLKEY,EXL_SOURCENO,EXL_DESC,EXL_AMOUNT,EXL_DEDUCTIBLE,EXL_NOTE,EXL_DETAIL) VALUES (@EXL_KEY,@EXL_EXLKEY,@EXL_SOURCENO,@EXL_DESC,@EXL_AMOUNT,@EXL_DEDUCTIBLE,@EXL_NOTE,@EXL_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_LEGAL(EXL_KEY,EXL_EXLKEY,EXL_SOURCENO,EXL_DESC,EXL_AMOUNT,EXL_DEDUCTIBLE,EXL_NOTE,EXL_DETAIL,RowIndex) VALUES (@EXL_KEY,@EXL_EXLKEY,@EXL_SOURCENO,@EXL_DESC,@EXL_AMOUNT,@EXL_DEDUCTIBLE,@EXL_NOTE,@EXL_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXL_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7510,6 +7606,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXL_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXL_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXL_NOTE")
                 SQLcmd.Parameters.Add("@EXL_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXL_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7527,7 +7624,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_LEGAL_DETAIL(EXLD_KEY,EXLD_EXLKEY,EXLD_SOURCENO,EXLD_EXLDKEY,EXLD_DESC,EXLD_AMOUNT,EXLD_DEDUCTIBLE,EXLD_NOTE) VALUES (@EXLD_KEY,@EXLD_EXLKEY,@EXLD_SOURCENO,@EXLD_EXLDKEY,@EXLD_DESC,@EXLD_AMOUNT,@EXLD_DEDUCTIBLE,@EXLD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_LEGAL_DETAIL(EXLD_KEY,EXLD_EXLKEY,EXLD_SOURCENO,EXLD_EXLDKEY,EXLD_DESC,EXLD_AMOUNT,EXLD_DEDUCTIBLE,EXLD_NOTE,RowIndex) VALUES (@EXLD_KEY,@EXLD_EXLKEY,@EXLD_SOURCENO,@EXLD_EXLDKEY,@EXLD_DESC,@EXLD_AMOUNT,@EXLD_DEDUCTIBLE,@EXLD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7539,7 +7636,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXLD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXLD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXLD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXLD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXLD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7580,7 +7677,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_NONALLOW(EXNA_KEY,EXNA_EXNAKEY,EXNA_SOURCENO,EXNA_DESC,EXNA_AMOUNT,EXNA_DEDUCTIBLE,EXNA_NOTE,EXNA_DETAIL) VALUES (@EXNA_KEY,@EXNA_EXNAKEY,@EXNA_SOURCENO,@EXNA_DESC,@EXNA_AMOUNT,@EXNA_DEDUCTIBLE,@EXNA_NOTE,@EXNA_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_NONALLOW(EXNA_KEY,EXNA_EXNAKEY,EXNA_SOURCENO,EXNA_DESC,EXNA_AMOUNT,EXNA_DEDUCTIBLE,EXNA_NOTE,EXNA_DETAIL,RowIndex) VALUES (@EXNA_KEY,@EXNA_EXNAKEY,@EXNA_SOURCENO,@EXNA_DESC,@EXNA_AMOUNT,@EXNA_DEDUCTIBLE,@EXNA_NOTE,@EXNA_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXNA_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7591,6 +7688,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXNA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXNA_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXNA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXNA_NOTE")
                 SQLcmd.Parameters.Add("@EXNA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXNA_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7608,7 +7706,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_NONALLOW_DETAIL(EXNAD_KEY,EXNAD_EXNAKEY,EXNAD_SOURCENO,EXNAD_EXNADKEY,EXNAD_DESC,EXNAD_AMOUNT,EXNAD_DEDUCTIBLE,EXNAD_NOTE) VALUES (@EXNAD_KEY,@EXNAD_EXNAKEY,@EXNAD_SOURCENO,@EXNAD_EXNADKEY,@EXNAD_DESC,@EXNAD_AMOUNT,@EXNAD_DEDUCTIBLE,@EXNAD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_NONALLOW_DETAIL(EXNAD_KEY,EXNAD_EXNAKEY,EXNAD_SOURCENO,EXNAD_EXNADKEY,EXNAD_DESC,EXNAD_AMOUNT,EXNAD_DEDUCTIBLE,EXNAD_NOTE,RowIndex) VALUES (@EXNAD_KEY,@EXNAD_EXNAKEY,@EXNAD_SOURCENO,@EXNAD_EXNADKEY,@EXNAD_DESC,@EXNAD_AMOUNT,@EXNAD_DEDUCTIBLE,@EXNAD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7620,6 +7718,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXNAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXNAD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXNAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXNAD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXNAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXNAD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7661,7 +7760,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_PROMOTE(EXP_KEY,EXP_EXPKEY,EXP_SOURCENO,EXP_DESC,EXP_AMOUNT,EXP_DEDUCTIBLE,EXP_NOTE,EXP_DETAIL) VALUES (@EXP_KEY,@EXP_EXPKEY,@EXP_SOURCENO,@EXP_DESC,@EXP_AMOUNT,@EXP_DEDUCTIBLE,@EXP_NOTE,@EXP_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_PROMOTE(EXP_KEY,EXP_EXPKEY,EXP_SOURCENO,EXP_DESC,EXP_AMOUNT,EXP_DEDUCTIBLE,EXP_NOTE,EXP_DETAIL,RowIndex) VALUES (@EXP_KEY,@EXP_EXPKEY,@EXP_SOURCENO,@EXP_DESC,@EXP_AMOUNT,@EXP_DEDUCTIBLE,@EXP_NOTE,@EXP_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7672,6 +7771,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXP_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXP_NOTE")
                 SQLcmd.Parameters.Add("@EXP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXP_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7689,7 +7789,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_PROMOTE_DETAIL(EXPD_KEY,EXPD_EXPKEY,EXPD_SOURCENO,EXPD_EXPDKEY,EXPD_DESC,EXPD_AMOUNT,EXPD_DEDUCTIBLE,EXPD_NOTE) VALUES (@EXPD_KEY,@EXPD_EXPKEY,@EXPD_SOURCENO,@EXPD_EXPDKEY,@EXPD_DESC,@EXPD_AMOUNT,@EXPD_DEDUCTIBLE,@EXPD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_PROMOTE_DETAIL(EXPD_KEY,EXPD_EXPKEY,EXPD_SOURCENO,EXPD_EXPDKEY,EXPD_DESC,EXPD_AMOUNT,EXPD_DEDUCTIBLE,EXPD_NOTE,RowIndex) VALUES (@EXPD_KEY,@EXPD_EXPKEY,@EXPD_SOURCENO,@EXPD_EXPDKEY,@EXPD_DESC,@EXPD_AMOUNT,@EXPD_DEDUCTIBLE,@EXPD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7701,6 +7801,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXPD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXPD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7742,7 +7843,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL,RowIndex) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRENT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7753,6 +7854,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRENT_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXRENT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRENT_NOTE")
                 SQLcmd.Parameters.Add("@EXRENT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRENT_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7770,7 +7872,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE,RowIndex) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7782,7 +7884,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXRENTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXRENTD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXRENTD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXRENTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXRENTD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7823,7 +7925,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_REPAIR(EXREP_KEY,EXREP_EXREPKEY,EXREP_SOURCENO,EXREP_DESC,EXREP_AMOUNT,EXREP_DEDUCTIBLE,EXREP_NOTE,EXREP_DETAIL) VALUES (@EXREP_KEY,@EXREP_EXREPKEY,@EXREP_SOURCENO,@EXREP_DESC,@EXREP_AMOUNT,@EXREP_DEDUCTIBLE,@EXREP_NOTE,@EXREP_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_REPAIR(EXREP_KEY,EXREP_EXREPKEY,EXREP_SOURCENO,EXREP_DESC,EXREP_AMOUNT,EXREP_DEDUCTIBLE,EXREP_NOTE,EXREP_DETAIL,RowIndex) VALUES (@EXREP_KEY,@EXREP_EXREPKEY,@EXREP_SOURCENO,@EXREP_DESC,@EXREP_AMOUNT,@EXREP_DEDUCTIBLE,@EXREP_NOTE,@EXREP_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXREP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7834,6 +7936,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXREP_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXREP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXREP_NOTE")
                 SQLcmd.Parameters.Add("@EXREP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXREP_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7851,7 +7954,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_REPAIR_DETAIL(EXREPD_KEY,EXREPD_EXREPKEY,EXREPD_SOURCENO,EXREPD_EXREPDKEY,EXREPD_DESC,EXREPD_AMOUNT,EXREPD_DEDUCTIBLE,EXREPD_NOTE) VALUES (@EXREPD_KEY,@EXREPD_EXREPKEY,@EXREPD_SOURCENO,@EXREPD_EXREPDKEY,@EXREPD_DESC,@EXREPD_AMOUNT,@EXREPD_DEDUCTIBLE,@EXREPD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_REPAIR_DETAIL(EXREPD_KEY,EXREPD_EXREPKEY,EXREPD_SOURCENO,EXREPD_EXREPDKEY,EXREPD_DESC,EXREPD_AMOUNT,EXREPD_DEDUCTIBLE,EXREPD_NOTE,RowIndex) VALUES (@EXREPD_KEY,@EXREPD_EXREPKEY,@EXREPD_SOURCENO,@EXREPD_EXREPDKEY,@EXREPD_DESC,@EXREPD_AMOUNT,@EXREPD_DEDUCTIBLE,@EXREPD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7863,6 +7966,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXREPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXREPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXREPD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXREPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXREPD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -7904,7 +8008,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_RESEARCH(EXRES_KEY,EXRES_EXRESKEY,EXRES_SOURCENO,EXRES_DESC,EXRES_AMOUNT,EXRES_DEDUCTIBLE,EXRES_NOTE,EXRES_DETAIL) VALUES (@EXRES_KEY,@EXRES_EXRESKEY,@EXRES_SOURCENO,@EXRES_DESC,@EXRES_AMOUNT,@EXRES_DEDUCTIBLE,@EXRES_NOTE,@EXRES_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_RESEARCH(EXRES_KEY,EXRES_EXRESKEY,EXRES_SOURCENO,EXRES_DESC,EXRES_AMOUNT,EXRES_DEDUCTIBLE,EXRES_NOTE,EXRES_DETAIL,RowIndex) VALUES (@EXRES_KEY,@EXRES_EXRESKEY,@EXRES_SOURCENO,@EXRES_DESC,@EXRES_AMOUNT,@EXRES_DEDUCTIBLE,@EXRES_NOTE,@EXRES_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRES_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7915,6 +8019,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRES_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXRES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRES_NOTE")
                 SQLcmd.Parameters.Add("@EXRES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRES_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -7932,7 +8037,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_RESEARCH_DETAIL(EXRESD_KEY,EXRESD_EXRESKEY,EXRESD_SOURCENO,EXRESD_EXRESDKEY,EXRESD_DESC,EXRESD_AMOUNT,EXRESD_DEDUCTIBLE,EXRESD_NOTE) VALUES (@EXRESD_KEY,@EXRESD_EXRESKEY,@EXRESD_SOURCENO,@EXRESD_EXRESDKEY,@EXRESD_DESC,@EXRESD_AMOUNT,@EXRESD_DEDUCTIBLE,@EXRESD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_RESEARCH_DETAIL(EXRESD_KEY,EXRESD_EXRESKEY,EXRESD_SOURCENO,EXRESD_EXRESDKEY,EXRESD_DESC,EXRESD_AMOUNT,EXRESD_DEDUCTIBLE,EXRESD_NOTE,RowIndex) VALUES (@EXRESD_KEY,@EXRESD_EXRESKEY,@EXRESD_SOURCENO,@EXRESD_EXRESDKEY,@EXRESD_DESC,@EXRESD_AMOUNT,@EXRESD_DEDUCTIBLE,@EXRESD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -7944,7 +8049,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXRESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXRESD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXRESD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXRESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXRESD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -7985,7 +8090,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_ROYALTY(EXRO_KEY,EXRO_EXROKEY,EXRO_SOURCENO,EXRO_DESC,EXRO_AMOUNT,EXRO_DEDUCTIBLE,EXRO_NOTE,EXRO_DETAIL) VALUES (@EXRO_KEY,@EXRO_EXROKEY,@EXRO_SOURCENO,@EXRO_DESC,@EXRO_AMOUNT,@EXRO_DEDUCTIBLE,@EXRO_NOTE,@EXRO_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_ROYALTY(EXRO_KEY,EXRO_EXROKEY,EXRO_SOURCENO,EXRO_DESC,EXRO_AMOUNT,EXRO_DEDUCTIBLE,EXRO_NOTE,EXRO_DETAIL,RowIndex) VALUES (@EXRO_KEY,@EXRO_EXROKEY,@EXRO_SOURCENO,@EXRO_DESC,@EXRO_AMOUNT,@EXRO_DEDUCTIBLE,@EXRO_NOTE,@EXRO_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRO_KEY", SqlDbType.Int).Value = PNL_Key
@@ -7996,7 +8101,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRO_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXRO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRO_NOTE")
                 SQLcmd.Parameters.Add("@EXRO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRO_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -8013,7 +8118,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_ROYALTY_DETAIL(EXROD_KEY,EXROD_EXROKEY,EXROD_SOURCENO,EXROD_EXRODKEY,EXROD_DESC,EXROD_AMOUNT,EXROD_DEDUCTIBLE,EXROD_NOTE) VALUES (@EXROD_KEY,@EXROD_EXROKEY,@EXROD_SOURCENO,@EXROD_EXRODKEY,@EXROD_DESC,@EXROD_AMOUNT,@EXROD_DEDUCTIBLE,@EXROD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_ROYALTY_DETAIL(EXROD_KEY,EXROD_EXROKEY,EXROD_SOURCENO,EXROD_EXRODKEY,EXROD_DESC,EXROD_AMOUNT,EXROD_DEDUCTIBLE,EXROD_NOTE,RowIndex) VALUES (@EXROD_KEY,@EXROD_EXROKEY,@EXROD_SOURCENO,@EXROD_EXRODKEY,@EXROD_DESC,@EXROD_AMOUNT,@EXROD_DEDUCTIBLE,@EXROD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8025,7 +8130,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXROD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXROD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXROD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXROD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXROD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -8066,7 +8171,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_SALARY(EXS_KEY,EXS_EXSKEY,EXS_SOURCENO,EXS_DESC,EXS_AMOUNT,EXS_DEDUCTIBLE,EXS_NOTE,EXS_DETAIL) VALUES (@EXS_KEY,@EXS_EXSKEY,@EXS_SOURCENO,@EXS_DESC,@EXS_AMOUNT,@EXS_DEDUCTIBLE,@EXS_NOTE,@EXS_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_SALARY(EXS_KEY,EXS_EXSKEY,EXS_SOURCENO,EXS_DESC,EXS_AMOUNT,EXS_DEDUCTIBLE,EXS_NOTE,EXS_DETAIL,RowIndex) VALUES (@EXS_KEY,@EXS_EXSKEY,@EXS_SOURCENO,@EXS_DESC,@EXS_AMOUNT,@EXS_DEDUCTIBLE,@EXS_NOTE,@EXS_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8077,7 +8182,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXS_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXS_NOTE")
                 SQLcmd.Parameters.Add("@EXS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXS_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -8094,7 +8199,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE,RowIndex) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8106,6 +8211,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXSD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXSD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXSD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8147,7 +8253,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_TECH_FEE(EXTF_KEY,EXTF_EXTFKEY,EXTF_SOURCENO,EXTF_DESC,EXTF_AMOUNT,EXTF_DEDUCTIBLE,EXTF_NOTE,EXTF_DETAIL) VALUES (@EXTF_KEY,@EXTF_EXTFKEY,@EXTF_SOURCENO,@EXTF_DESC,@EXTF_AMOUNT,@EXTF_DEDUCTIBLE,@EXTF_NOTE,@EXTF_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_TECH_FEE(EXTF_KEY,EXTF_EXTFKEY,EXTF_SOURCENO,EXTF_DESC,EXTF_AMOUNT,EXTF_DEDUCTIBLE,EXTF_NOTE,EXTF_DETAIL,RowIndex) VALUES (@EXTF_KEY,@EXTF_EXTFKEY,@EXTF_SOURCENO,@EXTF_DESC,@EXTF_AMOUNT,@EXTF_DEDUCTIBLE,@EXTF_NOTE,@EXTF_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXTF_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8158,7 +8264,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXTF_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXTF_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXTF_NOTE")
                 SQLcmd.Parameters.Add("@EXTF_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXTF_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -8175,7 +8281,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_TECH_FEE_DETAIL(EXTFD_KEY,EXTFD_EXTFKEY,EXTFD_SOURCENO,EXTFD_EXTFDKEY,EXTFD_DESC,EXTFD_AMOUNT,EXTFD_DEDUCTIBLE,EXTFD_NOTE) VALUES (@EXTFD_KEY,@EXTFD_EXTFKEY,@EXTFD_SOURCENO,@EXTFD_EXTFDKEY,@EXTFD_DESC,@EXTFD_AMOUNT,@EXTFD_DEDUCTIBLE,@EXTFD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_TECH_FEE_DETAIL(EXTFD_KEY,EXTFD_EXTFKEY,EXTFD_SOURCENO,EXTFD_EXTFDKEY,EXTFD_DESC,EXTFD_AMOUNT,EXTFD_DEDUCTIBLE,EXTFD_NOTE,RowIndex) VALUES (@EXTFD_KEY,@EXTFD_EXTFKEY,@EXTFD_SOURCENO,@EXTFD_EXTFDKEY,@EXTFD_DESC,@EXTFD_AMOUNT,@EXTFD_DEDUCTIBLE,@EXTFD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8187,7 +8293,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXTFD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXTFD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXTFD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXTFD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXTFD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -8309,7 +8415,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NBINTEREST(NOBII_KEY,NOBII_NOBIIKEY,NOBII_DESC,NOBII_AMOUNT,NOBII_NOTE,NOBII_DETAIL,NOBII_SOURCENO) VALUES (@NOBII_KEY,@NOBII_NOBIIKEY,@NOBII_DESC,@NOBII_AMOUNT,@NOBII_NOTE,@NOBII_DETAIL,@NOBII_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NBINTEREST(NOBII_KEY,NOBII_NOBIIKEY,NOBII_DESC,NOBII_AMOUNT,NOBII_NOTE,NOBII_DETAIL,NOBII_SOURCENO,RowIndex) VALUES (@NOBII_KEY,@NOBII_NOBIIKEY,@NOBII_DESC,@NOBII_AMOUNT,@NOBII_NOTE,@NOBII_DETAIL,@NOBII_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NOBII_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8319,6 +8425,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NOBII_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NOBII_NOTE")
                 SQLcmd.Parameters.Add("@NOBII_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NOBII_DETAIL")
                 SQLcmd.Parameters.Add("@NOBII_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NOBII_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8336,7 +8443,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NBINTEREST_DETAIL(NOBIID_KEY,NOBIID_NOBIIKEY,NOBIID_NOBIIDKEY,NOBIID_DESC,NOBIID_AMOUNT,NOBIID_NOTE,NOBIID_SOURCENO) VALUES (@NOBIID_KEY,@NOBIID_NOBIIKEY,@NOBIID_NOBIIDKEY,@NOBIID_DESC,@NOBIID_AMOUNT,@NOBIID_NOTE,@NOBIID_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NBINTEREST_DETAIL(NOBIID_KEY,NOBIID_NOBIIKEY,NOBIID_NOBIIDKEY,NOBIID_DESC,NOBIID_AMOUNT,NOBIID_NOTE,NOBIID_SOURCENO,RowIndex) VALUES (@NOBIID_KEY,@NOBIID_NOBIIKEY,@NOBIID_NOBIIDKEY,@NOBIID_DESC,@NOBIID_AMOUNT,@NOBIID_NOTE,@NOBIID_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8347,6 +8454,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NOBIID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NOBIID_AMOUNT")
                     SQLcmd.Parameters.Add("@NOBIID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NOBIID_NOTE")
                     SQLcmd.Parameters.Add("@NOBIID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NOBIID_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8388,7 +8496,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NBROYALTY(NOBRI_KEY,NOBRI_NOBRIKEY,NOBRI_DESC,NOBRI_AMOUNT,NOBRI_NOTE,NOBRI_DETAIL,NOBRI_SOURCENO) VALUES (@NOBRI_KEY,@NOBRI_NOBRIKEY,@NOBRI_DESC,@NOBRI_AMOUNT,@NOBRI_NOTE,@NOBRI_DETAIL,@NOBRI_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NBROYALTY(NOBRI_KEY,NOBRI_NOBRIKEY,NOBRI_DESC,NOBRI_AMOUNT,NOBRI_NOTE,NOBRI_DETAIL,NOBRI_SOURCENO,RowIndex) VALUES (@NOBRI_KEY,@NOBRI_NOBRIKEY,@NOBRI_DESC,@NOBRI_AMOUNT,@NOBRI_NOTE,@NOBRI_DETAIL,@NOBRI_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NOBRI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8398,6 +8506,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NOBRI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NOBRI_NOTE")
                 SQLcmd.Parameters.Add("@NOBRI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NOBRI_DETAIL")
                 SQLcmd.Parameters.Add("@NOBRI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NOBRI_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8415,7 +8524,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NBROYALTY_DETAIL(NOBRID_KEY,NOBRID_NOBRIKEY,NOBRID_NOBRIDKEY,NOBRID_DESC,NOBRID_AMOUNT,NOBRID_NOTE,NOBRID_SOURCENO) VALUES (@NOBRID_KEY,@NOBRID_NOBRIKEY,@NOBRID_NOBRIDKEY,@NOBRID_DESC,@NOBRID_AMOUNT,@NOBRID_NOTE,@NOBRID_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NBROYALTY_DETAIL(NOBRID_KEY,NOBRID_NOBRIKEY,NOBRID_NOBRIDKEY,NOBRID_DESC,NOBRID_AMOUNT,NOBRID_NOTE,NOBRID_SOURCENO,RowIndex) VALUES (@NOBRID_KEY,@NOBRID_NOBRIKEY,@NOBRID_NOBRIDKEY,@NOBRID_DESC,@NOBRID_AMOUNT,@NOBRID_NOTE,@NOBRID_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8426,7 +8535,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NOBRID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NOBRID_AMOUNT")
                     SQLcmd.Parameters.Add("@NOBRID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NOBRID_NOTE")
                     SQLcmd.Parameters.Add("@NOBRID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NOBRID_SOURCENO")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -8467,7 +8576,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NTDISPOSALFA(NTIDFA_KEY,NTIDFA_NTIDFAKEY,NTIDFA_DESC,NTIDFA_AMOUNT,NTIDFA_NOTE,NTIDFA_DETAIL,NTIDFA_SOURCENO) VALUES (@NTIDFA_KEY,@NTIDFA_NTIDFAKEY,@NTIDFA_DESC,@NTIDFA_AMOUNT,@NTIDFA_NOTE,@NTIDFA_DETAIL,@NTIDFA_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NTDISPOSALFA(NTIDFA_KEY,NTIDFA_NTIDFAKEY,NTIDFA_DESC,NTIDFA_AMOUNT,NTIDFA_NOTE,NTIDFA_DETAIL,NTIDFA_SOURCENO,RowIndex) VALUES (@NTIDFA_KEY,@NTIDFA_NTIDFAKEY,@NTIDFA_DESC,@NTIDFA_AMOUNT,@NTIDFA_NOTE,@NTIDFA_DETAIL,@NTIDFA_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NTIDFA_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8477,6 +8586,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NTIDFA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIDFA_NOTE")
                 SQLcmd.Parameters.Add("@NTIDFA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIDFA_DETAIL")
                 SQLcmd.Parameters.Add("@NTIDFA_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIDFA_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8494,7 +8604,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NTDISPOSALFA_DETAIL(NTIDFAD_KEY,NTIDFAD_NTIDFAKEY,NTIDFAD_NTIDFADKEY,NTIDFAD_DESC,NTIDFAD_AMOUNT,NTIDFAD_NOTE,NTIDFAD_SOURCENO) VALUES (@NTIDFAD_KEY,@NTIDFAD_NTIDFAKEY,@NTIDFAD_NTIDFADKEY,@NTIDFAD_DESC,@NTIDFAD_AMOUNT,@NTIDFAD_NOTE,@NTIDFAD_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NTDISPOSALFA_DETAIL(NTIDFAD_KEY,NTIDFAD_NTIDFAKEY,NTIDFAD_NTIDFADKEY,NTIDFAD_DESC,NTIDFAD_AMOUNT,NTIDFAD_NOTE,NTIDFAD_SOURCENO,RowIndex) VALUES (@NTIDFAD_KEY,@NTIDFAD_NTIDFAKEY,@NTIDFAD_NTIDFADKEY,@NTIDFAD_DESC,@NTIDFAD_AMOUNT,@NTIDFAD_NOTE,@NTIDFAD_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8505,6 +8615,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTIDFAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIDFAD_AMOUNT")
                     SQLcmd.Parameters.Add("@NTIDFAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIDFAD_NOTE")
                     SQLcmd.Parameters.Add("@NTIDFAD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDFAD_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8546,7 +8657,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NTDISPOSALINVEST(NTIDI_KEY,NTIDI_NTIDIKEY,NTIDI_DESC,NTIDI_AMOUNT,NTIDI_NOTE,NTIDI_DETAIL,NTIDI_SOURCENO) VALUES (@NTIDI_KEY,@NTIDI_NTIDIKEY,@NTIDI_DESC,@NTIDI_AMOUNT,@NTIDI_NOTE,@NTIDI_DETAIL,@NTIDI_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NTDISPOSALINVEST(NTIDI_KEY,NTIDI_NTIDIKEY,NTIDI_DESC,NTIDI_AMOUNT,NTIDI_NOTE,NTIDI_DETAIL,NTIDI_SOURCENO,RowIndex) VALUES (@NTIDI_KEY,@NTIDI_NTIDIKEY,@NTIDI_DESC,@NTIDI_AMOUNT,@NTIDI_NOTE,@NTIDI_DETAIL,@NTIDI_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NTIDI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8556,6 +8667,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NTIDI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIDI_NOTE")
                 SQLcmd.Parameters.Add("@NTIDI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIDI_DETAIL")
                 SQLcmd.Parameters.Add("@NTIDI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIDI_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8573,7 +8685,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NTDISPOSALINVEST_DETAIL(NTIDID_KEY,NTIDID_NTIDIKEY,NTIDID_NTIDIDKEY,NTIDID_DESC,NTIDID_AMOUNT,NTIDID_NOTE,NTIDID_SOURCENO) VALUES (@NTIDID_KEY,@NTIDID_NTIDIKEY,@NTIDID_NTIDIDKEY,@NTIDID_DESC,@NTIDID_AMOUNT,@NTIDID_NOTE,@NTIDID_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NTDISPOSALINVEST_DETAIL(NTIDID_KEY,NTIDID_NTIDIKEY,NTIDID_NTIDIDKEY,NTIDID_DESC,NTIDID_AMOUNT,NTIDID_NOTE,NTIDID_SOURCENO,RowIndex) VALUES (@NTIDID_KEY,@NTIDID_NTIDIKEY,@NTIDID_NTIDIDKEY,@NTIDID_DESC,@NTIDID_AMOUNT,@NTIDID_NOTE,@NTIDID_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8584,7 +8696,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTIDID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIDID_AMOUNT")
                     SQLcmd.Parameters.Add("@NTIDID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIDID_NOTE")
                     SQLcmd.Parameters.Add("@NTIDID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIDID_SOURCENO")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -8625,7 +8737,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NTFOREIGNINCREM(NTIFIR_KEY,NTIFIR_NTIFIRKEY,NTIFIR_DESC,NTIFIR_AMOUNT,NTIFIR_NOTE,NTIFIR_DETAIL,NTIFIR_SOURCENO) VALUES (@NTIFIR_KEY,@NTIFIR_NTIFIRKEY,@NTIFIR_DESC,@NTIFIR_AMOUNT,@NTIFIR_NOTE,@NTIFIR_DETAIL,@NTIFIR_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NTFOREIGNINCREM(NTIFIR_KEY,NTIFIR_NTIFIRKEY,NTIFIR_DESC,NTIFIR_AMOUNT,NTIFIR_NOTE,NTIFIR_DETAIL,NTIFIR_SOURCENO,RowIndex) VALUES (@NTIFIR_KEY,@NTIFIR_NTIFIRKEY,@NTIFIR_DESC,@NTIFIR_AMOUNT,@NTIFIR_NOTE,@NTIFIR_DETAIL,@NTIFIR_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NTIFIR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8635,6 +8747,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NTIFIR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIFIR_NOTE")
                 SQLcmd.Parameters.Add("@NTIFIR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIFIR_DETAIL")
                 SQLcmd.Parameters.Add("@NTIFIR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIFIR_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8652,7 +8765,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NTFOREIGNINCREM_DETAIL(NTIFIRD_KEY,NTIFIRD_NTIFIRKEY,NTIFIRD_NTIFIRDKEY,NTIFIRD_DESC,NTIFIRD_AMOUNT,NTIFIRD_NOTE,NTIFIRD_SOURCENO) VALUES (@NTIFIRD_KEY,@NTIFIRD_NTIFIRKEY,@NTIFIRD_NTIFIRDKEY,@NTIFIRD_DESC,@NTIFIRD_AMOUNT,@NTIFIRD_NOTE,@NTIFIRD_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NTFOREIGNINCREM_DETAIL(NTIFIRD_KEY,NTIFIRD_NTIFIRKEY,NTIFIRD_NTIFIRDKEY,NTIFIRD_DESC,NTIFIRD_AMOUNT,NTIFIRD_NOTE,NTIFIRD_SOURCENO,RowIndex) VALUES (@NTIFIRD_KEY,@NTIFIRD_NTIFIRKEY,@NTIFIRD_NTIFIRDKEY,@NTIFIRD_DESC,@NTIFIRD_AMOUNT,@NTIFIRD_NOTE,@NTIFIRD_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8663,6 +8776,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTIFIRD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIFIRD_AMOUNT")
                     SQLcmd.Parameters.Add("@NTIFIRD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIFIRD_NOTE")
                     SQLcmd.Parameters.Add("@NTIFIRD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIFIRD_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8704,7 +8818,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NTREALFE(NTIRFECT_KEY,NTIRFECT_NTIRFECTKEY,NTIRFECT_DESC,NTIRFECT_AMOUNT,NTIRFECT_NOTE,NTIRFECT_DETAIL,NTIRFECT_SOURCENO) VALUES (@NTIRFECT_KEY,@NTIRFECT_NTIRFECTKEY,@NTIRFECT_DESC,@NTIRFECT_AMOUNT,@NTIRFECT_NOTE,@NTIRFECT_DETAIL,@NTIRFECT_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NTREALFE(NTIRFECT_KEY,NTIRFECT_NTIRFECTKEY,NTIRFECT_DESC,NTIRFECT_AMOUNT,NTIRFECT_NOTE,NTIRFECT_DETAIL,NTIRFECT_SOURCENO,RowIndex) VALUES (@NTIRFECT_KEY,@NTIRFECT_NTIRFECTKEY,@NTIRFECT_DESC,@NTIRFECT_AMOUNT,@NTIRFECT_NOTE,@NTIRFECT_DETAIL,@NTIRFECT_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NTIRFECT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8714,6 +8828,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NTIRFECT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIRFECT_NOTE")
                 SQLcmd.Parameters.Add("@NTIRFECT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIRFECT_DETAIL")
                 SQLcmd.Parameters.Add("@NTIRFECT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIRFECT_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8731,7 +8846,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NTREALFE_DETAIL(NTIRFECTD_KEY,NTIRFECTD_NTIRFECTKEY,NTIRFECTD_NTIRFECTDKEY,NTIRFECTD_DESC,NTIRFECTD_AMOUNT,NTIRFECTD_NOTE,NTIRFECTD_SOURCENO) VALUES (@NTIRFECTD_KEY,@NTIRFECTD_NTIRFECTKEY,@NTIRFECTD_NTIRFECTDKEY,@NTIRFECTD_DESC,@NTIRFECTD_AMOUNT,@NTIRFECTD_NOTE,@NTIRFECTD_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NTREALFE_DETAIL(NTIRFECTD_KEY,NTIRFECTD_NTIRFECTKEY,NTIRFECTD_NTIRFECTDKEY,NTIRFECTD_DESC,NTIRFECTD_AMOUNT,NTIRFECTD_NOTE,NTIRFECTD_SOURCENO,RowIndex) VALUES (@NTIRFECTD_KEY,@NTIRFECTD_NTIRFECTKEY,@NTIRFECTD_NTIRFECTDKEY,@NTIRFECTD_DESC,@NTIRFECTD_AMOUNT,@NTIRFECTD_NOTE,@NTIRFECTD_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8742,6 +8857,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTIRFECTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIRFECTD_AMOUNT")
                     SQLcmd.Parameters.Add("@NTIRFECTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIRFECTD_NOTE")
                     SQLcmd.Parameters.Add("@NTIRFECTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIRFECTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8783,7 +8899,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NTUREALFENT(NTIUNT_KEY,NTIUNT_NTIUNTKEY,NTIUNT_DESC,NTIUNT_AMOUNT,NTIUNT_NOTE,NTIUNT_DETAIL,NTIUNT_SOURCENO) VALUES (@NTIUNT_KEY,@NTIUNT_NTIUNTKEY,@NTIUNT_DESC,@NTIUNT_AMOUNT,@NTIUNT_NOTE,@NTIUNT_DETAIL,@NTIUNT_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NTUREALFENT(NTIUNT_KEY,NTIUNT_NTIUNTKEY,NTIUNT_DESC,NTIUNT_AMOUNT,NTIUNT_NOTE,NTIUNT_DETAIL,NTIUNT_SOURCENO,RowIndex) VALUES (@NTIUNT_KEY,@NTIUNT_NTIUNTKEY,@NTIUNT_DESC,@NTIUNT_AMOUNT,@NTIUNT_NOTE,@NTIUNT_DETAIL,@NTIUNT_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NTIUNT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8793,6 +8909,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NTIUNT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIUNT_NOTE")
                 SQLcmd.Parameters.Add("@NTIUNT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIUNT_DETAIL")
                 SQLcmd.Parameters.Add("@NTIUNT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIUNT_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8810,7 +8927,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NTUREALFENT_DETAIL(NTIUNTD_KEY,NTIUNTD_NTIUNTKEY,NTIUNTD_NTIUNTDKEY,NTIUNTD_DESC,NTIUNTD_AMOUNT,NTIUNTD_NOTE,NTIUNTD_SOURCENO) VALUES (@NTIUNTD_KEY,@NTIUNTD_NTIUNTKEY,@NTIUNTD_NTIUNTDKEY,@NTIUNTD_DESC,@NTIUNTD_AMOUNT,@NTIUNTD_NOTE,@NTIUNTD_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NTUREALFENT_DETAIL(NTIUNTD_KEY,NTIUNTD_NTIUNTKEY,NTIUNTD_NTIUNTDKEY,NTIUNTD_DESC,NTIUNTD_AMOUNT,NTIUNTD_NOTE,NTIUNTD_SOURCENO,RowIndex) VALUES (@NTIUNTD_KEY,@NTIUNTD_NTIUNTKEY,@NTIUNTD_NTIUNTDKEY,@NTIUNTD_DESC,@NTIUNTD_AMOUNT,@NTIUNTD_NOTE,@NTIUNTD_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8821,6 +8938,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTIUNTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIUNTD_AMOUNT")
                     SQLcmd.Parameters.Add("@NTIUNTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIUNTD_NOTE")
                     SQLcmd.Parameters.Add("@NTIUNTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUNTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8862,7 +8980,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_NTUREALFET(NTIUT_KEY,NTIUT_NTIUTKEY,NTIUT_DESC,NTIUT_AMOUNT,NTIUT_NOTE,NTIUT_DETAIL,NTIUT_SOURCENO) VALUES (@NTIUT_KEY,@NTIUT_NTIUTKEY,@NTIUT_DESC,@NTIUT_AMOUNT,@NTIUT_NOTE,@NTIUT_DETAIL,@NTIUT_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_NTUREALFET(NTIUT_KEY,NTIUT_NTIUTKEY,NTIUT_DESC,NTIUT_AMOUNT,NTIUT_NOTE,NTIUT_DETAIL,NTIUT_SOURCENO,RowIndex) VALUES (@NTIUT_KEY,@NTIUT_NTIUTKEY,@NTIUT_DESC,@NTIUT_AMOUNT,@NTIUT_NOTE,@NTIUT_DETAIL,@NTIUT_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NTIUT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8872,6 +8990,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NTIUT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NTIUT_NOTE")
                 SQLcmd.Parameters.Add("@NTIUT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NTIUT_DETAIL")
                 SQLcmd.Parameters.Add("@NTIUT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NTIUT_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8889,7 +9008,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_NTUREALFET_DETAIL(NTIUTD_KEY,NTIUTD_NTIUTKEY,NTIUTD_NTIUTDKEY,NTIUTD_DESC,NTIUTD_AMOUNT,NTIUTD_NOTE,NTIUTD_SOURCENO) VALUES (@NTIUTD_KEY,@NTIUTD_NTIUTKEY,@NTIUTD_NTIUTDKEY,@NTIUTD_DESC,@NTIUTD_AMOUNT,@NTIUTD_NOTE,@NTIUTD_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_NTUREALFET_DETAIL(NTIUTD_KEY,NTIUTD_NTIUTKEY,NTIUTD_NTIUTDKEY,NTIUTD_DESC,NTIUTD_AMOUNT,NTIUTD_NOTE,NTIUTD_SOURCENO,RowIndex) VALUES (@NTIUTD_KEY,@NTIUTD_NTIUTKEY,@NTIUTD_NTIUTDKEY,@NTIUTD_DESC,@NTIUTD_AMOUNT,@NTIUTD_NOTE,@NTIUTD_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8900,6 +9019,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTIUTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NTIUTD_AMOUNT")
                     SQLcmd.Parameters.Add("@NTIUTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTIUTD_NOTE")
                     SQLcmd.Parameters.Add("@NTIUTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTIUTD_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -8941,7 +9061,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO INCOME_REALFET(IRFET_KEY,IRFET_IRFETKEY,IRFET_DESC,IRFET_AMOUNT,IRFET_NOTE,IRFET_DETAIL,IRFET_SOURCENO) VALUES (@IRFET_KEY,@IRFET_IRFETKEY,@IRFET_DESC,@IRFET_AMOUNT,@IRFET_NOTE,@IRFET_DETAIL,@IRFET_SOURCENO)"
+                StrSQL = "INSERT INTO INCOME_REALFET(IRFET_KEY,IRFET_IRFETKEY,IRFET_DESC,IRFET_AMOUNT,IRFET_NOTE,IRFET_DETAIL,IRFET_SOURCENO,RowIndex) VALUES (@IRFET_KEY,@IRFET_IRFETKEY,@IRFET_DESC,@IRFET_AMOUNT,@IRFET_NOTE,@IRFET_DETAIL,@IRFET_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@IRFET_KEY", SqlDbType.Int).Value = PNL_Key
@@ -8951,6 +9071,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@IRFET_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("IRFET_NOTE")
                 SQLcmd.Parameters.Add("@IRFET_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("IRFET_DETAIL")
                 SQLcmd.Parameters.Add("@IRFET_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("IRFET_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -8968,7 +9089,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO INCOME_REALFET_DETAIL(IRFETD_KEY,IRFETD_IRFETKEY,IRFETD_IRFETDKEY,IRFETD_DESC,IRFETD_AMOUNT,IRFETD_NOTE,IRFETD_SOURCENO) VALUES (@IRFETD_KEY,@IRFETD_IRFETKEY,@IRFETD_IRFETDKEY,@IRFETD_DESC,@IRFETD_AMOUNT,@IRFETD_NOTE,@IRFETD_SOURCENO)"
+                    StrSQL = "INSERT INTO INCOME_REALFET_DETAIL(IRFETD_KEY,IRFETD_IRFETKEY,IRFETD_IRFETDKEY,IRFETD_DESC,IRFETD_AMOUNT,IRFETD_NOTE,IRFETD_SOURCENO,RowIndex) VALUES (@IRFETD_KEY,@IRFETD_IRFETKEY,@IRFETD_IRFETDKEY,@IRFETD_DESC,@IRFETD_AMOUNT,@IRFETD_NOTE,@IRFETD_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -8979,6 +9100,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@IRFETD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("IRFETD_AMOUNT")
                     SQLcmd.Parameters.Add("@IRFETD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("IRFETD_NOTE")
                     SQLcmd.Parameters.Add("@IRFETD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("IRFETD_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -9020,7 +9142,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO NON_TAXABLE_INCOME(NT_KEY,NT_REF_NO,NT_YA,NT_DESC,NT_AMOUNT,NT_CATEGORIZED,NT_NOTE,NT_DETAIL,NT_SOURCENO,NT_NTKEY) VALUES (@NT_KEY,@NT_REF_NO,@NT_YA,@NT_DESC,@NT_AMOUNT,@NT_CATEGORIZED,@NT_NOTE,@NT_DETAIL,@NT_SOURCENO,@NT_NTKEY)"
+                StrSQL = "INSERT INTO NON_TAXABLE_INCOME(NT_KEY,NT_REF_NO,NT_YA,NT_DESC,NT_AMOUNT,NT_CATEGORIZED,NT_NOTE,NT_DETAIL,NT_SOURCENO,NT_NTKEY,RowIndex) VALUES (@NT_KEY,@NT_REF_NO,@NT_YA,@NT_DESC,@NT_AMOUNT,@NT_CATEGORIZED,@NT_NOTE,@NT_DETAIL,@NT_SOURCENO,@NT_NTKEY,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9032,6 +9154,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NT_DETAIL")
                 SQLcmd.Parameters.Add("@NT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NT_SOURCENO")
                 SQLcmd.Parameters.Add("@NT_NTKEY", SqlDbType.Float).Value = dt.Rows(i)("NT_NTKEY")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -9049,7 +9172,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO NON_TAXABLE_INCOME_DETAIL(NTD_KEY,NTD_NTKEY,NTD_NTDKEY,NTD_DESC,NTD_AMOUNT,NTD_NOTE,NTD_SOURCENO,NTD_NTKEYN) VALUES (@NTD_KEY,@NTD_NTKEY,@NTD_NTDKEY,@NTD_DESC,@NTD_AMOUNT,@NTD_NOTE,@NTD_SOURCENO,@NTD_NTKEYN)"
+                    StrSQL = "INSERT INTO NON_TAXABLE_INCOME_DETAIL(NTD_KEY,NTD_NTKEY,NTD_NTDKEY,NTD_DESC,NTD_AMOUNT,NTD_NOTE,NTD_SOURCENO,NTD_NTKEYN,RowIndex) VALUES (@NTD_KEY,@NTD_NTKEY,@NTD_NTDKEY,@NTD_DESC,@NTD_AMOUNT,@NTD_NOTE,@NTD_SOURCENO,@NTD_NTKEYN,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9061,7 +9184,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NTD_NOTE")
                     SQLcmd.Parameters.Add("@NTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NTD_SOURCENO")
                     SQLcmd.Parameters.Add("@NTD_NTKEYN", SqlDbType.Float).Value = dt_child.Rows(x)("NTD_NTKEYN")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -9102,7 +9225,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO NONSOURCE_BUSINESSINCOME(NSBI_KEY,NSBI_NSBIKEY,NSBI_DESC,NSBI_AMOUNT,NSBI_NOTE,NSBI_DETAIL,NSBI_SOURCENO) VALUES (@NSBI_KEY,@NSBI_NSBIKEY,@NSBI_DESC,@NSBI_AMOUNT,@NSBI_NOTE,@NSBI_DETAIL,@NSBI_SOURCENO)"
+                StrSQL = "INSERT INTO NONSOURCE_BUSINESSINCOME(NSBI_KEY,NSBI_NSBIKEY,NSBI_DESC,NSBI_AMOUNT,NSBI_NOTE,NSBI_DETAIL,NSBI_SOURCENO,RowIndex) VALUES (@NSBI_KEY,@NSBI_NSBIKEY,@NSBI_DESC,@NSBI_AMOUNT,@NSBI_NOTE,@NSBI_DETAIL,@NSBI_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@NSBI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9112,6 +9235,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@NSBI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NSBI_NOTE")
                 SQLcmd.Parameters.Add("@NSBI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NSBI_DETAIL")
                 SQLcmd.Parameters.Add("@NSBI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NSBI_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -9129,7 +9253,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO NONSOURCE_BUSINESSINCOME_DETAIL(NSBID_KEY,NSBID_NSBIKEY,NSBID_NSBIDKEY,NSBID_DESC,NSBID_AMOUNT,NSBID_NOTE,NSBID_SOURCENO) VALUES (@NSBID_KEY,@NSBID_NSBIKEY,@NSBID_NSBIDKEY,@NSBID_DESC,@NSBID_AMOUNT,@NSBID_NOTE,@NSBID_SOURCENO)"
+                    StrSQL = "INSERT INTO NONSOURCE_BUSINESSINCOME_DETAIL(NSBID_KEY,NSBID_NSBIKEY,NSBID_NSBIDKEY,NSBID_DESC,NSBID_AMOUNT,NSBID_NOTE,NSBID_SOURCENO,RowIndex) VALUES (@NSBID_KEY,@NSBID_NSBIKEY,@NSBID_NSBIDKEY,@NSBID_DESC,@NSBID_AMOUNT,@NSBID_NOTE,@NSBID_SOURCENO,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9140,6 +9264,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@NSBID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("NSBID_AMOUNT")
                     SQLcmd.Parameters.Add("@NSBID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("NSBID_NOTE")
                     SQLcmd.Parameters.Add("@NSBID_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("NSBID_SOURCENO")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -9181,7 +9306,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF(EXOENS_KEY,EXOENS_EXOENSKEY,EXOENS_SOURCENO,EXOENS_DESC,EXOENS_AMOUNT,EXOENS_DEDUCTIBLE,EXOENS_NOTE,EXOENS_DETAIL) VALUES (@EXOENS_KEY,@EXOENS_EXOENSKEY,@EXOENS_SOURCENO,@EXOENS_DESC,@EXOENS_AMOUNT,@EXOENS_DEDUCTIBLE,@EXOENS_NOTE,@EXOENS_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF(EXOENS_KEY,EXOENS_EXOENSKEY,EXOENS_SOURCENO,EXOENS_DESC,EXOENS_AMOUNT,EXOENS_DEDUCTIBLE,EXOENS_NOTE,EXOENS_DETAIL,RowIndex) VALUES (@EXOENS_KEY,@EXOENS_EXOENSKEY,@EXOENS_SOURCENO,@EXOENS_DESC,@EXOENS_AMOUNT,@EXOENS_DEDUCTIBLE,@EXOENS_NOTE,@EXOENS_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOENS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9192,7 +9317,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOENS_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOENS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOENS_NOTE")
                 SQLcmd.Parameters.Add("@EXOENS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOENS_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9209,7 +9334,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF_DETAIL(EXOENSD_KEY,EXOENSD_EXOENSKEY,EXOENSD_SOURCENO,EXOENSD_EXOENSDKEY,EXOENSD_DESC,EXOENSD_DEDUCTIBLE,EXOENSD_AMOUNT,EXOENSD_NOTE) VALUES (@EXOENSD_KEY,@EXOENSD_EXOENSKEY,@EXOENSD_SOURCENO,@EXOENSD_EXOENSDKEY,@EXOENSD_DESC,@EXOENSD_DEDUCTIBLE,@EXOENSD_AMOUNT,@EXOENSD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF_DETAIL(EXOENSD_KEY,EXOENSD_EXOENSKEY,EXOENSD_SOURCENO,EXOENSD_EXOENSDKEY,EXOENSD_DESC,EXOENSD_DEDUCTIBLE,EXOENSD_AMOUNT,EXOENSD_NOTE,RowIndex) VALUES (@EXOENSD_KEY,@EXOENSD_EXOENSKEY,@EXOENSD_SOURCENO,@EXOENSD_EXOENSDKEY,@EXOENSD_DESC,@EXOENSD_DEDUCTIBLE,@EXOENSD_AMOUNT,@EXOENSD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9221,7 +9346,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOENSD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOENSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOENSD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOENSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOENSD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -9262,7 +9387,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF(EXOES_KEY,EXOES_EXOESKEY,EXOES_SOURCENO,EXOES_DESC,EXOES_AMOUNT,EXOES_DEDUCTIBLE,EXOES_NOTE,EXOES_DETAIL) VALUES (@EXOES_KEY,@EXOES_EXOESKEY,@EXOES_SOURCENO,@EXOES_DESC,@EXOES_AMOUNT,@EXOES_DEDUCTIBLE,@EXOES_NOTE,@EXOES_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF(EXOES_KEY,EXOES_EXOESKEY,EXOES_SOURCENO,EXOES_DESC,EXOES_AMOUNT,EXOES_DEDUCTIBLE,EXOES_NOTE,EXOES_DETAIL,RowIndex) VALUES (@EXOES_KEY,@EXOES_EXOESKEY,@EXOES_SOURCENO,@EXOES_DESC,@EXOES_AMOUNT,@EXOES_DEDUCTIBLE,@EXOES_NOTE,@EXOES_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOES_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9273,7 +9398,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOES_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOES_NOTE")
                 SQLcmd.Parameters.Add("@EXOES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOES_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9290,7 +9415,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF_DETAIL(EXOESD_KEY,EXOESD_EXOESKEY,EXOESD_SOURCENO,EXOESD_EXOESDKEY,EXOESD_DESC,EXOESD_DEDUCTIBLE,EXOESD_AMOUNT,EXOESD_NOTE) VALUES (@EXOESD_KEY,@EXOESD_EXOESKEY,@EXOESD_SOURCENO,@EXOESD_EXOESDKEY,@EXOESD_DESC,@EXOESD_DEDUCTIBLE,@EXOESD_AMOUNT,@EXOESD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF_DETAIL(EXOESD_KEY,EXOESD_EXOESKEY,EXOESD_SOURCENO,EXOESD_EXOESDKEY,EXOESD_DESC,EXOESD_DEDUCTIBLE,EXOESD_AMOUNT,EXOESD_NOTE,RowIndex) VALUES (@EXOESD_KEY,@EXOESD_EXOESKEY,@EXOESD_SOURCENO,@EXOESD_EXOESDKEY,@EXOESD_DESC,@EXOESD_DEDUCTIBLE,@EXOESD_AMOUNT,@EXOESD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9302,6 +9427,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOESD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOESD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOESD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -9343,7 +9469,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,EXOAD_TYPE)"
+                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE,RowIndex) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,EXOAD_TYPE,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOAD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9355,7 +9481,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOAD_NOTE")
                 SQLcmd.Parameters.Add("@EXOAD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOAD_DETAIL")
                 SQLcmd.Parameters.Add("@EXOAD_TYPE", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOAD_TYPE")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9372,7 +9498,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXAPPRDONATION_DETAIL(EXOADD_KEY,EXOADD_EXOADKEY,EXOADD_SOURCENO,EXOADD_EXOADDKEY,EXOADD_DESC,EXOADD_DEDUCTIBLE,EXOADD_AMOUNT,EXOADD_NOTE,EXOADD_TYPE) VALUES (@EXOADD_KEY,@EXOADD_EXOADKEY,@EXOADD_SOURCENO,@EXOADD_EXOADDKEY,@EXOADD_DESC,@EXOADD_DEDUCTIBLE,@EXOADD_AMOUNT,@EXOADD_NOTE,@EXOADD_TYPE)"
+                    StrSQL = "INSERT INTO OTHER_EXAPPRDONATION_DETAIL(EXOADD_KEY,EXOADD_EXOADKEY,EXOADD_SOURCENO,EXOADD_EXOADDKEY,EXOADD_DESC,EXOADD_DEDUCTIBLE,EXOADD_AMOUNT,EXOADD_NOTE,EXOADD_TYPE,RowIndex) VALUES (@EXOADD_KEY,@EXOADD_EXOADKEY,@EXOADD_SOURCENO,@EXOADD_EXOADDKEY,@EXOADD_DESC,@EXOADD_DEDUCTIBLE,@EXOADD_AMOUNT,@EXOADD_NOTE,@EXOADD_TYPE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9385,6 +9511,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOADD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOADD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOADD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOADD_NOTE")
                     SQLcmd.Parameters.Add("@EXOADD_TYPE", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOADD_TYPE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -9426,7 +9553,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXCAPITALEXP(EXOCE_KEY,EXOCE_EXOCEKEY,EXOCE_SOURCENO,EXOCE_DESC,EXOCE_AMOUNT,EXOCE_DEDUCTIBLE,EXOCE_NOTE,EXOCE_DETAIL) VALUES (@EXOCE_KEY,@EXOCE_EXOCEKEY,@EXOCE_SOURCENO,@EXOCE_DESC,@EXOCE_AMOUNT,@EXOCE_DEDUCTIBLE,@EXOCE_NOTE,@EXOCE_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXCAPITALEXP(EXOCE_KEY,EXOCE_EXOCEKEY,EXOCE_SOURCENO,EXOCE_DESC,EXOCE_AMOUNT,EXOCE_DEDUCTIBLE,EXOCE_NOTE,EXOCE_DETAIL,RowIndex) VALUES (@EXOCE_KEY,@EXOCE_EXOCEKEY,@EXOCE_SOURCENO,@EXOCE_DESC,@EXOCE_AMOUNT,@EXOCE_DEDUCTIBLE,@EXOCE_NOTE,@EXOCE_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOCE_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9437,7 +9564,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOCE_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOCE_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOCE_NOTE")
                 SQLcmd.Parameters.Add("@EXOCE_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOCE_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9454,7 +9581,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXCAPITALEXP_DETAIL(EXOCED_KEY,EXOCED_EXOCEKEY,EXOCED_SOURCENO,EXOCED_EXOCEDKEY,EXOCED_DESC,EXOCED_DEDUCTIBLE,EXOCED_AMOUNT,EXOCED_NOTE) VALUES (@EXOCED_KEY,@EXOCED_EXOCEKEY,@EXOCED_SOURCENO,@EXOCED_EXOCEDKEY,@EXOCED_DESC,@EXOCED_DEDUCTIBLE,@EXOCED_AMOUNT,@EXOCED_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXCAPITALEXP_DETAIL(EXOCED_KEY,EXOCED_EXOCEKEY,EXOCED_SOURCENO,EXOCED_EXOCEDKEY,EXOCED_DESC,EXOCED_DEDUCTIBLE,EXOCED_AMOUNT,EXOCED_NOTE,RowIndex) VALUES (@EXOCED_KEY,@EXOCED_EXOCEKEY,@EXOCED_SOURCENO,@EXOCED_EXOCEDKEY,@EXOCED_DESC,@EXOCED_DEDUCTIBLE,@EXOCED_AMOUNT,@EXOCED_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9466,7 +9593,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOCED_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOCED_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOCED_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOCED_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOCED_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -9507,7 +9634,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXDEPRECIATION(EXODEP_KEY,EXODEP_EXODEPKEY,EXODEP_SOURCENO,EXODEP_DESC,EXODEP_AMOUNT,EXODEP_DEDUCTIBLE,EXODEP_NOTE,EXODEP_DETAIL) VALUES (@EXODEP_KEY,@EXODEP_EXODEPKEY,@EXODEP_SOURCENO,@EXODEP_DESC,@EXODEP_AMOUNT,@EXODEP_DEDUCTIBLE,@EXODEP_NOTE,@EXODEP_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXDEPRECIATION(EXODEP_KEY,EXODEP_EXODEPKEY,EXODEP_SOURCENO,EXODEP_DESC,EXODEP_AMOUNT,EXODEP_DEDUCTIBLE,EXODEP_NOTE,EXODEP_DETAIL,RowIndex) VALUES (@EXODEP_KEY,@EXODEP_EXODEPKEY,@EXODEP_SOURCENO,@EXODEP_DESC,@EXODEP_AMOUNT,@EXODEP_DEDUCTIBLE,@EXODEP_NOTE,@EXODEP_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXODEP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9518,6 +9645,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXODEP_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXODEP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXODEP_NOTE")
                 SQLcmd.Parameters.Add("@EXODEP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXODEP_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -9535,7 +9663,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXDEPRECIATION_DETAIL(EXODEPD_KEY,EXODEPD_EXODEPKEY,EXODEPD_SOURCENO,EXODEPD_EXODEPDKEY,EXODEPD_DESC,EXODEPD_DEDUCTIBLE,EXODEPD_AMOUNT,EXODEPD_NOTE) VALUES (@EXODEPD_KEY,@EXODEPD_EXODEPKEY,@EXODEPD_SOURCENO,@EXODEPD_EXODEPDKEY,@EXODEPD_DESC,@EXODEPD_DEDUCTIBLE,@EXODEPD_AMOUNT,@EXODEPD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXDEPRECIATION_DETAIL(EXODEPD_KEY,EXODEPD_EXODEPKEY,EXODEPD_SOURCENO,EXODEPD_EXODEPDKEY,EXODEPD_DESC,EXODEPD_DEDUCTIBLE,EXODEPD_AMOUNT,EXODEPD_NOTE,RowIndex) VALUES (@EXODEPD_KEY,@EXODEPD_EXODEPKEY,@EXODEPD_SOURCENO,@EXODEPD_EXODEPDKEY,@EXODEPD_DESC,@EXODEPD_DEDUCTIBLE,@EXODEPD_AMOUNT,@EXODEPD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9547,7 +9675,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXODEPD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXODEPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXODEPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXODEPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXODEPD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -9588,7 +9716,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF(EXOWO_KEY,EXOWO_EXOWOKEY,EXOWO_SOURCENO,EXOWO_DESC,EXOWO_AMOUNT,EXOWO_DEDUCTIBLE,EXOWO_NOTE,EXOWO_DETAIL) VALUES (@EXOWO_KEY,@EXOWO_EXOWOKEY,@EXOWO_SOURCENO,@EXOWO_DESC,@EXOWO_AMOUNT,@EXOWO_DEDUCTIBLE,@EXOWO_NOTE,@EXOWO_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF(EXOWO_KEY,EXOWO_EXOWOKEY,EXOWO_SOURCENO,EXOWO_DESC,EXOWO_AMOUNT,EXOWO_DEDUCTIBLE,EXOWO_NOTE,EXOWO_DETAIL,RowIndex) VALUES (@EXOWO_KEY,@EXOWO_EXOWOKEY,@EXOWO_SOURCENO,@EXOWO_DESC,@EXOWO_AMOUNT,@EXOWO_DEDUCTIBLE,@EXOWO_NOTE,@EXOWO_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOWO_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9599,7 +9727,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOWO_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOWO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOWO_NOTE")
                 SQLcmd.Parameters.Add("@EXOWO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOWO_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9616,7 +9744,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF_DETAIL(EXOWOD_KEY,EXOWOD_EXOWOKEY,EXOWOD_SOURCENO,EXOWOD_EXOWODKEY,EXOWOD_DESC,EXOWOD_DEDUCTIBLE,EXOWOD_AMOUNT,EXOWOD_NOTE) VALUES (@EXOWOD_KEY,@EXOWOD_EXOWOKEY,@EXOWOD_SOURCENO,@EXOWOD_EXOWODKEY,@EXOWOD_DESC,@EXOWOD_DEDUCTIBLE,@EXOWOD_AMOUNT,@EXOWOD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF_DETAIL(EXOWOD_KEY,EXOWOD_EXOWOKEY,EXOWOD_SOURCENO,EXOWOD_EXOWODKEY,EXOWOD_DESC,EXOWOD_DEDUCTIBLE,EXOWOD_AMOUNT,EXOWOD_NOTE,RowIndex) VALUES (@EXOWOD_KEY,@EXOWOD_EXOWOKEY,@EXOWOD_SOURCENO,@EXOWOD_EXOWODKEY,@EXOWOD_DESC,@EXOWOD_DEDUCTIBLE,@EXOWOD_AMOUNT,@EXOWOD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9628,7 +9756,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOWOD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOWOD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOWOD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOWOD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOWOD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -9750,7 +9878,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE(EXOLP_KEY,EXOLP_EXOLPKEY,EXOLP_SOURCENO,EXOLP_DESC,EXOLP_AMOUNT,EXOLP_DEDUCTIBLE,EXOLP_NOTE,EXOLP_DETAIL) VALUES (@EXOLP_KEY,@EXOLP_EXOLPKEY,@EXOLP_SOURCENO,@EXOLP_DESC,@EXOLP_AMOUNT,@EXOLP_DEDUCTIBLE,@EXOLP_NOTE,@EXOLP_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE(EXOLP_KEY,EXOLP_EXOLPKEY,EXOLP_SOURCENO,EXOLP_DESC,EXOLP_AMOUNT,EXOLP_DEDUCTIBLE,EXOLP_NOTE,EXOLP_DETAIL,RowIndex) VALUES (@EXOLP_KEY,@EXOLP_EXOLPKEY,@EXOLP_SOURCENO,@EXOLP_DESC,@EXOLP_AMOUNT,@EXOLP_DEDUCTIBLE,@EXOLP_NOTE,@EXOLP_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOLP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9761,7 +9889,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLP_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOLP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOLP_NOTE")
                 SQLcmd.Parameters.Add("@EXOLP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLP_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9778,7 +9906,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE_DETAIL(EXOLPD_KEY,EXOLPD_EXOLPKEY,EXOLPD_SOURCENO,EXOLPD_EXOLPDKEY,EXOLPD_DESC,EXOLPD_DEDUCTIBLE,EXOLPD_AMOUNT,EXOLPD_NOTE) VALUES (@EXOLPD_KEY,@EXOLPD_EXOLPKEY,@EXOLPD_SOURCENO,@EXOLPD_EXOLPDKEY,@EXOLPD_DESC,@EXOLPD_DEDUCTIBLE,@EXOLPD_AMOUNT,@EXOLPD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE_DETAIL(EXOLPD_KEY,EXOLPD_EXOLPKEY,EXOLPD_SOURCENO,EXOLPD_EXOLPDKEY,EXOLPD_DESC,EXOLPD_DEDUCTIBLE,EXOLPD_AMOUNT,EXOLPD_NOTE,RowIndex) VALUES (@EXOLPD_KEY,@EXOLPD_EXOLPKEY,@EXOLPD_SOURCENO,@EXOLPD_EXOLPDKEY,@EXOLPD_DESC,@EXOLPD_DEDUCTIBLE,@EXOLPD_AMOUNT,@EXOLPD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9790,6 +9918,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOLPD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOLPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOLPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOLPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOLPD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -9831,7 +9960,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA(EXOLD_KEY,EXOLD_EXOLDKEY,EXOLD_SOURCENO,EXOLD_DESC,EXOLD_AMOUNT,EXOLD_DEDUCTIBLE,EXOLD_NOTE,EXOLD_DETAIL) VALUES (@EXOLD_KEY,@EXOLD_EXOLDKEY,@EXOLD_SOURCENO,@EXOLD_DESC,@EXOLD_AMOUNT,@EXOLD_DEDUCTIBLE,@EXOLD_NOTE,@EXOLD_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA(EXOLD_KEY,EXOLD_EXOLDKEY,EXOLD_SOURCENO,EXOLD_DESC,EXOLD_AMOUNT,EXOLD_DEDUCTIBLE,EXOLD_NOTE,EXOLD_DETAIL,RowIndex) VALUES (@EXOLD_KEY,@EXOLD_EXOLDKEY,@EXOLD_SOURCENO,@EXOLD_DESC,@EXOLD_AMOUNT,@EXOLD_DEDUCTIBLE,@EXOLD_NOTE,@EXOLD_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOLD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9842,7 +9971,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLD_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOLD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOLD_NOTE")
                 SQLcmd.Parameters.Add("@EXOLD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLD_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9859,7 +9988,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA_DETAIL(EXOLDD_KEY,EXOLDD_EXOLDKEY,EXOLDD_SOURCENO,EXOLDD_EXOLDDKEY,EXOLDD_DESC,EXOLDD_DEDUCTIBLE,EXOLDD_AMOUNT,EXOLDD_NOTE) VALUES (@EXOLDD_KEY,@EXOLDD_EXOLDKEY,@EXOLDD_SOURCENO,@EXOLDD_EXOLDDKEY,@EXOLDD_DESC,@EXOLDD_DEDUCTIBLE,@EXOLDD_AMOUNT,@EXOLDD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA_DETAIL(EXOLDD_KEY,EXOLDD_EXOLDKEY,EXOLDD_SOURCENO,EXOLDD_EXOLDDKEY,EXOLDD_DESC,EXOLDD_DEDUCTIBLE,EXOLDD_AMOUNT,EXOLDD_NOTE,RowIndex) VALUES (@EXOLDD_KEY,@EXOLDD_EXOLDKEY,@EXOLDD_SOURCENO,@EXOLDD_EXOLDDKEY,@EXOLDD_DESC,@EXOLDD_DEDUCTIBLE,@EXOLDD_AMOUNT,@EXOLDD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9871,7 +10000,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOLDD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOLDD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOLDD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOLDD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOLDD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -9912,7 +10041,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION(EXONAD_KEY,EXONAD_EXONADKEY,EXONAD_SOURCENO,EXONAD_DESC,EXONAD_AMOUNT,EXONAD_DEDUCTIBLE,EXONAD_NOTE,EXONAD_DETAIL) VALUES (@EXONAD_KEY,@EXONAD_EXONADKEY,@EXONAD_SOURCENO,@EXONAD_DESC,@EXONAD_AMOUNT,@EXONAD_DEDUCTIBLE,@EXONAD_NOTE,@EXONAD_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION(EXONAD_KEY,EXONAD_EXONADKEY,EXONAD_SOURCENO,EXONAD_DESC,EXONAD_AMOUNT,EXONAD_DEDUCTIBLE,EXONAD_NOTE,EXONAD_DETAIL,RowIndex) VALUES (@EXONAD_KEY,@EXONAD_EXONADKEY,@EXONAD_SOURCENO,@EXONAD_DESC,@EXONAD_AMOUNT,@EXONAD_DEDUCTIBLE,@EXONAD_NOTE,@EXONAD_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXONAD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9923,7 +10052,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXONAD_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXONAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXONAD_NOTE")
                 SQLcmd.Parameters.Add("@EXONAD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXONAD_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -9940,7 +10069,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION_DETAIL(EXONADD_KEY,EXONADD_EXONADKEY,EXONADD_SOURCENO,EXONADD_EXONADDKEY,EXONADD_DESC,EXONADD_DEDUCTIBLE,EXONADD_AMOUNT,EXONADD_NOTE) VALUES (@EXONADD_KEY,@EXONADD_EXONADKEY,@EXONADD_SOURCENO,@EXONADD_EXONADDKEY,@EXONADD_DESC,@EXONADD_DEDUCTIBLE,@EXONADD_AMOUNT,@EXONADD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION_DETAIL(EXONADD_KEY,EXONADD_EXONADKEY,EXONADD_SOURCENO,EXONADD_EXONADDKEY,EXONADD_DESC,EXONADD_DEDUCTIBLE,EXONADD_AMOUNT,EXONADD_NOTE,RowIndex) VALUES (@EXONADD_KEY,@EXONADD_EXONADKEY,@EXONADD_SOURCENO,@EXONADD_EXONADDKEY,@EXONADD_DESC,@EXONADD_DEDUCTIBLE,@EXONADD_AMOUNT,@EXONADD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9952,6 +10081,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXONADD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXONADD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXONADD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXONADD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXONADD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -9993,7 +10123,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXPENALTY(EXOP_KEY,EXOP_EXOPKEY,EXOP_SOURCENO,EXOP_DESC,EXOP_AMOUNT,EXOP_DEDUCTIBLE,EXOP_NOTE,EXOP_DETAIL) VALUES (@EXOP_KEY,@EXOP_EXOPKEY,@EXOP_SOURCENO,@EXOP_DESC,@EXOP_AMOUNT,@EXOP_DEDUCTIBLE,@EXOP_NOTE,@EXOP_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXPENALTY(EXOP_KEY,EXOP_EXOPKEY,EXOP_SOURCENO,EXOP_DESC,EXOP_AMOUNT,EXOP_DEDUCTIBLE,EXOP_NOTE,EXOP_DETAIL,RowIndex) VALUES (@EXOP_KEY,@EXOP_EXOPKEY,@EXOP_SOURCENO,@EXOP_DESC,@EXOP_AMOUNT,@EXOP_DEDUCTIBLE,@EXOP_NOTE,@EXOP_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10004,7 +10134,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOP_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOP_NOTE")
                 SQLcmd.Parameters.Add("@EXOP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOP_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -10021,7 +10151,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXPENALTY_DETAIL(EXOPD_KEY,EXOPD_EXOPKEY,EXOPD_SOURCENO,EXOPD_EXOPDKEY,EXOPD_DESC,EXOPD_DEDUCTIBLE,EXOPD_AMOUNT,EXOPD_NOTE) VALUES (@EXOPD_KEY,@EXOPD_EXOPKEY,@EXOPD_SOURCENO,@EXOPD_EXOPDKEY,@EXOPD_DESC,@EXOPD_DEDUCTIBLE,@EXOPD_AMOUNT,@EXOPD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXPENALTY_DETAIL(EXOPD_KEY,EXOPD_EXOPKEY,EXOPD_SOURCENO,EXOPD_EXOPDKEY,EXOPD_DESC,EXOPD_DEDUCTIBLE,EXOPD_AMOUNT,EXOPD_NOTE,RowIndex) VALUES (@EXOPD_KEY,@EXOPD_EXOPKEY,@EXOPD_SOURCENO,@EXOPD_EXOPDKEY,@EXOPD_DESC,@EXOPD_DEDUCTIBLE,@EXOPD_AMOUNT,@EXOPD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10033,6 +10163,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOPD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOPD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10074,7 +10205,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXPENSES(EXO_KEY,EXO_EXOKEY,EXO_SOURCENO,EXO_DESC,EXO_AMOUNT,EXO_DEDUCTIBLE,EXO_NOTE,EXO_DETAIL) VALUES (@EXO_KEY,@EXO_EXOKEY,@EXO_SOURCENO,@EXO_DESC,@EXO_AMOUNT,@EXO_DEDUCTIBLE,@EXO_NOTE,@EXO_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXPENSES(EXO_KEY,EXO_EXOKEY,EXO_SOURCENO,EXO_DESC,EXO_AMOUNT,EXO_DEDUCTIBLE,EXO_NOTE,EXO_DETAIL,RowIndex) VALUES (@EXO_KEY,@EXO_EXOKEY,@EXO_SOURCENO,@EXO_DESC,@EXO_AMOUNT,@EXO_DEDUCTIBLE,@EXO_NOTE,@EXO_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXO_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10085,7 +10216,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXO_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXO_NOTE")
                 SQLcmd.Parameters.Add("@EXO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXO_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -10102,7 +10233,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXPENSES_DETAIL(EXOD_KEY,EXOD_EXOKEY,EXOD_SOURCENO,EXOD_EXODKEY,EXOD_DESC,EXOD_DEDUCTIBLE,EXOD_AMOUNT,EXOD_NOTE) VALUES (@EXOD_KEY,@EXOD_EXOKEY,@EXOD_SOURCENO,@EXOD_EXODKEY,@EXOD_DESC,@EXOD_DEDUCTIBLE,@EXOD_AMOUNT,@EXOD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXPENSES_DETAIL(EXOD_KEY,EXOD_EXOKEY,EXOD_SOURCENO,EXOD_EXODKEY,EXOD_DESC,EXOD_DEDUCTIBLE,EXOD_AMOUNT,EXOD_NOTE,RowIndex) VALUES (@EXOD_KEY,@EXOD_EXOKEY,@EXOD_SOURCENO,@EXOD_EXODKEY,@EXOD_DESC,@EXOD_DEDUCTIBLE,@EXOD_AMOUNT,@EXOD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10114,7 +10245,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10155,7 +10286,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXPROVISIONACC(EXOPA_KEY,EXOPA_EXOPAKEY,EXOPA_SOURCENO,EXOPA_DESC,EXOPA_AMOUNT,EXOPA_DEDUCTIBLE,EXOPA_NOTE,EXOPA_DETAIL) VALUES (@EXOPA_KEY,@EXOPA_EXOPAKEY,@EXOPA_SOURCENO,@EXOPA_DESC,@EXOPA_AMOUNT,@EXOPA_DEDUCTIBLE,@EXOPA_NOTE,@EXOPA_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXPROVISIONACC(EXOPA_KEY,EXOPA_EXOPAKEY,EXOPA_SOURCENO,EXOPA_DESC,EXOPA_AMOUNT,EXOPA_DEDUCTIBLE,EXOPA_NOTE,EXOPA_DETAIL,RowIndex) VALUES (@EXOPA_KEY,@EXOPA_EXOPAKEY,@EXOPA_SOURCENO,@EXOPA_DESC,@EXOPA_AMOUNT,@EXOPA_DEDUCTIBLE,@EXOPA_NOTE,@EXOPA_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOPA_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10166,6 +10297,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOPA_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOPA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOPA_NOTE")
                 SQLcmd.Parameters.Add("@EXOPA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOPA_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10183,7 +10315,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXPROVISIONACC_DETAIL(EXOPAD_KEY,EXOPAD_EXOPAKEY,EXOPAD_SOURCENO,EXOPAD_EXOPADKEY,EXOPAD_DESC,EXOPAD_DEDUCTIBLE,EXOPAD_AMOUNT,EXOPAD_NOTE) VALUES (@EXOPAD_KEY,@EXOPAD_EXOPAKEY,@EXOPAD_SOURCENO,@EXOPAD_EXOPADKEY,@EXOPAD_DESC,@EXOPAD_DEDUCTIBLE,@EXOPAD_AMOUNT,@EXOPAD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXPROVISIONACC_DETAIL(EXOPAD_KEY,EXOPAD_EXOPAKEY,EXOPAD_SOURCENO,EXOPAD_EXOPADKEY,EXOPAD_DESC,EXOPAD_DEDUCTIBLE,EXOPAD_AMOUNT,EXOPAD_NOTE,RowIndex) VALUES (@EXOPAD_KEY,@EXOPAD_EXOPAKEY,@EXOPAD_SOURCENO,@EXOPAD_EXOPADKEY,@EXOPAD_DESC,@EXOPAD_DEDUCTIBLE,@EXOPAD_AMOUNT,@EXOPAD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10195,7 +10327,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOPAD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOPAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOPAD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOPAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOPAD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10236,7 +10368,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN(EXOR_KEY,EXOR_EXORKEY,EXOR_SOURCENO,EXOR_DESC,EXOR_AMOUNT,EXOR_DEDUCTIBLE,EXOR_NOTE,EXOR_DETAIL) VALUES (@EXOR_KEY,@EXOR_EXORKEY,@EXOR_SOURCENO,@EXOR_DESC,@EXOR_AMOUNT,@EXOR_DEDUCTIBLE,@EXOR_NOTE,@EXOR_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN(EXOR_KEY,EXOR_EXORKEY,EXOR_SOURCENO,EXOR_DESC,EXOR_AMOUNT,EXOR_DEDUCTIBLE,EXOR_NOTE,EXOR_DETAIL,RowIndex) VALUES (@EXOR_KEY,@EXOR_EXORKEY,@EXOR_SOURCENO,@EXOR_DESC,@EXOR_AMOUNT,@EXOR_DEDUCTIBLE,@EXOR_NOTE,@EXOR_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10247,6 +10379,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOR_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOR_NOTE")
                 SQLcmd.Parameters.Add("@EXOR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOR_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10264,7 +10397,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN_DETAIL(EXORD_KEY,EXORD_EXORKEY,EXORD_SOURCENO,EXORD_EXORDKEY,EXORD_DESC,EXORD_DEDUCTIBLE,EXORD_AMOUNT,EXORD_NOTE) VALUES (@EXORD_KEY,@EXORD_EXORKEY,@EXORD_SOURCENO,@EXORD_EXORDKEY,@EXORD_DESC,@EXORD_DEDUCTIBLE,@EXORD_AMOUNT,@EXORD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN_DETAIL(EXORD_KEY,EXORD_EXORKEY,EXORD_SOURCENO,EXORD_EXORDKEY,EXORD_DESC,EXORD_DEDUCTIBLE,EXORD_AMOUNT,EXORD_NOTE,RowIndex) VALUES (@EXORD_KEY,@EXORD_EXORKEY,@EXORD_SOURCENO,@EXORD_EXORDKEY,@EXORD_DESC,@EXORD_DEDUCTIBLE,@EXORD_AMOUNT,@EXORD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10276,7 +10409,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXORD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXORD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXORD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXORD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXORD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10317,7 +10450,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT(EXORT_KEY,EXORT_EXORTKEY,EXORT_SOURCENO,EXORT_DESC,EXORT_AMOUNT,EXORT_DEDUCTIBLE,EXORT_NOTE,EXORT_DETAIL) VALUES (@EXORT_KEY,@EXORT_EXORTKEY,@EXORT_SOURCENO,@EXORT_DESC,@EXORT_AMOUNT,@EXORT_DEDUCTIBLE,@EXORT_NOTE,@EXORT_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT(EXORT_KEY,EXORT_EXORTKEY,EXORT_SOURCENO,EXORT_DESC,EXORT_AMOUNT,EXORT_DEDUCTIBLE,EXORT_NOTE,EXORT_DETAIL,RowIndex) VALUES (@EXORT_KEY,@EXORT_EXORTKEY,@EXORT_SOURCENO,@EXORT_DESC,@EXORT_AMOUNT,@EXORT_DEDUCTIBLE,@EXORT_NOTE,@EXORT_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXORT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10328,7 +10461,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXORT_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXORT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXORT_NOTE")
                 SQLcmd.Parameters.Add("@EXORT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXORT_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -10345,7 +10478,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT_DETAIL(EXORTD_KEY,EXORTD_EXORTKEY,EXORTD_SOURCENO,EXORTD_EXORTDKEY,EXORTD_DESC,EXORTD_DEDUCTIBLE,EXORTD_AMOUNT,EXORTD_NOTE) VALUES (@EXORTD_KEY,@EXORTD_EXORTKEY,@EXORTD_SOURCENO,@EXORTD_EXORTDKEY,@EXORTD_DESC,@EXORTD_DEDUCTIBLE,@EXORTD_AMOUNT,@EXORTD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT_DETAIL(EXORTD_KEY,EXORTD_EXORTKEY,EXORTD_SOURCENO,EXORTD_EXORTDKEY,EXORTD_DESC,EXORTD_DEDUCTIBLE,EXORTD_AMOUNT,EXORTD_NOTE,RowIndex) VALUES (@EXORTD_KEY,@EXORTD_EXORTKEY,@EXORTD_SOURCENO,@EXORTD_EXORTDKEY,@EXORTD_DESC,@EXORTD_DEDUCTIBLE,@EXORTD_AMOUNT,@EXORTD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10357,7 +10490,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXORTD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXORTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXORTD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXORTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXORTD_NOTE")
-
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10398,7 +10531,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN(EXOUR_KEY,EXOUR_EXOURKEY,EXOUR_SOURCENO,EXOUR_DESC,EXOUR_AMOUNT,EXOUR_DEDUCTIBLE,EXOUR_NOTE,EXOUR_DETAIL) VALUES (@EXOUR_KEY,@EXOUR_EXOURKEY,@EXOUR_SOURCENO,@EXOUR_DESC,@EXOUR_AMOUNT,@EXOUR_DEDUCTIBLE,@EXOUR_NOTE,@EXOUR_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN(EXOUR_KEY,EXOUR_EXOURKEY,EXOUR_SOURCENO,EXOUR_DESC,EXOUR_AMOUNT,EXOUR_DEDUCTIBLE,EXOUR_NOTE,EXOUR_DETAIL,RowIndex) VALUES (@EXOUR_KEY,@EXOUR_EXOURKEY,@EXOUR_SOURCENO,@EXOUR_DESC,@EXOUR_AMOUNT,@EXOUR_DEDUCTIBLE,@EXOUR_NOTE,@EXOUR_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOUR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10409,6 +10542,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOUR_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOUR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOUR_NOTE")
                 SQLcmd.Parameters.Add("@EXOUR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOUR_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10426,7 +10560,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN_DETAIL(EXOURD_KEY,EXOURD_EXOURKEY,EXOURD_SOURCENO,EXOURD_EXOURDKEY,EXOURD_DESC,EXOURD_DEDUCTIBLE,EXOURD_AMOUNT,EXOURD_NOTE) VALUES (@EXOURD_KEY,@EXOURD_EXOURKEY,@EXOURD_SOURCENO,@EXOURD_EXOURDKEY,@EXOURD_DESC,@EXOURD_DEDUCTIBLE,@EXOURD_AMOUNT,@EXOURD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN_DETAIL(EXOURD_KEY,EXOURD_EXOURKEY,EXOURD_SOURCENO,EXOURD_EXOURDKEY,EXOURD_DESC,EXOURD_DEDUCTIBLE,EXOURD_AMOUNT,EXOURD_NOTE,RowIndex) VALUES (@EXOURD_KEY,@EXOURD_EXOURKEY,@EXOURD_SOURCENO,@EXOURD_EXOURDKEY,@EXOURD_DESC,@EXOURD_DEDUCTIBLE,@EXOURD_AMOUNT,@EXOURD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10438,6 +10572,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOURD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOURD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOURD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOURD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOURD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10479,7 +10614,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXZAKAT(EXOZ_KEY,EXOZ_EXOZKEY,EXOZ_SOURCENO,EXOZ_DESC,EXOZ_AMOUNT,EXOZ_DEDUCTIBLE,EXOZ_NOTE,EXOZ_DETAIL) VALUES (@EXOZ_KEY,@EXOZ_EXOZKEY,@EXOZ_SOURCENO,@EXOZ_DESC,@EXOZ_AMOUNT,@EXOZ_DEDUCTIBLE,@EXOZ_NOTE,@EXOZ_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXZAKAT(EXOZ_KEY,EXOZ_EXOZKEY,EXOZ_SOURCENO,EXOZ_DESC,EXOZ_AMOUNT,EXOZ_DEDUCTIBLE,EXOZ_NOTE,EXOZ_DETAIL,RowIndex) VALUES (@EXOZ_KEY,@EXOZ_EXOZKEY,@EXOZ_SOURCENO,@EXOZ_DESC,@EXOZ_AMOUNT,@EXOZ_DEDUCTIBLE,@EXOZ_NOTE,@EXOZ_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOZ_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10490,7 +10625,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOZ_DEDUCTIBLE")
                 SQLcmd.Parameters.Add("@EXOZ_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOZ_NOTE")
                 SQLcmd.Parameters.Add("@EXOZ_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOZ_DETAIL")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -10507,7 +10642,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXZAKAT_DETAIL(EXOZD_KEY,EXOZD_EXOZKEY,EXOZD_SOURCENO,EXOZD_EXOZDKEY,EXOZD_DESC,EXOZD_DEDUCTIBLE,EXOZD_AMOUNT,EXOZD_NOTE) VALUES (@EXOZD_KEY,@EXOZD_EXOZKEY,@EXOZD_SOURCENO,@EXOZD_EXOZDKEY,@EXOZD_DESC,@EXOZD_DEDUCTIBLE,@EXOZD_AMOUNT,@EXOZD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXZAKAT_DETAIL(EXOZD_KEY,EXOZD_EXOZKEY,EXOZD_SOURCENO,EXOZD_EXOZDKEY,EXOZD_DESC,EXOZD_DEDUCTIBLE,EXOZD_AMOUNT,EXOZD_NOTE,RowIndex) VALUES (@EXOZD_KEY,@EXOZD_EXOZKEY,@EXOZD_SOURCENO,@EXOZD_EXOZDKEY,@EXOZD_DESC,@EXOZD_DEDUCTIBLE,@EXOZD_AMOUNT,@EXOZD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10519,6 +10654,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOZD_DEDUCTIBLE")
                     SQLcmd.Parameters.Add("@EXOZD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOZD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOZD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOZD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10560,7 +10696,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_INCOME(OI_KEY,OI_OIKEY,OI_SOURCENO,OI_DESC,OI_AMOUNT,OI_NOTE,OI_DETAIL) VALUES (@OI_KEY,@OI_OIKEY,@OI_SOURCENO,@OI_DESC,@OI_AMOUNT,@OI_NOTE,@OI_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_INCOME(OI_KEY,OI_OIKEY,OI_SOURCENO,OI_DESC,OI_AMOUNT,OI_NOTE,OI_DETAIL,RowIndex) VALUES (@OI_KEY,@OI_OIKEY,@OI_SOURCENO,@OI_DESC,@OI_AMOUNT,@OI_NOTE,@OI_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@OI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10570,6 +10706,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@OI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("OI_AMOUNT")
                 SQLcmd.Parameters.Add("@OI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("OI_NOTE")
                 SQLcmd.Parameters.Add("@OI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("OI_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10587,7 +10724,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_INCOME_DETAIL(OID_KEY,OID_OIKEY,OID_SOURCENO,OID_OIDKEY,OID_DESC,OID_AMOUNT,OID_NOTE) VALUES (@OID_KEY,@OID_OIKEY,@OID_SOURCENO,@OID_OIDKEY,@OID_DESC,@OID_AMOUNT,@OID_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_INCOME_DETAIL(OID_KEY,OID_OIKEY,OID_SOURCENO,OID_OIDKEY,OID_DESC,OID_AMOUNT,OID_NOTE,RowIndex) VALUES (@OID_KEY,@OID_OIKEY,@OID_SOURCENO,@OID_OIDKEY,@OID_DESC,@OID_AMOUNT,@OID_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10598,6 +10735,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@OID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("OID_DESC")
                     SQLcmd.Parameters.Add("@OID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("OID_AMOUNT")
                     SQLcmd.Parameters.Add("@OID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("OID_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10639,7 +10777,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO PLFST_CLOSESTOCK(PLFCS_KEY,PLFCS_PLFCSKEY,PLFCS_SOURCENO,PLFCS_DESC,PLFCS_AMOUNT,PLFCS_NOTE,PLFCS_DETAIL) VALUES (@PLFCS_KEY,@PLFCS_PLFCSKEY,@PLFCS_SOURCENO,@PLFCS_DESC,@PLFCS_AMOUNT,@PLFCS_NOTE,@PLFCS_DETAIL)"
+                StrSQL = "INSERT INTO PLFST_CLOSESTOCK(PLFCS_KEY,PLFCS_PLFCSKEY,PLFCS_SOURCENO,PLFCS_DESC,PLFCS_AMOUNT,PLFCS_NOTE,PLFCS_DETAIL,RowIndex) VALUES (@PLFCS_KEY,@PLFCS_PLFCSKEY,@PLFCS_SOURCENO,@PLFCS_DESC,@PLFCS_AMOUNT,@PLFCS_NOTE,@PLFCS_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFCS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10649,6 +10787,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@PLFCS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFCS_AMOUNT")
                 SQLcmd.Parameters.Add("@PLFCS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFCS_NOTE")
                 SQLcmd.Parameters.Add("@PLFCS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFCS_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10666,7 +10805,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO PLFST_CLOSESTOCK_DETAIL(PLFCSD_KEY,PLFCSD_PLFCSKEY,PLFCSD_SOURCENO,PLFCSD_PLFCSDKEY,PLFCSD_DESC,PLFCSD_AMOUNT,PLFCSD_NOTE) VALUES (@PLFCSD_KEY,@PLFCSD_PLFCSKEY,@PLFCSD_SOURCENO,@PLFCSD_PLFCSDKEY,@PLFCSD_DESC,@PLFCSD_AMOUNT,@PLFCSD_NOTE)"
+                    StrSQL = "INSERT INTO PLFST_CLOSESTOCK_DETAIL(PLFCSD_KEY,PLFCSD_PLFCSKEY,PLFCSD_SOURCENO,PLFCSD_PLFCSDKEY,PLFCSD_DESC,PLFCSD_AMOUNT,PLFCSD_NOTE,RowIndex) VALUES (@PLFCSD_KEY,@PLFCSD_PLFCSKEY,@PLFCSD_SOURCENO,@PLFCSD_PLFCSDKEY,@PLFCSD_DESC,@PLFCSD_AMOUNT,@PLFCSD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10677,6 +10816,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFCSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFCSD_DESC")
                     SQLcmd.Parameters.Add("@PLFCSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFCSD_AMOUNT")
                     SQLcmd.Parameters.Add("@PLFCSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFCSD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10718,7 +10858,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO PLFST_OPENSTOCK(PLFOS_KEY,PLFOS_PLFOSKEY,PLFOS_SOURCENO,PLFOS_DESC,PLFOS_AMOUNT,PLFOS_NOTE,PLFOS_DETAIL) VALUES (@PLFOS_KEY,@PLFOS_PLFOSKEY,@PLFOS_SOURCENO,@PLFOS_DESC,@PLFOS_AMOUNT,@PLFOS_NOTE,@PLFOS_DETAIL)"
+                StrSQL = "INSERT INTO PLFST_OPENSTOCK(PLFOS_KEY,PLFOS_PLFOSKEY,PLFOS_SOURCENO,PLFOS_DESC,PLFOS_AMOUNT,PLFOS_NOTE,PLFOS_DETAIL,RowIndex) VALUES (@PLFOS_KEY,@PLFOS_PLFOSKEY,@PLFOS_SOURCENO,@PLFOS_DESC,@PLFOS_AMOUNT,@PLFOS_NOTE,@PLFOS_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFOS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10728,6 +10868,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@PLFOS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFOS_AMOUNT")
                 SQLcmd.Parameters.Add("@PLFOS_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt.Rows(i)("PLFOS_NOTE")), "", dt.Rows(i)("PLFOS_NOTE"))
                 SQLcmd.Parameters.Add("@PLFOS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFOS_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10745,7 +10886,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO PLFST_OPENSTOCK_DETAIL(PLFOSD_KEY,PLFOSD_PLFOSKEY,PLFOSD_SOURCENO,PLFOSD_PLFOSDKEY,PLFOSD_DESC,PLFOSD_AMOUNT,PLFOSD_NOTE) VALUES (@PLFOSD_KEY,@PLFOSD_PLFOSKEY,@PLFOSD_SOURCENO,@PLFOSD_PLFOSDKEY,@PLFOSD_DESC,@PLFOSD_AMOUNT,@PLFOSD_NOTE)"
+                    StrSQL = "INSERT INTO PLFST_OPENSTOCK_DETAIL(PLFOSD_KEY,PLFOSD_PLFOSKEY,PLFOSD_SOURCENO,PLFOSD_PLFOSDKEY,PLFOSD_DESC,PLFOSD_AMOUNT,PLFOSD_NOTE,RowIndex) VALUES (@PLFOSD_KEY,@PLFOSD_PLFOSKEY,@PLFOSD_SOURCENO,@PLFOSD_PLFOSDKEY,@PLFOSD_DESC,@PLFOSD_AMOUNT,@PLFOSD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10756,6 +10897,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFOSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFOSD_DESC")
                     SQLcmd.Parameters.Add("@PLFOSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFOSD_AMOUNT")
                     SQLcmd.Parameters.Add("@PLFOSD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt_child.Rows(x)("PLFOSD_NOTE")), "", dt_child.Rows(x)("PLFOSD_NOTE"))
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10797,7 +10939,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO PLFST_PURCHASE(PLFPUR_KEY,PLFPUR_PLFPURKEY,PLFPUR_SOURCENO,PLFPUR_DESC,PLFPUR_AMOUNT,PLFPUR_NOTE,PLFPUR_DETAIL) VALUES (@PLFPUR_KEY,@PLFPUR_PLFPURKEY,@PLFPUR_SOURCENO,@PLFPUR_DESC,@PLFPUR_AMOUNT,@PLFPUR_NOTE,@PLFPUR_DETAIL)"
+                StrSQL = "INSERT INTO PLFST_PURCHASE(PLFPUR_KEY,PLFPUR_PLFPURKEY,PLFPUR_SOURCENO,PLFPUR_DESC,PLFPUR_AMOUNT,PLFPUR_NOTE,PLFPUR_DETAIL,RowIndex) VALUES (@PLFPUR_KEY,@PLFPUR_PLFPURKEY,@PLFPUR_SOURCENO,@PLFPUR_DESC,@PLFPUR_AMOUNT,@PLFPUR_NOTE,@PLFPUR_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFPUR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10807,6 +10949,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@PLFPUR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFPUR_AMOUNT")
                 SQLcmd.Parameters.Add("@PLFPUR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("PLFPUR_NOTE")
                 SQLcmd.Parameters.Add("@PLFPUR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFPUR_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10824,7 +10967,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO PLFST_PURCHASE_DETAIL(PLFPURD_KEY,PLFPURD_PLFPURKEY,PLFPURD_SOURCENO,PLFPURD_PLFPURDKEY,PLFPURD_DESC,PLFPURD_AMOUNT,PLFPURD_NOTE) VALUES (@PLFPURD_KEY,@PLFPURD_PLFPURKEY,@PLFPURD_SOURCENO,@PLFPURD_PLFPURDKEY,@PLFPURD_DESC,@PLFPURD_AMOUNT,@PLFPURD_NOTE)"
+                    StrSQL = "INSERT INTO PLFST_PURCHASE_DETAIL(PLFPURD_KEY,PLFPURD_PLFPURKEY,PLFPURD_SOURCENO,PLFPURD_PLFPURDKEY,PLFPURD_DESC,PLFPURD_AMOUNT,PLFPURD_NOTE,RowIndex) VALUES (@PLFPURD_KEY,@PLFPURD_PLFPURKEY,@PLFPURD_SOURCENO,@PLFPURD_PLFPURDKEY,@PLFPURD_DESC,@PLFPURD_AMOUNT,@PLFPURD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10835,6 +10978,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFPURD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFPURD_DESC")
                     SQLcmd.Parameters.Add("@PLFPURD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFPURD_AMOUNT")
                     SQLcmd.Parameters.Add("@PLFPURD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("PLFPURD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10876,7 +11020,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO PLFST_SALES(PLFS_KEY,PLFS_PLFSKEY,PLFS_SOURCENO,PLFS_DESC,PLFS_AMOUNT,PLFS_NOTE,PLFS_DETAIL) VALUES (@PLFS_KEY,@PLFS_PLFSKEY,@PLFS_SOURCENO,@PLFS_DESC,@PLFS_AMOUNT,@PLFS_NOTE,@PLFS_DETAIL)"
+                StrSQL = "INSERT INTO PLFST_SALES(PLFS_KEY,PLFS_PLFSKEY,PLFS_SOURCENO,PLFS_DESC,PLFS_AMOUNT,PLFS_NOTE,PLFS_DETAIL,RowIndex) VALUES (@PLFS_KEY,@PLFS_PLFSKEY,@PLFS_SOURCENO,@PLFS_DESC,@PLFS_AMOUNT,@PLFS_NOTE,@PLFS_DETAIL,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@PLFS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10886,6 +11030,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@PLFS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("PLFS_AMOUNT")
                 SQLcmd.Parameters.Add("@PLFS_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt.Rows(i)("PLFS_NOTE")), "", dt.Rows(i)("PLFS_NOTE"))
                 SQLcmd.Parameters.Add("@PLFS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("PLFS_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10903,7 +11048,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO PLFST_SALES_DETAIL(PLFSD_KEY,PLFSD_PLFSKEY,PLFSD_SOURCENO,PLFSD_PLFSDKEY,PLFSD_DESC,PLFSD_AMOUNT,PLFSD_NOTE) VALUES (@PLFSD_KEY,@PLFSD_PLFSKEY,@PLFSD_SOURCENO,@PLFSD_PLFSDKEY,@PLFSD_DESC,@PLFSD_AMOUNT,@PLFSD_NOTE)"
+                    StrSQL = "INSERT INTO PLFST_SALES_DETAIL(PLFSD_KEY,PLFSD_PLFSKEY,PLFSD_SOURCENO,PLFSD_PLFSDKEY,PLFSD_DESC,PLFSD_AMOUNT,PLFSD_NOTE,RowIndex) VALUES (@PLFSD_KEY,@PLFSD_PLFSKEY,@PLFSD_SOURCENO,@PLFSD_PLFSDKEY,@PLFSD_DESC,@PLFSD_AMOUNT,@PLFSD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10914,6 +11059,7 @@ tryagain:
                     SQLcmd.Parameters.Add("@PLFSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("PLFSD_DESC")
                     SQLcmd.Parameters.Add("@PLFSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("PLFSD_AMOUNT")
                     SQLcmd.Parameters.Add("@PLFSD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt_child.Rows(x)("PLFSD_NOTE")), "", dt_child.Rows(x)("PLFSD_NOTE"))
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10954,7 +11100,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO RENTAL_INCOME(RI_KEY,RI_RENTKEY,RI_TYPE,RI_ADDRESS,RI_DATE,RI_AMOUNT,RI_SOURCENO,RI_STATUS4d,RI_DATE_END) VALUES (@RI_KEY,@RI_RENTKEY,@RI_TYPE,@RI_ADDRESS,@RI_DATE,@RI_AMOUNT,@RI_SOURCENO,@RI_STATUS4d,@RI_DATE_END)"
+                StrSQL = "INSERT INTO RENTAL_INCOME(RI_KEY,RI_RENTKEY,RI_TYPE,RI_ADDRESS,RI_DATE,RI_AMOUNT,RI_SOURCENO,RI_STATUS4d,RI_DATE_END,RowIndex) VALUES (@RI_KEY,@RI_RENTKEY,@RI_TYPE,@RI_ADDRESS,@RI_DATE,@RI_AMOUNT,@RI_SOURCENO,@RI_STATUS4d,@RI_DATE_END,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@RI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10966,7 +11112,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@RI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("RI_SOURCENO")
                 SQLcmd.Parameters.Add("@RI_STATUS4d", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("RI_STATUS4d")
                 SQLcmd.Parameters.Add("@RI_DATE_END", SqlDbType.DateTime).Value = dt.Rows(i)("RI_DATE_END")
-
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -11004,7 +11150,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO RENTAL_INCOME(ED_KEY,ED_EDKEY,ED_DATE,ED_COMPANY,ED_AMOUNT,ED_TIERSTATUS,ED_SOURCENO) VALUES (@ED_KEY,@ED_EDKEY,ED_DATE,@ED_COMPANY,@ED_AMOUNT,@ED_TIERSTATUS,@ED_SOURCENO)"
+                StrSQL = "INSERT INTO RENTAL_INCOME(ED_KEY,ED_EDKEY,ED_DATE,ED_COMPANY,ED_AMOUNT,ED_TIERSTATUS,ED_SOURCENO,RowIndex) VALUES (@ED_KEY,@ED_EDKEY,ED_DATE,@ED_COMPANY,@ED_AMOUNT,@ED_TIERSTATUS,@ED_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@ED_KEY", SqlDbType.Int).Value = PNL_Key
@@ -11014,6 +11160,7 @@ tryagain:
                 SQLcmd.Parameters.Add("@ED_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("ED_AMOUNT")
                 SQLcmd.Parameters.Add("@ED_TIERSTATUS", SqlDbType.NVarChar, 50).Value = dt.Rows(i)("ED_TIERSTATUS")
                 SQLcmd.Parameters.Add("@ED_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("ED_SOURCENO")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
 
                 ListofCmd.Add(SQLcmd)
