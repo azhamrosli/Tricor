@@ -321,6 +321,9 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     P3_docInterestResPurS33.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
                     DockDocument.View.RemoveDocument(P3_docInterestResPurS33)
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    P2_docDivIncome.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Hidden
+                    DockDocument.View.RemoveDocument(P2_docDivIncome)
             End Select
             Return False
         Catch ex As Exception
@@ -4009,7 +4012,6 @@ Module mdlPNL
             Return 0
         End Try
     End Function
-
     Public Function CalcNonBizIncome(ByVal p2DividendInc As Decimal, ByVal p2InterestInc As Decimal, _
                                      ByVal p2RentalInc As Decimal, ByVal p2RoyaltyInc As Decimal, _
                                      ByVal p2OtherInc As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal

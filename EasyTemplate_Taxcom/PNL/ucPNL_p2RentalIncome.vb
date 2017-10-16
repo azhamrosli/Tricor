@@ -15,6 +15,7 @@ Public Class ucPNL_p2RentalIncome
     Public Const MainKey As String = "RI_RENTKEY" ' PLFS_KEY
     Public Const MainAmount As String = "RI_AMOUNT" 'PLFS_AMOUNT
     Public Const MainSourceNo As String = "RI_SOURCENO" 'PLFS_SOURCENO
+    Public Const Main_Desc As String = "RI_ADDRESS"
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing

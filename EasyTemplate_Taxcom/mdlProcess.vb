@@ -5067,7 +5067,39 @@ tryagain:
             Return -1
         End Try
     End Function
+    Public Function GETNONTAXABLEINCOME(Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return -1
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "select top 1 NT_KEY from NON_TAXABLE_INCOME order by NT_KEY desc"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("NT_KEY")) = False Then
+                Return CInt(dt.Rows(0)("NT_KEY"))
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return -1
+        End Try
+    End Function
     Public Function Check_PNLExist(ByVal RefNo As String, ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -7284,12 +7316,6 @@ tryagain:
             If dt_child.Rows.Count > 0 Then
                 'THIS IS CHILD
 
-                StrSQL = "DELETE EXPENSES_EMPL_STOCK_DETAIL WHERE EXESD_KEY=@EXESD_KEY"
-                SQLcmd = New SqlCommand
-                SQLcmd.CommandText = StrSQL
-                SQLcmd.Parameters.Add("@EXESD_KEY", SqlDbType.Int).Value = PNL_Key
-                ListofCmd.Add(SQLcmd)
-
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
@@ -8199,7 +8225,7 @@ tryagain:
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE,RowIndex) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE,RowIndex) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE,@RowIndex)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9139,17 +9165,22 @@ tryagain:
             SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = PNL_Key
 
             ListofCmd.Add(SQLcmd)
-
+            Dim tmpID As Integer = 0
+            tmpID = GETNONTAXABLEINCOME(ErrorLog)
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
                 StrSQL = "INSERT INTO NON_TAXABLE_INCOME(NT_KEY,NT_REF_NO,NT_YA,NT_DESC,NT_AMOUNT,NT_CATEGORIZED,NT_NOTE,NT_DETAIL,NT_SOURCENO,NT_NTKEY,RowIndex) VALUES (@NT_KEY,@NT_REF_NO,@NT_YA,@NT_DESC,@NT_AMOUNT,@NT_CATEGORIZED,@NT_NOTE,@NT_DETAIL,@NT_SOURCENO,@NT_NTKEY,@RowIndex)"
                 SQLcmd = New SqlCommand
+
+
+                tmpID += 1
                 SQLcmd.CommandText = StrSQL
-                SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = tmpID
                 SQLcmd.Parameters.Add("@NT_REF_NO", SqlDbType.NVarChar, 20).Value = dt.Rows(i)("NT_REF_NO")
                 SQLcmd.Parameters.Add("@NT_YA", SqlDbType.NVarChar, 5).Value = dt.Rows(i)("NT_YA")
                 SQLcmd.Parameters.Add("@NT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("NT_DESC")
                 SQLcmd.Parameters.Add("@NT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("NT_AMOUNT")
+                SQLcmd.Parameters.Add("@NT_CATEGORIZED", SqlDbType.NVarChar, 10).Value = dt.Rows(i)("NT_CATEGORIZED")
                 SQLcmd.Parameters.Add("@NT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("NT_NOTE")
                 SQLcmd.Parameters.Add("@NT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("NT_DETAIL")
                 SQLcmd.Parameters.Add("@NT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("NT_SOURCENO")
@@ -11150,7 +11181,7 @@ tryagain:
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO RENTAL_INCOME(ED_KEY,ED_EDKEY,ED_DATE,ED_COMPANY,ED_AMOUNT,ED_TIERSTATUS,ED_SOURCENO,RowIndex) VALUES (@ED_KEY,@ED_EDKEY,ED_DATE,@ED_COMPANY,@ED_AMOUNT,@ED_TIERSTATUS,@ED_SOURCENO,@RowIndex)"
+                StrSQL = "INSERT INTO EXEMPT_DIVIDEND(ED_KEY,ED_EDKEY,ED_DATE,ED_COMPANY,ED_AMOUNT,ED_TIERSTATUS,ED_SOURCENO,RowIndex) VALUES (@ED_KEY,@ED_EDKEY,@ED_DATE,@ED_COMPANY,@ED_AMOUNT,@ED_TIERSTATUS,@ED_SOURCENO,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@ED_KEY", SqlDbType.Int).Value = PNL_Key
@@ -11912,7 +11943,645 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+    Public Function Delete_PNL(ByVal PL_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofCmd As List(Of SqlCommand)
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+            ListofCmd = New List(Of SqlCommand)
 
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM PROFIT_LOSS_ACCOUNT WHERE PL_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = PL_KEY
+
+            ListofCmd.Add(SQLcmd)
+
+            mdlProcess.Delete_PNLItem(ListofCmd, PL_KEY, ErrorLog)
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+    Public Function Delete_PNLItem(ByVal ListofCmd As List(Of SqlCommand), ByVal PL_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE PLFST_SALES WHERE PLFS_KEY=@PLFS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFS_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE PLFST_SALES_DETAIL WHERE PLFSD_KEY=@PLFSD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFSD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE PLFST_OPENSTOCK WHERE PLFOS_KEY=@PLFOS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFOS_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE PLFST_OPENSTOCK_DETAIL WHERE PLFOSD_KEY=@PLFOSD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFOSD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE PLFST_PURCHASE WHERE PLFPUR_KEY=@PLFPUR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFPUR_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE PLFST_PURCHASE_DETAIL WHERE PLFPURD_KEY=@PLFPURD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFPURD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_DEPRECIATION WHERE EXDEP_KEY=@EXDEP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXDEP_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_DEPRECIATION_DETAIL WHERE EXDEPD_KEY=@EXDEPD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXDEPD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_ALLOW WHERE EXA_KEY=@EXA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXA_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_ALLOW_DETAIL WHERE EXAD_KEY=@EXAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXAD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_NONALLOW WHERE EXNA_KEY=@EXNA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXNA_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_NONALLOW_DETAIL WHERE EXNAD_KEY=@EXNAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXNAD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE PLFST_CLOSESTOCK WHERE PLFCS_KEY=@PLFCS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFCS_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE PLFST_CLOSESTOCK_DETAIL WHERE PLFCSD_KEY=@PLFCSD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PLFCSD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY=@NSBI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NSBI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE NONSOURCE_BUSINESSINCOME_DETAIL WHERE NSBID_KEY=@NSBID_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NSBID_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_REALFET WHERE IRFET_KEY=@IRFET_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@IRFET_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_REALFET_DETAIL WHERE IRFETD_KEY=@IRFETD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@IRFETD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE DIVIDEND_INCOME WHERE DI_KEY=@DI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@DI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NBINTEREST WHERE NOBII_KEY=@NOBII_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NOBII_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NBINTEREST_DETAIL WHERE NOBIID_KEY=@NOBIID_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NOBIID_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE RENTAL_INCOME WHERE RI_KEY=@RI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NBROYALTY WHERE NOBRI_KEY=@NOBRI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NOBRI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NBROYALTY_DETAIL WHERE NOBRID_KEY=@NOBRID_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NOBRID_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_INCOME WHERE OI_KEY=@OI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@OI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_INCOME_DETAIL WHERE OID_KEY=@OID_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@OID_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NTDISPOSALFA WHERE NTIDFA_KEY=@NTIDFA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIDFA_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NTDISPOSALFA_DETAIL WHERE NTIDFAD_KEY=@NTIDFAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIDFAD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY=@NTIDI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIDI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NTDISPOSALINVEST_DETAIL WHERE NTIDID_KEY=@NTIDID_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIDID_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXEMPT_DIVIDEND WHERE ED_KEY=@ED_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ED_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY=@NTIFIR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIFIR_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NTFOREIGNINCREM_DETAIL WHERE NTIFIRD_KEY=@NTIFIRD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIFIRD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NTUREALFET WHERE NTIUT_KEY=@NTIUT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIUT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NTUREALFET_DETAIL WHERE NTIUTD_KEY=@NTIUTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIUTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NTREALFE WHERE NTIRFECT_KEY=@NTIRFECT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIRFECT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NTREALFE_DETAIL WHERE NTIRFECTD_KEY=@NTIRFECTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIRFECTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE INCOME_NTUREALFENT WHERE NTIUNT_KEY=@NTIUNT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIUNT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE INCOME_NTUREALFENT_DETAIL WHERE NTIUNTD_KEY=@NTIUNTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTIUNTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE NON_TAXABLE_INCOME WHERE NT_KEY=@NT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE NON_TAXABLE_INCOME_DETAIL WHERE NTD_KEY=@NTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@NTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_INTERESTRESTRICT WHERE EXIR_KEY=@EXIR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXIR_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY=@EXIRD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXIRD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_INTEREST WHERE EXI_KEY=@EXI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXI_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_INTEREST_DETAIL WHERE EXID_KEY=@EXID_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXID_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_LEGAL WHERE EXL_KEY=@EXL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXL_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_LEGAL_DETAIL WHERE EXLD_KEY=@EXLD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXLD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_TECH_FEE WHERE EXTF_KEY=@EXTF_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXTF_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_TECH_FEE_DETAIL WHERE EXTFD_KEY=@EXTFD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXTFD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_CONTRACT WHERE EXC_KEY=@EXC_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXC_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_CONTRACT_DETAIL WHERE EXCD_KEY=@EXCD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXCD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_DIRECTORS_FEE WHERE EXDF_KEY=@EXDF_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXDF_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_DIRECTORS_FEE_DETAIL WHERE EXDFD_KEY=@EXDFD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXDFD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_SALARY WHERE EXS_KEY=@EXS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXS_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_SALARY_DETAIL WHERE EXSD_KEY=@EXSD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXSD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_EMPL_STOCK WHERE EXES_KEY=@EXES_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXES_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_EMPLSTOCK_DETAIL WHERE EXESD_KEY=@EXESD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXESD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_ROYALTY WHERE EXRO_KEY=@EXRO_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRO_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_ROYALTY_DETAIL WHERE EXROD_KEY=@EXROD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXROD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_RENTAL WHERE EXRENT_KEY=@EXRENT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRENT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_RENTAL_DETAIL WHERE EXRENTD_KEY=@EXRENTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRENTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_REPAIR WHERE EXREP_KEY=@EXREP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXREP_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_REPAIR_DETAIL WHERE EXREPD_KEY=@EXREPD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXREPD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_RESEARCH WHERE EXRES_KEY=@EXRES_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRES_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_RESEARCH_DETAIL WHERE EXRESD_KEY=@EXRESD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXRESD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_PROMOTE WHERE EXP_KEY=@EXP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXP_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_PROMOTE_DETAIL WHERE EXPD_KEY=@EXPD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXPD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_TRAVEL WHERE EXT_KEY=@EXT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_TRAVEL_DETAIL WHERE EXTD_KEY=@EXTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE EXPENSES_JKDM WHERE EXJK_KEY=@EXJK_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXJK_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE EXPENSES_JKDM_DETAIL WHERE EXJKD_KEY=@EXJKD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXJKD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXDEPRECIATION WHERE EXODEP_KEY=@EXODEP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXODEP_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXDEPRECIATION_DETAIL WHERE EXODEPD_KEY=@EXODEPD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXODEPD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXAPPRDONATION WHERE EXOAD_KEY=@EXOAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOAD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXAPPRDONATION_DETAIL WHERE EXOADD_KEY=@EXOADD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOADD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXNAPPRDONATION WHERE EXONAD_KEY=@EXONAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXONAD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXNAPPRDONATION_DETAIL WHERE EXONADD_KEY=@EXONADD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXONADD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXZAKAT WHERE EXOZ_KEY=@EXOZ_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOZ_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXZAKAT_DETAIL WHERE EXOZD_KEY=@EXOZD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOZD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXLOSSDISPOSALFA WHERE EXOLD_KEY=@EXOLD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOLD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXLOSSDISPOSALFA_DETAIL WHERE EXOLDD_KEY=@EXOLDD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOLDD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_ENTERTAINNSTAFF WHERE EXOENS_KEY=@EXOENS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOENS_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENSD_KEY=@EXOENSD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOENSD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_ENTERTAINSTAFF WHERE EXOES_KEY=@EXOES_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOES_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_ENTERTAINSTAFF_DETAIL WHERE EXOESD_KEY=@EXOESD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOESD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXPENALTY WHERE EXOP_KEY=@EXOP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOP_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXPENALTY_DETAIL WHERE EXOPD_KEY=@EXOPD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOPD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXPROVISIONACC WHERE EXOPA_KEY=@EXOPA_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOPA_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXPROVISIONACC_DETAIL WHERE EXOPAD_KEY=@EXOPAD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOPAD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXLEAVEPASSAGE WHERE EXOLP_KEY=@EXOLP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOLP_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXLEAVEPASSAGE_DETAIL WHERE EXOLPD_KEY=@EXOLPD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOLPD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXFAWRITTENOFF WHERE EXOWO_KEY=@EXOWO_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOWO_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXFAWRITTENOFF_DETAIL WHERE EXOWOD_KEY=@EXOWOD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOWOD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXURLOSSFOREIGN WHERE EXOUR_KEY=@EXOUR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOUR_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXURLOSSFOREIGN_DETAIL WHERE EXOURD_KEY=@EXOURD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOURD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXRLOSSFOREIGNT WHERE EXORT_KEY=@EXORT_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXORT_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXRLOSSFOREIGNT_DETAIL WHERE EXORTD_KEY=@EXORTD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXORTD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXRLOSSFOREIGN WHERE EXOR_KEY=@EXOR_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOR_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXRLOSSFOREIGN_DETAIL WHERE EXORD_KEY=@EXORD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXORD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXINITIALSUB WHERE EXOIS_KEY=@EXOIS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOIS_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXINITIALSUB_DETAIL WHERE EXOISD_KEY=@EXOISD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOISD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXCAPITALEXP WHERE EXOCE_KEY=@EXOCE_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOCE_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXCAPITALEXP_DETAIL WHERE EXOCED_KEY=@EXOCED_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOCED_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE OTHER_EXPENSES WHERE EXO_KEY=@EXO_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXO_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+            StrSQL = "DELETE OTHER_EXPENSES_DETAIL WHERE EXOD_KEY=@EXOD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@EXOD_KEY", SqlDbType.Int).Value = PL_KEY
+            ListofCmd.Add(SQLcmd)
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
 #End Region
 #Region "OTHER"
     Public Function Delete_REPORT_AI_BAL(ByVal NA_REF_NO As String, Optional ErrorLog As clsError = Nothing) As Boolean

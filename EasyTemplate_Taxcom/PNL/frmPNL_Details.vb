@@ -24,11 +24,28 @@ Public Class frmPNL_Details
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
+
+    Private Sub frmPNL_Details_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
+        Try
+            If e.KeyCode = Keys.F1 Then
+                XtraTabControl1.SelectedTabPageIndex = 0
+            ElseIf e.KeyCode = Keys.F2 Then
+                XtraTabControl1.SelectedTabPageIndex = 1
+            ElseIf e.KeyCode = Keys.F3 Then
+                XtraTabControl1.SelectedTabPageIndex = 2
+            ElseIf e.KeyCode = Keys.F4 Then
+                XtraTabControl1.SelectedTabPageIndex = 3
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub frmPNL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
     End Sub
-    Private Sub InitDockingSystem()
+    Private Sub InitDockingSystem(ByVal CurrentProgress As Integer)
         Try
+
             Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
 
             If listoflabelname IsNot Nothing Then
@@ -149,7 +166,13 @@ Public Class frmPNL_Details
                             lbl = lbl_p2DivIncome
                     End Select
                     DetailsClick(lbl, tmp.Type)
+                    CurrentProgress += 0.8
+                    Progress(CurrentProgress, "Initialize " & tmp.LabelTricor & " data...")
+                    Application.DoEvents()
+
                 Next
+                Application.DoEvents()
+                DocumentManager1.View.Controller.CloseAll()
             End If
         Catch ex As Exception
 
@@ -157,6 +180,7 @@ Public Class frmPNL_Details
     End Sub
     Private Sub LoadData()
         Try
+            ProgressPanel1.Visible = True
             Me.Text = "Profit and Loss - New"
             Application.DoEvents()
             If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
@@ -251,11 +275,18 @@ Public Class frmPNL_Details
                     cboYA.Enabled = False
                     cboMainSource.Enabled = False
                 End If
-                Me.Text = "Profit and Loss - Edit"
+
+                Dim CurrentProgress As Decimal = 5
+                pnlProgress.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+                XtraTabControl1.Enabled = False
+                RibbonControl1.Enabled = False
                 Application.DoEvents()
+
+                Me.Text = "Profit and Loss - Edit"
 
                 cboRefNo.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_REF_NO")), "", dtPNL.Rows(0)("PL_REF_NO"))
                 cboYA.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_YA")), "", dtPNL.Rows(0)("PL_YA"))
+                Application.DoEvents()
                 cboMainSource.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_MAINBUZ")), 1, dtPNL.Rows(0)("PL_MAINBUZ"))
 
                 If IsDBNull(dtPNL.Rows(0)("PL_S60F")) = False AndAlso dtPNL.Rows(0)("PL_S60F") = "Y" Then
@@ -341,7 +372,7 @@ Public Class frmPNL_Details
                 txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
                 txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
 
-
+                CurrentProgress += 5
                 Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
                 If listofclsPNLLabel IsNot Nothing Then
@@ -351,13 +382,16 @@ Public Class frmPNL_Details
                         'Else
                         '    Progress(CurrentProgress, "Getting " & tmp.LabelText & " data...")
                         'End If
-
+                        CurrentProgress += 1
                         mdlPNL2.PNL_GetData(ID, tmp.Type, txtRefNo.EditValue, cboYA.EditValue, dsDataSet, dsDataSet2, ErrorLog)
+                        Progress(CurrentProgress, "Loading " & tmp.LabelTricor & " data...")
+                        Application.DoEvents()
+
                     Next
                 End If
 
                 Application.DoEvents()
-                InitDockingSystem()
+                InitDockingSystem(CurrentProgress)
                 Application.DoEvents()
 
                 txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, ErrorLog)
@@ -367,6 +401,11 @@ Public Class frmPNL_Details
 
         Catch ex As Exception
 
+        Finally
+            RibbonControl1.Enabled = True
+            XtraTabControl1.Enabled = True
+            ProgressPanel1.Visible = False
+            pnlProgress.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         End Try
     End Sub
 
@@ -495,8 +534,9 @@ Public Class frmPNL_Details
                 Exit Sub
             End If
 
-
+            Application.DoEvents()
             mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, cboYA.EditValue, ErrorLog, txt_p1Sales, cboMainSource.EditValue)
+            Application.DoEvents()
             '.View.AddDocument(doc)
 
         Catch ex As Exception
@@ -815,6 +855,8 @@ Public Class frmPNL_Details
                 End If
 
             End If
+
+            mdlProcess.Delete_PNLItem(ListofCmd, tmpID, ErrorLog)
 
             Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
@@ -1170,18 +1212,23 @@ Public Class frmPNL_Details
                 Application.DoEvents()
                 BUSINESSSOURCEBindingSource.DataSource = dsDataSet.Tables("BUSINESS_SOURCE")
 
-                If isEdit = False Then
-                    'Dim editor As DevExpress.XtraEditors.ComboBoxEdit
-                    'editor = CType(cboMainSource, DevExpress.XtraEditors.ComboBoxEdit)
-                    '' editor = TryCast(cboMainSource, DevExpress.XtraEditors.ComboBoxEdit)
-                    'editor.SelectedIndex = 0
-                    For i As Integer = 0 To dsDataSet.Tables("BUSINESS_SOURCE").Rows.Count - 1
-                        If i = 0 Then
-                            cboMainSource.EditValue = dsDataSet.Tables("BUSINESS_SOURCE").Rows(i)("BC_SOURCENO")
-                        End If
-                    Next
+                For i As Integer = 0 To dsDataSet.Tables("BUSINESS_SOURCE").Rows.Count - 1
+                    If i = 0 Then
+                        cboMainSource.EditValue = dsDataSet.Tables("BUSINESS_SOURCE").Rows(i)("BC_SOURCENO")
+                    End If
+                Next
+                'If isEdit = False Then
+                '    'Dim editor As DevExpress.XtraEditors.ComboBoxEdit
+                '    'editor = CType(cboMainSource, DevExpress.XtraEditors.ComboBoxEdit)
+                '    '' editor = TryCast(cboMainSource, DevExpress.XtraEditors.ComboBoxEdit)
+                '    'editor.SelectedIndex = 0
+                '    For i As Integer = 0 To dsDataSet.Tables("BUSINESS_SOURCE").Rows.Count - 1
+                '        If i = 0 Then
+                '            cboMainSource.EditValue = dsDataSet.Tables("BUSINESS_SOURCE").Rows(i)("BC_SOURCENO")
+                '        End If
+                '    Next
 
-                End If
+                'End If
                 If mdlProcess.VerifyInvestmentHolding(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     cboS60F.Edit.ReadOnly = True
                     cboS60F.EditValue = "Yes"
@@ -1234,9 +1281,1331 @@ Public Class frmPNL_Details
                 Path = Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & ".xlsx"
 
                 Dim contrl As Control = Nothing
-                Dim Tmpgridcontrol As GridControl = Nothing
+                Dim ds As DataSet = Nothing
+                Dim dtRow As DataRow = Nothing
 
                 Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+                DsPNL2.Tables("ExportPNL").Rows.Clear()
+
+
+                If P1_docDepreciation IsNot Nothing AndAlso P1_docDepreciation.Controls.Count > 0 Then
+                    contrl = P1_docDepreciation.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Depreciation = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1Depreciation = CType(contrl, ucPNL_p1Depreciation)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.DEPRECIATION.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
+                    contrl = P1_docSales.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1Sales = CType(contrl, ucPNL_p1Sales)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.SALES.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If P1_docOpeningStock IsNot Nothing AndAlso P1_docOpeningStock.Controls.Count > 0 Then
+                    contrl = P1_docOpeningStock.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1OpeningStock = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1OpeningStock = CType(contrl, ucPNL_p1OpeningStock)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.OPENSTOCK.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P1_docPurchase IsNot Nothing AndAlso P1_docPurchase.Controls.Count > 0 Then
+                    contrl = P1_docPurchase.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Purchase = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1Purchase = CType(contrl, ucPNL_p1Purchase)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.PURCHASE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P1_docAllowanceExpenses IsNot Nothing AndAlso P1_docAllowanceExpenses.Controls.Count > 0 Then
+                    contrl = P1_docAllowanceExpenses.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1AllowanceExpenses = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1AllowanceExpenses = CType(contrl, ucPNL_p1AllowanceExpenses)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If P1_docNonAllowableExpenses IsNot Nothing AndAlso P1_docNonAllowableExpenses.Controls.Count > 0 Then
+                    contrl = P1_docNonAllowableExpenses.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1NonAllowableExpenses = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1NonAllowableExpenses = CType(contrl, ucPNL_p1NonAllowableExpenses)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P1_docCloseStock IsNot Nothing AndAlso P1_docCloseStock.Controls.Count > 0 Then
+                    contrl = P1_docCloseStock.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1CloseStock = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p1CloseStock = CType(contrl, ucPNL_p1CloseStock)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.CLOSESTOCK.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P2_docOtherBizIncome IsNot Nothing AndAlso P2_docOtherBizIncome.Controls.Count > 0 Then
+                    contrl = P2_docOtherBizIncome.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2OtherBizIncome = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2OtherBizIncome = CType(contrl, ucPNL_p2OtherBizIncome)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.OTHERBUSINC.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P2_docForeignCurrExGain IsNot Nothing AndAlso P2_docForeignCurrExGain.Controls.Count > 0 Then
+                    contrl = P2_docForeignCurrExGain.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ForeignCurrExGain = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2ForeignCurrExGain = CType(contrl, ucPNL_p2ForeignCurrExGain)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.REALFETRADE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P2_docInterestIncome IsNot Nothing AndAlso P2_docInterestIncome.Controls.Count > 0 Then
+                    contrl = P2_docInterestIncome.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2InterestIncome = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2InterestIncome = CType(contrl, ucPNL_p2InterestIncome)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.INTERESTINC.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If P2_docRentalIncome IsNot Nothing AndAlso P2_docRentalIncome.Controls.Count > 0 Then
+                    contrl = P2_docRentalIncome.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2RentalIncome = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2RentalIncome = CType(contrl, ucPNL_p2RentalIncome)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.RENTALINC.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If P2_docRoyaltyIncome IsNot Nothing AndAlso P2_docRoyaltyIncome.Controls.Count > 0 Then
+                    contrl = P2_docRoyaltyIncome.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2RoyaltyIncome = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2RoyaltyIncome = CType(contrl, ucPNL_p2RoyaltyIncome)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.ROYALTYINC.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P2_docOtherIncome IsNot Nothing AndAlso P2_docOtherIncome.Controls.Count > 0 Then
+                    contrl = P2_docOtherIncome.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2OtherIncome = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2OtherIncome = CType(contrl, ucPNL_p2OtherIncome)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.OTHERINC.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If P2_docProDispPlantEq IsNot Nothing AndAlso P2_docProDispPlantEq.Controls.Count > 0 Then
+                    contrl = P2_docProDispPlantEq.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ProDispPlantEq = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2ProDispPlantEq = CType(contrl, ucPNL_p2ProDispPlantEq)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.PDFIXASSET.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+                If P2_docProDisInvestment IsNot Nothing AndAlso P2_docProDisInvestment.Controls.Count > 0 Then
+                    contrl = P2_docProDisInvestment.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ProDisInvestment = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2ProDisInvestment = CType(contrl, ucPNL_p2ProDisInvestment)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.PDINVEST.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If P2_docExemptDividend IsNot Nothing AndAlso P2_docExemptDividend.Controls.Count > 0 Then
+                    contrl = P2_docExemptDividend.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ExemptDividend = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2ExemptDividend = CType(contrl, ucPNL_p2ExemptDividend)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXEMDIV.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+
+                If P2_docForeIncomeRemmit IsNot Nothing AndAlso P2_docForeIncomeRemmit.Controls.Count > 0 Then
+                    contrl = P2_docForeIncomeRemmit.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ForeIncomeRemmit = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2ForeIncomeRemmit = CType(contrl, ucPNL_p2ForeIncomeRemmit)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.FORINCREMIT.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If P2_docUnreaGainForeEx IsNot Nothing AndAlso P2_docUnreaGainForeEx.Controls.Count > 0 Then
+                    contrl = P2_docUnreaGainForeEx.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2UnreaGainForeEx = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2UnreaGainForeEx = CType(contrl, ucPNL_p2UnreaGainForeEx)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.REALFE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If P2_docReaForeExGainNonTrade IsNot Nothing AndAlso P2_docReaForeExGainNonTrade.Controls.Count > 0 Then
+                    contrl = P2_docReaForeExGainNonTrade.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ReaForeExGainNonTrade = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2ReaForeExGainNonTrade = CType(contrl, ucPNL_p2ReaForeExGainNonTrade)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If P2_docUnreaGainForeExNon IsNot Nothing AndAlso P2_docUnreaGainForeExNon.Controls.Count > 0 Then
+                    contrl = P2_docUnreaGainForeExNon.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2UnreaGainForeExNon = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2UnreaGainForeExNon = CType(contrl, ucPNL_p2UnreaGainForeExNon)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.UNREALFETRADE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If P2_docOther IsNot Nothing AndAlso P2_docOther.Controls.Count > 0 Then
+                    contrl = P2_docOther.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2Other = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p2Other = CType(contrl, ucPNL_p2Other)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If P3_docInterestResPurS33 IsNot Nothing AndAlso P3_docInterestResPurS33.Controls.Count > 0 Then
+                    contrl = P3_docInterestResPurS33.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3InterestResPurS33 = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3InterestResPurS33 = CType(contrl, ucPNL_p3InterestResPurS33)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docOtherInterestExHirePur IsNot Nothing AndAlso P3_docOtherInterestExHirePur.Controls.Count > 0 Then
+                    contrl = P3_docOtherInterestExHirePur.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3OtherInterestExHirePur = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3OtherInterestExHirePur = CType(contrl, ucPNL_p3OtherInterestExHirePur)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docProTechManLeganFees IsNot Nothing AndAlso P3_docProTechManLeganFees.Controls.Count > 0 Then
+                    contrl = P3_docProTechManLeganFees.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ProTechManLeganFees = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3ProTechManLeganFees = CType(contrl, ucPNL_p3ProTechManLeganFees)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPLEGAL.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docTechPayNonResis IsNot Nothing AndAlso P3_docTechPayNonResis.Controls.Count > 0 Then
+                    contrl = P3_docTechPayNonResis.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3TechPayNonResis = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3TechPayNonResis = CType(contrl, ucPNL_p3TechPayNonResis)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPTECHNICAL.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docContractPay IsNot Nothing AndAlso P3_docContractPay.Controls.Count > 0 Then
+                    contrl = P3_docContractPay.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ContractPay = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3ContractPay = CType(contrl, ucPNL_p3ContractPay)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docDirectorFee IsNot Nothing AndAlso P3_docDirectorFee.Controls.Count > 0 Then
+                    contrl = P3_docDirectorFee.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DirectorFee = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3DirectorFee = CType(contrl, ucPNL_p3DirectorFee)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docSalary IsNot Nothing AndAlso P3_docSalary.Controls.Count > 0 Then
+                    contrl = P3_docSalary.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Salary = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3Salary = CType(contrl, ucPNL_p3Salary)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPSALARY.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docCOEStock IsNot Nothing AndAlso P3_docCOEStock.Controls.Count > 0 Then
+                    contrl = P3_docCOEStock.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3COEStock = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3COEStock = CType(contrl, ucPNL_p3COEStock)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docRoyalty IsNot Nothing AndAlso P3_docRoyalty.Controls.Count > 0 Then
+                    contrl = P3_docRoyalty.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Royalty = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3Royalty = CType(contrl, ucPNL_p3Royalty)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPROYALTY.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docRental IsNot Nothing AndAlso P3_docRental.Controls.Count > 0 Then
+                    contrl = P3_docRental.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Rental = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3Rental = CType(contrl, ucPNL_p3Rental)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPRENTAL.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docRepairMain IsNot Nothing AndAlso P3_docRepairMain.Controls.Count > 0 Then
+                    contrl = P3_docRepairMain.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3RepairMain = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3RepairMain = CType(contrl, ucPNL_p3RepairMain)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If P3_docResearchDev IsNot Nothing AndAlso P3_docResearchDev.Controls.Count > 0 Then
+                    contrl = P3_docResearchDev.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ResearchDev = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3ResearchDev = CType(contrl, ucPNL_p3ResearchDev)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPRND.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docPromotionAds IsNot Nothing AndAlso P3_docPromotionAds.Controls.Count > 0 Then
+                    contrl = P3_docPromotionAds.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3PromotionAds = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3PromotionAds = CType(contrl, ucPNL_p3PromotionAds)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docTravelling IsNot Nothing AndAlso P3_docTravelling.Controls.Count > 0 Then
+                    contrl = P3_docTravelling.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Travelling = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3Travelling = CType(contrl, ucPNL_p3Travelling)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPTRAVEL.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docJKDM IsNot Nothing AndAlso P3_docJKDM.Controls.Count > 0 Then
+                    contrl = P3_docJKDM.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3JKDM = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3JKDM = CType(contrl, ucPNL_p3JKDM)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPJKDM.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docDepreciation IsNot Nothing AndAlso P3_docDepreciation.Controls.Count > 0 Then
+                    contrl = P3_docDepreciation.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Depreciation = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3Depreciation = CType(contrl, ucPNL_p3Depreciation)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docDonationApp IsNot Nothing AndAlso P3_docDonationApp.Controls.Count > 0 Then
+                    contrl = P3_docDonationApp.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DonationApp = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3DonationApp = CType(contrl, ucPNL_p3DonationApp)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If P3_docDonationNonApp IsNot Nothing AndAlso P3_docDonationNonApp.Controls.Count > 0 Then
+                    contrl = P3_docDonationNonApp.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DonationNonApp = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3DonationNonApp = CType(contrl, ucPNL_p3DonationNonApp)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p3_docZakat IsNot Nothing AndAlso p3_docZakat.Controls.Count > 0 Then
+                    contrl = p3_docZakat.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Zakat = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p3Zakat = CType(contrl, ucPNL_p3Zakat)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPZAKAT.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+                End If
+
+
+                If p4_docLossDispFA IsNot Nothing AndAlso p4_docLossDispFA.Controls.Count > 0 Then
+                    contrl = p4_docLossDispFA.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4LossDispFA = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4LossDispFA = CType(contrl, ucPNL_p4LossDispFA)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+
+                If p4_docEntNonStaff IsNot Nothing AndAlso p4_docEntNonStaff.Controls.Count > 0 Then
+                    contrl = p4_docEntNonStaff.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4EntNonStaff = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4EntNonStaff = CType(contrl, ucPNL_p4EntNonStaff)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docEntStaff IsNot Nothing AndAlso p4_docEntStaff.Controls.Count > 0 Then
+                    contrl = p4_docEntStaff.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4EntStaff = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4EntStaff = CType(contrl, ucPNL_p4EntStaff)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docCompound IsNot Nothing AndAlso p4_docCompound.Controls.Count > 0 Then
+                    contrl = p4_docCompound.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4Compound = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4Compound = CType(contrl, ucPNL_p4Compound)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If p4_docProvisionAcc IsNot Nothing AndAlso p4_docProvisionAcc.Controls.Count > 0 Then
+                    contrl = p4_docProvisionAcc.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ProvisionAcc = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4ProvisionAcc = CType(contrl, ucPNL_p4ProvisionAcc)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPPROVISION.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If p4_docLeavePass IsNot Nothing AndAlso p4_docLeavePass.Controls.Count > 0 Then
+                    contrl = p4_docLeavePass.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4LeavePass = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4LeavePass = CType(contrl, ucPNL_p4LeavePass)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+                If p4_docFAWrittenOff IsNot Nothing AndAlso p4_docFAWrittenOff.Controls.Count > 0 Then
+                    contrl = p4_docFAWrittenOff.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4FAWrittenOff = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4FAWrittenOff = CType(contrl, ucPNL_p4FAWrittenOff)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docUnreaLossForeEx IsNot Nothing AndAlso p4_docUnreaLossForeEx.Controls.Count > 0 Then
+                    contrl = p4_docUnreaLossForeEx.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4UnreaLossForeEx = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4UnreaLossForeEx = CType(contrl, ucPNL_p4UnreaLossForeEx)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docReaLossForeExTrade IsNot Nothing AndAlso p4_docReaLossForeExTrade.Controls.Count > 0 Then
+                    contrl = p4_docReaLossForeExTrade.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ReaLossForeExTrade = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4ReaLossForeExTrade = CType(contrl, ucPNL_p4ReaLossForeExTrade)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docReaLossForeExNonTrade IsNot Nothing AndAlso p4_docReaLossForeExNonTrade.Controls.Count > 0 Then
+                    contrl = p4_docReaLossForeExNonTrade.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ReaLossForeExNonTrade = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4ReaLossForeExNonTrade = CType(contrl, ucPNL_p4ReaLossForeExNonTrade)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docInitSub IsNot Nothing AndAlso p4_docInitSub.Controls.Count > 0 Then
+                    contrl = p4_docInitSub.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4InitSub = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4InitSub = CType(contrl, ucPNL_p4InitSub)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
+
+
+                If p4_docCAExpenditure IsNot Nothing AndAlso p4_docCAExpenditure.Controls.Count > 0 Then
+                    contrl = p4_docCAExpenditure.Controls(0)
+
+                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4CAExpenditure = False Then
+                        Exit Sub
+                    End If
+                    Dim uc As ucPNL_p4CAExpenditure = CType(contrl, ucPNL_p4CAExpenditure)
+
+                    ds = uc.DataView_Main
+
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            dtRow("RightAmount") = 0
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
+                    End If
+
+
+                End If
 
                 If p4_docOther IsNot Nothing AndAlso p4_docOther.Controls.Count > 0 Then
                     contrl = p4_docOther.Controls(0)
@@ -1246,35 +2615,34 @@ Public Class frmPNL_Details
                     End If
                     Dim uc As ucPNL_p4Other = CType(contrl, ucPNL_p4Other)
 
-                    Tmpgridcontrol = uc.GrdControl
+                    ds = uc.DataView_Main
 
-                    If Tmpgridcontrol IsNot Nothing Then
+                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
+                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
+                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
+                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
+                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                        Next
 
-                        Tmpgridcontrol.ExportToXlsx(Path)
                     End If
                 End If
+                ExportPNLBindingSource.DataSource = DsPNL2.Tables("ExportPNL")
+               
 
-                'If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
-                '    contrl = P1_docSales.Controls(0)
+                dgvExport.ExportToXlsx(Path)
 
-                '    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
-                '        Exit Sub
-                '    End If
-                '    Dim uc As ucPNL_p1Sales = CType(contrl, ucPNL_p1Sales)
-
-                '    Tmpgridcontrol = uc.GrdControl
-
-                '    If Tmpgridcontrol IsNot Nothing Then
-                '        Tmpgridcontrol.ExportToXlsx(Path)
-                '    End If
-
-
-                'End If
+                
             End If
 
 
 
         Catch ex As Exception
+
+        Finally
 
         End Try
     End Sub
@@ -1283,4 +2651,9 @@ Public Class frmPNL_Details
         e.DataTableValue = Nothing
         e.Action = DataTableExporterAction.Continue
     End Sub
+
+    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
+        btnExport.PerformClick()
+    End Sub
+
 End Class

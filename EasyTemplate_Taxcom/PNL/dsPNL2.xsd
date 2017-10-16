@@ -14,7 +14,7 @@
   <xs:element name="dsPNL2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsPNL2" msprop:Generator_UserDSName="dsPNL2">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DIVIDEND_INCOME" msprop:Generator_TableClassName="DIVIDEND_INCOMEDataTable" msprop:Generator_TableVarName="tableDIVIDEND_INCOME" msprop:Generator_TablePropName="DIVIDEND_INCOME" msprop:Generator_RowDeletingName="DIVIDEND_INCOMERowDeleting" msprop:Generator_RowChangingName="DIVIDEND_INCOMERowChanging" msprop:Generator_RowEvHandlerName="DIVIDEND_INCOMERowChangeEventHandler" msprop:Generator_RowDeletedName="DIVIDEND_INCOMERowDeleted" msprop:Generator_UserTableName="DIVIDEND_INCOME" msprop:Generator_RowChangedName="DIVIDEND_INCOMERowChanged" msprop:Generator_RowEvArgName="DIVIDEND_INCOMERowChangeEvent" msprop:Generator_RowClassName="DIVIDEND_INCOMERow">
+        <xs:element name="DIVIDEND_INCOME" msprop:Generator_TableClassName="DIVIDEND_INCOMEDataTable" msprop:Generator_TableVarName="tableDIVIDEND_INCOME" msprop:Generator_RowChangedName="DIVIDEND_INCOMERowChanged" msprop:Generator_TablePropName="DIVIDEND_INCOME" msprop:Generator_RowDeletingName="DIVIDEND_INCOMERowDeleting" msprop:Generator_RowChangingName="DIVIDEND_INCOMERowChanging" msprop:Generator_RowEvHandlerName="DIVIDEND_INCOMERowChangeEventHandler" msprop:Generator_RowDeletedName="DIVIDEND_INCOMERowDeleted" msprop:Generator_RowClassName="DIVIDEND_INCOMERow" msprop:Generator_UserTableName="DIVIDEND_INCOME" msprop:Generator_RowEvArgName="DIVIDEND_INCOMERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="DI_KEY" msprop:Generator_ColumnVarNameInTable="columnDI_KEY" msprop:Generator_ColumnPropNameInRow="DI_KEY" msprop:Generator_ColumnPropNameInTable="DI_KEYColumn" msprop:Generator_UserColumnName="DI_KEY" type="xs:int" minOccurs="0" />
@@ -68,7 +68,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BUSINESS_SOURCE" msprop:Generator_TableClassName="BUSINESS_SOURCEDataTable" msprop:Generator_TableVarName="tableBUSINESS_SOURCE" msprop:Generator_TablePropName="BUSINESS_SOURCE" msprop:Generator_RowDeletingName="BUSINESS_SOURCERowDeleting" msprop:Generator_RowChangingName="BUSINESS_SOURCERowChanging" msprop:Generator_RowEvHandlerName="BUSINESS_SOURCERowChangeEventHandler" msprop:Generator_RowDeletedName="BUSINESS_SOURCERowDeleted" msprop:Generator_UserTableName="BUSINESS_SOURCE" msprop:Generator_RowChangedName="BUSINESS_SOURCERowChanged" msprop:Generator_RowEvArgName="BUSINESS_SOURCERowChangeEvent" msprop:Generator_RowClassName="BUSINESS_SOURCERow">
+        <xs:element name="BUSINESS_SOURCE" msprop:Generator_TableClassName="BUSINESS_SOURCEDataTable" msprop:Generator_TableVarName="tableBUSINESS_SOURCE" msprop:Generator_RowChangedName="BUSINESS_SOURCERowChanged" msprop:Generator_TablePropName="BUSINESS_SOURCE" msprop:Generator_RowDeletingName="BUSINESS_SOURCERowDeleting" msprop:Generator_RowChangingName="BUSINESS_SOURCERowChanging" msprop:Generator_RowEvHandlerName="BUSINESS_SOURCERowChangeEventHandler" msprop:Generator_RowDeletedName="BUSINESS_SOURCERowDeleted" msprop:Generator_RowClassName="BUSINESS_SOURCERow" msprop:Generator_UserTableName="BUSINESS_SOURCE" msprop:Generator_RowEvArgName="BUSINESS_SOURCERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="BC_KEY" msprop:Generator_ColumnVarNameInTable="columnBC_KEY" msprop:Generator_ColumnPropNameInRow="BC_KEY" msprop:Generator_ColumnPropNameInTable="BC_KEYColumn" msprop:Generator_UserColumnName="BC_KEY" minOccurs="0">
@@ -111,7 +111,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PROFIT_LOSS_ACCOUNT" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNTDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNTRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNTRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNTRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNTRowDeleted" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNTRowChanged" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNTRowChangeEvent" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNTRow">
+        <xs:element name="PROFIT_LOSS_ACCOUNT" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNTDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNTRowChanged" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNTRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNTRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNTRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNTRowDeleted" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNTRow" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNTRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PL_KEY" msprop:Generator_ColumnVarNameInTable="columnPL_KEY" msprop:Generator_ColumnPropNameInRow="PL_KEY" msprop:Generator_ColumnPropNameInTable="PL_KEYColumn" msprop:Generator_UserColumnName="PL_KEY" type="xs:int" />
@@ -685,6 +685,17 @@
               </xs:element>
               <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" type="xs:dateTime" minOccurs="0" />
               <xs:element name="PNL_Status" msprop:Generator_ColumnVarNameInTable="columnPNL_Status" msprop:Generator_ColumnPropNameInRow="PNL_Status" msprop:Generator_ColumnPropNameInTable="PNL_StatusColumn" msprop:Generator_UserColumnName="PNL_Status" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ExportPNL" msprop:Generator_TableClassName="ExportPNLDataTable" msprop:Generator_TableVarName="tableExportPNL" msprop:Generator_TablePropName="ExportPNL" msprop:Generator_RowDeletingName="ExportPNLRowDeleting" msprop:Generator_RowChangingName="ExportPNLRowChanging" msprop:Generator_RowEvHandlerName="ExportPNLRowChangeEventHandler" msprop:Generator_RowDeletedName="ExportPNLRowDeleted" msprop:Generator_UserTableName="ExportPNL" msprop:Generator_RowChangedName="ExportPNLRowChanged" msprop:Generator_RowEvArgName="ExportPNLRowChangeEvent" msprop:Generator_RowClassName="ExportPNLRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:short" minOccurs="0" />
+              <xs:element name="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_UserColumnName="Type" type="xs:string" minOccurs="0" />
+              <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
+              <xs:element name="LeftAmount" msprop:Generator_ColumnVarNameInTable="columnLeftAmount" msprop:Generator_ColumnPropNameInRow="LeftAmount" msprop:Generator_ColumnPropNameInTable="LeftAmountColumn" msprop:Generator_UserColumnName="LeftAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="RightAmount" msprop:Generator_ColumnVarNameInTable="columnRightAmount" msprop:Generator_ColumnPropNameInRow="RightAmount" msprop:Generator_ColumnPropNameInTable="RightAmountColumn" msprop:Generator_UserColumnName="RightAmount" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

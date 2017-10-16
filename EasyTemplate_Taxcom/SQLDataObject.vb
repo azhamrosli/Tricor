@@ -311,10 +311,10 @@ Public Class SQLDataObject
                 ErrorLog = New clsError
             End If
             With ErrorLog
-                .ErrorName = "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message
             End With
             ' CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False

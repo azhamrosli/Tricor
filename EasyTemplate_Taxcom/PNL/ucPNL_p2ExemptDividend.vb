@@ -14,6 +14,7 @@ Public Class ucPNL_p2ExemptDividend
     Public Const MainKey As String = "ED_EDKEY" ' PLFS_KEY
     Public Const MainAmount As String = "ED_AMOUNT" 'PLFS_AMOUNT
     Public Const MainSourceNo As String = "ED_SOURCENO" 'PLFS_SOURCENO
+    Public Const Main_Desc As String = "ED_COMPANY"
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing

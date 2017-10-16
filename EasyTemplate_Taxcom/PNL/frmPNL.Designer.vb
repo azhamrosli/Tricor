@@ -23,6 +23,7 @@ Partial Class frmPNL
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPNL))
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colPL_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colPNLStatus = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPL_REF_NO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPL_YA = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPL_MAINBUZ = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -42,6 +43,8 @@ Partial Class frmPNL
         Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
         Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.btnClear2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
@@ -78,7 +81,7 @@ Partial Class frmPNL
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colPL_KEY, Me.colPL_REF_NO, Me.colPL_YA, Me.colPL_MAINBUZ, Me.colPL_GROSS_PROFIT, Me.colPL_OTH_BSIN, Me.colPL_OTH_IN, Me.colPL_NONTAX_IN, Me.colPL_TOT_EXP, Me.colPL_NET_PROFIT_LOSS, Me.colPL_DISALLOWED_EXP, Me.colPL_S60F, Me.colPL_S60FA, Me.colModifiedBy, Me.colModifiedDateTime})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colPL_KEY, Me.colPNLStatus, Me.colPL_REF_NO, Me.colPL_YA, Me.colPL_MAINBUZ, Me.colPL_GROSS_PROFIT, Me.colPL_OTH_BSIN, Me.colPL_OTH_IN, Me.colPL_NONTAX_IN, Me.colPL_TOT_EXP, Me.colPL_NET_PROFIT_LOSS, Me.colPL_DISALLOWED_EXP, Me.colPL_S60F, Me.colPL_S60FA, Me.colModifiedBy, Me.colModifiedDateTime})
         Me.GridView1.GridControl = Me.dgvView
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
@@ -96,13 +99,24 @@ Partial Class frmPNL
         Me.colPL_KEY.Visible = True
         Me.colPL_KEY.VisibleIndex = 0
         '
+        'colPNLStatus
+        '
+        Me.colPNLStatus.AppearanceCell.Options.UseTextOptions = True
+        Me.colPNLStatus.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
+        Me.colPNLStatus.Caption = "Status"
+        Me.colPNLStatus.FieldName = "PNL_Status"
+        Me.colPNLStatus.Name = "colPNLStatus"
+        Me.colPNLStatus.Visible = True
+        Me.colPNLStatus.VisibleIndex = 1
+        Me.colPNLStatus.Width = 150
+        '
         'colPL_REF_NO
         '
         Me.colPL_REF_NO.Caption = "Reference No"
         Me.colPL_REF_NO.FieldName = "PL_REF_NO"
         Me.colPL_REF_NO.Name = "colPL_REF_NO"
         Me.colPL_REF_NO.Visible = True
-        Me.colPL_REF_NO.VisibleIndex = 1
+        Me.colPL_REF_NO.VisibleIndex = 2
         Me.colPL_REF_NO.Width = 120
         '
         'colPL_YA
@@ -111,7 +125,7 @@ Partial Class frmPNL
         Me.colPL_YA.FieldName = "PL_YA"
         Me.colPL_YA.Name = "colPL_YA"
         Me.colPL_YA.Visible = True
-        Me.colPL_YA.VisibleIndex = 2
+        Me.colPL_YA.VisibleIndex = 3
         Me.colPL_YA.Width = 100
         '
         'colPL_MAINBUZ
@@ -120,7 +134,7 @@ Partial Class frmPNL
         Me.colPL_MAINBUZ.FieldName = "PL_MAINBUZ"
         Me.colPL_MAINBUZ.Name = "colPL_MAINBUZ"
         Me.colPL_MAINBUZ.Visible = True
-        Me.colPL_MAINBUZ.VisibleIndex = 3
+        Me.colPL_MAINBUZ.VisibleIndex = 4
         Me.colPL_MAINBUZ.Width = 80
         '
         'colPL_GROSS_PROFIT
@@ -129,7 +143,7 @@ Partial Class frmPNL
         Me.colPL_GROSS_PROFIT.FieldName = "PL_GROSS_PROFIT"
         Me.colPL_GROSS_PROFIT.Name = "colPL_GROSS_PROFIT"
         Me.colPL_GROSS_PROFIT.Visible = True
-        Me.colPL_GROSS_PROFIT.VisibleIndex = 4
+        Me.colPL_GROSS_PROFIT.VisibleIndex = 5
         Me.colPL_GROSS_PROFIT.Width = 100
         '
         'colPL_OTH_BSIN
@@ -138,7 +152,7 @@ Partial Class frmPNL
         Me.colPL_OTH_BSIN.FieldName = "PL_OTH_BSIN"
         Me.colPL_OTH_BSIN.Name = "colPL_OTH_BSIN"
         Me.colPL_OTH_BSIN.Visible = True
-        Me.colPL_OTH_BSIN.VisibleIndex = 5
+        Me.colPL_OTH_BSIN.VisibleIndex = 6
         Me.colPL_OTH_BSIN.Width = 100
         '
         'colPL_OTH_IN
@@ -147,7 +161,7 @@ Partial Class frmPNL
         Me.colPL_OTH_IN.FieldName = "PL_OTH_IN"
         Me.colPL_OTH_IN.Name = "colPL_OTH_IN"
         Me.colPL_OTH_IN.Visible = True
-        Me.colPL_OTH_IN.VisibleIndex = 6
+        Me.colPL_OTH_IN.VisibleIndex = 7
         Me.colPL_OTH_IN.Width = 100
         '
         'colPL_NONTAX_IN
@@ -156,7 +170,7 @@ Partial Class frmPNL
         Me.colPL_NONTAX_IN.FieldName = "PL_NONTAX_IN"
         Me.colPL_NONTAX_IN.Name = "colPL_NONTAX_IN"
         Me.colPL_NONTAX_IN.Visible = True
-        Me.colPL_NONTAX_IN.VisibleIndex = 7
+        Me.colPL_NONTAX_IN.VisibleIndex = 8
         Me.colPL_NONTAX_IN.Width = 100
         '
         'colPL_TOT_EXP
@@ -165,7 +179,7 @@ Partial Class frmPNL
         Me.colPL_TOT_EXP.FieldName = "PL_TOT_EXP"
         Me.colPL_TOT_EXP.Name = "colPL_TOT_EXP"
         Me.colPL_TOT_EXP.Visible = True
-        Me.colPL_TOT_EXP.VisibleIndex = 8
+        Me.colPL_TOT_EXP.VisibleIndex = 9
         Me.colPL_TOT_EXP.Width = 100
         '
         'colPL_NET_PROFIT_LOSS
@@ -174,7 +188,7 @@ Partial Class frmPNL
         Me.colPL_NET_PROFIT_LOSS.FieldName = "PL_NET_PROFIT_LOSS"
         Me.colPL_NET_PROFIT_LOSS.Name = "colPL_NET_PROFIT_LOSS"
         Me.colPL_NET_PROFIT_LOSS.Visible = True
-        Me.colPL_NET_PROFIT_LOSS.VisibleIndex = 9
+        Me.colPL_NET_PROFIT_LOSS.VisibleIndex = 10
         Me.colPL_NET_PROFIT_LOSS.Width = 100
         '
         'colPL_DISALLOWED_EXP
@@ -183,7 +197,7 @@ Partial Class frmPNL
         Me.colPL_DISALLOWED_EXP.FieldName = "PL_DISALLOWED_EXP"
         Me.colPL_DISALLOWED_EXP.Name = "colPL_DISALLOWED_EXP"
         Me.colPL_DISALLOWED_EXP.Visible = True
-        Me.colPL_DISALLOWED_EXP.VisibleIndex = 10
+        Me.colPL_DISALLOWED_EXP.VisibleIndex = 11
         Me.colPL_DISALLOWED_EXP.Width = 100
         '
         'colPL_S60F
@@ -192,7 +206,7 @@ Partial Class frmPNL
         Me.colPL_S60F.FieldName = "PL_S60F"
         Me.colPL_S60F.Name = "colPL_S60F"
         Me.colPL_S60F.Visible = True
-        Me.colPL_S60F.VisibleIndex = 11
+        Me.colPL_S60F.VisibleIndex = 12
         Me.colPL_S60F.Width = 100
         '
         'colPL_S60FA
@@ -201,7 +215,7 @@ Partial Class frmPNL
         Me.colPL_S60FA.FieldName = "PL_S60FA"
         Me.colPL_S60FA.Name = "colPL_S60FA"
         Me.colPL_S60FA.Visible = True
-        Me.colPL_S60FA.VisibleIndex = 12
+        Me.colPL_S60FA.VisibleIndex = 13
         Me.colPL_S60FA.Width = 100
         '
         'colModifiedBy
@@ -210,7 +224,7 @@ Partial Class frmPNL
         Me.colModifiedBy.FieldName = "ModifiedBy"
         Me.colModifiedBy.Name = "colModifiedBy"
         Me.colModifiedBy.Visible = True
-        Me.colModifiedBy.VisibleIndex = 13
+        Me.colModifiedBy.VisibleIndex = 14
         Me.colModifiedBy.Width = 200
         '
         'colModifiedDateTime
@@ -219,17 +233,17 @@ Partial Class frmPNL
         Me.colModifiedDateTime.FieldName = "ModifiedDateTime"
         Me.colModifiedDateTime.Name = "colModifiedDateTime"
         Me.colModifiedDateTime.Visible = True
-        Me.colModifiedDateTime.VisibleIndex = 14
+        Me.colModifiedDateTime.VisibleIndex = 15
         Me.colModifiedDateTime.Width = 180
         '
         'dgvView
         '
         Me.dgvView.DataSource = Me.PROFITLOSSACCOUNTBindingSource
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvView.Location = New System.Drawing.Point(0, 103)
+        Me.dgvView.Location = New System.Drawing.Point(0, 106)
         Me.dgvView.MainView = Me.GridView1
         Me.dgvView.Name = "dgvView"
-        Me.dgvView.Size = New System.Drawing.Size(918, 369)
+        Me.dgvView.Size = New System.Drawing.Size(918, 366)
         Me.dgvView.TabIndex = 8
         Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -261,6 +275,8 @@ Partial Class frmPNL
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.btnClear2)
+        Me.PanelControl1.Controls.Add(Me.btnClear)
         Me.PanelControl1.Controls.Add(Me.txtRefNo)
         Me.PanelControl1.Controls.Add(Me.cboYA)
         Me.PanelControl1.Controls.Add(Me.cboRefNo)
@@ -271,8 +287,24 @@ Partial Class frmPNL
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(918, 72)
+        Me.PanelControl1.Size = New System.Drawing.Size(918, 75)
         Me.PanelControl1.TabIndex = 7
+        '
+        'btnClear2
+        '
+        Me.btnClear2.Image = CType(resources.GetObject("btnClear2.Image"), System.Drawing.Image)
+        Me.btnClear2.Location = New System.Drawing.Point(681, 13)
+        Me.btnClear2.Name = "btnClear2"
+        Me.btnClear2.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear2.TabIndex = 13
+        '
+        'btnClear
+        '
+        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.Location = New System.Drawing.Point(364, 13)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear.TabIndex = 12
         '
         'txtRefNo
         '
@@ -385,7 +417,7 @@ Partial Class frmPNL
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(414, 15)
+        Me.cboYA.Location = New System.Drawing.Point(449, 14)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
@@ -420,7 +452,7 @@ Partial Class frmPNL
         'btnAllRecord
         '
         Me.btnAllRecord.Image = CType(resources.GetObject("btnAllRecord.Image"), System.Drawing.Image)
-        Me.btnAllRecord.Location = New System.Drawing.Point(414, 39)
+        Me.btnAllRecord.Location = New System.Drawing.Point(449, 38)
         Me.btnAllRecord.Name = "btnAllRecord"
         Me.btnAllRecord.Size = New System.Drawing.Size(110, 23)
         Me.btnAllRecord.TabIndex = 8
@@ -429,7 +461,7 @@ Partial Class frmPNL
         'btnFind
         '
         Me.btnFind.Image = CType(resources.GetObject("btnFind.Image"), System.Drawing.Image)
-        Me.btnFind.Location = New System.Drawing.Point(530, 39)
+        Me.btnFind.Location = New System.Drawing.Point(565, 38)
         Me.btnFind.Name = "btnFind"
         Me.btnFind.Size = New System.Drawing.Size(110, 23)
         Me.btnFind.TabIndex = 7
@@ -437,7 +469,7 @@ Partial Class frmPNL
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(388, 18)
+        Me.LabelControl2.Location = New System.Drawing.Point(423, 17)
         Me.LabelControl2.Name = "LabelControl2"
         Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl2.TabIndex = 3
@@ -523,4 +555,7 @@ Partial Class frmPNL
     Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
     Friend WithEvents cboYA As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents colPNLStatus As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnClear2 As DevExpress.XtraEditors.SimpleButton
 End Class

@@ -90,6 +90,7 @@
     <Reference Include="DevExpress.DataAccess.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Images.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -192,40 +193,40 @@
       <DependentUpon>dsReport.xsd</DependentUpon>
     </Compile>
     <Compile Include="EnumModule.vb" />
-    <Compile Include="frmCA.Designer.vb">
+    <Compile Include="CA\frmCA.Designer.vb">
       <DependentUpon>frmCA.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmCA.vb">
+    <Compile Include="CA\frmCA.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCA_Add3.Designer.vb">
+    <Compile Include="CA\frmCA_Add3.Designer.vb">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmCA_Add3.vb">
+    <Compile Include="CA\frmCA_Add3.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDisposal.Designer.vb">
+    <Compile Include="CA\frmDisposal.Designer.vb">
       <DependentUpon>frmDisposal.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDisposal.vb">
+    <Compile Include="CA\frmDisposal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDisposal_Add.Designer.vb">
+    <Compile Include="CA\frmDisposal_Add.Designer.vb">
       <DependentUpon>frmDisposal_Add.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmDisposal_Add.vb">
+    <Compile Include="CA\frmDisposal_Add.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmHP.Designer.vb">
+    <Compile Include="CA\frmHP.Designer.vb">
       <DependentUpon>frmHP.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmHP.vb">
+    <Compile Include="CA\frmHP.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmHP_Add.Designer.vb">
+    <Compile Include="CA\frmHP_Add.Designer.vb">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmHP_Add.vb">
+    <Compile Include="CA\frmHP_Add.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PNL\frmPNL.Designer.vb">
@@ -651,22 +652,22 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SQLDataObject.vb" />
-    <EmbeddedResource Include="frmCA.resx">
+    <EmbeddedResource Include="CA\frmCA.resx">
       <DependentUpon>frmCA.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCA_Add3.resx">
+    <EmbeddedResource Include="CA\frmCA_Add3.resx">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDisposal.resx">
+    <EmbeddedResource Include="CA\frmDisposal.resx">
       <DependentUpon>frmDisposal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDisposal_Add.resx">
+    <EmbeddedResource Include="CA\frmDisposal_Add.resx">
       <DependentUpon>frmDisposal_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmHP.resx">
+    <EmbeddedResource Include="CA\frmHP.resx">
       <DependentUpon>frmHP.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmHP_Add.resx">
+    <EmbeddedResource Include="CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL.resx">
@@ -964,6 +965,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Movement\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

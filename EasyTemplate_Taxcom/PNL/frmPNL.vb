@@ -1,4 +1,7 @@
-﻿Public Class frmPNL 
+﻿Imports DevExpress.XtraGrid.Views.Grid
+Imports DevExpress.XtraGrid.Views.Base
+
+Public Class frmPNL
 
     Inherits DevExpress.XtraEditors.XtraForm
     Dim ErrorLog As clsError = Nothing
@@ -91,6 +94,35 @@
 
         End Try
     End Sub
+    'Private Sub GridView1_RowStyle(ByVal sender As Object, ByVal e As DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs) Handles GridView1.RowStyle
+    '    Dim View As GridView = sender
+    '    If (e.RowHandle >= 0) Then
+    '        Dim category As String = View.GetRowCellDisplayText(e.RowHandle, View.Columns("PNL_Status"))
+    '        If category = "Ammen Require" Then
+    '            e.Appearance.BackColor = Color.LightPink
+    '            e.Appearance.BackColor2 = Color.Red
+    '        ElseIf category = "Bookmarks" Then
+    '            e.Appearance.BackColor = Color.LightYellow
+    '            e.Appearance.BackColor2 = Color.Yellow
+    '        ElseIf category = "Unfinished" Then
+    '            e.Appearance.BackColor = Color.LightSkyBlue
+    '            e.Appearance.BackColor2 = Color.Blue
+    '        End If
+    '    End If
+    'End Sub
+
+    Private Sub GridView1_CustomDrawCell(sender As Object, e As RowCellCustomDrawEventArgs) Handles GridView1.CustomDrawCell
+        If e.Column.FieldName = "PNL_Status" Then
+            e.DefaultDraw()
+            If Convert.ToString(e.CellValue) = "Ammen Require" Then
+                e.Graphics.DrawImage(DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/editname_16x16.png"), e.Bounds.Location)
+            ElseIf Convert.ToString(e.CellValue) = "Bookmarks" Then
+                e.Graphics.DrawImage(DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/show_16x16.png"), e.Bounds.Location)
+            ElseIf Convert.ToString(e.CellValue) = "Unfinished" Then
+                e.Graphics.DrawImage(DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/cancel_16x16.png"), e.Bounds.Location)
+            End If
+        End If
+    End Sub
     Private Sub btnAllRecord_Click(sender As Object, e As EventArgs) Handles btnAllRecord.Click
         Try
             cboRefNo.EditValue = ""
@@ -141,7 +173,7 @@
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_CA(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_KEY")), ErrorLog) = False Then
+                    If mdlProcess.Delete_PNL(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_KEY")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -165,10 +197,38 @@
         Try
             If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue IsNot Nothing AndAlso cboRefNo.EditValue <> "" Then
                 txtRefNo.EditValue = cboRefNo.EditValue
+                LoadData(2)
             End If
 
         Catch ex As Exception
 
         End Try
     End Sub
+
+    Private Sub cboYA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedIndexChanged
+        Try
+            LoadData(2)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        Try
+            cboRefNo.EditValue = ""
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+ 
+    Private Sub btnClear2_Click(sender As Object, e As EventArgs) Handles btnClear2.Click
+        Try
+            cboYA.EditValue = ""
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class
