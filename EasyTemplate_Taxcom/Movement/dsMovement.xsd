@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsMovement" targetNamespace="http://tempuri.org/dsMovement.xsd" xmlns:mstns="http://tempuri.org/dsMovement.xsd" xmlns="http://tempuri.org/dsMovement.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="TAXCOM_CConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TAXCOM_CConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.EasyTemplate_Taxcom.Settings.GlobalReference.Default.TAXCOM_CConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsMovement" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsMovement" msprop:Generator_UserDSName="dsMovement">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="MOVEMENT_ADD" msprop:Generator_TableClassName="MOVEMENT_ADDDataTable" msprop:Generator_TableVarName="tableMOVEMENT_ADD" msprop:Generator_TablePropName="MOVEMENT_ADD" msprop:Generator_RowDeletingName="MOVEMENT_ADDRowDeleting" msprop:Generator_RowChangingName="MOVEMENT_ADDRowChanging" msprop:Generator_RowEvHandlerName="MOVEMENT_ADDRowChangeEventHandler" msprop:Generator_RowDeletedName="MOVEMENT_ADDRowDeleted" msprop:Generator_UserTableName="MOVEMENT_ADD" msprop:Generator_RowChangedName="MOVEMENT_ADDRowChanged" msprop:Generator_RowEvArgName="MOVEMENT_ADDRowChangeEvent" msprop:Generator_RowClassName="MOVEMENT_ADDRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MM_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnMM_ID" msprop:Generator_ColumnPropNameInRow="MM_ID" msprop:Generator_ColumnPropNameInTable="MM_IDColumn" msprop:Generator_UserColumnName="MM_ID" type="xs:int" />
+              <xs:element name="MM_Description" msprop:Generator_ColumnVarNameInTable="columnMM_Description" msprop:Generator_ColumnPropNameInRow="MM_Description" msprop:Generator_ColumnPropNameInTable="MM_DescriptionColumn" msprop:Generator_UserColumnName="MM_Description" type="xs:string" minOccurs="0" />
+              <xs:element name="MM_Amount" msprop:Generator_ColumnVarNameInTable="columnMM_Amount" msprop:Generator_ColumnPropNameInRow="MM_Amount" msprop:Generator_ColumnPropNameInTable="MM_AmountColumn" msprop:Generator_UserColumnName="MM_Amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MM_AddBack" msprop:Generator_ColumnVarNameInTable="columnMM_AddBack" msprop:Generator_ColumnPropNameInRow="MM_AddBack" msprop:Generator_ColumnPropNameInTable="MM_AddBackColumn" msprop:Generator_UserColumnName="MM_AddBack" type="xs:boolean" />
+              <xs:element name="MM_PARENTID" msprop:Generator_ColumnVarNameInTable="columnMM_PARENTID" msprop:Generator_ColumnPropNameInRow="MM_PARENTID" msprop:Generator_ColumnPropNameInTable="MM_PARENTIDColumn" msprop:Generator_UserColumnName="MM_PARENTID" type="xs:short" minOccurs="0" />
+              <xs:element name="MM_Sequence" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnMM_Sequence" msprop:Generator_ColumnPropNameInRow="MM_Sequence" msprop:Generator_ColumnPropNameInTable="MM_SequenceColumn" msprop:Generator_UserColumnName="MM_Sequence" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MOVEMENT_DEDUCT" msprop:Generator_TableClassName="MOVEMENT_DEDUCTDataTable" msprop:Generator_TableVarName="tableMOVEMENT_DEDUCT" msprop:Generator_TablePropName="MOVEMENT_DEDUCT" msprop:Generator_RowDeletingName="MOVEMENT_DEDUCTRowDeleting" msprop:Generator_RowChangingName="MOVEMENT_DEDUCTRowChanging" msprop:Generator_RowEvHandlerName="MOVEMENT_DEDUCTRowChangeEventHandler" msprop:Generator_RowDeletedName="MOVEMENT_DEDUCTRowDeleted" msprop:Generator_UserTableName="MOVEMENT_DEDUCT" msprop:Generator_RowChangedName="MOVEMENT_DEDUCTRowChanged" msprop:Generator_RowEvArgName="MOVEMENT_DEDUCTRowChangeEvent" msprop:Generator_RowClassName="MOVEMENT_DEDUCTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MM_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnMM_ID" msprop:Generator_ColumnPropNameInRow="MM_ID" msprop:Generator_ColumnPropNameInTable="MM_IDColumn" msprop:Generator_UserColumnName="MM_ID" type="xs:int" />
+              <xs:element name="MM_Description" msprop:Generator_ColumnVarNameInTable="columnMM_Description" msprop:Generator_ColumnPropNameInRow="MM_Description" msprop:Generator_ColumnPropNameInTable="MM_DescriptionColumn" msprop:Generator_UserColumnName="MM_Description" type="xs:string" minOccurs="0" />
+              <xs:element name="MM_Amount" msprop:Generator_ColumnVarNameInTable="columnMM_Amount" msprop:Generator_ColumnPropNameInRow="MM_Amount" msprop:Generator_ColumnPropNameInTable="MM_AmountColumn" msprop:Generator_UserColumnName="MM_Amount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MM_Deduct" msdata:Caption="MM_AddBack" msprop:Generator_ColumnVarNameInTable="columnMM_Deduct" msprop:Generator_ColumnPropNameInRow="MM_Deduct" msprop:Generator_ColumnPropNameInTable="MM_DeductColumn" msprop:Generator_UserColumnName="MM_Deduct" type="xs:boolean" />
+              <xs:element name="MM_PARENTID" msprop:Generator_ColumnVarNameInTable="columnMM_PARENTID" msprop:Generator_ColumnPropNameInRow="MM_PARENTID" msprop:Generator_ColumnPropNameInTable="MM_PARENTIDColumn" msprop:Generator_UserColumnName="MM_PARENTID" type="xs:short" minOccurs="0" />
+              <xs:element name="MM_Sequence" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnMM_Sequence" msprop:Generator_ColumnPropNameInRow="MM_Sequence" msprop:Generator_ColumnPropNameInTable="MM_SequenceColumn" msprop:Generator_UserColumnName="MM_Sequence" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MOVEMENT_NORMAL" msprop:Generator_TableClassName="MOVEMENT_NORMALDataTable" msprop:Generator_TableVarName="tableMOVEMENT_NORMAL" msprop:Generator_TablePropName="MOVEMENT_NORMAL" msprop:Generator_RowDeletingName="MOVEMENT_NORMALRowDeleting" msprop:Generator_RowChangingName="MOVEMENT_NORMALRowChanging" msprop:Generator_RowEvHandlerName="MOVEMENT_NORMALRowChangeEventHandler" msprop:Generator_RowDeletedName="MOVEMENT_NORMALRowDeleted" msprop:Generator_UserTableName="MOVEMENT_NORMAL" msprop:Generator_RowChangedName="MOVEMENT_NORMALRowChanged" msprop:Generator_RowEvArgName="MOVEMENT_NORMALRowChangeEvent" msprop:Generator_RowClassName="MOVEMENT_NORMALRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MM_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnMM_ID" msprop:Generator_ColumnPropNameInRow="MM_ID" msprop:Generator_ColumnPropNameInTable="MM_IDColumn" msprop:Generator_UserColumnName="MM_ID" type="xs:int" />
+              <xs:element name="MM_REFNO" msprop:Generator_ColumnVarNameInTable="columnMM_REFNO" msprop:Generator_ColumnPropNameInRow="MM_REFNO" msprop:Generator_ColumnPropNameInTable="MM_REFNOColumn" msprop:Generator_UserColumnName="MM_REFNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MM_YA" msprop:Generator_ColumnVarNameInTable="columnMM_YA" msprop:Generator_ColumnPropNameInRow="MM_YA" msprop:Generator_ColumnPropNameInTable="MM_YAColumn" msprop:Generator_UserColumnName="MM_YA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MM_TITLE" msprop:Generator_ColumnVarNameInTable="columnMM_TITLE" msprop:Generator_ColumnPropNameInRow="MM_TITLE" msprop:Generator_ColumnPropNameInTable="MM_TITLEColumn" msprop:Generator_UserColumnName="MM_TITLE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MM_PERIOD_ENDED" msprop:Generator_ColumnVarNameInTable="columnMM_PERIOD_ENDED" msprop:Generator_ColumnPropNameInRow="MM_PERIOD_ENDED" msprop:Generator_ColumnPropNameInTable="MM_PERIOD_ENDEDColumn" msprop:Generator_UserColumnName="MM_PERIOD_ENDED" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MM_YEAR_ENDED" msprop:Generator_ColumnVarNameInTable="columnMM_YEAR_ENDED" msprop:Generator_ColumnPropNameInRow="MM_YEAR_ENDED" msprop:Generator_ColumnPropNameInTable="MM_YEAR_ENDEDColumn" msprop:Generator_UserColumnName="MM_YEAR_ENDED" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MM_BALANCE_START" msprop:Generator_ColumnVarNameInTable="columnMM_BALANCE_START" msprop:Generator_ColumnPropNameInRow="MM_BALANCE_START" msprop:Generator_ColumnPropNameInTable="MM_BALANCE_STARTColumn" msprop:Generator_UserColumnName="MM_BALANCE_START" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MM_BALANCE_END" msprop:Generator_ColumnVarNameInTable="columnMM_BALANCE_END" msprop:Generator_ColumnPropNameInRow="MM_BALANCE_END" msprop:Generator_ColumnPropNameInTable="MM_BALANCE_ENDColumn" msprop:Generator_UserColumnName="MM_BALANCE_END" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MM_AMOUNT_START" msprop:Generator_ColumnVarNameInTable="columnMM_AMOUNT_START" msprop:Generator_ColumnPropNameInRow="MM_AMOUNT_START" msprop:Generator_ColumnPropNameInTable="MM_AMOUNT_STARTColumn" msprop:Generator_UserColumnName="MM_AMOUNT_START" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MM_AMOUNT_END" msprop:Generator_ColumnVarNameInTable="columnMM_AMOUNT_END" msprop:Generator_ColumnPropNameInRow="MM_AMOUNT_END" msprop:Generator_ColumnPropNameInTable="MM_AMOUNT_ENDColumn" msprop:Generator_UserColumnName="MM_AMOUNT_END" type="xs:decimal" minOccurs="0" />
+              <xs:element name="MM_NOTE_START" msprop:Generator_ColumnVarNameInTable="columnMM_NOTE_START" msprop:Generator_ColumnPropNameInRow="MM_NOTE_START" msprop:Generator_ColumnPropNameInTable="MM_NOTE_STARTColumn" msprop:Generator_UserColumnName="MM_NOTE_START" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MM_NOTE_END" msprop:Generator_ColumnVarNameInTable="columnMM_NOTE_END" msprop:Generator_ColumnPropNameInRow="MM_NOTE_END" msprop:Generator_ColumnPropNameInTable="MM_NOTE_ENDColumn" msprop:Generator_UserColumnName="MM_NOTE_END" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModifiedBy" msprop:Generator_ColumnVarNameInTable="columnModifiedBy" msprop:Generator_ColumnPropNameInRow="ModifiedBy" msprop:Generator_ColumnPropNameInTable="ModifiedByColumn" msprop:Generator_UserColumnName="ModifiedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

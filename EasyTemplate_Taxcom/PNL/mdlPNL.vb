@@ -1766,6 +1766,105 @@ Module mdlPNL
             gridview.Focus()
         End Try
     End Sub
+    Public Sub MoveItemsInListView_WithoutChild(ByVal blnMoveUp As Boolean, ByVal MainTable As String, _
+                                   ByVal RefNo As String, ByVal MainKey As String, _
+                                    ByRef gridview As DevExpress.XtraGrid.Views.Grid.GridView, ByRef ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+        Try
+            'Set the listview index to limit to depending on whether we are moving things up or down in the list
+            Dim intLimittedIndex As Integer = (ds.Tables(MainTable).Rows.Count - 1)
+            If blnMoveUp Then intLimittedIndex = 0
+
+            'Define a new collection of the listview indexes to move
+            Dim colIndexesToMove As New List(Of Integer)()
+
+            For i As Integer = 0 To ds.Tables(MainTable).Rows.Count - 1
+                If gridview.FocusedRowHandle = i Then
+                    colIndexesToMove.Add(i)
+                    If gridview.FocusedRowHandle = intLimittedIndex Then
+                        'Do not attempt to move item(s) as we are at the top or bottom of the list
+                        Exit Try
+                    End If
+                    If blnMoveUp = False AndAlso i = ds.Tables(MainTable).Rows.Count - 1 Then
+                        Exit Sub
+                    End If
+                End If
+            Next
+
+
+            'If we are moving items down
+            If Not blnMoveUp Then
+                'Reverse the index list so that we move items from the bottom of the selection first
+                colIndexesToMove.Reverse()
+            End If
+            Dim tmpcol As System.Data.DataColumn
+            Application.DoEvents()
+            Dim dtXrow As DataRow = Nothing
+            Dim row As DataRow
+            'Loop through each index we want to move
+            For Each intIndex As Integer In colIndexesToMove
+
+                If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+
+                    dtXrow = Nothing
+                    dtXrow = ds.Tables(MainTable).Rows(intIndex)
+                    Dim indx As Integer = 0
+
+                    If blnMoveUp Then
+                        indx = intIndex - 1
+                    Else
+                        indx = intIndex + 2
+                    End If
+
+                    Dim KeyNo As Integer = 0
+                    row = Nothing
+                    row = ds.Tables(MainTable).NewRow
+                    For Each col As DataColumn In ds.Tables(MainTable).Columns
+                        If col.ColumnName = MainKey Then
+                            KeyNo = dtXrow(col)
+                        End If
+                        row(col) = dtXrow(col)
+                    Next
+
+                    ds.Tables(MainTable).Rows(intIndex).Delete()
+                    Application.DoEvents()
+                    ds.Tables(MainTable).Rows.InsertAt(row, indx)
+                    Application.DoEvents()
+
+
+                    If blnMoveUp Then
+                        gridview.FocusedRowHandle = indx
+                    Else
+                        gridview.FocusedRowHandle = indx - 1
+                    End If
+                    gridview.SelectRow(indx)
+                Else
+                    dtXrow = Nothing
+                    dtXrow = gridview.GetDataRow(intIndex)
+                    ds.Tables(MainTable).Rows.RemoveAt(intIndex)
+
+                    If blnMoveUp Then
+
+                        ds.Tables(MainTable).Rows.InsertAt(dtXrow, intIndex - 1)
+                        gridview.FocusedRowHandle = intIndex - 1
+                        gridview.SelectRow(intIndex - 1)
+                    Else
+                        ds.Tables(MainTable).Rows.InsertAt(dtXrow, intIndex + 1)
+                        gridview.FocusedRowHandle = intIndex + 1
+                        gridview.SelectRow(intIndex + 1)
+                    End If
+
+                End If
+
+            Next
+
+        Catch ex As Exception
+            ' Trace.WriteLine("MoveItemsInListView() has thrown an exception: " & ex.Message)
+        Finally
+            'Set the focus on the listview
+            ds.Tables(MainTable).AcceptChanges()
+            gridview.Focus()
+        End Try
+    End Sub
      Public Function GetColumn_InterestRestrictMonthly(ByVal RefNo As String, ByVal YA As String, _
                                                       ByVal SourceNo As Integer, ByRef dsPNL As DataSet, _
                                                       ByRef GridView1 As DevExpress.XtraGrid.Views.Grid.GridView, _

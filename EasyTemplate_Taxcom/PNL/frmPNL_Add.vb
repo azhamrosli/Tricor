@@ -3,7 +3,7 @@ Imports DevExpress.Spreadsheet
 Imports DevExpress.Spreadsheet.Export
 Imports DevExpress.XtraGrid
 
-Public Class frmPNL_Details
+Public Class frmPNL_Add
     Public isEdit As Boolean = True
     Public ID As Decimal = 1269
     Dim ErrorLog As clsError = Nothing
@@ -2631,11 +2631,11 @@ Public Class frmPNL_Details
                     End If
                 End If
                 ExportPNLBindingSource.DataSource = DsPNL2.Tables("ExportPNL")
-               
+
 
                 dgvExport.ExportToXlsx(Path)
 
-                
+
             End If
 
 

@@ -62,7 +62,7 @@ Partial Class Form1
         'ComboBox1
         '
         Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"frmCA", "frmHP", "frmDisposal", "frmPNL"})
+        Me.ComboBox1.Items.AddRange(New Object() {"frmCA", "frmHP", "frmDisposal", "frmPNL", "frmMovement"})
         Me.ComboBox1.Location = New System.Drawing.Point(166, 20)
         Me.ComboBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.ComboBox1.Name = "ComboBox1"

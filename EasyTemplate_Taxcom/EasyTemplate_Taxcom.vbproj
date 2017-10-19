@@ -229,16 +229,36 @@
     <Compile Include="CA\frmHP_Add.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Movement\dsMovement.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMovement.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\dsMovement.vb">
+      <DependentUpon>dsMovement.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\frmMovement.Designer.vb">
+      <DependentUpon>frmMovement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\frmMovement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Movement\frmMovement_Add.Designer.vb">
+      <DependentUpon>frmMovement_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\frmMovement_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PNL\frmPNL.Designer.vb">
       <DependentUpon>frmPNL.vb</DependentUpon>
     </Compile>
     <Compile Include="PNL\frmPNL.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PNL\frmPNL_Details.Designer.vb">
-      <DependentUpon>frmPNL_Details.vb</DependentUpon>
+    <Compile Include="PNL\frmPNL_Add.Designer.vb">
+      <DependentUpon>frmPNL_Add.vb</DependentUpon>
     </Compile>
-    <Compile Include="PNL\frmPNL_Details.vb">
+    <Compile Include="PNL\frmPNL_Add.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmReport_Test.Designer.vb">
@@ -670,11 +690,17 @@
     <EmbeddedResource Include="CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Movement\frmMovement.resx">
+      <DependentUpon>frmMovement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Movement\frmMovement_Add.resx">
+      <DependentUpon>frmMovement_Add.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL.resx">
       <DependentUpon>frmPNL.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PNL\frmPNL_Details.resx">
-      <DependentUpon>frmPNL_Details.vb</DependentUpon>
+    <EmbeddedResource Include="PNL\frmPNL_Add.resx">
+      <DependentUpon>frmPNL_Add.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReport_Test.resx">
       <DependentUpon>frmReport_Test.vb</DependentUpon>
@@ -907,6 +933,17 @@
     <None Include="Dataset\dsReport.xss">
       <DependentUpon>dsReport.xsd</DependentUpon>
     </None>
+    <None Include="Movement\dsMovement.xsc">
+      <DependentUpon>dsMovement.xsd</DependentUpon>
+    </None>
+    <None Include="Movement\dsMovement.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsMovement.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Movement\dsMovement.xss">
+      <DependentUpon>dsMovement.xsd</DependentUpon>
+    </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -966,9 +1003,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Movement\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

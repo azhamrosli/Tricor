@@ -134,7 +134,7 @@ Public Class frmPNL
     End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim frm As New frmPNL_Details
+            Dim frm As New frmPNL_Add
             frm.isEdit = False
             frm.ID = 0
             frm.ShowDialog()
@@ -155,7 +155,7 @@ Public Class frmPNL
         Try
             Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("PL_KEY")
 
-            Dim frm As New frmPNL_Details
+            Dim frm As New frmPNL_Add
             frm.isEdit = True
             frm.ID = ID
             frm.ShowDialog()
@@ -230,5 +230,4 @@ Public Class frmPNL
 
         End Try
     End Sub
-
 End Class
