@@ -243,6 +243,18 @@
     <Compile Include="Movement\frmMovement.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Movement\frmMovementComplex.Designer.vb">
+      <DependentUpon>frmMovementComplex.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\frmMovementComplex.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Movement\frmMovementComplex_Add.Designer.vb">
+      <DependentUpon>frmMovementComplex_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\frmMovementComplex_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Movement\frmMovement_Add.Designer.vb">
       <DependentUpon>frmMovement_Add.vb</DependentUpon>
     </Compile>
@@ -692,6 +704,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Movement\frmMovement.resx">
       <DependentUpon>frmMovement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Movement\frmMovementComplex.resx">
+      <DependentUpon>frmMovementComplex.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Movement\frmMovementComplex_Add.resx">
+      <DependentUpon>frmMovementComplex_Add.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Movement\frmMovement_Add.resx">
       <DependentUpon>frmMovement_Add.vb</DependentUpon>

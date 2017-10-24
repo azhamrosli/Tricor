@@ -1,4 +1,4 @@
-﻿Public Class frmMovement
+﻿Public Class frmMovementComplex 
     Dim ErrorLog As clsError = Nothing
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -41,16 +41,16 @@
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dt As DataTable = mdlProcess.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
-            DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
+            DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
 
             If dt Is Nothing Then
                 Exit Sub
             End If
 
             For i As Integer = 0 To dt.Rows.Count - 1
-                DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
+                DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
             Next
 
 
@@ -69,7 +69,7 @@
     End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim frm As New frmMovement_Add
+            Dim frm As New frmMovementComplex_Add
             frm.isEdit = False
             frm.ID = 0
             frm.ShowDialog()
@@ -129,7 +129,7 @@
         Try
             Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("MM_ID")
 
-            Dim frm As New frmMovement_Add
+            Dim frm As New frmMovementComplex_Add
             frm.isEdit = True
             frm.ID = ID
             frm.ShowDialog()
@@ -141,23 +141,23 @@
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         Try
-            Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "Movement Normal", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "Movement Complex", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
             If rslt = Windows.Forms.DialogResult.Yes Then
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
+                    If mdlProcess.Delete_MovementComplex(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
                     'MsgBox(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("CA_KEY"))
                 Next
                 If tmpSts Then
-                    MsgBox("Succesfully remove movement normal.", MsgBoxStyle.Information)
+                    MsgBox("Succesfully remove movement complex.", MsgBoxStyle.Information)
                     Me.LoadData(2)
                 Else
-                    MsgBox("Some of movement normal failed to delete.", MsgBoxStyle.Critical)
+                    MsgBox("Some of movement complex failed to delete.", MsgBoxStyle.Critical)
                 End If
             End If
         Catch ex As Exception

@@ -360,4 +360,5 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
+
 End Class

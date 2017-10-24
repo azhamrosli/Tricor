@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmca" 'Form Name
+    Public ArgParam0 As String = "frmMovementComplex" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1225723109" 'RefNo
     Public ArgParam3 As String = "2016" 'YA
@@ -5869,7 +5869,180 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function Load_MovementComplex(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_COMPLEX WHERE MM_ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_MovementComplex_Add(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_COMPLEX_ADD WHERE MM_PARENTID=@ID ORDER BY MM_Sequence"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_MovementComplex_Deduct(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_COMPLEX_DEDUCT WHERE MM_PARENTID=@ID ORDER BY MM_Sequence"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_MovementComplex_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_COMPLEX"
+            Dim isWhere As Boolean = False
+            SQLcmd = New SqlCommand
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE MM_REFNO=@MM_REFNO"
+                Else
+                    StrSQL += " AND MM_REFNO=@MM_REFNO"
+                End If
+                SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            If YA IsNot Nothing AndAlso YA <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE MM_YA=@MM_YA"
+                Else
+                    StrSQL += " AND MM_YA=@MM_YA"
+                End If
+                SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
+            End If
+
+            SQLcmd.CommandText = StrSQL
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function CheckExist_MovementComplex(ByVal MM_REFNO As String, ByVal MM_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM MOVEMENT_COMPLEX WHERE MM_REFNO=@MM_REFNO AND MM_YA=@MM_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = MM_REFNO
+            SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = MM_YA
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
 
     Public Function Load_MovementNormal_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -11572,6 +11745,123 @@ tryagain:
 
 #End Region
 #Region "MOVEMENT"
+    Public Function Save_MovementComplex(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
+                                    ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
+                                    ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
+                                    ByVal MM_GENERAL_START As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_START As Decimal, _
+                                    ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
+                                    ByVal NoteStart As String, ByVal NoteEnd As String, _
+                                    ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, _
+                                    ByVal ds As DataSet, _
+                                    ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofCmd As List(Of SqlCommand)
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim tmpID As Decimal = 0
+
+
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime)"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
+            SQLcmd.Parameters.Add("@MM_PERIOD_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(PeriodEnd), Now, PeriodEnd)
+            SQLcmd.Parameters.Add("@MM_YEAR_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(YearEnded), Now, YearEnded)
+            SQLcmd.Parameters.Add("@MM_BALANCE_START", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceStart), Now, BalanceStart)
+            SQLcmd.Parameters.Add("@MM_BALANCE_END", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceEnd), Now, BalanceEnd)
+            SQLcmd.Parameters.Add("@MM_GENERAL_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_GENERAL_START) = False, 0, MM_GENERAL_START)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_ALLOWABLE_START) = False, 0, MM_SPECIFIC_ALLOWABLE_START)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_START) = False, 0, MM_SPECIFIC_NONALLOWABLE_START)
+            SQLcmd.Parameters.Add("@MM_NOTE_START", SqlDbType.NVarChar, 250).Value = IIf(NoteStart Is Nothing, "", NoteStart)
+            SQLcmd.Parameters.Add("@MM_NOTE_END", SqlDbType.NVarChar, 250).Value = IIf(NoteEnd Is Nothing, "", NoteEnd)
+            SQLcmd.Parameters.Add("@MM_GENERAL_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_GENERAL_END), 0, MM_GENERAL_END)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_ALLOWABLE_END), 0, MM_SPECIFIC_ALLOWABLE_END)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_END), 0, MM_SPECIFIC_NONALLOWABLE_END)
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+
+
+            ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
+            Application.DoEvents()
+            tmpID = ReturnID
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            ListofCmd = New List(Of SqlCommand)
+            If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count > 0 Then
+                For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_ADDBACK,MM_SPECIFIC_ALLOWABLE_ADDBACK,MM_SPECIFIC_NONALLOWABLE_ADDBACK,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_ADDBACK,@MM_SPECIFIC_ALLOWABLE_ADDBACK,@MM_SPECIFIC_NONALLOWABLE_ADDBACK,@MM_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = tmpID
+                    SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Description")), "", ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Description"))
+                    SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Amount"))
+                    SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
+                    SQLcmd.Parameters.Add("@MM_GENERAL", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_GENERAL_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL_ADDBACK"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK"))
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE"))
+
+
+                    ListofCmd.Add(SQLcmd)
+                Next
+            End If
+            If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count > 0 Then
+                For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_DEDUCT,MM_SPECIFIC_ALLOWABLE_DEDUCT,MM_SPECIFIC_NONALLOWABLE_DEDUCT,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_DEDUCT,@MM_SPECIFIC_ALLOWABLE_DEDUCT,@MM_SPECIFIC_NONALLOWABLE_DEDUCT,@MM_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = tmpID
+                    SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Description")), "", ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Description"))
+                    SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Amount"))
+                    SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
+                    SQLcmd.Parameters.Add("@MM_GENERAL", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_GENERAL_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL_DEDUCT"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT"))
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE"))
+
+                    ListofCmd.Add(SQLcmd)
+                Next
+            End If
+
+            If ListofCmd.Count > 0 Then
+                Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            Else
+                Return True
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Save_MovementNormal(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
                                         ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
                                         ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
@@ -12187,6 +12477,127 @@ tryagain:
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
                     SQLcmd.Parameters.Add("@MM_Deduct", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Deduct")), False, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Deduct"))
+
+                    ListofCmd.Add(SQLcmd)
+                Next
+            End If
+
+            If ListofCmd.Count > 0 Then
+                Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            Else
+                Return True
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+    Public Function Update_MovementComplex(ByVal ID As Integer, ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
+                                   ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
+                                   ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
+                                   ByVal MM_GENERAL_START As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_START As Decimal, _
+                                   ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
+                                   ByVal NoteStart As String, ByVal NoteEnd As String, _
+                                   ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, _
+                                   ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofCmd As List(Of SqlCommand)
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            ListofCmd = New List(Of SqlCommand)
+
+            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime WHERE MM_ID=@MM_ID"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
+            SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
+            SQLcmd.Parameters.Add("@MM_PERIOD_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(PeriodEnd), Now, PeriodEnd)
+            SQLcmd.Parameters.Add("@MM_YEAR_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(YearEnded), Now, YearEnded)
+            SQLcmd.Parameters.Add("@MM_BALANCE_START", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceStart), Now, BalanceStart)
+            SQLcmd.Parameters.Add("@MM_BALANCE_END", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceEnd), Now, BalanceEnd)
+            SQLcmd.Parameters.Add("@MM_GENERAL_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_GENERAL_START) = False, 0, MM_GENERAL_START)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_ALLOWABLE_START) = False, 0, MM_SPECIFIC_ALLOWABLE_START)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_START) = False, 0, MM_SPECIFIC_NONALLOWABLE_START)
+            SQLcmd.Parameters.Add("@MM_NOTE_START", SqlDbType.NVarChar, 250).Value = IIf(NoteStart Is Nothing, "", NoteStart)
+            SQLcmd.Parameters.Add("@MM_NOTE_END", SqlDbType.NVarChar, 250).Value = IIf(NoteEnd Is Nothing, "", NoteEnd)
+            SQLcmd.Parameters.Add("@MM_GENERAL_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_GENERAL_END), 0, MM_GENERAL_END)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_ALLOWABLE_END), 0, MM_SPECIFIC_ALLOWABLE_END)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_END), 0, MM_SPECIFIC_NONALLOWABLE_END)
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            ListofCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM MOVEMENT_COMPLEX_ADD WHERE MM_PARENTID=@MM_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = ID
+            ListofCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM MOVEMENT_COMPLEX_DEDUCT WHERE MM_PARENTID=@MM_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = ID
+            ListofCmd.Add(SQLcmd)
+
+            If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count > 0 Then
+                For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_ADDBACK,MM_SPECIFIC_ALLOWABLE_ADDBACK,MM_SPECIFIC_NONALLOWABLE_ADDBACK,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_ADDBACK,@MM_SPECIFIC_ALLOWABLE_ADDBACK,@MM_SPECIFIC_NONALLOWABLE_ADDBACK,@MM_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = ID
+                    SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Description")), "", ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Description"))
+                    SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_Amount"))
+                    SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
+                    SQLcmd.Parameters.Add("@MM_GENERAL", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_GENERAL_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL_ADDBACK"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK"))
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE"))
+
+
+                    ListofCmd.Add(SQLcmd)
+                Next
+            End If
+            If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count > 0 Then
+                For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_DEDUCT,MM_SPECIFIC_ALLOWABLE_DEDUCT,MM_SPECIFIC_NONALLOWABLE_DEDUCT,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_DEDUCT,@MM_SPECIFIC_ALLOWABLE_DEDUCT,@MM_SPECIFIC_NONALLOWABLE_DEDUCT,@MM_NOTE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = ID
+                    SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Description")), "", ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Description"))
+                    SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_Amount"))
+                    SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
+                    SQLcmd.Parameters.Add("@MM_GENERAL", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE"))
+                    SQLcmd.Parameters.Add("@MM_GENERAL_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL_DEDUCT"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT"))
+                    SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT"))
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE"))
 
                     ListofCmd.Add(SQLcmd)
                 Next
@@ -12938,6 +13349,54 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function Delete_MovementComplex(ByVal MM_ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofCmd As List(Of SqlCommand)
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+            ListofCmd = New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM MOVEMENT_COMPLEX WHERE MM_ID=@MM_ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = MM_ID
+
+            ListofCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM MOVEMENT_COMPLEX_ADD WHERE MM_PARENTID=@MM_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_ID
+            ListofCmd.Add(SQLcmd)
+
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM MOVEMENT_COMPLEX_DEDUCT WHERE MM_PARENTID=@MM_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_ID
+            ListofCmd.Add(SQLcmd)
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Delete_MovementNormal(ByVal MM_ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()

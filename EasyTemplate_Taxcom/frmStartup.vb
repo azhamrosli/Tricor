@@ -50,6 +50,8 @@ Partial Public Class frmStartup
                     frmPNL.Show()
                 Case "frmmovement"
                     frmMovement.Show()
+                Case "frmmovementcomplex"
+                    frmMovementComplex.Show()
                 Case Else
                     MsgBox("Unable to find form name " & mdlProcess.ArgParam0)
                     Me.Close()
