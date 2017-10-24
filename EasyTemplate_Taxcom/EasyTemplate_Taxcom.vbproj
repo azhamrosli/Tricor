@@ -176,6 +176,12 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="CA\mdlCA.vb" />
+    <Compile Include="CP204\frmCP204_PenaltyLate.Designer.vb">
+      <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CP204\frmCP204_PenaltyLate.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dataset\dsCA.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -191,6 +197,12 @@
     </Compile>
     <Compile Include="Dataset\dsReport.vb">
       <DependentUpon>dsReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DeemedInterest\frmDeemedInterest.Designer.vb">
+      <DependentUpon>frmDeemedInterest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="DeemedInterest\frmDeemedInterest.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="EnumModule.vb" />
     <Compile Include="CA\frmCA.Designer.vb">
@@ -701,6 +713,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CP204\frmCP204_PenaltyLate.resx">
+      <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeemedInterest\frmDeemedInterest.resx">
+      <DependentUpon>frmDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Movement\frmMovement.resx">
       <DependentUpon>frmMovement.vb</DependentUpon>

@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmMovementComplex" 'Form Name
+    Public ArgParam0 As String = "frmCP204_PenaltyLate" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1225723109" 'RefNo
     Public ArgParam3 As String = "2016" 'YA
@@ -5869,6 +5869,73 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function CheckExist_DeemedInterest(ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM DEEMED_INTEREST_RATE WHERE YA=@YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function LoadDeemedInterest_Rate(ByVal YA As Integer, Optional ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM DEEMED_INTEREST_RATE WHERE YA=@YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_MovementComplex(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -6043,7 +6110,6 @@ tryagain:
             Return False
         End Try
     End Function
-
     Public Function Load_MovementNormal_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -6649,7 +6715,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function LoadSourceNo(ByVal RefNo As String, ByVal YA As String, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -11535,6 +11600,51 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function Save_DeemedInterest_Rate(ByVal YA As Integer, _
+                                             ByVal Jan As Decimal, ByVal Feb As Decimal, ByVal Mac As Decimal, ByVal Apr As Decimal, _
+                                             ByVal May As Decimal, ByVal Jun As Decimal, ByVal Jul As Decimal, ByVal Aug As Decimal, _
+                                             ByVal Sep As Decimal, ByVal Oct As Decimal, ByVal Nov As Decimal, ByVal Dec As Decimal, _
+                                             Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO DEEMED_INTEREST_RATE (YA,Jan,Feb,Mac,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec) VALUES (@YA,@Jan,@Feb,@Mac,@Apr,@May,@Jun,@Jul,@Aug,@Sep,@Oct,@Nov,@Dec)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+            SQLcmd.Parameters.Add("@Jan", SqlDbType.Decimal).Value = Jan
+            SQLcmd.Parameters.Add("@Feb", SqlDbType.Decimal).Value = Feb
+            SQLcmd.Parameters.Add("@Mac", SqlDbType.Decimal).Value = Mac
+            SQLcmd.Parameters.Add("@Apr", SqlDbType.Decimal).Value = Apr
+            SQLcmd.Parameters.Add("@May", SqlDbType.Decimal).Value = May
+            SQLcmd.Parameters.Add("@Jun", SqlDbType.Decimal).Value = Jun
+            SQLcmd.Parameters.Add("@Jul", SqlDbType.Decimal).Value = Jul
+            SQLcmd.Parameters.Add("@Aug", SqlDbType.Decimal).Value = Aug
+            SQLcmd.Parameters.Add("@Sep", SqlDbType.Decimal).Value = Sep
+            SQLcmd.Parameters.Add("@Oct", SqlDbType.Decimal).Value = Oct
+            SQLcmd.Parameters.Add("@Nov", SqlDbType.Decimal).Value = Nov
+            SQLcmd.Parameters.Add("@Dec", SqlDbType.Decimal).Value = Dec
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Save_REPORT1_AI_DETAIL(ByVal R_KEY As Integer, ByVal RD_HEARDERNO As Integer, ByVal R_RKEY As String, _
                                   ByVal RD_SOURCENO As Integer, ByVal RD_RDKEY As Integer, ByVal RD_DESC As String, _
                                   ByVal RD_AMOUNT As String, ByVal RD_NOTE As String, _
@@ -11742,7 +11852,6 @@ tryagain:
             Return False
         End Try
     End Function
-
 #End Region
 #Region "MOVEMENT"
     Public Function Save_MovementComplex(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
@@ -12393,7 +12502,51 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function Update_DeemedInterest_Rate(ByVal YA As Integer, _
+                                            ByVal Jan As Decimal, ByVal Feb As Decimal, ByVal Mac As Decimal, ByVal Apr As Decimal, _
+                                            ByVal May As Decimal, ByVal Jun As Decimal, ByVal Jul As Decimal, ByVal Aug As Decimal, _
+                                            ByVal Sep As Decimal, ByVal Oct As Decimal, ByVal Nov As Decimal, ByVal Dec As Decimal, _
+                                            Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "UPDATE DEEMED_INTEREST_RATE SET Jan=@Jan,Feb=@Feb,Mac=@Mac,Apr=@Apr,May=@May,Jun=@Jun,Jul=@Jul,Aug=@Aug,Sep=@Sep,Oct=@Oct,Nov=@Nov,Dec=@Dec WHERE YA=@YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+            SQLcmd.Parameters.Add("@Jan", SqlDbType.Decimal).Value = Jan
+            SQLcmd.Parameters.Add("@Feb", SqlDbType.Decimal).Value = Feb
+            SQLcmd.Parameters.Add("@Mac", SqlDbType.Decimal).Value = Mac
+            SQLcmd.Parameters.Add("@Apr", SqlDbType.Decimal).Value = Apr
+            SQLcmd.Parameters.Add("@May", SqlDbType.Decimal).Value = May
+            SQLcmd.Parameters.Add("@Jun", SqlDbType.Decimal).Value = Jun
+            SQLcmd.Parameters.Add("@Jul", SqlDbType.Decimal).Value = Jul
+            SQLcmd.Parameters.Add("@Aug", SqlDbType.Decimal).Value = Aug
+            SQLcmd.Parameters.Add("@Sep", SqlDbType.Decimal).Value = Sep
+            SQLcmd.Parameters.Add("@Oct", SqlDbType.Decimal).Value = Oct
+            SQLcmd.Parameters.Add("@Nov", SqlDbType.Decimal).Value = Nov
+            SQLcmd.Parameters.Add("@Dec", SqlDbType.Decimal).Value = Dec
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
 #End Region
 #Region "MOVEMENT"
     Public Function Update_MovementNormal(ByVal ID As Integer, ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
