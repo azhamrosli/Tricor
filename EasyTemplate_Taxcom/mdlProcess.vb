@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmCP204_PenaltyLate" 'Form Name
+    Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1225723109" 'RefNo
     Public ArgParam3 As String = "2016" 'YA

@@ -966,6 +966,157 @@ Module mdlPNL2
             Return False
         End Try
     End Function
+
+
+
+    Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef ds2 As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Select Case Type
+                Case TaxComPNLEnuItem.SALES
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1Sales.MainTable, ucPNL_p1Sales.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.OPENSTOCK
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1OpeningStock.MainTable, ucPNL_p1OpeningStock.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.PURCHASE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1Purchase.MainTable, ucPNL_p1Purchase.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.DEPRECIATION
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1Depreciation.MainTable, ucPNL_p1Depreciation.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.OTHERALLOWEXP
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1AllowanceExpenses.MainTable, ucPNL_p1AllowanceExpenses.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1NonAllowableExpenses.MainTable, ucPNL_p1NonAllowableExpenses.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.CLOSESTOCK
+                    CalcTotalofView(txtAmount, ds, ucPNL_p1CloseStock.MainTable, ucPNL_p1CloseStock.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.OTHERBUSINC
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2OtherBizIncome.MainTable, ucPNL_p2OtherBizIncome.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.REALFETRADE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2ForeignCurrExGain.MainTable, ucPNL_p2ForeignCurrExGain.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.DIVIDENDINC
+
+                    If P2_docDivIncome IsNot Nothing AndAlso P2_docDivIncome.Controls.Count > 0 Then
+                        Dim contrl As Control
+                        contrl = P2_docDivIncome.Controls(0)
+
+                        If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2DivIncome = False Then
+                            Return False
+                        End If
+                        Dim uc As ucPNL_p2DivIncome = CType(contrl, ucPNL_p2DivIncome)
+
+                        If uc.GetDiscloseNet Then
+                            CalcTotalofView(txtAmount, ds2, ucPNL_p2DivIncome.MainTable, ucPNL_p2DivIncome.MainAmount_DI_NET, 0, Errorlog)
+                        Else
+                            CalcTotalofView(txtAmount, ds2, ucPNL_p2DivIncome.MainTable, ucPNL_p2DivIncome.MainAmount_DI_GROSS, 0, Errorlog)
+                        End If
+
+                    End If
+
+                Case TaxComPNLEnuItem.INTERESTINC
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2InterestIncome.MainTable, ucPNL_p2InterestIncome.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.RENTALINC
+                    CalcTotalofViewRental(txtAmount, ds, ucPNL_p2RentalIncome.MainTable, ucPNL_p2RentalIncome.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.ROYALTYINC
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2RoyaltyIncome.MainTable, ucPNL_p2RoyaltyIncome.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.OTHERINC
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2OtherIncome.MainTable, ucPNL_p2OtherIncome.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.PDFIXASSET
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2ProDispPlantEq.MainTable, ucPNL_p2ProDispPlantEq.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.PDINVEST
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2ProDisInvestment.MainTable, ucPNL_p2ProDisInvestment.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXEMDIV
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2ExemptDividend.MainTable, ucPNL_p2ExemptDividend.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.FORINCREMIT
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2ForeIncomeRemmit.MainTable, ucPNL_p2ForeIncomeRemmit.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.REALFE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2UnreaGainForeEx.MainTable, ucPNL_p2UnreaGainForeEx.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2ReaForeExGainNonTrade.MainTable, ucPNL_p2ReaForeExGainNonTrade.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.UNREALFETRADE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2UnreaGainForeExNon.MainTable, ucPNL_p2UnreaGainForeExNon.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2Other.MainTable, ucPNL_p2Other.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.INTERESTRESTRICT
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3InterestResPurS33.MainTable, ucPNL_p3InterestResPurS33.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3OtherInterestExHirePur.MainTable, ucPNL_p3OtherInterestExHirePur.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPLEGAL
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3ProTechManLeganFees.MainTable, ucPNL_p3ProTechManLeganFees.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPTECHNICAL
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3TechPayNonResis.MainTable, ucPNL_p3TechPayNonResis.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3ContractPay.MainTable, ucPNL_p3ContractPay.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3DirectorFee.MainTable, ucPNL_p3DirectorFee.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPSALARY
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3Salary.MainTable, ucPNL_p3Salary.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3COEStock.MainTable, ucPNL_p3COEStock.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPROYALTY
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3Royalty.MainTable, ucPNL_p3Royalty.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPRENTAL
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3Rental.MainTable, ucPNL_p3Rental.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3RepairMain.MainTable, ucPNL_p3RepairMain.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPRND
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3ResearchDev.MainTable, ucPNL_p3ResearchDev.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3PromotionAds.MainTable, ucPNL_p3PromotionAds.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPTRAVEL
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3Travelling.MainTable, ucPNL_p3Travelling.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPJKDM
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3JKDM.MainTable, ucPNL_p3JKDM.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPDEPRECIATION
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3Depreciation.MainTable, ucPNL_p3Depreciation.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3DonationApp.MainTable, ucPNL_p3DonationApp.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3DonationNonApp.MainTable, ucPNL_p3DonationNonApp.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPZAKAT
+                    CalcTotalofView(txtAmount, ds, ucPNL_p3Zakat.MainTable, ucPNL_p3Zakat.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4LossDispFA.MainTable, ucPNL_p4LossDispFA.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4EntNonStaff.MainTable, ucPNL_p4EntNonStaff.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4EntStaff.MainTable, ucPNL_p4EntStaff.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4Compound.MainTable, ucPNL_p4Compound.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPPROVISION
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4ProvisionAcc.MainTable, ucPNL_p4ProvisionAcc.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4LeavePass.MainTable, ucPNL_p4LeavePass.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4FAWrittenOff.MainTable, ucPNL_p4FAWrittenOff.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4UnreaLossForeEx.MainTable, ucPNL_p4UnreaLossForeEx.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4ReaLossForeExTrade.MainTable, ucPNL_p4ReaLossForeExTrade.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4ReaLossForeExNonTrade.MainTable, ucPNL_p4ReaLossForeExNonTrade.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4InitSub.MainTable, ucPNL_p4InitSub.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4CAExpenditure.MainTable, ucPNL_p4CAExpenditure.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4CAExpenditure.MainTable, ucPNL_p4Other.MainAmount, 0, Errorlog)
+            End Select
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return True
+        End Try
+    End Function
+
+
+
+
     Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                 ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Dim strError As String = Nothing

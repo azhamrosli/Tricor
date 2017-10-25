@@ -818,3 +818,4 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmMovementComplex.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmMovementComplex_Add.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmDeemedInterest.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCP204_PenaltyLate.resources

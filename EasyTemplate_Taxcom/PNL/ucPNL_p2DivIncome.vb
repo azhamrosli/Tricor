@@ -25,6 +25,14 @@ Public Class ucPNL_p2DivIncome
     Public Sub New()
         InitializeComponent()
     End Sub
+    Public Property GetDiscloseNet() As Boolean
+        Get
+            Return chkDiscloseNet.EditValue
+        End Get
+        Set(ByVal value As Boolean)
+
+        End Set
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return MainViews

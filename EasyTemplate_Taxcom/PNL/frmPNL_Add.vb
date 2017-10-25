@@ -305,72 +305,72 @@ Public Class frmPNL_Add
 
                 '==================================================================================================
 
-                txt_p1Sales.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_SALES")), 0, dtPNL.Rows(0)("PL_SALES"))
-                txt_p1OpenStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OP_STK")), 0, dtPNL.Rows(0)("PL_OP_STK"))
-                txt_p1Purchase.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES")), 0, dtPNL.Rows(0)("PL_PURCHASES"))
-                txt_p1COP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST")), 0, dtPNL.Rows(0)("PL_PRO_COST")) '///
-                txt_p1Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_DPC")), 0, dtPNL.Rows(0)("PL_PRO_COST_DPC"))
-                txt_p1AllowanceExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_OAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_OAE"))
-                txt_p1NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_ONAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_ONAE"))
-                txt_p1PCP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")), 0, dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")) '///
-                txt_p1CloseStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CLS_STK")), 0, dtPNL.Rows(0)("PL_CLS_STK"))
-                txt_p1COS.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_COGS")), 0, dtPNL.Rows(0)("PL_COGS"))
-                txt_p1GrossProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_GROSS_PROFIT")), 0, dtPNL.Rows(0)("PL_GROSS_PROFIT"))
-                txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN")), 0, dtPNL.Rows(0)("PL_OTH_BSIN"))
-                txt_p2UnreaGainForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT"))
-                txt_p2ForeignCurrExGain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_REALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_REALGT"))
-                txt_p2NonBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN")), 0, dtPNL.Rows(0)("PL_OTH_IN"))
-                txt_p2DivIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND")), 0, dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND"))
-                txt_p2InterestIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_INTEREST")), 0, dtPNL.Rows(0)("PL_OTH_IN_INTEREST"))
-                txt_p2RentalIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_RENTAL")), 0, dtPNL.Rows(0)("PL_OTH_IN_RENTAL"))
-                txt_p2RoyaltyIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_ROYALTY")), 0, dtPNL.Rows(0)("PL_OTH_IN_ROYALTY"))
-                txt_p2OtherIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_OTHER")), 0, dtPNL.Rows(0)("PL_OTH_IN_OTHER"))
-                txt_p2NonTaxProfit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN")), 0, dtPNL.Rows(0)("PL_NONTAX_IN"))
-                txt_p2ProDispPlantEq.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP"))
-                txt_p2ProDisInvestment.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP"))
-                txt_p2ExemptDividend.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV"))
-                txt_p2ForeIncomeRemmit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FIR")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FIR"))
-                txt_p2ReaForeExGainNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_REALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_REALG"))
-                txt_p2UnreaGainForeExNon.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG"))
-                txt_p2Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP"))
-                txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INT")), 0, dtPNL.Rows(0)("PL_EXP_INT")) '///
-                txt_p3ProTechManLeganFees.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_LAWYER_COST")), 0, dtPNL.Rows(0)("PL_LAWYER_COST"))
-                txt_p3ContractPay.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CONTRACT_EXP")), 0, dtPNL.Rows(0)("PL_CONTRACT_EXP"))
-                txt_p3Salary.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_SALARY")), 0, dtPNL.Rows(0)("PL_EXP_SALARY"))
-                txt_p3Royalty.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ROYALTY")), 0, dtPNL.Rows(0)("PL_ROYALTY"))
-                txt_p3Rental.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_RENT")), 0, dtPNL.Rows(0)("PL_EXP_RENT"))
-                txt_p3RepairMain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_MAINTENANCE")), 0, dtPNL.Rows(0)("PL_EXP_MAINTENANCE"))
-                txt_p3ResearchDev.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_RND")), 0, dtPNL.Rows(0)("PL_RND"))
-                txt_p3PromotionAds.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ADVERT")), 0, dtPNL.Rows(0)("PL_ADVERT"))
-                txt_p3Travelling.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TRAVEL")), 0, dtPNL.Rows(0)("PL_TRAVEL"))
-                txt_p4TotalOtherExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP"))
-                txt_p3Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DPC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DPC"))
-                txt_p3DonationApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP"))
-                txt_p3DonationNonApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP"))
-                txt_p4LossDispFA.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP"))
-                txt_p4EntNonStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT"))
-                txt_p4EntStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF"))
-                txt_p4Compound.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY"))
-                txt_p4ProvisionAcc.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC"))
-                txt_p4LeavePass.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE"))
-                txt_p4FAWrittenOff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO"))
-                txt_p4UnreaLossForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS"))
-                txt_p4ReaLossForeExTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS"))
-                txt_p4InitSub.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB"))
-                txt_p4CAExpenditure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP"))
-                txt_p4Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS"))
-                txt_p4TotalExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
-                txt_p4NetProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NET_PROFIT_LOSS")), 0, dtPNL.Rows(0)("PL_NET_PROFIT_LOSS"))
-                'txt_p4NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DISALLOWED_EXP")), 0, dtPNL.Rows(0)("PL_DISALLOWED_EXP"))
-                txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INTRESTRICT")), 0, dtPNL.Rows(0)("PL_EXP_INTRESTRICT")) '///
-                txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE"))
-                txt_p3Zakat.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT"))
-                txt_p3TechPayNonResis.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TECH_FEE")), 0, dtPNL.Rows(0)("PL_TECH_FEE"))
-                txt_p3COEStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EMPL_STOCK")), 0, dtPNL.Rows(0)("PL_EMPL_STOCK"))
-                txt_p4OtherBalacingFigure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE"))
-                txt_p4ReaLossForeExNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT"))
-                txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
-                txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
+                'txt_p1Sales.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_SALES")), 0, dtPNL.Rows(0)("PL_SALES"))
+                'txt_p1OpenStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OP_STK")), 0, dtPNL.Rows(0)("PL_OP_STK"))
+                'txt_p1Purchase.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES")), 0, dtPNL.Rows(0)("PL_PURCHASES"))
+                'txt_p1COP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST")), 0, dtPNL.Rows(0)("PL_PRO_COST")) '///
+                'txt_p1Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_DPC")), 0, dtPNL.Rows(0)("PL_PRO_COST_DPC"))
+                'txt_p1AllowanceExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_OAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_OAE"))
+                'txt_p1NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_ONAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_ONAE"))
+                'txt_p1PCP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")), 0, dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")) '///
+                'txt_p1CloseStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CLS_STK")), 0, dtPNL.Rows(0)("PL_CLS_STK"))
+                'txt_p1COS.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_COGS")), 0, dtPNL.Rows(0)("PL_COGS"))
+                'txt_p1GrossProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_GROSS_PROFIT")), 0, dtPNL.Rows(0)("PL_GROSS_PROFIT"))
+                'txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN")), 0, dtPNL.Rows(0)("PL_OTH_BSIN"))
+                'txt_p2UnreaGainForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT"))
+                'txt_p2ForeignCurrExGain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_REALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_REALGT"))
+                'txt_p2NonBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN")), 0, dtPNL.Rows(0)("PL_OTH_IN"))
+                'txt_p2DivIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND")), 0, dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND"))
+                'txt_p2InterestIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_INTEREST")), 0, dtPNL.Rows(0)("PL_OTH_IN_INTEREST"))
+                'txt_p2RentalIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_RENTAL")), 0, dtPNL.Rows(0)("PL_OTH_IN_RENTAL"))
+                'txt_p2RoyaltyIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_ROYALTY")), 0, dtPNL.Rows(0)("PL_OTH_IN_ROYALTY"))
+                'txt_p2OtherIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_OTHER")), 0, dtPNL.Rows(0)("PL_OTH_IN_OTHER"))
+                'txt_p2NonTaxProfit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN")), 0, dtPNL.Rows(0)("PL_NONTAX_IN"))
+                'txt_p2ProDispPlantEq.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP"))
+                'txt_p2ProDisInvestment.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP"))
+                'txt_p2ExemptDividend.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV"))
+                'txt_p2ForeIncomeRemmit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FIR")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FIR"))
+                'txt_p2ReaForeExGainNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_REALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_REALG"))
+                'txt_p2UnreaGainForeExNon.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG"))
+                'txt_p2Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP"))
+                'txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INT")), 0, dtPNL.Rows(0)("PL_EXP_INT")) '///
+                'txt_p3ProTechManLeganFees.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_LAWYER_COST")), 0, dtPNL.Rows(0)("PL_LAWYER_COST"))
+                'txt_p3ContractPay.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CONTRACT_EXP")), 0, dtPNL.Rows(0)("PL_CONTRACT_EXP"))
+                'txt_p3Salary.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_SALARY")), 0, dtPNL.Rows(0)("PL_EXP_SALARY"))
+                'txt_p3Royalty.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ROYALTY")), 0, dtPNL.Rows(0)("PL_ROYALTY"))
+                'txt_p3Rental.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_RENT")), 0, dtPNL.Rows(0)("PL_EXP_RENT"))
+                'txt_p3RepairMain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_MAINTENANCE")), 0, dtPNL.Rows(0)("PL_EXP_MAINTENANCE"))
+                'txt_p3ResearchDev.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_RND")), 0, dtPNL.Rows(0)("PL_RND"))
+                'txt_p3PromotionAds.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ADVERT")), 0, dtPNL.Rows(0)("PL_ADVERT"))
+                'txt_p3Travelling.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TRAVEL")), 0, dtPNL.Rows(0)("PL_TRAVEL"))
+                'txt_p4TotalOtherExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP"))
+                'txt_p3Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DPC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DPC"))
+                'txt_p3DonationApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP"))
+                'txt_p3DonationNonApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP"))
+                'txt_p4LossDispFA.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP"))
+                'txt_p4EntNonStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT"))
+                'txt_p4EntStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF"))
+                'txt_p4Compound.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY"))
+                'txt_p4ProvisionAcc.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC"))
+                'txt_p4LeavePass.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE"))
+                'txt_p4FAWrittenOff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO"))
+                'txt_p4UnreaLossForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS"))
+                'txt_p4ReaLossForeExTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS"))
+                'txt_p4InitSub.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB"))
+                'txt_p4CAExpenditure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP"))
+                'txt_p4Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS"))
+                'txt_p4TotalExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
+                'txt_p4NetProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NET_PROFIT_LOSS")), 0, dtPNL.Rows(0)("PL_NET_PROFIT_LOSS"))
+                ''txt_p4NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DISALLOWED_EXP")), 0, dtPNL.Rows(0)("PL_DISALLOWED_EXP"))
+                'txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INTRESTRICT")), 0, dtPNL.Rows(0)("PL_EXP_INTRESTRICT")) '///
+                'txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE"))
+                'txt_p3Zakat.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT"))
+                'txt_p3TechPayNonResis.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TECH_FEE")), 0, dtPNL.Rows(0)("PL_TECH_FEE"))
+                'txt_p3COEStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EMPL_STOCK")), 0, dtPNL.Rows(0)("PL_EMPL_STOCK"))
+                'txt_p4OtherBalacingFigure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE"))
+                'txt_p4ReaLossForeExNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT"))
+                'txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
+                'txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
 
                 CurrentProgress += 5
                 Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
@@ -394,6 +394,18 @@ Public Class frmPNL_Add
                 InitDockingSystem(CurrentProgress)
                 Application.DoEvents()
 
+                If listofclsPNLLabel IsNot Nothing Then
+                    Dim txtamount As DevExpress.XtraEditors.TextEdit
+                    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
+                        GetTxtAmount(tmp.Type, txtamount)
+                        mdlPNL2.PNL_ReCalcAll_Amount(tmp.Type, dsDataSet, dsDataSet2, txtamount, ErrorLog)
+                        'CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                    Next
+                End If
+
+
+
+
                 txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, ErrorLog)
 
             End If
@@ -414,120 +426,8 @@ Public Class frmPNL_Add
         Try
             Dim doc As New DevExpress.XtraBars.Docking.DockPanel
             Dim txtamount As DevExpress.XtraEditors.TextEdit
-            Select Case Type
-                Case TaxComPNLEnuItem.SALES
-                    txtamount = txt_p1Sales
-                Case TaxComPNLEnuItem.OPENSTOCK
-                    txtamount = txt_p1OpenStock
-                Case TaxComPNLEnuItem.PURCHASE
-                    txtamount = txt_p1Purchase
-                Case TaxComPNLEnuItem.DEPRECIATION
-                    txtamount = txt_p1Depreciation
-                Case TaxComPNLEnuItem.OTHERALLOWEXP
-                    txtamount = txt_p1AllowanceExpenses
-                Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                    txtamount = txt_p1NonAllowableExpenses
-                Case TaxComPNLEnuItem.CLOSESTOCK
-                    txtamount = txt_p1CloseStock
-                Case TaxComPNLEnuItem.OTHERBUSINC
-                    txtamount = txt_p2OtherBizIncome
-                Case TaxComPNLEnuItem.REALFETRADE
-                    txtamount = txt_p2ForeignCurrExGain
-                Case TaxComPNLEnuItem.INTERESTINC
-                    txtamount = txt_p2InterestIncome
-                Case TaxComPNLEnuItem.ROYALTYINC
-                    txtamount = txt_p2RoyaltyIncome
-                Case TaxComPNLEnuItem.OTHERINC
-                    txtamount = txt_p2OtherIncome
-                Case TaxComPNLEnuItem.PDFIXASSET
-                    txtamount = txt_p2ProDispPlantEq
-                Case TaxComPNLEnuItem.PDINVEST
-                    txtamount = txt_p2ProDisInvestment
-                Case TaxComPNLEnuItem.FORINCREMIT
-                    txtamount = txt_p2ForeIncomeRemmit
-                Case TaxComPNLEnuItem.REALFE
-                    txtamount = txt_p2ReaForeExGainNonTrade
-                Case TaxComPNLEnuItem.UNREALFETRADE
-                    txtamount = txt_p2UnreaGainForeEx
-                Case TaxComPNLEnuItem.UNREALFENONTRADE
-                    txtamount = txt_p2UnreaGainForeExNon
-                Case TaxComPNLEnuItem.EXPOTHERINTEREST
-                    txtamount = txt_p3OtherInterestExHirePur
-                Case TaxComPNLEnuItem.EXPLEGAL
-                    txtamount = txt_p3ProTechManLeganFees
-                Case TaxComPNLEnuItem.EXPTECHNICAL
-                    txtamount = txt_p3TechPayNonResis
-                Case TaxComPNLEnuItem.EXPCONTRACTPAY
-                    txtamount = txt_p3ContractPay
-                Case TaxComPNLEnuItem.EXPDIRECTORFEE
-                    txtamount = txt_p3DirectorFee
-                Case TaxComPNLEnuItem.EXPSALARY
-                    txtamount = txt_p3Salary
-                Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-                    txtamount = txt_p3COEStock
-                Case TaxComPNLEnuItem.EXPROYALTY
-                    txtamount = txt_p3Royalty
-                Case TaxComPNLEnuItem.EXPRENTAL
-                    txtamount = txt_p3Rental
-                Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-                    txtamount = txt_p3RepairMain
-                Case TaxComPNLEnuItem.EXPRND
-                    txtamount = txt_p3ResearchDev
-                Case TaxComPNLEnuItem.EXPADVERTISEMENT
-                    txtamount = txt_p3PromotionAds
-                Case TaxComPNLEnuItem.EXPTRAVEL
-                    txtamount = txt_p3Travelling
-                Case TaxComPNLEnuItem.EXPJKDM
-                    txtamount = txt_p3JKDM
-                Case TaxComPNLEnuItem.EXPDEPRECIATION
-                    txtamount = txt_p3Depreciation
-                Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                    txtamount = txt_p3DonationApp
-                Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                    txtamount = txt_p3DonationApp
-                Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
-                    txtamount = txt_p3DonationNonApp
-                Case TaxComPNLEnuItem.EXPZAKAT
-                    txtamount = txt_p3Zakat
-                Case TaxComPNLEnuItem.EXPLOSSDISPFA
-                    txtamount = txt_p4LossDispFA
-                Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-                    txtamount = txt_p4EntNonStaff
-                Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-                    txtamount = txt_p4EntStaff
-                Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-                    txtamount = txt_p4Compound
-                Case TaxComPNLEnuItem.EXPPROVISION
-                    txtamount = txt_p4ProvisionAcc
-                Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-                    txtamount = txt_p4LeavePass
-                Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-                    txtamount = txt_p4FAWrittenOff
-                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                    txtamount = txt_p4UnreaLossForeEx
-                Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-                    txtamount = txt_p4ReaLossForeExTrade
-                Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-                    txtamount = txt_p4ReaLossForeExNonTrade
-                Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-                    txtamount = txt_p4InitSub
-                Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-                    txtamount = txt_p4CAExpenditure
-                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                    txtamount = txt_p4Other
-                Case TaxComPNLEnuItem.RENTALINC
-                    txtamount = txt_p2InterestIncome
-                Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
-                    txtamount = txt_p4NonAllowableExpenses
-                Case TaxComPNLEnuItem.OTHERNONTAXINC
-                    txtamount = txt_p2Other
-                Case TaxComPNLEnuItem.EXEMDIV
-                    txtamount = txt_p2ExemptDividend
-                Case TaxComPNLEnuItem.INTERESTRESTRICT
-                    txtamount = txt_p3InterestResPurS33
-                Case TaxComPNLEnuItem.DIVIDENDINC
-                    txtamount = txt_p2DivIncome
-            End Select
+
+            GetTxtAmount(Type, txtamount)
 
             If cboRefNo Is Nothing OrElse cboYA Is Nothing OrElse cboRefNo.EditValue.ToString = "" OrElse cboYA.EditValue.ToString = "" Then
                 MsgBox("Please select tax payer and ya first.", MsgBoxStyle.Exclamation)
@@ -543,7 +443,126 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
+    Private Function GetTxtAmount(ByVal type As TaxComPNLEnuItem, ByRef txtAmount As DevExpress.XtraEditors.TextEdit)
+        Try
+            Select Case type
+                Case TaxComPNLEnuItem.SALES
+                    txtAmount = txt_p1Sales
+                Case TaxComPNLEnuItem.OPENSTOCK
+                    txtAmount = txt_p1OpenStock
+                Case TaxComPNLEnuItem.PURCHASE
+                    txtAmount = txt_p1Purchase
+                Case TaxComPNLEnuItem.DEPRECIATION
+                    txtAmount = txt_p1Depreciation
+                Case TaxComPNLEnuItem.OTHERALLOWEXP
+                    txtAmount = txt_p1AllowanceExpenses
+                Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                    txtAmount = txt_p1NonAllowableExpenses
+                Case TaxComPNLEnuItem.CLOSESTOCK
+                    txtAmount = txt_p1CloseStock
+                Case TaxComPNLEnuItem.OTHERBUSINC
+                    txtAmount = txt_p2OtherBizIncome
+                Case TaxComPNLEnuItem.REALFETRADE
+                    txtAmount = txt_p2ForeignCurrExGain
+                Case TaxComPNLEnuItem.INTERESTINC
+                    txtAmount = txt_p2InterestIncome
+                Case TaxComPNLEnuItem.ROYALTYINC
+                    txtAmount = txt_p2RoyaltyIncome
+                Case TaxComPNLEnuItem.OTHERINC
+                    txtAmount = txt_p2OtherIncome
+                Case TaxComPNLEnuItem.PDFIXASSET
+                    txtAmount = txt_p2ProDispPlantEq
+                Case TaxComPNLEnuItem.PDINVEST
+                    txtAmount = txt_p2ProDisInvestment
+                Case TaxComPNLEnuItem.FORINCREMIT
+                    txtAmount = txt_p2ForeIncomeRemmit
+                Case TaxComPNLEnuItem.REALFE
+                    txtAmount = txt_p2ReaForeExGainNonTrade
+                Case TaxComPNLEnuItem.UNREALFETRADE
+                    txtAmount = txt_p2UnreaGainForeEx
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                    txtAmount = txt_p2UnreaGainForeExNon
+                Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                    txtAmount = txt_p3OtherInterestExHirePur
+                Case TaxComPNLEnuItem.EXPLEGAL
+                    txtAmount = txt_p3ProTechManLeganFees
+                Case TaxComPNLEnuItem.EXPTECHNICAL
+                    txtAmount = txt_p3TechPayNonResis
+                Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                    txtAmount = txt_p3ContractPay
+                Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                    txtAmount = txt_p3DirectorFee
+                Case TaxComPNLEnuItem.EXPSALARY
+                    txtAmount = txt_p3Salary
+                Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                    txtAmount = txt_p3COEStock
+                Case TaxComPNLEnuItem.EXPROYALTY
+                    txtAmount = txt_p3Royalty
+                Case TaxComPNLEnuItem.EXPRENTAL
+                    txtAmount = txt_p3Rental
+                Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                    txtAmount = txt_p3RepairMain
+                Case TaxComPNLEnuItem.EXPRND
+                    txtAmount = txt_p3ResearchDev
+                Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                    txtAmount = txt_p3PromotionAds
+                Case TaxComPNLEnuItem.EXPTRAVEL
+                    txtAmount = txt_p3Travelling
+                Case TaxComPNLEnuItem.EXPJKDM
+                    txtAmount = txt_p3JKDM
+                Case TaxComPNLEnuItem.EXPDEPRECIATION
+                    txtAmount = txt_p3Depreciation
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    txtAmount = txt_p3DonationApp
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    txtAmount = txt_p3DonationApp
+                Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
+                    txtAmount = txt_p3DonationNonApp
+                Case TaxComPNLEnuItem.EXPZAKAT
+                    txtAmount = txt_p3Zakat
+                Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                    txtAmount = txt_p4LossDispFA
+                Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                    txtAmount = txt_p4EntNonStaff
+                Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                    txtAmount = txt_p4EntStaff
+                Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                    txtAmount = txt_p4Compound
+                Case TaxComPNLEnuItem.EXPPROVISION
+                    txtAmount = txt_p4ProvisionAcc
+                Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                    txtAmount = txt_p4LeavePass
+                Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                    txtAmount = txt_p4FAWrittenOff
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                    txtAmount = txt_p4UnreaLossForeEx
+                Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                    txtAmount = txt_p4ReaLossForeExTrade
+                Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                    txtAmount = txt_p4ReaLossForeExNonTrade
+                Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                    txtAmount = txt_p4InitSub
+                Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                    txtAmount = txt_p4CAExpenditure
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    txtAmount = txt_p4Other
+                Case TaxComPNLEnuItem.RENTALINC
+                    txtAmount = txt_p2InterestIncome
+                Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
+                    txtAmount = txt_p4NonAllowableExpenses
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    txtAmount = txt_p2Other
+                Case TaxComPNLEnuItem.EXEMDIV
+                    txtAmount = txt_p2ExemptDividend
+                Case TaxComPNLEnuItem.INTERESTRESTRICT
+                    txtAmount = txt_p3InterestResPurS33
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    txtAmount = txt_p2DivIncome
+            End Select
+        Catch ex As Exception
+            txtAmount = txt_p2DivIncome
+        End Try
+    End Function
     Private Sub lblSales_DoubleClick(sender As Object, e As EventArgs) Handles lbl_p1Sales.DoubleClick, lbl_p1OpenStock.DoubleClick, lbl_p1Purchase.DoubleClick, lbl_p1Depreciation.DoubleClick, lbl_p1AllowanceExpenses.DoubleClick, lbl_p1NonAllowableExpenses.DoubleClick, lbl_p1CloseStock.DoubleClick, lbl_p2OtherBizIncome.DoubleClick, lbl_p2ForeignCurrExGain.DoubleClick, lbl_p2InterestIncome.DoubleClick, lbl_p2RoyaltyIncome.DoubleClick, lbl_p2OtherIncome.DoubleClick, lbl_p2ProDispPlantEq.DoubleClick, lbl_p2ProDisInvestment.DoubleClick, lbl_p2ForeIncomeRemmit.DoubleClick, lbl_p2ReaForeExGainNonTrade.DoubleClick, lbl_p2UnreaGainForeEx.DoubleClick, lbl_p2UnreaGainForeExNon.DoubleClick, lbl_p3OtherInterestExHirePur.DoubleClick, lbl_p3ProTechManLeganFees.DoubleClick, lbl_p3TechPayNonResis.DoubleClick, lbl_p3ContractPay.DoubleClick, lbl_p3DirectorFee.DoubleClick, lbl_p3Salary.DoubleClick, lbl_p3COEStock.DoubleClick, lbl_p3Royalty.DoubleClick, lbl_p3Rental.DoubleClick, lbl_p3RepairMain.DoubleClick, lbl_p3ResearchDev.DoubleClick, lbl_p3PromotionAds.DoubleClick, lbl_p3Travelling.DoubleClick, lbl_p3JKDM.DoubleClick, lbl_p3Depreciation.DoubleClick, lbl_p3DonationApp.DoubleClick, lbl_p3DonationNonApp.DoubleClick, lbl_p3Zakat.DoubleClick, lbl_p4LossDispFA.DoubleClick, lbl_p4EntNonStaff.DoubleClick, lbl_p4EntStaff.DoubleClick, lbl_p4Compound.DoubleClick, lbl_p4ProvisionAcc.DoubleClick, lbl_p4LeavePass.DoubleClick, lbl_p4FAWrittenOff.DoubleClick, lbl_p4UnreaLossForeEx.DoubleClick, lbl_p4ReaLossForeExTrade.DoubleClick, lbl_p4ReaLossForeExNonTrade.DoubleClick, lbl_p4InitSub.DoubleClick, lbl_p4CAExpenditure.DoubleClick, lbl_p4Other.DoubleClick, lbl_p2RentalIncome.DoubleClick, lblP4NonAllowableExpenses.DoubleClick, lbl_p2Other.DoubleClick, lbl_p2ExemptDividend.DoubleClick, lbl_p3InterestResPurS33.DoubleClick, lbl_p2DivIncome.DoubleClick, lbl_p3ForeignCurrExLoss.DoubleClick
         Try
 
@@ -574,8 +593,6 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-
-
     Private Sub TabbedView1_DocumentClosing(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventArgs) Handles TabbedView1.DocumentClosing
         e.Cancel = True
 

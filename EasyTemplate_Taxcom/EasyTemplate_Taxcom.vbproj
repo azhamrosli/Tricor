@@ -176,6 +176,11 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="CA\mdlCA.vb" />
+    <Compile Include="CP204\dsCP204.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsCP204.xsd</DependentUpon>
+    </Compile>
     <Compile Include="CP204\frmCP204_PenaltyLate.Designer.vb">
       <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
     </Compile>
@@ -947,6 +952,17 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="CP204\dsCP204.xsc">
+      <DependentUpon>dsCP204.xsd</DependentUpon>
+    </None>
+    <None Include="CP204\dsCP204.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsCP204.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="CP204\dsCP204.xss">
+      <DependentUpon>dsCP204.xsd</DependentUpon>
+    </None>
     <None Include="Dataset\dsCA.xsc">
       <DependentUpon>dsCA.xsd</DependentUpon>
     </None>
