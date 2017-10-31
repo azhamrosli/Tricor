@@ -154,42 +154,40 @@ Partial Class frmMovement
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1155, 37)
+        Me.barDockControlTop.Size = New System.Drawing.Size(990, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 644)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1155, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 523)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(990, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 607)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 492)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1155, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 607)
+        Me.barDockControlRight.Location = New System.Drawing.Point(990, 31)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 492)
         '
         'GridControl1
         '
         Me.GridControl1.DataSource = Me.MOVEMENTNORMALBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.Location = New System.Drawing.Point(0, 129)
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 106)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.Size = New System.Drawing.Size(1155, 515)
+        Me.GridControl1.Size = New System.Drawing.Size(990, 417)
         Me.GridControl1.TabIndex = 4
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -342,55 +340,49 @@ Partial Class frmMovement
         Me.PanelControl1.Controls.Add(Me.LabelControl2)
         Me.PanelControl1.Controls.Add(Me.LabelControl1)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 37)
-        Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1155, 92)
+        Me.PanelControl1.Size = New System.Drawing.Size(990, 75)
         Me.PanelControl1.TabIndex = 9
         '
         'btnClear2
         '
         Me.btnClear2.Image = CType(resources.GetObject("btnClear2.Image"), System.Drawing.Image)
-        Me.btnClear2.Location = New System.Drawing.Point(794, 16)
-        Me.btnClear2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClear2.Location = New System.Drawing.Point(681, 13)
         Me.btnClear2.Name = "btnClear2"
-        Me.btnClear2.Size = New System.Drawing.Size(28, 28)
+        Me.btnClear2.Size = New System.Drawing.Size(24, 23)
         Me.btnClear2.TabIndex = 13
         '
         'btnClear
         '
         Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(425, 16)
-        Me.btnClear.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClear.Location = New System.Drawing.Point(364, 13)
         Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(28, 28)
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
         Me.btnClear.TabIndex = 12
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(106, 50)
-        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRefNo.Location = New System.Drawing.Point(91, 41)
         Me.txtRefNo.MenuManager = Me.BarManager1
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(313, 22)
+        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 11
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(524, 17)
-        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboYA.Location = New System.Drawing.Point(449, 14)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(264, 22)
+        Me.cboYA.Size = New System.Drawing.Size(226, 20)
         Me.cboYA.TabIndex = 10
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(106, 18)
-        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboRefNo.Location = New System.Drawing.Point(91, 15)
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 56, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 42, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
@@ -399,7 +391,7 @@ Partial Class frmMovement
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(450, 0)
         Me.cboRefNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
         Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(313, 22)
+        Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
         Me.cboRefNo.TabIndex = 9
         '
         'TaxPayerFindBindingSource
@@ -415,38 +407,34 @@ Partial Class frmMovement
         'btnAllRecord
         '
         Me.btnAllRecord.Image = CType(resources.GetObject("btnAllRecord.Image"), System.Drawing.Image)
-        Me.btnAllRecord.Location = New System.Drawing.Point(524, 47)
-        Me.btnAllRecord.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnAllRecord.Location = New System.Drawing.Point(449, 38)
         Me.btnAllRecord.Name = "btnAllRecord"
-        Me.btnAllRecord.Size = New System.Drawing.Size(128, 28)
+        Me.btnAllRecord.Size = New System.Drawing.Size(110, 23)
         Me.btnAllRecord.TabIndex = 8
         Me.btnAllRecord.Text = "All Record"
         '
         'btnFind
         '
         Me.btnFind.Image = CType(resources.GetObject("btnFind.Image"), System.Drawing.Image)
-        Me.btnFind.Location = New System.Drawing.Point(659, 47)
-        Me.btnFind.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnFind.Location = New System.Drawing.Point(565, 38)
         Me.btnFind.Name = "btnFind"
-        Me.btnFind.Size = New System.Drawing.Size(128, 28)
+        Me.btnFind.Size = New System.Drawing.Size(110, 23)
         Me.btnFind.TabIndex = 7
         Me.btnFind.Text = "Find"
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(493, 21)
-        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl2.Location = New System.Drawing.Point(423, 17)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(24, 16)
+        Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl2.TabIndex = 3
         Me.LabelControl2.Text = "YA :"
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(14, 22)
-        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 18)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(86, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
         Me.LabelControl1.TabIndex = 1
         Me.LabelControl1.Text = "Reference No :"
         '
@@ -459,19 +447,18 @@ Partial Class frmMovement
         Me.pnlLoading.AppearanceCaption.Options.UseFont = True
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
-        Me.pnlLoading.Location = New System.Drawing.Point(425, 318)
-        Me.pnlLoading.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.pnlLoading.Location = New System.Drawing.Point(364, 258)
         Me.pnlLoading.Name = "pnlLoading"
-        Me.pnlLoading.Size = New System.Drawing.Size(287, 81)
+        Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
         Me.pnlLoading.TabIndex = 14
         Me.pnlLoading.Text = "ProgressPanel1"
         Me.pnlLoading.Visible = False
         '
         'frmMovement
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1155, 644)
+        Me.ClientSize = New System.Drawing.Size(990, 523)
         Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.PanelControl1)
@@ -479,6 +466,7 @@ Partial Class frmMovement
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Name = "frmMovement"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Movement"

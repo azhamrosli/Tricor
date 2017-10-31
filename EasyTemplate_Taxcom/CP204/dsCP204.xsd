@@ -1,16 +1,94 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<xs:schema id="dsCP204" 
-                  targetNamespace="http://tempuri.org/dsCP204.xsd"
-                  elementFormDefault="qualified"
-                  attributeFormDefault="qualified"
-                  xmlns="http://tempuri.org/dsCP204.xsd"
-                  xmlns:mstns="http://tempuri.org/dsCP204.xsd"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
-                  xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-    <xs:element name="dsCP204" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true">
-        <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded"></xs:choice>
-        </xs:complexType>
-    </xs:element>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsCP204" targetNamespace="http://tempuri.org/dsCP204.xsd" xmlns:mstns="http://tempuri.org/dsCP204.xsd" xmlns="http://tempuri.org/dsCP204.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="TAXCOM_CConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TAXCOM_CConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.EasyTemplate_Taxcom.Settings.GlobalReference.Default.TAXCOM_CConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsCP204" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCP204" msprop:Generator_UserDSName="dsCP204">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BORANG_CP204_TRICOR" msprop:Generator_TableClassName="BORANG_CP204_TRICORDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR" msprop:Generator_RowChangedName="BORANG_CP204_TRICORRowChanged" msprop:Generator_TablePropName="BORANG_CP204_TRICOR" msprop:Generator_RowDeletingName="BORANG_CP204_TRICORRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICORRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICORRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICORRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_TRICORRow" msprop:Generator_UserTableName="BORANG_CP204_TRICOR" msprop:Generator_RowEvArgName="BORANG_CP204_TRICORRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
+              <xs:element name="CP_REF_NO" msprop:Generator_ColumnVarNameInTable="columnCP_REF_NO" msprop:Generator_ColumnPropNameInRow="CP_REF_NO" msprop:Generator_ColumnPropNameInTable="CP_REF_NOColumn" msprop:Generator_UserColumnName="CP_REF_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CP_YA" msprop:Generator_ColumnVarNameInTable="columnCP_YA" msprop:Generator_ColumnPropNameInRow="CP_YA" msprop:Generator_ColumnPropNameInTable="CP_YAColumn" msprop:Generator_UserColumnName="CP_YA" type="xs:int" minOccurs="0" />
+              <xs:element name="CP_COMPANY_NAME" msprop:Generator_ColumnVarNameInTable="columnCP_COMPANY_NAME" msprop:Generator_ColumnPropNameInRow="CP_COMPANY_NAME" msprop:Generator_ColumnPropNameInTable="CP_COMPANY_NAMEColumn" msprop:Generator_UserColumnName="CP_COMPANY_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="350" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CP_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnCP_AMOUNT" msprop:Generator_ColumnPropNameInRow="CP_AMOUNT" msprop:Generator_ColumnPropNameInTable="CP_AMOUNTColumn" msprop:Generator_UserColumnName="CP_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_BASIS_PERIOD_FROM" msprop:Generator_ColumnVarNameInTable="columnCP_BASIS_PERIOD_FROM" msprop:Generator_ColumnPropNameInRow="CP_BASIS_PERIOD_FROM" msprop:Generator_ColumnPropNameInTable="CP_BASIS_PERIOD_FROMColumn" msprop:Generator_UserColumnName="CP_BASIS_PERIOD_FROM" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_BASIS_PERIOD_TO" msprop:Generator_ColumnVarNameInTable="columnCP_BASIS_PERIOD_TO" msprop:Generator_ColumnPropNameInRow="CP_BASIS_PERIOD_TO" msprop:Generator_ColumnPropNameInTable="CP_BASIS_PERIOD_TOColumn" msprop:Generator_UserColumnName="CP_BASIS_PERIOD_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_TOTAL_BASIS_PERIOD" msprop:Generator_ColumnVarNameInTable="columnCP_TOTAL_BASIS_PERIOD" msprop:Generator_ColumnPropNameInRow="CP_TOTAL_BASIS_PERIOD" msprop:Generator_ColumnPropNameInTable="CP_TOTAL_BASIS_PERIODColumn" msprop:Generator_UserColumnName="CP_TOTAL_BASIS_PERIOD" type="xs:int" minOccurs="0" />
+              <xs:element name="CP_TOTAL_INSTALLMENT_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnCP_TOTAL_INSTALLMENT_AMOUNT" msprop:Generator_ColumnPropNameInRow="CP_TOTAL_INSTALLMENT_AMOUNT" msprop:Generator_ColumnPropNameInTable="CP_TOTAL_INSTALLMENT_AMOUNTColumn" msprop:Generator_UserColumnName="CP_TOTAL_INSTALLMENT_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_TOTAL_AMOUNT_PAID_1" msprop:Generator_ColumnVarNameInTable="columnCP_TOTAL_AMOUNT_PAID_1" msprop:Generator_ColumnPropNameInRow="CP_TOTAL_AMOUNT_PAID_1" msprop:Generator_ColumnPropNameInTable="CP_TOTAL_AMOUNT_PAID_1Column" msprop:Generator_UserColumnName="CP_TOTAL_AMOUNT_PAID_1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_TOTAL_AMOUNT_PAID_2" msprop:Generator_ColumnVarNameInTable="columnCP_TOTAL_AMOUNT_PAID_2" msprop:Generator_ColumnPropNameInRow="CP_TOTAL_AMOUNT_PAID_2" msprop:Generator_ColumnPropNameInTable="CP_TOTAL_AMOUNT_PAID_2Column" msprop:Generator_UserColumnName="CP_TOTAL_AMOUNT_PAID_2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_TOTAL_PENALTY" msprop:Generator_ColumnVarNameInTable="columnCP_TOTAL_PENALTY" msprop:Generator_ColumnPropNameInRow="CP_TOTAL_PENALTY" msprop:Generator_ColumnPropNameInTable="CP_TOTAL_PENALTYColumn" msprop:Generator_UserColumnName="CP_TOTAL_PENALTY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ModifiedBy" msprop:Generator_ColumnVarNameInTable="columnModifiedBy" msprop:Generator_ColumnPropNameInRow="ModifiedBy" msprop:Generator_ColumnPropNameInTable="ModifiedByColumn" msprop:Generator_UserColumnName="ModifiedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TableClassName="BORANG_CP204_TRICOR_BREAKDOWNDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowChangedName="BORANG_CP204_TRICOR_BREAKDOWNRowChanged" msprop:Generator_TablePropName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowDeletingName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICOR_BREAKDOWNRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_TRICOR_BREAKDOWNRow" msprop:Generator_UserTableName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowEvArgName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
+              <xs:element name="CP_PARENTID" msprop:Generator_ColumnVarNameInTable="columnCP_PARENTID" msprop:Generator_ColumnPropNameInRow="CP_PARENTID" msprop:Generator_ColumnPropNameInTable="CP_PARENTIDColumn" msprop:Generator_UserColumnName="CP_PARENTID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CP_INSTALL_NO" msprop:Generator_ColumnVarNameInTable="columnCP_INSTALL_NO" msprop:Generator_ColumnPropNameInRow="CP_INSTALL_NO" msprop:Generator_ColumnPropNameInTable="CP_INSTALL_NOColumn" msprop:Generator_UserColumnName="CP_INSTALL_NO" type="xs:int" minOccurs="0" />
+              <xs:element name="CP_PAYMENT_DUE" msprop:Generator_ColumnVarNameInTable="columnCP_PAYMENT_DUE" msprop:Generator_ColumnPropNameInRow="CP_PAYMENT_DUE" msprop:Generator_ColumnPropNameInTable="CP_PAYMENT_DUEColumn" msprop:Generator_UserColumnName="CP_PAYMENT_DUE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_INSTALLMENT_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnCP_INSTALLMENT_AMOUNT" msprop:Generator_ColumnPropNameInRow="CP_INSTALLMENT_AMOUNT" msprop:Generator_ColumnPropNameInTable="CP_INSTALLMENT_AMOUNTColumn" msprop:Generator_UserColumnName="CP_INSTALLMENT_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_PAYMENT_DATE_1" msprop:Generator_ColumnVarNameInTable="columnCP_PAYMENT_DATE_1" msprop:Generator_ColumnPropNameInRow="CP_PAYMENT_DATE_1" msprop:Generator_ColumnPropNameInTable="CP_PAYMENT_DATE_1Column" msprop:Generator_UserColumnName="CP_PAYMENT_DATE_1" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_AMOUNT_PAID_1" msprop:Generator_ColumnVarNameInTable="columnCP_AMOUNT_PAID_1" msprop:Generator_ColumnPropNameInRow="CP_AMOUNT_PAID_1" msprop:Generator_ColumnPropNameInTable="CP_AMOUNT_PAID_1Column" msprop:Generator_UserColumnName="CP_AMOUNT_PAID_1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_PAYMENT_DATE_2" msprop:Generator_ColumnVarNameInTable="columnCP_PAYMENT_DATE_2" msprop:Generator_ColumnPropNameInRow="CP_PAYMENT_DATE_2" msprop:Generator_ColumnPropNameInTable="CP_PAYMENT_DATE_2Column" msprop:Generator_UserColumnName="CP_PAYMENT_DATE_2" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_AMOUNT_PAID_2" msprop:Generator_ColumnVarNameInTable="columnCP_AMOUNT_PAID_2" msprop:Generator_ColumnPropNameInRow="CP_AMOUNT_PAID_2" msprop:Generator_ColumnPropNameInTable="CP_AMOUNT_PAID_2Column" msprop:Generator_UserColumnName="CP_AMOUNT_PAID_2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_PENALTY" msprop:Generator_ColumnVarNameInTable="columnCP_PENALTY" msprop:Generator_ColumnPropNameInRow="CP_PENALTY" msprop:Generator_ColumnPropNameInTable="CP_PENALTYColumn" msprop:Generator_UserColumnName="CP_PENALTY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_NOTE_TITLE" msprop:Generator_ColumnVarNameInTable="columnCP_NOTE_TITLE" msprop:Generator_ColumnPropNameInRow="CP_NOTE_TITLE" msprop:Generator_ColumnPropNameInTable="CP_NOTE_TITLEColumn" msprop:Generator_UserColumnName="CP_NOTE_TITLE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CP_NOTE" msprop:Generator_ColumnVarNameInTable="columnCP_NOTE" msprop:Generator_ColumnPropNameInRow="CP_NOTE" msprop:Generator_ColumnPropNameInTable="CP_NOTEColumn" msprop:Generator_UserColumnName="CP_NOTE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -406,32 +406,28 @@ Partial Class frmPNL_Add
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1478, 0)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1267, 0)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 892)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1478, 30)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 724)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1267, 25)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 892)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 724)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1478, 0)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 892)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1267, 0)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 724)
         '
         'RepositoryItemTextEdit5
         '
@@ -449,21 +445,21 @@ Partial Class frmPNL_Add
         Me.DockPanel1.Controls.Add(Me.DockPanel1_Container)
         Me.DockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left
         Me.DockPanel1.ID = New System.Guid("e6a7b213-c5f9-4782-b8c1-9aacd9e4ed1b")
-        Me.DockPanel1.Location = New System.Drawing.Point(0, 156)
+        Me.DockPanel1.Location = New System.Drawing.Point(0, 141)
         Me.DockPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DockPanel1.Name = "DockPanel1"
         Me.DockPanel1.Options.ShowCloseButton = False
-        Me.DockPanel1.OriginalSize = New System.Drawing.Size(727, 200)
-        Me.DockPanel1.Size = New System.Drawing.Size(727, 736)
+        Me.DockPanel1.OriginalSize = New System.Drawing.Size(620, 200)
+        Me.DockPanel1.Size = New System.Drawing.Size(620, 583)
         Me.DockPanel1.Text = "Information"
         '
         'DockPanel1_Container
         '
         Me.DockPanel1_Container.Controls.Add(Me.XtraTabControl1)
-        Me.DockPanel1_Container.Location = New System.Drawing.Point(5, 25)
+        Me.DockPanel1_Container.Location = New System.Drawing.Point(4, 23)
         Me.DockPanel1_Container.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DockPanel1_Container.Name = "DockPanel1_Container"
-        Me.DockPanel1_Container.Size = New System.Drawing.Size(717, 706)
+        Me.DockPanel1_Container.Size = New System.Drawing.Size(612, 556)
         Me.DockPanel1_Container.TabIndex = 0
         '
         'XtraTabControl1
@@ -476,7 +472,7 @@ Partial Class frmPNL_Add
         Me.XtraTabControl1.Name = "XtraTabControl1"
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
         Me.XtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.[True]
-        Me.XtraTabControl1.Size = New System.Drawing.Size(717, 706)
+        Me.XtraTabControl1.Size = New System.Drawing.Size(612, 556)
         Me.XtraTabControl1.TabIndex = 0
         Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2, Me.XtraTabPage3, Me.XtraTabPage4})
         '
@@ -509,17 +505,17 @@ Partial Class frmPNL_Add
         Me.XtraTabPage1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage1.Name = "XtraTabPage1"
         Me.XtraTabPage1.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage1.Size = New System.Drawing.Size(710, 673)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(713, 528)
         Me.XtraTabPage1.Text = "Page 1"
         '
         'lbl_p1NonAllowableExpenses
         '
         Me.lbl_p1NonAllowableExpenses.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p1NonAllowableExpenses.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1NonAllowableExpenses.Location = New System.Drawing.Point(6, 234)
+        Me.lbl_p1NonAllowableExpenses.Location = New System.Drawing.Point(5, 190)
         Me.lbl_p1NonAllowableExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1NonAllowableExpenses.Name = "lbl_p1NonAllowableExpenses"
-        Me.lbl_p1NonAllowableExpenses.Size = New System.Drawing.Size(137, 16)
+        Me.lbl_p1NonAllowableExpenses.Size = New System.Drawing.Size(106, 12)
         Me.lbl_p1NonAllowableExpenses.TabIndex = 22
         Me.lbl_p1NonAllowableExpenses.Tag = "OTHERNONALLOWEXP"
         Me.lbl_p1NonAllowableExpenses.Text = "Non allowable expenses"
@@ -533,15 +529,16 @@ Partial Class frmPNL_Add
         Me.ProgressPanel1.AppearanceCaption.Options.UseFont = True
         Me.ProgressPanel1.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.ProgressPanel1.AppearanceDescription.Options.UseFont = True
-        Me.ProgressPanel1.Location = New System.Drawing.Point(238, 161)
+        Me.ProgressPanel1.Location = New System.Drawing.Point(256, 122)
+        Me.ProgressPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ProgressPanel1.Name = "ProgressPanel1"
-        Me.ProgressPanel1.Size = New System.Drawing.Size(254, 76)
+        Me.ProgressPanel1.Size = New System.Drawing.Size(218, 62)
         Me.ProgressPanel1.TabIndex = 7
         Me.ProgressPanel1.Text = "ProgressPanel1"
         '
         'txt_p1GrossProfitLoss
         '
-        Me.txt_p1GrossProfitLoss.Location = New System.Drawing.Point(553, 423)
+        Me.txt_p1GrossProfitLoss.Location = New System.Drawing.Point(474, 344)
         Me.txt_p1GrossProfitLoss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1GrossProfitLoss.Name = "txt_p1GrossProfitLoss"
         Me.txt_p1GrossProfitLoss.Properties.Appearance.Options.UseTextOptions = True
@@ -552,12 +549,12 @@ Partial Class frmPNL_Add
         Me.txt_p1GrossProfitLoss.Properties.NullValuePrompt = "0"
         Me.txt_p1GrossProfitLoss.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1GrossProfitLoss.Properties.ReadOnly = True
-        Me.txt_p1GrossProfitLoss.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1GrossProfitLoss.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1GrossProfitLoss.TabIndex = 21
         '
         'txt_p1COS
         '
-        Me.txt_p1COS.Location = New System.Drawing.Point(553, 378)
+        Me.txt_p1COS.Location = New System.Drawing.Point(474, 307)
         Me.txt_p1COS.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1COS.Name = "txt_p1COS"
         Me.txt_p1COS.Properties.Appearance.Options.UseTextOptions = True
@@ -568,12 +565,12 @@ Partial Class frmPNL_Add
         Me.txt_p1COS.Properties.NullValuePrompt = "0"
         Me.txt_p1COS.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1COS.Properties.ReadOnly = True
-        Me.txt_p1COS.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1COS.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1COS.TabIndex = 20
         '
         'txt_p1CloseStock
         '
-        Me.txt_p1CloseStock.Location = New System.Drawing.Point(450, 350)
+        Me.txt_p1CloseStock.Location = New System.Drawing.Point(386, 284)
         Me.txt_p1CloseStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1CloseStock.Name = "txt_p1CloseStock"
         Me.txt_p1CloseStock.Properties.Appearance.Options.UseTextOptions = True
@@ -584,12 +581,12 @@ Partial Class frmPNL_Add
         Me.txt_p1CloseStock.Properties.NullValuePrompt = "0"
         Me.txt_p1CloseStock.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1CloseStock.Properties.ReadOnly = True
-        Me.txt_p1CloseStock.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1CloseStock.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1CloseStock.TabIndex = 19
         '
         'txt_p1PCP
         '
-        Me.txt_p1PCP.Location = New System.Drawing.Point(450, 305)
+        Me.txt_p1PCP.Location = New System.Drawing.Point(386, 248)
         Me.txt_p1PCP.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1PCP.Name = "txt_p1PCP"
         Me.txt_p1PCP.Properties.Appearance.Options.UseTextOptions = True
@@ -600,12 +597,12 @@ Partial Class frmPNL_Add
         Me.txt_p1PCP.Properties.NullValuePrompt = "0"
         Me.txt_p1PCP.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1PCP.Properties.ReadOnly = True
-        Me.txt_p1PCP.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1PCP.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1PCP.TabIndex = 18
         '
         'txt_p1COP
         '
-        Me.txt_p1COP.Location = New System.Drawing.Point(344, 257)
+        Me.txt_p1COP.Location = New System.Drawing.Point(295, 209)
         Me.txt_p1COP.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1COP.Name = "txt_p1COP"
         Me.txt_p1COP.Properties.Appearance.Options.UseTextOptions = True
@@ -616,12 +613,12 @@ Partial Class frmPNL_Add
         Me.txt_p1COP.Properties.NullValuePrompt = "0"
         Me.txt_p1COP.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1COP.Properties.ReadOnly = True
-        Me.txt_p1COP.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1COP.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1COP.TabIndex = 17
         '
         'txt_p1NonAllowableExpenses
         '
-        Me.txt_p1NonAllowableExpenses.Location = New System.Drawing.Point(238, 230)
+        Me.txt_p1NonAllowableExpenses.Location = New System.Drawing.Point(204, 187)
         Me.txt_p1NonAllowableExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1NonAllowableExpenses.Name = "txt_p1NonAllowableExpenses"
         Me.txt_p1NonAllowableExpenses.Properties.Appearance.Options.UseTextOptions = True
@@ -632,12 +629,12 @@ Partial Class frmPNL_Add
         Me.txt_p1NonAllowableExpenses.Properties.NullValuePrompt = "0"
         Me.txt_p1NonAllowableExpenses.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1NonAllowableExpenses.Properties.ReadOnly = True
-        Me.txt_p1NonAllowableExpenses.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1NonAllowableExpenses.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1NonAllowableExpenses.TabIndex = 16
         '
         'txt_p1AllowanceExpenses
         '
-        Me.txt_p1AllowanceExpenses.Location = New System.Drawing.Point(238, 202)
+        Me.txt_p1AllowanceExpenses.Location = New System.Drawing.Point(204, 164)
         Me.txt_p1AllowanceExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1AllowanceExpenses.Name = "txt_p1AllowanceExpenses"
         Me.txt_p1AllowanceExpenses.Properties.Appearance.Options.UseTextOptions = True
@@ -648,12 +645,12 @@ Partial Class frmPNL_Add
         Me.txt_p1AllowanceExpenses.Properties.NullValuePrompt = "0"
         Me.txt_p1AllowanceExpenses.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1AllowanceExpenses.Properties.ReadOnly = True
-        Me.txt_p1AllowanceExpenses.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1AllowanceExpenses.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1AllowanceExpenses.TabIndex = 15
         '
         'txt_p1Depreciation
         '
-        Me.txt_p1Depreciation.Location = New System.Drawing.Point(238, 174)
+        Me.txt_p1Depreciation.Location = New System.Drawing.Point(204, 141)
         Me.txt_p1Depreciation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1Depreciation.Name = "txt_p1Depreciation"
         Me.txt_p1Depreciation.Properties.Appearance.Options.UseTextOptions = True
@@ -664,12 +661,12 @@ Partial Class frmPNL_Add
         Me.txt_p1Depreciation.Properties.NullValuePrompt = "0"
         Me.txt_p1Depreciation.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1Depreciation.Properties.ReadOnly = True
-        Me.txt_p1Depreciation.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1Depreciation.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1Depreciation.TabIndex = 14
         '
         'txt_p1Purchase
         '
-        Me.txt_p1Purchase.Location = New System.Drawing.Point(344, 108)
+        Me.txt_p1Purchase.Location = New System.Drawing.Point(295, 88)
         Me.txt_p1Purchase.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1Purchase.Name = "txt_p1Purchase"
         Me.txt_p1Purchase.Properties.Appearance.Options.UseTextOptions = True
@@ -680,12 +677,12 @@ Partial Class frmPNL_Add
         Me.txt_p1Purchase.Properties.NullValuePrompt = "0"
         Me.txt_p1Purchase.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1Purchase.Properties.ReadOnly = True
-        Me.txt_p1Purchase.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1Purchase.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1Purchase.TabIndex = 13
         '
         'txt_p1OpenStock
         '
-        Me.txt_p1OpenStock.Location = New System.Drawing.Point(450, 86)
+        Me.txt_p1OpenStock.Location = New System.Drawing.Point(386, 70)
         Me.txt_p1OpenStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1OpenStock.Name = "txt_p1OpenStock"
         Me.txt_p1OpenStock.Properties.Appearance.Options.UseTextOptions = True
@@ -696,12 +693,12 @@ Partial Class frmPNL_Add
         Me.txt_p1OpenStock.Properties.NullValuePrompt = "0"
         Me.txt_p1OpenStock.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1OpenStock.Properties.ReadOnly = True
-        Me.txt_p1OpenStock.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1OpenStock.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1OpenStock.TabIndex = 12
         '
         'txt_p1Sales
         '
-        Me.txt_p1Sales.Location = New System.Drawing.Point(553, 17)
+        Me.txt_p1Sales.Location = New System.Drawing.Point(474, 14)
         Me.txt_p1Sales.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p1Sales.Name = "txt_p1Sales"
         Me.txt_p1Sales.Properties.Appearance.Options.UseTextOptions = True
@@ -714,36 +711,36 @@ Partial Class frmPNL_Add
         Me.txt_p1Sales.Properties.NullValuePrompt = "0"
         Me.txt_p1Sales.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p1Sales.Properties.ReadOnly = True
-        Me.txt_p1Sales.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p1Sales.Size = New System.Drawing.Size(86, 20)
         Me.txt_p1Sales.TabIndex = 11
         '
         'LabelControl11
         '
         Me.LabelControl11.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl11.Location = New System.Drawing.Point(6, 423)
+        Me.LabelControl11.Location = New System.Drawing.Point(5, 344)
         Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(161, 21)
+        Me.LabelControl11.Size = New System.Drawing.Size(128, 17)
         Me.LabelControl11.TabIndex = 10
         Me.LabelControl11.Text = "Gross Profit / Loss"
         '
         'LabelControl10
         '
         Me.LabelControl10.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl10.Location = New System.Drawing.Point(6, 378)
+        Me.LabelControl10.Location = New System.Drawing.Point(5, 307)
         Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(109, 21)
+        Me.LabelControl10.Size = New System.Drawing.Size(87, 17)
         Me.LabelControl10.TabIndex = 9
         Me.LabelControl10.Text = "Cost of sales"
         '
         'LabelControl9
         '
         Me.LabelControl9.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl9.Location = New System.Drawing.Point(6, 305)
+        Me.LabelControl9.Location = New System.Drawing.Point(5, 248)
         Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(287, 21)
+        Me.LabelControl9.Size = New System.Drawing.Size(231, 17)
         Me.LabelControl9.TabIndex = 8
         Me.LabelControl9.Text = "Purchases and cost of production"
         '
@@ -751,10 +748,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p1CloseStock.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p1CloseStock.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1CloseStock.Location = New System.Drawing.Point(6, 354)
+        Me.lbl_p1CloseStock.Location = New System.Drawing.Point(5, 288)
         Me.lbl_p1CloseStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1CloseStock.Name = "lbl_p1CloseStock"
-        Me.lbl_p1CloseStock.Size = New System.Drawing.Size(75, 16)
+        Me.lbl_p1CloseStock.Size = New System.Drawing.Size(60, 12)
         Me.lbl_p1CloseStock.TabIndex = 7
         Me.lbl_p1CloseStock.Tag = "CLOSESTOCK"
         Me.lbl_p1CloseStock.Text = "Closing stock"
@@ -763,10 +760,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p1AllowanceExpenses.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p1AllowanceExpenses.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1AllowanceExpenses.Location = New System.Drawing.Point(6, 206)
+        Me.lbl_p1AllowanceExpenses.Location = New System.Drawing.Point(5, 167)
         Me.lbl_p1AllowanceExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1AllowanceExpenses.Name = "lbl_p1AllowanceExpenses"
-        Me.lbl_p1AllowanceExpenses.Size = New System.Drawing.Size(112, 16)
+        Me.lbl_p1AllowanceExpenses.Size = New System.Drawing.Size(86, 12)
         Me.lbl_p1AllowanceExpenses.TabIndex = 6
         Me.lbl_p1AllowanceExpenses.Tag = "OTHERALLOWEXP"
         Me.lbl_p1AllowanceExpenses.Text = "Allowable expenses"
@@ -775,10 +772,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p1Depreciation.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p1Depreciation.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1Depreciation.Location = New System.Drawing.Point(6, 178)
+        Me.lbl_p1Depreciation.Location = New System.Drawing.Point(5, 145)
         Me.lbl_p1Depreciation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1Depreciation.Name = "lbl_p1Depreciation"
-        Me.lbl_p1Depreciation.Size = New System.Drawing.Size(71, 16)
+        Me.lbl_p1Depreciation.Size = New System.Drawing.Size(56, 12)
         Me.lbl_p1Depreciation.TabIndex = 5
         Me.lbl_p1Depreciation.Tag = "DEPRECIATION"
         Me.lbl_p1Depreciation.Text = "Depreciation"
@@ -786,20 +783,20 @@ Partial Class frmPNL_Add
         'LabelControl5
         '
         Me.LabelControl5.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl5.Location = New System.Drawing.Point(6, 151)
+        Me.LabelControl5.Location = New System.Drawing.Point(5, 123)
         Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(160, 21)
+        Me.LabelControl5.Size = New System.Drawing.Size(130, 17)
         Me.LabelControl5.TabIndex = 4
         Me.LabelControl5.Text = "Cost of production"
         '
         'LabelControl4
         '
         Me.LabelControl4.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl4.Location = New System.Drawing.Point(6, 52)
+        Me.LabelControl4.Location = New System.Drawing.Point(5, 42)
         Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(38, 21)
+        Me.LabelControl4.Size = New System.Drawing.Size(30, 17)
         Me.LabelControl4.TabIndex = 3
         Me.LabelControl4.Text = "Less"
         '
@@ -807,10 +804,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p1Purchase.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p1Purchase.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1Purchase.Location = New System.Drawing.Point(6, 112)
+        Me.lbl_p1Purchase.Location = New System.Drawing.Point(5, 91)
         Me.lbl_p1Purchase.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1Purchase.Name = "lbl_p1Purchase"
-        Me.lbl_p1Purchase.Size = New System.Drawing.Size(58, 16)
+        Me.lbl_p1Purchase.Size = New System.Drawing.Size(45, 12)
         Me.lbl_p1Purchase.TabIndex = 2
         Me.lbl_p1Purchase.Tag = "PURCHASE"
         Me.lbl_p1Purchase.Text = "Purchases"
@@ -819,10 +816,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p1OpenStock.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p1OpenStock.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1OpenStock.Location = New System.Drawing.Point(6, 90)
+        Me.lbl_p1OpenStock.Location = New System.Drawing.Point(5, 73)
         Me.lbl_p1OpenStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1OpenStock.Name = "lbl_p1OpenStock"
-        Me.lbl_p1OpenStock.Size = New System.Drawing.Size(81, 16)
+        Me.lbl_p1OpenStock.Size = New System.Drawing.Size(66, 12)
         Me.lbl_p1OpenStock.TabIndex = 1
         Me.lbl_p1OpenStock.Tag = "OPENSTOCK"
         Me.lbl_p1OpenStock.Text = "Opening stock"
@@ -831,10 +828,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p1Sales.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline)
         Me.lbl_p1Sales.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p1Sales.Location = New System.Drawing.Point(6, 21)
+        Me.lbl_p1Sales.Location = New System.Drawing.Point(5, 17)
         Me.lbl_p1Sales.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p1Sales.Name = "lbl_p1Sales"
-        Me.lbl_p1Sales.Size = New System.Drawing.Size(86, 16)
+        Me.lbl_p1Sales.Size = New System.Drawing.Size(68, 12)
         Me.lbl_p1Sales.TabIndex = 0
         Me.lbl_p1Sales.Tag = "SALES"
         Me.lbl_p1Sales.Text = "Sale / turnover"
@@ -878,24 +875,24 @@ Partial Class frmPNL_Add
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
         Me.XtraTabPage2.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage2.Size = New System.Drawing.Size(710, 673)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(609, 528)
         Me.XtraTabPage2.Text = "Page 2"
         '
         'lbl_p2UnreaGainForeExNon
         '
         Me.lbl_p2UnreaGainForeExNon.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2UnreaGainForeExNon.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2UnreaGainForeExNon.Location = New System.Drawing.Point(6, 494)
+        Me.lbl_p2UnreaGainForeExNon.Location = New System.Drawing.Point(5, 401)
         Me.lbl_p2UnreaGainForeExNon.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2UnreaGainForeExNon.Name = "lbl_p2UnreaGainForeExNon"
-        Me.lbl_p2UnreaGainForeExNon.Size = New System.Drawing.Size(290, 17)
+        Me.lbl_p2UnreaGainForeExNon.Size = New System.Drawing.Size(230, 13)
         Me.lbl_p2UnreaGainForeExNon.TabIndex = 36
         Me.lbl_p2UnreaGainForeExNon.Tag = "UNREALFENONTRADE"
         Me.lbl_p2UnreaGainForeExNon.Text = "Unrealised gain on foreign exhange - Non Trade"
         '
         'txt_p2Other
         '
-        Me.txt_p2Other.Location = New System.Drawing.Point(360, 519)
+        Me.txt_p2Other.Location = New System.Drawing.Point(309, 422)
         Me.txt_p2Other.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2Other.Name = "txt_p2Other"
         Me.txt_p2Other.Properties.Appearance.Options.UseTextOptions = True
@@ -906,12 +903,12 @@ Partial Class frmPNL_Add
         Me.txt_p2Other.Properties.NullValuePrompt = "0"
         Me.txt_p2Other.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2Other.Properties.ReadOnly = True
-        Me.txt_p2Other.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2Other.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2Other.TabIndex = 35
         '
         'txt_p2NonTaxProfit
         '
-        Me.txt_p2NonTaxProfit.Location = New System.Drawing.Point(474, 554)
+        Me.txt_p2NonTaxProfit.Location = New System.Drawing.Point(406, 450)
         Me.txt_p2NonTaxProfit.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2NonTaxProfit.Name = "txt_p2NonTaxProfit"
         Me.txt_p2NonTaxProfit.Properties.Appearance.Options.UseTextOptions = True
@@ -922,12 +919,12 @@ Partial Class frmPNL_Add
         Me.txt_p2NonTaxProfit.Properties.NullValuePrompt = "0"
         Me.txt_p2NonTaxProfit.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2NonTaxProfit.Properties.ReadOnly = True
-        Me.txt_p2NonTaxProfit.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2NonTaxProfit.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2NonTaxProfit.TabIndex = 34
         '
         'txt_p2UnreaGainForeExNon
         '
-        Me.txt_p2UnreaGainForeExNon.Location = New System.Drawing.Point(360, 490)
+        Me.txt_p2UnreaGainForeExNon.Location = New System.Drawing.Point(309, 398)
         Me.txt_p2UnreaGainForeExNon.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2UnreaGainForeExNon.Name = "txt_p2UnreaGainForeExNon"
         Me.txt_p2UnreaGainForeExNon.Properties.Appearance.Options.UseTextOptions = True
@@ -938,12 +935,12 @@ Partial Class frmPNL_Add
         Me.txt_p2UnreaGainForeExNon.Properties.NullValuePrompt = "0"
         Me.txt_p2UnreaGainForeExNon.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2UnreaGainForeExNon.Properties.ReadOnly = True
-        Me.txt_p2UnreaGainForeExNon.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2UnreaGainForeExNon.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2UnreaGainForeExNon.TabIndex = 33
         '
         'txt_p2UnreaGainForeEx
         '
-        Me.txt_p2UnreaGainForeEx.Location = New System.Drawing.Point(360, 462)
+        Me.txt_p2UnreaGainForeEx.Location = New System.Drawing.Point(309, 375)
         Me.txt_p2UnreaGainForeEx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2UnreaGainForeEx.Name = "txt_p2UnreaGainForeEx"
         Me.txt_p2UnreaGainForeEx.Properties.Appearance.Options.UseTextOptions = True
@@ -954,12 +951,12 @@ Partial Class frmPNL_Add
         Me.txt_p2UnreaGainForeEx.Properties.NullValuePrompt = "0"
         Me.txt_p2UnreaGainForeEx.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2UnreaGainForeEx.Properties.ReadOnly = True
-        Me.txt_p2UnreaGainForeEx.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2UnreaGainForeEx.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2UnreaGainForeEx.TabIndex = 32
         '
         'txt_p2ReaForeExGainNonTrade
         '
-        Me.txt_p2ReaForeExGainNonTrade.Location = New System.Drawing.Point(360, 434)
+        Me.txt_p2ReaForeExGainNonTrade.Location = New System.Drawing.Point(309, 353)
         Me.txt_p2ReaForeExGainNonTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2ReaForeExGainNonTrade.Name = "txt_p2ReaForeExGainNonTrade"
         Me.txt_p2ReaForeExGainNonTrade.Properties.Appearance.Options.UseTextOptions = True
@@ -970,12 +967,12 @@ Partial Class frmPNL_Add
         Me.txt_p2ReaForeExGainNonTrade.Properties.NullValuePrompt = "0"
         Me.txt_p2ReaForeExGainNonTrade.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2ReaForeExGainNonTrade.Properties.ReadOnly = True
-        Me.txt_p2ReaForeExGainNonTrade.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2ReaForeExGainNonTrade.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2ReaForeExGainNonTrade.TabIndex = 31
         '
         'txt_p2ForeIncomeRemmit
         '
-        Me.txt_p2ForeIncomeRemmit.Location = New System.Drawing.Point(360, 406)
+        Me.txt_p2ForeIncomeRemmit.Location = New System.Drawing.Point(309, 330)
         Me.txt_p2ForeIncomeRemmit.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2ForeIncomeRemmit.Name = "txt_p2ForeIncomeRemmit"
         Me.txt_p2ForeIncomeRemmit.Properties.Appearance.Options.UseTextOptions = True
@@ -986,12 +983,12 @@ Partial Class frmPNL_Add
         Me.txt_p2ForeIncomeRemmit.Properties.NullValuePrompt = "0"
         Me.txt_p2ForeIncomeRemmit.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2ForeIncomeRemmit.Properties.ReadOnly = True
-        Me.txt_p2ForeIncomeRemmit.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2ForeIncomeRemmit.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2ForeIncomeRemmit.TabIndex = 30
         '
         'txt_p2ExemptDividend
         '
-        Me.txt_p2ExemptDividend.Location = New System.Drawing.Point(360, 378)
+        Me.txt_p2ExemptDividend.Location = New System.Drawing.Point(309, 307)
         Me.txt_p2ExemptDividend.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2ExemptDividend.Name = "txt_p2ExemptDividend"
         Me.txt_p2ExemptDividend.Properties.Appearance.Options.UseTextOptions = True
@@ -1002,12 +999,12 @@ Partial Class frmPNL_Add
         Me.txt_p2ExemptDividend.Properties.NullValuePrompt = "0"
         Me.txt_p2ExemptDividend.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2ExemptDividend.Properties.ReadOnly = True
-        Me.txt_p2ExemptDividend.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2ExemptDividend.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2ExemptDividend.TabIndex = 29
         '
         'txt_p2ProDisInvestment
         '
-        Me.txt_p2ProDisInvestment.Location = New System.Drawing.Point(360, 350)
+        Me.txt_p2ProDisInvestment.Location = New System.Drawing.Point(309, 284)
         Me.txt_p2ProDisInvestment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2ProDisInvestment.Name = "txt_p2ProDisInvestment"
         Me.txt_p2ProDisInvestment.Properties.Appearance.Options.UseTextOptions = True
@@ -1018,12 +1015,12 @@ Partial Class frmPNL_Add
         Me.txt_p2ProDisInvestment.Properties.NullValuePrompt = "0"
         Me.txt_p2ProDisInvestment.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2ProDisInvestment.Properties.ReadOnly = True
-        Me.txt_p2ProDisInvestment.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2ProDisInvestment.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2ProDisInvestment.TabIndex = 28
         '
         'txt_p2ProDispPlantEq
         '
-        Me.txt_p2ProDispPlantEq.Location = New System.Drawing.Point(360, 322)
+        Me.txt_p2ProDispPlantEq.Location = New System.Drawing.Point(309, 262)
         Me.txt_p2ProDispPlantEq.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2ProDispPlantEq.Name = "txt_p2ProDispPlantEq"
         Me.txt_p2ProDispPlantEq.Properties.Appearance.Options.UseTextOptions = True
@@ -1034,12 +1031,12 @@ Partial Class frmPNL_Add
         Me.txt_p2ProDispPlantEq.Properties.NullValuePrompt = "0"
         Me.txt_p2ProDispPlantEq.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2ProDispPlantEq.Properties.ReadOnly = True
-        Me.txt_p2ProDispPlantEq.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2ProDispPlantEq.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2ProDispPlantEq.TabIndex = 27
         '
         'txt_p2NonBizIncome
         '
-        Me.txt_p2NonBizIncome.Location = New System.Drawing.Point(474, 255)
+        Me.txt_p2NonBizIncome.Location = New System.Drawing.Point(406, 207)
         Me.txt_p2NonBizIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2NonBizIncome.Name = "txt_p2NonBizIncome"
         Me.txt_p2NonBizIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1050,12 +1047,12 @@ Partial Class frmPNL_Add
         Me.txt_p2NonBizIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2NonBizIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2NonBizIncome.Properties.ReadOnly = True
-        Me.txt_p2NonBizIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2NonBizIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2NonBizIncome.TabIndex = 26
         '
         'txt_p2OtherIncome
         '
-        Me.txt_p2OtherIncome.Location = New System.Drawing.Point(360, 230)
+        Me.txt_p2OtherIncome.Location = New System.Drawing.Point(309, 187)
         Me.txt_p2OtherIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2OtherIncome.Name = "txt_p2OtherIncome"
         Me.txt_p2OtherIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1066,13 +1063,13 @@ Partial Class frmPNL_Add
         Me.txt_p2OtherIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2OtherIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2OtherIncome.Properties.ReadOnly = True
-        Me.txt_p2OtherIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2OtherIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2OtherIncome.TabIndex = 25
         Me.txt_p2OtherIncome.Tag = "OTHERINC"
         '
         'txt_p2RoyaltyIncome
         '
-        Me.txt_p2RoyaltyIncome.Location = New System.Drawing.Point(360, 202)
+        Me.txt_p2RoyaltyIncome.Location = New System.Drawing.Point(309, 164)
         Me.txt_p2RoyaltyIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2RoyaltyIncome.Name = "txt_p2RoyaltyIncome"
         Me.txt_p2RoyaltyIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1083,13 +1080,13 @@ Partial Class frmPNL_Add
         Me.txt_p2RoyaltyIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2RoyaltyIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2RoyaltyIncome.Properties.ReadOnly = True
-        Me.txt_p2RoyaltyIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2RoyaltyIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2RoyaltyIncome.TabIndex = 24
         Me.txt_p2RoyaltyIncome.Tag = "ROYALTYINC"
         '
         'txt_p2RentalIncome
         '
-        Me.txt_p2RentalIncome.Location = New System.Drawing.Point(360, 174)
+        Me.txt_p2RentalIncome.Location = New System.Drawing.Point(309, 141)
         Me.txt_p2RentalIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2RentalIncome.Name = "txt_p2RentalIncome"
         Me.txt_p2RentalIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1100,12 +1097,12 @@ Partial Class frmPNL_Add
         Me.txt_p2RentalIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2RentalIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2RentalIncome.Properties.ReadOnly = True
-        Me.txt_p2RentalIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2RentalIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2RentalIncome.TabIndex = 23
         '
         'txt_p2InterestIncome
         '
-        Me.txt_p2InterestIncome.Location = New System.Drawing.Point(360, 146)
+        Me.txt_p2InterestIncome.Location = New System.Drawing.Point(309, 119)
         Me.txt_p2InterestIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2InterestIncome.Name = "txt_p2InterestIncome"
         Me.txt_p2InterestIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1116,12 +1113,12 @@ Partial Class frmPNL_Add
         Me.txt_p2InterestIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2InterestIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2InterestIncome.Properties.ReadOnly = True
-        Me.txt_p2InterestIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2InterestIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2InterestIncome.TabIndex = 22
         '
         'txt_p2DivIncome
         '
-        Me.txt_p2DivIncome.Location = New System.Drawing.Point(360, 118)
+        Me.txt_p2DivIncome.Location = New System.Drawing.Point(309, 96)
         Me.txt_p2DivIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2DivIncome.Name = "txt_p2DivIncome"
         Me.txt_p2DivIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1132,12 +1129,12 @@ Partial Class frmPNL_Add
         Me.txt_p2DivIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2DivIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2DivIncome.Properties.ReadOnly = True
-        Me.txt_p2DivIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2DivIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2DivIncome.TabIndex = 21
         '
         'txt_p2ForeignCurrExGain
         '
-        Me.txt_p2ForeignCurrExGain.Location = New System.Drawing.Point(474, 55)
+        Me.txt_p2ForeignCurrExGain.Location = New System.Drawing.Point(406, 45)
         Me.txt_p2ForeignCurrExGain.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2ForeignCurrExGain.Name = "txt_p2ForeignCurrExGain"
         Me.txt_p2ForeignCurrExGain.Properties.Appearance.Options.UseTextOptions = True
@@ -1148,12 +1145,12 @@ Partial Class frmPNL_Add
         Me.txt_p2ForeignCurrExGain.Properties.NullValuePrompt = "0"
         Me.txt_p2ForeignCurrExGain.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2ForeignCurrExGain.Properties.ReadOnly = True
-        Me.txt_p2ForeignCurrExGain.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2ForeignCurrExGain.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2ForeignCurrExGain.TabIndex = 20
         '
         'txt_p2OtherBizIncome
         '
-        Me.txt_p2OtherBizIncome.Location = New System.Drawing.Point(474, 27)
+        Me.txt_p2OtherBizIncome.Location = New System.Drawing.Point(406, 22)
         Me.txt_p2OtherBizIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p2OtherBizIncome.Name = "txt_p2OtherBizIncome"
         Me.txt_p2OtherBizIncome.Properties.Appearance.Options.UseTextOptions = True
@@ -1164,17 +1161,17 @@ Partial Class frmPNL_Add
         Me.txt_p2OtherBizIncome.Properties.NullValuePrompt = "0"
         Me.txt_p2OtherBizIncome.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p2OtherBizIncome.Properties.ReadOnly = True
-        Me.txt_p2OtherBizIncome.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p2OtherBizIncome.Size = New System.Drawing.Size(86, 20)
         Me.txt_p2OtherBizIncome.TabIndex = 19
         '
         'lbl_p2Other
         '
         Me.lbl_p2Other.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2Other.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2Other.Location = New System.Drawing.Point(6, 523)
+        Me.lbl_p2Other.Location = New System.Drawing.Point(5, 425)
         Me.lbl_p2Other.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2Other.Name = "lbl_p2Other"
-        Me.lbl_p2Other.Size = New System.Drawing.Size(35, 17)
+        Me.lbl_p2Other.Size = New System.Drawing.Size(28, 13)
         Me.lbl_p2Other.TabIndex = 18
         Me.lbl_p2Other.Tag = "OTHERINC"
         Me.lbl_p2Other.Text = "Other"
@@ -1183,10 +1180,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2UnreaGainForeEx.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2UnreaGainForeEx.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2UnreaGainForeEx.Location = New System.Drawing.Point(6, 465)
+        Me.lbl_p2UnreaGainForeEx.Location = New System.Drawing.Point(5, 378)
         Me.lbl_p2UnreaGainForeEx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2UnreaGainForeEx.Name = "lbl_p2UnreaGainForeEx"
-        Me.lbl_p2UnreaGainForeEx.Size = New System.Drawing.Size(213, 17)
+        Me.lbl_p2UnreaGainForeEx.Size = New System.Drawing.Size(170, 13)
         Me.lbl_p2UnreaGainForeEx.TabIndex = 17
         Me.lbl_p2UnreaGainForeEx.Tag = "UNREALFETRADE"
         Me.lbl_p2UnreaGainForeEx.Text = "Unrealised gain on foreign exhange"
@@ -1195,10 +1192,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2ReaForeExGainNonTrade.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2ReaForeExGainNonTrade.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2ReaForeExGainNonTrade.Location = New System.Drawing.Point(6, 437)
+        Me.lbl_p2ReaForeExGainNonTrade.Location = New System.Drawing.Point(5, 355)
         Me.lbl_p2ReaForeExGainNonTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2ReaForeExGainNonTrade.Name = "lbl_p2ReaForeExGainNonTrade"
-        Me.lbl_p2ReaForeExGainNonTrade.Size = New System.Drawing.Size(260, 17)
+        Me.lbl_p2ReaForeExGainNonTrade.Size = New System.Drawing.Size(207, 13)
         Me.lbl_p2ReaForeExGainNonTrade.TabIndex = 16
         Me.lbl_p2ReaForeExGainNonTrade.Text = "Realised foreign exchange gain - non trade"
         '
@@ -1206,10 +1203,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2ForeIncomeRemmit.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2ForeIncomeRemmit.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2ForeIncomeRemmit.Location = New System.Drawing.Point(6, 409)
+        Me.lbl_p2ForeIncomeRemmit.Location = New System.Drawing.Point(5, 332)
         Me.lbl_p2ForeIncomeRemmit.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2ForeIncomeRemmit.Name = "lbl_p2ForeIncomeRemmit"
-        Me.lbl_p2ForeIncomeRemmit.Size = New System.Drawing.Size(162, 17)
+        Me.lbl_p2ForeIncomeRemmit.Size = New System.Drawing.Size(126, 13)
         Me.lbl_p2ForeIncomeRemmit.TabIndex = 15
         Me.lbl_p2ForeIncomeRemmit.Tag = "FORINCREMIT"
         Me.lbl_p2ForeIncomeRemmit.Text = "Foreign income remittance"
@@ -1218,10 +1215,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2ExemptDividend.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2ExemptDividend.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2ExemptDividend.Location = New System.Drawing.Point(6, 382)
+        Me.lbl_p2ExemptDividend.Location = New System.Drawing.Point(5, 310)
         Me.lbl_p2ExemptDividend.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2ExemptDividend.Name = "lbl_p2ExemptDividend"
-        Me.lbl_p2ExemptDividend.Size = New System.Drawing.Size(103, 17)
+        Me.lbl_p2ExemptDividend.Size = New System.Drawing.Size(79, 13)
         Me.lbl_p2ExemptDividend.TabIndex = 14
         Me.lbl_p2ExemptDividend.Tag = "EXEMDIV"
         Me.lbl_p2ExemptDividend.Text = "Exempt dividend"
@@ -1230,10 +1227,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2ProDisInvestment.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2ProDisInvestment.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2ProDisInvestment.Location = New System.Drawing.Point(6, 353)
+        Me.lbl_p2ProDisInvestment.Location = New System.Drawing.Point(5, 287)
         Me.lbl_p2ProDisInvestment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2ProDisInvestment.Name = "lbl_p2ProDisInvestment"
-        Me.lbl_p2ProDisInvestment.Size = New System.Drawing.Size(191, 17)
+        Me.lbl_p2ProDisInvestment.Size = New System.Drawing.Size(151, 13)
         Me.lbl_p2ProDisInvestment.TabIndex = 13
         Me.lbl_p2ProDisInvestment.Tag = "PDINVEST"
         Me.lbl_p2ProDisInvestment.Text = "Profit on disposal of investment"
@@ -1242,10 +1239,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2ProDispPlantEq.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2ProDispPlantEq.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2ProDispPlantEq.Location = New System.Drawing.Point(6, 325)
+        Me.lbl_p2ProDispPlantEq.Location = New System.Drawing.Point(5, 264)
         Me.lbl_p2ProDispPlantEq.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2ProDispPlantEq.Name = "lbl_p2ProDispPlantEq"
-        Me.lbl_p2ProDispPlantEq.Size = New System.Drawing.Size(306, 17)
+        Me.lbl_p2ProDispPlantEq.Size = New System.Drawing.Size(241, 13)
         Me.lbl_p2ProDispPlantEq.TabIndex = 12
         Me.lbl_p2ProDispPlantEq.Tag = "PDFIXASSET"
         Me.lbl_p2ProDispPlantEq.Text = "Profit on disposal of propety, plant and equipment"
@@ -1253,10 +1250,10 @@ Partial Class frmPNL_Add
         'LabelControl21
         '
         Me.LabelControl21.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl21.Location = New System.Drawing.Point(6, 287)
+        Me.LabelControl21.Location = New System.Drawing.Point(5, 233)
         Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl21.Name = "LabelControl21"
-        Me.LabelControl21.Size = New System.Drawing.Size(180, 21)
+        Me.LabelControl21.Size = New System.Drawing.Size(145, 17)
         Me.LabelControl21.TabIndex = 11
         Me.LabelControl21.Text = "Non - Taxable profits"
         '
@@ -1264,10 +1261,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2OtherIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2OtherIncome.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2OtherIncome.Location = New System.Drawing.Point(6, 233)
+        Me.lbl_p2OtherIncome.Location = New System.Drawing.Point(5, 189)
         Me.lbl_p2OtherIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2OtherIncome.Name = "lbl_p2OtherIncome"
-        Me.lbl_p2OtherIncome.Size = New System.Drawing.Size(83, 17)
+        Me.lbl_p2OtherIncome.Size = New System.Drawing.Size(64, 13)
         Me.lbl_p2OtherIncome.TabIndex = 10
         Me.lbl_p2OtherIncome.Tag = "OTHERINC"
         Me.lbl_p2OtherIncome.Text = "Other income"
@@ -1276,10 +1273,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2RoyaltyIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2RoyaltyIncome.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2RoyaltyIncome.Location = New System.Drawing.Point(6, 206)
+        Me.lbl_p2RoyaltyIncome.Location = New System.Drawing.Point(5, 167)
         Me.lbl_p2RoyaltyIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2RoyaltyIncome.Name = "lbl_p2RoyaltyIncome"
-        Me.lbl_p2RoyaltyIncome.Size = New System.Drawing.Size(95, 17)
+        Me.lbl_p2RoyaltyIncome.Size = New System.Drawing.Size(73, 13)
         Me.lbl_p2RoyaltyIncome.TabIndex = 9
         Me.lbl_p2RoyaltyIncome.Tag = "ROYALTYINC"
         Me.lbl_p2RoyaltyIncome.Text = "Royalty income"
@@ -1288,10 +1285,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2RentalIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2RentalIncome.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2RentalIncome.Location = New System.Drawing.Point(6, 177)
+        Me.lbl_p2RentalIncome.Location = New System.Drawing.Point(5, 144)
         Me.lbl_p2RentalIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2RentalIncome.Name = "lbl_p2RentalIncome"
-        Me.lbl_p2RentalIncome.Size = New System.Drawing.Size(86, 17)
+        Me.lbl_p2RentalIncome.Size = New System.Drawing.Size(67, 13)
         Me.lbl_p2RentalIncome.TabIndex = 8
         Me.lbl_p2RentalIncome.Tag = "RENTALINC"
         Me.lbl_p2RentalIncome.Text = "Rental income"
@@ -1300,10 +1297,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2InterestIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2InterestIncome.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2InterestIncome.Location = New System.Drawing.Point(6, 149)
+        Me.lbl_p2InterestIncome.Location = New System.Drawing.Point(5, 121)
         Me.lbl_p2InterestIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2InterestIncome.Name = "lbl_p2InterestIncome"
-        Me.lbl_p2InterestIncome.Size = New System.Drawing.Size(95, 17)
+        Me.lbl_p2InterestIncome.Size = New System.Drawing.Size(75, 13)
         Me.lbl_p2InterestIncome.TabIndex = 7
         Me.lbl_p2InterestIncome.Tag = "INTERESTINC"
         Me.lbl_p2InterestIncome.Text = "Interest income"
@@ -1312,10 +1309,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2DivIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2DivIncome.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2DivIncome.Location = New System.Drawing.Point(6, 121)
+        Me.lbl_p2DivIncome.Location = New System.Drawing.Point(5, 98)
         Me.lbl_p2DivIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2DivIncome.Name = "lbl_p2DivIncome"
-        Me.lbl_p2DivIncome.Size = New System.Drawing.Size(101, 17)
+        Me.lbl_p2DivIncome.Size = New System.Drawing.Size(77, 13)
         Me.lbl_p2DivIncome.TabIndex = 6
         Me.lbl_p2DivIncome.Tag = "DIVIDENDINC"
         Me.lbl_p2DivIncome.Text = "Dividend income"
@@ -1323,10 +1320,10 @@ Partial Class frmPNL_Add
         'LabelControl15
         '
         Me.LabelControl15.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl15.Location = New System.Drawing.Point(6, 87)
+        Me.LabelControl15.Location = New System.Drawing.Point(5, 71)
         Me.LabelControl15.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl15.Name = "LabelControl15"
-        Me.LabelControl15.Size = New System.Drawing.Size(184, 21)
+        Me.LabelControl15.Size = New System.Drawing.Size(147, 17)
         Me.LabelControl15.TabIndex = 5
         Me.LabelControl15.Text = "Non-business income"
         '
@@ -1334,10 +1331,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2ForeignCurrExGain.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2ForeignCurrExGain.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2ForeignCurrExGain.Location = New System.Drawing.Point(6, 58)
+        Me.lbl_p2ForeignCurrExGain.Location = New System.Drawing.Point(5, 47)
         Me.lbl_p2ForeignCurrExGain.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2ForeignCurrExGain.Name = "lbl_p2ForeignCurrExGain"
-        Me.lbl_p2ForeignCurrExGain.Size = New System.Drawing.Size(197, 17)
+        Me.lbl_p2ForeignCurrExGain.Size = New System.Drawing.Size(154, 13)
         Me.lbl_p2ForeignCurrExGain.TabIndex = 2
         Me.lbl_p2ForeignCurrExGain.Text = "Foreign currency exchange gain"
         '
@@ -1345,10 +1342,10 @@ Partial Class frmPNL_Add
         '
         Me.lbl_p2OtherBizIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p2OtherBizIncome.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p2OtherBizIncome.Location = New System.Drawing.Point(6, 30)
+        Me.lbl_p2OtherBizIncome.Location = New System.Drawing.Point(5, 24)
         Me.lbl_p2OtherBizIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p2OtherBizIncome.Name = "lbl_p2OtherBizIncome"
-        Me.lbl_p2OtherBizIncome.Size = New System.Drawing.Size(138, 17)
+        Me.lbl_p2OtherBizIncome.Size = New System.Drawing.Size(108, 13)
         Me.lbl_p2OtherBizIncome.TabIndex = 1
         Me.lbl_p2OtherBizIncome.Tag = "OTHERBUSINC"
         Me.lbl_p2OtherBizIncome.Text = "Other business income"
@@ -1400,13 +1397,13 @@ Partial Class frmPNL_Add
         Me.XtraTabPage3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
         Me.XtraTabPage3.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage3.Size = New System.Drawing.Size(710, 673)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(609, 528)
         Me.XtraTabPage3.Tag = ""
         Me.XtraTabPage3.Text = "Page 3"
         '
         'txt_p3ForeignCurrExLoss
         '
-        Me.txt_p3ForeignCurrExLoss.Location = New System.Drawing.Point(475, 442)
+        Me.txt_p3ForeignCurrExLoss.Location = New System.Drawing.Point(407, 359)
         Me.txt_p3ForeignCurrExLoss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3ForeignCurrExLoss.Name = "txt_p3ForeignCurrExLoss"
         Me.txt_p3ForeignCurrExLoss.Properties.Appearance.Options.UseTextOptions = True
@@ -1417,17 +1414,17 @@ Partial Class frmPNL_Add
         Me.txt_p3ForeignCurrExLoss.Properties.NullValuePrompt = "0"
         Me.txt_p3ForeignCurrExLoss.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3ForeignCurrExLoss.Properties.ReadOnly = True
-        Me.txt_p3ForeignCurrExLoss.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3ForeignCurrExLoss.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3ForeignCurrExLoss.TabIndex = 60
         '
         'lbl_p3ForeignCurrExLoss
         '
         Me.lbl_p3ForeignCurrExLoss.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3ForeignCurrExLoss.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3ForeignCurrExLoss.Location = New System.Drawing.Point(21, 446)
+        Me.lbl_p3ForeignCurrExLoss.Location = New System.Drawing.Point(18, 362)
         Me.lbl_p3ForeignCurrExLoss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3ForeignCurrExLoss.Name = "lbl_p3ForeignCurrExLoss"
-        Me.lbl_p3ForeignCurrExLoss.Size = New System.Drawing.Size(194, 17)
+        Me.lbl_p3ForeignCurrExLoss.Size = New System.Drawing.Size(152, 13)
         Me.lbl_p3ForeignCurrExLoss.TabIndex = 59
         Me.lbl_p3ForeignCurrExLoss.Tag = "EXPJKDM"
         Me.lbl_p3ForeignCurrExLoss.Text = "Foreign currency exchange loss"
@@ -1435,16 +1432,16 @@ Partial Class frmPNL_Add
         'LabelControl46
         '
         Me.LabelControl46.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl46.Location = New System.Drawing.Point(21, 521)
+        Me.LabelControl46.Location = New System.Drawing.Point(18, 423)
         Me.LabelControl46.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl46.Name = "LabelControl46"
-        Me.LabelControl46.Size = New System.Drawing.Size(156, 21)
+        Me.LabelControl46.Size = New System.Drawing.Size(128, 17)
         Me.LabelControl46.TabIndex = 58
         Me.LabelControl46.Text = "Other Expenditure"
         '
         'txt_p3Zakat
         '
-        Me.txt_p3Zakat.Location = New System.Drawing.Point(583, 631)
+        Me.txt_p3Zakat.Location = New System.Drawing.Point(500, 513)
         Me.txt_p3Zakat.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3Zakat.Name = "txt_p3Zakat"
         Me.txt_p3Zakat.Properties.Appearance.Options.UseTextOptions = True
@@ -1455,24 +1452,24 @@ Partial Class frmPNL_Add
         Me.txt_p3Zakat.Properties.NullValuePrompt = "0"
         Me.txt_p3Zakat.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3Zakat.Properties.ReadOnly = True
-        Me.txt_p3Zakat.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3Zakat.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3Zakat.TabIndex = 57
         '
         'lbl_p3Zakat
         '
         Me.lbl_p3Zakat.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3Zakat.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3Zakat.Location = New System.Drawing.Point(21, 635)
+        Me.lbl_p3Zakat.Location = New System.Drawing.Point(18, 516)
         Me.lbl_p3Zakat.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3Zakat.Name = "lbl_p3Zakat"
-        Me.lbl_p3Zakat.Size = New System.Drawing.Size(34, 17)
+        Me.lbl_p3Zakat.Size = New System.Drawing.Size(27, 13)
         Me.lbl_p3Zakat.TabIndex = 56
         Me.lbl_p3Zakat.Tag = "EXPZAKAT"
         Me.lbl_p3Zakat.Text = "Zakat"
         '
         'txt_p3DonationNonApp
         '
-        Me.txt_p3DonationNonApp.Location = New System.Drawing.Point(583, 602)
+        Me.txt_p3DonationNonApp.Location = New System.Drawing.Point(500, 489)
         Me.txt_p3DonationNonApp.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3DonationNonApp.Name = "txt_p3DonationNonApp"
         Me.txt_p3DonationNonApp.Properties.Appearance.Options.UseTextOptions = True
@@ -1483,24 +1480,24 @@ Partial Class frmPNL_Add
         Me.txt_p3DonationNonApp.Properties.NullValuePrompt = "0"
         Me.txt_p3DonationNonApp.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3DonationNonApp.Properties.ReadOnly = True
-        Me.txt_p3DonationNonApp.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3DonationNonApp.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3DonationNonApp.TabIndex = 55
         '
         'lbl_p3DonationNonApp
         '
         Me.lbl_p3DonationNonApp.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3DonationNonApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3DonationNonApp.Location = New System.Drawing.Point(21, 606)
+        Me.lbl_p3DonationNonApp.Location = New System.Drawing.Point(18, 492)
         Me.lbl_p3DonationNonApp.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3DonationNonApp.Name = "lbl_p3DonationNonApp"
-        Me.lbl_p3DonationNonApp.Size = New System.Drawing.Size(149, 17)
+        Me.lbl_p3DonationNonApp.Size = New System.Drawing.Size(115, 13)
         Me.lbl_p3DonationNonApp.TabIndex = 54
         Me.lbl_p3DonationNonApp.Tag = "EXPDONATIONNONAPPR"
         Me.lbl_p3DonationNonApp.Text = "Donation Non Approved"
         '
         'txt_p3DonationApp
         '
-        Me.txt_p3DonationApp.Location = New System.Drawing.Point(583, 572)
+        Me.txt_p3DonationApp.Location = New System.Drawing.Point(500, 465)
         Me.txt_p3DonationApp.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3DonationApp.Name = "txt_p3DonationApp"
         Me.txt_p3DonationApp.Properties.Appearance.Options.UseTextOptions = True
@@ -1511,24 +1508,24 @@ Partial Class frmPNL_Add
         Me.txt_p3DonationApp.Properties.NullValuePrompt = "0"
         Me.txt_p3DonationApp.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3DonationApp.Properties.ReadOnly = True
-        Me.txt_p3DonationApp.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3DonationApp.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3DonationApp.TabIndex = 53
         '
         'lbl_p3DonationApp
         '
         Me.lbl_p3DonationApp.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3DonationApp.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3DonationApp.Location = New System.Drawing.Point(21, 576)
+        Me.lbl_p3DonationApp.Location = New System.Drawing.Point(18, 468)
         Me.lbl_p3DonationApp.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3DonationApp.Name = "lbl_p3DonationApp"
-        Me.lbl_p3DonationApp.Size = New System.Drawing.Size(120, 17)
+        Me.lbl_p3DonationApp.Size = New System.Drawing.Size(93, 13)
         Me.lbl_p3DonationApp.TabIndex = 52
         Me.lbl_p3DonationApp.Tag = "EXPDONATIONAPPR"
         Me.lbl_p3DonationApp.Text = "Donation Approved"
         '
         'txt_p3Depreciation
         '
-        Me.txt_p3Depreciation.Location = New System.Drawing.Point(583, 543)
+        Me.txt_p3Depreciation.Location = New System.Drawing.Point(500, 441)
         Me.txt_p3Depreciation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3Depreciation.Name = "txt_p3Depreciation"
         Me.txt_p3Depreciation.Properties.Appearance.Options.UseTextOptions = True
@@ -1539,24 +1536,24 @@ Partial Class frmPNL_Add
         Me.txt_p3Depreciation.Properties.NullValuePrompt = "0"
         Me.txt_p3Depreciation.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3Depreciation.Properties.ReadOnly = True
-        Me.txt_p3Depreciation.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3Depreciation.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3Depreciation.TabIndex = 51
         '
         'lbl_p3Depreciation
         '
         Me.lbl_p3Depreciation.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3Depreciation.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3Depreciation.Location = New System.Drawing.Point(21, 546)
+        Me.lbl_p3Depreciation.Location = New System.Drawing.Point(18, 444)
         Me.lbl_p3Depreciation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3Depreciation.Name = "lbl_p3Depreciation"
-        Me.lbl_p3Depreciation.Size = New System.Drawing.Size(76, 17)
+        Me.lbl_p3Depreciation.Size = New System.Drawing.Size(60, 13)
         Me.lbl_p3Depreciation.TabIndex = 50
         Me.lbl_p3Depreciation.Tag = "EXPDEPRECIATION"
         Me.lbl_p3Depreciation.Text = "Depreciation"
         '
         'txt_p3JKDM
         '
-        Me.txt_p3JKDM.Location = New System.Drawing.Point(475, 471)
+        Me.txt_p3JKDM.Location = New System.Drawing.Point(407, 383)
         Me.txt_p3JKDM.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3JKDM.Name = "txt_p3JKDM"
         Me.txt_p3JKDM.Properties.Appearance.Options.UseTextOptions = True
@@ -1567,24 +1564,24 @@ Partial Class frmPNL_Add
         Me.txt_p3JKDM.Properties.NullValuePrompt = "0"
         Me.txt_p3JKDM.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3JKDM.Properties.ReadOnly = True
-        Me.txt_p3JKDM.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3JKDM.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3JKDM.TabIndex = 49
         '
         'lbl_p3JKDM
         '
         Me.lbl_p3JKDM.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3JKDM.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3JKDM.Location = New System.Drawing.Point(21, 475)
+        Me.lbl_p3JKDM.Location = New System.Drawing.Point(18, 386)
         Me.lbl_p3JKDM.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3JKDM.Name = "lbl_p3JKDM"
-        Me.lbl_p3JKDM.Size = New System.Drawing.Size(217, 17)
+        Me.lbl_p3JKDM.Size = New System.Drawing.Size(169, 13)
         Me.lbl_p3JKDM.TabIndex = 48
         Me.lbl_p3JKDM.Tag = "EXPJKDM"
         Me.lbl_p3JKDM.Text = "Input Tax Not Claimable from JKDM"
         '
         'txt_p3Travelling
         '
-        Me.txt_p3Travelling.Location = New System.Drawing.Point(475, 412)
+        Me.txt_p3Travelling.Location = New System.Drawing.Point(407, 335)
         Me.txt_p3Travelling.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3Travelling.Name = "txt_p3Travelling"
         Me.txt_p3Travelling.Properties.Appearance.Options.UseTextOptions = True
@@ -1595,24 +1592,24 @@ Partial Class frmPNL_Add
         Me.txt_p3Travelling.Properties.NullValuePrompt = "0"
         Me.txt_p3Travelling.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3Travelling.Properties.ReadOnly = True
-        Me.txt_p3Travelling.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3Travelling.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3Travelling.TabIndex = 47
         '
         'lbl_p3Travelling
         '
         Me.lbl_p3Travelling.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3Travelling.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3Travelling.Location = New System.Drawing.Point(21, 416)
+        Me.lbl_p3Travelling.Location = New System.Drawing.Point(18, 338)
         Me.lbl_p3Travelling.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3Travelling.Name = "lbl_p3Travelling"
-        Me.lbl_p3Travelling.Size = New System.Drawing.Size(174, 17)
+        Me.lbl_p3Travelling.Size = New System.Drawing.Size(134, 13)
         Me.lbl_p3Travelling.TabIndex = 46
         Me.lbl_p3Travelling.Tag = "EXPTRAVEL"
         Me.lbl_p3Travelling.Text = "Travelling && Accommodation"
         '
         'txt_p3PromotionAds
         '
-        Me.txt_p3PromotionAds.Location = New System.Drawing.Point(475, 383)
+        Me.txt_p3PromotionAds.Location = New System.Drawing.Point(407, 311)
         Me.txt_p3PromotionAds.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3PromotionAds.Name = "txt_p3PromotionAds"
         Me.txt_p3PromotionAds.Properties.Appearance.Options.UseTextOptions = True
@@ -1623,24 +1620,24 @@ Partial Class frmPNL_Add
         Me.txt_p3PromotionAds.Properties.NullValuePrompt = "0"
         Me.txt_p3PromotionAds.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3PromotionAds.Properties.ReadOnly = True
-        Me.txt_p3PromotionAds.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3PromotionAds.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3PromotionAds.TabIndex = 45
         '
         'lbl_p3PromotionAds
         '
         Me.lbl_p3PromotionAds.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3PromotionAds.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3PromotionAds.Location = New System.Drawing.Point(21, 386)
+        Me.lbl_p3PromotionAds.Location = New System.Drawing.Point(18, 314)
         Me.lbl_p3PromotionAds.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3PromotionAds.Name = "lbl_p3PromotionAds"
-        Me.lbl_p3PromotionAds.Size = New System.Drawing.Size(169, 17)
+        Me.lbl_p3PromotionAds.Size = New System.Drawing.Size(131, 13)
         Me.lbl_p3PromotionAds.TabIndex = 44
         Me.lbl_p3PromotionAds.Tag = "EXPADVERTISEMENT"
         Me.lbl_p3PromotionAds.Text = "Promotion && Advertisement"
         '
         'txt_p3ResearchDev
         '
-        Me.txt_p3ResearchDev.Location = New System.Drawing.Point(475, 353)
+        Me.txt_p3ResearchDev.Location = New System.Drawing.Point(407, 287)
         Me.txt_p3ResearchDev.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3ResearchDev.Name = "txt_p3ResearchDev"
         Me.txt_p3ResearchDev.Properties.Appearance.Options.UseTextOptions = True
@@ -1651,24 +1648,24 @@ Partial Class frmPNL_Add
         Me.txt_p3ResearchDev.Properties.NullValuePrompt = "0"
         Me.txt_p3ResearchDev.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3ResearchDev.Properties.ReadOnly = True
-        Me.txt_p3ResearchDev.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3ResearchDev.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3ResearchDev.TabIndex = 43
         '
         'lbl_p3ResearchDev
         '
         Me.lbl_p3ResearchDev.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3ResearchDev.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3ResearchDev.Location = New System.Drawing.Point(21, 357)
+        Me.lbl_p3ResearchDev.Location = New System.Drawing.Point(18, 290)
         Me.lbl_p3ResearchDev.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3ResearchDev.Name = "lbl_p3ResearchDev"
-        Me.lbl_p3ResearchDev.Size = New System.Drawing.Size(155, 17)
+        Me.lbl_p3ResearchDev.Size = New System.Drawing.Size(121, 13)
         Me.lbl_p3ResearchDev.TabIndex = 42
         Me.lbl_p3ResearchDev.Tag = "EXPRND"
         Me.lbl_p3ResearchDev.Text = "Research && Development"
         '
         'txt_p3RepairMain
         '
-        Me.txt_p3RepairMain.Location = New System.Drawing.Point(475, 324)
+        Me.txt_p3RepairMain.Location = New System.Drawing.Point(407, 263)
         Me.txt_p3RepairMain.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3RepairMain.Name = "txt_p3RepairMain"
         Me.txt_p3RepairMain.Properties.Appearance.Options.UseTextOptions = True
@@ -1679,24 +1676,24 @@ Partial Class frmPNL_Add
         Me.txt_p3RepairMain.Properties.NullValuePrompt = "0"
         Me.txt_p3RepairMain.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3RepairMain.Properties.ReadOnly = True
-        Me.txt_p3RepairMain.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3RepairMain.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3RepairMain.TabIndex = 41
         '
         'lbl_p3RepairMain
         '
         Me.lbl_p3RepairMain.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3RepairMain.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3RepairMain.Location = New System.Drawing.Point(21, 327)
+        Me.lbl_p3RepairMain.Location = New System.Drawing.Point(18, 266)
         Me.lbl_p3RepairMain.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3RepairMain.Name = "lbl_p3RepairMain"
-        Me.lbl_p3RepairMain.Size = New System.Drawing.Size(122, 17)
+        Me.lbl_p3RepairMain.Size = New System.Drawing.Size(98, 13)
         Me.lbl_p3RepairMain.TabIndex = 40
         Me.lbl_p3RepairMain.Tag = "EXPREPAIRMAINTENANCE"
         Me.lbl_p3RepairMain.Text = "Repair & Maintenance"
         '
         'txt_p3Rental
         '
-        Me.txt_p3Rental.Location = New System.Drawing.Point(475, 294)
+        Me.txt_p3Rental.Location = New System.Drawing.Point(407, 239)
         Me.txt_p3Rental.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3Rental.Name = "txt_p3Rental"
         Me.txt_p3Rental.Properties.Appearance.Options.UseTextOptions = True
@@ -1707,24 +1704,24 @@ Partial Class frmPNL_Add
         Me.txt_p3Rental.Properties.NullValuePrompt = "0"
         Me.txt_p3Rental.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3Rental.Properties.ReadOnly = True
-        Me.txt_p3Rental.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3Rental.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3Rental.TabIndex = 39
         '
         'lbl_p3Rental
         '
         Me.lbl_p3Rental.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3Rental.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3Rental.Location = New System.Drawing.Point(21, 298)
+        Me.lbl_p3Rental.Location = New System.Drawing.Point(18, 242)
         Me.lbl_p3Rental.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3Rental.Name = "lbl_p3Rental"
-        Me.lbl_p3Rental.Size = New System.Drawing.Size(38, 17)
+        Me.lbl_p3Rental.Size = New System.Drawing.Size(31, 13)
         Me.lbl_p3Rental.TabIndex = 38
         Me.lbl_p3Rental.Tag = "EXPRENTAL"
         Me.lbl_p3Rental.Text = "Rental"
         '
         'txt_p3Royalty
         '
-        Me.txt_p3Royalty.Location = New System.Drawing.Point(475, 265)
+        Me.txt_p3Royalty.Location = New System.Drawing.Point(407, 215)
         Me.txt_p3Royalty.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3Royalty.Name = "txt_p3Royalty"
         Me.txt_p3Royalty.Properties.Appearance.Options.UseTextOptions = True
@@ -1735,24 +1732,24 @@ Partial Class frmPNL_Add
         Me.txt_p3Royalty.Properties.NullValuePrompt = "0"
         Me.txt_p3Royalty.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3Royalty.Properties.ReadOnly = True
-        Me.txt_p3Royalty.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3Royalty.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3Royalty.TabIndex = 37
         '
         'lbl_p3Royalty
         '
         Me.lbl_p3Royalty.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3Royalty.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3Royalty.Location = New System.Drawing.Point(21, 268)
+        Me.lbl_p3Royalty.Location = New System.Drawing.Point(18, 218)
         Me.lbl_p3Royalty.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3Royalty.Name = "lbl_p3Royalty"
-        Me.lbl_p3Royalty.Size = New System.Drawing.Size(47, 17)
+        Me.lbl_p3Royalty.Size = New System.Drawing.Size(37, 13)
         Me.lbl_p3Royalty.TabIndex = 36
         Me.lbl_p3Royalty.Tag = "EXPROYALTY"
         Me.lbl_p3Royalty.Text = "Royalty"
         '
         'txt_p3COEStock
         '
-        Me.txt_p3COEStock.Location = New System.Drawing.Point(475, 235)
+        Me.txt_p3COEStock.Location = New System.Drawing.Point(407, 191)
         Me.txt_p3COEStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3COEStock.Name = "txt_p3COEStock"
         Me.txt_p3COEStock.Properties.Appearance.Options.UseTextOptions = True
@@ -1763,24 +1760,24 @@ Partial Class frmPNL_Add
         Me.txt_p3COEStock.Properties.NullValuePrompt = "0"
         Me.txt_p3COEStock.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3COEStock.Properties.ReadOnly = True
-        Me.txt_p3COEStock.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3COEStock.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3COEStock.TabIndex = 35
         '
         'lbl_p3COEStock
         '
         Me.lbl_p3COEStock.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3COEStock.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3COEStock.Location = New System.Drawing.Point(21, 239)
+        Me.lbl_p3COEStock.Location = New System.Drawing.Point(18, 194)
         Me.lbl_p3COEStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3COEStock.Name = "lbl_p3COEStock"
-        Me.lbl_p3COEStock.Size = New System.Drawing.Size(198, 17)
+        Me.lbl_p3COEStock.Size = New System.Drawing.Size(153, 13)
         Me.lbl_p3COEStock.TabIndex = 34
         Me.lbl_p3COEStock.Tag = "EXPEMPLOYEESTOCK"
         Me.lbl_p3COEStock.Text = "Cost of Employee Stock Options"
         '
         'txt_p3Salary
         '
-        Me.txt_p3Salary.Location = New System.Drawing.Point(475, 206)
+        Me.txt_p3Salary.Location = New System.Drawing.Point(407, 167)
         Me.txt_p3Salary.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3Salary.Name = "txt_p3Salary"
         Me.txt_p3Salary.Properties.Appearance.Options.UseTextOptions = True
@@ -1791,24 +1788,24 @@ Partial Class frmPNL_Add
         Me.txt_p3Salary.Properties.NullValuePrompt = "0"
         Me.txt_p3Salary.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3Salary.Properties.ReadOnly = True
-        Me.txt_p3Salary.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3Salary.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3Salary.TabIndex = 33
         '
         'lbl_p3Salary
         '
         Me.lbl_p3Salary.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3Salary.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3Salary.Location = New System.Drawing.Point(21, 209)
+        Me.lbl_p3Salary.Location = New System.Drawing.Point(18, 170)
         Me.lbl_p3Salary.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3Salary.Name = "lbl_p3Salary"
-        Me.lbl_p3Salary.Size = New System.Drawing.Size(37, 17)
+        Me.lbl_p3Salary.Size = New System.Drawing.Size(30, 13)
         Me.lbl_p3Salary.TabIndex = 32
         Me.lbl_p3Salary.Tag = "EXPSALARY"
         Me.lbl_p3Salary.Text = "Salary"
         '
         'txt_p3DirectorFee
         '
-        Me.txt_p3DirectorFee.Location = New System.Drawing.Point(475, 176)
+        Me.txt_p3DirectorFee.Location = New System.Drawing.Point(407, 143)
         Me.txt_p3DirectorFee.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3DirectorFee.Name = "txt_p3DirectorFee"
         Me.txt_p3DirectorFee.Properties.Appearance.Options.UseTextOptions = True
@@ -1819,24 +1816,24 @@ Partial Class frmPNL_Add
         Me.txt_p3DirectorFee.Properties.NullValuePrompt = "0"
         Me.txt_p3DirectorFee.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3DirectorFee.Properties.ReadOnly = True
-        Me.txt_p3DirectorFee.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3DirectorFee.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3DirectorFee.TabIndex = 31
         '
         'lbl_p3DirectorFee
         '
         Me.lbl_p3DirectorFee.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3DirectorFee.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3DirectorFee.Location = New System.Drawing.Point(21, 180)
+        Me.lbl_p3DirectorFee.Location = New System.Drawing.Point(18, 146)
         Me.lbl_p3DirectorFee.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3DirectorFee.Name = "lbl_p3DirectorFee"
-        Me.lbl_p3DirectorFee.Size = New System.Drawing.Size(83, 17)
+        Me.lbl_p3DirectorFee.Size = New System.Drawing.Size(66, 13)
         Me.lbl_p3DirectorFee.TabIndex = 30
         Me.lbl_p3DirectorFee.Tag = "EXPDIRECTORFEE"
         Me.lbl_p3DirectorFee.Text = "Directors' Fee"
         '
         'txt_p3ContractPay
         '
-        Me.txt_p3ContractPay.Location = New System.Drawing.Point(475, 146)
+        Me.txt_p3ContractPay.Location = New System.Drawing.Point(407, 119)
         Me.txt_p3ContractPay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3ContractPay.Name = "txt_p3ContractPay"
         Me.txt_p3ContractPay.Properties.Appearance.Options.UseTextOptions = True
@@ -1847,24 +1844,24 @@ Partial Class frmPNL_Add
         Me.txt_p3ContractPay.Properties.NullValuePrompt = "0"
         Me.txt_p3ContractPay.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3ContractPay.Properties.ReadOnly = True
-        Me.txt_p3ContractPay.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3ContractPay.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3ContractPay.TabIndex = 29
         '
         'lbl_p3ContractPay
         '
         Me.lbl_p3ContractPay.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3ContractPay.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3ContractPay.Location = New System.Drawing.Point(21, 150)
+        Me.lbl_p3ContractPay.Location = New System.Drawing.Point(18, 122)
         Me.lbl_p3ContractPay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3ContractPay.Name = "lbl_p3ContractPay"
-        Me.lbl_p3ContractPay.Size = New System.Drawing.Size(119, 17)
+        Me.lbl_p3ContractPay.Size = New System.Drawing.Size(92, 13)
         Me.lbl_p3ContractPay.TabIndex = 28
         Me.lbl_p3ContractPay.Tag = "EXPCONTRACTPAY"
         Me.lbl_p3ContractPay.Text = "Contract Payments"
         '
         'txt_p3TechPayNonResis
         '
-        Me.txt_p3TechPayNonResis.Location = New System.Drawing.Point(475, 117)
+        Me.txt_p3TechPayNonResis.Location = New System.Drawing.Point(407, 95)
         Me.txt_p3TechPayNonResis.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3TechPayNonResis.Name = "txt_p3TechPayNonResis"
         Me.txt_p3TechPayNonResis.Properties.Appearance.Options.UseTextOptions = True
@@ -1875,23 +1872,23 @@ Partial Class frmPNL_Add
         Me.txt_p3TechPayNonResis.Properties.NullValuePrompt = "0"
         Me.txt_p3TechPayNonResis.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3TechPayNonResis.Properties.ReadOnly = True
-        Me.txt_p3TechPayNonResis.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3TechPayNonResis.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3TechPayNonResis.TabIndex = 27
         '
         'lbl_p3TechPayNonResis
         '
         Me.lbl_p3TechPayNonResis.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3TechPayNonResis.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3TechPayNonResis.Location = New System.Drawing.Point(21, 121)
+        Me.lbl_p3TechPayNonResis.Location = New System.Drawing.Point(18, 98)
         Me.lbl_p3TechPayNonResis.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3TechPayNonResis.Name = "lbl_p3TechPayNonResis"
-        Me.lbl_p3TechPayNonResis.Size = New System.Drawing.Size(302, 17)
+        Me.lbl_p3TechPayNonResis.Size = New System.Drawing.Size(239, 13)
         Me.lbl_p3TechPayNonResis.TabIndex = 26
         Me.lbl_p3TechPayNonResis.Text = "Technical fee payments to non-resident recipients"
         '
         'txt_p3ProTechManLeganFees
         '
-        Me.txt_p3ProTechManLeganFees.Location = New System.Drawing.Point(475, 87)
+        Me.txt_p3ProTechManLeganFees.Location = New System.Drawing.Point(407, 71)
         Me.txt_p3ProTechManLeganFees.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3ProTechManLeganFees.Name = "txt_p3ProTechManLeganFees"
         Me.txt_p3ProTechManLeganFees.Properties.Appearance.Options.UseTextOptions = True
@@ -1902,24 +1899,24 @@ Partial Class frmPNL_Add
         Me.txt_p3ProTechManLeganFees.Properties.NullValuePrompt = "0"
         Me.txt_p3ProTechManLeganFees.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3ProTechManLeganFees.Properties.ReadOnly = True
-        Me.txt_p3ProTechManLeganFees.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3ProTechManLeganFees.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3ProTechManLeganFees.TabIndex = 25
         '
         'lbl_p3ProTechManLeganFees
         '
         Me.lbl_p3ProTechManLeganFees.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3ProTechManLeganFees.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3ProTechManLeganFees.Location = New System.Drawing.Point(21, 91)
+        Me.lbl_p3ProTechManLeganFees.Location = New System.Drawing.Point(18, 74)
         Me.lbl_p3ProTechManLeganFees.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3ProTechManLeganFees.Name = "lbl_p3ProTechManLeganFees"
-        Me.lbl_p3ProTechManLeganFees.Size = New System.Drawing.Size(292, 17)
+        Me.lbl_p3ProTechManLeganFees.Size = New System.Drawing.Size(235, 13)
         Me.lbl_p3ProTechManLeganFees.TabIndex = 24
         Me.lbl_p3ProTechManLeganFees.Tag = "EXPLEGAL"
         Me.lbl_p3ProTechManLeganFees.Text = "Professional, Technical, Management & Legal Fees"
         '
         'txt_p3OtherInterestExHirePur
         '
-        Me.txt_p3OtherInterestExHirePur.Location = New System.Drawing.Point(475, 58)
+        Me.txt_p3OtherInterestExHirePur.Location = New System.Drawing.Point(407, 47)
         Me.txt_p3OtherInterestExHirePur.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3OtherInterestExHirePur.Name = "txt_p3OtherInterestExHirePur"
         Me.txt_p3OtherInterestExHirePur.Properties.Appearance.Options.UseTextOptions = True
@@ -1930,24 +1927,24 @@ Partial Class frmPNL_Add
         Me.txt_p3OtherInterestExHirePur.Properties.NullValuePrompt = "0"
         Me.txt_p3OtherInterestExHirePur.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3OtherInterestExHirePur.Properties.ReadOnly = True
-        Me.txt_p3OtherInterestExHirePur.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3OtherInterestExHirePur.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3OtherInterestExHirePur.TabIndex = 23
         '
         'lbl_p3OtherInterestExHirePur
         '
         Me.lbl_p3OtherInterestExHirePur.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3OtherInterestExHirePur.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3OtherInterestExHirePur.Location = New System.Drawing.Point(21, 62)
+        Me.lbl_p3OtherInterestExHirePur.Location = New System.Drawing.Point(18, 50)
         Me.lbl_p3OtherInterestExHirePur.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3OtherInterestExHirePur.Name = "lbl_p3OtherInterestExHirePur"
-        Me.lbl_p3OtherInterestExHirePur.Size = New System.Drawing.Size(293, 17)
+        Me.lbl_p3OtherInterestExHirePur.Size = New System.Drawing.Size(234, 13)
         Me.lbl_p3OtherInterestExHirePur.TabIndex = 22
         Me.lbl_p3OtherInterestExHirePur.Tag = "EXPOTHERINTEREST"
         Me.lbl_p3OtherInterestExHirePur.Text = "Other Interest (excluding hire purchase interest)"
         '
         'txt_p3InterestResPurS33
         '
-        Me.txt_p3InterestResPurS33.Location = New System.Drawing.Point(475, 28)
+        Me.txt_p3InterestResPurS33.Location = New System.Drawing.Point(407, 23)
         Me.txt_p3InterestResPurS33.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p3InterestResPurS33.Name = "txt_p3InterestResPurS33"
         Me.txt_p3InterestResPurS33.Properties.Appearance.Options.UseTextOptions = True
@@ -1958,17 +1955,17 @@ Partial Class frmPNL_Add
         Me.txt_p3InterestResPurS33.Properties.NullValuePrompt = "0"
         Me.txt_p3InterestResPurS33.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p3InterestResPurS33.Properties.ReadOnly = True
-        Me.txt_p3InterestResPurS33.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p3InterestResPurS33.Size = New System.Drawing.Size(86, 20)
         Me.txt_p3InterestResPurS33.TabIndex = 21
         '
         'lbl_p3InterestResPurS33
         '
         Me.lbl_p3InterestResPurS33.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p3InterestResPurS33.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p3InterestResPurS33.Location = New System.Drawing.Point(21, 32)
+        Me.lbl_p3InterestResPurS33.Location = New System.Drawing.Point(18, 26)
         Me.lbl_p3InterestResPurS33.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p3InterestResPurS33.Name = "lbl_p3InterestResPurS33"
-        Me.lbl_p3InterestResPurS33.Size = New System.Drawing.Size(234, 17)
+        Me.lbl_p3InterestResPurS33.Size = New System.Drawing.Size(185, 13)
         Me.lbl_p3InterestResPurS33.TabIndex = 20
         Me.lbl_p3InterestResPurS33.Tag = "INTERESTRESTRICT"
         Me.lbl_p3InterestResPurS33.Text = "Interest restricted pursuant to S33 (2)"
@@ -1976,10 +1973,10 @@ Partial Class frmPNL_Add
         'LabelControl2
         '
         Me.LabelControl2.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl2.Location = New System.Drawing.Point(21, 2)
+        Me.LabelControl2.Location = New System.Drawing.Point(18, 2)
         Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(38, 21)
+        Me.LabelControl2.Size = New System.Drawing.Size(30, 17)
         Me.LabelControl2.TabIndex = 4
         Me.LabelControl2.Text = "Less"
         '
@@ -2027,18 +2024,20 @@ Partial Class frmPNL_Add
         Me.XtraTabPage4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage4.Name = "XtraTabPage4"
         Me.XtraTabPage4.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage4.Size = New System.Drawing.Size(710, 673)
+        Me.XtraTabPage4.Size = New System.Drawing.Size(606, 528)
         Me.XtraTabPage4.Text = "Page 4"
         '
         'dgvExport
         '
         Me.dgvExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dgvExport.DataSource = Me.ExportPNLBindingSource
-        Me.dgvExport.Location = New System.Drawing.Point(8, 640)
+        Me.dgvExport.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.dgvExport.Location = New System.Drawing.Point(7, 502)
         Me.dgvExport.MainView = Me.GridView1
+        Me.dgvExport.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvExport.MenuManager = Me.BarManager1
         Me.dgvExport.Name = "dgvExport"
-        Me.dgvExport.Size = New System.Drawing.Size(41, 30)
+        Me.dgvExport.Size = New System.Drawing.Size(35, 24)
         Me.dgvExport.TabIndex = 60
         Me.dgvExport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -2102,7 +2101,7 @@ Partial Class frmPNL_Add
         '
         'txt_p4ExpectedExpenses
         '
-        Me.txt_p4ExpectedExpenses.Location = New System.Drawing.Point(475, 409)
+        Me.txt_p4ExpectedExpenses.Location = New System.Drawing.Point(407, 332)
         Me.txt_p4ExpectedExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4ExpectedExpenses.Name = "txt_p4ExpectedExpenses"
         Me.txt_p4ExpectedExpenses.Properties.Appearance.Options.UseTextOptions = True
@@ -2114,22 +2113,22 @@ Partial Class frmPNL_Add
         Me.txt_p4ExpectedExpenses.Properties.NullText = "0"
         Me.txt_p4ExpectedExpenses.Properties.NullValuePrompt = "0"
         Me.txt_p4ExpectedExpenses.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txt_p4ExpectedExpenses.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4ExpectedExpenses.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4ExpectedExpenses.TabIndex = 59
         '
         'LabelControl1
         '
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl1.Location = New System.Drawing.Point(8, 414)
+        Me.LabelControl1.Location = New System.Drawing.Point(7, 336)
         Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(171, 17)
+        Me.LabelControl1.Size = New System.Drawing.Size(134, 13)
         Me.LabelControl1.TabIndex = 58
         Me.LabelControl1.Text = "Other (Expected Expenses)"
         '
         'txt_p4NonAllowableExpenses
         '
-        Me.txt_p4NonAllowableExpenses.Location = New System.Drawing.Point(583, 576)
+        Me.txt_p4NonAllowableExpenses.Location = New System.Drawing.Point(481, 468)
         Me.txt_p4NonAllowableExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4NonAllowableExpenses.Name = "txt_p4NonAllowableExpenses"
         Me.txt_p4NonAllowableExpenses.Properties.Appearance.Options.UseTextOptions = True
@@ -2140,26 +2139,26 @@ Partial Class frmPNL_Add
         Me.txt_p4NonAllowableExpenses.Properties.NullValuePrompt = "0"
         Me.txt_p4NonAllowableExpenses.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4NonAllowableExpenses.Properties.ReadOnly = True
-        Me.txt_p4NonAllowableExpenses.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4NonAllowableExpenses.Size = New System.Drawing.Size(105, 20)
         Me.txt_p4NonAllowableExpenses.TabIndex = 57
         '
         'lblP4NonAllowableExpenses
         '
         Me.lblP4NonAllowableExpenses.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, CType((System.Drawing.FontStyle.Italic Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblP4NonAllowableExpenses.Location = New System.Drawing.Point(8, 580)
+        Me.lblP4NonAllowableExpenses.Location = New System.Drawing.Point(7, 471)
         Me.lblP4NonAllowableExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lblP4NonAllowableExpenses.Name = "lblP4NonAllowableExpenses"
-        Me.lblP4NonAllowableExpenses.Size = New System.Drawing.Size(141, 16)
+        Me.lblP4NonAllowableExpenses.Size = New System.Drawing.Size(112, 12)
         Me.lblP4NonAllowableExpenses.TabIndex = 56
         Me.lblP4NonAllowableExpenses.Tag = "NONALLOWABLEEXPENSES"
         Me.lblP4NonAllowableExpenses.Text = "Non-Allowable Expenses"
         '
         'txt_p4NetProfitLoss
         '
-        Me.txt_p4NetProfitLoss.Location = New System.Drawing.Point(583, 546)
+        Me.txt_p4NetProfitLoss.Location = New System.Drawing.Point(481, 444)
         Me.txt_p4NetProfitLoss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4NetProfitLoss.Name = "txt_p4NetProfitLoss"
-        Me.txt_p4NetProfitLoss.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txt_p4NetProfitLoss.Properties.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txt_p4NetProfitLoss.Properties.Appearance.Options.UseFont = True
         Me.txt_p4NetProfitLoss.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4NetProfitLoss.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
@@ -2169,22 +2168,22 @@ Partial Class frmPNL_Add
         Me.txt_p4NetProfitLoss.Properties.NullValuePrompt = "0"
         Me.txt_p4NetProfitLoss.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4NetProfitLoss.Properties.ReadOnly = True
-        Me.txt_p4NetProfitLoss.Size = New System.Drawing.Size(100, 24)
+        Me.txt_p4NetProfitLoss.Size = New System.Drawing.Size(105, 20)
         Me.txt_p4NetProfitLoss.TabIndex = 55
         '
         'LabelControl63
         '
         Me.LabelControl63.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl63.Location = New System.Drawing.Point(8, 550)
+        Me.LabelControl63.Location = New System.Drawing.Point(7, 447)
         Me.LabelControl63.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl63.Name = "LabelControl63"
-        Me.LabelControl63.Size = New System.Drawing.Size(132, 18)
+        Me.LabelControl63.Size = New System.Drawing.Size(108, 14)
         Me.LabelControl63.TabIndex = 54
         Me.LabelControl63.Text = "Net Profit or Loss"
         '
         'txt_p4TotalExpenses
         '
-        Me.txt_p4TotalExpenses.Location = New System.Drawing.Point(583, 517)
+        Me.txt_p4TotalExpenses.Location = New System.Drawing.Point(481, 420)
         Me.txt_p4TotalExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4TotalExpenses.Name = "txt_p4TotalExpenses"
         Me.txt_p4TotalExpenses.Properties.Appearance.Options.UseTextOptions = True
@@ -2199,21 +2198,21 @@ Partial Class frmPNL_Add
         Me.txt_p4TotalExpenses.Properties.NullValuePrompt = "0"
         Me.txt_p4TotalExpenses.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4TotalExpenses.Properties.ReadOnly = True
-        Me.txt_p4TotalExpenses.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4TotalExpenses.Size = New System.Drawing.Size(105, 20)
         Me.txt_p4TotalExpenses.TabIndex = 53
         '
         'LabelControl62
         '
-        Me.LabelControl62.Location = New System.Drawing.Point(8, 521)
+        Me.LabelControl62.Location = New System.Drawing.Point(7, 423)
         Me.LabelControl62.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl62.Name = "LabelControl62"
-        Me.LabelControl62.Size = New System.Drawing.Size(86, 16)
+        Me.LabelControl62.Size = New System.Drawing.Size(73, 13)
         Me.LabelControl62.TabIndex = 52
         Me.LabelControl62.Text = "Total Expenses"
         '
         'txt_p4TotalOtherExpenses
         '
-        Me.txt_p4TotalOtherExpenses.Location = New System.Drawing.Point(583, 487)
+        Me.txt_p4TotalOtherExpenses.Location = New System.Drawing.Point(481, 396)
         Me.txt_p4TotalOtherExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4TotalOtherExpenses.Name = "txt_p4TotalOtherExpenses"
         Me.txt_p4TotalOtherExpenses.Properties.Appearance.Options.UseTextOptions = True
@@ -2224,21 +2223,21 @@ Partial Class frmPNL_Add
         Me.txt_p4TotalOtherExpenses.Properties.NullValuePrompt = "0"
         Me.txt_p4TotalOtherExpenses.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4TotalOtherExpenses.Properties.ReadOnly = True
-        Me.txt_p4TotalOtherExpenses.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4TotalOtherExpenses.Size = New System.Drawing.Size(105, 20)
         Me.txt_p4TotalOtherExpenses.TabIndex = 51
         '
         'LabelControl61
         '
-        Me.LabelControl61.Location = New System.Drawing.Point(8, 491)
+        Me.LabelControl61.Location = New System.Drawing.Point(7, 399)
         Me.LabelControl61.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl61.Name = "LabelControl61"
-        Me.LabelControl61.Size = New System.Drawing.Size(122, 16)
+        Me.LabelControl61.Size = New System.Drawing.Size(104, 13)
         Me.LabelControl61.TabIndex = 50
         Me.LabelControl61.Text = "Total Other Expenses"
         '
         'txt_p4OtherBalacingFigure
         '
-        Me.txt_p4OtherBalacingFigure.Location = New System.Drawing.Point(475, 434)
+        Me.txt_p4OtherBalacingFigure.Location = New System.Drawing.Point(407, 353)
         Me.txt_p4OtherBalacingFigure.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4OtherBalacingFigure.Name = "txt_p4OtherBalacingFigure"
         Me.txt_p4OtherBalacingFigure.Properties.Appearance.Options.UseTextOptions = True
@@ -2249,22 +2248,22 @@ Partial Class frmPNL_Add
         Me.txt_p4OtherBalacingFigure.Properties.NullValuePrompt = "0"
         Me.txt_p4OtherBalacingFigure.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4OtherBalacingFigure.Properties.ReadOnly = True
-        Me.txt_p4OtherBalacingFigure.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4OtherBalacingFigure.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4OtherBalacingFigure.TabIndex = 49
         '
         'LabelControl60
         '
         Me.LabelControl60.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl60.Location = New System.Drawing.Point(8, 439)
+        Me.LabelControl60.Location = New System.Drawing.Point(7, 357)
         Me.LabelControl60.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl60.Name = "LabelControl60"
-        Me.LabelControl60.Size = New System.Drawing.Size(141, 17)
+        Me.LabelControl60.Size = New System.Drawing.Size(112, 13)
         Me.LabelControl60.TabIndex = 48
         Me.LabelControl60.Text = "Other (Balacing Figure)"
         '
         'txt_p4Other
         '
-        Me.txt_p4Other.Location = New System.Drawing.Point(475, 383)
+        Me.txt_p4Other.Location = New System.Drawing.Point(407, 311)
         Me.txt_p4Other.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4Other.Name = "txt_p4Other"
         Me.txt_p4Other.Properties.Appearance.Options.UseTextOptions = True
@@ -2275,24 +2274,24 @@ Partial Class frmPNL_Add
         Me.txt_p4Other.Properties.NullValuePrompt = "0"
         Me.txt_p4Other.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4Other.Properties.ReadOnly = True
-        Me.txt_p4Other.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4Other.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4Other.TabIndex = 47
         '
         'lbl_p4Other
         '
         Me.lbl_p4Other.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4Other.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4Other.Location = New System.Drawing.Point(8, 386)
+        Me.lbl_p4Other.Location = New System.Drawing.Point(7, 314)
         Me.lbl_p4Other.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4Other.Name = "lbl_p4Other"
-        Me.lbl_p4Other.Size = New System.Drawing.Size(41, 17)
+        Me.lbl_p4Other.Size = New System.Drawing.Size(33, 13)
         Me.lbl_p4Other.TabIndex = 46
         Me.lbl_p4Other.Tag = "EXPOTHERSEXPENSES"
         Me.lbl_p4Other.Text = "Others"
         '
         'txt_p4CAExpenditure
         '
-        Me.txt_p4CAExpenditure.Location = New System.Drawing.Point(475, 353)
+        Me.txt_p4CAExpenditure.Location = New System.Drawing.Point(407, 287)
         Me.txt_p4CAExpenditure.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4CAExpenditure.Name = "txt_p4CAExpenditure"
         Me.txt_p4CAExpenditure.Properties.Appearance.Options.UseTextOptions = True
@@ -2303,24 +2302,24 @@ Partial Class frmPNL_Add
         Me.txt_p4CAExpenditure.Properties.NullValuePrompt = "0"
         Me.txt_p4CAExpenditure.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4CAExpenditure.Properties.ReadOnly = True
-        Me.txt_p4CAExpenditure.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4CAExpenditure.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4CAExpenditure.TabIndex = 45
         '
         'lbl_p4CAExpenditure
         '
         Me.lbl_p4CAExpenditure.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4CAExpenditure.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4CAExpenditure.Location = New System.Drawing.Point(8, 357)
+        Me.lbl_p4CAExpenditure.Location = New System.Drawing.Point(7, 290)
         Me.lbl_p4CAExpenditure.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4CAExpenditure.Name = "lbl_p4CAExpenditure"
-        Me.lbl_p4CAExpenditure.Size = New System.Drawing.Size(118, 17)
+        Me.lbl_p4CAExpenditure.Size = New System.Drawing.Size(94, 13)
         Me.lbl_p4CAExpenditure.TabIndex = 44
         Me.lbl_p4CAExpenditure.Tag = "EXPCAPITALEXPENDITURE"
         Me.lbl_p4CAExpenditure.Text = "Capital Expenditure"
         '
         'txt_p4InitSub
         '
-        Me.txt_p4InitSub.Location = New System.Drawing.Point(475, 324)
+        Me.txt_p4InitSub.Location = New System.Drawing.Point(407, 263)
         Me.txt_p4InitSub.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4InitSub.Name = "txt_p4InitSub"
         Me.txt_p4InitSub.Properties.Appearance.Options.UseTextOptions = True
@@ -2331,24 +2330,24 @@ Partial Class frmPNL_Add
         Me.txt_p4InitSub.Properties.NullValuePrompt = "0"
         Me.txt_p4InitSub.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4InitSub.Properties.ReadOnly = True
-        Me.txt_p4InitSub.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4InitSub.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4InitSub.TabIndex = 43
         '
         'lbl_p4InitSub
         '
         Me.lbl_p4InitSub.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4InitSub.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4InitSub.Location = New System.Drawing.Point(8, 327)
+        Me.lbl_p4InitSub.Location = New System.Drawing.Point(7, 266)
         Me.lbl_p4InitSub.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4InitSub.Name = "lbl_p4InitSub"
-        Me.lbl_p4InitSub.Size = New System.Drawing.Size(109, 17)
+        Me.lbl_p4InitSub.Size = New System.Drawing.Size(87, 13)
         Me.lbl_p4InitSub.TabIndex = 42
         Me.lbl_p4InitSub.Tag = "EXPINITIALSUBSCRIPT"
         Me.lbl_p4InitSub.Text = "Initial Subscription"
         '
         'txt_p4ReaLossForeExNonTrade
         '
-        Me.txt_p4ReaLossForeExNonTrade.Location = New System.Drawing.Point(475, 294)
+        Me.txt_p4ReaLossForeExNonTrade.Location = New System.Drawing.Point(407, 239)
         Me.txt_p4ReaLossForeExNonTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4ReaLossForeExNonTrade.Name = "txt_p4ReaLossForeExNonTrade"
         Me.txt_p4ReaLossForeExNonTrade.Properties.Appearance.Options.UseTextOptions = True
@@ -2359,24 +2358,24 @@ Partial Class frmPNL_Add
         Me.txt_p4ReaLossForeExNonTrade.Properties.NullValuePrompt = "0"
         Me.txt_p4ReaLossForeExNonTrade.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4ReaLossForeExNonTrade.Properties.ReadOnly = True
-        Me.txt_p4ReaLossForeExNonTrade.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4ReaLossForeExNonTrade.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4ReaLossForeExNonTrade.TabIndex = 41
         '
         'lbl_p4ReaLossForeExNonTrade
         '
         Me.lbl_p4ReaLossForeExNonTrade.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4ReaLossForeExNonTrade.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4ReaLossForeExNonTrade.Location = New System.Drawing.Point(8, 298)
+        Me.lbl_p4ReaLossForeExNonTrade.Location = New System.Drawing.Point(7, 242)
         Me.lbl_p4ReaLossForeExNonTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4ReaLossForeExNonTrade.Name = "lbl_p4ReaLossForeExNonTrade"
-        Me.lbl_p4ReaLossForeExNonTrade.Size = New System.Drawing.Size(291, 17)
+        Me.lbl_p4ReaLossForeExNonTrade.Size = New System.Drawing.Size(229, 13)
         Me.lbl_p4ReaLossForeExNonTrade.TabIndex = 40
         Me.lbl_p4ReaLossForeExNonTrade.Tag = "EXPREALLOSSFENONTRADE"
         Me.lbl_p4ReaLossForeExNonTrade.Text = "Realised Loss on Foreign Exchange - Non-Trade"
         '
         'txt_p4ReaLossForeExTrade
         '
-        Me.txt_p4ReaLossForeExTrade.Location = New System.Drawing.Point(475, 265)
+        Me.txt_p4ReaLossForeExTrade.Location = New System.Drawing.Point(407, 215)
         Me.txt_p4ReaLossForeExTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4ReaLossForeExTrade.Name = "txt_p4ReaLossForeExTrade"
         Me.txt_p4ReaLossForeExTrade.Properties.Appearance.Options.UseTextOptions = True
@@ -2387,24 +2386,24 @@ Partial Class frmPNL_Add
         Me.txt_p4ReaLossForeExTrade.Properties.NullValuePrompt = "0"
         Me.txt_p4ReaLossForeExTrade.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4ReaLossForeExTrade.Properties.ReadOnly = True
-        Me.txt_p4ReaLossForeExTrade.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4ReaLossForeExTrade.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4ReaLossForeExTrade.TabIndex = 39
         '
         'lbl_p4ReaLossForeExTrade
         '
         Me.lbl_p4ReaLossForeExTrade.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4ReaLossForeExTrade.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4ReaLossForeExTrade.Location = New System.Drawing.Point(8, 268)
+        Me.lbl_p4ReaLossForeExTrade.Location = New System.Drawing.Point(7, 218)
         Me.lbl_p4ReaLossForeExTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4ReaLossForeExTrade.Name = "lbl_p4ReaLossForeExTrade"
-        Me.lbl_p4ReaLossForeExTrade.Size = New System.Drawing.Size(261, 17)
+        Me.lbl_p4ReaLossForeExTrade.Size = New System.Drawing.Size(206, 13)
         Me.lbl_p4ReaLossForeExTrade.TabIndex = 38
         Me.lbl_p4ReaLossForeExTrade.Tag = "EXPREALLOSSFETRADE"
         Me.lbl_p4ReaLossForeExTrade.Text = "Realised Loss on Foreign Exchange - Trade"
         '
         'txt_p4UnreaLossForeEx
         '
-        Me.txt_p4UnreaLossForeEx.Location = New System.Drawing.Point(475, 235)
+        Me.txt_p4UnreaLossForeEx.Location = New System.Drawing.Point(407, 191)
         Me.txt_p4UnreaLossForeEx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4UnreaLossForeEx.Name = "txt_p4UnreaLossForeEx"
         Me.txt_p4UnreaLossForeEx.Properties.Appearance.Options.UseTextOptions = True
@@ -2415,24 +2414,24 @@ Partial Class frmPNL_Add
         Me.txt_p4UnreaLossForeEx.Properties.NullValuePrompt = "0"
         Me.txt_p4UnreaLossForeEx.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4UnreaLossForeEx.Properties.ReadOnly = True
-        Me.txt_p4UnreaLossForeEx.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4UnreaLossForeEx.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4UnreaLossForeEx.TabIndex = 37
         '
         'lbl_p4UnreaLossForeEx
         '
         Me.lbl_p4UnreaLossForeEx.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4UnreaLossForeEx.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4UnreaLossForeEx.Location = New System.Drawing.Point(8, 239)
+        Me.lbl_p4UnreaLossForeEx.Location = New System.Drawing.Point(7, 194)
         Me.lbl_p4UnreaLossForeEx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4UnreaLossForeEx.Name = "lbl_p4UnreaLossForeEx"
-        Me.lbl_p4UnreaLossForeEx.Size = New System.Drawing.Size(226, 17)
+        Me.lbl_p4UnreaLossForeEx.Size = New System.Drawing.Size(178, 13)
         Me.lbl_p4UnreaLossForeEx.TabIndex = 36
         Me.lbl_p4UnreaLossForeEx.Tag = "EXPUNREALLOSSFE"
         Me.lbl_p4UnreaLossForeEx.Text = "Unrealised Loss on Foreign Exchange"
         '
         'txt_p4FAWrittenOff
         '
-        Me.txt_p4FAWrittenOff.Location = New System.Drawing.Point(475, 206)
+        Me.txt_p4FAWrittenOff.Location = New System.Drawing.Point(407, 167)
         Me.txt_p4FAWrittenOff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4FAWrittenOff.Name = "txt_p4FAWrittenOff"
         Me.txt_p4FAWrittenOff.Properties.Appearance.Options.UseTextOptions = True
@@ -2443,24 +2442,24 @@ Partial Class frmPNL_Add
         Me.txt_p4FAWrittenOff.Properties.NullValuePrompt = "0"
         Me.txt_p4FAWrittenOff.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4FAWrittenOff.Properties.ReadOnly = True
-        Me.txt_p4FAWrittenOff.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4FAWrittenOff.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4FAWrittenOff.TabIndex = 35
         '
         'lbl_p4FAWrittenOff
         '
         Me.lbl_p4FAWrittenOff.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4FAWrittenOff.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4FAWrittenOff.Location = New System.Drawing.Point(8, 209)
+        Me.lbl_p4FAWrittenOff.Location = New System.Drawing.Point(7, 170)
         Me.lbl_p4FAWrittenOff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4FAWrittenOff.Name = "lbl_p4FAWrittenOff"
-        Me.lbl_p4FAWrittenOff.Size = New System.Drawing.Size(141, 17)
+        Me.lbl_p4FAWrittenOff.Size = New System.Drawing.Size(115, 13)
         Me.lbl_p4FAWrittenOff.TabIndex = 34
         Me.lbl_p4FAWrittenOff.Tag = "EXPFAWRITTENOFF"
         Me.lbl_p4FAWrittenOff.Text = "Fixed Asset Written Off"
         '
         'txt_p4LeavePass
         '
-        Me.txt_p4LeavePass.Location = New System.Drawing.Point(475, 176)
+        Me.txt_p4LeavePass.Location = New System.Drawing.Point(407, 143)
         Me.txt_p4LeavePass.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4LeavePass.Name = "txt_p4LeavePass"
         Me.txt_p4LeavePass.Properties.Appearance.Options.UseTextOptions = True
@@ -2471,24 +2470,24 @@ Partial Class frmPNL_Add
         Me.txt_p4LeavePass.Properties.NullValuePrompt = "0"
         Me.txt_p4LeavePass.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4LeavePass.Properties.ReadOnly = True
-        Me.txt_p4LeavePass.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4LeavePass.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4LeavePass.TabIndex = 33
         '
         'lbl_p4LeavePass
         '
         Me.lbl_p4LeavePass.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4LeavePass.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4LeavePass.Location = New System.Drawing.Point(8, 180)
+        Me.lbl_p4LeavePass.Location = New System.Drawing.Point(7, 146)
         Me.lbl_p4LeavePass.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4LeavePass.Name = "lbl_p4LeavePass"
-        Me.lbl_p4LeavePass.Size = New System.Drawing.Size(89, 17)
+        Me.lbl_p4LeavePass.Size = New System.Drawing.Size(72, 13)
         Me.lbl_p4LeavePass.TabIndex = 32
         Me.lbl_p4LeavePass.Tag = "EXPLEAVEPASSAGE"
         Me.lbl_p4LeavePass.Text = "Leave Passage"
         '
         'txt_p4ProvisionAcc
         '
-        Me.txt_p4ProvisionAcc.Location = New System.Drawing.Point(475, 146)
+        Me.txt_p4ProvisionAcc.Location = New System.Drawing.Point(407, 119)
         Me.txt_p4ProvisionAcc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4ProvisionAcc.Name = "txt_p4ProvisionAcc"
         Me.txt_p4ProvisionAcc.Properties.Appearance.Options.UseTextOptions = True
@@ -2499,24 +2498,24 @@ Partial Class frmPNL_Add
         Me.txt_p4ProvisionAcc.Properties.NullValuePrompt = "0"
         Me.txt_p4ProvisionAcc.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4ProvisionAcc.Properties.ReadOnly = True
-        Me.txt_p4ProvisionAcc.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4ProvisionAcc.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4ProvisionAcc.TabIndex = 31
         '
         'lbl_p4ProvisionAcc
         '
         Me.lbl_p4ProvisionAcc.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4ProvisionAcc.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4ProvisionAcc.Location = New System.Drawing.Point(8, 150)
+        Me.lbl_p4ProvisionAcc.Location = New System.Drawing.Point(7, 122)
         Me.lbl_p4ProvisionAcc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4ProvisionAcc.Name = "lbl_p4ProvisionAcc"
-        Me.lbl_p4ProvisionAcc.Size = New System.Drawing.Size(110, 17)
+        Me.lbl_p4ProvisionAcc.Size = New System.Drawing.Size(85, 13)
         Me.lbl_p4ProvisionAcc.TabIndex = 30
         Me.lbl_p4ProvisionAcc.Tag = "EXPPROVISION"
         Me.lbl_p4ProvisionAcc.Text = "Provision Account"
         '
         'txt_p4Compound
         '
-        Me.txt_p4Compound.Location = New System.Drawing.Point(475, 117)
+        Me.txt_p4Compound.Location = New System.Drawing.Point(407, 95)
         Me.txt_p4Compound.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4Compound.Name = "txt_p4Compound"
         Me.txt_p4Compound.Properties.Appearance.Options.UseTextOptions = True
@@ -2527,24 +2526,24 @@ Partial Class frmPNL_Add
         Me.txt_p4Compound.Properties.NullValuePrompt = "0"
         Me.txt_p4Compound.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4Compound.Properties.ReadOnly = True
-        Me.txt_p4Compound.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4Compound.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4Compound.TabIndex = 29
         '
         'lbl_p4Compound
         '
         Me.lbl_p4Compound.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4Compound.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4Compound.Location = New System.Drawing.Point(8, 121)
+        Me.lbl_p4Compound.Location = New System.Drawing.Point(7, 98)
         Me.lbl_p4Compound.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4Compound.Name = "lbl_p4Compound"
-        Me.lbl_p4Compound.Size = New System.Drawing.Size(127, 17)
+        Me.lbl_p4Compound.Size = New System.Drawing.Size(97, 13)
         Me.lbl_p4Compound.TabIndex = 28
         Me.lbl_p4Compound.Tag = "EXPCOMPAUNDPENALTY"
         Me.lbl_p4Compound.Text = "Compound / Penalty"
         '
         'txt_p4EntStaff
         '
-        Me.txt_p4EntStaff.Location = New System.Drawing.Point(475, 87)
+        Me.txt_p4EntStaff.Location = New System.Drawing.Point(407, 71)
         Me.txt_p4EntStaff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4EntStaff.Name = "txt_p4EntStaff"
         Me.txt_p4EntStaff.Properties.Appearance.Options.UseTextOptions = True
@@ -2555,24 +2554,24 @@ Partial Class frmPNL_Add
         Me.txt_p4EntStaff.Properties.NullValuePrompt = "0"
         Me.txt_p4EntStaff.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4EntStaff.Properties.ReadOnly = True
-        Me.txt_p4EntStaff.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4EntStaff.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4EntStaff.TabIndex = 27
         '
         'lbl_p4EntStaff
         '
         Me.lbl_p4EntStaff.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4EntStaff.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4EntStaff.Location = New System.Drawing.Point(8, 91)
+        Me.lbl_p4EntStaff.Location = New System.Drawing.Point(7, 74)
         Me.lbl_p4EntStaff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4EntStaff.Name = "lbl_p4EntStaff"
-        Me.lbl_p4EntStaff.Size = New System.Drawing.Size(124, 17)
+        Me.lbl_p4EntStaff.Size = New System.Drawing.Size(99, 13)
         Me.lbl_p4EntStaff.TabIndex = 26
         Me.lbl_p4EntStaff.Tag = "EXPENTERTAINSTAFF"
         Me.lbl_p4EntStaff.Text = "Entertainment  Staff"
         '
         'txt_p4EntNonStaff
         '
-        Me.txt_p4EntNonStaff.Location = New System.Drawing.Point(475, 58)
+        Me.txt_p4EntNonStaff.Location = New System.Drawing.Point(407, 47)
         Me.txt_p4EntNonStaff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4EntNonStaff.Name = "txt_p4EntNonStaff"
         Me.txt_p4EntNonStaff.Properties.Appearance.Options.UseTextOptions = True
@@ -2583,24 +2582,24 @@ Partial Class frmPNL_Add
         Me.txt_p4EntNonStaff.Properties.NullValuePrompt = "0"
         Me.txt_p4EntNonStaff.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4EntNonStaff.Properties.ReadOnly = True
-        Me.txt_p4EntNonStaff.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4EntNonStaff.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4EntNonStaff.TabIndex = 25
         '
         'lbl_p4EntNonStaff
         '
         Me.lbl_p4EntNonStaff.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4EntNonStaff.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4EntNonStaff.Location = New System.Drawing.Point(8, 62)
+        Me.lbl_p4EntNonStaff.Location = New System.Drawing.Point(7, 50)
         Me.lbl_p4EntNonStaff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4EntNonStaff.Name = "lbl_p4EntNonStaff"
-        Me.lbl_p4EntNonStaff.Size = New System.Drawing.Size(149, 17)
+        Me.lbl_p4EntNonStaff.Size = New System.Drawing.Size(118, 13)
         Me.lbl_p4EntNonStaff.TabIndex = 24
         Me.lbl_p4EntNonStaff.Tag = "EXPENTERTAINNONSTAFF"
         Me.lbl_p4EntNonStaff.Text = "Entertainment Non Staff"
         '
         'txt_p4LossDispFA
         '
-        Me.txt_p4LossDispFA.Location = New System.Drawing.Point(475, 28)
+        Me.txt_p4LossDispFA.Location = New System.Drawing.Point(407, 23)
         Me.txt_p4LossDispFA.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.txt_p4LossDispFA.Name = "txt_p4LossDispFA"
         Me.txt_p4LossDispFA.Properties.Appearance.Options.UseTextOptions = True
@@ -2611,17 +2610,17 @@ Partial Class frmPNL_Add
         Me.txt_p4LossDispFA.Properties.NullValuePrompt = "0"
         Me.txt_p4LossDispFA.Properties.NullValuePromptShowForEmptyValue = True
         Me.txt_p4LossDispFA.Properties.ReadOnly = True
-        Me.txt_p4LossDispFA.Size = New System.Drawing.Size(100, 22)
+        Me.txt_p4LossDispFA.Size = New System.Drawing.Size(86, 20)
         Me.txt_p4LossDispFA.TabIndex = 23
         '
         'lbl_p4LossDispFA
         '
         Me.lbl_p4LossDispFA.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lbl_p4LossDispFA.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.lbl_p4LossDispFA.Location = New System.Drawing.Point(8, 32)
+        Me.lbl_p4LossDispFA.Location = New System.Drawing.Point(7, 26)
         Me.lbl_p4LossDispFA.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lbl_p4LossDispFA.Name = "lbl_p4LossDispFA"
-        Me.lbl_p4LossDispFA.Size = New System.Drawing.Size(194, 17)
+        Me.lbl_p4LossDispFA.Size = New System.Drawing.Size(155, 13)
         Me.lbl_p4LossDispFA.TabIndex = 22
         Me.lbl_p4LossDispFA.Tag = "EXPLOSSDISPFA"
         Me.lbl_p4LossDispFA.Text = "Loss on Disposal of Fixed Assets"
@@ -2645,14 +2644,13 @@ Partial Class frmPNL_Add
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
         Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.RibbonControl1.MaxItemId = 5
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7})
         Me.RibbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl1.ShowToolbarCustomizeItem = False
-        Me.RibbonControl1.Size = New System.Drawing.Size(1478, 156)
+        Me.RibbonControl1.Size = New System.Drawing.Size(1267, 141)
         Me.RibbonControl1.Toolbar.ShowCustomizeItem = False
         '
         'btnSave
@@ -3001,11 +2999,11 @@ Partial Class frmPNL_Add
         Me.WorkspaceManager1.TargetControl = Me.RibbonControl1
         Me.WorkspaceManager1.TransitionType = PushTransition1
         '
-        'frmPNL_Details
+        'frmPNL_Add
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1478, 922)
+        Me.ClientSize = New System.Drawing.Size(1267, 749)
         Me.Controls.Add(Me.DockPanel1)
         Me.Controls.Add(Me.RibbonControl1)
         Me.Controls.Add(Me.barDockControlLeft)
@@ -3014,7 +3012,7 @@ Partial Class frmPNL_Add
         Me.Controls.Add(Me.barDockControlTop)
         Me.KeyPreview = True
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Name = "frmPNL_Details"
+        Me.Name = "frmPNL_Add"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Profit And Loss"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized

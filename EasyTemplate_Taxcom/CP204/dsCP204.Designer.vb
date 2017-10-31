@@ -25,43 +25,53 @@ Option Explicit On
 Partial Public Class dsCP204
     Inherits Global.System.Data.DataSet
     
+    Private tableBORANG_CP204_TRICOR As BORANG_CP204_TRICORDataTable
+
+    Private tableBORANG_CP204_TRICOR_BREAKDOWN As BORANG_CP204_TRICOR_BREAKDOWNDataTable
+
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Public Sub New()
-        MyBase.New
-        Me.BeginInit
-        Me.InitClass
+        MyBase.New()
+        Me.BeginInit()
+        Me.InitClass()
         Dim schemaChangedHandler As Global.System.ComponentModel.CollectionChangeEventHandler = AddressOf Me.SchemaChanged
         AddHandler MyBase.Tables.CollectionChanged, schemaChangedHandler
         AddHandler MyBase.Relations.CollectionChanged, schemaChangedHandler
-        Me.EndInit
+        Me.EndInit()
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-        MyBase.New(info, context, false)
-        If (Me.IsBinarySerialized(info, context) = true) Then
-            Me.InitVars(false)
+        MyBase.New(info, context, False)
+        If (Me.IsBinarySerialized(info, context) = True) Then
+            Me.InitVars(False)
             Dim schemaChangedHandler1 As Global.System.ComponentModel.CollectionChangeEventHandler = AddressOf Me.SchemaChanged
             AddHandler Me.Tables.CollectionChanged, schemaChangedHandler1
             AddHandler Me.Relations.CollectionChanged, schemaChangedHandler1
             Return
         End If
-        Dim strSchema As String = CType(info.GetValue("XmlSchema", GetType(String)),String)
+        Dim strSchema As String = CType(info.GetValue("XmlSchema", GetType(String)), String)
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
+            If (Not (ds.Tables("BORANG_CP204_TRICOR")) Is Nothing) Then
+                MyBase.Tables.Add(New BORANG_CP204_TRICORDataTable(ds.Tables("BORANG_CP204_TRICOR")))
+            End If
+            If (Not (ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")) Is Nothing) Then
+                MyBase.Tables.Add(New BORANG_CP204_TRICOR_BREAKDOWNDataTable(ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
             Me.Locale = ds.Locale
             Me.CaseSensitive = ds.CaseSensitive
             Me.EnforceConstraints = ds.EnforceConstraints
-            Me.Merge(ds, false, Global.System.Data.MissingSchemaAction.Add)
-            Me.InitVars
+            Me.Merge(ds, False, Global.System.Data.MissingSchemaAction.Add)
+            Me.InitVars()
         Else
             Me.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
         End If
@@ -70,128 +80,182 @@ Partial Public Class dsCP204
         AddHandler MyBase.Tables.CollectionChanged, schemaChangedHandler
         AddHandler Me.Relations.CollectionChanged, schemaChangedHandler
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-     Global.System.ComponentModel.BrowsableAttribute(true),  _
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+     Global.System.ComponentModel.Browsable(False), _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)> _
+    Public ReadOnly Property BORANG_CP204_TRICOR() As BORANG_CP204_TRICORDataTable
+        Get
+            Return Me.tableBORANG_CP204_TRICOR
+        End Get
+    End Property
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+     Global.System.ComponentModel.Browsable(False), _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)> _
+    Public ReadOnly Property BORANG_CP204_TRICOR_BREAKDOWN() As BORANG_CP204_TRICOR_BREAKDOWNDataTable
+        Get
+            Return Me.tableBORANG_CP204_TRICOR_BREAKDOWN
+        End Get
+    End Property
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+     Global.System.ComponentModel.BrowsableAttribute(True), _
+     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)> _
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
         Get
             Return Me._schemaSerializationMode
         End Get
-        Set
+        Set(value As Global.System.Data.SchemaSerializationMode)
             Me._schemaSerializationMode = value
         End Set
     End Property
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
     Public Shadows ReadOnly Property Tables() As Global.System.Data.DataTableCollection
         Get
             Return MyBase.Tables
         End Get
     End Property
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+     Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Hidden)> _
     Public Shadows ReadOnly Property Relations() As Global.System.Data.DataRelationCollection
         Get
             Return MyBase.Relations
         End Get
     End Property
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Protected Overrides Sub InitializeDerivedDataSet()
-        Me.BeginInit
-        Me.InitClass
-        Me.EndInit
+        Me.BeginInit()
+        Me.InitClass()
+        Me.EndInit()
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Public Overrides Function Clone() As Global.System.Data.DataSet
-        Dim cln As dsCP204 = CType(MyBase.Clone,dsCP204)
-        cln.InitVars
+        Dim cln As dsCP204 = CType(MyBase.Clone, dsCP204)
+        cln.InitVars()
         cln.SchemaSerializationMode = Me.SchemaSerializationMode
         Return cln
     End Function
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Protected Overrides Function ShouldSerializeTables() As Boolean
-        Return false
+        Return False
     End Function
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Protected Overrides Function ShouldSerializeRelations() As Boolean
-        Return false
+        Return False
     End Function
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Protected Overrides Sub ReadXmlSerializable(ByVal reader As Global.System.Xml.XmlReader)
         If (Me.DetermineSchemaSerializationMode(reader) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
-            Me.Reset
+            Me.Reset()
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
+            If (Not (ds.Tables("BORANG_CP204_TRICOR")) Is Nothing) Then
+                MyBase.Tables.Add(New BORANG_CP204_TRICORDataTable(ds.Tables("BORANG_CP204_TRICOR")))
+            End If
+            If (Not (ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")) Is Nothing) Then
+                MyBase.Tables.Add(New BORANG_CP204_TRICOR_BREAKDOWNDataTable(ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
             Me.Locale = ds.Locale
             Me.CaseSensitive = ds.CaseSensitive
             Me.EnforceConstraints = ds.EnforceConstraints
-            Me.Merge(ds, false, Global.System.Data.MissingSchemaAction.Add)
-            Me.InitVars
+            Me.Merge(ds, False, Global.System.Data.MissingSchemaAction.Add)
+            Me.InitVars()
         Else
             Me.ReadXml(reader)
-            Me.InitVars
+            Me.InitVars()
         End If
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Protected Overrides Function GetSchemaSerializable() As Global.System.Xml.Schema.XmlSchema
         Dim stream As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
         Me.WriteXmlSchema(New Global.System.Xml.XmlTextWriter(stream, Nothing))
         stream.Position = 0
         Return Global.System.Xml.Schema.XmlSchema.Read(New Global.System.Xml.XmlTextReader(stream), Nothing)
     End Function
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Friend Overloads Sub InitVars()
-        Me.InitVars(true)
+        Me.InitVars(True)
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
+        Me.tableBORANG_CP204_TRICOR = CType(MyBase.Tables("BORANG_CP204_TRICOR"), BORANG_CP204_TRICORDataTable)
+        If (initTable = True) Then
+            If (Not (Me.tableBORANG_CP204_TRICOR) Is Nothing) Then
+                Me.tableBORANG_CP204_TRICOR.InitVars()
+            End If
+        End If
+        Me.tableBORANG_CP204_TRICOR_BREAKDOWN = CType(MyBase.Tables("BORANG_CP204_TRICOR_BREAKDOWN"), BORANG_CP204_TRICOR_BREAKDOWNDataTable)
+        If (initTable = True) Then
+            If (Not (Me.tableBORANG_CP204_TRICOR_BREAKDOWN) Is Nothing) Then
+                Me.tableBORANG_CP204_TRICOR_BREAKDOWN.InitVars()
+            End If
+        End If
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Private Sub InitClass()
         Me.DataSetName = "dsCP204"
         Me.Prefix = ""
         Me.Namespace = "http://tempuri.org/dsCP204.xsd"
-        Me.EnforceConstraints = true
+        Me.EnforceConstraints = True
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
+        Me.tableBORANG_CP204_TRICOR = New BORANG_CP204_TRICORDataTable()
+        MyBase.Tables.Add(Me.tableBORANG_CP204_TRICOR)
+        Me.tableBORANG_CP204_TRICOR_BREAKDOWN = New BORANG_CP204_TRICOR_BREAKDOWNDataTable()
+        MyBase.Tables.Add(Me.tableBORANG_CP204_TRICOR_BREAKDOWN)
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Private Function ShouldSerializeBORANG_CP204_TRICOR() As Boolean
+        Return False
+    End Function
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Private Function ShouldSerializeBORANG_CP204_TRICOR_BREAKDOWN() As Boolean
+        Return False
+    End Function
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Private Sub SchemaChanged(ByVal sender As Object, ByVal e As Global.System.ComponentModel.CollectionChangeEventArgs)
         If (e.Action = Global.System.ComponentModel.CollectionChangeAction.Remove) Then
-            Me.InitVars
+            Me.InitVars()
         End If
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Public Shared Function GetTypedDataSetSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
         Dim ds As dsCP204 = New dsCP204()
         Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
@@ -204,39 +268,1666 @@ Partial Public Class dsCP204
         If xs.Contains(dsSchema.TargetNamespace) Then
             Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
             Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-            Try 
+            Try
                 Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                 dsSchema.Write(s1)
                 Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                 Do While schemas.MoveNext
-                    schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                    schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
                     s2.SetLength(0)
                     schema.Write(s2)
                     If (s1.Length = s2.Length) Then
                         s1.Position = 0
                         s2.Position = 0
-                        
-                        Do While ((s1.Position <> s1.Length)  _
+
+                        Do While ((s1.Position <> s1.Length) _
                                     AndAlso (s1.ReadByte = s2.ReadByte))
-                            
-                            
+
+
                         Loop
                         If (s1.Position = s1.Length) Then
                             Return type
                         End If
                     End If
-                    
+
                 Loop
             Finally
                 If (Not (s1) Is Nothing) Then
-                    s1.Close
+                    s1.Close()
                 End If
                 If (Not (s2) Is Nothing) Then
-                    s2.Close
+                    s2.Close()
                 End If
             End Try
         End If
         xs.Add(dsSchema)
         Return type
     End Function
+
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Delegate Sub BORANG_CP204_TRICORRowChangeEventHandler(ByVal sender As Object, ByVal e As BORANG_CP204_TRICORRowChangeEvent)
+
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Delegate Sub BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler(ByVal sender As Object, ByVal e As BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent)
+
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(), _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    Partial Public Class BORANG_CP204_TRICORDataTable
+        Inherits Global.System.Data.TypedTableBase(Of BORANG_CP204_TRICORRow)
+
+        Private columnCP_ID As Global.System.Data.DataColumn
+
+        Private columnCP_REF_NO As Global.System.Data.DataColumn
+
+        Private columnCP_YA As Global.System.Data.DataColumn
+
+        Private columnCP_COMPANY_NAME As Global.System.Data.DataColumn
+
+        Private columnCP_AMOUNT As Global.System.Data.DataColumn
+
+        Private columnCP_BASIS_PERIOD_FROM As Global.System.Data.DataColumn
+
+        Private columnCP_BASIS_PERIOD_TO As Global.System.Data.DataColumn
+
+        Private columnCP_TOTAL_BASIS_PERIOD As Global.System.Data.DataColumn
+
+        Private columnCP_TOTAL_INSTALLMENT_AMOUNT As Global.System.Data.DataColumn
+
+        Private columnCP_TOTAL_AMOUNT_PAID_1 As Global.System.Data.DataColumn
+
+        Private columnCP_TOTAL_AMOUNT_PAID_2 As Global.System.Data.DataColumn
+
+        Private columnCP_TOTAL_PENALTY As Global.System.Data.DataColumn
+
+        Private columnModifiedBy As Global.System.Data.DataColumn
+
+        Private columnModifiedDateTime As Global.System.Data.DataColumn
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New()
+            MyBase.New()
+            Me.TableName = "BORANG_CP204_TRICOR"
+            Me.BeginInit()
+            Me.InitClass()
+            Me.EndInit()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New()
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_ID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_REF_NOColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_REF_NO
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_YAColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_YA
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_COMPANY_NAMEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_COMPANY_NAME
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_BASIS_PERIOD_FROMColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_BASIS_PERIOD_FROM
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_BASIS_PERIOD_TOColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_BASIS_PERIOD_TO
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_TOTAL_BASIS_PERIODColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_TOTAL_BASIS_PERIOD
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_TOTAL_INSTALLMENT_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_TOTAL_INSTALLMENT_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_TOTAL_AMOUNT_PAID_1Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_TOTAL_AMOUNT_PAID_1
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_TOTAL_AMOUNT_PAID_2Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_TOTAL_AMOUNT_PAID_2
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_TOTAL_PENALTYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_TOTAL_PENALTY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ModifiedByColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnModifiedBy
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property ModifiedDateTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnModifiedDateTime
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Browsable(False)> _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Default Public ReadOnly Property Item(ByVal index As Integer) As BORANG_CP204_TRICORRow
+            Get
+                Return CType(Me.Rows(index), BORANG_CP204_TRICORRow)
+            End Get
+        End Property
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICORRowChanging As BORANG_CP204_TRICORRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICORRowChanged As BORANG_CP204_TRICORRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICORRowDeleting As BORANG_CP204_TRICORRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICORRowDeleted As BORANG_CP204_TRICORRowChangeEventHandler
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Sub AddBORANG_CP204_TRICORRow(ByVal row As BORANG_CP204_TRICORRow)
+            Me.Rows.Add(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Function AddBORANG_CP204_TRICORRow(ByVal CP_REF_NO As String, ByVal CP_YA As Integer, ByVal CP_COMPANY_NAME As String, ByVal CP_AMOUNT As Decimal, ByVal CP_BASIS_PERIOD_FROM As Date, ByVal CP_BASIS_PERIOD_TO As Date, ByVal CP_TOTAL_BASIS_PERIOD As Integer, ByVal CP_TOTAL_INSTALLMENT_AMOUNT As Decimal, ByVal CP_TOTAL_AMOUNT_PAID_1 As Decimal, ByVal CP_TOTAL_AMOUNT_PAID_2 As Decimal, ByVal CP_TOTAL_PENALTY As Decimal, ByVal ModifiedBy As String, ByVal ModifiedDateTime As Date) As BORANG_CP204_TRICORRow
+            Dim rowBORANG_CP204_TRICORRow As BORANG_CP204_TRICORRow = CType(Me.NewRow, BORANG_CP204_TRICORRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, CP_REF_NO, CP_YA, CP_COMPANY_NAME, CP_AMOUNT, CP_BASIS_PERIOD_FROM, CP_BASIS_PERIOD_TO, CP_TOTAL_BASIS_PERIOD, CP_TOTAL_INSTALLMENT_AMOUNT, CP_TOTAL_AMOUNT_PAID_1, CP_TOTAL_AMOUNT_PAID_2, CP_TOTAL_PENALTY, ModifiedBy, ModifiedDateTime}
+            rowBORANG_CP204_TRICORRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowBORANG_CP204_TRICORRow)
+            Return rowBORANG_CP204_TRICORRow
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As BORANG_CP204_TRICORDataTable = CType(MyBase.Clone, BORANG_CP204_TRICORDataTable)
+            cln.InitVars()
+            Return cln
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New BORANG_CP204_TRICORDataTable()
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub InitVars()
+            Me.columnCP_ID = MyBase.Columns("CP_ID")
+            Me.columnCP_REF_NO = MyBase.Columns("CP_REF_NO")
+            Me.columnCP_YA = MyBase.Columns("CP_YA")
+            Me.columnCP_COMPANY_NAME = MyBase.Columns("CP_COMPANY_NAME")
+            Me.columnCP_AMOUNT = MyBase.Columns("CP_AMOUNT")
+            Me.columnCP_BASIS_PERIOD_FROM = MyBase.Columns("CP_BASIS_PERIOD_FROM")
+            Me.columnCP_BASIS_PERIOD_TO = MyBase.Columns("CP_BASIS_PERIOD_TO")
+            Me.columnCP_TOTAL_BASIS_PERIOD = MyBase.Columns("CP_TOTAL_BASIS_PERIOD")
+            Me.columnCP_TOTAL_INSTALLMENT_AMOUNT = MyBase.Columns("CP_TOTAL_INSTALLMENT_AMOUNT")
+            Me.columnCP_TOTAL_AMOUNT_PAID_1 = MyBase.Columns("CP_TOTAL_AMOUNT_PAID_1")
+            Me.columnCP_TOTAL_AMOUNT_PAID_2 = MyBase.Columns("CP_TOTAL_AMOUNT_PAID_2")
+            Me.columnCP_TOTAL_PENALTY = MyBase.Columns("CP_TOTAL_PENALTY")
+            Me.columnModifiedBy = MyBase.Columns("ModifiedBy")
+            Me.columnModifiedDateTime = MyBase.Columns("ModifiedDateTime")
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Private Sub InitClass()
+            Me.columnCP_ID = New Global.System.Data.DataColumn("CP_ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_ID)
+            Me.columnCP_REF_NO = New Global.System.Data.DataColumn("CP_REF_NO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_REF_NO)
+            Me.columnCP_YA = New Global.System.Data.DataColumn("CP_YA", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_YA)
+            Me.columnCP_COMPANY_NAME = New Global.System.Data.DataColumn("CP_COMPANY_NAME", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_COMPANY_NAME)
+            Me.columnCP_AMOUNT = New Global.System.Data.DataColumn("CP_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_AMOUNT)
+            Me.columnCP_BASIS_PERIOD_FROM = New Global.System.Data.DataColumn("CP_BASIS_PERIOD_FROM", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_BASIS_PERIOD_FROM)
+            Me.columnCP_BASIS_PERIOD_TO = New Global.System.Data.DataColumn("CP_BASIS_PERIOD_TO", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_BASIS_PERIOD_TO)
+            Me.columnCP_TOTAL_BASIS_PERIOD = New Global.System.Data.DataColumn("CP_TOTAL_BASIS_PERIOD", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_TOTAL_BASIS_PERIOD)
+            Me.columnCP_TOTAL_INSTALLMENT_AMOUNT = New Global.System.Data.DataColumn("CP_TOTAL_INSTALLMENT_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_TOTAL_INSTALLMENT_AMOUNT)
+            Me.columnCP_TOTAL_AMOUNT_PAID_1 = New Global.System.Data.DataColumn("CP_TOTAL_AMOUNT_PAID_1", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_TOTAL_AMOUNT_PAID_1)
+            Me.columnCP_TOTAL_AMOUNT_PAID_2 = New Global.System.Data.DataColumn("CP_TOTAL_AMOUNT_PAID_2", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_TOTAL_AMOUNT_PAID_2)
+            Me.columnCP_TOTAL_PENALTY = New Global.System.Data.DataColumn("CP_TOTAL_PENALTY", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_TOTAL_PENALTY)
+            Me.columnModifiedBy = New Global.System.Data.DataColumn("ModifiedBy", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnModifiedBy)
+            Me.columnModifiedDateTime = New Global.System.Data.DataColumn("ModifiedDateTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnModifiedDateTime)
+            Me.columnCP_ID.AutoIncrement = True
+            Me.columnCP_ID.AllowDBNull = False
+            Me.columnCP_ID.ReadOnly = True
+            Me.columnCP_REF_NO.MaxLength = 20
+            Me.columnCP_COMPANY_NAME.MaxLength = 350
+            Me.columnModifiedBy.MaxLength = 100
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function NewBORANG_CP204_TRICORRow() As BORANG_CP204_TRICORRow
+            Return CType(Me.NewRow, BORANG_CP204_TRICORRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New BORANG_CP204_TRICORRow(builder)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(BORANG_CP204_TRICORRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.BORANG_CP204_TRICORRowChangedEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICORRowChanged(Me, New BORANG_CP204_TRICORRowChangeEvent(CType(e.Row, BORANG_CP204_TRICORRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.BORANG_CP204_TRICORRowChangingEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICORRowChanging(Me, New BORANG_CP204_TRICORRowChangeEvent(CType(e.Row, BORANG_CP204_TRICORRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.BORANG_CP204_TRICORRowDeletedEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICORRowDeleted(Me, New BORANG_CP204_TRICORRowChangeEvent(CType(e.Row, BORANG_CP204_TRICORRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.BORANG_CP204_TRICORRowDeletingEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICORRowDeleting(Me, New BORANG_CP204_TRICORRowChangeEvent(CType(e.Row, BORANG_CP204_TRICORRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub RemoveBORANG_CP204_TRICORRow(ByVal row As BORANG_CP204_TRICORRow)
+            Me.Rows.Remove(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsCP204 = New dsCP204()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "BORANG_CP204_TRICORDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+
+                            Do While ((s1.Position <> s1.Length) _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+
+
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close()
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close()
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(), _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    Partial Public Class BORANG_CP204_TRICOR_BREAKDOWNDataTable
+        Inherits Global.System.Data.TypedTableBase(Of BORANG_CP204_TRICOR_BREAKDOWNRow)
+
+        Private columnCP_ID As Global.System.Data.DataColumn
+
+        Private columnCP_PARENTID As Global.System.Data.DataColumn
+
+        Private columnCP_INSTALL_NO As Global.System.Data.DataColumn
+
+        Private columnCP_PAYMENT_DUE As Global.System.Data.DataColumn
+
+        Private columnCP_INSTALLMENT_AMOUNT As Global.System.Data.DataColumn
+
+        Private columnCP_PAYMENT_DATE_1 As Global.System.Data.DataColumn
+
+        Private columnCP_AMOUNT_PAID_1 As Global.System.Data.DataColumn
+
+        Private columnCP_PAYMENT_DATE_2 As Global.System.Data.DataColumn
+
+        Private columnCP_AMOUNT_PAID_2 As Global.System.Data.DataColumn
+
+        Private columnCP_PENALTY As Global.System.Data.DataColumn
+
+        Private columnCP_NOTE_TITLE As Global.System.Data.DataColumn
+
+        Private columnCP_NOTE As Global.System.Data.DataColumn
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New()
+            MyBase.New()
+            Me.TableName = "BORANG_CP204_TRICOR_BREAKDOWN"
+            Me.BeginInit()
+            Me.InitClass()
+            Me.EndInit()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New()
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_ID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_PARENTIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_PARENTID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_INSTALL_NOColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_INSTALL_NO
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_PAYMENT_DUEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_PAYMENT_DUE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_INSTALLMENT_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_INSTALLMENT_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_PAYMENT_DATE_1Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_PAYMENT_DATE_1
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_AMOUNT_PAID_1Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_AMOUNT_PAID_1
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_PAYMENT_DATE_2Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_PAYMENT_DATE_2
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_AMOUNT_PAID_2Column() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_AMOUNT_PAID_2
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_PENALTYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_PENALTY
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_NOTE_TITLEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_NOTE_TITLE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property CP_NOTEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCP_NOTE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Browsable(False)> _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Default Public ReadOnly Property Item(ByVal index As Integer) As BORANG_CP204_TRICOR_BREAKDOWNRow
+            Get
+                Return CType(Me.Rows(index), BORANG_CP204_TRICOR_BREAKDOWNRow)
+            End Get
+        End Property
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICOR_BREAKDOWNRowChanging As BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICOR_BREAKDOWNRowChanged As BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICOR_BREAKDOWNRowDeleting As BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event BORANG_CP204_TRICOR_BREAKDOWNRowDeleted As BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Sub AddBORANG_CP204_TRICOR_BREAKDOWNRow(ByVal row As BORANG_CP204_TRICOR_BREAKDOWNRow)
+            Me.Rows.Add(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Function AddBORANG_CP204_TRICOR_BREAKDOWNRow(ByVal CP_PARENTID As String, ByVal CP_INSTALL_NO As Integer, ByVal CP_PAYMENT_DUE As Date, ByVal CP_INSTALLMENT_AMOUNT As Decimal, ByVal CP_PAYMENT_DATE_1 As Date, ByVal CP_AMOUNT_PAID_1 As Decimal, ByVal CP_PAYMENT_DATE_2 As Date, ByVal CP_AMOUNT_PAID_2 As Decimal, ByVal CP_PENALTY As Decimal, ByVal CP_NOTE_TITLE As String, ByVal CP_NOTE As String) As BORANG_CP204_TRICOR_BREAKDOWNRow
+            Dim rowBORANG_CP204_TRICOR_BREAKDOWNRow As BORANG_CP204_TRICOR_BREAKDOWNRow = CType(Me.NewRow, BORANG_CP204_TRICOR_BREAKDOWNRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, CP_PARENTID, CP_INSTALL_NO, CP_PAYMENT_DUE, CP_INSTALLMENT_AMOUNT, CP_PAYMENT_DATE_1, CP_AMOUNT_PAID_1, CP_PAYMENT_DATE_2, CP_AMOUNT_PAID_2, CP_PENALTY, CP_NOTE_TITLE, CP_NOTE}
+            rowBORANG_CP204_TRICOR_BREAKDOWNRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowBORANG_CP204_TRICOR_BREAKDOWNRow)
+            Return rowBORANG_CP204_TRICOR_BREAKDOWNRow
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As BORANG_CP204_TRICOR_BREAKDOWNDataTable = CType(MyBase.Clone, BORANG_CP204_TRICOR_BREAKDOWNDataTable)
+            cln.InitVars()
+            Return cln
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New BORANG_CP204_TRICOR_BREAKDOWNDataTable()
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub InitVars()
+            Me.columnCP_ID = MyBase.Columns("CP_ID")
+            Me.columnCP_PARENTID = MyBase.Columns("CP_PARENTID")
+            Me.columnCP_INSTALL_NO = MyBase.Columns("CP_INSTALL_NO")
+            Me.columnCP_PAYMENT_DUE = MyBase.Columns("CP_PAYMENT_DUE")
+            Me.columnCP_INSTALLMENT_AMOUNT = MyBase.Columns("CP_INSTALLMENT_AMOUNT")
+            Me.columnCP_PAYMENT_DATE_1 = MyBase.Columns("CP_PAYMENT_DATE_1")
+            Me.columnCP_AMOUNT_PAID_1 = MyBase.Columns("CP_AMOUNT_PAID_1")
+            Me.columnCP_PAYMENT_DATE_2 = MyBase.Columns("CP_PAYMENT_DATE_2")
+            Me.columnCP_AMOUNT_PAID_2 = MyBase.Columns("CP_AMOUNT_PAID_2")
+            Me.columnCP_PENALTY = MyBase.Columns("CP_PENALTY")
+            Me.columnCP_NOTE_TITLE = MyBase.Columns("CP_NOTE_TITLE")
+            Me.columnCP_NOTE = MyBase.Columns("CP_NOTE")
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Private Sub InitClass()
+            Me.columnCP_ID = New Global.System.Data.DataColumn("CP_ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_ID)
+            Me.columnCP_PARENTID = New Global.System.Data.DataColumn("CP_PARENTID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_PARENTID)
+            Me.columnCP_INSTALL_NO = New Global.System.Data.DataColumn("CP_INSTALL_NO", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_INSTALL_NO)
+            Me.columnCP_PAYMENT_DUE = New Global.System.Data.DataColumn("CP_PAYMENT_DUE", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_PAYMENT_DUE)
+            Me.columnCP_INSTALLMENT_AMOUNT = New Global.System.Data.DataColumn("CP_INSTALLMENT_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_INSTALLMENT_AMOUNT)
+            Me.columnCP_PAYMENT_DATE_1 = New Global.System.Data.DataColumn("CP_PAYMENT_DATE_1", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_PAYMENT_DATE_1)
+            Me.columnCP_AMOUNT_PAID_1 = New Global.System.Data.DataColumn("CP_AMOUNT_PAID_1", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_AMOUNT_PAID_1)
+            Me.columnCP_PAYMENT_DATE_2 = New Global.System.Data.DataColumn("CP_PAYMENT_DATE_2", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_PAYMENT_DATE_2)
+            Me.columnCP_AMOUNT_PAID_2 = New Global.System.Data.DataColumn("CP_AMOUNT_PAID_2", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_AMOUNT_PAID_2)
+            Me.columnCP_PENALTY = New Global.System.Data.DataColumn("CP_PENALTY", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_PENALTY)
+            Me.columnCP_NOTE_TITLE = New Global.System.Data.DataColumn("CP_NOTE_TITLE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_NOTE_TITLE)
+            Me.columnCP_NOTE = New Global.System.Data.DataColumn("CP_NOTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCP_NOTE)
+            Me.columnCP_ID.AutoIncrement = True
+            Me.columnCP_ID.AllowDBNull = False
+            Me.columnCP_ID.ReadOnly = True
+            Me.columnCP_PARENTID.MaxLength = 10
+            Me.columnCP_NOTE_TITLE.MaxLength = 100
+            Me.columnCP_NOTE.MaxLength = 3000
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function NewBORANG_CP204_TRICOR_BREAKDOWNRow() As BORANG_CP204_TRICOR_BREAKDOWNRow
+            Return CType(Me.NewRow, BORANG_CP204_TRICOR_BREAKDOWNRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New BORANG_CP204_TRICOR_BREAKDOWNRow(builder)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(BORANG_CP204_TRICOR_BREAKDOWNRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.BORANG_CP204_TRICOR_BREAKDOWNRowChangedEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICOR_BREAKDOWNRowChanged(Me, New BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent(CType(e.Row, BORANG_CP204_TRICOR_BREAKDOWNRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.BORANG_CP204_TRICOR_BREAKDOWNRowChangingEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICOR_BREAKDOWNRowChanging(Me, New BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent(CType(e.Row, BORANG_CP204_TRICOR_BREAKDOWNRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.BORANG_CP204_TRICOR_BREAKDOWNRowDeletedEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICOR_BREAKDOWNRowDeleted(Me, New BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent(CType(e.Row, BORANG_CP204_TRICOR_BREAKDOWNRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.BORANG_CP204_TRICOR_BREAKDOWNRowDeletingEvent) Is Nothing) Then
+                RaiseEvent BORANG_CP204_TRICOR_BREAKDOWNRowDeleting(Me, New BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent(CType(e.Row, BORANG_CP204_TRICOR_BREAKDOWNRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub RemoveBORANG_CP204_TRICOR_BREAKDOWNRow(ByVal row As BORANG_CP204_TRICOR_BREAKDOWNRow)
+            Me.Rows.Remove(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsCP204 = New dsCP204()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "BORANG_CP204_TRICOR_BREAKDOWNDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+
+                            Do While ((s1.Position <> s1.Length) _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+
+
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close()
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close()
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class BORANG_CP204_TRICORRow
+        Inherits Global.System.Data.DataRow
+
+        Private tableBORANG_CP204_TRICOR As BORANG_CP204_TRICORDataTable
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableBORANG_CP204_TRICOR = CType(Me.Table, BORANG_CP204_TRICORDataTable)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_ID() As Integer
+            Get
+                Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_IDColumn), Integer)
+            End Get
+            Set(value As Integer)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_IDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_REF_NO() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_REF_NOColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_REF_NO' in table 'BORANG_CP204_TRICOR' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_REF_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_YA() As Integer
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_YAColumn), Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_YA' in table 'BORANG_CP204_TRICOR' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Integer)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_YAColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_COMPANY_NAME() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_COMPANY_NAMEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_COMPANY_NAME' in table 'BORANG_CP204_TRICOR' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_COMPANY_NAMEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_AMOUNT' in table 'BORANG_CP204_TRICOR' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_BASIS_PERIOD_FROM() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_FROMColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_BASIS_PERIOD_FROM' in table 'BORANG_CP204_TRICOR' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_FROMColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_BASIS_PERIOD_TO() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_TOColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_BASIS_PERIOD_TO' in table 'BORANG_CP204_TRICOR' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_TOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_TOTAL_BASIS_PERIOD() As Integer
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_BASIS_PERIODColumn), Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_TOTAL_BASIS_PERIOD' in table 'BORANG_CP204_TRICOR' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As Integer)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_BASIS_PERIODColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_TOTAL_INSTALLMENT_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_INSTALLMENT_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_TOTAL_INSTALLMENT_AMOUNT' in table 'BORANG_CP204_TRICOR'" & _
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_INSTALLMENT_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_TOTAL_AMOUNT_PAID_1() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_1Column), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_TOTAL_AMOUNT_PAID_1' in table 'BORANG_CP204_TRICOR' is D" & _
+                            "BNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_TOTAL_AMOUNT_PAID_2() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_2Column), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_TOTAL_AMOUNT_PAID_2' in table 'BORANG_CP204_TRICOR' is D" & _
+                            "BNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_TOTAL_PENALTY() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_PENALTYColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_TOTAL_PENALTY' in table 'BORANG_CP204_TRICOR' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_PENALTYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property ModifiedBy() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.ModifiedByColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ModifiedBy' in table 'BORANG_CP204_TRICOR' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBORANG_CP204_TRICOR.ModifiedByColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property ModifiedDateTime() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR.ModifiedDateTimeColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ModifiedDateTime' in table 'BORANG_CP204_TRICOR' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableBORANG_CP204_TRICOR.ModifiedDateTimeColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_REF_NONull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_REF_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_REF_NONull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_REF_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_YANull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_YAColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_YANull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_YAColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_COMPANY_NAMENull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_COMPANY_NAMEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_COMPANY_NAMENull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_COMPANY_NAMEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_AMOUNTNull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_BASIS_PERIOD_FROMNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_FROMColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_BASIS_PERIOD_FROMNull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_FROMColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_BASIS_PERIOD_TONull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_TOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_BASIS_PERIOD_TONull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_BASIS_PERIOD_TOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_TOTAL_BASIS_PERIODNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_BASIS_PERIODColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_TOTAL_BASIS_PERIODNull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_BASIS_PERIODColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_TOTAL_INSTALLMENT_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_INSTALLMENT_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_TOTAL_INSTALLMENT_AMOUNTNull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_INSTALLMENT_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_TOTAL_AMOUNT_PAID_1Null() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_TOTAL_AMOUNT_PAID_1Null()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_TOTAL_AMOUNT_PAID_2Null() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_TOTAL_AMOUNT_PAID_2Null()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_AMOUNT_PAID_2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_TOTAL_PENALTYNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_PENALTYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_TOTAL_PENALTYNull()
+            Me(Me.tableBORANG_CP204_TRICOR.CP_TOTAL_PENALTYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsModifiedByNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.ModifiedByColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetModifiedByNull()
+            Me(Me.tableBORANG_CP204_TRICOR.ModifiedByColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsModifiedDateTimeNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR.ModifiedDateTimeColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetModifiedDateTimeNull()
+            Me(Me.tableBORANG_CP204_TRICOR.ModifiedDateTimeColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class BORANG_CP204_TRICOR_BREAKDOWNRow
+        Inherits Global.System.Data.DataRow
+
+        Private tableBORANG_CP204_TRICOR_BREAKDOWN As BORANG_CP204_TRICOR_BREAKDOWNDataTable
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableBORANG_CP204_TRICOR_BREAKDOWN = CType(Me.Table, BORANG_CP204_TRICOR_BREAKDOWNDataTable)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_ID() As Integer
+            Get
+                Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_IDColumn), Integer)
+            End Get
+            Set(value As Integer)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_IDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_PARENTID() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PARENTIDColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_PARENTID' in table 'BORANG_CP204_TRICOR_BREAKDOWN' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PARENTIDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_INSTALL_NO() As Integer
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALL_NOColumn), Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_INSTALL_NO' in table 'BORANG_CP204_TRICOR_BREAKDOWN' is " & _
+                            "DBNull.", e)
+                End Try
+            End Get
+            Set(value As Integer)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALL_NOColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_PAYMENT_DUE() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DUEColumn), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_PAYMENT_DUE' in table 'BORANG_CP204_TRICOR_BREAKDOWN' is" & _
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DUEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_INSTALLMENT_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALLMENT_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_INSTALLMENT_AMOUNT' in table 'BORANG_CP204_TRICOR_BREAKD" & _
+                            "OWN' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALLMENT_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_PAYMENT_DATE_1() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_1Column), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_PAYMENT_DATE_1' in table 'BORANG_CP204_TRICOR_BREAKDOWN'" & _
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_AMOUNT_PAID_1() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_1Column), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_AMOUNT_PAID_1' in table 'BORANG_CP204_TRICOR_BREAKDOWN' " & _
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_1Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_PAYMENT_DATE_2() As Date
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_2Column), Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_PAYMENT_DATE_2' in table 'BORANG_CP204_TRICOR_BREAKDOWN'" & _
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Date)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_AMOUNT_PAID_2() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_2Column), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_AMOUNT_PAID_2' in table 'BORANG_CP204_TRICOR_BREAKDOWN' " & _
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_2Column) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_PENALTY() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PENALTYColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_PENALTY' in table 'BORANG_CP204_TRICOR_BREAKDOWN' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PENALTYColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_NOTE_TITLE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTE_TITLEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_NOTE_TITLE' in table 'BORANG_CP204_TRICOR_BREAKDOWN' is " & _
+                            "DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTE_TITLEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property CP_NOTE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CP_NOTE' in table 'BORANG_CP204_TRICOR_BREAKDOWN' is DBNull" & _
+                            ".", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_PARENTIDNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PARENTIDColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_PARENTIDNull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PARENTIDColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_INSTALL_NONull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALL_NOColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_INSTALL_NONull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALL_NOColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_PAYMENT_DUENull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DUEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_PAYMENT_DUENull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DUEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_INSTALLMENT_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALLMENT_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_INSTALLMENT_AMOUNTNull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_INSTALLMENT_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_PAYMENT_DATE_1Null() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_PAYMENT_DATE_1Null()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_AMOUNT_PAID_1Null() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_1Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_AMOUNT_PAID_1Null()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_1Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_PAYMENT_DATE_2Null() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_PAYMENT_DATE_2Null()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PAYMENT_DATE_2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_AMOUNT_PAID_2Null() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_2Column)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_AMOUNT_PAID_2Null()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_AMOUNT_PAID_2Column) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_PENALTYNull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PENALTYColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_PENALTYNull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_PENALTYColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_NOTE_TITLENull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTE_TITLEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_NOTE_TITLENull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTE_TITLEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsCP_NOTENull() As Boolean
+            Return Me.IsNull(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetCP_NOTENull()
+            Me(Me.tableBORANG_CP204_TRICOR_BREAKDOWN.CP_NOTEColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Class BORANG_CP204_TRICORRowChangeEvent
+        Inherits Global.System.EventArgs
+
+        Private eventRow As BORANG_CP204_TRICORRow
+
+        Private eventAction As Global.System.Data.DataRowAction
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New(ByVal row As BORANG_CP204_TRICORRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New()
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Row() As BORANG_CP204_TRICORRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Class BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent
+        Inherits Global.System.EventArgs
+
+        Private eventRow As BORANG_CP204_TRICOR_BREAKDOWNRow
+
+        Private eventAction As Global.System.Data.DataRowAction
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New(ByVal row As BORANG_CP204_TRICOR_BREAKDOWNRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New()
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Row() As BORANG_CP204_TRICOR_BREAKDOWNRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
 End Class

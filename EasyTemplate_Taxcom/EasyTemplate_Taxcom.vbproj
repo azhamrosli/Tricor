@@ -90,10 +90,12 @@
     <Reference Include="DevExpress.DataAccess.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Docs.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Images.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.PivotGrid.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -112,6 +114,7 @@
     <Reference Include="DevExpress.Utils.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -121,6 +124,7 @@
     <Reference Include="DevExpress.XtraEditors.v15.1">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraGauges.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -133,6 +137,8 @@
     <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.1.Extensions, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraRichEdit.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -187,21 +193,13 @@
     <Compile Include="CP204\frmCP204_PenaltyLate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dataset\dsCA.Designer.vb">
+    <Compile Include="CA\dsCA.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCA.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Dataset\dsCA.vb">
+    <Compile Include="CA\dsCA.vb">
       <DependentUpon>dsCA.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Dataset\dsReport.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsReport.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Dataset\dsReport.vb">
-      <DependentUpon>dsReport.xsd</DependentUpon>
     </Compile>
     <Compile Include="DeemedInterest\frmDeemedInterest.Designer.vb">
       <DependentUpon>frmDeemedInterest.vb</DependentUpon>
@@ -278,6 +276,12 @@
     <Compile Include="Movement\frmMovement_Add.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Movement\XtraReport1.Designer.vb">
+      <DependentUpon>XtraReport1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\XtraReport1.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PNL\frmPNL.Designer.vb">
       <DependentUpon>frmPNL.vb</DependentUpon>
     </Compile>
@@ -290,10 +294,18 @@
     <Compile Include="PNL\frmPNL_Add.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReport_Test.Designer.vb">
+    <Compile Include="Report\dsReport_Templatexsd.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsReport_Templatexsd.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Report\dsReport_Templatexsd.vb">
+      <DependentUpon>dsReport_Templatexsd.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Report\frmReport_Test.Designer.vb">
       <DependentUpon>frmReport_Test.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmReport_Test.vb">
+    <Compile Include="Report\frmReport_Test.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmStartup.vb">
@@ -700,6 +712,7 @@
     <Compile Include="PNL\ucPNL_p1Sales.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Report\mdlReport.vb" />
     <Compile Include="SQLDataObject.vb" />
     <EmbeddedResource Include="CA\frmCA.resx">
       <DependentUpon>frmCA.vb</DependentUpon>
@@ -737,13 +750,16 @@
     <EmbeddedResource Include="Movement\frmMovement_Add.resx">
       <DependentUpon>frmMovement_Add.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Movement\XtraReport1.resx">
+      <DependentUpon>XtraReport1.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL.resx">
       <DependentUpon>frmPNL.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL_Add.resx">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmReport_Test.resx">
+    <EmbeddedResource Include="Report\frmReport_Test.resx">
       <DependentUpon>frmReport_Test.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmStartup.resx">
@@ -963,27 +979,16 @@
     <None Include="CP204\dsCP204.xss">
       <DependentUpon>dsCP204.xsd</DependentUpon>
     </None>
-    <None Include="Dataset\dsCA.xsc">
+    <None Include="CA\dsCA.xsc">
       <DependentUpon>dsCA.xsd</DependentUpon>
     </None>
-    <None Include="Dataset\dsCA.xsd">
+    <None Include="CA\dsCA.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>dsCA.Designer.vb</LastGenOutput>
     </None>
-    <None Include="Dataset\dsCA.xss">
+    <None Include="CA\dsCA.xss">
       <DependentUpon>dsCA.xsd</DependentUpon>
-    </None>
-    <None Include="Dataset\dsReport.xsc">
-      <DependentUpon>dsReport.xsd</DependentUpon>
-    </None>
-    <None Include="Dataset\dsReport.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsReport.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="Dataset\dsReport.xss">
-      <DependentUpon>dsReport.xsd</DependentUpon>
     </None>
     <None Include="Movement\dsMovement.xsc">
       <DependentUpon>dsMovement.xsd</DependentUpon>
@@ -1028,6 +1033,17 @@
     <None Include="PNL\dsPNL2.xss">
       <DependentUpon>dsPNL2.xsd</DependentUpon>
     </None>
+    <None Include="Report\dsReport_Templatexsd.xsc">
+      <DependentUpon>dsReport_Templatexsd.xsd</DependentUpon>
+    </None>
+    <None Include="Report\dsReport_Templatexsd.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsReport_Templatexsd.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Report\dsReport_Templatexsd.xss">
+      <DependentUpon>dsReport_Templatexsd.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="My Project\Application.myapp">
@@ -1055,7 +1071,20 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Dataset\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -41,7 +41,23 @@ Public Class frmPNL_Add
         End Try
     End Sub
     Private Sub frmPNL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadData()
+        Try
+            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+                MsgBox("Failed to load tax payer." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                Me.Close()
+            End If
+            Application.DoEvents()
+            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+                MsgBox("Failed to load ya." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+                Me.Close()
+            End If
+            Application.DoEvents()
+
+            LoadData()
+        Catch ex As Exception
+
+        End Try
+
     End Sub
     Private Sub InitDockingSystem(ByVal CurrentProgress As Integer)
         Try
@@ -183,18 +199,7 @@ Public Class frmPNL_Add
             ProgressPanel1.Visible = True
             Me.Text = "Profit and Loss - New"
             Application.DoEvents()
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
-                MsgBox("Failed to load tax payer." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-                Me.Close()
-            End If
-            Application.DoEvents()
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
-                MsgBox("Failed to load ya." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-                Me.Close()
-            End If
-            Application.DoEvents()
-
-
+          
 
             Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
 

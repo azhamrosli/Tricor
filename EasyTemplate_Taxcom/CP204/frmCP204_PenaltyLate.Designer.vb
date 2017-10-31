@@ -35,6 +35,8 @@ Partial Class frmCP204_PenaltyLate
         Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
         Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
@@ -48,25 +50,66 @@ Partial Class frmCP204_PenaltyLate
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.txtAmount = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
+        Me.dtBasisStart = New DevExpress.XtraEditors.DateEdit()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
+        Me.dtBasisEnd = New DevExpress.XtraEditors.DateEdit()
+        Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtTotalBasisPeriod = New DevExpress.XtraEditors.TextEdit()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
+        Me.BORANGCP204TRICORBREAKDOWNBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsCP204 = New EasyTemplate_Taxcom.dsCP204()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colCP_ID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_PARENTID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_INSTALL_NO = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_PAYMENT_DUE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.cboDate = New DevExpress.XtraEditors.Repository.RepositoryItemDateEdit()
+        Me.colCP_INSTALLMENT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.colCP_PAYMENT_DATE_1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_AMOUNT_PAID_1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_PAYMENT_DATE_2 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_AMOUNT_PAID_2 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_PENALTY = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_NOTE_TITLE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
+        Me.chkAddBack = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAmount.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtBasisStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtBasisStart.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtBasisEnd.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtBasisEnd.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalBasisPeriod.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BORANGCP204TRICORBREAKDOWNBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsCP204, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboDate, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboDate.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(113, 77)
+        Me.txtRefNo.Location = New System.Drawing.Point(132, 75)
         Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(327, 22)
+        Me.txtRefNo.Size = New System.Drawing.Size(306, 22)
         Me.txtRefNo.TabIndex = 163
         '
         'LabelControl11
@@ -91,7 +134,7 @@ Partial Class frmCP204_PenaltyLate
         '
         'LabelControl10
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(15, 49)
+        Me.LabelControl10.Location = New System.Drawing.Point(12, 48)
         Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl10.Name = "LabelControl10"
         Me.LabelControl10.Size = New System.Drawing.Size(47, 16)
@@ -100,17 +143,28 @@ Partial Class frmCP204_PenaltyLate
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(111, 45)
+        Me.cboRefNo.Location = New System.Drawing.Point(132, 45)
         Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 200, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 500, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
         Me.cboRefNo.Properties.DisplayMember = "CompanyName"
         Me.cboRefNo.Properties.NullText = "Select"
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(328, 22)
+        Me.cboRefNo.Size = New System.Drawing.Size(307, 22)
         Me.cboRefNo.TabIndex = 159
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
+        '
+        'DsCA
+        '
+        Me.DsCA.DataSetName = "dsCA"
+        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'BarManager1
         '
@@ -216,7 +270,7 @@ Partial Class frmCP204_PenaltyLate
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 648)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 684)
         Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.barDockControlBottom.Size = New System.Drawing.Size(1086, 0)
         '
@@ -226,7 +280,7 @@ Partial Class frmCP204_PenaltyLate
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
         Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 611)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 647)
         '
         'barDockControlRight
         '
@@ -234,7 +288,7 @@ Partial Class frmCP204_PenaltyLate
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(1086, 37)
         Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 611)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 647)
         '
         'RepositoryItemTextEdit1
         '
@@ -249,30 +303,289 @@ Partial Class frmCP204_PenaltyLate
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.ReadOnly = True
         '
+        'txtAmount
+        '
+        Me.txtAmount.Location = New System.Drawing.Point(132, 104)
+        Me.txtAmount.MenuManager = Me.BarManager1
+        Me.txtAmount.Name = "txtAmount"
+        Me.txtAmount.Properties.DisplayFormat.FormatString = "n2"
+        Me.txtAmount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtAmount.Properties.Mask.EditMask = "n2"
+        Me.txtAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtAmount.Size = New System.Drawing.Size(199, 22)
+        Me.txtAmount.TabIndex = 173
+        '
+        'LabelControl1
+        '
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 107)
+        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl1.Name = "LabelControl1"
+        Me.LabelControl1.Size = New System.Drawing.Size(53, 16)
+        Me.LabelControl1.TabIndex = 174
+        Me.LabelControl1.Text = "Amount :"
+        '
+        'dtBasisStart
+        '
+        Me.dtBasisStart.EditValue = Nothing
+        Me.dtBasisStart.Location = New System.Drawing.Point(572, 107)
+        Me.dtBasisStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtBasisStart.MenuManager = Me.BarManager1
+        Me.dtBasisStart.Name = "dtBasisStart"
+        Me.dtBasisStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtBasisStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtBasisStart.Properties.ReadOnly = True
+        Me.dtBasisStart.Size = New System.Drawing.Size(199, 22)
+        Me.dtBasisStart.TabIndex = 181
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(452, 110)
+        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(110, 16)
+        Me.LabelControl2.TabIndex = 182
+        Me.LabelControl2.Text = "Basis Period Start :"
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Location = New System.Drawing.Point(452, 140)
+        Me.LabelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(103, 16)
+        Me.LabelControl3.TabIndex = 184
+        Me.LabelControl3.Text = "Basis Period End :"
+        '
+        'dtBasisEnd
+        '
+        Me.dtBasisEnd.EditValue = Nothing
+        Me.dtBasisEnd.Location = New System.Drawing.Point(572, 137)
+        Me.dtBasisEnd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtBasisEnd.MenuManager = Me.BarManager1
+        Me.dtBasisEnd.Name = "dtBasisEnd"
+        Me.dtBasisEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtBasisEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtBasisEnd.Properties.ReadOnly = True
+        Me.dtBasisEnd.Size = New System.Drawing.Size(199, 22)
+        Me.dtBasisEnd.TabIndex = 183
+        '
+        'LabelControl4
+        '
+        Me.LabelControl4.Location = New System.Drawing.Point(12, 140)
+        Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl4.Name = "LabelControl4"
+        Me.LabelControl4.Size = New System.Drawing.Size(111, 16)
+        Me.LabelControl4.TabIndex = 186
+        Me.LabelControl4.Text = "Total Basis Period :"
+        '
+        'txtTotalBasisPeriod
+        '
+        Me.txtTotalBasisPeriod.Location = New System.Drawing.Point(132, 137)
+        Me.txtTotalBasisPeriod.MenuManager = Me.BarManager1
+        Me.txtTotalBasisPeriod.Name = "txtTotalBasisPeriod"
+        Me.txtTotalBasisPeriod.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtTotalBasisPeriod.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotalBasisPeriod.Properties.Mask.EditMask = "n0"
+        Me.txtTotalBasisPeriod.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtTotalBasisPeriod.Properties.ReadOnly = True
+        Me.txtTotalBasisPeriod.Size = New System.Drawing.Size(199, 22)
+        Me.txtTotalBasisPeriod.TabIndex = 185
+        '
         'GridControl1
         '
         Me.GridControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GridControl1.Location = New System.Drawing.Point(15, 106)
+        Me.GridControl1.DataSource = Me.BORANGCP204TRICORBREAKDOWNBindingSource
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GridControl1.Location = New System.Drawing.Point(12, 167)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.Size = New System.Drawing.Size(1059, 500)
-        Me.GridControl1.TabIndex = 168
+        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.RepositoryItemTextEdit3, Me.chkAddBack, Me.cboDate})
+        Me.GridControl1.Size = New System.Drawing.Size(1062, 504)
+        Me.GridControl1.TabIndex = 191
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
+        '
+        'BORANGCP204TRICORBREAKDOWNBindingSource
+        '
+        Me.BORANGCP204TRICORBREAKDOWNBindingSource.DataMember = "BORANG_CP204_TRICOR_BREAKDOWN"
+        Me.BORANGCP204TRICORBREAKDOWNBindingSource.DataSource = Me.DsCP204
+        '
+        'DsCP204
+        '
+        Me.DsCP204.DataSetName = "dsCP204"
+        Me.DsCP204.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'GridView1
         '
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCP_ID, Me.colCP_PARENTID, Me.colCP_INSTALL_NO, Me.colCP_PAYMENT_DUE, Me.colCP_INSTALLMENT_AMOUNT, Me.colCP_PAYMENT_DATE_1, Me.colCP_AMOUNT_PAID_1, Me.colCP_PAYMENT_DATE_2, Me.colCP_AMOUNT_PAID_2, Me.colCP_PENALTY, Me.colCP_NOTE_TITLE, Me.colCP_NOTE})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
+        Me.GridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[True]
+        Me.GridView1.OptionsView.ColumnAutoWidth = False
+        Me.GridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.[True]
+        Me.GridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom
+        Me.GridView1.OptionsView.RowAutoHeight = True
+        '
+        'colCP_ID
+        '
+        Me.colCP_ID.FieldName = "CP_ID"
+        Me.colCP_ID.Name = "colCP_ID"
+        '
+        'colCP_PARENTID
+        '
+        Me.colCP_PARENTID.FieldName = "CP_PARENTID"
+        Me.colCP_PARENTID.Name = "colCP_PARENTID"
+        '
+        'colCP_INSTALL_NO
+        '
+        Me.colCP_INSTALL_NO.Caption = "Install No"
+        Me.colCP_INSTALL_NO.FieldName = "CP_INSTALL_NO"
+        Me.colCP_INSTALL_NO.Name = "colCP_INSTALL_NO"
+        Me.colCP_INSTALL_NO.OptionsColumn.AllowEdit = False
+        Me.colCP_INSTALL_NO.OptionsColumn.TabStop = False
+        Me.colCP_INSTALL_NO.Visible = True
+        Me.colCP_INSTALL_NO.VisibleIndex = 0
+        Me.colCP_INSTALL_NO.Width = 80
+        '
+        'colCP_PAYMENT_DUE
+        '
+        Me.colCP_PAYMENT_DUE.Caption = "Payment Due"
+        Me.colCP_PAYMENT_DUE.ColumnEdit = Me.cboDate
+        Me.colCP_PAYMENT_DUE.FieldName = "CP_PAYMENT_DUE"
+        Me.colCP_PAYMENT_DUE.Name = "colCP_PAYMENT_DUE"
+        Me.colCP_PAYMENT_DUE.Visible = True
+        Me.colCP_PAYMENT_DUE.VisibleIndex = 1
+        Me.colCP_PAYMENT_DUE.Width = 120
+        '
+        'cboDate
+        '
+        Me.cboDate.AutoHeight = False
+        Me.cboDate.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboDate.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboDate.Name = "cboDate"
+        '
+        'colCP_INSTALLMENT_AMOUNT
+        '
+        Me.colCP_INSTALLMENT_AMOUNT.Caption = "Installment Amount (RM)"
+        Me.colCP_INSTALLMENT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colCP_INSTALLMENT_AMOUNT.FieldName = "CP_INSTALLMENT_AMOUNT"
+        Me.colCP_INSTALLMENT_AMOUNT.Name = "colCP_INSTALLMENT_AMOUNT"
+        Me.colCP_INSTALLMENT_AMOUNT.OptionsColumn.AllowEdit = False
+        Me.colCP_INSTALLMENT_AMOUNT.OptionsColumn.TabStop = False
+        Me.colCP_INSTALLMENT_AMOUNT.Visible = True
+        Me.colCP_INSTALLMENT_AMOUNT.VisibleIndex = 2
+        Me.colCP_INSTALLMENT_AMOUNT.Width = 150
+        '
+        'RepositoryItemTextEdit3
+        '
+        Me.RepositoryItemTextEdit3.AutoHeight = False
+        Me.RepositoryItemTextEdit3.DisplayFormat.FormatString = "n0"
+        Me.RepositoryItemTextEdit3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit3.EditFormat.FormatString = "n0"
+        Me.RepositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.RepositoryItemTextEdit3.Mask.EditMask = "n0"
+        Me.RepositoryItemTextEdit3.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
+        '
+        'colCP_PAYMENT_DATE_1
+        '
+        Me.colCP_PAYMENT_DATE_1.Caption = "Payment Date 1"
+        Me.colCP_PAYMENT_DATE_1.ColumnEdit = Me.cboDate
+        Me.colCP_PAYMENT_DATE_1.FieldName = "CP_PAYMENT_DATE_1"
+        Me.colCP_PAYMENT_DATE_1.Name = "colCP_PAYMENT_DATE_1"
+        Me.colCP_PAYMENT_DATE_1.Visible = True
+        Me.colCP_PAYMENT_DATE_1.VisibleIndex = 3
+        Me.colCP_PAYMENT_DATE_1.Width = 120
+        '
+        'colCP_AMOUNT_PAID_1
+        '
+        Me.colCP_AMOUNT_PAID_1.Caption = "Amount Paid (RM)"
+        Me.colCP_AMOUNT_PAID_1.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colCP_AMOUNT_PAID_1.FieldName = "CP_AMOUNT_PAID_1"
+        Me.colCP_AMOUNT_PAID_1.Name = "colCP_AMOUNT_PAID_1"
+        Me.colCP_AMOUNT_PAID_1.Visible = True
+        Me.colCP_AMOUNT_PAID_1.VisibleIndex = 4
+        Me.colCP_AMOUNT_PAID_1.Width = 150
+        '
+        'colCP_PAYMENT_DATE_2
+        '
+        Me.colCP_PAYMENT_DATE_2.Caption = "Payment Date 2"
+        Me.colCP_PAYMENT_DATE_2.ColumnEdit = Me.cboDate
+        Me.colCP_PAYMENT_DATE_2.FieldName = "CP_PAYMENT_DATE_2"
+        Me.colCP_PAYMENT_DATE_2.Name = "colCP_PAYMENT_DATE_2"
+        Me.colCP_PAYMENT_DATE_2.Visible = True
+        Me.colCP_PAYMENT_DATE_2.VisibleIndex = 5
+        Me.colCP_PAYMENT_DATE_2.Width = 120
+        '
+        'colCP_AMOUNT_PAID_2
+        '
+        Me.colCP_AMOUNT_PAID_2.Caption = "Amount Paid (RM)"
+        Me.colCP_AMOUNT_PAID_2.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colCP_AMOUNT_PAID_2.FieldName = "CP_AMOUNT_PAID_2"
+        Me.colCP_AMOUNT_PAID_2.Name = "colCP_AMOUNT_PAID_2"
+        Me.colCP_AMOUNT_PAID_2.Visible = True
+        Me.colCP_AMOUNT_PAID_2.VisibleIndex = 6
+        Me.colCP_AMOUNT_PAID_2.Width = 150
+        '
+        'colCP_PENALTY
+        '
+        Me.colCP_PENALTY.Caption = "Penalty (RM)"
+        Me.colCP_PENALTY.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colCP_PENALTY.FieldName = "CP_PENALTY"
+        Me.colCP_PENALTY.Name = "colCP_PENALTY"
+        Me.colCP_PENALTY.OptionsColumn.AllowEdit = False
+        Me.colCP_PENALTY.OptionsColumn.TabStop = False
+        Me.colCP_PENALTY.Visible = True
+        Me.colCP_PENALTY.VisibleIndex = 7
+        Me.colCP_PENALTY.Width = 150
+        '
+        'colCP_NOTE_TITLE
+        '
+        Me.colCP_NOTE_TITLE.Caption = "Note Title"
+        Me.colCP_NOTE_TITLE.FieldName = "CP_NOTE_TITLE"
+        Me.colCP_NOTE_TITLE.Name = "colCP_NOTE_TITLE"
+        Me.colCP_NOTE_TITLE.Visible = True
+        Me.colCP_NOTE_TITLE.VisibleIndex = 8
+        Me.colCP_NOTE_TITLE.Width = 200
+        '
+        'colCP_NOTE
+        '
+        Me.colCP_NOTE.Caption = "Note"
+        Me.colCP_NOTE.FieldName = "CP_NOTE"
+        Me.colCP_NOTE.Name = "colCP_NOTE"
+        Me.colCP_NOTE.Visible = True
+        Me.colCP_NOTE.VisibleIndex = 9
+        Me.colCP_NOTE.Width = 350
+        '
+        'txtNote
+        '
+        Me.txtNote.MaxLength = 3000
+        Me.txtNote.Name = "txtNote"
+        '
+        'chkAddBack
+        '
+        Me.chkAddBack.AutoHeight = False
+        Me.chkAddBack.Caption = "Add Back"
+        Me.chkAddBack.Name = "chkAddBack"
+        Me.chkAddBack.ValueGrayed = True
         '
         'frmCP204_PenaltyLate
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1086, 648)
+        Me.ClientSize = New System.Drawing.Size(1086, 684)
         Me.Controls.Add(Me.GridControl1)
+        Me.Controls.Add(Me.LabelControl4)
+        Me.Controls.Add(Me.txtTotalBasisPeriod)
+        Me.Controls.Add(Me.LabelControl3)
+        Me.Controls.Add(Me.dtBasisEnd)
+        Me.Controls.Add(Me.LabelControl2)
+        Me.Controls.Add(Me.dtBasisStart)
+        Me.Controls.Add(Me.LabelControl1)
+        Me.Controls.Add(Me.txtAmount)
         Me.Controls.Add(Me.txtRefNo)
         Me.Controls.Add(Me.LabelControl11)
         Me.Controls.Add(Me.cboYA)
@@ -289,11 +602,26 @@ Partial Class frmCP204_PenaltyLate
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAmount.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtBasisStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtBasisStart.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtBasisEnd.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtBasisEnd.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalBasisPeriod.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BORANGCP204TRICORBREAKDOWNBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsCP204, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboDate.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboDate, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -314,8 +642,36 @@ Partial Class frmCP204_PenaltyLate
     Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
-    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtAmount As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
+    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents dtBasisEnd As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents dtBasisStart As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents LabelControl4 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents txtTotalBasisPeriod As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
+    Friend WithEvents BORANGCP204TRICORBREAKDOWNBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents DsCP204 As EasyTemplate_Taxcom.dsCP204
+    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colCP_ID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_PARENTID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_INSTALL_NO As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_PAYMENT_DUE As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents cboDate As DevExpress.XtraEditors.Repository.RepositoryItemDateEdit
+    Friend WithEvents colCP_INSTALLMENT_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents colCP_PAYMENT_DATE_1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_AMOUNT_PAID_1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_PAYMENT_DATE_2 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_AMOUNT_PAID_2 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_PENALTY As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_NOTE_TITLE As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCP_NOTE As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents txtNote As DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit
+    Friend WithEvents chkAddBack As DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit
 End Class

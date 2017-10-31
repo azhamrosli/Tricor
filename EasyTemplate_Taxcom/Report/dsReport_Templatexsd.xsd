@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsReport_Templatexsd" targetNamespace="http://tempuri.org/dsReport_Templatexsd.xsd" xmlns:mstns="http://tempuri.org/dsReport_Templatexsd.xsd" xmlns="http://tempuri.org/dsReport_Templatexsd.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsReport_Templatexsd" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsReport_Templatexsd" msprop:Generator_UserDSName="dsReport_Templatexsd">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtReport" msprop:Generator_TableClassName="dtReportDataTable" msprop:Generator_TableVarName="tabledtReport" msprop:Generator_TablePropName="dtReport" msprop:Generator_RowDeletingName="dtReportRowDeleting" msprop:Generator_RowChangingName="dtReportRowChanging" msprop:Generator_RowEvHandlerName="dtReportRowChangeEventHandler" msprop:Generator_RowDeletedName="dtReportRowDeleted" msprop:Generator_UserTableName="dtReport" msprop:Generator_RowChangedName="dtReportRowChanged" msprop:Generator_RowEvArgName="dtReportRowChangeEvent" msprop:Generator_RowClassName="dtReportRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Value" msprop:Generator_ColumnVarNameInTable="columnValue" msprop:Generator_ColumnPropNameInRow="Value" msprop:Generator_ColumnPropNameInTable="ValueColumn" msprop:Generator_UserColumnName="Value" type="xs:string" minOccurs="0" />
+              <xs:element name="Caption" msprop:Generator_ColumnVarNameInTable="columnCaption" msprop:Generator_ColumnPropNameInRow="Caption" msprop:Generator_ColumnPropNameInTable="CaptionColumn" msprop:Generator_UserColumnName="Caption" type="xs:string" minOccurs="0" />
+              <xs:element name="Cell" msprop:Generator_ColumnVarNameInTable="columnCell" msprop:Generator_ColumnPropNameInRow="Cell" msprop:Generator_ColumnPropNameInTable="CellColumn" msprop:Generator_UserColumnName="Cell" type="xs:short" minOccurs="0" />
+              <xs:element name="Row" msprop:Generator_ColumnVarNameInTable="columnRow" msprop:Generator_ColumnPropNameInRow="Row" msprop:Generator_ColumnPropNameInTable="RowColumn" msprop:Generator_UserColumnName="Row" type="xs:long" minOccurs="0" />
+              <xs:element name="isBold" msprop:Generator_ColumnVarNameInTable="columnisBold" msprop:Generator_ColumnPropNameInRow="isBold" msprop:Generator_ColumnPropNameInTable="isBoldColumn" msprop:Generator_UserColumnName="isBold" type="xs:boolean" minOccurs="0" />
+              <xs:element name="isUnderline" msprop:Generator_ColumnVarNameInTable="columnisUnderline" msprop:Generator_ColumnPropNameInRow="isUnderline" msprop:Generator_ColumnPropNameInTable="isUnderlineColumn" msprop:Generator_UserColumnName="isUnderline" type="xs:string" minOccurs="0" />
+              <xs:element name="isItalic" msprop:Generator_ColumnVarNameInTable="columnisItalic" msprop:Generator_ColumnPropNameInRow="isItalic" msprop:Generator_ColumnPropNameInTable="isItalicColumn" msprop:Generator_UserColumnName="isItalic" type="xs:boolean" minOccurs="0" />
+              <xs:element name="BackgroundColor" msprop:Generator_ColumnVarNameInTable="columnBackgroundColor" msprop:Generator_ColumnPropNameInRow="BackgroundColor" msprop:Generator_ColumnPropNameInTable="BackgroundColorColumn" msprop:Generator_UserColumnName="BackgroundColor" type="xs:string" minOccurs="0" />
+              <xs:element name="FontColor" msprop:Generator_ColumnVarNameInTable="columnFontColor" msprop:Generator_ColumnPropNameInRow="FontColor" msprop:Generator_ColumnPropNameInTable="FontColorColumn" msprop:Generator_UserColumnName="FontColor" type="xs:string" minOccurs="0" />
+              <xs:element name="BorderLeft" msprop:Generator_ColumnVarNameInTable="columnBorderLeft" msprop:Generator_ColumnPropNameInRow="BorderLeft" msprop:Generator_ColumnPropNameInTable="BorderLeftColumn" msprop:Generator_UserColumnName="BorderLeft" type="xs:string" minOccurs="0" />
+              <xs:element name="BorderTop" msprop:Generator_ColumnVarNameInTable="columnBorderTop" msprop:Generator_ColumnPropNameInRow="BorderTop" msprop:Generator_ColumnPropNameInTable="BorderTopColumn" msprop:Generator_UserColumnName="BorderTop" type="xs:string" minOccurs="0" />
+              <xs:element name="BorderRight" msprop:Generator_ColumnVarNameInTable="columnBorderRight" msprop:Generator_ColumnPropNameInRow="BorderRight" msprop:Generator_ColumnPropNameInTable="BorderRightColumn" msprop:Generator_UserColumnName="BorderRight" type="xs:string" minOccurs="0" />
+              <xs:element name="BorderBottom" msprop:Generator_ColumnVarNameInTable="columnBorderBottom" msprop:Generator_ColumnPropNameInRow="BorderBottom" msprop:Generator_ColumnPropNameInTable="BorderBottomColumn" msprop:Generator_UserColumnName="BorderBottom" type="xs:string" minOccurs="0" />
+              <xs:element name="Width" msprop:Generator_ColumnVarNameInTable="columnWidth" msprop:Generator_ColumnPropNameInRow="Width" msprop:Generator_ColumnPropNameInTable="WidthColumn" msprop:Generator_UserColumnName="Width" type="xs:short" minOccurs="0" />
+              <xs:element name="Height" msprop:Generator_ColumnVarNameInTable="columnHeight" msprop:Generator_ColumnPropNameInRow="Height" msprop:Generator_ColumnPropNameInTable="HeightColumn" msprop:Generator_UserColumnName="Height" type="xs:short" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

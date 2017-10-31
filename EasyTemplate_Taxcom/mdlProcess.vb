@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmpnl" 'Form Name
+    Public ArgParam0 As String = "frmMovement" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1225723109" 'RefNo
     Public ArgParam3 As String = "2016" 'YA
@@ -6787,6 +6787,71 @@ tryagain:
             Dim StrSQL As String = "SELECT * FROM TAXP_PROFILE ORDER BY TP_COM_NAME"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function LoadTaxPayer_CompanyName(ByVal TP_REF_NO As String, Optional ErrorLog As clsError = Nothing) As String
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return ""
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TAXP_PROFILE WHERE TP_REF_NO=@TP_REF_NO"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TP_REF_NO", SqlDbType.NVarChar, 20).Value = TP_REF_NO
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso IsDBNull(dt.Rows(0)("TP_COM_NAME")) = False Then
+                Return dt.Rows(0)("TP_COM_NAME")
+            Else
+                Return ""
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return ""
+        End Try
+    End Function
+    Public Function LoadTaxPayer_ByRefNO(ByVal REF_NO As String, Optional ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TAXP_PROFILE WHERE TP_REF_NO=@TP_REF_NO"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TP_REF_NO", SqlDbType.NVarChar, 20).Value = REF_NO
+
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
         Catch ex As Exception
