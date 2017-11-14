@@ -15,10 +15,10 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmMovement" 'Form Name
+    Public ArgParam0 As String = "frmCP204" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "1225723109" 'RefNo
-    Public ArgParam3 As String = "2016" 'YA
+    Public ArgParam2 As String = "1054242304" 'RefNo
+    Public ArgParam3 As String = "2013" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
 
 #Region "SCRIPT DATABASE"
@@ -441,6 +441,40 @@ Module mdlProcess
             Return False
         End Try
     End Function
+
+    Public Function CreateLookUpState(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As clsError = Nothing, Optional isAddEmpty As Boolean = False) As Boolean
+        Try
+            Dim dt As DataTable = mdlProcess.LoadState(Errorlog)
+
+            cboYA.Properties.Items.Clear()
+            If dt Is Nothing Then
+                Return False
+            End If
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                cboYA.Properties.Items.Add(IIf(IsDBNull(dt.Rows(i)("ST_DESC")), "-", dt.Rows(i)("ST_DESC")))
+            Next
+
+            If isAddEmpty Then
+                cboYA.Properties.Items.Add("")
+            End If
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            Return False
+        End Try
+    End Function
+
     Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraBars.BarEditItem, Optional Errorlog As clsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = mdlProcess.LoadYA(Errorlog)
@@ -6774,6 +6808,34 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function LoadState(Optional ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM STATES ORDER BY ST_DESC"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
     Public Function LoadTaxPayer(Optional ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -6867,6 +6929,227 @@ tryagain:
             Return Nothing
         End Try
     End Function
+#End Region
+#Region "CP204"
+    Public Function Load_CP204_BreakDown_ByParentID(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BORANG_CP204_TRICOR_BREAKDOWN WHERE CP_PARENTID=@CP_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_CP204_ByID(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BORANG_CP204 WHERE BCP_KEY=@BCP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BCP_KEY", SqlDbType.Int).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GETCP204KEY(Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return -1
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "select top 1 BCP_KEY from BORANG_CP204 order by BCP_KEY desc"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("BCP_KEY")) = False Then
+                Return CInt(dt.Rows(0)("BCP_KEY"))
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return -1
+        End Try
+    End Function
+    Public Function Load_CP204(ByVal Refno As String, ByVal YA As String, Optional ByVal Type As String = "CP204", Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BORANG_CP204 WHERE BCP_REF_NO=@BCP_REF_NO AND BCP_YA=@BCP_YA AND BCP_FORM=@BCP_FORM"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BCP_REF_NO", SqlDbType.NVarChar, 20).Value = Refno
+            SQLcmd.Parameters.Add("@BCP_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@BCP_FORM", SqlDbType.NVarChar, 10).Value = Type
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_CP204_LastYAChecking(ByVal Refno As String, Optional ByVal Type As String = "CP204A", Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BORANG_CP204 WHERE BCP_REF_NO=@BCP_REF_NO AND BCP_FORM=@BCP_FORM ORDER BY BCP_YA DESC"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BCP_REF_NO", SqlDbType.NVarChar, 20).Value = Refno
+            SQLcmd.Parameters.Add("@BCP_FORM", SqlDbType.NVarChar, 10).Value = Type
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+
+    Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByVal Month As Integer, _
+                                      Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BORANG_CP204"
+            Dim isWhere As Boolean = False
+            SQLcmd = New SqlCommand
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE BCP_REF_NO=@BCP_REF_NO"
+                Else
+                    StrSQL += " AND BCP_REF_NO=@BCP_REF_NO"
+                End If
+                SQLcmd.Parameters.Add("@BCP_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            If YA IsNot Nothing AndAlso YA <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE BCP_YA=@BCP_YA"
+                Else
+                    StrSQL += " AND BCP_YA=@BCP_YA"
+                End If
+                SQLcmd.Parameters.Add("@BCP_YA", SqlDbType.NVarChar, 5).Value = YA
+            End If
+
+            If Month > -1 Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE BCP_TO_MONTH=@BCP_TO_MONTH"
+                Else
+                    StrSQL += " AND BCP_TO_MONTH=@BCP_TO_MONTH"
+                End If
+                SQLcmd.Parameters.Add("@BCP_TO_MONTH", SqlDbType.Int).Value = Month
+            End If
+
+            SQLcmd.CommandText = StrSQL
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+
+
 #End Region
 #End Region
 #Region "SAVE"
@@ -12137,6 +12420,132 @@ tryagain:
 
 
 #End Region
+#Region "CP204"
+    Public Function Save_CP204(ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim ListofSQLcmd As New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO BORANG_CP204 (BCP_KEY,BCP_REF_NO,BCP_CO_NAME,BCP_CO_REGNO,BCP_CORRESPOND_ADD1,BCP_CORRESPOND_ADD2,BCP_CORRESPOND_ADD3,BCP_CORRESPOND_POST,BCP_CORRESPOND_CITY,BCP_CORRESPOND_STATE,BCP_DATE,BCP_YA,BCP_ESTIMATED_TAX,BCP_ACC_PERIOD_FR,BCP_ACC_PERIOD_TO,BCP_BASIS_PERIOD_FR,BCP_BASIS_PERIOD_TO,BCP_NEWCO_DATE,BCP_TO_MONTH,BCP_FIRST_INSTALMENT,BCP_LAST_INSTALMENT,BCP_NEWCO_BAS_FR,BCP_NEWCO_BAS_TO,BCP_NEWCO_BAS_SUB_FR,BCP_NEWCO_BAS_SUB_TO,BCP_CURR_CORR_ADD1,BCP_CURR_CORR_ADD2,BCP_CURR_CORR_ADD3,BCP_CURR_CORR_POST,BCP_CURR_CORR_CITY,BCP_CURR_CORR_STATE,BCP_REV_ESTIMATED_TAX,BCP_BAL_ESTIMATED_TAX,BCP_TOTAL_PAID,BCP_FR_MONTH,BCP_FROM_INSTALMENT,BCP_NEW_ACC_PERIOD_FR,BCP_NEW_ACC_PERIOD_TO,BCP_BASIS_PERIOD_FLW_FR,BCP_BASIS_PERIOD_FLW_TO,BCP_BASIS_PERIOD_SUB_FR,BCP_BASIS_PERIOD_SUB_TO,BCP_FORM,BCP_VERSION,BCP_ESTIMATED,BCP_INDICATE,BCP_CHKM,BCP_SME_PERIOD_FR,BCP_SME_PERIOD_TO,ModifiedBy,ModifiedDateTime) VALUES (@BCP_KEY,@BCP_REF_NO,@BCP_CO_NAME,@BCP_CO_REGNO,@BCP_CORRESPOND_ADD1,@BCP_CORRESPOND_ADD2,@BCP_CORRESPOND_ADD3,@BCP_CORRESPOND_POST,@BCP_CORRESPOND_CITY,@BCP_CORRESPOND_STATE,@BCP_DATE,@BCP_YA,@BCP_ESTIMATED_TAX,@BCP_ACC_PERIOD_FR,@BCP_ACC_PERIOD_TO,@BCP_BASIS_PERIOD_FR,@BCP_BASIS_PERIOD_TO,@BCP_NEWCO_DATE,@BCP_TO_MONTH,@BCP_FIRST_INSTALMENT,@BCP_LAST_INSTALMENT,@BCP_NEWCO_BAS_FR,@BCP_NEWCO_BAS_TO,@BCP_NEWCO_BAS_SUB_FR,@BCP_NEWCO_BAS_SUB_TO,@BCP_CURR_CORR_ADD1,@BCP_CURR_CORR_ADD2,@BCP_CURR_CORR_ADD3,@BCP_CURR_CORR_POST,@BCP_CURR_CORR_CITY,@BCP_CURR_CORR_STATE,@BCP_REV_ESTIMATED_TAX,@BCP_BAL_ESTIMATED_TAX,@BCP_TOTAL_PAID,@BCP_FR_MONTH,@BCP_FROM_INSTALMENT,@BCP_NEW_ACC_PERIOD_FR,@BCP_NEW_ACC_PERIOD_TO,@BCP_BASIS_PERIOD_FLW_FR,@BCP_BASIS_PERIOD_FLW_TO,@BCP_BASIS_PERIOD_SUB_FR,@BCP_BASIS_PERIOD_SUB_TO,@BCP_FORM,@BCP_VERSION,@BCP_ESTIMATED,@BCP_INDICATE,@BCP_CHKM,@BCP_SME_PERIOD_FR,@BCP_SME_PERIOD_TO,@ModifiedBy,@ModifiedDateTime)"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            With ds.Tables("BORANG_CP204")
+                SQLcmd.Parameters.Add("@BCP_KEY", SqlDbType.Int).Value = .Rows(0)("BCP_KEY")
+                SQLcmd.Parameters.Add("@BCP_REF_NO", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_REF_NO")
+                SQLcmd.Parameters.Add("@BCP_CO_NAME", SqlDbType.NVarChar, 255).Value = .Rows(0)("BCP_CO_NAME")
+                SQLcmd.Parameters.Add("@BCP_CO_REGNO", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_CO_REGNO")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_ADD1", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CORRESPOND_ADD1")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_ADD2", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CORRESPOND_ADD2")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_ADD3", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CORRESPOND_ADD3")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_POST", SqlDbType.NVarChar, 10).Value = .Rows(0)("BCP_CORRESPOND_POST")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_CITY", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CORRESPOND_CITY")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_STATE", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CORRESPOND_STATE")
+                SQLcmd.Parameters.Add("@BCP_DATE", SqlDbType.DateTime).Value = .Rows(0)("BCP_DATE")
+                SQLcmd.Parameters.Add("@BCP_YA", SqlDbType.NVarChar, 5).Value = .Rows(0)("BCP_YA")
+                SQLcmd.Parameters.Add("@BCP_ESTIMATED_TAX", SqlDbType.Decimal).Value = .Rows(0)("BCP_ESTIMATED_TAX")
+                SQLcmd.Parameters.Add("@BCP_ACC_PERIOD_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_ACC_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_ACC_PERIOD_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_ACC_PERIOD_TO")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_TO")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_DATE", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_DATE")
+                SQLcmd.Parameters.Add("@BCP_TO_MONTH", SqlDbType.Int).Value = .Rows(0)("BCP_TO_MONTH")
+                SQLcmd.Parameters.Add("@BCP_FIRST_INSTALMENT", SqlDbType.Decimal).Value = .Rows(0)("BCP_FIRST_INSTALMENT")
+                SQLcmd.Parameters.Add("@BCP_LAST_INSTALMENT", SqlDbType.Decimal).Value = .Rows(0)("BCP_LAST_INSTALMENT")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_FR")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_TO")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_SUB_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_SUB_FR")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_SUB_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_SUB_TO")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_ADD1", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CURR_CORR_ADD1")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_ADD2", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CURR_CORR_ADD2")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_ADD3", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CURR_CORR_ADD3")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_POST", SqlDbType.NVarChar, 10).Value = .Rows(0)("BCP_CURR_CORR_POST")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_CITY", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CURR_CORR_CITY")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_STATE", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CURR_CORR_STATE")
+                SQLcmd.Parameters.Add("@BCP_REV_ESTIMATED_TAX", SqlDbType.Decimal).Value = .Rows(0)("BCP_REV_ESTIMATED_TAX")
+                SQLcmd.Parameters.Add("@BCP_BAL_ESTIMATED_TAX", SqlDbType.Decimal).Value = .Rows(0)("BCP_BAL_ESTIMATED_TAX")
+                SQLcmd.Parameters.Add("@BCP_TOTAL_PAID", SqlDbType.Decimal).Value = .Rows(0)("BCP_TOTAL_PAID")
+                SQLcmd.Parameters.Add("@BCP_FR_MONTH", SqlDbType.Int).Value = .Rows(0)("BCP_FR_MONTH")
+                SQLcmd.Parameters.Add("@BCP_FROM_INSTALMENT", SqlDbType.NVarChar, 25).Value = .Rows(0)("BCP_FROM_INSTALMENT")
+                SQLcmd.Parameters.Add("@BCP_NEW_ACC_PERIOD_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEW_ACC_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_NEW_ACC_PERIOD_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEW_ACC_PERIOD_TO")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_FLW_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_FLW_FR")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_FLW_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_FLW_TO")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_SUB_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_SUB_FR")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_SUB_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_SUB_TO")
+                SQLcmd.Parameters.Add("@BCP_FORM", SqlDbType.NVarChar, 10).Value = .Rows(0)("BCP_FORM")
+                SQLcmd.Parameters.Add("@BCP_VERSION", SqlDbType.Int).Value = .Rows(0)("BCP_VERSION")
+                SQLcmd.Parameters.Add("@BCP_ESTIMATED", SqlDbType.Decimal).Value = .Rows(0)("BCP_ESTIMATED")
+                SQLcmd.Parameters.Add("@BCP_INDICATE", SqlDbType.Int).Value = .Rows(0)("BCP_INDICATE")
+                SQLcmd.Parameters.Add("@BCP_CHKM", SqlDbType.NVarChar, 1).Value = .Rows(0)("BCP_CHKM")
+                SQLcmd.Parameters.Add("@BCP_SME_PERIOD_FR", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_SME_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_SME_PERIOD_TO", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_SME_PERIOD_TO")
+                SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+                SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            End With
+
+            ListofSQLcmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM BORANG_CP204_TRICOR_BREAKDOWN WHERE CP_PARENTID=@CP_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
+
+            ListofSQLcmd.Add(SQLcmd)
+
+            If ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count > 0 Then
+
+                For i As Integer = 0 To ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO BORANG_CP204_TRICOR_BREAKDOWN (CP_PARENTID,CP_INSTALL_NO,CP_PAYMENT_DUE,CP_INSTALLMENT_AMOUNT,CP_PAYMENT_DATE_1,CP_AMOUNT_PAID_1,CP_PAYMENT_DATE_2,CP_AMOUNT_PAID_2,CP_PENALTY,CP_NOTE_TITLE,CP_NOTE) VALUES (@CP_PARENTID,@CP_INSTALL_NO,@CP_PAYMENT_DUE,@CP_INSTALLMENT_AMOUNT,@CP_PAYMENT_DATE_1,@CP_AMOUNT_PAID_1,@CP_PAYMENT_DATE_2,@CP_AMOUNT_PAID_2,@CP_PENALTY,@CP_NOTE_TITLE,@CP_NOTE)"
+
+                    With ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")
+
+                        SQLcmd = New SqlCommand
+                        SQLcmd.CommandText = StrSQL
+                        SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
+                        SQLcmd.Parameters.Add("@CP_INSTALL_NO", SqlDbType.Int).Value = IIf(IsDBNull(.Rows(0)("CP_INSTALL_NO")), i, .Rows(0)("CP_INSTALL_NO"))
+                        SQLcmd.Parameters.Add("@CP_PAYMENT_DUE", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DUE")), DBNull.Value, .Rows(0)("CP_PAYMENT_DUE"))
+                        SQLcmd.Parameters.Add("@CP_INSTALLMENT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_INSTALLMENT_AMOUNT")), DBNull.Value, .Rows(0)("CP_INSTALLMENT_AMOUNT"))
+                        SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_1", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DATE_1")), DBNull.Value, .Rows(0)("CP_PAYMENT_DATE_1"))
+                        SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_1", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_AMOUNT_PAID_1")), DBNull.Value, .Rows(0)("CP_AMOUNT_PAID_1"))
+                        SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_2", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DATE_2")), DBNull.Value, .Rows(0)("CP_PAYMENT_DATE_2"))
+                        SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_2", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_AMOUNT_PAID_2")), DBNull.Value, .Rows(0)("CP_AMOUNT_PAID_2"))
+                        SQLcmd.Parameters.Add("@CP_PENALTY", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_PENALTY")), DBNull.Value, .Rows(0)("CP_PENALTY"))
+                        SQLcmd.Parameters.Add("@CP_NOTE_TITLE", SqlDbType.NVarChar, 100).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE_TITLE")), DBNull.Value, .Rows(0)("CP_NOTE_TITLE"))
+                        SQLcmd.Parameters.Add("@CP_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE")), DBNull.Value, .Rows(0)("CP_NOTE"))
+
+                    End With
+                   
+
+                    ListofSQLcmd.Add(SQLcmd)
+                Next
+                
+            End If
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+#End Region
 #End Region
 #Region "UPDATE"
 #Region "CA"
@@ -12839,6 +13248,125 @@ tryagain:
             Return False
         End Try
     End Function
+#End Region
+
+#Region "CP204"
+    Public Function Update_CP204(ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim ListofSQLcmd As New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "UPDATE BORANG_CP204 SET BCP_REF_NO=@BCP_REF_NO,BCP_CO_NAME=@BCP_CO_NAME,BCP_CO_REGNO=@BCP_CO_REGNO,BCP_CORRESPOND_ADD1=@BCP_CORRESPOND_ADD1,BCP_CORRESPOND_ADD2=@BCP_CORRESPOND_ADD2,BCP_CORRESPOND_ADD3=@BCP_CORRESPOND_ADD3,BCP_CORRESPOND_POST=@BCP_CORRESPOND_POST,BCP_CORRESPOND_CITY=@BCP_CORRESPOND_CITY,BCP_CORRESPOND_STATE=@BCP_CORRESPOND_STATE,BCP_DATE=@BCP_DATE,BCP_YA=@BCP_YA,BCP_ESTIMATED_TAX=@BCP_ESTIMATED_TAX,BCP_ACC_PERIOD_FR=@BCP_ACC_PERIOD_FR,BCP_ACC_PERIOD_TO=@BCP_ACC_PERIOD_TO,BCP_BASIS_PERIOD_FR=@BCP_BASIS_PERIOD_FR,BCP_BASIS_PERIOD_TO=@BCP_BASIS_PERIOD_TO,BCP_NEWCO_DATE=@BCP_NEWCO_DATE,BCP_TO_MONTH=@BCP_TO_MONTH,BCP_FIRST_INSTALMENT=@BCP_FIRST_INSTALMENT,BCP_LAST_INSTALMENT=@BCP_LAST_INSTALMENT,BCP_NEWCO_BAS_FR=@BCP_NEWCO_BAS_FR,BCP_NEWCO_BAS_TO=@BCP_NEWCO_BAS_TO,BCP_NEWCO_BAS_SUB_FR=@BCP_NEWCO_BAS_SUB_FR,BCP_NEWCO_BAS_SUB_TO=@BCP_NEWCO_BAS_SUB_TO,BCP_CURR_CORR_ADD1=@BCP_CURR_CORR_ADD1,BCP_CURR_CORR_ADD2=@BCP_CURR_CORR_ADD2,BCP_CURR_CORR_ADD3=@BCP_CURR_CORR_ADD3,BCP_CURR_CORR_POST=@BCP_CURR_CORR_POST,BCP_CURR_CORR_CITY=@BCP_CURR_CORR_CITY,BCP_CURR_CORR_STATE=@BCP_CURR_CORR_STATE,BCP_REV_ESTIMATED_TAX=@BCP_REV_ESTIMATED_TAX,BCP_BAL_ESTIMATED_TAX=@BCP_BAL_ESTIMATED_TAX,BCP_TOTAL_PAID=@BCP_TOTAL_PAID,BCP_FR_MONTH=@BCP_FR_MONTH,BCP_FROM_INSTALMENT=@BCP_FROM_INSTALMENT,BCP_NEW_ACC_PERIOD_FR=@BCP_NEW_ACC_PERIOD_FR,BCP_NEW_ACC_PERIOD_TO=@BCP_NEW_ACC_PERIOD_TO,BCP_BASIS_PERIOD_FLW_FR=@BCP_BASIS_PERIOD_FLW_FR,BCP_BASIS_PERIOD_FLW_TO=@BCP_BASIS_PERIOD_FLW_TO,BCP_BASIS_PERIOD_SUB_FR=@BCP_BASIS_PERIOD_SUB_FR,BCP_BASIS_PERIOD_SUB_TO=@BCP_BASIS_PERIOD_SUB_TO,BCP_FORM=@BCP_FORM,BCP_VERSION=@BCP_VERSION,BCP_ESTIMATED=@BCP_ESTIMATED,BCP_INDICATE=@BCP_INDICATE,BCP_CHKM=@BCP_CHKM,BCP_SME_PERIOD_FR=@BCP_SME_PERIOD_FR,BCP_SME_PERIOD_TO=@BCP_SME_PERIOD_TO,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime WHERE BCP_KEY=@BCP_KEY"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            With ds.Tables("BORANG_CP204")
+                SQLcmd.Parameters.Add("@BCP_KEY", SqlDbType.Int).Value = .Rows(0)("BCP_KEY")
+                SQLcmd.Parameters.Add("@BCP_REF_NO", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_REF_NO")
+                SQLcmd.Parameters.Add("@BCP_CO_NAME", SqlDbType.NVarChar, 255).Value = .Rows(0)("BCP_CO_NAME")
+                SQLcmd.Parameters.Add("@BCP_CO_REGNO", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_CO_REGNO")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_ADD1", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CORRESPOND_ADD1")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_ADD2", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CORRESPOND_ADD2")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_ADD3", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CORRESPOND_ADD3")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_POST", SqlDbType.NVarChar, 10).Value = .Rows(0)("BCP_CORRESPOND_POST")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_CITY", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CORRESPOND_CITY")
+                SQLcmd.Parameters.Add("@BCP_CORRESPOND_STATE", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CORRESPOND_STATE")
+                SQLcmd.Parameters.Add("@BCP_DATE", SqlDbType.DateTime).Value = .Rows(0)("BCP_DATE")
+                SQLcmd.Parameters.Add("@BCP_YA", SqlDbType.NVarChar, 5).Value = .Rows(0)("BCP_YA")
+                SQLcmd.Parameters.Add("@BCP_ESTIMATED_TAX", SqlDbType.Decimal).Value = .Rows(0)("BCP_ESTIMATED_TAX")
+                SQLcmd.Parameters.Add("@BCP_ACC_PERIOD_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_ACC_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_ACC_PERIOD_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_ACC_PERIOD_TO")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_TO")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_DATE", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_DATE")
+                SQLcmd.Parameters.Add("@BCP_TO_MONTH", SqlDbType.Int).Value = .Rows(0)("BCP_TO_MONTH")
+                SQLcmd.Parameters.Add("@BCP_FIRST_INSTALMENT", SqlDbType.Decimal).Value = .Rows(0)("BCP_FIRST_INSTALMENT")
+                SQLcmd.Parameters.Add("@BCP_LAST_INSTALMENT", SqlDbType.Decimal).Value = .Rows(0)("BCP_LAST_INSTALMENT")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_FR")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_TO")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_SUB_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_SUB_FR")
+                SQLcmd.Parameters.Add("@BCP_NEWCO_BAS_SUB_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEWCO_BAS_SUB_TO")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_ADD1", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CURR_CORR_ADD1")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_ADD2", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CURR_CORR_ADD2")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_ADD3", SqlDbType.NVarChar, 40).Value = .Rows(0)("BCP_CURR_CORR_ADD3")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_POST", SqlDbType.NVarChar, 10).Value = .Rows(0)("BCP_CURR_CORR_POST")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_CITY", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CURR_CORR_CITY")
+                SQLcmd.Parameters.Add("@BCP_CURR_CORR_STATE", SqlDbType.NVarChar, 30).Value = .Rows(0)("BCP_CURR_CORR_STATE")
+                SQLcmd.Parameters.Add("@BCP_REV_ESTIMATED_TAX", SqlDbType.Decimal).Value = .Rows(0)("BCP_REV_ESTIMATED_TAX")
+                SQLcmd.Parameters.Add("@BCP_BAL_ESTIMATED_TAX", SqlDbType.Decimal).Value = .Rows(0)("BCP_BAL_ESTIMATED_TAX")
+                SQLcmd.Parameters.Add("@BCP_TOTAL_PAID", SqlDbType.Decimal).Value = .Rows(0)("BCP_TOTAL_PAID")
+                SQLcmd.Parameters.Add("@BCP_FR_MONTH", SqlDbType.Int).Value = .Rows(0)("BCP_FR_MONTH")
+                SQLcmd.Parameters.Add("@BCP_FROM_INSTALMENT", SqlDbType.NVarChar, 25).Value = .Rows(0)("BCP_FROM_INSTALMENT")
+                SQLcmd.Parameters.Add("@BCP_NEW_ACC_PERIOD_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEW_ACC_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_NEW_ACC_PERIOD_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_NEW_ACC_PERIOD_TO")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_FLW_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_FLW_FR")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_FLW_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_FLW_TO")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_SUB_FR", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_SUB_FR")
+                SQLcmd.Parameters.Add("@BCP_BASIS_PERIOD_SUB_TO", SqlDbType.DateTime).Value = .Rows(0)("BCP_BASIS_PERIOD_SUB_TO")
+                SQLcmd.Parameters.Add("@BCP_FORM", SqlDbType.NVarChar, 10).Value = .Rows(0)("BCP_FORM")
+                SQLcmd.Parameters.Add("@BCP_VERSION", SqlDbType.Int).Value = .Rows(0)("BCP_VERSION")
+                SQLcmd.Parameters.Add("@BCP_ESTIMATED", SqlDbType.Decimal).Value = .Rows(0)("BCP_ESTIMATED")
+                SQLcmd.Parameters.Add("@BCP_INDICATE", SqlDbType.Int).Value = .Rows(0)("BCP_INDICATE")
+                SQLcmd.Parameters.Add("@BCP_CHKM", SqlDbType.NVarChar, 1).Value = .Rows(0)("BCP_CHKM")
+                SQLcmd.Parameters.Add("@BCP_SME_PERIOD_FR", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_SME_PERIOD_FR")
+                SQLcmd.Parameters.Add("@BCP_SME_PERIOD_TO", SqlDbType.NVarChar, 20).Value = .Rows(0)("BCP_SME_PERIOD_TO")
+                SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+                SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            End With
+
+            ListofSQLcmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM BORANG_CP204_TRICOR_BREAKDOWN WHERE CP_PARENTID=@CP_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
+
+            ListofSQLcmd.Add(SQLcmd)
+
+            If ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count > 0 Then
+
+                For i As Integer = 0 To ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO BORANG_CP204_TRICOR_BREAKDOWN (CP_PARENTID,CP_INSTALL_NO,CP_PAYMENT_DUE,CP_INSTALLMENT_AMOUNT,CP_PAYMENT_DATE_1,CP_AMOUNT_PAID_1,CP_PAYMENT_DATE_2,CP_AMOUNT_PAID_2,CP_PENALTY,CP_NOTE_TITLE,CP_NOTE) VALUES (@CP_PARENTID,@CP_INSTALL_NO,@CP_PAYMENT_DUE,@CP_INSTALLMENT_AMOUNT,@CP_PAYMENT_DATE_1,@CP_AMOUNT_PAID_1,@CP_PAYMENT_DATE_2,@CP_AMOUNT_PAID_2,@CP_PENALTY,@CP_NOTE_TITLE,@CP_NOTE)"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
+                    SQLcmd.Parameters.Add("@CP_INSTALL_NO", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_INSTALL_NO")
+                    SQLcmd.Parameters.Add("@CP_PAYMENT_DUE", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PAYMENT_DUE")
+                    SQLcmd.Parameters.Add("@CP_INSTALLMENT_AMOUNT", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_INSTALLMENT_AMOUNT")
+                    SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_1", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PAYMENT_DATE_1")
+                    SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_1", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_AMOUNT_PAID_1")
+                    SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_2", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PAYMENT_DATE_2")
+                    SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_2", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_AMOUNT_PAID_2")
+                    SQLcmd.Parameters.Add("@CP_PENALTY", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PENALTY")
+
+                    ListofSQLcmd.Add(SQLcmd)
+                Next
+
+            End If
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
 #End Region
 #End Region
 #Region "DELETE"
@@ -13567,6 +14095,47 @@ tryagain:
     End Function
 #End Region
 #Region "OTHER"
+    Public Function Delete_CP204(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofCmd As List(Of SqlCommand)
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+            ListofCmd = New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM BORANG_CP204 WHERE BCP_KEY=@BCP_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BCP_KEY", SqlDbType.Int).Value = ID
+
+            ListofCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM BORANG_CP204_TRICOR_BREAKDOWN WHERE CP_PARENTID=@CP_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ID
+            ListofCmd.Add(SQLcmd)
+
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Delete_MovementComplex(ByVal MM_ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()

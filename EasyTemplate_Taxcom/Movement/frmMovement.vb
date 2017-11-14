@@ -1,5 +1,13 @@
 ﻿Public Class frmMovement
     Dim ErrorLog As clsError = Nothing
+    Private Sub frmMovement_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Try
+            e.Cancel = True
+            frmStartup.Close()
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData(0)
@@ -254,6 +262,10 @@
             pnlLoading.Visible = False
             Application.DoEvents()
         End Try
+
+    End Sub
+
+    Private Sub btnImportExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnImportExport.ItemClick
 
     End Sub
 End Class

@@ -90,12 +90,18 @@
     <Reference Include="DevExpress.DataAccess.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Docs.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Images.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Docs.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Images.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -114,7 +120,9 @@
     <Reference Include="DevExpress.Utils.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraBars.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -124,7 +132,9 @@
     <Reference Include="DevExpress.XtraEditors.v15.1">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -137,8 +147,12 @@
     <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v15.1.Extensions, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v15.1.Extensions, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraRichEdit.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -187,6 +201,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCP204.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CP204\frmCP204.Designer.vb">
+      <DependentUpon>frmCP204.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CP204\frmCP204.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CP204\frmCP204_Add.Designer.vb">
+      <DependentUpon>frmCP204_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CP204\frmCP204_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CP204\frmCP204_PenaltyLate.Designer.vb">
       <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
     </Compile>
@@ -200,6 +226,11 @@
     </Compile>
     <Compile Include="CA\dsCA.vb">
       <DependentUpon>dsCA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Dataset\dsDefault.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsDefault.xsd</DependentUpon>
     </Compile>
     <Compile Include="DeemedInterest\frmDeemedInterest.Designer.vb">
       <DependentUpon>frmDeemedInterest.vb</DependentUpon>
@@ -732,6 +763,12 @@
     <EmbeddedResource Include="CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CP204\frmCP204.resx">
+      <DependentUpon>frmCP204.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CP204\frmCP204_Add.resx">
+      <DependentUpon>frmCP204_Add.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CP204\frmCP204_PenaltyLate.resx">
       <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
     </EmbeddedResource>
@@ -990,6 +1027,17 @@
     <None Include="CA\dsCA.xss">
       <DependentUpon>dsCA.xsd</DependentUpon>
     </None>
+    <None Include="Dataset\dsDefault.xsc">
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </None>
+    <None Include="Dataset\dsDefault.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsDefault.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Dataset\dsDefault.xss">
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </None>
     <None Include="Movement\dsMovement.xsc">
       <DependentUpon>dsMovement.xsd</DependentUpon>
     </None>
@@ -1071,9 +1119,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dataset\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>

@@ -1096,7 +1096,7 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
                     CalcTotalofView(txtAmount, ds, ucPNL_p4CAExpenditure.MainTable, ucPNL_p4CAExpenditure.MainAmount, 0, Errorlog)
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                    CalcTotalofView(txtAmount, ds, ucPNL_p4CAExpenditure.MainTable, ucPNL_p4Other.MainAmount, 0, Errorlog)
+                    CalcTotalofView(txtAmount, ds, ucPNL_p4Other.MainTable, ucPNL_p4Other.MainAmount, 0, Errorlog)
             End Select
 
             Return True

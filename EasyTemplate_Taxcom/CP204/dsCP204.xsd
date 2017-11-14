@@ -14,7 +14,7 @@
   <xs:element name="dsCP204" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCP204" msprop:Generator_UserDSName="dsCP204">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="BORANG_CP204_TRICOR" msprop:Generator_TableClassName="BORANG_CP204_TRICORDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR" msprop:Generator_RowChangedName="BORANG_CP204_TRICORRowChanged" msprop:Generator_TablePropName="BORANG_CP204_TRICOR" msprop:Generator_RowDeletingName="BORANG_CP204_TRICORRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICORRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICORRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICORRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_TRICORRow" msprop:Generator_UserTableName="BORANG_CP204_TRICOR" msprop:Generator_RowEvArgName="BORANG_CP204_TRICORRowChangeEvent">
+        <xs:element name="BORANG_CP204_TRICOR" msprop:Generator_TableClassName="BORANG_CP204_TRICORDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR" msprop:Generator_TablePropName="BORANG_CP204_TRICOR" msprop:Generator_RowDeletingName="BORANG_CP204_TRICORRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICORRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICORRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICORRowDeleted" msprop:Generator_UserTableName="BORANG_CP204_TRICOR" msprop:Generator_RowChangedName="BORANG_CP204_TRICORRowChanged" msprop:Generator_RowEvArgName="BORANG_CP204_TRICORRowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204_TRICORRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
@@ -52,7 +52,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TableClassName="BORANG_CP204_TRICOR_BREAKDOWNDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowChangedName="BORANG_CP204_TRICOR_BREAKDOWNRowChanged" msprop:Generator_TablePropName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowDeletingName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICOR_BREAKDOWNRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_TRICOR_BREAKDOWNRow" msprop:Generator_UserTableName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowEvArgName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent">
+        <xs:element name="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TableClassName="BORANG_CP204_TRICOR_BREAKDOWNDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TablePropName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowDeletingName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICOR_BREAKDOWNRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleted" msprop:Generator_UserTableName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowChangedName="BORANG_CP204_TRICOR_BREAKDOWNRowChanged" msprop:Generator_RowEvArgName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204_TRICOR_BREAKDOWNRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
@@ -85,6 +85,195 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BORANG_CP204" msprop:Generator_TableClassName="BORANG_CP204DataTable" msprop:Generator_TableVarName="tableBORANG_CP204" msprop:Generator_TablePropName="BORANG_CP204" msprop:Generator_RowDeletingName="BORANG_CP204RowDeleting" msprop:Generator_RowChangingName="BORANG_CP204RowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204RowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204RowDeleted" msprop:Generator_UserTableName="BORANG_CP204" msprop:Generator_RowChangedName="BORANG_CP204RowChanged" msprop:Generator_RowEvArgName="BORANG_CP204RowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BCP_KEY" msprop:Generator_ColumnVarNameInTable="columnBCP_KEY" msprop:Generator_ColumnPropNameInRow="BCP_KEY" msprop:Generator_ColumnPropNameInTable="BCP_KEYColumn" msprop:Generator_UserColumnName="BCP_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="BCP_REF_NO" msprop:Generator_ColumnVarNameInTable="columnBCP_REF_NO" msprop:Generator_ColumnPropNameInRow="BCP_REF_NO" msprop:Generator_ColumnPropNameInTable="BCP_REF_NOColumn" msprop:Generator_UserColumnName="BCP_REF_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CO_NAME" msprop:Generator_ColumnVarNameInTable="columnBCP_CO_NAME" msprop:Generator_ColumnPropNameInRow="BCP_CO_NAME" msprop:Generator_ColumnPropNameInTable="BCP_CO_NAMEColumn" msprop:Generator_UserColumnName="BCP_CO_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CO_REGNO" msprop:Generator_ColumnVarNameInTable="columnBCP_CO_REGNO" msprop:Generator_ColumnPropNameInRow="BCP_CO_REGNO" msprop:Generator_ColumnPropNameInTable="BCP_CO_REGNOColumn" msprop:Generator_UserColumnName="BCP_CO_REGNO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CORRESPOND_ADD1" msprop:Generator_ColumnVarNameInTable="columnBCP_CORRESPOND_ADD1" msprop:Generator_ColumnPropNameInRow="BCP_CORRESPOND_ADD1" msprop:Generator_ColumnPropNameInTable="BCP_CORRESPOND_ADD1Column" msprop:Generator_UserColumnName="BCP_CORRESPOND_ADD1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CORRESPOND_ADD2" msprop:Generator_ColumnVarNameInTable="columnBCP_CORRESPOND_ADD2" msprop:Generator_ColumnPropNameInRow="BCP_CORRESPOND_ADD2" msprop:Generator_ColumnPropNameInTable="BCP_CORRESPOND_ADD2Column" msprop:Generator_UserColumnName="BCP_CORRESPOND_ADD2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CORRESPOND_ADD3" msprop:Generator_ColumnVarNameInTable="columnBCP_CORRESPOND_ADD3" msprop:Generator_ColumnPropNameInRow="BCP_CORRESPOND_ADD3" msprop:Generator_ColumnPropNameInTable="BCP_CORRESPOND_ADD3Column" msprop:Generator_UserColumnName="BCP_CORRESPOND_ADD3" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CORRESPOND_POST" msprop:Generator_ColumnVarNameInTable="columnBCP_CORRESPOND_POST" msprop:Generator_ColumnPropNameInRow="BCP_CORRESPOND_POST" msprop:Generator_ColumnPropNameInTable="BCP_CORRESPOND_POSTColumn" msprop:Generator_UserColumnName="BCP_CORRESPOND_POST" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CORRESPOND_CITY" msprop:Generator_ColumnVarNameInTable="columnBCP_CORRESPOND_CITY" msprop:Generator_ColumnPropNameInRow="BCP_CORRESPOND_CITY" msprop:Generator_ColumnPropNameInTable="BCP_CORRESPOND_CITYColumn" msprop:Generator_UserColumnName="BCP_CORRESPOND_CITY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CORRESPOND_STATE" msprop:Generator_ColumnVarNameInTable="columnBCP_CORRESPOND_STATE" msprop:Generator_ColumnPropNameInRow="BCP_CORRESPOND_STATE" msprop:Generator_ColumnPropNameInTable="BCP_CORRESPOND_STATEColumn" msprop:Generator_UserColumnName="BCP_CORRESPOND_STATE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_DATE" msprop:Generator_ColumnVarNameInTable="columnBCP_DATE" msprop:Generator_ColumnPropNameInRow="BCP_DATE" msprop:Generator_ColumnPropNameInTable="BCP_DATEColumn" msprop:Generator_UserColumnName="BCP_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_YA" msprop:Generator_ColumnVarNameInTable="columnBCP_YA" msprop:Generator_ColumnPropNameInRow="BCP_YA" msprop:Generator_ColumnPropNameInTable="BCP_YAColumn" msprop:Generator_UserColumnName="BCP_YA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_ESTIMATED_TAX" msprop:Generator_ColumnVarNameInTable="columnBCP_ESTIMATED_TAX" msprop:Generator_ColumnPropNameInRow="BCP_ESTIMATED_TAX" msprop:Generator_ColumnPropNameInTable="BCP_ESTIMATED_TAXColumn" msprop:Generator_UserColumnName="BCP_ESTIMATED_TAX" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_ACC_PERIOD_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_ACC_PERIOD_FR" msprop:Generator_ColumnPropNameInRow="BCP_ACC_PERIOD_FR" msprop:Generator_ColumnPropNameInTable="BCP_ACC_PERIOD_FRColumn" msprop:Generator_UserColumnName="BCP_ACC_PERIOD_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_ACC_PERIOD_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_ACC_PERIOD_TO" msprop:Generator_ColumnPropNameInRow="BCP_ACC_PERIOD_TO" msprop:Generator_ColumnPropNameInTable="BCP_ACC_PERIOD_TOColumn" msprop:Generator_UserColumnName="BCP_ACC_PERIOD_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_BASIS_PERIOD_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_BASIS_PERIOD_FR" msprop:Generator_ColumnPropNameInRow="BCP_BASIS_PERIOD_FR" msprop:Generator_ColumnPropNameInTable="BCP_BASIS_PERIOD_FRColumn" msprop:Generator_UserColumnName="BCP_BASIS_PERIOD_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_BASIS_PERIOD_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_BASIS_PERIOD_TO" msprop:Generator_ColumnPropNameInRow="BCP_BASIS_PERIOD_TO" msprop:Generator_ColumnPropNameInTable="BCP_BASIS_PERIOD_TOColumn" msprop:Generator_UserColumnName="BCP_BASIS_PERIOD_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_NEWCO_DATE" msprop:Generator_ColumnVarNameInTable="columnBCP_NEWCO_DATE" msprop:Generator_ColumnPropNameInRow="BCP_NEWCO_DATE" msprop:Generator_ColumnPropNameInTable="BCP_NEWCO_DATEColumn" msprop:Generator_UserColumnName="BCP_NEWCO_DATE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_TO_MONTH" msprop:Generator_ColumnVarNameInTable="columnBCP_TO_MONTH" msprop:Generator_ColumnPropNameInRow="BCP_TO_MONTH" msprop:Generator_ColumnPropNameInTable="BCP_TO_MONTHColumn" msprop:Generator_UserColumnName="BCP_TO_MONTH" type="xs:int" minOccurs="0" />
+              <xs:element name="BCP_FIRST_INSTALMENT" msprop:Generator_ColumnVarNameInTable="columnBCP_FIRST_INSTALMENT" msprop:Generator_ColumnPropNameInRow="BCP_FIRST_INSTALMENT" msprop:Generator_ColumnPropNameInTable="BCP_FIRST_INSTALMENTColumn" msprop:Generator_UserColumnName="BCP_FIRST_INSTALMENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_LAST_INSTALMENT" msprop:Generator_ColumnVarNameInTable="columnBCP_LAST_INSTALMENT" msprop:Generator_ColumnPropNameInRow="BCP_LAST_INSTALMENT" msprop:Generator_ColumnPropNameInTable="BCP_LAST_INSTALMENTColumn" msprop:Generator_UserColumnName="BCP_LAST_INSTALMENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_NEWCO_BAS_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_NEWCO_BAS_FR" msprop:Generator_ColumnPropNameInRow="BCP_NEWCO_BAS_FR" msprop:Generator_ColumnPropNameInTable="BCP_NEWCO_BAS_FRColumn" msprop:Generator_UserColumnName="BCP_NEWCO_BAS_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_NEWCO_BAS_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_NEWCO_BAS_TO" msprop:Generator_ColumnPropNameInRow="BCP_NEWCO_BAS_TO" msprop:Generator_ColumnPropNameInTable="BCP_NEWCO_BAS_TOColumn" msprop:Generator_UserColumnName="BCP_NEWCO_BAS_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_NEWCO_BAS_SUB_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_NEWCO_BAS_SUB_FR" msprop:Generator_ColumnPropNameInRow="BCP_NEWCO_BAS_SUB_FR" msprop:Generator_ColumnPropNameInTable="BCP_NEWCO_BAS_SUB_FRColumn" msprop:Generator_UserColumnName="BCP_NEWCO_BAS_SUB_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_NEWCO_BAS_SUB_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_NEWCO_BAS_SUB_TO" msprop:Generator_ColumnPropNameInRow="BCP_NEWCO_BAS_SUB_TO" msprop:Generator_ColumnPropNameInTable="BCP_NEWCO_BAS_SUB_TOColumn" msprop:Generator_UserColumnName="BCP_NEWCO_BAS_SUB_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_CURR_CORR_ADD1" msprop:Generator_ColumnVarNameInTable="columnBCP_CURR_CORR_ADD1" msprop:Generator_ColumnPropNameInRow="BCP_CURR_CORR_ADD1" msprop:Generator_ColumnPropNameInTable="BCP_CURR_CORR_ADD1Column" msprop:Generator_UserColumnName="BCP_CURR_CORR_ADD1" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CURR_CORR_ADD2" msprop:Generator_ColumnVarNameInTable="columnBCP_CURR_CORR_ADD2" msprop:Generator_ColumnPropNameInRow="BCP_CURR_CORR_ADD2" msprop:Generator_ColumnPropNameInTable="BCP_CURR_CORR_ADD2Column" msprop:Generator_UserColumnName="BCP_CURR_CORR_ADD2" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CURR_CORR_ADD3" msprop:Generator_ColumnVarNameInTable="columnBCP_CURR_CORR_ADD3" msprop:Generator_ColumnPropNameInRow="BCP_CURR_CORR_ADD3" msprop:Generator_ColumnPropNameInTable="BCP_CURR_CORR_ADD3Column" msprop:Generator_UserColumnName="BCP_CURR_CORR_ADD3" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="40" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CURR_CORR_POST" msprop:Generator_ColumnVarNameInTable="columnBCP_CURR_CORR_POST" msprop:Generator_ColumnPropNameInRow="BCP_CURR_CORR_POST" msprop:Generator_ColumnPropNameInTable="BCP_CURR_CORR_POSTColumn" msprop:Generator_UserColumnName="BCP_CURR_CORR_POST" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CURR_CORR_CITY" msprop:Generator_ColumnVarNameInTable="columnBCP_CURR_CORR_CITY" msprop:Generator_ColumnPropNameInRow="BCP_CURR_CORR_CITY" msprop:Generator_ColumnPropNameInTable="BCP_CURR_CORR_CITYColumn" msprop:Generator_UserColumnName="BCP_CURR_CORR_CITY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_CURR_CORR_STATE" msprop:Generator_ColumnVarNameInTable="columnBCP_CURR_CORR_STATE" msprop:Generator_ColumnPropNameInRow="BCP_CURR_CORR_STATE" msprop:Generator_ColumnPropNameInTable="BCP_CURR_CORR_STATEColumn" msprop:Generator_UserColumnName="BCP_CURR_CORR_STATE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_REV_ESTIMATED_TAX" msprop:Generator_ColumnVarNameInTable="columnBCP_REV_ESTIMATED_TAX" msprop:Generator_ColumnPropNameInRow="BCP_REV_ESTIMATED_TAX" msprop:Generator_ColumnPropNameInTable="BCP_REV_ESTIMATED_TAXColumn" msprop:Generator_UserColumnName="BCP_REV_ESTIMATED_TAX" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_BAL_ESTIMATED_TAX" msprop:Generator_ColumnVarNameInTable="columnBCP_BAL_ESTIMATED_TAX" msprop:Generator_ColumnPropNameInRow="BCP_BAL_ESTIMATED_TAX" msprop:Generator_ColumnPropNameInTable="BCP_BAL_ESTIMATED_TAXColumn" msprop:Generator_UserColumnName="BCP_BAL_ESTIMATED_TAX" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_TOTAL_PAID" msprop:Generator_ColumnVarNameInTable="columnBCP_TOTAL_PAID" msprop:Generator_ColumnPropNameInRow="BCP_TOTAL_PAID" msprop:Generator_ColumnPropNameInTable="BCP_TOTAL_PAIDColumn" msprop:Generator_UserColumnName="BCP_TOTAL_PAID" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_FR_MONTH" msprop:Generator_ColumnVarNameInTable="columnBCP_FR_MONTH" msprop:Generator_ColumnPropNameInRow="BCP_FR_MONTH" msprop:Generator_ColumnPropNameInTable="BCP_FR_MONTHColumn" msprop:Generator_UserColumnName="BCP_FR_MONTH" type="xs:int" minOccurs="0" />
+              <xs:element name="BCP_FROM_INSTALMENT" msprop:Generator_ColumnVarNameInTable="columnBCP_FROM_INSTALMENT" msprop:Generator_ColumnPropNameInRow="BCP_FROM_INSTALMENT" msprop:Generator_ColumnPropNameInTable="BCP_FROM_INSTALMENTColumn" msprop:Generator_UserColumnName="BCP_FROM_INSTALMENT" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="25" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_NEW_ACC_PERIOD_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_NEW_ACC_PERIOD_FR" msprop:Generator_ColumnPropNameInRow="BCP_NEW_ACC_PERIOD_FR" msprop:Generator_ColumnPropNameInTable="BCP_NEW_ACC_PERIOD_FRColumn" msprop:Generator_UserColumnName="BCP_NEW_ACC_PERIOD_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_NEW_ACC_PERIOD_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_NEW_ACC_PERIOD_TO" msprop:Generator_ColumnPropNameInRow="BCP_NEW_ACC_PERIOD_TO" msprop:Generator_ColumnPropNameInTable="BCP_NEW_ACC_PERIOD_TOColumn" msprop:Generator_UserColumnName="BCP_NEW_ACC_PERIOD_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_BASIS_PERIOD_FLW_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_BASIS_PERIOD_FLW_FR" msprop:Generator_ColumnPropNameInRow="BCP_BASIS_PERIOD_FLW_FR" msprop:Generator_ColumnPropNameInTable="BCP_BASIS_PERIOD_FLW_FRColumn" msprop:Generator_UserColumnName="BCP_BASIS_PERIOD_FLW_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_BASIS_PERIOD_FLW_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_BASIS_PERIOD_FLW_TO" msprop:Generator_ColumnPropNameInRow="BCP_BASIS_PERIOD_FLW_TO" msprop:Generator_ColumnPropNameInTable="BCP_BASIS_PERIOD_FLW_TOColumn" msprop:Generator_UserColumnName="BCP_BASIS_PERIOD_FLW_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_BASIS_PERIOD_SUB_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_BASIS_PERIOD_SUB_FR" msprop:Generator_ColumnPropNameInRow="BCP_BASIS_PERIOD_SUB_FR" msprop:Generator_ColumnPropNameInTable="BCP_BASIS_PERIOD_SUB_FRColumn" msprop:Generator_UserColumnName="BCP_BASIS_PERIOD_SUB_FR" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_BASIS_PERIOD_SUB_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_BASIS_PERIOD_SUB_TO" msprop:Generator_ColumnPropNameInRow="BCP_BASIS_PERIOD_SUB_TO" msprop:Generator_ColumnPropNameInTable="BCP_BASIS_PERIOD_SUB_TOColumn" msprop:Generator_UserColumnName="BCP_BASIS_PERIOD_SUB_TO" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BCP_FORM" msprop:Generator_ColumnVarNameInTable="columnBCP_FORM" msprop:Generator_ColumnPropNameInRow="BCP_FORM" msprop:Generator_ColumnPropNameInTable="BCP_FORMColumn" msprop:Generator_UserColumnName="BCP_FORM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_VERSION" msprop:Generator_ColumnVarNameInTable="columnBCP_VERSION" msprop:Generator_ColumnPropNameInRow="BCP_VERSION" msprop:Generator_ColumnPropNameInTable="BCP_VERSIONColumn" msprop:Generator_UserColumnName="BCP_VERSION" type="xs:int" minOccurs="0" />
+              <xs:element name="BCP_ESTIMATED" msprop:Generator_ColumnVarNameInTable="columnBCP_ESTIMATED" msprop:Generator_ColumnPropNameInRow="BCP_ESTIMATED" msprop:Generator_ColumnPropNameInTable="BCP_ESTIMATEDColumn" msprop:Generator_UserColumnName="BCP_ESTIMATED" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BCP_INDICATE" msprop:Generator_ColumnVarNameInTable="columnBCP_INDICATE" msprop:Generator_ColumnPropNameInRow="BCP_INDICATE" msprop:Generator_ColumnPropNameInTable="BCP_INDICATEColumn" msprop:Generator_UserColumnName="BCP_INDICATE" type="xs:int" minOccurs="0" />
+              <xs:element name="BCP_CHKM" msprop:Generator_ColumnVarNameInTable="columnBCP_CHKM" msprop:Generator_ColumnPropNameInRow="BCP_CHKM" msprop:Generator_ColumnPropNameInTable="BCP_CHKMColumn" msprop:Generator_UserColumnName="BCP_CHKM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_SME_PERIOD_FR" msprop:Generator_ColumnVarNameInTable="columnBCP_SME_PERIOD_FR" msprop:Generator_ColumnPropNameInRow="BCP_SME_PERIOD_FR" msprop:Generator_ColumnPropNameInTable="BCP_SME_PERIOD_FRColumn" msprop:Generator_UserColumnName="BCP_SME_PERIOD_FR" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BCP_SME_PERIOD_TO" msprop:Generator_ColumnVarNameInTable="columnBCP_SME_PERIOD_TO" msprop:Generator_ColumnPropNameInRow="BCP_SME_PERIOD_TO" msprop:Generator_ColumnPropNameInTable="BCP_SME_PERIOD_TOColumn" msprop:Generator_UserColumnName="BCP_SME_PERIOD_TO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModifiedBy" msprop:Generator_ColumnVarNameInTable="columnModifiedBy" msprop:Generator_ColumnPropNameInRow="ModifiedBy" msprop:Generator_ColumnPropNameInTable="ModifiedByColumn" msprop:Generator_UserColumnName="ModifiedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" type="xs:dateTime" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

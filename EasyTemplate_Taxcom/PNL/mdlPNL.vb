@@ -365,18 +365,21 @@ Module mdlPNL
                         P1_docSales.Name = TaxComPNLEnuItem.SALES.ToString
                         P1_docSales.Controls.Add(uc)
                         P1_docSales.Register(DockingManager)
-
                         doc = DockDocument.View.AddDocument(P1_docSales)
                     Else
-
                         P1_docSales.Visibility = DockVisibility.Visible
+                        If DockDocument.View.AddFloatingDocumentsHost(P1_docSales) Then
+
+                        Else
+
+                        End If
                         doc = DockDocument.View.AddDocument(P1_docSales)
                     End If
 
                     DockDocument.View.ActivateDocument(P1_docSales)
 
                 Case TaxComPNLEnuItem.OPENSTOCK
-                    If P1_docOpeningStock Is Nothing Then
+                    If P1_docOpeningStock Is Nothing OrElse P1_docOpeningStock.IsDisposed Then
                         P1_docOpeningStock = New DockPanel
                         Dim uc As New ucPNL_p1OpeningStock
 
@@ -399,7 +402,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(P1_docOpeningStock)
 
                 Case TaxComPNLEnuItem.PURCHASE
-                    If P1_docPurchase Is Nothing Then
+                    If P1_docPurchase Is Nothing OrElse P1_docPurchase.IsDisposed Then
                         P1_docPurchase = New DockPanel
                         Dim uc As New ucPNL_p1Purchase
 
@@ -422,7 +425,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(P1_docPurchase)
 
                 Case TaxComPNLEnuItem.DEPRECIATION
-                    If P1_docDepreciation Is Nothing Then
+                    If P1_docDepreciation Is Nothing OrElse P1_docDepreciation.IsDisposed Then
                         P1_docDepreciation = New DockPanel
                         Dim uc As New ucPNL_p1Depreciation
 
@@ -444,7 +447,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P1_docDepreciation)
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
-                    If P1_docAllowanceExpenses Is Nothing Then
+                    If P1_docAllowanceExpenses Is Nothing OrElse P1_docAllowanceExpenses.IsDisposed Then
                         P1_docAllowanceExpenses = New DockPanel
                         Dim uc As New ucPNL_p1AllowanceExpenses
 
@@ -466,7 +469,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P1_docAllowanceExpenses)
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                    If P1_docNonAllowableExpenses Is Nothing Then
+                    If P1_docNonAllowableExpenses Is Nothing OrElse P1_docNonAllowableExpenses.IsDisposed Then
                         P1_docNonAllowableExpenses = New DockPanel
                         Dim uc As New ucPNL_p1NonAllowableExpenses
 
@@ -488,7 +491,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P1_docNonAllowableExpenses)
                 Case TaxComPNLEnuItem.CLOSESTOCK
-                    If P1_docCloseStock Is Nothing Then
+                    If P1_docCloseStock Is Nothing OrElse P1_docCloseStock.IsDisposed Then
                         P1_docCloseStock = New DockPanel
                         Dim uc As New ucPNL_p1CloseStock
 
@@ -510,7 +513,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P1_docCloseStock)
                 Case TaxComPNLEnuItem.OTHERBUSINC
-                    If P2_docOtherBizIncome Is Nothing Then
+                    If P2_docOtherBizIncome Is Nothing OrElse P2_docOtherBizIncome.IsDisposed Then
                         P2_docOtherBizIncome = New DockPanel
                         Dim uc As New ucPNL_p2OtherBizIncome
 
@@ -532,7 +535,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docOtherBizIncome)
                 Case TaxComPNLEnuItem.REALFETRADE
-                    If P2_docForeignCurrExGain Is Nothing Then
+                    If P2_docForeignCurrExGain Is Nothing OrElse P2_docForeignCurrExGain.IsDisposed Then
                         P2_docForeignCurrExGain = New DockPanel
                         Dim uc As New ucPNL_p2ForeignCurrExGain
 
@@ -554,7 +557,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docForeignCurrExGain)
                 Case TaxComPNLEnuItem.INTERESTINC
-                    If P2_docInterestIncome Is Nothing Then
+                    If P2_docInterestIncome Is Nothing OrElse P2_docInterestIncome.IsDisposed Then
                         P2_docInterestIncome = New DockPanel
                         Dim uc As New ucPNL_p2InterestIncome
 
@@ -577,7 +580,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docInterestIncome)
                 Case TaxComPNLEnuItem.ROYALTYINC
-                    If P2_docRoyaltyIncome Is Nothing Then
+                    If P2_docRoyaltyIncome Is Nothing OrElse P2_docRoyaltyIncome.IsDisposed Then
                         P2_docRoyaltyIncome = New DockPanel
                         Dim uc As New ucPNL_p2RoyaltyIncome
 
@@ -600,7 +603,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docRoyaltyIncome)
                 Case TaxComPNLEnuItem.OTHERINC
-                    If P2_docOtherIncome Is Nothing Then
+                    If P2_docOtherIncome Is Nothing OrElse P2_docOtherIncome.IsDisposed Then
                         P2_docOtherIncome = New DockPanel
                         Dim uc As New ucPNL_p2OtherIncome
 
@@ -623,7 +626,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docOtherIncome)
                 Case TaxComPNLEnuItem.PDFIXASSET
-                    If P2_docProDispPlantEq Is Nothing Then
+                    If P2_docProDispPlantEq Is Nothing OrElse P2_docProDispPlantEq.IsDisposed Then
                         P2_docProDispPlantEq = New DockPanel
                         Dim uc As New ucPNL_p2ProDispPlantEq
 
@@ -646,7 +649,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docProDispPlantEq)
                 Case TaxComPNLEnuItem.PDINVEST
-                    If P2_docProDisInvestment Is Nothing Then
+                    If P2_docProDisInvestment Is Nothing OrElse P2_docProDisInvestment.IsDisposed Then
                         P2_docProDisInvestment = New DockPanel
                         Dim uc As New ucPNL_p2ProDisInvestment
 
@@ -669,7 +672,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docProDisInvestment)
                 Case TaxComPNLEnuItem.FORINCREMIT
-                    If P2_docForeIncomeRemmit Is Nothing Then
+                    If P2_docForeIncomeRemmit Is Nothing OrElse P2_docForeIncomeRemmit.IsDisposed Then
                         P2_docForeIncomeRemmit = New DockPanel
                         Dim uc As New ucPNL_p2ForeIncomeRemmit
 
@@ -692,7 +695,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docForeIncomeRemmit)
                 Case TaxComPNLEnuItem.REALFE
-                    If P2_docReaForeExGainNonTrade Is Nothing Then
+                    If P2_docReaForeExGainNonTrade Is Nothing OrElse P2_docReaForeExGainNonTrade.IsDisposed Then
                         P2_docReaForeExGainNonTrade = New DockPanel
                         Dim uc As New ucPNL_p2ReaForeExGainNonTrade
 
@@ -715,7 +718,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docReaForeExGainNonTrade)
                 Case TaxComPNLEnuItem.UNREALFETRADE
-                    If P2_docUnreaGainForeEx Is Nothing Then
+                    If P2_docUnreaGainForeEx Is Nothing OrElse P2_docUnreaGainForeEx.IsDisposed Then
                         P2_docUnreaGainForeEx = New DockPanel
                         Dim uc As New ucPNL_p2UnreaGainForeEx
 
@@ -738,7 +741,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docUnreaGainForeEx)
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
-                    If P2_docUnreaGainForeExNon Is Nothing Then
+                    If P2_docUnreaGainForeExNon Is Nothing OrElse P2_docUnreaGainForeExNon.IsDisposed Then
                         P2_docUnreaGainForeExNon = New DockPanel
                         Dim uc As New ucPNL_p2UnreaGainForeExNon
 
@@ -761,7 +764,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docUnreaGainForeExNon)
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
-                    If P3_docOtherInterestExHirePur Is Nothing Then
+                    If P3_docOtherInterestExHirePur Is Nothing OrElse P3_docOtherInterestExHirePur.IsDisposed Then
                         P3_docOtherInterestExHirePur = New DockPanel
                         Dim uc As New ucPNL_p3OtherInterestExHirePur
 
@@ -784,7 +787,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docOtherInterestExHirePur)
                 Case TaxComPNLEnuItem.EXPLEGAL
-                    If P3_docProTechManLeganFees Is Nothing Then
+                    If P3_docProTechManLeganFees Is Nothing OrElse P3_docProTechManLeganFees.IsDisposed Then
                         P3_docProTechManLeganFees = New DockPanel
                         Dim uc As New ucPNL_p3ProTechManLeganFees
 
@@ -807,7 +810,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docProTechManLeganFees)
                 Case TaxComPNLEnuItem.EXPTECHNICAL
-                    If P3_docTechPayNonResis Is Nothing Then
+                    If P3_docTechPayNonResis Is Nothing OrElse P3_docTechPayNonResis.IsDisposed Then
                         P3_docTechPayNonResis = New DockPanel
                         Dim uc As New ucPNL_p3TechPayNonResis
 
@@ -830,7 +833,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docTechPayNonResis)
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
-                    If P3_docContractPay Is Nothing Then
+                    If P3_docContractPay Is Nothing OrElse P3_docContractPay.IsDisposed Then
                         P3_docContractPay = New DockPanel
                         Dim uc As New ucPNL_p3ContractPay
 
@@ -853,7 +856,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docContractPay)
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
-                    If P3_docDirectorFee Is Nothing Then
+                    If P3_docDirectorFee Is Nothing OrElse P3_docDirectorFee.IsDisposed Then
                         P3_docDirectorFee = New DockPanel
                         Dim uc As New ucPNL_p3DirectorFee
 
@@ -876,7 +879,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docDirectorFee)
                 Case TaxComPNLEnuItem.EXPSALARY
-                    If P3_docSalary Is Nothing Then
+                    If P3_docSalary Is Nothing OrElse P3_docSalary.IsDisposed Then
                         P3_docSalary = New DockPanel
                         Dim uc As New ucPNL_p3Salary
 
@@ -899,7 +902,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docSalary)
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-                    If P3_docCOEStock Is Nothing Then
+                    If P3_docCOEStock Is Nothing OrElse P3_docCOEStock.IsDisposed Then
                         P3_docCOEStock = New DockPanel
                         Dim uc As New ucPNL_p3COEStock
 
@@ -922,7 +925,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docCOEStock)
                 Case TaxComPNLEnuItem.EXPROYALTY
-                    If P3_docRoyalty Is Nothing Then
+                    If P3_docRoyalty Is Nothing OrElse P3_docRoyalty.IsDisposed Then
                         P3_docRoyalty = New DockPanel
                         Dim uc As New ucPNL_p3Royalty
 
@@ -945,7 +948,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docRoyalty)
                 Case TaxComPNLEnuItem.EXPRENTAL
-                    If P3_docRental Is Nothing Then
+                    If P3_docRental Is Nothing OrElse P3_docRental.IsDisposed Then
                         P3_docRental = New DockPanel
                         Dim uc As New ucPNL_p3Rental
 
@@ -968,7 +971,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docRental)
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-                    If P3_docRepairMain Is Nothing Then
+                    If P3_docRepairMain Is Nothing OrElse P3_docRepairMain.IsDisposed Then
                         P3_docRepairMain = New DockPanel
                         Dim uc As New ucPNL_p3RepairMain
 
@@ -991,7 +994,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docRepairMain)
                 Case TaxComPNLEnuItem.EXPRND
-                    If P3_docResearchDev Is Nothing Then
+                    If P3_docResearchDev Is Nothing OrElse P3_docResearchDev.IsDisposed Then
                         P3_docResearchDev = New DockPanel
                         Dim uc As New ucPNL_p3ResearchDev
 
@@ -1014,7 +1017,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docResearchDev)
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
-                    If P3_docPromotionAds Is Nothing Then
+                    If P3_docPromotionAds Is Nothing OrElse P3_docPromotionAds.IsDisposed Then
                         P3_docPromotionAds = New DockPanel
                         Dim uc As New ucPNL_p3PromotionAds
 
@@ -1037,7 +1040,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docPromotionAds)
                 Case TaxComPNLEnuItem.EXPTRAVEL
-                    If P3_docTravelling Is Nothing Then
+                    If P3_docTravelling Is Nothing OrElse P3_docTravelling.IsDisposed Then
                         P3_docTravelling = New DockPanel
                         Dim uc As New ucPNL_p3Travelling
 
@@ -1060,7 +1063,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docTravelling)
                 Case TaxComPNLEnuItem.EXPJKDM
-                    If P3_docJKDM Is Nothing Then
+                    If P3_docJKDM Is Nothing OrElse P3_docJKDM.IsDisposed Then
                         P3_docJKDM = New DockPanel
                         Dim uc As New ucPNL_p3JKDM
 
@@ -1083,7 +1086,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docJKDM)
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
-                    If P3_docDepreciation Is Nothing Then
+                    If P3_docDepreciation Is Nothing OrElse P3_docDepreciation.IsDisposed Then
                         P3_docDepreciation = New DockPanel
                         Dim uc As New ucPNL_p3Depreciation
 
@@ -1106,7 +1109,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docDepreciation)
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                    If P3_docDonationApp Is Nothing Then
+                    If P3_docDonationApp Is Nothing OrElse P3_docDonationApp.IsDisposed Then
                         P3_docDonationApp = New DockPanel
                         Dim uc As New ucPNL_p3DonationApp
 
@@ -1129,7 +1132,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docDonationApp)
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
-                    If P3_docDonationNonApp Is Nothing Then
+                    If P3_docDonationNonApp Is Nothing OrElse P3_docDonationNonApp.IsDisposed Then
                         P3_docDonationNonApp = New DockPanel
                         Dim uc As New ucPNL_p3DonationNonApp
 
@@ -1153,7 +1156,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(P3_docDonationNonApp)
 
                 Case TaxComPNLEnuItem.EXPZAKAT
-                    If p3_docZakat Is Nothing Then
+                    If p3_docZakat Is Nothing OrElse p3_docZakat.IsDisposed Then
                         p3_docZakat = New DockPanel
                         Dim uc As New ucPNL_p3Zakat
 
@@ -1177,7 +1180,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p3_docZakat)
 
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
-                    If p4_docLossDispFA Is Nothing Then
+                    If p4_docLossDispFA Is Nothing OrElse p4_docLossDispFA.IsDisposed Then
                         p4_docLossDispFA = New DockPanel
                         Dim uc As New ucPNL_p4LossDispFA
 
@@ -1201,7 +1204,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docLossDispFA)
 
                 Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-                    If p4_docEntNonStaff Is Nothing Then
+                    If p4_docEntNonStaff Is Nothing OrElse p4_docEntNonStaff.IsDisposed Then
                         p4_docEntNonStaff = New DockPanel
                         Dim uc As New ucPNL_p4EntNonStaff
 
@@ -1225,7 +1228,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docEntNonStaff)
 
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-                    If p4_docEntStaff Is Nothing Then
+                    If p4_docEntStaff Is Nothing OrElse p4_docEntStaff.IsDisposed Then
                         p4_docEntStaff = New DockPanel
                         Dim uc As New ucPNL_p4EntStaff
 
@@ -1249,7 +1252,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docEntStaff)
 
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-                    If p4_docCompound Is Nothing Then
+                    If p4_docCompound Is Nothing OrElse p4_docCompound.IsDisposed Then
                         p4_docCompound = New DockPanel
                         Dim uc As New ucPNL_p4Compound
 
@@ -1273,7 +1276,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docCompound)
 
                 Case TaxComPNLEnuItem.EXPPROVISION
-                    If p4_docProvisionAcc Is Nothing Then
+                    If p4_docProvisionAcc Is Nothing OrElse p4_docProvisionAcc.IsDisposed Then
                         p4_docProvisionAcc = New DockPanel
                         Dim uc As New ucPNL_p4ProvisionAcc
 
@@ -1298,7 +1301,7 @@ Module mdlPNL
 
 
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-                    If p4_docLeavePass Is Nothing Then
+                    If p4_docLeavePass Is Nothing OrElse p4_docLeavePass.IsDisposed Then
                         p4_docLeavePass = New DockPanel
                         Dim uc As New ucPNL_p4LeavePass
 
@@ -1322,7 +1325,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docLeavePass)
 
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-                    If p4_docFAWrittenOff Is Nothing Then
+                    If p4_docFAWrittenOff Is Nothing OrElse p4_docFAWrittenOff.IsDisposed Then
                         p4_docFAWrittenOff = New DockPanel
                         Dim uc As New ucPNL_p4FAWrittenOff
 
@@ -1346,7 +1349,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docFAWrittenOff)
 
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                    If p4_docUnreaLossForeEx Is Nothing Then
+                    If p4_docUnreaLossForeEx Is Nothing OrElse p4_docUnreaLossForeEx.IsDisposed Then
                         p4_docUnreaLossForeEx = New DockPanel
                         Dim uc As New ucPNL_p4UnreaLossForeEx
 
@@ -1370,7 +1373,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docUnreaLossForeEx)
 
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-                    If p4_docReaLossForeExTrade Is Nothing Then
+                    If p4_docReaLossForeExTrade Is Nothing OrElse p4_docReaLossForeExTrade.IsDisposed Then
                         p4_docReaLossForeExTrade = New DockPanel
                         Dim uc As New ucPNL_p4ReaLossForeExTrade
 
@@ -1394,7 +1397,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docReaLossForeExTrade)
 
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-                    If p4_docReaLossForeExNonTrade Is Nothing Then
+                    If p4_docReaLossForeExNonTrade Is Nothing OrElse p4_docReaLossForeExNonTrade.IsDisposed Then
                         p4_docReaLossForeExNonTrade = New DockPanel
                         Dim uc As New ucPNL_p4ReaLossForeExNonTrade
 
@@ -1418,7 +1421,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docReaLossForeExNonTrade)
 
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-                    If p4_docInitSub Is Nothing Then
+                    If p4_docInitSub Is Nothing OrElse p4_docInitSub.IsDisposed Then
                         p4_docInitSub = New DockPanel
                         Dim uc As New ucPNL_p4InitSub
 
@@ -1442,7 +1445,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docInitSub)
 
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-                    If p4_docCAExpenditure Is Nothing Then
+                    If p4_docCAExpenditure Is Nothing OrElse p4_docCAExpenditure.IsDisposed Then
                         p4_docCAExpenditure = New DockPanel
                         Dim uc As New ucPNL_p4CAExpenditure
 
@@ -1466,7 +1469,7 @@ Module mdlPNL
                     DockDocument.View.ActivateDocument(p4_docCAExpenditure)
 
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                    If p4_docOther Is Nothing Then
+                    If p4_docOther Is Nothing OrElse p4_docOther.IsDisposed Then
                         p4_docOther = New DockPanel
                         Dim uc As New ucPNL_p4Other
 
@@ -1489,7 +1492,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(p4_docOther)
                 Case TaxComPNLEnuItem.RENTALINC
-                    If P2_docRentalIncome Is Nothing Then
+                    If P2_docRentalIncome Is Nothing OrElse P2_docRentalIncome.IsDisposed Then
                         P2_docRentalIncome = New DockPanel
                         Dim uc As New ucPNL_p2RentalIncome
 
@@ -1513,7 +1516,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docRentalIncome)
                 Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
-                    If p4_docNonAllowableExpenses Is Nothing Then
+                    If p4_docNonAllowableExpenses Is Nothing OrElse p4_docNonAllowableExpenses.IsDisposed Then
                         p4_docNonAllowableExpenses = New DockPanel
                         Dim uc As New ucPNL_p4NonAllowableExpenses
 
@@ -1536,7 +1539,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(p4_docNonAllowableExpenses)
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
-                    If P2_docOther Is Nothing Then
+                    If P2_docOther Is Nothing OrElse P2_docOther.IsDisposed Then
                         P2_docOther = New DockPanel
                         Dim uc As New ucPNL_p2Other
 
@@ -1559,7 +1562,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docOther)
                 Case TaxComPNLEnuItem.EXEMDIV
-                    If P2_docExemptDividend Is Nothing Then
+                    If P2_docExemptDividend Is Nothing OrElse P2_docExemptDividend.IsDisposed Then
                         P2_docExemptDividend = New DockPanel
                         Dim uc As New ucPNL_p2ExemptDividend
 
@@ -1582,7 +1585,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P2_docExemptDividend)
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
-                    If P3_docInterestResPurS33 Is Nothing Then
+                    If P3_docInterestResPurS33 Is Nothing OrElse P3_docInterestResPurS33.IsDisposed Then
                         P3_docInterestResPurS33 = New DockPanel
                         Dim uc As New ucPNL_p3InterestResPurS33
 
@@ -1605,7 +1608,7 @@ Module mdlPNL
                     End If
                     DockDocument.View.ActivateDocument(P3_docInterestResPurS33)
                 Case TaxComPNLEnuItem.DIVIDENDINC
-                    If P2_docDivIncome Is Nothing Then
+                    If P2_docDivIncome Is Nothing OrElse P2_docDivIncome.IsDisposed Then
                         P2_docDivIncome = New DockPanel
                         Dim uc As New ucPNL_p2DivIncome
 

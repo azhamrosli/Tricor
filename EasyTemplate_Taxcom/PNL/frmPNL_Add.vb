@@ -598,6 +598,8 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
+
+   
     Private Sub TabbedView1_DocumentClosing(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventArgs) Handles TabbedView1.DocumentClosing
         e.Cancel = True
 
@@ -2677,5 +2679,27 @@ Public Class frmPNL_Add
     Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
         btnExport.PerformClick()
     End Sub
+
+    Private Sub TabbedView1_EndDocumentsHostDocking(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs) Handles TabbedView1.EndDocumentsHostDocking
+
+    End Sub
+
+
+    Private Sub TabbedView1_RegisterDocumentsHostWindow(sender As Object, e As DevExpress.XtraBars.Docking2010.DocumentsHostWindowEventArgs) Handles TabbedView1.RegisterDocumentsHostWindow
+        'Try
+        '    ' MsgBox(e.HostWindow.DocumentManager.View.Documents(0).ControlName)
+        '    If e.HostWindow.DocumentManager.GetDocument(P1_docSales) IsNot Nothing Then
+        '        MsgBox(e.HostWindow.DocumentManager.GetDocument(P1_docSales).ControlName)
+        '    End If
+
+        'Catch ex As Exception
+
+        'End Try
+        'MsgBox("E")
+    End Sub
+
+    'Private Sub TabbedView1_UnregisterDocumentsHostWindow(sender As Object, e As DevExpress.XtraBars.Docking2010.DocumentsHostWindowEventArgs) Handles TabbedView1.UnregisterDocumentsHostWindow
+    '    MsgBox("M")
+    'End Sub
 
 End Class

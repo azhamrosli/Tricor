@@ -58,6 +58,9 @@ Partial Public Class frmStartup
                     frmCP204_PenaltyLate.Show()
                 Case "frmreport_test"
                     frmReport_Test.Show()
+                Case "frmcp204"
+                    frmCP204.Show()
+
                 Case Else
                     MsgBox("Unable to find form name " & mdlProcess.ArgParam0)
                     Me.Close()

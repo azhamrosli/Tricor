@@ -292,15 +292,11 @@ Partial Class ucPNL_p4Other
         '
         Me.colEXO_KEY.FieldName = "EXO_KEY"
         Me.colEXO_KEY.Name = "colEXO_KEY"
-        Me.colEXO_KEY.Visible = True
-        Me.colEXO_KEY.VisibleIndex = 9
         '
         'colEXO_EXOKEY
         '
         Me.colEXO_EXOKEY.FieldName = "EXO_EXOKEY"
         Me.colEXO_EXOKEY.Name = "colEXO_EXOKEY"
-        Me.colEXO_EXOKEY.Visible = True
-        Me.colEXO_EXOKEY.VisibleIndex = 8
         '
         'colEXO_SOURCENO
         '
