@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmCP204" 'Form Name
+    Public ArgParam0 As String = "frmca" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1054242304" 'RefNo
     Public ArgParam3 As String = "2013" 'YA"
@@ -960,6 +960,7 @@ tryagain:
     End Function
 
 #End Region
+
 #Region "LOAD"
 #Region "CA"
     Public Function LOAD_GetDTYA(ByVal TC_REF_NO As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
@@ -1892,6 +1893,46 @@ tryagain:
     End Function
 #End Region
 #Region "PNL"
+
+    Public Function Check_AdjustedIncomeExist(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return True
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS countx FROM TAX_COMPUTATION WHERE TC_REF_NO=@TC_REF_NO AND TC_YA=@TC_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TC_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TC_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return True
+        End Try
+    End Function
+
+
+
 
     Public Function Load_PNL_PLFST_SALES(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try

@@ -1,8 +1,8 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmMovementComplex
-    Inherits DevExpress.XtraEditors.XtraForm
+Partial Class ucMovement
+    Inherits DevExpress.XtraEditors.XtraUserControl
 
-    'Form overrides dispose to clean up the component list.
+    'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing AndAlso components IsNot Nothing Then
@@ -20,21 +20,29 @@ Partial Class frmMovementComplex
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMovementComplex))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucMovement))
+        Me.colMM_BALANCE_START = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_AMOUNT_START = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_AMOUNT_END = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_NOTE_START = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_NOTE_END = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colModifiedBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colModifiedDateTime = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.btnClear2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.btnEdit = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPrint = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnImportExport = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
-        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.btnClear2 = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
-        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
         Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
@@ -43,8 +51,11 @@ Partial Class frmMovementComplex
         Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
+        Me.colMM_BALANCE_END = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
+        Me.colMM_YEAR_ENDED = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.MOVEMENTCOMPLEXBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.MOVEMENTNORMALBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colMM_ID = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -52,33 +63,116 @@ Partial Class frmMovementComplex
         Me.colMM_YA = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_TITLE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_PERIOD_ENDED = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_YEAR_ENDED = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_BALANCE_START = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_BALANCE_END = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_GENERAL_START = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_SPECIFIC_ALLOWABLE_START = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_SPECIFIC_NONALLOWABLE_START = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_NOTE_START = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_NOTE_END = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_GENERAL_END = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_SPECIFIC_ALLOWABLE_END = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_SPECIFIC_NONALLOWABLE_END = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colModifiedBy = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colModifiedDateTime = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
-        CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MOVEMENTCOMPLEXBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MOVEMENTNORMALBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'colMM_BALANCE_START
+        '
+        Me.colMM_BALANCE_START.Caption = "Balance Start"
+        Me.colMM_BALANCE_START.FieldName = "MM_BALANCE_START"
+        Me.colMM_BALANCE_START.Name = "colMM_BALANCE_START"
+        Me.colMM_BALANCE_START.Visible = True
+        Me.colMM_BALANCE_START.VisibleIndex = 5
+        Me.colMM_BALANCE_START.Width = 150
+        '
+        'colMM_AMOUNT_START
+        '
+        Me.colMM_AMOUNT_START.Caption = "Amount Start"
+        Me.colMM_AMOUNT_START.FieldName = "MM_AMOUNT_START"
+        Me.colMM_AMOUNT_START.Name = "colMM_AMOUNT_START"
+        Me.colMM_AMOUNT_START.Visible = True
+        Me.colMM_AMOUNT_START.VisibleIndex = 7
+        Me.colMM_AMOUNT_START.Width = 150
+        '
+        'colMM_AMOUNT_END
+        '
+        Me.colMM_AMOUNT_END.Caption = "Amount End"
+        Me.colMM_AMOUNT_END.FieldName = "MM_AMOUNT_END"
+        Me.colMM_AMOUNT_END.Name = "colMM_AMOUNT_END"
+        Me.colMM_AMOUNT_END.Visible = True
+        Me.colMM_AMOUNT_END.VisibleIndex = 8
+        Me.colMM_AMOUNT_END.Width = 150
+        '
+        'colMM_NOTE_START
+        '
+        Me.colMM_NOTE_START.FieldName = "MM_NOTE_START"
+        Me.colMM_NOTE_START.Name = "colMM_NOTE_START"
+        '
+        'colMM_NOTE_END
+        '
+        Me.colMM_NOTE_END.FieldName = "MM_NOTE_END"
+        Me.colMM_NOTE_END.Name = "colMM_NOTE_END"
+        '
+        'colModifiedBy
+        '
+        Me.colModifiedBy.Caption = "Modified By"
+        Me.colModifiedBy.FieldName = "ModifiedBy"
+        Me.colModifiedBy.Name = "colModifiedBy"
+        Me.colModifiedBy.Visible = True
+        Me.colModifiedBy.VisibleIndex = 9
+        Me.colModifiedBy.Width = 200
+        '
+        'colModifiedDateTime
+        '
+        Me.colModifiedDateTime.Caption = "Modified DateTime"
+        Me.colModifiedDateTime.FieldName = "ModifiedDateTime"
+        Me.colModifiedDateTime.Name = "colModifiedDateTime"
+        Me.colModifiedDateTime.Visible = True
+        Me.colModifiedDateTime.VisibleIndex = 10
+        Me.colModifiedDateTime.Width = 150
+        '
+        'PanelControl1
+        '
+        Me.PanelControl1.Controls.Add(Me.btnClear2)
+        Me.PanelControl1.Controls.Add(Me.btnClear)
+        Me.PanelControl1.Controls.Add(Me.txtRefNo)
+        Me.PanelControl1.Controls.Add(Me.cboYA)
+        Me.PanelControl1.Controls.Add(Me.cboRefNo)
+        Me.PanelControl1.Controls.Add(Me.btnAllRecord)
+        Me.PanelControl1.Controls.Add(Me.btnFind)
+        Me.PanelControl1.Controls.Add(Me.LabelControl2)
+        Me.PanelControl1.Controls.Add(Me.LabelControl1)
+        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
+        Me.PanelControl1.Name = "PanelControl1"
+        Me.PanelControl1.Size = New System.Drawing.Size(1065, 75)
+        Me.PanelControl1.TabIndex = 16
+        '
+        'btnClear2
+        '
+        Me.btnClear2.Image = CType(resources.GetObject("btnClear2.Image"), System.Drawing.Image)
+        Me.btnClear2.Location = New System.Drawing.Point(681, 13)
+        Me.btnClear2.Name = "btnClear2"
+        Me.btnClear2.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear2.TabIndex = 13
+        '
+        'btnClear
+        '
+        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.Location = New System.Drawing.Point(364, 13)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear.TabIndex = 12
+        '
+        'txtRefNo
+        '
+        Me.txtRefNo.Location = New System.Drawing.Point(91, 41)
+        Me.txtRefNo.MenuManager = Me.BarManager1
+        Me.txtRefNo.Name = "txtRefNo"
+        Me.txtRefNo.Properties.ReadOnly = True
+        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
+        Me.txtRefNo.TabIndex = 11
         '
         'BarManager1
         '
@@ -90,7 +184,7 @@ Partial Class frmMovementComplex
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint})
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.btnImportExport})
         Me.BarManager1.MaxItemId = 7
         '
         'Bar1
@@ -99,7 +193,7 @@ Partial Class frmMovementComplex
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.btnImportExport)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -143,75 +237,42 @@ Partial Class frmMovementComplex
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
+        'btnImportExport
+        '
+        Me.btnImportExport.Caption = "Import / Export"
+        Me.btnImportExport.Glyph = CType(resources.GetObject("btnImportExport.Glyph"), System.Drawing.Image)
+        Me.btnImportExport.Id = 4
+        Me.btnImportExport.LargeGlyph = CType(resources.GetObject("btnImportExport.LargeGlyph"), System.Drawing.Image)
+        Me.btnImportExport.Name = "btnImportExport"
+        Me.btnImportExport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(968, 31)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1065, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 466)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(968, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 529)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1065, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 435)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 498)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(968, 31)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 435)
-        '
-        'PanelControl1
-        '
-        Me.PanelControl1.Controls.Add(Me.btnClear2)
-        Me.PanelControl1.Controls.Add(Me.btnClear)
-        Me.PanelControl1.Controls.Add(Me.txtRefNo)
-        Me.PanelControl1.Controls.Add(Me.cboYA)
-        Me.PanelControl1.Controls.Add(Me.cboRefNo)
-        Me.PanelControl1.Controls.Add(Me.btnAllRecord)
-        Me.PanelControl1.Controls.Add(Me.btnFind)
-        Me.PanelControl1.Controls.Add(Me.LabelControl2)
-        Me.PanelControl1.Controls.Add(Me.LabelControl1)
-        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
-        Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(968, 75)
-        Me.PanelControl1.TabIndex = 10
-        '
-        'btnClear2
-        '
-        Me.btnClear2.Image = CType(resources.GetObject("btnClear2.Image"), System.Drawing.Image)
-        Me.btnClear2.Location = New System.Drawing.Point(681, 13)
-        Me.btnClear2.Name = "btnClear2"
-        Me.btnClear2.Size = New System.Drawing.Size(24, 23)
-        Me.btnClear2.TabIndex = 13
-        '
-        'btnClear
-        '
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(364, 13)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(24, 23)
-        Me.btnClear.TabIndex = 12
-        '
-        'txtRefNo
-        '
-        Me.txtRefNo.Location = New System.Drawing.Point(91, 41)
-        Me.txtRefNo.MenuManager = Me.BarManager1
-        Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
-        Me.txtRefNo.TabIndex = 11
+        Me.barDockControlRight.Location = New System.Drawing.Point(1065, 31)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 498)
         '
         'cboYA
         '
@@ -281,24 +342,58 @@ Partial Class frmMovementComplex
         Me.LabelControl1.TabIndex = 1
         Me.LabelControl1.Text = "Reference No :"
         '
+        'colMM_BALANCE_END
+        '
+        Me.colMM_BALANCE_END.Caption = "Balance End"
+        Me.colMM_BALANCE_END.FieldName = "MM_BALANCE_END"
+        Me.colMM_BALANCE_END.Name = "colMM_BALANCE_END"
+        Me.colMM_BALANCE_END.Visible = True
+        Me.colMM_BALANCE_END.VisibleIndex = 6
+        Me.colMM_BALANCE_END.Width = 150
+        '
+        'pnlLoading
+        '
+        Me.pnlLoading.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.pnlLoading.Appearance.BackColor = System.Drawing.Color.Transparent
+        Me.pnlLoading.Appearance.Options.UseBackColor = True
+        Me.pnlLoading.AppearanceCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.pnlLoading.AppearanceCaption.Options.UseFont = True
+        Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.pnlLoading.AppearanceDescription.Options.UseFont = True
+        Me.pnlLoading.Location = New System.Drawing.Point(364, 242)
+        Me.pnlLoading.Name = "pnlLoading"
+        Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
+        Me.pnlLoading.TabIndex = 17
+        Me.pnlLoading.Text = "ProgressPanel1"
+        Me.pnlLoading.Visible = False
+        '
+        'colMM_YEAR_ENDED
+        '
+        Me.colMM_YEAR_ENDED.Caption = "Year Ended"
+        Me.colMM_YEAR_ENDED.FieldName = "MM_YEAR_ENDED"
+        Me.colMM_YEAR_ENDED.Name = "colMM_YEAR_ENDED"
+        Me.colMM_YEAR_ENDED.Visible = True
+        Me.colMM_YEAR_ENDED.VisibleIndex = 4
+        Me.colMM_YEAR_ENDED.Width = 150
+        '
         'GridControl1
         '
-        Me.GridControl1.DataSource = Me.MOVEMENTCOMPLEXBindingSource
+        Me.GridControl1.DataSource = Me.MOVEMENTNORMALBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GridControl1.Location = New System.Drawing.Point(0, 106)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
         Me.GridControl1.MainView = Me.GridView1
         Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.Size = New System.Drawing.Size(968, 360)
-        Me.GridControl1.TabIndex = 11
+        Me.GridControl1.Size = New System.Drawing.Size(1065, 498)
+        Me.GridControl1.TabIndex = 15
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
-        'MOVEMENTCOMPLEXBindingSource
+        'MOVEMENTNORMALBindingSource
         '
-        Me.MOVEMENTCOMPLEXBindingSource.DataMember = "MOVEMENT_COMPLEX"
-        Me.MOVEMENTCOMPLEXBindingSource.DataSource = Me.DsMovement
+        Me.MOVEMENTNORMALBindingSource.DataMember = "MOVEMENT_NORMAL"
+        Me.MOVEMENTNORMALBindingSource.DataSource = Me.DsMovement
         '
         'DsMovement
         '
@@ -307,7 +402,7 @@ Partial Class frmMovementComplex
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_REFNO, Me.colMM_YA, Me.colMM_TITLE, Me.colMM_PERIOD_ENDED, Me.colMM_YEAR_ENDED, Me.colMM_BALANCE_START, Me.colMM_BALANCE_END, Me.colMM_GENERAL_START, Me.colMM_SPECIFIC_ALLOWABLE_START, Me.colMM_SPECIFIC_NONALLOWABLE_START, Me.colMM_NOTE_START, Me.colMM_NOTE_END, Me.colMM_GENERAL_END, Me.colMM_SPECIFIC_ALLOWABLE_END, Me.colMM_SPECIFIC_NONALLOWABLE_END, Me.colModifiedBy, Me.colModifiedDateTime})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_REFNO, Me.colMM_YA, Me.colMM_TITLE, Me.colMM_PERIOD_ENDED, Me.colMM_YEAR_ENDED, Me.colMM_BALANCE_START, Me.colMM_BALANCE_END, Me.colMM_AMOUNT_START, Me.colMM_AMOUNT_END, Me.colMM_NOTE_START, Me.colMM_NOTE_END, Me.colModifiedBy, Me.colModifiedDateTime})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
@@ -325,21 +420,21 @@ Partial Class frmMovementComplex
         '
         Me.colMM_REFNO.Caption = "Ref No"
         Me.colMM_REFNO.FieldName = "MM_REFNO"
-        Me.colMM_REFNO.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
         Me.colMM_REFNO.Name = "colMM_REFNO"
+        Me.colMM_REFNO.OptionsColumn.FixedWidth = True
         Me.colMM_REFNO.Visible = True
         Me.colMM_REFNO.VisibleIndex = 0
-        Me.colMM_REFNO.Width = 150
+        Me.colMM_REFNO.Width = 120
         '
         'colMM_YA
         '
         Me.colMM_YA.Caption = "YA"
         Me.colMM_YA.FieldName = "MM_YA"
-        Me.colMM_YA.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
         Me.colMM_YA.Name = "colMM_YA"
+        Me.colMM_YA.OptionsColumn.FixedWidth = True
         Me.colMM_YA.Visible = True
         Me.colMM_YA.VisibleIndex = 1
-        Me.colMM_YA.Width = 80
+        Me.colMM_YA.Width = 100
         '
         'colMM_TITLE
         '
@@ -359,204 +454,76 @@ Partial Class frmMovementComplex
         Me.colMM_PERIOD_ENDED.VisibleIndex = 3
         Me.colMM_PERIOD_ENDED.Width = 150
         '
-        'colMM_YEAR_ENDED
-        '
-        Me.colMM_YEAR_ENDED.Caption = "Year Ended"
-        Me.colMM_YEAR_ENDED.FieldName = "MM_YEAR_ENDED"
-        Me.colMM_YEAR_ENDED.Name = "colMM_YEAR_ENDED"
-        Me.colMM_YEAR_ENDED.Visible = True
-        Me.colMM_YEAR_ENDED.VisibleIndex = 4
-        Me.colMM_YEAR_ENDED.Width = 150
-        '
-        'colMM_BALANCE_START
-        '
-        Me.colMM_BALANCE_START.Caption = "Balance Start"
-        Me.colMM_BALANCE_START.FieldName = "MM_BALANCE_START"
-        Me.colMM_BALANCE_START.Name = "colMM_BALANCE_START"
-        Me.colMM_BALANCE_START.Visible = True
-        Me.colMM_BALANCE_START.VisibleIndex = 5
-        Me.colMM_BALANCE_START.Width = 150
-        '
-        'colMM_BALANCE_END
-        '
-        Me.colMM_BALANCE_END.Caption = "Balance End"
-        Me.colMM_BALANCE_END.FieldName = "MM_BALANCE_END"
-        Me.colMM_BALANCE_END.Name = "colMM_BALANCE_END"
-        Me.colMM_BALANCE_END.Visible = True
-        Me.colMM_BALANCE_END.VisibleIndex = 6
-        Me.colMM_BALANCE_END.Width = 150
-        '
-        'colMM_GENERAL_START
-        '
-        Me.colMM_GENERAL_START.Caption = "General Start"
-        Me.colMM_GENERAL_START.FieldName = "MM_GENERAL_START"
-        Me.colMM_GENERAL_START.Name = "colMM_GENERAL_START"
-        Me.colMM_GENERAL_START.Visible = True
-        Me.colMM_GENERAL_START.VisibleIndex = 7
-        Me.colMM_GENERAL_START.Width = 150
-        '
-        'colMM_SPECIFIC_ALLOWABLE_START
-        '
-        Me.colMM_SPECIFIC_ALLOWABLE_START.Caption = "Specific (Allowable)"
-        Me.colMM_SPECIFIC_ALLOWABLE_START.FieldName = "MM_SPECIFIC_ALLOWABLE_START"
-        Me.colMM_SPECIFIC_ALLOWABLE_START.Name = "colMM_SPECIFIC_ALLOWABLE_START"
-        Me.colMM_SPECIFIC_ALLOWABLE_START.Visible = True
-        Me.colMM_SPECIFIC_ALLOWABLE_START.VisibleIndex = 8
-        Me.colMM_SPECIFIC_ALLOWABLE_START.Width = 150
-        '
-        'colMM_SPECIFIC_NONALLOWABLE_START
-        '
-        Me.colMM_SPECIFIC_NONALLOWABLE_START.Caption = "Specific (Non Allowable)"
-        Me.colMM_SPECIFIC_NONALLOWABLE_START.FieldName = "MM_SPECIFIC_NONALLOWABLE_START"
-        Me.colMM_SPECIFIC_NONALLOWABLE_START.Name = "colMM_SPECIFIC_NONALLOWABLE_START"
-        Me.colMM_SPECIFIC_NONALLOWABLE_START.Visible = True
-        Me.colMM_SPECIFIC_NONALLOWABLE_START.VisibleIndex = 9
-        Me.colMM_SPECIFIC_NONALLOWABLE_START.Width = 150
-        '
-        'colMM_NOTE_START
-        '
-        Me.colMM_NOTE_START.FieldName = "MM_NOTE_START"
-        Me.colMM_NOTE_START.Name = "colMM_NOTE_START"
-        '
-        'colMM_NOTE_END
-        '
-        Me.colMM_NOTE_END.FieldName = "MM_NOTE_END"
-        Me.colMM_NOTE_END.Name = "colMM_NOTE_END"
-        '
-        'colMM_GENERAL_END
-        '
-        Me.colMM_GENERAL_END.Caption = "General End"
-        Me.colMM_GENERAL_END.FieldName = "MM_GENERAL_END"
-        Me.colMM_GENERAL_END.Name = "colMM_GENERAL_END"
-        Me.colMM_GENERAL_END.Visible = True
-        Me.colMM_GENERAL_END.VisibleIndex = 10
-        Me.colMM_GENERAL_END.Width = 150
-        '
-        'colMM_SPECIFIC_ALLOWABLE_END
-        '
-        Me.colMM_SPECIFIC_ALLOWABLE_END.Caption = "Specific (Allowable)"
-        Me.colMM_SPECIFIC_ALLOWABLE_END.FieldName = "MM_SPECIFIC_ALLOWABLE_END"
-        Me.colMM_SPECIFIC_ALLOWABLE_END.Name = "colMM_SPECIFIC_ALLOWABLE_END"
-        Me.colMM_SPECIFIC_ALLOWABLE_END.Visible = True
-        Me.colMM_SPECIFIC_ALLOWABLE_END.VisibleIndex = 11
-        Me.colMM_SPECIFIC_ALLOWABLE_END.Width = 150
-        '
-        'colMM_SPECIFIC_NONALLOWABLE_END
-        '
-        Me.colMM_SPECIFIC_NONALLOWABLE_END.Caption = "Specific (Non Allowable)"
-        Me.colMM_SPECIFIC_NONALLOWABLE_END.FieldName = "MM_SPECIFIC_NONALLOWABLE_END"
-        Me.colMM_SPECIFIC_NONALLOWABLE_END.Name = "colMM_SPECIFIC_NONALLOWABLE_END"
-        Me.colMM_SPECIFIC_NONALLOWABLE_END.Visible = True
-        Me.colMM_SPECIFIC_NONALLOWABLE_END.VisibleIndex = 12
-        Me.colMM_SPECIFIC_NONALLOWABLE_END.Width = 150
-        '
-        'colModifiedBy
-        '
-        Me.colModifiedBy.FieldName = "ModifiedBy"
-        Me.colModifiedBy.Name = "colModifiedBy"
-        Me.colModifiedBy.Visible = True
-        Me.colModifiedBy.VisibleIndex = 13
-        Me.colModifiedBy.Width = 200
-        '
-        'colModifiedDateTime
-        '
-        Me.colModifiedDateTime.FieldName = "ModifiedDateTime"
-        Me.colModifiedDateTime.Name = "colModifiedDateTime"
-        Me.colModifiedDateTime.Visible = True
-        Me.colModifiedDateTime.VisibleIndex = 14
-        Me.colModifiedDateTime.Width = 180
-        '
-        'pnlLoading
-        '
-        Me.pnlLoading.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.pnlLoading.Appearance.BackColor = System.Drawing.Color.Transparent
-        Me.pnlLoading.Appearance.Options.UseBackColor = True
-        Me.pnlLoading.AppearanceCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.pnlLoading.AppearanceCaption.Options.UseFont = True
-        Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.pnlLoading.AppearanceDescription.Options.UseFont = True
-        Me.pnlLoading.Location = New System.Drawing.Point(364, 208)
-        Me.pnlLoading.Name = "pnlLoading"
-        Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
-        Me.pnlLoading.TabIndex = 16
-        Me.pnlLoading.Text = "ProgressPanel1"
-        Me.pnlLoading.Visible = False
-        '
-        'frmMovementComplex
+        'ucMovement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(968, 466)
+        Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.GridControl1)
-        Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Name = "frmMovementComplex"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Movement Complex"
-        CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Name = "ucMovement"
+        Me.Size = New System.Drawing.Size(1065, 529)
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MOVEMENTCOMPLEXBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MOVEMENTNORMALBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
+    Friend WithEvents colMM_BALANCE_START As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_AMOUNT_START As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_AMOUNT_END As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_NOTE_START As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_NOTE_END As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colModifiedBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colModifiedDateTime As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents btnClear2 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
     Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
     Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnEdit As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnPrint As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnImportExport As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
-    Friend WithEvents btnClear2 As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents cboYA As DevExpress.XtraEditors.ComboBoxEdit
-    Friend WithEvents cboRefNo As DevExpress.XtraEditors.LookUpEdit
-    Friend WithEvents btnAllRecord As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents btnFind As DevExpress.XtraEditors.SimpleButton
-    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
-    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
     Friend WithEvents pnlLoading As DevExpress.XtraWaitForm.ProgressPanel
-    Friend WithEvents MOVEMENTCOMPLEXBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
+    Friend WithEvents MOVEMENTNORMALBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsMovement As EasyTemplate_Taxcom.dsMovement
+    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents colMM_ID As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_REFNO As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_YA As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_TITLE As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_PERIOD_ENDED As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_YEAR_ENDED As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_BALANCE_START As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_BALANCE_END As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_GENERAL_START As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_SPECIFIC_ALLOWABLE_START As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_SPECIFIC_NONALLOWABLE_START As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_NOTE_START As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_NOTE_END As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_GENERAL_END As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_SPECIFIC_ALLOWABLE_END As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_SPECIFIC_NONALLOWABLE_END As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colModifiedBy As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colModifiedDateTime As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents cboYA As DevExpress.XtraEditors.ComboBoxEdit
+    Friend WithEvents cboRefNo As DevExpress.XtraEditors.LookUpEdit
+    Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
+    Friend WithEvents btnAllRecord As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnFind As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
+
 End Class

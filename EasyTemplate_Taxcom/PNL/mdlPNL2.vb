@@ -1,6 +1,124 @@
 ﻿Imports System.Data.SqlClient
 
 Module mdlPNL2
+
+    Public Sub ClearMemoryDataset(Optional ByRef ErrorLog As clsError = Nothing)
+        Try
+            dsDataSet.Tables("PLFST_SALES_DETAIL").Rows.Clear()
+            dsDataSet.Tables("PLFST_SALES").Rows.Clear()
+            dsDataSet.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Clear()
+            dsDataSet.Tables("PLFST_OPENSTOCK").Rows.Clear()
+            dsDataSet.Tables("PLFST_PURCHASE_DETAIL").Rows.Clear()
+            dsDataSet.Tables("PLFST_PURCHASE").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_DEPRECIATION").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_ALLOW_DETAIL").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_ALLOW").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_NONALLOW").Rows.Clear()
+            dsDataSet.Tables("PLFST_CLOSESTOCK_DETAIL").Rows.Clear()
+            dsDataSet.Tables("PLFST_CLOSESTOCK").Rows.Clear()
+            dsDataSet.Tables("NONSOURCE_BUSINESSINCOME_DETAIL").Rows.Clear()
+            dsDataSet.Tables("NONSOURCE_BUSINESSINCOME").Rows.Clear()
+            dsDataSet.Tables("INCOME_REALFET_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_REALFET").Rows.Clear()
+            dsDataSet2.Tables("dividend_income").Rows.Clear()
+            dsDataSet.Tables("INCOME_NBINTEREST_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NBINTEREST").Rows.Clear()
+            dsDataSet.Tables("rental_income").Rows.Clear()
+            dsDataSet.Tables("OTHER_INCOME_DETAIL").Rows.Clear()
+            dsDataSet.Tables("OTHER_INCOME").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTDISPOSALFA_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTDISPOSALFA").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTDISPOSALINVEST_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTDISPOSALINVEST").Rows.Clear()
+            dsDataSet.Tables("exempt_dividend").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTFOREIGNINCREM_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTFOREIGNINCREM").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTUREALFET_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTUREALFET").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTREALFE_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTREALFE").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTUREALFENT_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NTUREALFENT").Rows.Clear()
+            dsDataSet.Tables("NON_TAXABLE_INCOME_DETAIL").Rows.Clear()
+            dsDataSet.Tables("non_taxable_income").Rows.Clear()
+            dsDataSet.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_INTERESTRESTRICT").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_INTEREST_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_interest").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_LEGAL_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_legal").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_tech_fee").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_contract").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_directors_fee").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_SALARY_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_salary").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_empl_stock").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_royalty").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_RENTAL_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_rental").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_REPAIR_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_repair").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_research").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_promote").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_travel").Rows.Clear()
+            dsDataSet.Tables("EXPENSES_JKDM_DETAIL").Rows.Clear()
+            dsDataSet.Tables("expenses_jkdm").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exdepreciation").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exapprdonation").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exnapprdonation").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXZAKAT_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exzakat").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exlossdisposalfa").Rows.Clear()
+            dsDataSet.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_entertainnstaff").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXPENALTY_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_expenalty").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exprovisionacc").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exleavepassage").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exfawrittenoff").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exurlossforeign").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exrlossforeignt").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exrlossforeign").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_exinitialsub").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Clear()
+            dsDataSet.Tables("other_excapitalexp").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXPENSES_DETAIL").Rows.Clear()
+            dsDataSet.Tables("OTHER_EXPENSES").Rows.Clear()
+
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+        End Try
+    End Sub
     Public Function PNL_GetSaveData(ByVal PNL_Key As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                     ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
@@ -966,9 +1084,6 @@ Module mdlPNL2
             Return False
         End Try
     End Function
-
-
-
     Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef ds2 As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Select Case Type
@@ -1114,11 +1229,8 @@ Module mdlPNL2
         End Try
     End Function
 
-
-
-
     Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, _
-                                ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Dim strError As String = Nothing
         Try
 
@@ -4062,4 +4174,48 @@ Module mdlPNL2
             Return Nothing
         End Try
     End Function
+
+    Public Function TransferFromImport_ToMain(ByVal dsMain As DataSet, ByVal dsMain2 As DataSet, ByVal dtRowImport As DataRow, ByVal TableName As String, ByVal Type As mdlEnum.TaxComPNLEnuItem, ByVal SourceNo As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dtRow As DataRow = Nothing
+
+
+            Select Case Type
+                Case TaxComPNLEnuItem.SALES
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("PLFS_KEY") = 0
+                    dtRow("PLFS_SOURCENO") = SourceNo
+                    dtRow("PLFS_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("PLFS_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("PLFS_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("PLFS_NOTE") = ""
+                    dtRow("PLFS_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+
+                Case Else
+
+            End Select
+
+
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+
+
 End Module

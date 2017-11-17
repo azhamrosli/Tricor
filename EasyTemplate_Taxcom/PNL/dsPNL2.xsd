@@ -696,6 +696,23 @@
               <xs:element name="Description" msprop:Generator_ColumnVarNameInTable="columnDescription" msprop:Generator_ColumnPropNameInRow="Description" msprop:Generator_ColumnPropNameInTable="DescriptionColumn" msprop:Generator_UserColumnName="Description" type="xs:string" minOccurs="0" />
               <xs:element name="LeftAmount" msprop:Generator_ColumnVarNameInTable="columnLeftAmount" msprop:Generator_ColumnPropNameInRow="LeftAmount" msprop:Generator_ColumnPropNameInTable="LeftAmountColumn" msprop:Generator_UserColumnName="LeftAmount" type="xs:decimal" minOccurs="0" />
               <xs:element name="RightAmount" msprop:Generator_ColumnVarNameInTable="columnRightAmount" msprop:Generator_ColumnPropNameInRow="RightAmount" msprop:Generator_ColumnPropNameInTable="RightAmountColumn" msprop:Generator_UserColumnName="RightAmount" type="xs:decimal" minOccurs="0" />
+              <xs:element name="No2" msprop:Generator_ColumnVarNameInTable="columnNo2" msprop:Generator_ColumnPropNameInRow="No2" msprop:Generator_ColumnPropNameInTable="No2Column" msprop:Generator_UserColumnName="No2" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PNLImport_TableList" msprop:Generator_TableClassName="PNLImport_TableListDataTable" msprop:Generator_TableVarName="tablePNLImport_TableList" msprop:Generator_TablePropName="PNLImport_TableList" msprop:Generator_RowDeletingName="PNLImport_TableListRowDeleting" msprop:Generator_RowChangingName="PNLImport_TableListRowChanging" msprop:Generator_RowEvHandlerName="PNLImport_TableListRowChangeEventHandler" msprop:Generator_RowDeletedName="PNLImport_TableListRowDeleted" msprop:Generator_UserTableName="PNLImport_TableList" msprop:Generator_RowChangedName="PNLImport_TableListRowChanged" msprop:Generator_RowEvArgName="PNLImport_TableListRowChangeEvent" msprop:Generator_RowClassName="PNLImport_TableListRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:string" minOccurs="0" />
+              <xs:element name="SheetName" msprop:Generator_ColumnVarNameInTable="columnSheetName" msprop:Generator_ColumnPropNameInRow="SheetName" msprop:Generator_ColumnPropNameInTable="SheetNameColumn" msprop:Generator_UserColumnName="SheetName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PNLImport_TableList_Select" msprop:Generator_TableClassName="PNLImport_TableList_SelectDataTable" msprop:Generator_TableVarName="tablePNLImport_TableList_Select" msprop:Generator_TablePropName="PNLImport_TableList_Select" msprop:Generator_RowDeletingName="PNLImport_TableList_SelectRowDeleting" msprop:Generator_RowChangingName="PNLImport_TableList_SelectRowChanging" msprop:Generator_RowEvHandlerName="PNLImport_TableList_SelectRowChangeEventHandler" msprop:Generator_RowDeletedName="PNLImport_TableList_SelectRowDeleted" msprop:Generator_UserTableName="PNLImport_TableList_Select" msprop:Generator_RowChangedName="PNLImport_TableList_SelectRowChanged" msprop:Generator_RowEvArgName="PNLImport_TableList_SelectRowChangeEvent" msprop:Generator_RowClassName="PNLImport_TableList_SelectRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:string" minOccurs="0" />
+              <xs:element name="SheetName" msdata:Caption="DataColumn1" msprop:Generator_ColumnVarNameInTable="columnSheetName" msprop:Generator_ColumnPropNameInRow="SheetName" msprop:Generator_ColumnPropNameInTable="SheetNameColumn" msprop:Generator_UserColumnName="SheetName" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,9 +1,7 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Base
 
-Public Class frmPNL
-
-    Inherits DevExpress.XtraEditors.XtraForm
+Public Class ucPNL
     Dim ErrorLog As clsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
@@ -15,16 +13,16 @@ Public Class frmPNL
         InitializeComponent()
     End Sub
 
-    Private Sub frmCA_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        Try
-            If isChangeForm = False Then
-                e.Cancel = True
-                frmStartup.Close()
-            End If
-        Catch ex As Exception
+    'Private Sub frmCA_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    '    Try
+    '        If isChangeForm = False Then
+    '            e.Cancel = True
+    '            frmStartup.Close()
+    '        End If
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
 
     Private Sub frmPNL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -167,17 +165,22 @@ Public Class frmPNL
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         Try
+
             Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "Profit and loss", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
             If rslt = Windows.Forms.DialogResult.Yes Then
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_PNL(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_KEY")), ErrorLog) = False Then
-                        tmpSts = False
+                    If mdlProcess.Check_AdjustedIncomeExist(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_REF_NO"), GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_YA")) Then
 
+                        MsgBox("This profit and loss already exist adjusted income. Information Reference (" & GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_REF_NO") & ")", MsgBoxStyle.Exclamation)
+                    Else
+                        If mdlProcess.Delete_PNL(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_KEY")), ErrorLog) = False Then
+                            tmpSts = False
+
+                        End If
                     End If
-                    'MsgBox(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("CA_KEY"))
 
                 Next
 
@@ -221,11 +224,19 @@ Public Class frmPNL
         End Try
     End Sub
 
- 
+
     Private Sub btnClear2_Click(sender As Object, e As EventArgs) Handles btnClear2.Click
         Try
             cboYA.EditValue = ""
 
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnImportExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+        Try
+            frmPNL_Import_Select.Show()
         Catch ex As Exception
 
         End Try

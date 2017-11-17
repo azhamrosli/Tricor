@@ -1,4 +1,4 @@
-﻿Public Class frmDeemedInterest 
+﻿Public Class ucDeemedInterest
     Dim Errorlog As clsError
 
     Private Sub frmDeemedInterest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -127,7 +127,4 @@
         End Try
     End Sub
 
-    Private Sub btnClose_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnClose.ItemClick
-        Me.Close()
-    End Sub
 End Class

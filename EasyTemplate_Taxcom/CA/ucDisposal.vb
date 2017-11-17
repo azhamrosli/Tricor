@@ -1,5 +1,4 @@
-﻿Public Class frmDisposal 
-    Inherits DevExpress.XtraEditors.XtraForm
+﻿Public Class ucDisposal
     Dim ErrorLog As clsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
@@ -7,19 +6,8 @@
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-       DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Dark" ' "Office 2013" DevExpress Dark Style,
+        DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Dark" ' "Office 2013" DevExpress Dark Style,
         InitializeComponent()
-    End Sub
-
-    Private Sub frmDispocal_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        Try
-            If isChangeForm = False Then
-                e.Cancel = True
-                frmStartup.Close()
-            End If
-        Catch ex As Exception
-
-        End Try
     End Sub
     Private Sub LoadData(Optional Type As Integer = 0)
         Try
@@ -81,20 +69,12 @@
         End Try
     End Sub
 
-    Private Sub frmDisposal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub frmDisposal_Load(sender As Object, e As EventArgs)
         LoadData()
     End Sub
 
     Private Sub btnAllRecord_Click(sender As Object, e As EventArgs) Handles btnAllRecord.Click
-        Try
-            cboFilterType.SelectedIndex = cboFilterType.Properties.Items.Count - 1
-            txtRefNo.Text = ""
-            txtYA.Text = ""
-            txtFilterValue.Text = ""
-            LoadData(1)
-        Catch ex As Exception
 
-        End Try
     End Sub
 
     Private Sub btnFind_Click(sender As Object, e As EventArgs) Handles btnFind.Click
@@ -108,23 +88,6 @@
         End Try
     End Sub
     Private Sub btnEdit_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnEdit.ItemClick
-        Try
-            Dim ID_CA As Integer = dgvCA.GetDataRow(dgvCA.GetSelectedRows(0))("CA_KEY")
-            Dim dtRow = DsCA.Tables("CA_DISPOSAL").Select("CA_KEY = " & ID_CA)
 
-            If dtRow IsNot Nothing AndAlso dtRow.Count > 0 Then
-                Dim ID As Integer = dtRow(0)("CA_DISP_KEY")
-                Dim frm As New frmDisposal_Add
-                frm.isEdit = True
-                frm.ID = ID
-                frm.ID_CA = ID_CA
-                frm.ShowDialog()
-                Me.LoadData()
-            End If
-
-
-        Catch ex As Exception
-
-        End Try
     End Sub
 End Class

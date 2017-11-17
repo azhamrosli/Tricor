@@ -1,13 +1,5 @@
-﻿Public Class frmMovement
+﻿Public Class ucMovement
     Dim ErrorLog As clsError = Nothing
-    Private Sub frmMovement_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        Try
-            e.Cancel = True
-            frmStartup.Close()
-        Catch ex As Exception
-
-        End Try
-    End Sub
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData(0)

@@ -33,7 +33,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -196,16 +196,28 @@
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="CA\mdlCA.vb" />
+    <Compile Include="CA\ucCA.Designer.vb">
+      <DependentUpon>ucCA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\ucCA.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CA\ucDisposal.Designer.vb">
+      <DependentUpon>ucDisposal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\ucDisposal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CA\ucHP.Designer.vb">
+      <DependentUpon>ucHP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\ucHP.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="CP204\dsCP204.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsCP204.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="CP204\frmCP204.Designer.vb">
-      <DependentUpon>frmCP204.vb</DependentUpon>
-    </Compile>
-    <Compile Include="CP204\frmCP204.vb">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="CP204\frmCP204_Add.Designer.vb">
       <DependentUpon>frmCP204_Add.vb</DependentUpon>
@@ -227,34 +239,28 @@
     <Compile Include="CA\dsCA.vb">
       <DependentUpon>dsCA.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CP204\ucCP204.Designer.vb">
+      <DependentUpon>ucCP204.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CP204\ucCP204.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Dataset\dsDefault.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsDefault.xsd</DependentUpon>
     </Compile>
-    <Compile Include="DeemedInterest\frmDeemedInterest.Designer.vb">
-      <DependentUpon>frmDeemedInterest.vb</DependentUpon>
+    <Compile Include="DeemedInterest\ucDeemedInterest.Designer.vb">
+      <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </Compile>
-    <Compile Include="DeemedInterest\frmDeemedInterest.vb">
-      <SubType>Form</SubType>
+    <Compile Include="DeemedInterest\ucDeemedInterest.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="EnumModule.vb" />
-    <Compile Include="CA\frmCA.Designer.vb">
-      <DependentUpon>frmCA.vb</DependentUpon>
-    </Compile>
-    <Compile Include="CA\frmCA.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="CA\frmCA_Add3.Designer.vb">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
     </Compile>
     <Compile Include="CA\frmCA_Add3.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CA\frmDisposal.Designer.vb">
-      <DependentUpon>frmDisposal.vb</DependentUpon>
-    </Compile>
-    <Compile Include="CA\frmDisposal.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CA\frmDisposal_Add.Designer.vb">
@@ -275,6 +281,12 @@
     <Compile Include="CA\frmHP_Add.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmHome.Designer.vb">
+      <DependentUpon>frmHome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHome.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Movement\dsMovement.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -282,18 +294,6 @@
     </Compile>
     <Compile Include="Movement\dsMovement.vb">
       <DependentUpon>dsMovement.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Movement\frmMovement.Designer.vb">
-      <DependentUpon>frmMovement.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Movement\frmMovement.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Movement\frmMovementComplex.Designer.vb">
-      <DependentUpon>frmMovementComplex.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Movement\frmMovementComplex.vb">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Movement\frmMovementComplex_Add.Designer.vb">
       <DependentUpon>frmMovementComplex_Add.vb</DependentUpon>
@@ -307,23 +307,53 @@
     <Compile Include="Movement\frmMovement_Add.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Movement\ucMovement.Designer.vb">
+      <DependentUpon>ucMovement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\ucMovement.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Movement\ucMovementComplex.Designer.vb">
+      <DependentUpon>ucMovementComplex.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\ucMovementComplex.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Movement\XtraReport1.Designer.vb">
       <DependentUpon>XtraReport1.vb</DependentUpon>
     </Compile>
     <Compile Include="Movement\XtraReport1.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PNL\frmPNL.Designer.vb">
-      <DependentUpon>frmPNL.vb</DependentUpon>
-    </Compile>
-    <Compile Include="PNL\frmPNL.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="PNL\frmPNL_Add.Designer.vb">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
     </Compile>
     <Compile Include="PNL\frmPNL_Add.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\PNL Import\frmPNL_Import.Designer.vb">
+      <DependentUpon>frmPNL_Import.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\PNL Import\frmPNL_Import.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\PNL Import\frmPNL_Import_Select.Designer.vb">
+      <DependentUpon>frmPNL_Import_Select.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\PNL Import\frmPNL_Import_Select.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL.Designer.vb">
+      <DependentUpon>ucPNL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_Import.Designer.vb">
+      <DependentUpon>ucPNL_Import.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_Import.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Report\dsReport_Templatexsd.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -745,14 +775,8 @@
     </Compile>
     <Compile Include="Report\mdlReport.vb" />
     <Compile Include="SQLDataObject.vb" />
-    <EmbeddedResource Include="CA\frmCA.resx">
-      <DependentUpon>frmCA.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CA\frmCA_Add3.resx">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CA\frmDisposal.resx">
-      <DependentUpon>frmDisposal.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CA\frmDisposal_Add.resx">
       <DependentUpon>frmDisposal_Add.vb</DependentUpon>
@@ -763,8 +787,14 @@
     <EmbeddedResource Include="CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CP204\frmCP204.resx">
-      <DependentUpon>frmCP204.vb</DependentUpon>
+    <EmbeddedResource Include="CA\ucCA.resx">
+      <DependentUpon>ucCA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\ucDisposal.resx">
+      <DependentUpon>ucDisposal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\ucHP.resx">
+      <DependentUpon>ucHP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CP204\frmCP204_Add.resx">
       <DependentUpon>frmCP204_Add.vb</DependentUpon>
@@ -772,14 +802,14 @@
     <EmbeddedResource Include="CP204\frmCP204_PenaltyLate.resx">
       <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeemedInterest\frmDeemedInterest.resx">
-      <DependentUpon>frmDeemedInterest.vb</DependentUpon>
+    <EmbeddedResource Include="CP204\ucCP204.resx">
+      <DependentUpon>ucCP204.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Movement\frmMovement.resx">
-      <DependentUpon>frmMovement.vb</DependentUpon>
+    <EmbeddedResource Include="DeemedInterest\ucDeemedInterest.resx">
+      <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Movement\frmMovementComplex.resx">
-      <DependentUpon>frmMovementComplex.vb</DependentUpon>
+    <EmbeddedResource Include="frmHome.resx">
+      <DependentUpon>frmHome.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Movement\frmMovementComplex_Add.resx">
       <DependentUpon>frmMovementComplex_Add.vb</DependentUpon>
@@ -787,14 +817,29 @@
     <EmbeddedResource Include="Movement\frmMovement_Add.resx">
       <DependentUpon>frmMovement_Add.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Movement\ucMovement.resx">
+      <DependentUpon>ucMovement.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Movement\ucMovementComplex.resx">
+      <DependentUpon>ucMovementComplex.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Movement\XtraReport1.resx">
       <DependentUpon>XtraReport1.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PNL\frmPNL.resx">
-      <DependentUpon>frmPNL.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL_Add.resx">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\PNL Import\frmPNL_Import.resx">
+      <DependentUpon>frmPNL_Import.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\PNL Import\frmPNL_Import_Select.resx">
+      <DependentUpon>frmPNL_Import_Select.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL.resx">
+      <DependentUpon>ucPNL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_Import.resx">
+      <DependentUpon>ucPNL_Import.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\frmReport_Test.resx">
       <DependentUpon>frmReport_Test.vb</DependentUpon>
@@ -1005,6 +1050,7 @@
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
     <None Include="CP204\dsCP204.xsc">
       <DependentUpon>dsCP204.xsd</DependentUpon>
     </None>

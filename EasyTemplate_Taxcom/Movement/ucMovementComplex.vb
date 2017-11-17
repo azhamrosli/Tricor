@@ -1,22 +1,32 @@
-﻿Public Class frmCP204 
+﻿Public Class ucMovementComplex
     Dim ErrorLog As clsError = Nothing
-    Private Sub frmCP204_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            e.Cancel = True
-            frmStartup.Close()
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub frmCP204_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Try
-            LoadData()
+            Me.LoadData(0)
         Catch ex As Exception
 
         End Try
     End Sub
     Private Sub LoadData(Optional Type As Integer = 0)
         Try
+            pnlLoading.Visible = True
+            Application.DoEvents()
+
+            Dim tmpType As Integer = -1
+
+            If mdlProcess.CreateLookUpTaxPayer(dsCA, ErrorLog) = False Then
+                MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+
+            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+                MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            Application.DoEvents()
+
             If Type = 0 Then
                 If mdlProcess.ArgParam2 <> "" Then
                     cboRefNo.EditValue = mdlProcess.ArgParam2
@@ -30,25 +40,24 @@
                 cboYA.EditValue = ""
             End If
 
-            If txtMonth.EditValue Is Nothing OrElse IsNumeric(txtMonth.EditValue) = False Then
-                txtMonth.EditValue = -1
-            End If
 
-            Dim dt As DataTable = mdlProcess.Load_CP204_Search(cboRefNo.EditValue, cboYA.EditValue, CInt(txtMonth.EditValue), ErrorLog)
+            Dim dt As DataTable = mdlProcess.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
-            DsCP204.Tables("BORANG_CP204").Rows.Clear()
+            DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
 
             If dt Is Nothing Then
                 Exit Sub
             End If
 
             For i As Integer = 0 To dt.Rows.Count - 1
-                DsCP204.Tables("BORANG_CP204").ImportRow(dt.Rows(i))
+                DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
             Next
 
 
         Catch ex As Exception
 
+        Finally
+            pnlLoading.Visible = False
         End Try
     End Sub
     Private Sub btnFind_Click(sender As Object, e As EventArgs) Handles btnFind.Click
@@ -60,7 +69,7 @@
     End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim frm As New frmCP204_Add
+            Dim frm As New frmMovementComplex_Add
             frm.isEdit = False
             frm.ID = 0
             frm.ShowDialog()
@@ -118,9 +127,9 @@
 
     Private Sub btnEdit_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnEdit.ItemClick
         Try
-            Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_KEY")
+            Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("MM_ID")
 
-            Dim frm As New frmCP204_Add
+            Dim frm As New frmMovementComplex_Add
             frm.isEdit = True
             frm.ID = ID
             frm.ShowDialog()
@@ -132,23 +141,23 @@
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         Try
-            Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "CP204", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+            Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "Movement Complex", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 
             If rslt = Windows.Forms.DialogResult.Yes Then
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_CP204(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("BCP_KEY")), ErrorLog) = False Then
+                    If mdlProcess.Delete_MovementComplex(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
                     'MsgBox(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("CA_KEY"))
                 Next
                 If tmpSts Then
-                    MsgBox("Succesfully remove CP204.", MsgBoxStyle.Information)
+                    MsgBox("Succesfully remove movement complex.", MsgBoxStyle.Information)
                     Me.LoadData(2)
                 Else
-                    MsgBox("Some of CP204 failed to delete.", MsgBoxStyle.Critical)
+                    MsgBox("Some of movement complex failed to delete.", MsgBoxStyle.Critical)
                 End If
             End If
         Catch ex As Exception

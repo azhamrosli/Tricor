@@ -1,5 +1,4 @@
-﻿Public Class frmCA 
-    Inherits DevExpress.XtraEditors.XtraForm
+﻿Public Class ucCA
     Dim ErrorLog As clsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
@@ -11,17 +10,6 @@
         InitializeComponent()
     End Sub
 
-    Private Sub frmCA_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        Try
-            If isChangeForm = False Then
-                e.Cancel = True
-                frmStartup.Close()
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    
     Private Sub frmCA_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             cboFilterType.SelectedIndex = 0

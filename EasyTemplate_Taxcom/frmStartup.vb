@@ -27,44 +27,45 @@ Partial Public Class frmStartup
             Timer1.Stop()
             'mdlProcess.ArgParam2 = "0388601701"
             'mdlProcess.ArgParam3 = "2016"
+            frmHome.Show()
+            'If mdlProcess.ArgParam0 = "" Then
+            '    MsgBox("Unable to find parameter")
+            '    Me.Close()
+            'End If
 
-            If mdlProcess.ArgParam0 = "" Then
-                MsgBox("Unable to find parameter")
-                Me.Close()
-            End If
+            'Select Case mdlProcess.ArgParam0.ToLower
+            '    Case "frmca"
+            '        Me.Hide()
+            '        frmCA.Show()
+            '    Case "frm_rptlampirana1"
+            '        Me.Hide()
+            '        frm_rptLampiranA1.Show()
+            '    Case "frmhp"
+            '        Me.Hide()
+            '        frmHP.Show()
+            '    Case "frmdisposal"
+            '        Me.Hide()
+            '        frmDisposal.Show()
+            '    Case "frmpnl"
+            '        frmPNL.Show()
+            '    Case "frmmovement"
+            '        frmMovement.Show()
+            '    Case "frmmovementcomplex"
+            '        frmMovementComplex.Show()
+            '    Case "frmdeemedinterest"
+            '        frmDeemedInterest.Show()
+            '    Case "frmcp204_penaltylate"
+            '        frmCP204_PenaltyLate.Show()
+            '    Case "frmreport_test"
+            '        frmReport_Test.Show()
+            '    Case "frmcp204"
+            '        frmCP204.Show()
+            '    Case "frmhome"
 
-            Select Case mdlProcess.ArgParam0.ToLower
-                Case "frmca"
-                    Me.Hide()
-                    frmCA.Show()
-                Case "frm_rptlampirana1"
-                    Me.Hide()
-                    frm_rptLampiranA1.Show()
-                Case "frmhp"
-                    Me.Hide()
-                    frmHP.Show()
-                Case "frmdisposal"
-                    Me.Hide()
-                    frmDisposal.Show()
-                Case "frmpnl"
-                    frmPNL.Show()
-                Case "frmmovement"
-                    frmMovement.Show()
-                Case "frmmovementcomplex"
-                    frmMovementComplex.Show()
-                Case "frmdeemedinterest"
-                    frmDeemedInterest.Show()
-                Case "frmcp204_penaltylate"
-                    frmCP204_PenaltyLate.Show()
-                Case "frmreport_test"
-                    frmReport_Test.Show()
-                Case "frmcp204"
-                    frmCP204.Show()
-
-                Case Else
-                    MsgBox("Unable to find form name " & mdlProcess.ArgParam0)
-                    Me.Close()
-            End Select
+            '    Case Else
+            '        MsgBox("Unable to find form name " & mdlProcess.ArgParam0)
+            '        Me.Close()
+            'End Select
 
         Catch ex As Exception
 

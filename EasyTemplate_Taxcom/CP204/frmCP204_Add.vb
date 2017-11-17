@@ -140,7 +140,6 @@ Public Class frmCP204_Add
                 txtCity_Alt_Cor.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CURR_CORR_CITY")), "", dt.Rows(0)("BCP_CURR_CORR_CITY"))
                 cboState_Alt_Cor.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CURR_CORR_STATE")), "", dt.Rows(0)("BCP_CURR_CORR_STATE"))
 
-
                 CalcEstimationPercent()
 
 

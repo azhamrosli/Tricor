@@ -2,6 +2,7 @@
 Imports DevExpress.Spreadsheet
 Imports DevExpress.Spreadsheet.Export
 Imports DevExpress.XtraGrid
+Imports System.Data.OleDb
 
 Public Class frmPNL_Add
     Public isEdit As Boolean = True
@@ -9,6 +10,7 @@ Public Class frmPNL_Add
     Dim ErrorLog As clsError = Nothing
     Dim isReplacePNL As Boolean = False
     Dim ListofCmd As List(Of SqlCommand)
+
     Sub New()
 
         ' This call is required by the designer.
@@ -42,6 +44,8 @@ Public Class frmPNL_Add
     End Sub
     Private Sub frmPNL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+           
+
             If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Failed to load tax payer." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Me.Close()
@@ -199,7 +203,9 @@ Public Class frmPNL_Add
             ProgressPanel1.Visible = True
             Me.Text = "Profit and Loss - New"
             Application.DoEvents()
-          
+
+            GC.Collect()
+            Application.DoEvents()
 
             Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
 
@@ -254,16 +260,24 @@ Public Class frmPNL_Add
 
                 End If
             Next
+            ClearMemoryDataset()
+
+            UcPNL_Import1.MainData = dsDataSet
+            UcPNL_Import1.MainData2 = dsDataSet2
+
             If isEdit = False Then
+              
                 cboS60FA.EditValue = "No"
 
                 cboRefNo.EditValue = mdlProcess.ArgParam2
                 cboYA.EditValue = mdlProcess.ArgParam3
 
-                cboRefNo.Edit.ReadOnly = True
-                cboYA.Edit.ReadOnly = True
-                cboMainSource.Edit.ReadOnly = True
+                cboRefNo.Edit.ReadOnly = False
+                cboYA.Edit.ReadOnly = False
+                cboMainSource.Edit.ReadOnly = False
 
+                InitDockingSystem(0)
+                Application.DoEvents()
             Else
                 Dim dtPNL As DataTable = mdlProcess.Load_PNL_ByKey(ID)
 
@@ -599,7 +613,7 @@ Public Class frmPNL_Add
         End Try
     End Sub
 
-   
+
     Private Sub TabbedView1_DocumentClosing(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentCancelEventArgs) Handles TabbedView1.DocumentClosing
         e.Cancel = True
 
@@ -1261,9 +1275,9 @@ Public Class frmPNL_Add
                     cboS60F.EditValue = "No"
                 End If
 
-                DockPanel1.Enabled = True
+                pnlDocInformation.Enabled = True
             Else
-                DockPanel1.Enabled = False
+                pnlDocInformation.Enabled = False
             End If
         Catch ex As Exception
 
@@ -1284,6 +1298,109 @@ Public Class frmPNL_Add
 
     Private Sub BarButtonItem4_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnImport.ItemClick
         Try
+            pnlDocImport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Visible
+
+            'OpenFileDialog1.Filter = "Excel Files|*.xls;*.xlsx;"
+
+            'Dim rslt As DialogResult = OpenFileDialog1.ShowDialog
+
+            'If rslt = Windows.Forms.DialogResult.OK Then
+
+            '    Dim Path As String = OpenFileDialog1.FileName
+
+            '    If System.IO.File.Exists(Path) = False Then
+            '        MsgBox("File not exist, please select correct file.", MsgBoxStyle.Exclamation)
+            '        Exit Sub
+            '    End If
+            '    Dim connectionString As String = String.Format("Provider=Microsoft.ACE.OLEDB.12.0; data source={0}; Extended Properties=Excel 12.0;", OpenFileDialog1.FileName)
+            '    Dim adapter = New OleDbDataAdapter("select * from [Sheet$]", connectionString)
+            '    Dim ds = New DataSet()
+            '    Dim dsControl As DataSet
+            '    Dim tableName As String = "Sheet"
+            '    adapter.Fill(ds, tableName)
+
+            '    Dim Status As Boolean = False
+            '    Dim PnlType As mdlEnum.TaxComPNLEnuItem = TaxComPNLEnuItem.CLOSESTOCK
+            '    Dim contrl As Control = Nothing
+            '    Dim ParentID As Integer = 0
+            '    Dim dtRow As DataRow = Nothing
+            '    If ds IsNot Nothing AndAlso ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
+            '        For i As Integer = 0 To ds.Tables(0).Rows.Count - 1
+            '            If IsDBNull(ds.Tables(0).Rows(i)("Type")) = False AndAlso ds.Tables(0).Rows(i)("Type") IsNot Nothing Then
+            '                PnlType = DirectCast([Enum].Parse(GetType(mdlEnum.TaxComPNLEnuItem), ds.Tables(0).Rows(i)("Type")), mdlEnum.TaxComPNLEnuItem)
+
+            '                Select Case PnlType
+            '                    Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+            '                        If p4_docOther IsNot Nothing AndAlso p4_docOther.Controls.Count > 0 Then
+            '                            contrl = p4_docOther.Controls(0)
+
+            '                            If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4Other = False Then
+            '                                Exit Sub
+            '                            End If
+            '                            Dim uc As ucPNL_p4Other = CType(contrl, ucPNL_p4Other)
+
+            '                            dsControl = uc.DataView_Main
+
+            '                            If dsControl IsNot Nothing Then
+            '                                If IsDBNull(ds.Tables(0).Rows(i)("Description")) = False OrElse ds.Tables(0).Rows(i)("Description") IsNot Nothing Then
+
+            '                                    dtRow = dsControl.Tables(uc.MainTable_Details).NewRow
+            '                                    ParentID = dsControl.Tables(uc.MainTable).Rows.Count + 1
+
+            '                                    dtRow("EXO_KEY") = 0
+            '                                    dtRow("EXO_EXOKEY") = ParentID
+            '                                    dtRow("EXO_DESC") = ds.Tables(0).Rows(i)("Description")
+            '                                    If IsNumeric(ds.Tables(0).Rows(i)("Description")) = True AndAlso CDec(ds.Tables(0).Rows(i)("Description")) > 0 Then
+            '                                        dtRow("EXO_AMOUNT") = ds.Tables(0).Rows(i)("Debit Amount")
+            '                                    Else
+            '                                        dtRow("EXO_AMOUNT") = ds.Tables(0).Rows(i)("Credit Amount")
+            '                                    End If
+            '                                    dtRow("EXO_DEDUCTIBLE") = False
+            '                                    dtRow("EXO_NOTE") = ""
+            '                                    dtRow("EXO_SOURCENO") = cboMainSource.EditValue
+            '                                    dtRow("EXO_DETAIL") = "No"
+            '                                    dtRow("EXO_DEDUCTIBLE_ADD") = False
+            '                                    dtRow("RowIndex") = 0
+            '                                    dtRow("Pecentage") = 0
+
+            '                                    dsControl.Tables(uc.MainTable_Details).Rows.Add(dtRow)
+
+            '                                Else
+            '                                    dtRow = dsControl.Tables(uc.MainTable).NewRow
+            '                                    ParentID = dsControl.Tables(uc.MainTable).Rows.Count + 1
+
+            '                                    dtRow("EXO_KEY") = 0
+            '                                    dtRow("EXO_EXOKEY") = ParentID
+            '                                    dtRow("EXO_DESC") = ds.Tables(0).Rows(i)("Description")
+            '                                    If IsNumeric(ds.Tables(0).Rows(i)("Description")) = True AndAlso CDec(ds.Tables(0).Rows(i)("Description")) > 0 Then
+            '                                        dtRow("EXO_AMOUNT") = ds.Tables(0).Rows(i)("Debit Amount")
+            '                                    Else
+            '                                        dtRow("EXO_AMOUNT") = ds.Tables(0).Rows(i)("Credit Amount")
+            '                                    End If
+            '                                    dtRow("EXO_DEDUCTIBLE") = False
+            '                                    dtRow("EXO_NOTE") = ""
+            '                                    dtRow("EXO_SOURCENO") = cboMainSource.EditValue
+            '                                    dtRow("EXO_DETAIL") = "No"
+            '                                    dtRow("EXO_DEDUCTIBLE_ADD") = False
+            '                                    dtRow("RowIndex") = 0
+            '                                    dtRow("Pecentage") = 0
+
+            '                                    dsControl.Tables(uc.MainTable).Rows.Add(dtRow)
+            '                                End If
+
+            '                            End If
+
+            '                            End If
+
+            '                End Select
+
+            '            End If
+
+            '            ' mdlC_Process.Save_State(ds.Tables(0).Rows(i)("CT_CODE"), ds.Tables(0).Rows(i)("ST_DESC"), ErrorLog)
+            '        Next
+            '    End If
+            'End If
+
 
         Catch ex As Exception
 
@@ -1293,7 +1410,9 @@ Public Class frmPNL_Add
     Private Sub btnExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExport.ItemClick
         Try
             Dim rslt As DialogResult = FolderBrowserDialog1.ShowDialog
-
+            Dim obj() As Object = Nothing
+            Dim rowchild As DataRow = Nothing
+            Dim ParentNo As Integer = 0
             If rslt = Windows.Forms.DialogResult.OK Then
                 Dim Path As String = FolderBrowserDialog1.SelectedPath
 
@@ -1302,7 +1421,13 @@ Public Class frmPNL_Add
                     Exit Sub
                 End If
 
-                Path = Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & ".xlsx"
+
+
+                If System.IO.File.Exists(Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & ".xlsx") Then
+                    Path = Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & "_& " & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx"
+                Else
+                    Path = Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & ".xlsx"
+                End If
 
                 Dim contrl As Control = Nothing
                 Dim ds As DataSet = Nothing
@@ -1325,12 +1450,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.DEPRECIATION.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
                             dtRow("LeftAmount") = 0
                             dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.DEPRECIATION.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1349,12 +1501,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.SALES.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.SALES.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1374,12 +1553,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.OPENSTOCK.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.OPENSTOCK.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1398,12 +1604,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.PURCHASE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.PURCHASE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1422,12 +1655,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1447,12 +1707,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1471,12 +1758,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.CLOSESTOCK.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.CLOSESTOCK.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1495,12 +1809,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.OTHERBUSINC.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.OTHERBUSINC.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1519,12 +1860,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.REALFETRADE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.REALFETRADE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1543,12 +1911,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.INTERESTINC.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.INTERESTINC.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1593,12 +1988,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.ROYALTYINC.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.ROYALTYINC.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1617,12 +2039,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.OTHERINC.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.OTHERINC.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1642,12 +2091,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.PDFIXASSET.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.PDFIXASSET.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1666,12 +2142,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.PDINVEST.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.PDINVEST.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1718,12 +2221,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.FORINCREMIT.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.FORINCREMIT.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1743,12 +2273,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.REALFE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.REALFE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1768,12 +2325,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1793,12 +2377,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.UNREALFETRADE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.UNREALFETRADE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1818,12 +2429,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1843,12 +2481,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1869,12 +2534,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1895,12 +2587,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPLEGAL.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPLEGAL.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1921,12 +2640,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPTECHNICAL.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPTECHNICAL.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1947,12 +2693,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1973,12 +2746,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -1999,12 +2799,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPSALARY.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPSALARY.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2025,12 +2852,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2051,12 +2905,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPROYALTY.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPROYALTY.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2077,12 +2958,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPRENTAL.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPRENTAL.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2103,12 +3011,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2128,12 +3063,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPRND.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPRND.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2154,12 +3116,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2180,12 +3169,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPTRAVEL.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPTRAVEL.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2206,12 +3222,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPJKDM.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPJKDM.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2232,12 +3275,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2258,12 +3328,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2284,12 +3381,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2310,12 +3434,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPZAKAT.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPZAKAT.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2335,12 +3486,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2362,12 +3540,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2388,12 +3593,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2414,12 +3646,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2439,12 +3698,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPPROVISION.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPPROVISION.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2464,12 +3750,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2489,12 +3802,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2515,12 +3855,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2541,12 +3908,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2567,12 +3961,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2593,12 +4014,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2619,12 +4067,39 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
+                            dtRow("LeftAmount") = 0
+                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
                     End If
 
@@ -2644,20 +4119,57 @@ Public Class frmPNL_Add
                     If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
                         For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                            dtRow("No") = ParentNo
                             dtRow("Type") = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
                             dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
                             dtRow("LeftAmount") = 0
                             dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+
+
+                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
+                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+
+                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
+
+                                    For i As Integer = 0 To obj.Length - 1
+                                        rowchild = CType(obj(i), DataRow)
+                                        If rowchild IsNot Nothing Then
+                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                                            dtRow("No2") = ParentNo
+                                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("LeftAmount") = 0
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
+                                        End If
+
+                                    Next
+
+                                End If
+
+
+                            End If
                         Next
 
                     End If
+
                 End If
-                ExportPNLBindingSource.DataSource = DsPNL2.Tables("ExportPNL")
+                If DsPNL2.Tables("ExportPNL").Rows.Count > 0 Then
+                    dgvExport.BeginInit()
+                    ExportPNLBindingSource.DataSource = DsPNL2.Tables("ExportPNL")
+                    dgvExport.EndInit()
+
+                    Application.DoEvents()
+                    System.Threading.Thread.Sleep(500)
+
+                    dgvExport.ExportToXlsx(Path)
+
+                End If
 
 
-                dgvExport.ExportToXlsx(Path)
 
 
             End If
@@ -2698,8 +4210,38 @@ Public Class frmPNL_Add
         'MsgBox("E")
     End Sub
 
+    Private Sub cboMainSource_EditValueChanged(sender As Object, e As EventArgs) Handles cboMainSource.EditValueChanged
+        Try
+            UcPNL_Import1.SourceNo = cboMainSource.EditValue
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+
+
     'Private Sub TabbedView1_UnregisterDocumentsHostWindow(sender As Object, e As DevExpress.XtraBars.Docking2010.DocumentsHostWindowEventArgs) Handles TabbedView1.UnregisterDocumentsHostWindow
     '    MsgBox("M")
     'End Sub
 
+    Private Sub BarButtonItem5_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem5.ItemClick
+        Me.LoadData()
+
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Try
+            pnlDocInformation.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Visible
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub BarButtonItem4_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem4.ItemClick
+        Try
+            pnlDocImport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Visible
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class
