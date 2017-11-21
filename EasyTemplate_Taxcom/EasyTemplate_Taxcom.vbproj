@@ -250,6 +250,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsDefault.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Dataset\dsDefault.vb">
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DeemedInterest\ucDeemedInterest.Designer.vb">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </Compile>
@@ -774,6 +777,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Report\mdlReport.vb" />
+    <Compile Include="Setting\frmDatabase.Designer.vb">
+      <DependentUpon>frmDatabase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setting\frmDatabase.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="SQLDataObject.vb" />
     <EmbeddedResource Include="CA\frmCA_Add3.resx">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
@@ -1046,6 +1055,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL_p1Sales.resx">
       <DependentUpon>ucPNL_p1Sales.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setting\frmDatabase.resx">
+      <DependentUpon>frmDatabase.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />

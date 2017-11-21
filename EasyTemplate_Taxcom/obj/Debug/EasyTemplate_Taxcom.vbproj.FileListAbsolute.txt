@@ -853,7 +853,6 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucPNL_Import.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmHome.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucPNL.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbprojResolveAssemblyReference.cache
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucCA.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucDisposal.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucHP.resources
@@ -861,3 +860,5 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucCP204.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucDeemedInterest.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucMovementComplex.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmDatabase.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbprojResolveAssemblyReference.cache

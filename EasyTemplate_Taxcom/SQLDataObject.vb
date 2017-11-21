@@ -45,6 +45,8 @@ Public Class SQLDataObject
                 .ErrorDateTime = Now
                 .ErrorMessage = Message
             End With
+
+            AddListOfError(ErrorLog)
         Catch ex As Exception
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
@@ -141,6 +143,7 @@ Public Class SQLDataObject
 
             Return True
         Catch ex As Exception
+
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         Finally
@@ -307,16 +310,8 @@ Public Class SQLDataObject
             txn.Commit() 'Commit Trans 
             Return True
         Catch ex As Exception
-            If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
-            End If
-            With ErrorLog
-                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
-                .ErrorDateTime = Now
-                .ErrorMessage = "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message
-            End With
-            ' CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -333,15 +328,16 @@ Public Class SQLDataObject
                 Return False
             End If
         End If
-
+        Dim ReturnID As Integer = -1
+        Dim SQL As String = Nothing
         Dim txn As SqlTransaction
         txn = oConn.BeginTransaction 'Begin Trans
 
         Try
-            Dim ReturnID As Integer = -1
+
             For i = 0 To ListofSQLCmd.Count - 1
                 ReturnID = -1
-
+                SQL = ListofSQLCmd(i).CommandText
                 ListofSQLCmd(i).Transaction = txn
                 ListofSQLCmd(i).ExecuteNonQuery()
 
@@ -354,7 +350,8 @@ Public Class SQLDataObject
             txn.Commit() 'Commit Trans 
             Return True
         Catch ex As Exception
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then

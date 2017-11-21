@@ -15,12 +15,13 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmca" 'Form Name
+    Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "1054242304" 'RefNo
-    Public ArgParam3 As String = "2013" 'YA"
+    Public ArgParam2 As String = "1105584103" '"1054242304" 'RefNo
+    Public ArgParam3 As String = "2008" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
-
+    Public ListofClsError As List(Of clsError) = Nothing
+    Public dsDataSetErrorlog As DataSet
 #Region "SCRIPT DATABASE"
 
 #End Region
@@ -41,13 +42,96 @@ Module mdlProcess
     End Structure
 #End Region
 #Region "DATABASE"
-    Public Function DBConnection_OFFICE(ByRef sqlCon As SqlConnection, ByRef ErrorMsg As clsError) As Boolean
+
+    Public Function BackupData(ByVal IniDir As String, ByVal Type As Integer, ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        Try
+
+            ADO = New SQLDataObject()
+            Dim SQLcmd As SqlCommand
+            Dim ListofCmd As New List(Of SqlCommand)
+            Dim strSQL As String = Nothing
+
+            If Directory.Exists(IniDir & "\" & Format(Now, "dd-MMM-yyyy")) = False Then
+                Directory.CreateDirectory(IniDir & "\" & Format(Now, "dd-MMM-yyyy"))
+            End If
+
+            If Directory.Exists(IniDir & "\" & Format(Now, "dd-MMM-yyyy")) = True Then
+                IniDir = IniDir & "\" & Format(Now, "dd-MMM-yyyy")
+            End If
+            Select Case Type
+                Case 0
+                    strSQL = "BACKUP DATABASE TAXCOM_C TO DISK = '" & IniDir & "\TAXCOM_C_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAXCOM_C',NAME = 'TAXCOM_C'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 1
+                    SQLcmd = Nothing
+                    strSQL = "BACKUP DATABASE TAX_CA_C TO DISK = '" & IniDir & "\TAX_CA_C_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAX_CA_C',NAME = 'TAX_CA_C'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 2
+                    SQLcmd = Nothing
+                    strSQL = "BACKUP DATABASE TAX_CA_B TO DISK = '" & IniDir & "\TAX_CA_B_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAX_CA_B',NAME = 'TAX_CA_B'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 3
+                    strSQL = "BACKUP DATABASE TAXCOM_B TO DISK = '" & IniDir & "\TAXCOM_B_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAXCOM_B',NAME = 'TAXCOM_B'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 4
+                    strSQL = "BACKUP DATABASE TAXCOM_P TO DISK = '" & IniDir & "\TAXCOM_P_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAXCOM_P',NAME = 'TAXCOM_P'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 5
+                    strSQL = "BACKUP DATABASE TAX_CA_P TO DISK = '" & IniDir & "\TAX_CA_P_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAX_CA_P',NAME = 'TAX_CA_P'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 6
+                    strSQL = "BACKUP DATABASE TAXOFFICE TO DISK = '" & IniDir & "\TAXOFFICE_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAXOFFICE',NAME = 'TAX_OFFICE'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+                Case 7
+                    strSQL = "BACKUP DATABASE TAXOFFICE TO DISK = '" & IniDir & "\TAXCOM_R_" & Format(Now, "ddMMMyyyyHHmmss") & ".Bak' WITH FORMAT,MEDIANAME = 'TAXCOM_R',NAME = 'TAXCOM_R'"
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = strSQL
+                    SQLcmd.CommandTimeout = 0
+            End Select
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SQLCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function DBConnection_Test(ByVal ServerName As String, ByVal UserName As String, ByVal Password As String, _
+                                          ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
         Try
 
             Dim strCon As String = DBSetting()
 
             If strCon Is Nothing OrElse strCon = "" Then
-                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorMsg)
+                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorLog)
                 Return False
             End If
 
@@ -59,17 +143,59 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
-            mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorMsg)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBConnection(ByRef sqlCon As SqlConnection, ByRef ErrorMsg As clsError) As Boolean
+    Public Function DBConnection_OFFICE(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+        Try
+
+            Dim strCon As String = DBSetting()
+
+            If strCon Is Nothing OrElse strCon = "" Then
+                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorLog)
+                Return False
+            End If
+
+            Dim Con As New SqlConnection(strCon)
+            If Con.State = ConnectionState.Closed Then
+                Con.Open()
+            End If
+
+            sqlCon = Con
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function DBConnection(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
         Try
 
             Dim strCon As String = DBSetting(1, ArgParam1)
 
             If strCon Is Nothing OrElse strCon = "" Then
-                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorMsg)
+                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorLog)
                 Return False
             End If
 
@@ -81,11 +207,21 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
-            mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorMsg)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBConnection_CA(ByRef sqlCon As SqlConnection, ByRef ErrorMsg As clsError) As Boolean
+    Public Function DBConnection_CA(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
         Try
             Dim DatabaseName As String = Nothing
 
@@ -101,7 +237,7 @@ Module mdlProcess
             Dim strCon As String = DBSetting(1, DatabaseName)
 
             If strCon Is Nothing OrElse strCon = "" Then
-                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorMsg)
+                mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorLog)
                 Return False
             End If
 
@@ -113,7 +249,17 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
-            mdlProcess.CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorMsg)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -160,11 +306,99 @@ Module mdlProcess
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
+        End Try
+    End Function
+    Public Function DBSetting_GetSetting(ByRef Server As String, ByRef UserID As String, ByRef Pass As String, Optional ErrorLog As clsError = Nothing) As Boolean
+        Try
+            Dim regVersion As RegistryKey
+            If Environment.Is64BitOperatingSystem Then
+                regVersion = Registry.LocalMachine.OpenSubKey("SOFTWARE\Wow6432Node\TAXOFFICE", False)
+            Else
+                regVersion = Registry.LocalMachine.OpenSubKey("SOFTWARE\TAXOFFICE", False)
+            End If
+
+            If regVersion Is Nothing Then
+                If ErrorLog Is Nothing Then
+                    ErrorLog = New clsError
+                End If
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "X100"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "Unable to find registry TAXOFFICE"
+                End With
+                Return False
+
+            End If
+            Server = CStr(regVersion.GetValue("value1", ""))
+            UserID = CStr(regVersion.GetValue("value2", ""))
+            Pass = CStr(regVersion.GetValue("value3", ""))
+
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function DBSetting_SetSetting(ByRef Server As String, ByRef UserID As String, ByRef Pass As String, Optional ErrorLog As clsError = Nothing) As Boolean
+        Try
+            Dim regVersion As RegistryKey
+            If Environment.Is64BitOperatingSystem Then
+                regVersion = Registry.LocalMachine.OpenSubKey("SOFTWARE\Wow6432Node\TAXOFFICE", True)
+            Else
+                regVersion = Registry.LocalMachine.OpenSubKey("SOFTWARE\TAXOFFICE", True)
+            End If
+
+            If regVersion Is Nothing Then
+                If ErrorLog Is Nothing Then
+                    ErrorLog = New clsError
+                End If
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "X100"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "Unable to find registry TAXOFFICE"
+                End With
+                Return False
+
+            End If
+
+            regVersion.SetValue("value1", Server)
+            regVersion.SetValue("value2", UserID)
+            regVersion.SetValue("value3", Pass)
+         
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
         End Try
     End Function
     Public Function GetServerName(Optional type As Integer = 0, Optional DatabaseName As String = "TAXCOM_C", Optional ErrorLog As clsError = Nothing) As String
@@ -201,10 +435,12 @@ Module mdlProcess
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -283,6 +519,30 @@ Module mdlProcess
     End Function
 #End Region
 #Region "GENERAL"
+    Public Sub AddListOfError(ByVal ErrorLog As clsError)
+        Try
+            If ListofClsError Is Nothing Then
+                ListofClsError = New List(Of clsError)
+            End If
+
+            ListofClsError.Add(ErrorLog)
+
+            Dim dtRow As DataRow = Nothing
+
+            dtRow = dsDataSetErrorlog.Tables("dtErrorLog").NewRow
+            dtRow("No") = dsDataSetErrorlog.Tables("dtErrorLog").Rows.Count + 1
+            dtRow("ErrorDateTime") = Now
+            dtRow("ErrorCode") = ErrorLog.ErrorCode
+            dtRow("ErrorName") = ErrorLog.ErrorName
+            dtRow("ErrorMessage") = ErrorLog.ErrorMessage
+
+            dsDataSetErrorlog.Tables("dtErrorLog").Rows.Add(dtRow)
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Public Function CalcNa(ByVal dtPNLDetails As DataTable, ByVal ColumnName As String, ByRef NA_Exp As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
@@ -298,10 +558,12 @@ Module mdlProcess
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return True
         End Try
     End Function
@@ -342,11 +604,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
@@ -372,10 +635,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(Errorlog)
 
             Return False
         End Try
@@ -401,11 +666,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
@@ -433,11 +699,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
@@ -466,15 +733,15 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-
     Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraBars.BarEditItem, Optional Errorlog As clsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = mdlProcess.LoadYA(Errorlog)
@@ -498,11 +765,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
@@ -531,11 +799,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
@@ -569,11 +838,12 @@ Module mdlProcess
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
 
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
@@ -594,10 +864,12 @@ Module mdlProcess
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             mdlProcess.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name & " " & MethodName, ex.HResult.ToString, ex.Message, 2)
         End Try
     End Sub
@@ -946,14 +1218,17 @@ tryagain:
                 Return True
             End Using
         Catch ex As Exception
-            If ErrorLog IsNot Nothing Then
-                With ErrorLog
-                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                    .ErrorCode = ex.GetHashCode.ToString
-                    .ErrorDateTime = Now
-                    .ErrorMessage = ex.Message
-                End With
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
             End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
 
             Return False
         End Try
@@ -986,10 +1261,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1021,10 +1298,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
@@ -1060,10 +1339,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return 1
         End Try
 
@@ -1101,10 +1382,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
@@ -1139,10 +1422,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -1169,10 +1454,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1204,10 +1491,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
@@ -1245,10 +1534,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
@@ -1280,10 +1571,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
@@ -1328,10 +1621,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1359,10 +1654,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1389,10 +1686,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1419,10 +1718,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1449,10 +1750,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1479,10 +1782,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1509,10 +1814,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1539,10 +1846,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1569,10 +1878,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1600,10 +1911,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1628,10 +1941,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1681,10 +1996,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1797,10 +2114,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1884,10 +2203,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1923,16 +2244,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return True
         End Try
     End Function
-
-
-
 
     Public Function Load_PNL_PLFST_SALES(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -1957,10 +2277,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -1986,10 +2308,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2015,10 +2339,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2044,10 +2370,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2073,10 +2401,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2102,10 +2432,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2131,10 +2463,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2160,10 +2494,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2189,10 +2525,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2218,10 +2556,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2247,10 +2587,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2276,10 +2618,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2305,10 +2649,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2334,10 +2680,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2363,10 +2711,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2392,10 +2742,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2421,10 +2773,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2450,10 +2804,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2479,10 +2835,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2508,10 +2866,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2537,10 +2897,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2566,10 +2928,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2595,10 +2959,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2624,10 +2990,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2653,10 +3021,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2682,10 +3052,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2711,10 +3083,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2740,10 +3114,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2769,10 +3145,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2798,10 +3176,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2827,10 +3207,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2856,10 +3238,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2885,10 +3269,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2914,10 +3300,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2943,10 +3331,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -2972,10 +3362,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3001,10 +3393,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3030,10 +3424,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3059,10 +3455,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3090,10 +3488,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3119,10 +3519,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3148,10 +3550,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3177,10 +3581,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3206,10 +3612,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3235,10 +3643,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3264,10 +3674,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3293,10 +3705,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3322,10 +3736,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3351,10 +3767,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3380,10 +3798,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3409,10 +3829,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3438,10 +3860,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3467,10 +3891,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3496,10 +3922,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3525,10 +3953,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3554,10 +3984,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3583,10 +4015,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3612,10 +4046,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3641,10 +4077,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3670,10 +4108,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3699,10 +4139,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3728,10 +4170,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3757,10 +4201,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3786,10 +4232,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3815,10 +4263,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3844,10 +4294,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3873,10 +4325,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3902,10 +4356,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3931,10 +4387,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3960,10 +4418,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -3989,10 +4449,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4018,10 +4480,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4047,10 +4511,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4076,10 +4542,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4105,10 +4573,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4134,10 +4604,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4163,10 +4635,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4192,10 +4666,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4221,10 +4697,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4250,10 +4728,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4279,10 +4759,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4308,10 +4790,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4337,10 +4821,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4366,10 +4852,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4395,10 +4883,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4424,10 +4914,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4453,10 +4945,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4482,10 +4976,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4511,10 +5007,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4540,10 +5038,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4569,10 +5069,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4598,10 +5100,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4627,10 +5131,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4656,10 +5162,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4685,10 +5193,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4714,10 +5224,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4743,10 +5255,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4772,10 +5286,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4801,10 +5317,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4830,10 +5348,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4859,10 +5379,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4888,10 +5410,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4917,10 +5441,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4947,10 +5473,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -4976,14 +5504,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-
 
     Public Function Load_PNL_ByKey(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -5007,10 +5536,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5036,10 +5567,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5074,10 +5607,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -5107,10 +5642,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return -1
         End Try
     End Function
@@ -5140,10 +5677,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return -1
         End Try
     End Function
@@ -5176,10 +5715,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -5208,10 +5749,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5241,10 +5784,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5675,10 +6220,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5706,10 +6253,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5743,10 +6292,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return "0"
         End Try
     End Function
@@ -5784,10 +6335,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5814,10 +6367,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5844,10 +6399,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5874,10 +6431,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5904,10 +6463,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5935,10 +6496,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -5973,10 +6536,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -6004,10 +6569,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6033,10 +6600,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6062,10 +6631,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6091,10 +6662,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6141,10 +6714,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6178,10 +6753,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -6228,10 +6805,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6265,10 +6844,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -6294,10 +6875,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6323,10 +6906,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6352,10 +6937,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6377,10 +6964,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6469,10 +7058,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6751,10 +7342,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
 
@@ -6783,10 +7376,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6814,10 +7409,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6842,10 +7439,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6870,10 +7469,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6898,10 +7499,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6933,10 +7536,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return ""
         End Try
     End Function
@@ -6963,10 +7568,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -6994,10 +7601,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -7023,10 +7632,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -7057,10 +7668,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return -1
         End Try
     End Function
@@ -7088,10 +7701,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -7118,16 +7733,16 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-
-
-    Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByVal Month As Integer, _
+Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByVal Month As Integer, _
                                       Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -7181,16 +7796,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-
-
-
 #End Region
 #End Region
 #Region "SAVE"
@@ -7244,10 +7858,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7382,10 +7998,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7435,10 +8053,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7515,10 +8135,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7541,10 +8163,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7655,10 +8279,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7717,10 +8343,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -7799,14 +8427,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_CONTRACT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -7880,14 +8509,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_DEPRECIATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -7963,14 +8593,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_DIRECTORS_FEE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -8045,10 +8676,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8120,14 +8753,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_INTEREST(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -8202,10 +8836,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8286,10 +8922,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8369,10 +9007,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8451,10 +9091,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8534,10 +9176,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8617,10 +9261,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8699,10 +9345,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -8782,14 +9430,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_RESEARCH(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -8864,14 +9513,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_ROYALTY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -8945,14 +9595,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_SALARY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9027,14 +9678,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_TECH_FEE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9108,14 +9760,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_TRAVEL(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9189,14 +9842,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NBINTEREST(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9270,14 +9924,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NBROYALTY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9350,14 +10005,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NTDISPOSALFA(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9438,7 +10094,6 @@ tryagain:
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NTDISPOSALINVEST(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9511,14 +10166,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NTFOREIGNINCREM(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9592,14 +10248,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NTREALFE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9673,14 +10330,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NTUREALFENT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9754,14 +10412,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_NTUREALFET(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9835,14 +10494,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
     Public Function Save_INCOME_REALFET(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9916,10 +10576,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10004,10 +10666,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10085,10 +10749,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10166,10 +10832,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10248,10 +10916,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10332,10 +11002,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10413,10 +11085,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10495,10 +11169,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10576,10 +11252,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10657,10 +11335,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10739,10 +11419,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10820,10 +11502,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10902,10 +11586,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -10984,10 +11670,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11065,10 +11753,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11147,10 +11837,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11229,10 +11921,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11310,10 +12004,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11393,10 +12089,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11475,10 +12173,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11556,10 +12256,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11637,10 +12339,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11718,10 +12422,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11799,10 +12505,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11880,10 +12588,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11930,10 +12640,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -11980,10 +12692,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12027,10 +12741,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12067,10 +12783,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12110,10 +12828,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12151,10 +12871,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12195,10 +12917,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12234,10 +12958,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12353,10 +13079,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12450,16 +13178,15 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-
-
-
 #End Region
 #Region "CP204"
     Public Function Save_CP204(ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
@@ -12578,10 +13305,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12621,10 +13350,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12757,10 +13488,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12833,10 +13566,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -12890,10 +13625,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13008,10 +13745,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13055,10 +13794,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13161,10 +13902,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13282,10 +14025,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13400,10 +14145,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13437,10 +14184,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13486,10 +14235,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -13524,10 +14275,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14127,10 +14880,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
@@ -14170,10 +14925,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14218,10 +14975,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14266,10 +15025,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14297,10 +15058,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14338,10 +15101,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14379,10 +15144,12 @@ tryagain:
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorCode = "C1001"
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+
+            AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
@@ -14406,7 +15173,6 @@ Public Class clsError
         ErrorCode = ErrorCode_
         ErrorMessage = ErrorMessage_
         ErrorDateTime = ErrorDateTime_
-
     End Sub
 
 End Class

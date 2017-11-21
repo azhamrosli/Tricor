@@ -13,7 +13,11 @@ Public Class frmHP_Add
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Dark" ' "Office 2013" DevExpress Dark Style,
+        If My.Settings.ThemeName <> "" Then
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        Else
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
+        End If
         InitializeComponent()
     End Sub
 

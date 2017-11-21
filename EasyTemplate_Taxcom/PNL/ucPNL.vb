@@ -9,7 +9,12 @@ Public Class ucPNL
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Visual Studio 2013 Dark" ' "Office 2013" DevExpress Dark Style, DevExpress Dark Style,
+        If My.Settings.ThemeName <> "" Then
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        Else
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
+        End If
+
         InitializeComponent()
     End Sub
 
@@ -237,6 +242,42 @@ Public Class ucPNL
     Private Sub btnImportExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
         Try
             frmPNL_Import_Select.Show()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddToolStripMenuItem.Click
+        btnAdd.PerformClick()
+    End Sub
+
+    Private Sub EditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditToolStripMenuItem.Click
+        btnEdit.PerformClick()
+    End Sub
+
+    Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
+        btnDelete.PerformClick()
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        btnPrint.PerformClick()
+    End Sub
+
+    Private Sub CopyReferenceNoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyReferenceNoToolStripMenuItem.Click
+        Try
+            Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
+            My.Computer.Clipboard.SetText(RefNo)
+            MsgBox("Copy refence number " & RefNo)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub CopyYAToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyYAToolStripMenuItem.Click
+        Try
+            Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_YA")
+            My.Computer.Clipboard.SetText(RefNo)
+            MsgBox("Copy year assessment " & RefNo)
         Catch ex As Exception
 
         End Try

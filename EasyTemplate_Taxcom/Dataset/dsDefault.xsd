@@ -12,7 +12,7 @@
   <xs:element name="dsDefault" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsDefault" msprop:Generator_UserDSName="dsDefault">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="TaxPayerFind" msprop:Generator_TableClassName="TaxPayerFindDataTable" msprop:Generator_TableVarName="tableTaxPayerFind" msprop:Generator_TablePropName="TaxPayerFind" msprop:Generator_RowDeletingName="TaxPayerFindRowDeleting" msprop:Generator_RowChangingName="TaxPayerFindRowChanging" msprop:Generator_RowEvHandlerName="TaxPayerFindRowChangeEventHandler" msprop:Generator_RowDeletedName="TaxPayerFindRowDeleted" msprop:Generator_UserTableName="TaxPayerFind" msprop:Generator_RowChangedName="TaxPayerFindRowChanged" msprop:Generator_RowEvArgName="TaxPayerFindRowChangeEvent" msprop:Generator_RowClassName="TaxPayerFindRow">
+        <xs:element name="TaxPayerFind" msprop:Generator_TableClassName="TaxPayerFindDataTable" msprop:Generator_TableVarName="tableTaxPayerFind" msprop:Generator_RowChangedName="TaxPayerFindRowChanged" msprop:Generator_TablePropName="TaxPayerFind" msprop:Generator_RowDeletingName="TaxPayerFindRowDeleting" msprop:Generator_RowChangingName="TaxPayerFindRowChanging" msprop:Generator_RowEvHandlerName="TaxPayerFindRowChangeEventHandler" msprop:Generator_RowDeletedName="TaxPayerFindRowDeleted" msprop:Generator_RowClassName="TaxPayerFindRow" msprop:Generator_UserTableName="TaxPayerFind" msprop:Generator_RowEvArgName="TaxPayerFindRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="RefNo" msprop:Generator_ColumnVarNameInTable="columnRefNo" msprop:Generator_ColumnPropNameInRow="RefNo" msprop:Generator_ColumnPropNameInTable="RefNoColumn" msprop:Generator_UserColumnName="RefNo" type="xs:string" minOccurs="0" />
@@ -22,6 +22,17 @@
               <xs:element name="FileNo" msprop:Generator_ColumnVarNameInTable="columnFileNo" msprop:Generator_ColumnPropNameInRow="FileNo" msprop:Generator_ColumnPropNameInTable="FileNoColumn" msprop:Generator_UserColumnName="FileNo" type="xs:string" minOccurs="0" />
               <xs:element name="Country" msprop:Generator_ColumnVarNameInTable="columnCountry" msprop:Generator_ColumnPropNameInRow="Country" msprop:Generator_ColumnPropNameInTable="CountryColumn" msprop:Generator_UserColumnName="Country" type="xs:string" minOccurs="0" />
               <xs:element name="CompanyCode" msprop:Generator_ColumnVarNameInTable="columnCompanyCode" msprop:Generator_ColumnPropNameInRow="CompanyCode" msprop:Generator_ColumnPropNameInTable="CompanyCodeColumn" msprop:Generator_UserColumnName="CompanyCode" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dtErrorLog" msprop:Generator_TableClassName="dtErrorLogDataTable" msprop:Generator_TableVarName="tabledtErrorLog" msprop:Generator_TablePropName="dtErrorLog" msprop:Generator_RowDeletingName="dtErrorLogRowDeleting" msprop:Generator_RowChangingName="dtErrorLogRowChanging" msprop:Generator_RowEvHandlerName="dtErrorLogRowChangeEventHandler" msprop:Generator_RowDeletedName="dtErrorLogRowDeleted" msprop:Generator_UserTableName="dtErrorLog" msprop:Generator_RowChangedName="dtErrorLogRowChanged" msprop:Generator_RowEvArgName="dtErrorLogRowChangeEvent" msprop:Generator_RowClassName="dtErrorLogRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:long" minOccurs="0" />
+              <xs:element name="ErrorDateTime" msprop:Generator_ColumnVarNameInTable="columnErrorDateTime" msprop:Generator_ColumnPropNameInRow="ErrorDateTime" msprop:Generator_ColumnPropNameInTable="ErrorDateTimeColumn" msprop:Generator_UserColumnName="ErrorDateTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ErrorCode" msprop:Generator_ColumnVarNameInTable="columnErrorCode" msprop:Generator_ColumnPropNameInRow="ErrorCode" msprop:Generator_ColumnPropNameInTable="ErrorCodeColumn" msprop:Generator_UserColumnName="ErrorCode" type="xs:string" minOccurs="0" />
+              <xs:element name="ErrorName" msprop:Generator_ColumnVarNameInTable="columnErrorName" msprop:Generator_ColumnPropNameInRow="ErrorName" msprop:Generator_ColumnPropNameInTable="ErrorNameColumn" msprop:Generator_UserColumnName="ErrorName" type="xs:string" minOccurs="0" />
+              <xs:element name="ErrorMessage" msprop:Generator_ColumnVarNameInTable="columnErrorMessage" msprop:Generator_ColumnPropNameInRow="ErrorMessage" msprop:Generator_ColumnPropNameInTable="ErrorMessageColumn" msprop:Generator_UserColumnName="ErrorMessage" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
