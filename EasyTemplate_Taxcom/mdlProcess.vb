@@ -6505,6 +6505,7 @@ tryagain:
             Return Nothing
         End Try
     End Function
+
 #End Region
 #Region "OTHER"
     Public Function CheckExist_DeemedInterest(ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
@@ -12701,6 +12702,70 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
+    Public Function Save_DIVIDEND_INCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal isDisclose As Boolean, ByVal oConn As SqlConnection, _
+                                       ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim StrSQL As String
+            Dim SQLcmd As SqlCommand
+
+            StrSQL = "DELETE DIVIDEND_INCOME WHERE DI_KEY=@DI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@DI_KEY", SqlDbType.Int).Value = PNL_Key
+
+            ListofCmd.Add(SQLcmd)
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                SQLcmd = Nothing
+                StrSQL = "INSERT INTO DIVIDEND_INCOME(DI_KEY,DI_DIVIDENDKEY,DI_DATE,DI_COMPANY,DI_GROSS,DI_TAX,DI_NET,DI_WARANT_NO,DI_CHKREGROSS,DI_TAXRATE,DI_REGROSS,DI_TAXDEDUCTION,DI_NETDEDUCTION,DI_ENDDATE,DI_TRATE,DI_SOURCENO,DI_DISCLOSE,DI_TRANSFER) VALUES (@DI_KEY,@DI_DIVIDENDKEY,@DI_DATE,@DI_COMPANY,@DI_GROSS,@DI_TAX,@DI_NET,@DI_WARANT_NO,@DI_CHKREGROSS,@DI_TAXRATE,@DI_REGROSS,@DI_TAXDEDUCTION,@DI_NETDEDUCTION,@DI_ENDDATE,@DI_TRATE,@DI_SOURCENO,@DI_DISCLOSE,@DI_TRANSFER)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@DI_KEY", SqlDbType.Int).Value = PNL_Key
+                SQLcmd.Parameters.Add("@DI_DIVIDENDKEY", SqlDbType.Int).Value = dt.Rows(i)("DI_DIVIDENDKEY")
+                SQLcmd.Parameters.Add("@DI_DATE", SqlDbType.DateTime).Value = dt.Rows(i)("DI_DATE")
+
+                SQLcmd.Parameters.Add("@DI_COMPANY", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("DI_COMPANY")
+                SQLcmd.Parameters.Add("@DI_GROSS", SqlDbType.Decimal).Value = dt.Rows(i)("DI_GROSS")
+                SQLcmd.Parameters.Add("@DI_TAX", SqlDbType.Decimal).Value = dt.Rows(i)("DI_TAX")
+                SQLcmd.Parameters.Add("@DI_NET", SqlDbType.Decimal).Value = dt.Rows(i)("DI_NET")
+                SQLcmd.Parameters.Add("@DI_WARANT_NO", SqlDbType.NVarChar, 50).Value = dt.Rows(i)("DI_WARANT_NO")
+                SQLcmd.Parameters.Add("@DI_CHKREGROSS", SqlDbType.NVarChar, 3).Value = dt.Rows(i)("DI_CHKREGROSS")
+                SQLcmd.Parameters.Add("@DI_TAXRATE", SqlDbType.Decimal).Value = dt.Rows(i)("DI_TAXRATE")
+                SQLcmd.Parameters.Add("@DI_REGROSS", SqlDbType.Decimal).Value = dt.Rows(i)("DI_REGROSS")
+                SQLcmd.Parameters.Add("@DI_TAXDEDUCTION", SqlDbType.Decimal).Value = dt.Rows(i)("DI_TAXDEDUCTION")
+                SQLcmd.Parameters.Add("@DI_NETDEDUCTION", SqlDbType.Decimal).Value = dt.Rows(i)("DI_NETDEDUCTION")
+                SQLcmd.Parameters.Add("@DI_ENDDATE", SqlDbType.DateTime).Value = dt.Rows(i)("DI_ENDDATE")
+                SQLcmd.Parameters.Add("@DI_TRATE", SqlDbType.Decimal).Value = dt.Rows(i)("DI_TRATE")
+                SQLcmd.Parameters.Add("@DI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("DI_SOURCENO")
+                SQLcmd.Parameters.Add("@DI_DISCLOSE", SqlDbType.NVarChar, 3).Value = IIf(isDisclose = True, "Yes", "No")
+                SQLcmd.Parameters.Add("@DI_TRANSFER", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("DI_TRANSFER")
+
+                ListofCmd.Add(SQLcmd)
+
+            Next
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
 #End Region
 #Region "OTHER"
     Public Function Save_DeemedInterest_Rate(ByVal YA As Integer, _
@@ -14154,6 +14219,63 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
+
+#End Region
+#Region "TAXCOM"
+
+
+    Public Function Update_AdjTaxcom(ByVal ID As Integer, ByVal TC_AI_DIVIDEND As Decimal, ByVal TC_AI_RENTAL As Decimal, ByVal TC_AI_ROYALTY As Decimal, ByVal TC_AI_INTEREST As Decimal, ByVal TC_AI_SEC4A As Decimal, ByVal TC_AI_PNL_BAL As Decimal, ByVal TC_AI_ADJ_BS_EXP_NA_EXP As Decimal, ByVal TC_AI_ADJ_BS_IN_NA_LOS As Decimal, ByVal TC_AI_ADJ_BS_IN_NT_IN As Decimal, ByVal TC_AI_TOT_NONBS_IN As Decimal, ByVal TC_AI_TOT_BS_IN As Decimal, ByVal TC_AI_ADJ_BS_IN_TAX_IN As Decimal, ByVal TC_AI_ADJ_BS_EXP_INT As Decimal, ByVal TC_AI_ADJ_BS_EXP_RV_EXP As Decimal, ByVal TC_AI_ADJ_BS_EXP_CLAIM As Decimal, ByVal TC_AI_TOT_ADJ_BS_EXP As Decimal, ByVal TC_OTHERDEDUCTION As Decimal, ByVal TC_AI_TOT_ADJ_BS_IN As Decimal, ByVal TC_AI_ADJ_IN_LOSS As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "UPDATE TAX_COMPUTATION SET TC_AI_DIVIDEND=@TC_AI_DIVIDEND,TC_AI_RENTAL=@TC_AI_RENTAL,TC_AI_ROYALTY=@TC_AI_ROYALTY,TC_AI_INTEREST=@TC_AI_INTEREST,TC_AI_SEC4A=@TC_AI_SEC4A,TC_AI_PNL_BAL=@TC_AI_PNL_BAL,TC_AI_ADJ_BS_EXP_NA_EXP=@TC_AI_ADJ_BS_EXP_NA_EXP,TC_AI_TOT_BS_IN=@TC_AI_TOT_BS_IN,TC_AI_ADJ_BS_IN_TAX_IN=@TC_AI_ADJ_BS_IN_TAX_IN,TC_AI_ADJ_BS_EXP_INT=@TC_AI_ADJ_BS_EXP_INT,TC_AI_ADJ_BS_EXP_RV_EXP=@TC_AI_ADJ_BS_EXP_RV_EXP,TC_AI_ADJ_BS_EXP_CLAIM=@TC_AI_ADJ_BS_EXP_CLAIM,TC_AI_TOT_ADJ_BS_EXP=@TC_AI_TOT_ADJ_BS_EXP,TC_OTHERDEDUCTION=@TC_OTHERDEDUCTION,TC_AI_TOT_ADJ_BS_IN=@TC_AI_TOT_ADJ_BS_IN,TC_AI_ADJ_IN_LOSS=@TC_AI_ADJ_IN_LOSS WHERE TC_KEY=@TC_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            ' SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
+            SQLcmd.Parameters.Add("@TC_AI_DIVIDEND", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_DIVIDEND)
+            SQLcmd.Parameters.Add("@TC_AI_RENTAL", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_RENTAL)
+            SQLcmd.Parameters.Add("@TC_AI_ROYALTY", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ROYALTY)
+            SQLcmd.Parameters.Add("@TC_AI_INTEREST", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_INTEREST)
+            SQLcmd.Parameters.Add("@TC_AI_SEC4A", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_SEC4A)
+            SQLcmd.Parameters.Add("@TC_AI_PNL_BAL", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_PNL_BAL)
+            SQLcmd.Parameters.Add("@TC_AI_ADJ_BS_EXP_NA_EXP", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_BS_EXP_NA_EXP)
+            SQLcmd.Parameters.Add("@TC_AI_TOT_BS_IN", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_TOT_BS_IN)
+            SQLcmd.Parameters.Add("@TC_AI_ADJ_BS_IN_TAX_IN", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_BS_IN_TAX_IN)
+            SQLcmd.Parameters.Add("@TC_AI_ADJ_BS_EXP_INT", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_BS_EXP_INT)
+            SQLcmd.Parameters.Add("@TC_AI_ADJ_BS_EXP_RV_EXP", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_BS_EXP_RV_EXP)
+            SQLcmd.Parameters.Add("@TC_AI_ADJ_BS_EXP_CLAIM", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_BS_EXP_CLAIM)
+            SQLcmd.Parameters.Add("@TC_AI_TOT_ADJ_BS_EXP", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_TOT_ADJ_BS_EXP)
+            SQLcmd.Parameters.Add("@TC_OTHERDEDUCTION", SqlDbType.NVarChar, 25).Value = CStr(TC_OTHERDEDUCTION)
+            SQLcmd.Parameters.Add("@TC_AI_TOT_ADJ_BS_IN", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_TOT_ADJ_BS_IN)
+            SQLcmd.Parameters.Add("@TC_AI_ADJ_IN_LOSS", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_IN_LOSS)
+            SQLcmd.Parameters.Add("@TC_KEY", SqlDbType.Int).Value = ID
+
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+
+            Return False
+        End Try
+    End Function
+
+
 
 #End Region
 #End Region

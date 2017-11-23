@@ -908,6 +908,10 @@ Public Class frmPNL_Add
                         Progress(CurrentProgress, "Getting " & tmp.LabelText & " data...")
                     End If
 
+                    If tmp.Type = TaxComPNLEnuItem.DIVIDENDINC Then
+                        Dim x As Integer = 0
+                    End If
+
                     mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd)
                 Next
             End If
@@ -920,6 +924,10 @@ Public Class frmPNL_Add
                     isEdit = True
                     Application.DoEvents()
                     isSuccessfullySaved(tmpID)
+                    If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                        MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+
+                    End If
                 Else
                     Progress(100, "Failed to saving " & ListofCmd.Count & " data(s)...")
                     MsgBox("Failed to save data." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)

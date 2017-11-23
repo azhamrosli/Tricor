@@ -1067,7 +1067,23 @@ Module mdlPNL2
 
                         mdlProcess.Save_OTHER_EXPENSES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    If P2_docDivIncome IsNot Nothing AndAlso P2_docDivIncome.Controls.Count > 0 Then
+                        contrl = P2_docDivIncome.Controls(0)
 
+                        If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2DivIncome = False Then
+                            Return False
+                        End If
+                        Dim uc As ucPNL_p2DivIncome = CType(contrl, ucPNL_p2DivIncome)
+
+                        ds = uc.DataView_Main2
+
+                        If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count <= 0 Then
+                            Return False
+                        End If
+
+                        mdlProcess.Save_DIVIDEND_INCOME(PNL_Key, ds.Tables(uc.MainTable), uc.GetDiscloseNet, oConn, ListofCmd, Errorlog)
+                    End If
             End Select
 
             Return False
