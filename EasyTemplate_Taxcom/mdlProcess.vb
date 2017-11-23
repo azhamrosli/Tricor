@@ -3477,7 +3477,7 @@ tryagain:
             Dim StrSQL As String = "SELECT * FROM non_taxable_income WHERE NT_REF_NO=@NT_REF_NO AND NT_YA=@NT_YA AND NT_CATEGORIZED='Other'"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@NT_REF_NO", SqlDbType.Int).Value = RefNo
+            SQLcmd.Parameters.Add("@NT_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@NT_YA", SqlDbType.Int).Value = YA
 
 

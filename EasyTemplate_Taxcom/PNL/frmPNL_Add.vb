@@ -912,7 +912,7 @@ Public Class frmPNL_Add
                         Dim x As Integer = 0
                     End If
 
-                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd)
+                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd, ErrorLog)
                 Next
             End If
             CurrentProgress += 1
@@ -937,7 +937,9 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
-
+            If ErrorLog IsNot Nothing Then
+                MsgBox(ErrorLog.ErrorMessage)
+            End If
         End Try
     End Sub
     Private Sub isSuccessfullySaved(ByVal KeyID As Integer)

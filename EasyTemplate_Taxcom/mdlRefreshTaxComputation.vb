@@ -653,7 +653,7 @@ Module mdlRefreshTaxComputation
             Dim StrSQL As String = "select ISNULL((sum(cast(exl_amount as money))),0) as sumx from expenses_legal where exl_key=@key and exl_sourceno=@source"
 
             If strDeductible <> "" Then
-                StrSQL += " and exl_deductible=@ded"
+                StrSQL += " and EXL_DEDUCTIBLE=@ded"
             End If
 
             SQLcmd = New SqlCommand
@@ -696,7 +696,7 @@ Module mdlRefreshTaxComputation
             Dim StrSQL As String = "select ISNULL((sum(cast(exoes_amount as money))),0) as sumx from other_entertainstaff where exoes_key=@key and exoes_sourceno=@source"
 
             If strDeductible <> "" Then
-                StrSQL += " and exl_deductible=@ded"
+                StrSQL += " and EXOES_DEDUCTIBLE=@ded"
             End If
 
             SQLcmd = New SqlCommand
@@ -1209,7 +1209,7 @@ Module mdlRefreshTaxComputation
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "select ISNULL((sum(cast(plfpur_amount as money))),0) as sumx from plfst_purchase where plfpur_key=@key and plfpur_sourceno=@sourceno"
+            Dim StrSQL As String = "select ISNULL((sum(cast(plfpur_amount as money))),0) as sumx from plfst_purchase where plfpur_key=@key and PLFPUR_SOURCENO=@source"
 
             If strDeductible <> "" Then
                 StrSQL += " and plfpur_deductible=@ded"
@@ -1295,7 +1295,7 @@ Module mdlRefreshTaxComputation
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "select ISNULL((sum(cast(exir_amount as money))),0) as sumx from expenses_interestrestrict where exir_key=@data and exir_sourceno=@source"
+            Dim StrSQL As String = "select ISNULL((sum(cast(exir_amount as money))),0) as sumx from expenses_interestrestrict where exir_key=@key and exir_sourceno=@source"
 
             If strDeductible <> "" Then
                 StrSQL += " and exir_deductible=@ded"
