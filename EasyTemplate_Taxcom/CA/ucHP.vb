@@ -103,7 +103,7 @@
         End Try
     End Sub
 
-    Private Sub btnFind_Click(sender As Object, e As EventArgs)
+    Private Sub btnFind_Click(sender As Object, e As EventArgs) Handles btnFind.Click
         Try
             LoadData(2)
         Catch ex As Exception
@@ -111,7 +111,7 @@
         End Try
     End Sub
 
-    Private Sub btnAllRecord_Click(sender As Object, e As EventArgs)
+    Private Sub btnAllRecord_Click(sender As Object, e As EventArgs) Handles btnAllRecord.Click
         Try
             cboFilterType.SelectedIndex = cboFilterType.Properties.Items.Count - 1
             txtRefNo.Text = ""
@@ -123,7 +123,7 @@
         End Try
     End Sub
 
-    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
             Dim frm As New frmHP_Add
             frm.ShowDialog()
@@ -133,7 +133,7 @@
         End Try
     End Sub
 
-    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnEdit.ItemClick
         Try
             Dim ID As Integer = GridView2.GetDataRow(GridView2.GetSelectedRows(0))("HP_KEY")
 
@@ -147,7 +147,7 @@
         End Try
     End Sub
 
-    Private Sub GridView2_DoubleClick(sender As Object, e As EventArgs)
+    Private Sub GridView2_DoubleClick(sender As Object, e As EventArgs) Handles GridView2.DoubleClick
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
@@ -155,7 +155,7 @@
         End Try
     End Sub
 
-    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         Try
             Dim rslt As DialogResult = MessageBox.Show("Are you sure want to remove item(s)?", "Hire Purchase", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
 

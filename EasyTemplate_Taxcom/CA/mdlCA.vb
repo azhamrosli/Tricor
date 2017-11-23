@@ -67,7 +67,7 @@ Module mdlCA
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
 
@@ -98,7 +98,7 @@ Module mdlCA
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
 
@@ -130,7 +130,7 @@ Module mdlCA
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
 
@@ -160,7 +160,7 @@ Module mdlCA
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
 
@@ -191,7 +191,7 @@ Module mdlCA
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
 
@@ -690,6 +690,7 @@ Module mdlCA
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.Int).Value = 1
+            SQLcmd.Parameters.Add("@TC_SI_TOT", SqlDbType.NVarChar, 25).Value = CStr(TC_SI_TOT)
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
@@ -909,12 +910,16 @@ Module mdlCA
                         dtLessApprDonation = mdlProcess.Load_LessApprove_Donation(TC_REF_NO, CStr(YA), strPNLKey, strMainBuz, ErrorLog)
 
                         If drLstview IsNot Nothing AndAlso drLstview.Rows.Count > 0 Then
-                            IIf(SetAdjBusinessIn(ErrorLog) = False, MsgBox(ErrorLog.ErrorMessage), Nothing)
+                            If SetAdjBusinessIn(ErrorLog) = False Then
+                                MsgBox("Failed to refresh taxcomputation", MsgBoxStyle.Critical)
+                            End If
                             Application.DoEvents()
                             drTCUnabsorbedBusinessLoss = mdlCA.GetDTTCUnabsorbedBusinessLoss(ErrorLog)
                             drLstview = mdlProcess.Load_Tax_Computation(TC_REF_NO, CStr(YA), ErrorLog)
-                            IIf(Aggregate(ErrorLog) = False, MsgBox(ErrorLog.ErrorMessage), Nothing)
-
+                            ' IIf(Aggregate(ErrorLog) = False, MsgBox(ErrorLog.ErrorMessage), Nothing)
+                            If Aggregate(ErrorLog) = False Then
+                                MsgBox("Failed to refresh aggregate income", MsgBoxStyle.Critical)
+                            End If
                         End If
 
                         tmpTotalNonAllExp = GetTotalNonAllowableExpenses()
@@ -1046,7 +1051,7 @@ Module mdlCA
                             If GetBoolPLS60FA() Then
                                 TC_CB_CA_BAL_BF = 0
                             Else
-                                If CDbl(drLstview("TC_BUSINESS").ToString) > 0 Then
+                                If CDbl(row("TC_BUSINESS").ToString) > 0 Then
                                     TC_CB_CA_BAL_BF = FormatNumber(CDbl(OB_SCHEDULE), 0) 'Balance b/f
 
                                 Else
@@ -1148,9 +1153,9 @@ Module mdlCA
                                     Dim dblCurrTWDV As Double = CDbl(dtRowAAIA("CA_TWDV"))
 
                                     If dtRowAAIA("CA_PURCHASE_YEAR") = strCYa Then
-                                        If drCA_AA_IARate("CA_YA").ToString = strCYa Then
+                                        If dtRowAAIA("CA_YA").ToString = strCYa Then
                                             dblIA += FormatNumber((CDbl(dtRowAAIA("CA_QUALIFYING_COST"))) * CDbl(dtRowAAIA("CA_RATE_IA")) / 100, 2)
-                                            If drCA_AA_IARate("CA_ACCELERATED").ToString = "True" Then
+                                            If dtRowAAIA("CA_ACCELERATED").ToString = "True" Then
                                                 dblAccIA = dblIA
                                             End If
                                         End If
@@ -1191,11 +1196,11 @@ Module mdlCA
                                         dblAA = dblCurrTWDV - dblCurrTWDVDisp
                                     End If
 
-                                    If drCA_AA_IARate("CA_YA").ToString = strCYa Then
+                                    If CStr(dtRowAAIA("CA_YA")) = strCYa Then
                                         If dblCurrQC - dblCurrQCDisp <= 0 Then dblIA = 0
                                     End If
 
-                                    If drCA_AA_IARate("CA_ACCELERATED").ToString = "True" Then
+                                    If dtRowAAIA("CA_ACCELERATED").ToString = "True" Then
                                         dblAccAA = dblAA
                                         dblAccIA = dblIA
                                     End If
@@ -1246,7 +1251,7 @@ Module mdlCA
                             drCADisposalBABCNonHP = GetDTCADisposalBABCNonHP(strkey_array, I)
                             If drCADisposalBABCNonHP IsNot Nothing AndAlso drCADisposalBABCNonHP.Rows.Count > 0 Then
                                 For Each dtRowDispBABCNonHP As DataRow In drCADisposalBABCNonHP.Rows
-                                    If CDbl(drCADisposalBABCNonHP("CA_DISP_BABC").ToString) < 0 Then
+                                    If CDbl(dtRowDispBABCNonHP("CA_DISP_BABC").ToString) < 0 Then
                                         dblUCABal_Allow = CDbl(dblUCABal_Allow) + CDbl(dtRowDispBABCNonHP("CA_DISP_BABC").ToString)
                                     Else
                                         dblUCABal_Charge = CDbl(dblUCABal_Charge) + CDbl(dtRowDispBABCNonHP("CA_DISP_BABC").ToString)

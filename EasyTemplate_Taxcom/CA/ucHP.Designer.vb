@@ -113,7 +113,6 @@ Partial Class ucHP
         Me.colCA_YA = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_ACCELERATED = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.dgvView = New DevExpress.XtraGrid.GridControl()
-        Me.ProgressPanel1 = New DevExpress.XtraWaitForm.ProgressPanel()
         Me.ComboBoxEdit1 = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.btnAllRecord = New DevExpress.XtraEditors.SimpleButton()
         Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
@@ -807,28 +806,12 @@ Partial Class ucHP
         'dgvView
         '
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvView.Location = New System.Drawing.Point(0, 135)
+        Me.dgvView.Location = New System.Drawing.Point(0, 31)
         Me.dgvView.MainView = Me.GridView1
         Me.dgvView.Name = "dgvView"
-        Me.dgvView.Size = New System.Drawing.Size(997, 390)
+        Me.dgvView.Size = New System.Drawing.Size(997, 494)
         Me.dgvView.TabIndex = 37
         Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
-        '
-        'ProgressPanel1
-        '
-        Me.ProgressPanel1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.ProgressPanel1.Appearance.BackColor = System.Drawing.Color.Transparent
-        Me.ProgressPanel1.Appearance.Options.UseBackColor = True
-        Me.ProgressPanel1.AppearanceCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
-        Me.ProgressPanel1.AppearanceCaption.Options.UseFont = True
-        Me.ProgressPanel1.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.ProgressPanel1.AppearanceDescription.Options.UseFont = True
-        Me.ProgressPanel1.Location = New System.Drawing.Point(368, 221)
-        Me.ProgressPanel1.Name = "ProgressPanel1"
-        Me.ProgressPanel1.Size = New System.Drawing.Size(246, 66)
-        Me.ProgressPanel1.TabIndex = 41
-        Me.ProgressPanel1.Text = "ProgressPanel1"
-        Me.ProgressPanel1.Visible = False
         '
         'ComboBoxEdit1
         '
@@ -921,7 +904,7 @@ Partial Class ucHP
         Me.pnlLoading.AppearanceCaption.Options.UseFont = True
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
-        Me.pnlLoading.Location = New System.Drawing.Point(355, 207)
+        Me.pnlLoading.Location = New System.Drawing.Point(388, 279)
         Me.pnlLoading.Name = "pnlLoading"
         Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
         Me.pnlLoading.TabIndex = 38
@@ -958,13 +941,12 @@ Partial Class ucHP
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.ProgressPanel1)
-        Me.Controls.Add(Me.dgvView)
         Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.PanelControl2)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.BarDockControl2)
+        Me.Controls.Add(Me.dgvView)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.BarDockControl1)
         Me.Controls.Add(Me.barDockControlBottom)
@@ -1030,7 +1012,6 @@ Partial Class ucHP
     Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnEdit As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
-    Friend WithEvents ProgressPanel1 As DevExpress.XtraWaitForm.ProgressPanel
     Friend WithEvents ComboBoxEdit1 As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
     Friend WithEvents cboFilterType As DevExpress.XtraEditors.ComboBoxEdit

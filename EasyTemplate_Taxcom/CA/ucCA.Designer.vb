@@ -305,10 +305,10 @@ Partial Class ucCA
         Me.dgvView.ContextMenuStrip = Me.ContextMenuStrip1
         Me.dgvView.DataSource = Me.CABindingSource
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvView.Location = New System.Drawing.Point(0, 31)
+        Me.dgvView.Location = New System.Drawing.Point(0, 135)
         Me.dgvView.MainView = Me.GridView1
         Me.dgvView.Name = "dgvView"
-        Me.dgvView.Size = New System.Drawing.Size(905, 471)
+        Me.dgvView.Size = New System.Drawing.Size(905, 367)
         Me.dgvView.TabIndex = 8
         Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -580,9 +580,9 @@ Partial Class ucCA
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.dgvView)
         Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.PanelControl1)
-        Me.Controls.Add(Me.dgvView)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)

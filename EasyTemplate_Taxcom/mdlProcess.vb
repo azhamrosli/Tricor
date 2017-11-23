@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmpnl" 'Form Name
+    Public ArgParam0 As String = "frmhp" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1105584103" '"1054242304" 'RefNo
     Public ArgParam3 As String = "2008" 'YA"
@@ -1243,7 +1243,7 @@ tryagain:
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
 
@@ -1644,7 +1644,7 @@ tryagain:
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@HP_REF_NO", SqlDbType.NVarChar, 20).Value = HP_REF_NO
-            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = HP_CODE
+            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = IIf(HP_CODE Is Nothing, "", HP_CODE)
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
@@ -1727,7 +1727,7 @@ tryagain:
             Return Nothing
         End Try
     End Function
-    Public Function Load_DISPOSAL_BY_CADISP_KEY(ByVal CA_DISP_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_DISPOSAL_BY_CADISP_KEY(ByVal ID_CA As Integer, ByVal CA_DISP_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -1737,9 +1737,10 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM CA_DISPOSAL WHERE CA_DISP_KEY=@CA_DISP_KEY"
+            Dim StrSQL As String = "SELECT * FROM CA_DISPOSAL WHERE CA_KEY=@CA_KEY AND CA_DISP_KEY=@CA_DISP_KEY"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CA_KEY", SqlDbType.Int).Value = ID_CA
             SQLcmd.Parameters.Add("@CA_DISP_KEY", SqlDbType.Int).Value = CA_DISP_KEY
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -7447,6 +7448,43 @@ tryagain:
 
             AddListOfError(ErrorLog)
             Return Nothing
+        End Try
+    End Function
+    Public Function CheckYA_Exist(ByVal YA As Integer, Optional ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return True
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM YEAR_ASSESSMENT WHERE YA=@YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 5).Value = CStr(YA)
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
         End Try
     End Function
     Public Function LoadState(Optional ErrorLog As clsError = Nothing) As DataTable
@@ -13381,6 +13419,50 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
     End Function
 
 #End Region
+#Region "MASTER DATA"
+    Public Function Save_YA(ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            If CheckYA_Exist(YA) Then
+                If ErrorLog Is Nothing Then
+                    ErrorLog = New clsError
+                End If
+                ErrorLog.ErrorDateTime = Now
+                ErrorLog.ErrorCode = "X1001"
+                ErrorLog.ErrorName = "Year assessment already exist."
+
+                Return False
+            End If
+
+            ADO = New SQLDataObject()
+            Dim SQLcmd As SqlCommand
+            Dim SqlCon As SqlConnection = Nothing
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim strSQL As String = "INSERT INTO YEAR_ASSESSMENT(YA) VALUES (@YA)"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = strSQL
+            SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 5).Value = CStr(YA)
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+#End Region
 #End Region
 #Region "UPDATE"
 #Region "CA"
@@ -13613,7 +13695,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@CA_TWDV", SqlDbType.NVarChar, 25).Value = CStr(CA_TWDV)
             SQLcmd.Parameters.Add("@CA_INCENTIVE", SqlDbType.NVarChar, 3).Value = CA_INCENTIVE
             SQLcmd.Parameters.Add("@CA_CTRL_TRANSFER", SqlDbType.Int).Value = CA_CTRL_TRANSFER
-            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = HP_CODE
+            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = IIf(HP_CODE Is Nothing, "", HP_CODE)
             SQLcmd.Parameters.Add("@CA_ACCELERATED", SqlDbType.NVarChar, 20).Value = CA_ACCELERATED
             '//New Column Update
             SQLcmd.Parameters.Add("@CA_CAEEO", SqlDbType.Bit).Value = CA_CAEEO
@@ -13656,13 +13738,12 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "UPDATE CA_DISPOSAL SET CA_KEY=@CA_KEY,CA_DISP_KEY=@CA_DISP_KEY,CA_DISP_YA=@CA_DISP_YA,CA_DISP_DATE=@CA_DISP_DATE,CA_DISP_WITHIN_2=@CA_DISP_WITHIN_2,CA_DISP_AMOUNT=@CA_DISP_AMOUNT,CA_DISP_QC=@CA_DISP_QC,CA_DISP_BALANCE=@CA_DISP_BALANCE,CA_DISP_TWDV=@CA_DISP_TWDV,CA_DISP_SPROCEED=@CA_DISP_SPROCEED,CA_DISP_BABC=@CA_DISP_BABC,CA_DISP_REMARKS=@CA_DISP_REMARKS,CA_ACCUMULATED=@CA_ACCUMULATED,CA_TRANSFEREE_NAME=@CA_TRANSFEREE_NAME,CA_TAX_FILE_NO=@CA_TAX_FILE_NO WHERE CA_DISP_KEY=@CA_DISP_KEY"
+            Dim StrSQL As String = "UPDATE CA_DISPOSAL SET CA_DISP_DATE=@CA_DISP_DATE,CA_DISP_WITHIN_2=@CA_DISP_WITHIN_2,CA_DISP_AMOUNT=@CA_DISP_AMOUNT,CA_DISP_QC=@CA_DISP_QC,CA_DISP_BALANCE=@CA_DISP_BALANCE,CA_DISP_TWDV=@CA_DISP_TWDV,CA_DISP_SPROCEED=@CA_DISP_SPROCEED,CA_DISP_BABC=@CA_DISP_BABC,CA_DISP_REMARKS=@CA_DISP_REMARKS,CA_ACCUMULATED=@CA_ACCUMULATED,CA_TRANSFEREE_NAME=@CA_TRANSFEREE_NAME,CA_TAX_FILE_NO=@CA_TAX_FILE_NO WHERE CA_DISP_KEY=@CA_DISP_KEY AND CA_KEY=@CA_KEY AND CA_DISP_YA=@CA_DISP_YA"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@CA_DISP_KEY", SqlDbType.Int).Value = CA_DISP_KEY
             SQLcmd.Parameters.Add("@CA_KEY", SqlDbType.Int).Value = CA_KEY
-            SQLcmd.Parameters.Add("@CA_DISP_KEY", SqlDbType.Int).Value = CA_DISP_KEY
             SQLcmd.Parameters.Add("@CA_DISP_YA", SqlDbType.NVarChar, 5).Value = CA_DISP_YA
             SQLcmd.Parameters.Add("@CA_DISP_DATE", SqlDbType.DateTime).Value = CA_DISP_DATE
             SQLcmd.Parameters.Add("@CA_DISP_WITHIN_2", SqlDbType.NVarChar, 3).Value = CA_DISP_WITHIN_2
@@ -14277,6 +14358,40 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
 
 
+#End Region
+#Region "MASTER DATA"
+    Public Function Update_YA(ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SQLcmd As SqlCommand
+            Dim SqlCon As SqlConnection = Nothing
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim strSQL As String = "UPDATE YEAR_ASSESSMENT SET YA=@YA WHERE YA=@ID"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = strSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 5).Value = CStr(YA)
+            SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 5).Value = CStr(YA)
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
 #End Region
 #End Region
 #Region "DELETE"

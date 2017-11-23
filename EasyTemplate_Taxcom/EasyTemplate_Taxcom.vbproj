@@ -1182,7 +1182,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TAXCOM\" />
+    <Folder Include="MasterData\" />
+    <Folder Include="TaxCom\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

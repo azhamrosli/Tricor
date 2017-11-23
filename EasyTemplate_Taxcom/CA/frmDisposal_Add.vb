@@ -67,7 +67,7 @@
             If isEdit Then
                 'select 1st ca
                 'load disposal
-                Dim dt As DataTable = mdlProcess.Load_DISPOSAL_BY_CADISP_KEY(ID)
+                Dim dt As DataTable = mdlProcess.Load_DISPOSAL_BY_CADISP_KEY(ID_CA, ID)
                 Dim dtCA As DataTable = mdlProcess.Load_CA(ID_CA, ErrorLog)
 
 
@@ -75,6 +75,19 @@
                     isEdit = False
                     Exit Sub
                 End If
+
+                cboRefNo.EditValue = IIf(IsDBNull(dtCA.Rows(0)("CA_REF_NO")), "", dtCA.Rows(0)("CA_REF_NO"))
+                Dim tmpYA As Integer = IIf(IsDBNull(dt.Rows(0)("CA_DISP_YA")), 0, dt.Rows(0)("CA_DISP_YA"))
+
+                For i As Integer = 0 To cboYA.Properties.Items.Count - 1
+                    If CInt(cboYA.Properties.Items(i)) = tmpYA Then
+                        cboYA.SelectedIndex = i
+                        Exit For
+                    End If
+                Next
+                Application.DoEvents()
+                DefaultTaxPayer(cboRefNo)
+                Application.DoEvents()
 
                 txtAsset.EditValue = IIf(IsDBNull(dtCA.Rows(0)("CA_ASSET")), "", dtCA.Rows(0)("CA_ASSET"))
                 txtAssetID.EditValue = IIf(IsDBNull(dtCA.Rows(0)("CA_ASSET_CODE")), "", dtCA.Rows(0)("CA_ASSET_CODE"))
@@ -116,7 +129,7 @@
                 txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
                                                     txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
-                dtRowSelected = dt.Rows(0)
+                dtRowSelected = dtCA.Rows(0)
             End If
         Catch ex As Exception
 
@@ -195,7 +208,13 @@
             Try
                 If isValid() Then
                     Dim ReturnID As Integer = 0
-                    Dim HP_CODE As String = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("HP_CODE")
+                    'Dim tmpDtRows As DataRow = GridView1.GetDataRow(GridView1.GetSelectedRows(0))
+
+                    Dim HP_CODE As String = ""
+                    If dtRowSelected IsNot Nothing Then
+                        HP_CODE = IIf(IsDBNull(dtRowSelected("HP_CODE")), "", dtRowSelected("HP_CODE"))
+                    End If
+
 
                     If Not String.IsNullOrEmpty(HP_CODE) And CInt(mdlProcess.Load_HP_Count(HP_CODE, ErrorLog)) > 1 Then
                         Dim rslt As DialogResult = MessageBox.Show("More than one CA record has been found under this HP Code." & vbCrLf & "Do you want to duplicate the disposal among these items?", "Disposal", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
