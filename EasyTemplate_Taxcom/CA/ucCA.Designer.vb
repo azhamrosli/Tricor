@@ -83,6 +83,7 @@ Partial Class ucCA
         Me.txtYA = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
+        Me.btnQuickCA = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -420,8 +421,8 @@ Partial Class ucCA
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.btnImportExport})
-        Me.BarManager1.MaxItemId = 7
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.btnImportExport, Me.btnQuickCA})
+        Me.BarManager1.MaxItemId = 8
         '
         'Bar1
         '
@@ -429,7 +430,7 @@ Partial Class ucCA
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.btnImportExport)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.btnImportExport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnQuickCA)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -576,6 +577,15 @@ Partial Class ucCA
         Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 0
         '
+        'btnQuickCA
+        '
+        Me.btnQuickCA.Caption = "Quick CA"
+        Me.btnQuickCA.Glyph = CType(resources.GetObject("btnQuickCA.Glyph"), System.Drawing.Image)
+        Me.btnQuickCA.Id = 7
+        Me.btnQuickCA.LargeGlyph = CType(resources.GetObject("btnQuickCA.LargeGlyph"), System.Drawing.Image)
+        Me.btnQuickCA.Name = "btnQuickCA"
+        Me.btnQuickCA.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
         'ucCA
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -667,5 +677,6 @@ Partial Class ucCA
     Friend WithEvents txtYA As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents btnQuickCA As DevExpress.XtraBars.BarButtonItem
 
 End Class

@@ -223,4 +223,12 @@
     Private Sub btnImportExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnImportExport.ItemClick
 
     End Sub
+
+    Private Sub btnQuickCA_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnQuickCA.ItemClick
+        Try
+            frmCA_Quick.Show()
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

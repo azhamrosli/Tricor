@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 0
     Public V4 As Integer = 0
     Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmhp" 'Form Name
+    Public ArgParam0 As String = "frmca" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "1105584103" '"1054242304" 'RefNo
     Public ArgParam3 As String = "2008" 'YA"
@@ -657,6 +657,37 @@ Module mdlProcess
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 cboSourceNo.Properties.Items.Add(CInt(IIf(IsDBNull(dt.Rows(i)("BC_SOURCENO")), 0, dt.Rows(i)("BC_SOURCENO"))).ToString)
+            Next
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(Errorlog)
+            Return False
+        End Try
+    End Function
+    Public Function CreateLookUpSourceNo(ByRef cboSourceNo As DevExpress.XtraBars.BarEditItem, ByVal RefNo As String, ByVal YA As String, Optional Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dt As DataTable = mdlProcess.LoadSourceNo(RefNo, YA, Errorlog)
+
+            Dim cbo As RepositoryItemComboBox = CType(cboSourceNo.Edit, RepositoryItemComboBox)
+            'cboYA.Properties.Items.Clear()
+            cbo.Properties.Items.Clear()
+            If dt Is Nothing Then
+                Return False
+            End If
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                cbo.Items.Add(CInt(IIf(IsDBNull(dt.Rows(i)("BC_SOURCENO")), 0, dt.Rows(i)("BC_SOURCENO"))).ToString)
             Next
 
             Return True
