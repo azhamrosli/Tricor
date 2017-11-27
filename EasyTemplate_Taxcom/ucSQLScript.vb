@@ -3,6 +3,19 @@ Imports System.Data.SqlClient
 Public Class ucSQLScript
     Dim ErrorLog As clsError = Nothing
     Dim doc As String = Nothing
+    Shared Sub New()
+        DevExpress.UserSkins.BonusSkins.Register()
+        DevExpress.Skins.SkinManager.EnableFormSkins()
+    End Sub
+    Public Sub New()
+        If My.Settings.ThemeName <> "" Then
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        Else
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
+        End If
+
+        InitializeComponent()
+    End Sub
     Private Sub ucSQLScript_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             LoadData()
@@ -12,6 +25,8 @@ Public Class ucSQLScript
     End Sub
     Private Sub LoadData()
         Try
+            pnlLoading.Visible = True
+
             Dim dt As DataTable = mdlProcess.Load_DatabaseList(ErrorLog)
 
             If dt IsNot Nothing Then
@@ -32,12 +47,16 @@ Public Class ucSQLScript
 
         Catch ex As Exception
 
+        Finally
+            pnlLoading.Visible = False
+
         End Try
     End Sub
 
     Private Sub btnExecute_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExecute.ItemClick
         Try
          
+            pnlLoading.Visible = True
 
             If cboDatabase.EditValue Is Nothing OrElse cboDatabase.EditValue = "" Then
                 MsgBox("Please select database.", MsgBoxStyle.Exclamation)
@@ -143,6 +162,9 @@ Public Class ucSQLScript
 
         Catch ex As Exception
 
+        Finally
+            pnlLoading.Visible = False
+
         End Try
     End Sub
 
@@ -229,9 +251,25 @@ Public Class ucSQLScript
                 txtScript3.EditValue = script
             End If
 
-
         Catch ex As Exception
 
         End Try
     End Sub
+
+    Private Sub btnRefresh1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnRefresh1.ItemClick
+        Try
+            LoadData()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub TreeList1_DoubleClick(sender As Object, e As EventArgs) Handles TreeList1.DoubleClick
+        Try
+            SELECTToolStripMenuItem.PerformClick()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class

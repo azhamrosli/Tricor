@@ -21,12 +21,8 @@ Partial Class ucSQLScript
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucSQLScript))
-        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
-        Me.btnNew = New DevExpress.XtraBars.BarButtonItem()
         Me.btnExecute = New DevExpress.XtraBars.BarButtonItem()
         Me.cboDatabase = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
@@ -43,11 +39,13 @@ Partial Class ucSQLScript
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.SELECTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UPDATEToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DELETEToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DtDatabaseColumnListBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsDefault = New EasyTemplate_Taxcom.dsDefault()
         Me.docScript1 = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel2_Container = New DevExpress.XtraBars.Docking.ControlContainer()
         Me.SplitContainerControl1 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
         Me.txtScript1 = New DevExpress.XtraEditors.MemoEdit()
         Me.XtraTabControl1 = New DevExpress.XtraTab.XtraTabControl()
         Me.XtraTabPage1 = New DevExpress.XtraTab.XtraTabPage()
@@ -75,6 +73,7 @@ Partial Class ucSQLScript
         Me.GridView3 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.XtraTabPage6 = New DevExpress.XtraTab.XtraTabPage()
         Me.txtErrorLog3 = New DevExpress.XtraEditors.MemoEdit()
+        Me.btnRefresh = New DevExpress.XtraBars.BarButtonItem()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.DocumentManager1 = New DevExpress.XtraBars.Docking2010.DocumentManager(Me.components)
@@ -83,7 +82,7 @@ Partial Class ucSQLScript
         Me.Document1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
         Me.Document2 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
         Me.Document3 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
-        Me.DELETEToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnRefresh1 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,8 +147,8 @@ Partial Class ucSQLScript
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.DockManager = Me.DockManager1
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnNew, Me.btnExecute, Me.cboDatabase})
-        Me.BarManager1.MaxItemId = 13
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnExecute, Me.cboDatabase, Me.btnRefresh, Me.btnRefresh1})
+        Me.BarManager1.MaxItemId = 15
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2, Me.RepositoryItemComboBox1})
         '
         'Bar1
@@ -159,28 +158,12 @@ Partial Class ucSQLScript
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(271, 130)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnNew), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExecute), New DevExpress.XtraBars.LinkPersistInfo(Me.cboDatabase)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnExecute), New DevExpress.XtraBars.LinkPersistInfo(Me.cboDatabase), New DevExpress.XtraBars.LinkPersistInfo(Me.btnRefresh1)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
         Me.Bar1.OptionsBar.UseWholeRow = True
         Me.Bar1.Text = "Tools"
-        '
-        'btnNew
-        '
-        Me.btnNew.Caption = "New Query"
-        Me.btnNew.Glyph = CType(resources.GetObject("btnNew.Glyph"), System.Drawing.Image)
-        Me.btnNew.Id = 0
-        Me.btnNew.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnNew.LargeGlyph = CType(resources.GetObject("btnNew.LargeGlyph"), System.Drawing.Image)
-        Me.btnNew.Name = "btnNew"
-        Me.btnNew.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem1.Text = "New Query"
-        ToolTipItem1.LeftIndent = 6
-        ToolTipItem1.Text = "New query for sql Ctrl + R"
-        SuperToolTip1.Items.Add(ToolTipTitleItem1)
-        SuperToolTip1.Items.Add(ToolTipItem1)
-        Me.btnNew.SuperTip = SuperToolTip1
         '
         'btnExecute
         '
@@ -206,6 +189,7 @@ Partial Class ucSQLScript
         Me.RepositoryItemComboBox1.AutoHeight = False
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
+        Me.RepositoryItemComboBox1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         '
         'barDockControlTop
         '
@@ -299,19 +283,25 @@ Partial Class ucSQLScript
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SELECTToolStripMenuItem, Me.UPDATEToolStripMenuItem, Me.DELETEToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 92)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(118, 70)
         '
         'SELECTToolStripMenuItem
         '
         Me.SELECTToolStripMenuItem.Name = "SELECTToolStripMenuItem"
-        Me.SELECTToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SELECTToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.SELECTToolStripMenuItem.Text = "SELECT"
         '
         'UPDATEToolStripMenuItem
         '
         Me.UPDATEToolStripMenuItem.Name = "UPDATEToolStripMenuItem"
-        Me.UPDATEToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.UPDATEToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
         Me.UPDATEToolStripMenuItem.Text = "UPDATE"
+        '
+        'DELETEToolStripMenuItem
+        '
+        Me.DELETEToolStripMenuItem.Name = "DELETEToolStripMenuItem"
+        Me.DELETEToolStripMenuItem.Size = New System.Drawing.Size(117, 22)
+        Me.DELETEToolStripMenuItem.Text = "DELETE"
         '
         'DtDatabaseColumnListBindingSource
         '
@@ -327,7 +317,7 @@ Partial Class ucSQLScript
         '
         Me.docScript1.Controls.Add(Me.DockPanel2_Container)
         Me.docScript1.DockedAsTabbedDocument = True
-        Me.docScript1.FloatLocation = New System.Drawing.Point(258, 155)
+        Me.docScript1.FloatLocation = New System.Drawing.Point(263, 154)
         Me.docScript1.ID = New System.Guid("240f8a45-7df3-4a3c-9d77-231e6be2e959")
         Me.docScript1.Name = "docScript1"
         Me.docScript1.Options.AllowDockFill = False
@@ -358,6 +348,7 @@ Partial Class ucSQLScript
         Me.SplitContainerControl1.Horizontal = False
         Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 0)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
+        Me.SplitContainerControl1.Panel1.Controls.Add(Me.pnlLoading)
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.txtScript1)
         Me.SplitContainerControl1.Panel1.Text = "Panel1"
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.XtraTabControl1)
@@ -367,6 +358,22 @@ Partial Class ucSQLScript
         Me.SplitContainerControl1.SplitterPosition = 285
         Me.SplitContainerControl1.TabIndex = 0
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
+        '
+        'pnlLoading
+        '
+        Me.pnlLoading.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.pnlLoading.Appearance.BackColor = System.Drawing.Color.Transparent
+        Me.pnlLoading.Appearance.Options.UseBackColor = True
+        Me.pnlLoading.AppearanceCaption.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!)
+        Me.pnlLoading.AppearanceCaption.Options.UseFont = True
+        Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.pnlLoading.AppearanceDescription.Options.UseFont = True
+        Me.pnlLoading.Location = New System.Drawing.Point(326, 118)
+        Me.pnlLoading.Name = "pnlLoading"
+        Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
+        Me.pnlLoading.TabIndex = 1
+        Me.pnlLoading.Text = "ProgressPanel1"
+        Me.pnlLoading.Visible = False
         '
         'txtScript1
         '
@@ -457,7 +464,7 @@ Partial Class ucSQLScript
         Me.DockPanel3_Container.Controls.Add(Me.SplitContainerControl2)
         Me.DockPanel3_Container.Location = New System.Drawing.Point(0, 0)
         Me.DockPanel3_Container.Name = "DockPanel3_Container"
-        Me.DockPanel3_Container.Size = New System.Drawing.Size(585, 547)
+        Me.DockPanel3_Container.Size = New System.Drawing.Size(795, 547)
         Me.DockPanel3_Container.TabIndex = 0
         '
         'SplitContainerControl2
@@ -471,7 +478,7 @@ Partial Class ucSQLScript
         Me.SplitContainerControl2.Panel1.Text = "Panel1"
         Me.SplitContainerControl2.Panel2.Controls.Add(Me.XtraTabControl2)
         Me.SplitContainerControl2.Panel2.Text = "Panel2"
-        Me.SplitContainerControl2.Size = New System.Drawing.Size(585, 547)
+        Me.SplitContainerControl2.Size = New System.Drawing.Size(795, 547)
         Me.SplitContainerControl2.SplitterPosition = 259
         Me.SplitContainerControl2.TabIndex = 0
         Me.SplitContainerControl2.Text = "SplitContainerControl2"
@@ -482,7 +489,7 @@ Partial Class ucSQLScript
         Me.txtScript2.Location = New System.Drawing.Point(0, 0)
         Me.txtScript2.MenuManager = Me.BarManager1
         Me.txtScript2.Name = "txtScript2"
-        Me.txtScript2.Size = New System.Drawing.Size(585, 259)
+        Me.txtScript2.Size = New System.Drawing.Size(795, 259)
         Me.txtScript2.TabIndex = 1
         '
         'XtraTabControl2
@@ -491,7 +498,7 @@ Partial Class ucSQLScript
         Me.XtraTabControl2.Location = New System.Drawing.Point(0, 0)
         Me.XtraTabControl2.Name = "XtraTabControl2"
         Me.XtraTabControl2.SelectedTabPage = Me.XtraTabPage3
-        Me.XtraTabControl2.Size = New System.Drawing.Size(585, 283)
+        Me.XtraTabControl2.Size = New System.Drawing.Size(795, 283)
         Me.XtraTabControl2.TabIndex = 0
         Me.XtraTabControl2.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage3, Me.XtraTabPage4})
         '
@@ -499,7 +506,7 @@ Partial Class ucSQLScript
         '
         Me.XtraTabPage3.Controls.Add(Me.dgvView2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
-        Me.XtraTabPage3.Size = New System.Drawing.Size(579, 255)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(789, 255)
         Me.XtraTabPage3.Text = "Results"
         '
         'dgvView2
@@ -509,7 +516,7 @@ Partial Class ucSQLScript
         Me.dgvView2.MainView = Me.GridView2
         Me.dgvView2.MenuManager = Me.BarManager1
         Me.dgvView2.Name = "dgvView2"
-        Me.dgvView2.Size = New System.Drawing.Size(579, 255)
+        Me.dgvView2.Size = New System.Drawing.Size(789, 255)
         Me.dgvView2.TabIndex = 1
         Me.dgvView2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -565,7 +572,7 @@ Partial Class ucSQLScript
         Me.DockPanel4_Container.Controls.Add(Me.SplitContainerControl3)
         Me.DockPanel4_Container.Location = New System.Drawing.Point(0, 0)
         Me.DockPanel4_Container.Name = "DockPanel4_Container"
-        Me.DockPanel4_Container.Size = New System.Drawing.Size(585, 547)
+        Me.DockPanel4_Container.Size = New System.Drawing.Size(795, 547)
         Me.DockPanel4_Container.TabIndex = 0
         '
         'SplitContainerControl3
@@ -579,7 +586,7 @@ Partial Class ucSQLScript
         Me.SplitContainerControl3.Panel1.Text = "Panel1"
         Me.SplitContainerControl3.Panel2.Controls.Add(Me.XtraTabControl3)
         Me.SplitContainerControl3.Panel2.Text = "Panel2"
-        Me.SplitContainerControl3.Size = New System.Drawing.Size(585, 547)
+        Me.SplitContainerControl3.Size = New System.Drawing.Size(795, 547)
         Me.SplitContainerControl3.SplitterPosition = 241
         Me.SplitContainerControl3.TabIndex = 0
         Me.SplitContainerControl3.Text = "SplitContainerControl3"
@@ -590,7 +597,7 @@ Partial Class ucSQLScript
         Me.txtScript3.Location = New System.Drawing.Point(0, 0)
         Me.txtScript3.MenuManager = Me.BarManager1
         Me.txtScript3.Name = "txtScript3"
-        Me.txtScript3.Size = New System.Drawing.Size(585, 241)
+        Me.txtScript3.Size = New System.Drawing.Size(795, 241)
         Me.txtScript3.TabIndex = 0
         '
         'XtraTabControl3
@@ -599,7 +606,7 @@ Partial Class ucSQLScript
         Me.XtraTabControl3.Location = New System.Drawing.Point(0, 0)
         Me.XtraTabControl3.Name = "XtraTabControl3"
         Me.XtraTabControl3.SelectedTabPage = Me.XtraTabPage5
-        Me.XtraTabControl3.Size = New System.Drawing.Size(585, 301)
+        Me.XtraTabControl3.Size = New System.Drawing.Size(795, 301)
         Me.XtraTabControl3.TabIndex = 0
         Me.XtraTabControl3.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage5, Me.XtraTabPage6})
         '
@@ -607,7 +614,7 @@ Partial Class ucSQLScript
         '
         Me.XtraTabPage5.Controls.Add(Me.dgvView3)
         Me.XtraTabPage5.Name = "XtraTabPage5"
-        Me.XtraTabPage5.Size = New System.Drawing.Size(579, 273)
+        Me.XtraTabPage5.Size = New System.Drawing.Size(789, 273)
         Me.XtraTabPage5.Text = "Results"
         '
         'dgvView3
@@ -617,7 +624,7 @@ Partial Class ucSQLScript
         Me.dgvView3.MainView = Me.GridView3
         Me.dgvView3.MenuManager = Me.BarManager1
         Me.dgvView3.Name = "dgvView3"
-        Me.dgvView3.Size = New System.Drawing.Size(579, 273)
+        Me.dgvView3.Size = New System.Drawing.Size(789, 273)
         Me.dgvView3.TabIndex = 0
         Me.dgvView3.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView3})
         '
@@ -646,6 +653,14 @@ Partial Class ucSQLScript
         Me.txtErrorLog3.Name = "txtErrorLog3"
         Me.txtErrorLog3.Size = New System.Drawing.Size(0, 0)
         Me.txtErrorLog3.TabIndex = 1
+        '
+        'btnRefresh
+        '
+        Me.btnRefresh.Caption = "Refresh"
+        Me.btnRefresh.Glyph = CType(resources.GetObject("btnRefresh.Glyph"), System.Drawing.Image)
+        Me.btnRefresh.Id = 13
+        Me.btnRefresh.LargeGlyph = CType(resources.GetObject("btnRefresh.LargeGlyph"), System.Drawing.Image)
+        Me.btnRefresh.Name = "btnRefresh"
         '
         'RepositoryItemTextEdit1
         '
@@ -679,7 +694,7 @@ Partial Class ucSQLScript
         '
         Me.Document1.Caption = "Script 1"
         Me.Document1.ControlName = "docScript1"
-        Me.Document1.FloatLocation = New System.Drawing.Point(258, 155)
+        Me.Document1.FloatLocation = New System.Drawing.Point(263, 154)
         Me.Document1.FloatSize = New System.Drawing.Size(200, 200)
         Me.Document1.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.[False]
         Me.Document1.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.[True]
@@ -705,11 +720,14 @@ Partial Class ucSQLScript
         Me.Document3.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.[True]
         Me.Document3.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.[False]
         '
-        'DELETEToolStripMenuItem
+        'btnRefresh1
         '
-        Me.DELETEToolStripMenuItem.Name = "DELETEToolStripMenuItem"
-        Me.DELETEToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.DELETEToolStripMenuItem.Text = "DELETE"
+        Me.btnRefresh1.Caption = "Refresh"
+        Me.btnRefresh1.Glyph = CType(resources.GetObject("btnRefresh1.Glyph"), System.Drawing.Image)
+        Me.btnRefresh1.Id = 14
+        Me.btnRefresh1.LargeGlyph = CType(resources.GetObject("btnRefresh1.LargeGlyph"), System.Drawing.Image)
+        Me.btnRefresh1.Name = "btnRefresh1"
+        Me.btnRefresh1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'ucSQLScript
         '
@@ -780,7 +798,6 @@ Partial Class ucSQLScript
     End Sub
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
     Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
-    Friend WithEvents btnNew As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
@@ -829,7 +846,6 @@ Partial Class ucSQLScript
     Friend WithEvents XtraTabPage6 As DevExpress.XtraTab.XtraTabPage
     Friend WithEvents txtErrorLog3 As DevExpress.XtraEditors.MemoEdit
     Friend WithEvents Document3 As DevExpress.XtraBars.Docking2010.Views.Tabbed.Document
-    Friend WithEvents Document1 As DevExpress.XtraBars.Docking2010.Views.Tabbed.Document
     Friend WithEvents DtDatabaseColumnListBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsDefault As EasyTemplate_Taxcom.dsDefault
     Friend WithEvents colTABLE_SCHEMA As DevExpress.XtraTreeList.Columns.TreeListColumn
@@ -838,5 +854,9 @@ Partial Class ucSQLScript
     Friend WithEvents SELECTToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents UPDATEToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DELETEToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Document1 As DevExpress.XtraBars.Docking2010.Views.Tabbed.Document
+    Friend WithEvents pnlLoading As DevExpress.XtraWaitForm.ProgressPanel
+    Friend WithEvents btnRefresh As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnRefresh1 As DevExpress.XtraBars.BarButtonItem
 
 End Class
