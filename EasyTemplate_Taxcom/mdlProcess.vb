@@ -7006,6 +7006,119 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_SQLCmd(ByVal SQLCmd As SqlCommand, ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+
+            SQLCmd.Connection = SqlCon
+
+            Return ADO.GetSQLDataTable(SQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function Run_SQLCmd(ByVal SQLCmd As SqlCommand, ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+
+            SQLCmd.Connection = SQLCon
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLCmd, SQLCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+    Public Function GetListofTable(ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        Try
+            ADO = New SQLDataObject()
+            Dim SQLcmd As SqlCommand
+
+            Dim StrSQL As String = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.CommandTimeout = 0
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SQLCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                Return dt
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            If ErrorLog IsNot Nothing Then
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = ex.GetHashCode.ToString
+                    .ErrorDateTime = Now
+                    .ErrorMessage = ex.Message
+                End With
+            End If
+
+            Return Nothing
+        End Try
+    End Function
+    Public Function GetListofColumn(ByVal TableName As String, ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        Try
+            ADO = New SQLDataObject()
+            Dim SQLcmd As SqlCommand
+
+            Dim StrSQL As String = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS " 'WHERE TABLE_NAME = N'" & TableName & "'"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.CommandTimeout = 0
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SQLCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                Return dt
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            If ErrorLog IsNot Nothing Then
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = ex.GetHashCode.ToString
+                    .ErrorDateTime = Now
+                    .ErrorMessage = ex.Message
+                End With
+            End If
+
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_rptLampiranA1_AiNonTaxableIncome(ByVal DetailsName As String, ByVal PL_KEY As Integer, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -7647,6 +7760,38 @@ tryagain:
             Return Nothing
         End Try
     End Function
+
+    Public Function Load_DatabaseList(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM master.dbo.sysdatabases"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+
+
+
 #End Region
 #Region "CP204"
     Public Function Load_CP204_BreakDown_ByParentID(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable

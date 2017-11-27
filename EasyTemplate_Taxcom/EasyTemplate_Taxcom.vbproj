@@ -794,6 +794,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SQLDataObject.vb" />
+    <Compile Include="ucSQLScript.Designer.vb">
+      <DependentUpon>ucSQLScript.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ucSQLScript.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <EmbeddedResource Include="CA\frmCA_Add3.resx">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
     </EmbeddedResource>
@@ -1071,6 +1077,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\frmDatabase.resx">
       <DependentUpon>frmDatabase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucSQLScript.resx">
+      <DependentUpon>ucSQLScript.vb</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
