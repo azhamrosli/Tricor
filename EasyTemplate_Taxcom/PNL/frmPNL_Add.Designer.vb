@@ -241,12 +241,14 @@ Partial Class frmPNL_Add
         Me.BarButtonItem5 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarSubItem2 = New DevExpress.XtraBars.BarSubItem()
         Me.BarSubItem3 = New DevExpress.XtraBars.BarSubItem()
+        Me.btnErrorLog = New DevExpress.XtraBars.BarButtonItem()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup4 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPage2 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup2 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
+        Me.RibbonPageGroup6 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup5 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RepositoryItemRadioGroup1 = New DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup()
         Me.RepositoryItemProgressBar1 = New DevExpress.XtraEditors.Repository.RepositoryItemProgressBar()
@@ -2370,9 +2372,9 @@ Partial Class frmPNL_Add
         Me.LabelControl60.Location = New System.Drawing.Point(7, 357)
         Me.LabelControl60.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl60.Name = "LabelControl60"
-        Me.LabelControl60.Size = New System.Drawing.Size(112, 13)
+        Me.LabelControl60.Size = New System.Drawing.Size(118, 13)
         Me.LabelControl60.TabIndex = 48
-        Me.LabelControl60.Text = "Other (Balacing Figure)"
+        Me.LabelControl60.Text = "Other (Balancing Figure)"
         '
         'txt_p4Other
         '
@@ -2755,9 +2757,9 @@ Partial Class frmPNL_Add
         '
         Me.RibbonControl1.AllowMinimizeRibbon = False
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
-        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5})
+        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.MaxItemId = 16
+        Me.RibbonControl1.MaxItemId = 17
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7})
@@ -2824,7 +2826,7 @@ Partial Class frmPNL_Add
         '
         Me.RepositoryItemComboBox1.AutoHeight = False
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemComboBox1.Items.AddRange(New Object() {"New", "Finished", "Ammen Require", "Bookmarks", "Unfinished"})
+        Me.RepositoryItemComboBox1.Items.AddRange(New Object() {"New", "Finished", "Amended Require", "Bookmarks", "Unfinished"})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
         Me.RepositoryItemComboBox1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         '
@@ -3018,7 +3020,7 @@ Partial Class frmPNL_Add
         '
         'txtBalacingFigure
         '
-        Me.txtBalacingFigure.Caption = "Balacing Figure : "
+        Me.txtBalacingFigure.Caption = "Balancing Figure : "
         Me.txtBalacingFigure.Edit = Me.RepositoryItemTextEdit7
         Me.txtBalacingFigure.Id = 3
         Me.txtBalacingFigure.Name = "txtBalacingFigure"
@@ -3088,6 +3090,14 @@ Partial Class frmPNL_Add
         Me.BarSubItem3.Id = 11
         Me.BarSubItem3.Name = "BarSubItem3"
         '
+        'btnErrorLog
+        '
+        Me.btnErrorLog.Caption = "Error Log"
+        Me.btnErrorLog.Glyph = CType(resources.GetObject("btnErrorLog.Glyph"), System.Drawing.Image)
+        Me.btnErrorLog.Id = 16
+        Me.btnErrorLog.LargeGlyph = CType(resources.GetObject("btnErrorLog.LargeGlyph"), System.Drawing.Image)
+        Me.btnErrorLog.Name = "btnErrorLog"
+        '
         'RibbonPage1
         '
         Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup1, Me.RibbonPageGroup3, Me.RibbonPageGroup4})
@@ -3124,7 +3134,7 @@ Partial Class frmPNL_Add
         '
         'RibbonPage2
         '
-        Me.RibbonPage2.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup2, Me.RibbonPageGroup5})
+        Me.RibbonPage2.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup2, Me.RibbonPageGroup6, Me.RibbonPageGroup5})
         Me.RibbonPage2.Name = "RibbonPage2"
         Me.RibbonPage2.Text = "Advance"
         '
@@ -3136,6 +3146,12 @@ Partial Class frmPNL_Add
         Me.RibbonPageGroup2.ItemLinks.Add(Me.cboPNLStatus)
         Me.RibbonPageGroup2.Name = "RibbonPageGroup2"
         Me.RibbonPageGroup2.Text = "Advance"
+        '
+        'RibbonPageGroup6
+        '
+        Me.RibbonPageGroup6.ItemLinks.Add(Me.btnErrorLog)
+        Me.RibbonPageGroup6.Name = "RibbonPageGroup6"
+        Me.RibbonPageGroup6.Text = "Other"
         '
         'RibbonPageGroup5
         '
@@ -3524,4 +3540,6 @@ Partial Class frmPNL_Add
     Friend WithEvents hideContainerRight As DevExpress.XtraBars.Docking.AutoHideContainer
     Friend WithEvents pnlDocExport As DevExpress.XtraBars.Docking.DockPanel
     Friend WithEvents ControlContainer1 As DevExpress.XtraBars.Docking.ControlContainer
+    Friend WithEvents btnErrorLog As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents RibbonPageGroup6 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
 End Class

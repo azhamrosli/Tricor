@@ -1262,7 +1262,7 @@ Module mdlCA
                             'Dim dtCADisposalBABCHP As New DataTable
                             drCADisposalBABCHP = GetDTCADisposalBABCHP(strkey_array, I)
                             If drCADisposalBABCHP IsNot Nothing AndAlso drCADisposalBABCHP.Rows.Count > 0 Then
-                                For Each dtRowDispBABCHP As DataRow In drCADisposalBABCNonHP.Rows
+                                For Each dtRowDispBABCHP As DataRow In drCADisposalBABCHP.Rows
                                     If CDbl(dtRowDispBABCHP("CA_BABC").ToString) < 0 Then
                                         dblUCABal_Allow = CDbl(dblUCABal_Allow) + CDbl(dtRowDispBABCHP("CA_BABC").ToString)
                                     Else

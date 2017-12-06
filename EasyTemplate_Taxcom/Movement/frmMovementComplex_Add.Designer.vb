@@ -369,7 +369,7 @@ Partial Class frmMovementComplex_Add
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainerControl1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 269)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 221)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.PanelControl3)
@@ -377,7 +377,7 @@ Partial Class frmMovementComplex_Add
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.GridControl2)
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.PanelControl4)
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(933, 339)
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(933, 450)
         Me.SplitContainerControl1.SplitterPosition = 162
         Me.SplitContainerControl1.TabIndex = 232
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
@@ -564,7 +564,7 @@ Partial Class frmMovementComplex_Add
         Me.GridControl2.MenuManager = Me.BarManager1
         Me.GridControl2.Name = "GridControl2"
         Me.GridControl2.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemMemoEdit1, Me.RepositoryItemTextEdit3, Me.RepositoryItemCheckEdit1})
-        Me.GridControl2.Size = New System.Drawing.Size(933, 149)
+        Me.GridControl2.Size = New System.Drawing.Size(933, 260)
         Me.GridControl2.TabIndex = 11
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -738,9 +738,9 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl2.Controls.Add(Me.txtAmountSpecificAllow_End)
         Me.PanelControl2.Controls.Add(Me.LabelControl16)
         Me.PanelControl2.Controls.Add(Me.txtAmountGeneral_End)
-        Me.PanelControl2.Location = New System.Drawing.Point(12, 644)
+        Me.PanelControl2.Location = New System.Drawing.Point(12, 696)
         Me.PanelControl2.Name = "PanelControl2"
-        Me.PanelControl2.Size = New System.Drawing.Size(933, 98)
+        Me.PanelControl2.Size = New System.Drawing.Size(933, 46)
         Me.PanelControl2.TabIndex = 231
         '
         'LabelControl14
@@ -753,7 +753,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtAmountSpecificNonAllow_End
         '
-        Me.txtAmountSpecificNonAllow_End.Location = New System.Drawing.Point(215, 68)
+        Me.txtAmountSpecificNonAllow_End.Location = New System.Drawing.Point(757, 16)
         Me.txtAmountSpecificNonAllow_End.MenuManager = Me.BarManager1
         Me.txtAmountSpecificNonAllow_End.Name = "txtAmountSpecificNonAllow_End"
         Me.txtAmountSpecificNonAllow_End.Properties.DisplayFormat.FormatString = "n0"
@@ -771,7 +771,7 @@ Partial Class frmMovementComplex_Add
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(5, 45)
+        Me.LabelControl15.Location = New System.Drawing.Point(271, 19)
         Me.LabelControl15.Name = "LabelControl15"
         Me.LabelControl15.Size = New System.Drawing.Size(105, 13)
         Me.LabelControl15.TabIndex = 182
@@ -779,7 +779,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtAmountSpecificAllow_End
         '
-        Me.txtAmountSpecificAllow_End.Location = New System.Drawing.Point(215, 42)
+        Me.txtAmountSpecificAllow_End.Location = New System.Drawing.Point(401, 16)
         Me.txtAmountSpecificAllow_End.MenuManager = Me.BarManager1
         Me.txtAmountSpecificAllow_End.Name = "txtAmountSpecificAllow_End"
         Me.txtAmountSpecificAllow_End.Properties.DisplayFormat.FormatString = "n0"
@@ -797,7 +797,7 @@ Partial Class frmMovementComplex_Add
         '
         'LabelControl16
         '
-        Me.LabelControl16.Location = New System.Drawing.Point(5, 71)
+        Me.LabelControl16.Location = New System.Drawing.Point(604, 19)
         Me.LabelControl16.Name = "LabelControl16"
         Me.LabelControl16.Size = New System.Drawing.Size(134, 13)
         Me.LabelControl16.TabIndex = 183
@@ -805,7 +805,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtAmountGeneral_End
         '
-        Me.txtAmountGeneral_End.Location = New System.Drawing.Point(215, 16)
+        Me.txtAmountGeneral_End.Location = New System.Drawing.Point(84, 16)
         Me.txtAmountGeneral_End.MenuManager = Me.BarManager1
         Me.txtAmountGeneral_End.Name = "txtAmountGeneral_End"
         Me.txtAmountGeneral_End.Properties.DisplayFormat.FormatString = "n0"
@@ -824,7 +824,7 @@ Partial Class frmMovementComplex_Add
         'txtNoteEnd
         '
         Me.txtNoteEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteEnd.Location = New System.Drawing.Point(796, 614)
+        Me.txtNoteEnd.Location = New System.Drawing.Point(796, 670)
         Me.txtNoteEnd.MenuManager = Me.BarManager1
         Me.txtNoteEnd.Name = "txtNoteEnd"
         Me.txtNoteEnd.Size = New System.Drawing.Size(149, 20)
@@ -833,7 +833,7 @@ Partial Class frmMovementComplex_Add
         'LabelControl17
         '
         Me.LabelControl17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl17.Location = New System.Drawing.Point(746, 617)
+        Me.LabelControl17.Location = New System.Drawing.Point(746, 673)
         Me.LabelControl17.Name = "LabelControl17"
         Me.LabelControl17.Size = New System.Drawing.Size(30, 13)
         Me.LabelControl17.TabIndex = 230
@@ -843,7 +843,7 @@ Partial Class frmMovementComplex_Add
         '
         Me.dtBalanceEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtBalanceEnd.EditValue = Nothing
-        Me.dtBalanceEnd.Location = New System.Drawing.Point(96, 618)
+        Me.dtBalanceEnd.Location = New System.Drawing.Point(96, 674)
         Me.dtBalanceEnd.MenuManager = Me.BarManager1
         Me.dtBalanceEnd.Name = "dtBalanceEnd"
         Me.dtBalanceEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -854,7 +854,7 @@ Partial Class frmMovementComplex_Add
         'LabelControl18
         '
         Me.LabelControl18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl18.Location = New System.Drawing.Point(12, 621)
+        Me.LabelControl18.Location = New System.Drawing.Point(12, 677)
         Me.LabelControl18.Name = "LabelControl18"
         Me.LabelControl18.Size = New System.Drawing.Size(71, 13)
         Me.LabelControl18.TabIndex = 228
@@ -881,7 +881,7 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl1.Controls.Add(Me.txtAmountGeneral)
         Me.PanelControl1.Location = New System.Drawing.Point(12, 165)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(933, 98)
+        Me.PanelControl1.Size = New System.Drawing.Size(933, 50)
         Me.PanelControl1.TabIndex = 221
         '
         'LabelControl5
@@ -894,7 +894,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtAmountSpecificNonAllow
         '
-        Me.txtAmountSpecificNonAllow.Location = New System.Drawing.Point(215, 68)
+        Me.txtAmountSpecificNonAllow.Location = New System.Drawing.Point(757, 16)
         Me.txtAmountSpecificNonAllow.MenuManager = Me.BarManager1
         Me.txtAmountSpecificNonAllow.Name = "txtAmountSpecificNonAllow"
         Me.txtAmountSpecificNonAllow.Properties.DisplayFormat.FormatString = "n0"
@@ -911,7 +911,7 @@ Partial Class frmMovementComplex_Add
         '
         'LabelControl6
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(5, 45)
+        Me.LabelControl6.Location = New System.Drawing.Point(271, 19)
         Me.LabelControl6.Name = "LabelControl6"
         Me.LabelControl6.Size = New System.Drawing.Size(105, 13)
         Me.LabelControl6.TabIndex = 182
@@ -919,7 +919,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtAmountSpecificAllow
         '
-        Me.txtAmountSpecificAllow.Location = New System.Drawing.Point(215, 42)
+        Me.txtAmountSpecificAllow.Location = New System.Drawing.Point(401, 16)
         Me.txtAmountSpecificAllow.MenuManager = Me.BarManager1
         Me.txtAmountSpecificAllow.Name = "txtAmountSpecificAllow"
         Me.txtAmountSpecificAllow.Properties.DisplayFormat.FormatString = "n0"
@@ -936,7 +936,7 @@ Partial Class frmMovementComplex_Add
         '
         'LabelControl7
         '
-        Me.LabelControl7.Location = New System.Drawing.Point(5, 71)
+        Me.LabelControl7.Location = New System.Drawing.Point(604, 19)
         Me.LabelControl7.Name = "LabelControl7"
         Me.LabelControl7.Size = New System.Drawing.Size(134, 13)
         Me.LabelControl7.TabIndex = 183
@@ -944,7 +944,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtAmountGeneral
         '
-        Me.txtAmountGeneral.Location = New System.Drawing.Point(215, 16)
+        Me.txtAmountGeneral.Location = New System.Drawing.Point(84, 16)
         Me.txtAmountGeneral.MenuManager = Me.BarManager1
         Me.txtAmountGeneral.Name = "txtAmountGeneral"
         Me.txtAmountGeneral.Properties.DisplayFormat.FormatString = "n0"
@@ -1113,6 +1113,7 @@ Partial Class frmMovementComplex_Add
         Me.Name = "frmMovementComplex_Add"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Movement Complex Add"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()

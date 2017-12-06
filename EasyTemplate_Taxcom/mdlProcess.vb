@@ -12,13 +12,13 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 0
+    Public V3 As Integer = 2
     Public V4 As Integer = 0
-    Public R1 As Integer = 0
-    Public ArgParam0 As String = "frmca" 'Form Name
+    Public R1 As Integer = 5
+    Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "1105584103" '"1054242304" 'RefNo
-    Public ArgParam3 As String = "2008" 'YA"
+    Public ArgParam2 As String = "2055655605" '"1054242304" 'RefNo
+    Public ArgParam3 As String = "2017" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
     Public ListofClsError As List(Of clsError) = Nothing
     Public dsDataSetErrorlog As DataSet
@@ -859,6 +859,7 @@ Module mdlProcess
                 dtRow("FileNo") = IIf(IsDBNull(dt.Rows(i)("TP_TAX_FILE_NO")), "", dt.Rows(i)("TP_TAX_FILE_NO"))
                 dtRow("Country") = IIf(IsDBNull(dt.Rows(i)("TP_COUNTRY")), "", dt.Rows(i)("TP_COUNTRY"))
                 dtRow("CompanyCode") = IIf(IsDBNull(dt.Rows(i)("TP_FILE_NO")), "C", dt.Rows(i)("TP_FILE_NO"))
+                dtRow("HandleBy") = IIf(IsDBNull(dt.Rows(i)("HandleBy")), "", dt.Rows(i)("HandleBy"))
                 DataSet.Tables("TaxPayerFind").Rows.Add(dtRow)
             Next
 
@@ -1641,6 +1642,9 @@ tryagain:
                 Case 4
                     StrSQL += " and ca_category_code like @search order by ca_category_code, ca_ya asc"
                     SQLcmd.Parameters.Add("@search", SqlDbType.NVarChar, 20).Value = "%" & FilterValue & "%"
+                Case 6
+                    StrSQL += " and ca_key=@search order by ca_category_code, ca_ya asc"
+                    SQLcmd.Parameters.Add("@search", SqlDbType.Int).Value = FilterValue
             End Select
             SQLcmd.CommandText = StrSQL
 
@@ -7790,7 +7794,35 @@ tryagain:
         End Try
     End Function
 
+    Public Function Load_UserNote(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM USER_NOTE WHERE PCName=@PCName"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PCName", SqlDbType.NVarChar, 250).Value = My.Computer.Name
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
 
 #End Region
 #Region "CP204"
@@ -11160,7 +11192,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE,RowIndex) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,EXOAD_TYPE,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE,RowIndex) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,@EXOAD_TYPE,@RowIndex)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOAD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12982,6 +13014,42 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
 #End Region
 #Region "OTHER"
+
+    Public Function Save_UserNote(ByVal Name As String, ByVal Note As String, _
+                                  ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO USER_NOTE (PCName,Name,Datetime,Note) VALUES (@PCName,@Name,@Datetime,@Note)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PCName", SqlDbType.NVarChar, 250).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@Name", SqlDbType.NVarChar, 3).Value = Name
+            SQLcmd.Parameters.Add("@Datetime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@Note", SqlDbType.NVarChar, 4000).Value = Note
+
+            Return ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
     Public Function Save_DeemedInterest_Rate(ByVal YA As Integer, _
                                              ByVal Jan As Decimal, ByVal Feb As Decimal, ByVal Mac As Decimal, ByVal Apr As Decimal, _
                                              ByVal May As Decimal, ByVal Jun As Decimal, ByVal Jul As Decimal, ByVal Aug As Decimal, _
@@ -14078,6 +14146,43 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
     End Function
 #End Region
 #Region "OTHER"
+
+    Public Function Update_UserNote(ByVal Name As String, ByVal Note As String, _
+                                  ByVal ID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "UPDATE USER_NOTE SET PCName=@PCName,Name=@Name,Datetime=@Datetime,Note=@Note WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.Decimal).Value = ID
+            SQLcmd.Parameters.Add("@PCName", SqlDbType.NVarChar, 250).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@Name", SqlDbType.NVarChar, 3).Value = Name
+            SQLcmd.Parameters.Add("@Datetime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@Note", SqlDbType.NVarChar, 4000).Value = Note
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
     Public Function Update_DeemedInterest_Rate(ByVal YA As Integer, _
                                             ByVal Jan As Decimal, ByVal Feb As Decimal, ByVal Mac As Decimal, ByVal Apr As Decimal, _
                                             ByVal May As Decimal, ByVal Jun As Decimal, ByVal Jul As Decimal, ByVal Aug As Decimal, _
@@ -14443,17 +14548,25 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For i As Integer = 0 To ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count - 1
                     SQLcmd = Nothing
                     StrSQL = "INSERT INTO BORANG_CP204_TRICOR_BREAKDOWN (CP_PARENTID,CP_INSTALL_NO,CP_PAYMENT_DUE,CP_INSTALLMENT_AMOUNT,CP_PAYMENT_DATE_1,CP_AMOUNT_PAID_1,CP_PAYMENT_DATE_2,CP_AMOUNT_PAID_2,CP_PENALTY,CP_NOTE_TITLE,CP_NOTE) VALUES (@CP_PARENTID,@CP_INSTALL_NO,@CP_PAYMENT_DUE,@CP_INSTALLMENT_AMOUNT,@CP_PAYMENT_DATE_1,@CP_AMOUNT_PAID_1,@CP_PAYMENT_DATE_2,@CP_AMOUNT_PAID_2,@CP_PENALTY,@CP_NOTE_TITLE,@CP_NOTE)"
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = StrSQL
-                    SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
-                    SQLcmd.Parameters.Add("@CP_INSTALL_NO", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_INSTALL_NO")
-                    SQLcmd.Parameters.Add("@CP_PAYMENT_DUE", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PAYMENT_DUE")
-                    SQLcmd.Parameters.Add("@CP_INSTALLMENT_AMOUNT", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_INSTALLMENT_AMOUNT")
-                    SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_1", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PAYMENT_DATE_1")
-                    SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_1", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_AMOUNT_PAID_1")
-                    SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_2", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PAYMENT_DATE_2")
-                    SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_2", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_AMOUNT_PAID_2")
-                    SQLcmd.Parameters.Add("@CP_PENALTY", SqlDbType.Int).Value = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(0)("CP_PENALTY")
+
+                    With ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")
+
+                        SQLcmd = New SqlCommand
+                        SQLcmd.CommandText = StrSQL
+                        SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
+                        SQLcmd.Parameters.Add("@CP_INSTALL_NO", SqlDbType.Int).Value = IIf(IsDBNull(.Rows(0)("CP_INSTALL_NO")), i, .Rows(0)("CP_INSTALL_NO"))
+                        SQLcmd.Parameters.Add("@CP_PAYMENT_DUE", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DUE")), DBNull.Value, .Rows(0)("CP_PAYMENT_DUE"))
+                        SQLcmd.Parameters.Add("@CP_INSTALLMENT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_INSTALLMENT_AMOUNT")), DBNull.Value, .Rows(0)("CP_INSTALLMENT_AMOUNT"))
+                        SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_1", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DATE_1")), DBNull.Value, .Rows(0)("CP_PAYMENT_DATE_1"))
+                        SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_1", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_AMOUNT_PAID_1")), DBNull.Value, .Rows(0)("CP_AMOUNT_PAID_1"))
+                        SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_2", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DATE_2")), DBNull.Value, .Rows(0)("CP_PAYMENT_DATE_2"))
+                        SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_2", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_AMOUNT_PAID_2")), DBNull.Value, .Rows(0)("CP_AMOUNT_PAID_2"))
+                        SQLcmd.Parameters.Add("@CP_PENALTY", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_PENALTY")), DBNull.Value, .Rows(0)("CP_PENALTY"))
+                        SQLcmd.Parameters.Add("@CP_NOTE_TITLE", SqlDbType.NVarChar, 100).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE_TITLE")), DBNull.Value, .Rows(0)("CP_NOTE_TITLE"))
+                        SQLcmd.Parameters.Add("@CP_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE")), DBNull.Value, .Rows(0)("CP_NOTE"))
+
+                    End With
+
 
                     ListofSQLcmd.Add(SQLcmd)
                 Next

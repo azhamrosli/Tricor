@@ -59,5 +59,28 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to .
+        '''</summary>
+        Friend ReadOnly Property String1() As String
+            Get
+                Return ResourceManager.GetString("String1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Adding new feature
+        '''1. [My note] - You can add you own note.
+        '''2. [Default connection] - Now you can switch server connection without typing now instance.
+        '''3. [File Compare] - For administartor check difference file between orginal and old.
+        '''4. [Capital Allowance] - Improve user control and searching engine.
+        '''5. [Disposal] - Improve user control and searching engine..
+        '''</summary>
+        Friend ReadOnly Property UpdateNo() As String
+            Get
+                Return ResourceManager.GetString("UpdateNo", resourceCulture)
+            End Get
+        End Property
     End Module
 End Namespace

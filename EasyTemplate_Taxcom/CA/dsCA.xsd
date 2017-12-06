@@ -24,6 +24,7 @@
               <xs:element name="FileNo" msprop:Generator_ColumnVarNameInTable="columnFileNo" msprop:Generator_ColumnPropNameInRow="FileNo" msprop:Generator_ColumnPropNameInTable="FileNoColumn" msprop:Generator_UserColumnName="FileNo" type="xs:string" minOccurs="0" />
               <xs:element name="Country" msprop:Generator_ColumnVarNameInTable="columnCountry" msprop:Generator_ColumnPropNameInRow="Country" msprop:Generator_ColumnPropNameInTable="CountryColumn" msprop:Generator_UserColumnName="Country" type="xs:string" minOccurs="0" />
               <xs:element name="CompanyCode" msprop:Generator_ColumnVarNameInTable="columnCompanyCode" msprop:Generator_ColumnPropNameInRow="CompanyCode" msprop:Generator_ColumnPropNameInTable="CompanyCodeColumn" msprop:Generator_UserColumnName="CompanyCode" type="xs:string" minOccurs="0" />
+              <xs:element name="HandleBy" msprop:Generator_ColumnVarNameInTable="columnHandleBy" msprop:Generator_ColumnPropNameInRow="HandleBy" msprop:Generator_ColumnPropNameInTable="HandleByColumn" msprop:Generator_UserColumnName="HandleBy" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -180,6 +181,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="CA_ISDISPOS" msprop:Generator_ColumnVarNameInTable="columnCA_ISDISPOS" msprop:Generator_ColumnPropNameInRow="CA_ISDISPOS" msprop:Generator_ColumnPropNameInTable="CA_ISDISPOSColumn" msprop:Generator_UserColumnName="CA_ISDISPOS" type="xs:boolean" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

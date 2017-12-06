@@ -20,17 +20,18 @@ Partial Class frmDatabase
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim SuperToolTip9 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem9 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem9 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip10 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem10 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem10 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDatabase))
+        Dim SuperToolTip5 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem5 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem5 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip6 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem6 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem6 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnBackup = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -55,12 +56,20 @@ Partial Class frmDatabase
         Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
         Me.btnViewPass = New DevExpress.XtraEditors.SimpleButton()
         Me.chkSelectAll = New DevExpress.XtraEditors.CheckEdit()
-        Me.btnBackup = New DevExpress.XtraBars.BarButtonItem()
         Me.lblStatus = New DevExpress.XtraEditors.LabelControl()
         Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
         Me.txtIniDir = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
+        Me.btnViewPass2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtPassword2 = New DevExpress.XtraEditors.TextEdit()
+        Me.txtUser2 = New DevExpress.XtraEditors.TextEdit()
+        Me.txtServerName2 = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
+        Me.chkDefault = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkDefault2 = New DevExpress.XtraEditors.CheckEdit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -77,6 +86,11 @@ Partial Class frmDatabase
         CType(Me.chkTAXOFFICE.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.chkSelectAll.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtIniDir.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtPassword2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtUser2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtServerName2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkDefault.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkDefault2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -114,12 +128,12 @@ Partial Class frmDatabase
         Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem9.Text = "Add new record"
-        ToolTipItem9.LeftIndent = 6
-        ToolTipItem9.Text = "Add new record Ctrl + R"
-        SuperToolTip9.Items.Add(ToolTipTitleItem9)
-        SuperToolTip9.Items.Add(ToolTipItem9)
-        Me.btnAdd.SuperTip = SuperToolTip9
+        ToolTipTitleItem5.Text = "Add new record"
+        ToolTipItem5.LeftIndent = 6
+        ToolTipItem5.Text = "Add new record Ctrl + R"
+        SuperToolTip5.Items.Add(ToolTipTitleItem5)
+        SuperToolTip5.Items.Add(ToolTipItem5)
+        Me.btnAdd.SuperTip = SuperToolTip5
         '
         'btnDelete
         '
@@ -130,26 +144,35 @@ Partial Class frmDatabase
         Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem10.Text = "Delete record"
-        ToolTipItem10.LeftIndent = 6
-        ToolTipItem10.Text = "Delete record Ctrl + Y"
-        SuperToolTip10.Items.Add(ToolTipTitleItem10)
-        SuperToolTip10.Items.Add(ToolTipItem10)
-        Me.btnDelete.SuperTip = SuperToolTip10
+        ToolTipTitleItem6.Text = "Delete record"
+        ToolTipItem6.LeftIndent = 6
+        ToolTipItem6.Text = "Delete record Ctrl + Y"
+        SuperToolTip6.Items.Add(ToolTipTitleItem6)
+        SuperToolTip6.Items.Add(ToolTipItem6)
+        Me.btnDelete.SuperTip = SuperToolTip6
+        '
+        'btnBackup
+        '
+        Me.btnBackup.Caption = "Backup Database"
+        Me.btnBackup.Glyph = CType(resources.GetObject("btnBackup.Glyph"), System.Drawing.Image)
+        Me.btnBackup.Id = 11
+        Me.btnBackup.LargeGlyph = CType(resources.GetObject("btnBackup.LargeGlyph"), System.Drawing.Image)
+        Me.btnBackup.Name = "btnBackup"
+        Me.btnBackup.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(430, 31)
+        Me.barDockControlTop.Size = New System.Drawing.Size(864, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 447)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(430, 0)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(864, 0)
         '
         'barDockControlLeft
         '
@@ -162,7 +185,7 @@ Partial Class frmDatabase
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(430, 31)
+        Me.barDockControlRight.Location = New System.Drawing.Point(864, 31)
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 416)
         '
         'RepositoryItemTextEdit1
@@ -180,7 +203,7 @@ Partial Class frmDatabase
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 73)
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 96)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(69, 13)
         Me.LabelControl1.TabIndex = 4
@@ -188,7 +211,7 @@ Partial Class frmDatabase
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(12, 99)
+        Me.LabelControl2.Location = New System.Drawing.Point(12, 122)
         Me.LabelControl2.Name = "LabelControl2"
         Me.LabelControl2.Size = New System.Drawing.Size(59, 13)
         Me.LabelControl2.TabIndex = 5
@@ -196,7 +219,7 @@ Partial Class frmDatabase
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(12, 125)
+        Me.LabelControl3.Location = New System.Drawing.Point(12, 148)
         Me.LabelControl3.Name = "LabelControl3"
         Me.LabelControl3.Size = New System.Drawing.Size(53, 13)
         Me.LabelControl3.TabIndex = 6
@@ -204,7 +227,7 @@ Partial Class frmDatabase
         '
         'txtServerName
         '
-        Me.txtServerName.Location = New System.Drawing.Point(100, 70)
+        Me.txtServerName.Location = New System.Drawing.Point(100, 93)
         Me.txtServerName.MenuManager = Me.BarManager1
         Me.txtServerName.Name = "txtServerName"
         Me.txtServerName.Size = New System.Drawing.Size(314, 20)
@@ -212,7 +235,7 @@ Partial Class frmDatabase
         '
         'txtUser
         '
-        Me.txtUser.Location = New System.Drawing.Point(100, 96)
+        Me.txtUser.Location = New System.Drawing.Point(100, 119)
         Me.txtUser.MenuManager = Me.BarManager1
         Me.txtUser.Name = "txtUser"
         Me.txtUser.Size = New System.Drawing.Size(314, 20)
@@ -220,7 +243,7 @@ Partial Class frmDatabase
         '
         'txtPassword
         '
-        Me.txtPassword.Location = New System.Drawing.Point(100, 122)
+        Me.txtPassword.Location = New System.Drawing.Point(100, 145)
         Me.txtPassword.MenuManager = Me.BarManager1
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.Properties.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
@@ -229,7 +252,7 @@ Partial Class frmDatabase
         '
         'chkTAX_CA_B
         '
-        Me.chkTAX_CA_B.Location = New System.Drawing.Point(12, 201)
+        Me.chkTAX_CA_B.Location = New System.Drawing.Point(12, 249)
         Me.chkTAX_CA_B.MenuManager = Me.BarManager1
         Me.chkTAX_CA_B.Name = "chkTAX_CA_B"
         Me.chkTAX_CA_B.Properties.Caption = "TAX_CA_B"
@@ -238,7 +261,7 @@ Partial Class frmDatabase
         '
         'chkTAX_CA_C
         '
-        Me.chkTAX_CA_C.Location = New System.Drawing.Point(12, 226)
+        Me.chkTAX_CA_C.Location = New System.Drawing.Point(12, 274)
         Me.chkTAX_CA_C.MenuManager = Me.BarManager1
         Me.chkTAX_CA_C.Name = "chkTAX_CA_C"
         Me.chkTAX_CA_C.Properties.Caption = "TAX_CA_C"
@@ -247,7 +270,7 @@ Partial Class frmDatabase
         '
         'chkTAX_CA_P
         '
-        Me.chkTAX_CA_P.Location = New System.Drawing.Point(12, 251)
+        Me.chkTAX_CA_P.Location = New System.Drawing.Point(12, 299)
         Me.chkTAX_CA_P.MenuManager = Me.BarManager1
         Me.chkTAX_CA_P.Name = "chkTAX_CA_P"
         Me.chkTAX_CA_P.Properties.Caption = "TAX_CA_P"
@@ -256,7 +279,7 @@ Partial Class frmDatabase
         '
         'chkTAXCOM_B
         '
-        Me.chkTAXCOM_B.Location = New System.Drawing.Point(12, 276)
+        Me.chkTAXCOM_B.Location = New System.Drawing.Point(12, 324)
         Me.chkTAXCOM_B.MenuManager = Me.BarManager1
         Me.chkTAXCOM_B.Name = "chkTAXCOM_B"
         Me.chkTAXCOM_B.Properties.Caption = "TAXCOM_B"
@@ -265,7 +288,7 @@ Partial Class frmDatabase
         '
         'chkTAXCOM_P
         '
-        Me.chkTAXCOM_P.Location = New System.Drawing.Point(12, 301)
+        Me.chkTAXCOM_P.Location = New System.Drawing.Point(100, 249)
         Me.chkTAXCOM_P.MenuManager = Me.BarManager1
         Me.chkTAXCOM_P.Name = "chkTAXCOM_P"
         Me.chkTAXCOM_P.Properties.Caption = "TAXCOM_P"
@@ -274,7 +297,7 @@ Partial Class frmDatabase
         '
         'chkTAXCOM_C
         '
-        Me.chkTAXCOM_C.Location = New System.Drawing.Point(12, 326)
+        Me.chkTAXCOM_C.Location = New System.Drawing.Point(100, 274)
         Me.chkTAXCOM_C.MenuManager = Me.BarManager1
         Me.chkTAXCOM_C.Name = "chkTAXCOM_C"
         Me.chkTAXCOM_C.Properties.Caption = "TAXCOM_C"
@@ -283,7 +306,7 @@ Partial Class frmDatabase
         '
         'chkTAXCOM_R
         '
-        Me.chkTAXCOM_R.Location = New System.Drawing.Point(12, 351)
+        Me.chkTAXCOM_R.Location = New System.Drawing.Point(100, 299)
         Me.chkTAXCOM_R.MenuManager = Me.BarManager1
         Me.chkTAXCOM_R.Name = "chkTAXCOM_R"
         Me.chkTAXCOM_R.Properties.Caption = "TAXCOM_R"
@@ -292,7 +315,7 @@ Partial Class frmDatabase
         '
         'chkTAXOFFICE
         '
-        Me.chkTAXOFFICE.Location = New System.Drawing.Point(12, 376)
+        Me.chkTAXOFFICE.Location = New System.Drawing.Point(100, 324)
         Me.chkTAXOFFICE.MenuManager = Me.BarManager1
         Me.chkTAXOFFICE.Name = "chkTAXOFFICE"
         Me.chkTAXOFFICE.Properties.Caption = "TAXOFFICE"
@@ -302,7 +325,7 @@ Partial Class frmDatabase
         'LabelControl4
         '
         Me.LabelControl4.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl4.Location = New System.Drawing.Point(12, 179)
+        Me.LabelControl4.Location = New System.Drawing.Point(12, 227)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(112, 16)
         Me.LabelControl4.TabIndex = 18
@@ -320,28 +343,19 @@ Partial Class frmDatabase
         'btnViewPass
         '
         Me.btnViewPass.Image = CType(resources.GetObject("btnViewPass.Image"), System.Drawing.Image)
-        Me.btnViewPass.Location = New System.Drawing.Point(384, 120)
+        Me.btnViewPass.Location = New System.Drawing.Point(384, 143)
         Me.btnViewPass.Name = "btnViewPass"
         Me.btnViewPass.Size = New System.Drawing.Size(30, 23)
         Me.btnViewPass.TabIndex = 24
         '
         'chkSelectAll
         '
-        Me.chkSelectAll.Location = New System.Drawing.Point(12, 401)
+        Me.chkSelectAll.Location = New System.Drawing.Point(12, 349)
         Me.chkSelectAll.MenuManager = Me.BarManager1
         Me.chkSelectAll.Name = "chkSelectAll"
         Me.chkSelectAll.Properties.Caption = "Select All"
         Me.chkSelectAll.Size = New System.Drawing.Size(75, 19)
         Me.chkSelectAll.TabIndex = 29
-        '
-        'btnBackup
-        '
-        Me.btnBackup.Caption = "Backup Database"
-        Me.btnBackup.Glyph = CType(resources.GetObject("btnBackup.Glyph"), System.Drawing.Image)
-        Me.btnBackup.Id = 11
-        Me.btnBackup.LargeGlyph = CType(resources.GetObject("btnBackup.LargeGlyph"), System.Drawing.Image)
-        Me.btnBackup.Name = "btnBackup"
-        Me.btnBackup.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'lblStatus
         '
@@ -349,22 +363,22 @@ Partial Class frmDatabase
         Me.lblStatus.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top
         Me.lblStatus.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.lblStatus.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.lblStatus.Location = New System.Drawing.Point(127, 204)
+        Me.lblStatus.Location = New System.Drawing.Point(200, 229)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(287, 216)
+        Me.lblStatus.Size = New System.Drawing.Size(647, 191)
         Me.lblStatus.TabIndex = 30
         '
         'SimpleButton1
         '
         Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(384, 146)
+        Me.SimpleButton1.Location = New System.Drawing.Point(384, 169)
         Me.SimpleButton1.Name = "SimpleButton1"
         Me.SimpleButton1.Size = New System.Drawing.Size(30, 23)
         Me.SimpleButton1.TabIndex = 33
         '
         'txtIniDir
         '
-        Me.txtIniDir.Location = New System.Drawing.Point(100, 148)
+        Me.txtIniDir.Location = New System.Drawing.Point(100, 171)
         Me.txtIniDir.MenuManager = Me.BarManager1
         Me.txtIniDir.Name = "txtIniDir"
         Me.txtIniDir.Size = New System.Drawing.Size(278, 20)
@@ -372,17 +386,102 @@ Partial Class frmDatabase
         '
         'LabelControl6
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(12, 151)
+        Me.LabelControl6.Location = New System.Drawing.Point(12, 174)
         Me.LabelControl6.Name = "LabelControl6"
         Me.LabelControl6.Size = New System.Drawing.Size(84, 13)
         Me.LabelControl6.TabIndex = 31
         Me.LabelControl6.Text = "Active Directory :"
         '
+        'btnViewPass2
+        '
+        Me.btnViewPass2.Image = CType(resources.GetObject("btnViewPass2.Image"), System.Drawing.Image)
+        Me.btnViewPass2.Location = New System.Drawing.Point(817, 143)
+        Me.btnViewPass2.Name = "btnViewPass2"
+        Me.btnViewPass2.Size = New System.Drawing.Size(30, 23)
+        Me.btnViewPass2.TabIndex = 44
+        '
+        'txtPassword2
+        '
+        Me.txtPassword2.Location = New System.Drawing.Point(533, 145)
+        Me.txtPassword2.MenuManager = Me.BarManager1
+        Me.txtPassword2.Name = "txtPassword2"
+        Me.txtPassword2.Properties.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtPassword2.Size = New System.Drawing.Size(278, 20)
+        Me.txtPassword2.TabIndex = 43
+        '
+        'txtUser2
+        '
+        Me.txtUser2.Location = New System.Drawing.Point(533, 119)
+        Me.txtUser2.MenuManager = Me.BarManager1
+        Me.txtUser2.Name = "txtUser2"
+        Me.txtUser2.Size = New System.Drawing.Size(314, 20)
+        Me.txtUser2.TabIndex = 42
+        '
+        'txtServerName2
+        '
+        Me.txtServerName2.Location = New System.Drawing.Point(533, 93)
+        Me.txtServerName2.MenuManager = Me.BarManager1
+        Me.txtServerName2.Name = "txtServerName2"
+        Me.txtServerName2.Size = New System.Drawing.Size(314, 20)
+        Me.txtServerName2.TabIndex = 41
+        '
+        'LabelControl7
+        '
+        Me.LabelControl7.Location = New System.Drawing.Point(445, 148)
+        Me.LabelControl7.Name = "LabelControl7"
+        Me.LabelControl7.Size = New System.Drawing.Size(53, 13)
+        Me.LabelControl7.TabIndex = 40
+        Me.LabelControl7.Text = "Password :"
+        '
+        'LabelControl8
+        '
+        Me.LabelControl8.Location = New System.Drawing.Point(445, 122)
+        Me.LabelControl8.Name = "LabelControl8"
+        Me.LabelControl8.Size = New System.Drawing.Size(59, 13)
+        Me.LabelControl8.TabIndex = 39
+        Me.LabelControl8.Text = "User Name :"
+        '
+        'LabelControl9
+        '
+        Me.LabelControl9.Location = New System.Drawing.Point(445, 96)
+        Me.LabelControl9.Name = "LabelControl9"
+        Me.LabelControl9.Size = New System.Drawing.Size(69, 13)
+        Me.LabelControl9.TabIndex = 38
+        Me.LabelControl9.Text = "Server Name :"
+        '
+        'chkDefault
+        '
+        Me.chkDefault.EditValue = True
+        Me.chkDefault.Location = New System.Drawing.Point(100, 68)
+        Me.chkDefault.MenuManager = Me.BarManager1
+        Me.chkDefault.Name = "chkDefault"
+        Me.chkDefault.Properties.Caption = "This is default connection"
+        Me.chkDefault.Size = New System.Drawing.Size(208, 19)
+        Me.chkDefault.TabIndex = 49
+        '
+        'chkDefault2
+        '
+        Me.chkDefault2.Location = New System.Drawing.Point(533, 68)
+        Me.chkDefault2.MenuManager = Me.BarManager1
+        Me.chkDefault2.Name = "chkDefault2"
+        Me.chkDefault2.Properties.Caption = "This is default connection"
+        Me.chkDefault2.Size = New System.Drawing.Size(208, 19)
+        Me.chkDefault2.TabIndex = 50
+        '
         'frmDatabase
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(430, 447)
+        Me.ClientSize = New System.Drawing.Size(864, 447)
+        Me.Controls.Add(Me.chkDefault2)
+        Me.Controls.Add(Me.chkDefault)
+        Me.Controls.Add(Me.btnViewPass2)
+        Me.Controls.Add(Me.txtPassword2)
+        Me.Controls.Add(Me.txtUser2)
+        Me.Controls.Add(Me.txtServerName2)
+        Me.Controls.Add(Me.LabelControl7)
+        Me.Controls.Add(Me.LabelControl8)
+        Me.Controls.Add(Me.LabelControl9)
         Me.Controls.Add(Me.SimpleButton1)
         Me.Controls.Add(Me.txtIniDir)
         Me.Controls.Add(Me.LabelControl6)
@@ -431,6 +530,11 @@ Partial Class frmDatabase
         CType(Me.chkTAXOFFICE.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.chkSelectAll.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtIniDir.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtPassword2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtUser2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtServerName2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkDefault.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkDefault2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -469,4 +573,13 @@ Partial Class frmDatabase
     Friend WithEvents txtIniDir As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
+    Friend WithEvents btnViewPass2 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents txtPassword2 As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents txtUser2 As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents txtServerName2 As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl8 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents LabelControl9 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents chkDefault2 As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents chkDefault As DevExpress.XtraEditors.CheckEdit
 End Class

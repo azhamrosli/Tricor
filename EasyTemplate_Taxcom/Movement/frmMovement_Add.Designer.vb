@@ -224,32 +224,28 @@ Partial Class frmMovement_Add
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1078, 37)
+        Me.barDockControlTop.Size = New System.Drawing.Size(924, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 847)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1078, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 569)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(924, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 810)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 538)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1078, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 810)
+        Me.barDockControlRight.Location = New System.Drawing.Point(924, 31)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 538)
         '
         'RepositoryItemTextEdit1
         '
@@ -266,112 +262,101 @@ Partial Class frmMovement_Add
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 148)
-        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl1.Location = New System.Drawing.Point(10, 120)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(34, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(27, 13)
         Me.LabelControl1.TabIndex = 4
         Me.LabelControl1.Text = "Title :"
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(462, 52)
-        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl2.Location = New System.Drawing.Point(396, 42)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(84, 16)
+        Me.LabelControl2.Size = New System.Drawing.Size(70, 13)
         Me.LabelControl2.TabIndex = 5
         Me.LabelControl2.Text = "Period Ended :"
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(462, 84)
-        Me.LabelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl3.Location = New System.Drawing.Point(396, 68)
         Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(74, 16)
+        Me.LabelControl3.Size = New System.Drawing.Size(62, 13)
         Me.LabelControl3.TabIndex = 6
         Me.LabelControl3.Text = "Year Ended :"
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(12, 215)
-        Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl4.Location = New System.Drawing.Point(10, 175)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(85, 16)
+        Me.LabelControl4.Size = New System.Drawing.Size(71, 13)
         Me.LabelControl4.TabIndex = 7
         Me.LabelControl4.Text = "Balance as at :"
         '
         'LabelControl5
         '
         Me.LabelControl5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl5.Location = New System.Drawing.Point(527, 220)
-        Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl5.Location = New System.Drawing.Point(452, 179)
         Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(53, 16)
+        Me.LabelControl5.Size = New System.Drawing.Size(44, 13)
         Me.LabelControl5.TabIndex = 8
         Me.LabelControl5.Text = "Amount :"
         '
         'txtTitle
         '
-        Me.txtTitle.Location = New System.Drawing.Point(110, 144)
-        Me.txtTitle.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTitle.Location = New System.Drawing.Point(94, 117)
         Me.txtTitle.MenuManager = Me.BarManager1
         Me.txtTitle.Name = "txtTitle"
-        Me.txtTitle.Size = New System.Drawing.Size(650, 22)
+        Me.txtTitle.Size = New System.Drawing.Size(557, 20)
         Me.txtTitle.TabIndex = 2
         '
         'dtStart
         '
         Me.dtStart.EditValue = Nothing
-        Me.dtStart.Location = New System.Drawing.Point(560, 48)
-        Me.dtStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtStart.Location = New System.Drawing.Point(480, 39)
         Me.dtStart.MenuManager = Me.BarManager1
         Me.dtStart.Name = "dtStart"
         Me.dtStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtStart.Size = New System.Drawing.Size(199, 22)
+        Me.dtStart.Size = New System.Drawing.Size(171, 20)
         Me.dtStart.TabIndex = 3
         '
         'dtEnded
         '
         Me.dtEnded.EditValue = Nothing
-        Me.dtEnded.Location = New System.Drawing.Point(560, 80)
-        Me.dtEnded.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtEnded.Location = New System.Drawing.Point(480, 65)
         Me.dtEnded.MenuManager = Me.BarManager1
         Me.dtEnded.Name = "dtEnded"
         Me.dtEnded.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtEnded.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtEnded.Size = New System.Drawing.Size(199, 22)
+        Me.dtEnded.Size = New System.Drawing.Size(171, 20)
         Me.dtEnded.TabIndex = 4
         '
         'dtBalanceStart
         '
         Me.dtBalanceStart.EditValue = Nothing
-        Me.dtBalanceStart.Location = New System.Drawing.Point(110, 212)
-        Me.dtBalanceStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtBalanceStart.Location = New System.Drawing.Point(94, 172)
         Me.dtBalanceStart.MenuManager = Me.BarManager1
         Me.dtBalanceStart.Name = "dtBalanceStart"
         Me.dtBalanceStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBalanceStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBalanceStart.Size = New System.Drawing.Size(199, 22)
+        Me.dtBalanceStart.Size = New System.Drawing.Size(171, 20)
         Me.dtBalanceStart.TabIndex = 5
         '
         'LabelControl6
         '
         Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl6.Location = New System.Drawing.Point(12, 258)
-        Me.LabelControl6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl6.Location = New System.Drawing.Point(10, 210)
         Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(32, 19)
+        Me.LabelControl6.Size = New System.Drawing.Size(26, 16)
         Me.LabelControl6.TabIndex = 15
         Me.LabelControl6.Text = "Add"
         '
         'LabelControl7
         '
         Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl7.Location = New System.Drawing.Point(12, 535)
-        Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl7.Location = New System.Drawing.Point(12, 384)
         Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(35, 19)
+        Me.LabelControl7.Size = New System.Drawing.Size(29, 16)
         Me.LabelControl7.TabIndex = 17
         Me.LabelControl7.Text = "Less"
         '
@@ -379,32 +364,29 @@ Partial Class frmMovement_Add
         '
         Me.dtBalanceEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtBalanceEnd.EditValue = Nothing
-        Me.dtBalanceEnd.Location = New System.Drawing.Point(110, 784)
-        Me.dtBalanceEnd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtBalanceEnd.Location = New System.Drawing.Point(96, 541)
         Me.dtBalanceEnd.MenuManager = Me.BarManager1
         Me.dtBalanceEnd.Name = "dtBalanceEnd"
         Me.dtBalanceEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBalanceEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBalanceEnd.Size = New System.Drawing.Size(199, 22)
+        Me.dtBalanceEnd.Size = New System.Drawing.Size(171, 20)
         Me.dtBalanceEnd.TabIndex = 20
         '
         'LabelControl8
         '
         Me.LabelControl8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl8.Location = New System.Drawing.Point(527, 788)
-        Me.LabelControl8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl8.Location = New System.Drawing.Point(454, 544)
         Me.LabelControl8.Name = "LabelControl8"
-        Me.LabelControl8.Size = New System.Drawing.Size(53, 16)
+        Me.LabelControl8.Size = New System.Drawing.Size(44, 13)
         Me.LabelControl8.TabIndex = 19
         Me.LabelControl8.Text = "Amount :"
         '
         'LabelControl9
         '
         Me.LabelControl9.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl9.Location = New System.Drawing.Point(12, 788)
-        Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl9.Location = New System.Drawing.Point(12, 544)
         Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(85, 16)
+        Me.LabelControl9.Size = New System.Drawing.Size(71, 13)
         Me.LabelControl9.TabIndex = 18
         Me.LabelControl9.Text = "Balance as at :"
         '
@@ -413,14 +395,12 @@ Partial Class frmMovement_Add
         Me.GridControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridControl1.DataSource = Me.MOVEMENTADDBindingSource
-        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GridControl1.Location = New System.Drawing.Point(12, 282)
+        Me.GridControl1.Location = New System.Drawing.Point(10, 229)
         Me.GridControl1.MainView = Me.GridView1
-        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.txtAmount, Me.chkAddBack})
-        Me.GridControl1.Size = New System.Drawing.Size(1051, 245)
+        Me.GridControl1.Size = New System.Drawing.Size(901, 149)
         Me.GridControl1.TabIndex = 8
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -510,14 +490,12 @@ Partial Class frmMovement_Add
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridControl2.DataSource = Me.MOVEMENTDEDUCTBindingSource
-        Me.GridControl2.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GridControl2.Location = New System.Drawing.Point(12, 573)
+        Me.GridControl2.Location = New System.Drawing.Point(12, 406)
         Me.GridControl2.MainView = Me.GridView2
-        Me.GridControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl2.MenuManager = Me.BarManager1
         Me.GridControl2.Name = "GridControl2"
         Me.GridControl2.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemMemoEdit1, Me.RepositoryItemTextEdit3, Me.RepositoryItemCheckEdit1})
-        Me.GridControl2.Size = New System.Drawing.Size(1051, 204)
+        Me.GridControl2.Size = New System.Drawing.Size(901, 112)
         Me.GridControl2.TabIndex = 9
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -540,8 +518,6 @@ Partial Class frmMovement_Add
         '
         Me.GridColumn1.FieldName = "MM_ID"
         Me.GridColumn1.Name = "GridColumn1"
-        Me.GridColumn1.Visible = True
-        Me.GridColumn1.VisibleIndex = 3
         '
         'GridColumn2
         '
@@ -599,8 +575,7 @@ Partial Class frmMovement_Add
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(108, 48)
-        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboRefNo.Location = New System.Drawing.Point(93, 39)
         Me.cboRefNo.MenuManager = Me.BarManager1
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -610,7 +585,7 @@ Partial Class frmMovement_Add
         Me.cboRefNo.Properties.NullText = "Select"
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(328, 22)
+        Me.cboRefNo.Size = New System.Drawing.Size(281, 20)
         Me.cboRefNo.TabIndex = 0
         '
         'TaxPayerFindBindingSource
@@ -625,88 +600,79 @@ Partial Class frmMovement_Add
         '
         'LabelControl10
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(12, 52)
-        Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl10.Location = New System.Drawing.Point(10, 42)
         Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(47, 16)
+        Me.LabelControl10.Size = New System.Drawing.Size(40, 13)
         Me.LabelControl10.TabIndex = 41
         Me.LabelControl10.Text = "Ref No :"
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(12, 116)
-        Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl11.Location = New System.Drawing.Point(10, 94)
         Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(24, 16)
+        Me.LabelControl11.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl11.TabIndex = 156
         Me.LabelControl11.Text = "YA :"
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(110, 112)
-        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboYA.Location = New System.Drawing.Point(94, 91)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(327, 22)
+        Me.cboYA.Size = New System.Drawing.Size(280, 20)
         Me.cboYA.TabIndex = 1
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(110, 80)
-        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRefNo.Location = New System.Drawing.Point(94, 65)
         Me.txtRefNo.MenuManager = Me.BarManager1
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(327, 22)
+        Me.txtRefNo.Size = New System.Drawing.Size(280, 20)
         Me.txtRefNo.TabIndex = 158
         '
         'txtNoteStart
         '
         Me.txtNoteStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteStart.Location = New System.Drawing.Point(856, 217)
-        Me.txtNoteStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtNoteStart.Location = New System.Drawing.Point(734, 176)
         Me.txtNoteStart.MenuManager = Me.BarManager1
         Me.txtNoteStart.Name = "txtNoteStart"
-        Me.txtNoteStart.Size = New System.Drawing.Size(174, 22)
+        Me.txtNoteStart.Size = New System.Drawing.Size(149, 20)
         Me.txtNoteStart.TabIndex = 7
         '
         'LabelControl13
         '
         Me.LabelControl13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl13.Location = New System.Drawing.Point(798, 220)
-        Me.LabelControl13.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl13.Location = New System.Drawing.Point(684, 179)
         Me.LabelControl13.Name = "LabelControl13"
-        Me.LabelControl13.Size = New System.Drawing.Size(35, 16)
+        Me.LabelControl13.Size = New System.Drawing.Size(30, 13)
         Me.LabelControl13.TabIndex = 163
         Me.LabelControl13.Text = "Note :"
         '
         'txtNoteEnd
         '
         Me.txtNoteEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteEnd.Location = New System.Drawing.Point(856, 784)
-        Me.txtNoteEnd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtNoteEnd.Location = New System.Drawing.Point(736, 541)
         Me.txtNoteEnd.MenuManager = Me.BarManager1
         Me.txtNoteEnd.Name = "txtNoteEnd"
-        Me.txtNoteEnd.Size = New System.Drawing.Size(174, 22)
+        Me.txtNoteEnd.Size = New System.Drawing.Size(149, 20)
         Me.txtNoteEnd.TabIndex = 170
         '
         'LabelControl12
         '
         Me.LabelControl12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl12.Location = New System.Drawing.Point(798, 788)
-        Me.LabelControl12.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl12.Location = New System.Drawing.Point(686, 544)
         Me.LabelControl12.Name = "LabelControl12"
-        Me.LabelControl12.Size = New System.Drawing.Size(35, 16)
+        Me.LabelControl12.Size = New System.Drawing.Size(30, 13)
         Me.LabelControl12.TabIndex = 169
         Me.LabelControl12.Text = "Note :"
         '
         'txtAmountStart
         '
         Me.txtAmountStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAmountStart.Location = New System.Drawing.Point(586, 217)
-        Me.txtAmountStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtAmountStart.Location = New System.Drawing.Point(502, 176)
         Me.txtAmountStart.MenuManager = Me.BarManager1
         Me.txtAmountStart.Name = "txtAmountStart"
         Me.txtAmountStart.Properties.DisplayFormat.FormatString = "n0"
@@ -718,14 +684,13 @@ Partial Class frmMovement_Add
         Me.txtAmountStart.Properties.NullText = "0"
         Me.txtAmountStart.Properties.NullValuePrompt = "0"
         Me.txtAmountStart.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txtAmountStart.Size = New System.Drawing.Size(174, 22)
+        Me.txtAmountStart.Size = New System.Drawing.Size(149, 20)
         Me.txtAmountStart.TabIndex = 6
         '
         'txtAmountEnd
         '
         Me.txtAmountEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAmountEnd.Location = New System.Drawing.Point(586, 784)
-        Me.txtAmountEnd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtAmountEnd.Location = New System.Drawing.Point(504, 541)
         Me.txtAmountEnd.MenuManager = Me.BarManager1
         Me.txtAmountEnd.Name = "txtAmountEnd"
         Me.txtAmountEnd.Properties.DisplayFormat.FormatString = "n0"
@@ -737,14 +702,14 @@ Partial Class frmMovement_Add
         Me.txtAmountEnd.Properties.NullText = "0"
         Me.txtAmountEnd.Properties.NullValuePrompt = "0"
         Me.txtAmountEnd.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txtAmountEnd.Size = New System.Drawing.Size(174, 22)
+        Me.txtAmountEnd.Size = New System.Drawing.Size(149, 20)
         Me.txtAmountEnd.TabIndex = 175
         '
         'frmMovement_Add
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1078, 847)
+        Me.ClientSize = New System.Drawing.Size(924, 569)
         Me.Controls.Add(Me.txtAmountEnd)
         Me.Controls.Add(Me.txtNoteEnd)
         Me.Controls.Add(Me.LabelControl12)
@@ -776,10 +741,10 @@ Partial Class frmMovement_Add
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmMovement_Add"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Movement Normal"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()

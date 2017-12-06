@@ -2,6 +2,8 @@
 
 Public Class ucPNL_Import
     Dim ErrorLog As clsError = Nothing
+    Public txt_p1Sales As DevExpress.XtraEditors.TextEdit = Nothing
+
     Public Const MainTable As String = "ExportPNL" 'PLFST_SALES
     Public SourceNo As Integer = 0
     Dim MainDataSet As DataSet = Nothing
@@ -67,7 +69,17 @@ Public Class ucPNL_Import
             ExportPNLBindingSource.DataSource = MainDataSet2.Tables(MainTable)
             ds = Nothing
         Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
 
+            AddListOfError(ErrorLog)
         End Try
     End Sub
 
@@ -117,6 +129,9 @@ Public Class ucPNL_Import
             Dim contrl As Control = Nothing
             Dim dsControl As DataSet = Nothing
             Dim TableName As String = ""
+            Dim TableAmount As String = ""
+            Dim obj As Object = Nothing
+            Dim txt As DevExpress.XtraEditors.TextEdit = Nothing
             For Each i As Integer In GridView1.GetSelectedRows
 
                 dtRow = GridView1.GetDataRow(i)
@@ -127,12 +142,15 @@ Public Class ucPNL_Import
                     Select Case Type
                         Case TaxComPNLEnuItem.SALES
                             TableName = ucPNL_p1Sales.MainTable
-
+                            TableAmount = ucPNL_p1Sales.MainAmount
+                            txt = txt_p1Sales
+                           
 
                     End Select
 
                     If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, ErrorLog) Then
                         GridView1.DeleteRow(i)
+                        CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
                     Else
                         MsgBox("Failed to transfer to main table." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                         Exit For

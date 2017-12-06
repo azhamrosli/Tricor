@@ -57,8 +57,7 @@ Public Class frmMovement_Add
                 dtBalanceStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_BALANCE_START")), Now, dt.Rows(0)("MM_BALANCE_START"))
                 dtBalanceEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_BALANCE_END")), Now, dt.Rows(0)("MM_BALANCE_END"))
                 txtAmountStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_AMOUNT_START")), 0, dt.Rows(0)("MM_AMOUNT_START"))
-                txtAmountStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_AMOUNT_END")), 0, dt.Rows(0)("MM_AMOUNT_END"))
-                txtAmountStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_AMOUNT_END")), 0, dt.Rows(0)("MM_AMOUNT_END"))
+                txtAmountEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_AMOUNT_END")), 0, dt.Rows(0)("MM_AMOUNT_END"))
                 txtNoteStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_START")), 0, dt.Rows(0)("MM_NOTE_START"))
                 txtNoteEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_END")), 0, dt.Rows(0)("MM_NOTE_END"))
 
@@ -230,6 +229,11 @@ Public Class frmMovement_Add
                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, _
                                                      DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
+                        Application.DoEvents()
+                        If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                            MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+
+                        End If
                     Else
                         MsgBox("Unsuccessfully update movement.", MsgBoxStyle.Critical)
                     End If
@@ -242,6 +246,11 @@ Public Class frmMovement_Add
                         ID = tmpID
                         isEdit = True
                         MsgBox("Successfully saved movement.", MsgBoxStyle.Information)
+                        Application.DoEvents()
+                        If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                            MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+
+                        End If
                     Else
                         MsgBox("Unsuccessfully save movement.", MsgBoxStyle.Critical)
                     End If

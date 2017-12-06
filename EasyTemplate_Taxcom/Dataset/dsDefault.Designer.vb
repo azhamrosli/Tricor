@@ -402,6 +402,8 @@ Partial Public Class dsDefault
 
         Private columnCompanyCode As Global.System.Data.DataColumn
 
+        Private columnHandleBy As Global.System.Data.DataColumn
+
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub New()
@@ -494,6 +496,14 @@ Partial Public Class dsDefault
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property HandleByColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnHandleBy
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -530,9 +540,9 @@ Partial Public Class dsDefault
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddTaxPayerFindRow(ByVal RefNo As String, ByVal CompanyName As String, ByVal CompanyNo As String, ByVal EmployerNo As String, ByVal FileNo As String, ByVal Country As String, ByVal CompanyCode As String) As TaxPayerFindRow
+        Public Overloads Function AddTaxPayerFindRow(ByVal RefNo As String, ByVal CompanyName As String, ByVal CompanyNo As String, ByVal EmployerNo As String, ByVal FileNo As String, ByVal Country As String, ByVal CompanyCode As String, ByVal HandleBy As String) As TaxPayerFindRow
             Dim rowTaxPayerFindRow As TaxPayerFindRow = CType(Me.NewRow, TaxPayerFindRow)
-            Dim columnValuesArray() As Object = New Object() {RefNo, CompanyName, CompanyNo, EmployerNo, FileNo, Country, CompanyCode}
+            Dim columnValuesArray() As Object = New Object() {RefNo, CompanyName, CompanyNo, EmployerNo, FileNo, Country, CompanyCode, HandleBy}
             rowTaxPayerFindRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowTaxPayerFindRow)
             Return rowTaxPayerFindRow
@@ -562,6 +572,7 @@ Partial Public Class dsDefault
             Me.columnFileNo = MyBase.Columns("FileNo")
             Me.columnCountry = MyBase.Columns("Country")
             Me.columnCompanyCode = MyBase.Columns("CompanyCode")
+            Me.columnHandleBy = MyBase.Columns("HandleBy")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -581,6 +592,8 @@ Partial Public Class dsDefault
             MyBase.Columns.Add(Me.columnCountry)
             Me.columnCompanyCode = New Global.System.Data.DataColumn("CompanyCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnCompanyCode)
+            Me.columnHandleBy = New Global.System.Data.DataColumn("HandleBy", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnHandleBy)
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1667,6 +1680,21 @@ Partial Public Class dsDefault
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property HandleBy() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableTaxPayerFind.HandleByColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'HandleBy' in table 'TaxPayerFind' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableTaxPayerFind.HandleByColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsRefNoNull() As Boolean
             Return Me.IsNull(Me.tableTaxPayerFind.RefNoColumn)
         End Function
@@ -1747,6 +1775,18 @@ Partial Public Class dsDefault
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetCompanyCodeNull()
             Me(Me.tableTaxPayerFind.CompanyCodeColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsHandleByNull() As Boolean
+            Return Me.IsNull(Me.tableTaxPayerFind.HandleByColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetHandleByNull()
+            Me(Me.tableTaxPayerFind.HandleByColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
 

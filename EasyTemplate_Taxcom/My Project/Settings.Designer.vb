@@ -85,6 +85,42 @@ Partial Friend NotInheritable Class Settings
             Me("ThemeName") = value
         End Set
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property ServerName() As String
+        Get
+            Return CType(Me("ServerName"),String)
+        End Get
+        Set
+            Me("ServerName") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property UserID() As String
+        Get
+            Return CType(Me("UserID"),String)
+        End Get
+        Set
+            Me("UserID") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property Password() As String
+        Get
+            Return CType(Me("Password"),String)
+        End Get
+        Set
+            Me("Password") = value
+        End Set
+    End Property
 End Class
 
 Namespace My

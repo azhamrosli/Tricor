@@ -1,5 +1,17 @@
 ﻿Public Class ucMovement
     Dim ErrorLog As clsError = Nothing
+    Shared Sub New()
+        DevExpress.UserSkins.BonusSkins.Register()
+        DevExpress.Skins.SkinManager.EnableFormSkins()
+    End Sub
+    Public Sub New()
+        If My.Settings.ThemeName <> "" Then
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        Else
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
+        End If
+        InitializeComponent()
+    End Sub
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData(0)

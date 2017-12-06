@@ -554,7 +554,7 @@ Module mdlRefreshTaxComputation
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpJKDM(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+   Public Function GetAJDTotalExpJKDM(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -1748,7 +1748,158 @@ Module mdlRefreshTaxComputation
             Return 0
         End Try
     End Function
+    Public Function GetTotalMovementNormal_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_ADD] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_NORMAL WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
+            SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
+
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("sumx")) = False Then
+                Return CDbl(dt.Rows(0)("sumx"))
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+    Public Function GetTotalMovementNormal_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_DEDUCT] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_NORMAL WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
+            SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
+
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("sumx")) = False Then
+                Return CDbl(dt.Rows(0)("sumx"))
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+    Public Function GetTotalMovementComplex_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_COMPLEX_ADD] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
+            SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
+
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("sumx")) = False Then
+                Return CDbl(dt.Rows(0)("sumx"))
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+    Public Function GetTotalMovementComplex_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_COMPLEX_DEDUCT] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
+            SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
+
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("sumx")) = False Then
+                Return CDbl(dt.Rows(0)("sumx"))
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
 #End Region
 #Region "LOAD"
 
@@ -2308,10 +2459,11 @@ Module mdlRefreshTaxComputation
         End Try
 
     End Function
-    Private Function GetTotalNonAllowableExpenses(ByVal RefNo As String, ByVal YA As String, ByVal PNLID As Integer, Optional ByRef Errorlog As clsError = Nothing) As Double
+    Public Function GetTotalNonAllowableExpenses(ByVal RefNo As String, ByVal YA As String, ByVal PNLID As Integer, Optional ByRef Errorlog As clsError = Nothing) As Double
         Try
             Dim strDeductible As String = "No"
             Dim dblTotalNonAllowExpenses As Double = 0
+            Dim tmpMovement As Decimal = 0
             Dim SourceNo As Integer = 0
             Dim drBusinessSource As DataTable = mdlRefreshTaxComputation.GetTCBusinessSource(RefNo, YA)
 
@@ -2360,6 +2512,23 @@ Module mdlRefreshTaxComputation
                     Application.DoEvents()
                     dblTotalNonAllowExpenses += mdlRefreshTaxComputation.GetAJDTotalExpDonationApproved(RefNo, SourceNo, strDeductible)
                     dblTotalNonAllowExpenses += mdlRefreshTaxComputation.GetAJDTotalExpZakat(RefNo, SourceNo, strDeductible)
+
+                    'Normal movement
+                    tmpMovement = mdlRefreshTaxComputation.GetTotalMovementNormal_AddBack(RefNo, SourceNo, Errorlog)
+
+                    tmpMovement -= mdlRefreshTaxComputation.GetTotalMovementNormal_Deduct(RefNo, SourceNo, Errorlog)
+
+                    dblTotalNonAllowExpenses += tmpMovement
+
+                    tmpMovement = 0
+
+                    'Complex movement
+
+                    tmpMovement = mdlRefreshTaxComputation.GetTotalMovementComplex_AddBack(RefNo, SourceNo, Errorlog)
+
+                    tmpMovement -= mdlRefreshTaxComputation.GetTotalMovementComplex_Deduct(RefNo, SourceNo, Errorlog)
+
+                    dblTotalNonAllowExpenses += tmpMovement
                 Next
 
             End If

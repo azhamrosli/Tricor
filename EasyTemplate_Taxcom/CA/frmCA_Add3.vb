@@ -141,12 +141,13 @@
                 cboIncentive.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_INCENTIVE")), "", dt.Rows(0)("CA_INCENTIVE"))
                 txtTWDV.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TWDV")), 0, dt.Rows(0)("CA_TWDV"))
 
-                If IsDBNull(dt.Rows(0)("CA_CTRL_TRANSFER")) = False AndAlso dt.Rows(0)("CA_CTRL_TRANSFER").ToString <> -1 Then
+                If IsDBNull(dt.Rows(0)("CA_CTRL_TRANSFER")) = False AndAlso dt.Rows(0)("CA_CTRL_TRANSFER").ToString <> 0 Then
                     chkControlTransfer.Checked = True
                 Else
                     chkControlTransfer.Checked = False
                 End If
-                chkControlTransfer.Checked = CBool(IIf(IsDBNull(dt.Rows(0)("CA_CAEEO")), False, dt.Rows(0)("CA_CAEEO")))
+
+                'cbo.Checked = CBool(IIf(IsDBNull(dt.Rows(0)("CA_CAEEO")), False, dt.Rows(0)("CA_CAEEO")))
                 chkDeferred.Checked = CBool(IIf(IsDBNull(dt.Rows(0)("CA_DEFERREDCLAIM")), False, dt.Rows(0)("CA_DEFERREDCLAIM")))
                 chkDeductAdjustIncome.Checked = CBool(IIf(IsDBNull(dt.Rows(0)("CA_DEDUCTADJ_INCOME")), False, dt.Rows(0)("CA_DEDUCTADJ_INCOME")))
                 txtTaxFileNumber.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TAX_FILE_NUMBER")), "", dt.Rows(0)("CA_TAX_FILE_NUMBER"))
@@ -378,9 +379,12 @@
                 pnlControlTransfer.Visible = True
             Else
                 pnlControlTransfer.Visible = False
-                txtTaxFileNumber.EditValue = ""
-                txtTransferorName.EditValue = ""
-                txtTransferVal.EditValue = ""
+                If isEdit = False Then
+                    txtTaxFileNumber.EditValue = ""
+                    txtTransferorName.EditValue = ""
+                    txtTransferVal.EditValue = ""
+                End If
+             
             End If
         Catch ex As Exception
 
@@ -585,4 +589,16 @@
 
         End Try
     End Sub
+
+    Private Sub cboYA_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged
+        Try
+            If rgTypeCA.SelectedIndex = 0 Then
+                cboPurchaseYE.EditValue = cboYA.EditValue
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class

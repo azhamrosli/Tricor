@@ -2,44 +2,96 @@
 
 Public Class frmDatabase
     Dim ErrorLog As clsError = Nothing
+    Public Status As Boolean = False
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            If txtServerName.EditValue Is Nothing OrElse txtServerName.EditValue.ToString = "" Then
-                txtServerName.Focus()
-                MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
-                Exit Sub
-            End If
-
-            If txtUser.EditValue Is Nothing OrElse txtUser.EditValue.ToString = "" Then
-                txtUser.Focus()
-                MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
-                Exit Sub
-            End If
-
-            If txtPassword.EditValue Is Nothing OrElse txtPassword.EditValue.ToString = "" Then
-                txtPassword.Focus()
-                MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
-                Exit Sub
-            End If
-
             Dim SQLCon As SqlConnection
 
-            If mdlProcess.DBConnection_Test(txtServerName.EditValue, txtUser.EditValue, _
-                                            txtPassword.EditValue, SQLCon, ErrorLog) = False Then
-                MsgBox("Unable to connect with database.", MsgBoxStyle.Critical)
-            End If
+            If chkDefault.Checked = True Then
+                If txtServerName.EditValue Is Nothing OrElse txtServerName.EditValue.ToString = "" Then
+                    txtServerName.Focus()
+                    MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
+                    Exit Sub
+                End If
 
-            If mdlProcess.DBSetting_SetSetting(txtServerName.Text, txtUser.Text, txtPassword.Text) = False Then
-                MsgBox("Failed to save configuration. Please run this as administrator", MsgBoxStyle.Critical)
+                If txtUser.EditValue Is Nothing OrElse txtUser.EditValue.ToString = "" Then
+                    txtUser.Focus()
+                    MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
+                    Exit Sub
+                End If
+
+                If txtPassword.EditValue Is Nothing OrElse txtPassword.EditValue.ToString = "" Then
+                    txtPassword.Focus()
+                    MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
+                    Exit Sub
+                End If
+
+                If mdlProcess.DBConnection_Test(txtServerName.EditValue, txtUser.EditValue, _
+                                                txtPassword.EditValue, SQLCon, ErrorLog) = False Then
+                    MsgBox("Unable to connect with database.", MsgBoxStyle.Critical)
+                End If
+
+                If mdlProcess.DBSetting_SetSetting(txtServerName.Text, txtUser.Text, txtPassword.Text) = False Then
+                    MsgBox("Failed to save configuration. Please run this as administrator", MsgBoxStyle.Critical)
+                Else
+                    Status = True
+                    MsgBox("Successfully to save configuration.", MsgBoxStyle.Information)
+                    ReConnectServer()
+                End If
+
+                My.Settings.ServerName = txtServerName2.EditValue
+                My.Settings.UserID = txtUser2.EditValue
+                My.Settings.Password = txtPassword2.EditValue
             Else
-                MsgBox("Successfully to save configuration.", MsgBoxStyle.Information)
+                If txtServerName2.EditValue Is Nothing OrElse txtServerName2.EditValue.ToString = "" Then
+                    txtServerName2.Focus()
+                    MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
+                    Exit Sub
+                End If
+
+                If txtUser2.EditValue Is Nothing OrElse txtUser2.EditValue.ToString = "" Then
+                    txtUser2.Focus()
+                    MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
+                    Exit Sub
+                End If
+
+                If txtPassword2.EditValue Is Nothing OrElse txtPassword2.EditValue.ToString = "" Then
+                    txtPassword2.Focus()
+                    MsgBox("Please enter server name.", MsgBoxStyle.Exclamation)
+                    Exit Sub
+                End If
+
+                If mdlProcess.DBConnection_Test(txtServerName2.EditValue, txtUser2.EditValue, _
+                                                txtPassword2.EditValue, SQLCon, ErrorLog) = False Then
+                    MsgBox("Unable to connect with database.", MsgBoxStyle.Critical)
+                End If
+
+                If mdlProcess.DBSetting_SetSetting(txtServerName2.Text, txtUser2.Text, txtPassword2.Text) = False Then
+                    MsgBox("Failed to save configuration. Please run this as administrator", MsgBoxStyle.Critical)
+                Else
+                    Status = True
+                    MsgBox("Successfully to save configuration.", MsgBoxStyle.Information)
+                    ReConnectServer()
+                End If
+
+                My.Settings.ServerName = txtServerName.EditValue
+                My.Settings.UserID = txtUser.EditValue
+                My.Settings.Password = txtPassword.EditValue
             End If
+           
 
         Catch ex As Exception
 
         End Try
     End Sub
+    Private Sub ReConnectServer()
+        Try
+            frmHome.RefreshData()
 
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub frmDatabase_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadData()
@@ -61,7 +113,26 @@ Public Class frmDatabase
             txtServerName.EditValue = ServerName
             txtUser.EditValue = UserID
             txtPassword.EditValue = Pass
+            chkDefault.Checked = True
 
+
+            If My.Settings.ServerName IsNot Nothing Then
+                txtServerName2.EditValue = My.Settings.ServerName
+            Else
+                txtServerName2.EditValue = ""
+            End If
+
+            If My.Settings.ServerName IsNot Nothing Then
+                txtUser2.EditValue = My.Settings.UserID
+            Else
+                txtUser2.EditValue = ""
+            End If
+
+            If My.Settings.ServerName IsNot Nothing Then
+                txtPassword2.EditValue = My.Settings.Password
+            Else
+                txtPassword2.EditValue = ""
+            End If
 
         Catch ex As Exception
 
@@ -70,10 +141,6 @@ Public Class frmDatabase
 
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         Me.Close()
-    End Sub
-
-    Private Sub btnViewPass_Click(sender As Object, e As EventArgs) Handles btnViewPass.Click
-
     End Sub
 
     Private Sub btnViewPass_MouseDown(sender As Object, e As MouseEventArgs) Handles btnViewPass.MouseDown
@@ -87,6 +154,22 @@ Public Class frmDatabase
     Private Sub btnViewPass_MouseUp(sender As Object, e As MouseEventArgs) Handles btnViewPass.MouseUp
         Try
             txtPassword.Properties.PasswordChar = "*"
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnViewPass2_MouseDown(sender As Object, e As MouseEventArgs) Handles btnViewPass2.MouseDown
+        Try
+            txtPassword2.Properties.PasswordChar = ""
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnViewPass2_MouseUp(sender As Object, e As MouseEventArgs) Handles btnViewPass2.MouseUp
+        Try
+            txtPassword2.Properties.PasswordChar = "*"
         Catch ex As Exception
 
         End Try
@@ -298,6 +381,29 @@ Public Class frmDatabase
 
             If rlst = Windows.Forms.DialogResult.OK Then
                 txtIniDir.Text = FolderBrowserDialog1.SelectedPath
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub chkDefault_CheckedChanged(sender As Object, e As EventArgs) Handles chkDefault.CheckedChanged
+        Try
+            If chkDefault.Checked = True Then
+                chkDefault2.Checked = False
+            Else
+                chkDefault2.Checked = True
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub chkDefault2_CheckedChanged(sender As Object, e As EventArgs) Handles chkDefault2.CheckedChanged
+        Try
+            If chkDefault2.Checked = True Then
+                chkDefault.Checked = False
+            Else
+                chkDefault.Checked = True
             End If
         Catch ex As Exception
 

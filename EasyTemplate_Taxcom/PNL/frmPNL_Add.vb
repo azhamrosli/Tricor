@@ -173,7 +173,7 @@ Public Class frmPNL_Add
                         Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
                             lbl = lbl_p4Other
                         Case TaxComPNLEnuItem.RENTALINC
-                            lbl = lbl_p2InterestIncome
+                            lbl = lbl_p2RentalIncome
                         Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
                             lbl = lblP4NonAllowableExpenses
                         Case TaxComPNLEnuItem.OTHERNONTAXINC
@@ -401,6 +401,10 @@ Public Class frmPNL_Add
                         'Else
                         '    Progress(CurrentProgress, "Getting " & tmp.LabelText & " data...")
                         'End If
+                        If tmp.Type = TaxComPNLEnuItem.EXPOTHERSEXPENSES Then
+                            Dim x As String = Nothing
+
+                        End If
                         CurrentProgress += 1
                         mdlPNL2.PNL_GetData(ID, tmp.Type, txtRefNo.EditValue, cboYA.EditValue, dsDataSet, dsDataSet2, ErrorLog)
                         Progress(CurrentProgress, "Loading " & tmp.LabelTricor & " data...")
@@ -566,7 +570,7 @@ Public Class frmPNL_Add
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
                     txtAmount = txt_p4Other
                 Case TaxComPNLEnuItem.RENTALINC
-                    txtAmount = txt_p2InterestIncome
+                    txtAmount = txt_p2RentalIncome
                 Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
                     txtAmount = txt_p4NonAllowableExpenses
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
@@ -4255,4 +4259,19 @@ Public Class frmPNL_Add
         End Try
     End Sub
 
+    Private Sub btnErrorLog_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnErrorLog.ItemClick
+        Try
+            frmErrorLog.Show()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub UcPNL_Import1_Load(sender As Object, e As EventArgs) Handles UcPNL_Import1.Load
+        Try
+            UcPNL_Import1.txt_p1Sales = Me.txt_p1Sales
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

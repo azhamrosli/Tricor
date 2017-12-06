@@ -267,6 +267,7 @@ Partial Class ucPNL_p1Sales
         Me.colPLFS_AMOUNT.ColumnEdit = Me.txtNumberic
         Me.colPLFS_AMOUNT.FieldName = "PLFS_AMOUNT"
         Me.colPLFS_AMOUNT.Name = "colPLFS_AMOUNT"
+        Me.colPLFS_AMOUNT.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "PLFS_AMOUNT", "SUM={0:0.##}")})
         Me.colPLFS_AMOUNT.Visible = True
         Me.colPLFS_AMOUNT.VisibleIndex = 2
         Me.colPLFS_AMOUNT.Width = 120

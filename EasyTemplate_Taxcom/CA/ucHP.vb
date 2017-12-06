@@ -19,6 +19,18 @@
             cboFilterType.SelectedIndex = 0
             Application.DoEvents()
 
+            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+                MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+
+            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+                MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            Application.DoEvents()
 
             LoadData()
         Catch ex As Exception
@@ -34,22 +46,22 @@
 
             If Type = 0 Then
                 If mdlProcess.ArgParam2 <> "" Then
-                    txtRefNo.EditValue = mdlProcess.ArgParam2
+                    cboRefNo.EditValue = mdlProcess.ArgParam2
                 End If
 
                 If mdlProcess.ArgParam3 <> "" Then
-                    txtYA.EditValue = mdlProcess.ArgParam3
+                    cboYA.EditValue = mdlProcess.ArgParam3
                 End If
             ElseIf Type = 1 Then
-                txtRefNo.EditValue = ""
-                txtYA.EditValue = ""
+                cboRefNo.EditValue = ""
+                cboYA.EditValue = ""
             End If
 
 
             If cboFilterType.SelectedIndex <> cboFilterType.Properties.Items.Count - 1 Then
                 tmpType = cboFilterType.SelectedIndex
             End If
-            Dim dt As DataTable = mdlProcess.LoadHP_Search(txtRefNo.EditValue, txtYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
+            Dim dt As DataTable = mdlProcess.LoadHP_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
 
             DsCA.Tables("HP").Rows.Clear()
             DsCA.Tables("HP_INSTALLMENT").Clear()
@@ -114,8 +126,8 @@
     Private Sub btnAllRecord_Click(sender As Object, e As EventArgs) Handles btnAllRecord.Click
         Try
             cboFilterType.SelectedIndex = cboFilterType.Properties.Items.Count - 1
-            txtRefNo.Text = ""
-            txtYA.Text = ""
+            cboRefNo.Text = ""
+            cboYA.Text = ""
             txtFilterValue.Text = ""
             LoadData(1)
         Catch ex As Exception
@@ -177,6 +189,41 @@
                     MsgBox("Some of hire purchase failed to delete.", MsgBoxStyle.Critical)
                 End If
             End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        Try
+            cboRefNo.EditValue = ""
+            Me.LoadData(2)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub SimpleButton1_Click(sender As Object, e As EventArgs) Handles SimpleButton1.Click
+        Try
+            cboYA.EditValue = ""
+            Me.LoadData(2)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub SimpleButton2_Click(sender As Object, e As EventArgs) Handles SimpleButton2.Click
+        Try
+            txtFilterValue.EditValue = ""
+            Me.LoadData(2)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
 
         End Try

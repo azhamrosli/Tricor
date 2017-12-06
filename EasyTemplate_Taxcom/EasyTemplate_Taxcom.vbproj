@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <OptionExplicit>On</OptionExplicit>
-    <OptionCompare>Binary</OptionCompare>
+    <OptionCompare>Text</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -42,6 +42,8 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,6 +54,8 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MyType>WindowsForms</MyType>
@@ -291,6 +295,18 @@
     <Compile Include="CA\frmHP_Add.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmAbout.Designer.vb">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmErrorLog.Designer.vb">
+      <DependentUpon>frmErrorLog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmErrorLog.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmExcel.Designer.vb">
       <DependentUpon>frmExcel.vb</DependentUpon>
     </Compile>
@@ -307,6 +323,12 @@
       <DependentUpon>frmLogin_Administrator.vb</DependentUpon>
     </Compile>
     <Compile Include="frmLogin_Administrator.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserNote.Designer.vb">
+      <DependentUpon>frmUserNote.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserNote.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmWord.Designer.vb">
@@ -855,6 +877,12 @@
     <EmbeddedResource Include="DeemedInterest\ucDeemedInterest.resx">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmAbout.resx">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmErrorLog.resx">
+      <DependentUpon>frmErrorLog.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmExcel.resx">
       <DependentUpon>frmExcel.vb</DependentUpon>
     </EmbeddedResource>
@@ -863,6 +891,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin_Administrator.resx">
       <DependentUpon>frmLogin_Administrator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUserNote.resx">
+      <DependentUpon>frmUserNote.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmWord.resx">
       <DependentUpon>frmWord.vb</DependentUpon>

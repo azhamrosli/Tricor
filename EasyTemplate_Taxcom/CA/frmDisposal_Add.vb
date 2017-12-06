@@ -4,10 +4,12 @@
     Public isEdit As Boolean = False
     Public ID As Integer = 0
     Public ID_CA As Integer = 0
+    Public isFromCA As Boolean = False
     Dim dtRowSelected As DataRow
     Dim isSumofDigit As Boolean = True
     Dim isFirstTimeLoad As Boolean = True
     Dim boolDuplicateDisposal As Boolean
+
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
         DevExpress.Skins.SkinManager.EnableFormSkins()
@@ -130,6 +132,60 @@
                                                     txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
                 dtRowSelected = dtCA.Rows(0)
+            Else
+                cboYA.EditValue = mdlProcess.ArgParam3
+                If isFromCA Then
+                    Dim dtCA As DataTable = mdlProcess.Load_CA(ID_CA, ErrorLog)
+
+                    dtRowSelected = dtCA.Rows(0)
+
+                    txtSearchVal.Text = ID_CA
+                    cboSearchFor.SelectedIndex = 6
+                    Application.DoEvents()
+                    Load_CA()
+
+
+                    txtAsset.EditValue = IIf(IsDBNull(dtRowSelected("CA_ASSET")), "", dtRowSelected("CA_ASSET"))
+                    txtAssetID.EditValue = IIf(IsDBNull(dtRowSelected("CA_ASSET_CODE")), "", dtRowSelected("CA_ASSET_CODE"))
+                    cboCategory.EditValue = IIf(IsDBNull(dtRowSelected("CA_CATEGORY_CODE")), "", dtRowSelected("CA_CATEGORY_CODE"))
+                    dtDateofPurchase.EditValue = IIf(IsDBNull(dtRowSelected("CA_PURCHASE_DATE")), Now, dtRowSelected("CA_PURCHASE_DATE"))
+                    txtPurchaseAmountFA.EditValue = IIf(IsDBNull(dtRowSelected("CA_PURCHASE_AMOUNT")), 0, dtRowSelected("CA_PURCHASE_AMOUNT"))
+                    txtDeposit.EditValue = IIf(IsDBNull(dtRowSelected("CA_PAYMENT")), 0, dtRowSelected("CA_PAYMENT"))
+                    txtRestrictedQua.EditValue = IIf(IsDBNull(dtRowSelected("CA_RESTRICTED_QC")), 0, dtRowSelected("CA_RESTRICTED_QC"))
+                    txtHP_Code.EditValue = IIf(IsDBNull(dtRowSelected("HP_CODE")), "", dtRowSelected("HP_CODE"))
+                    txtDescription.EditValue = IIf(IsDBNull(dtRowSelected("CA_DESC")), 0, dtRowSelected("CA_DESC"))
+                    Application.DoEvents()
+                    txtTotal_QC.EditValue = Load_GetTotalCA(txtHP_Code.EditValue)
+
+                    txtIA.EditValue = IIf(IsDBNull(dtRowSelected("CA_RATE_IA")), 0, dtRowSelected("CA_RATE_IA"))
+                    cboAA.EditValue = IIf(IsDBNull(dtRowSelected("CA_RATE_AA")), 0, dtRowSelected("CA_RATE_AA"))
+                    cboIncentive.EditValue = IIf(IsDBNull(dtRowSelected("CA_INCENTIVE")), 0, dtRowSelected("CA_INCENTIVE"))
+                    txtQualifyingCost.EditValue = IIf(IsDBNull(dtRowSelected("CA_QUALIFYING_COST")), 0, dtRowSelected("CA_QUALIFYING_COST"))
+                    txtRemainingQualifyingCost.EditValue = IIf(IsDBNull(dtRowSelected("CA_REMAIN_QC")), 0, dtRowSelected("CA_REMAIN_QC"))
+                    txtTWDV.EditValue = IIf(IsDBNull(dtRowSelected("CA_TWDV")), 0, dtRowSelected("CA_TWDV"))
+                    cboIncentive.EditValue = IIf(IsDBNull(dtRowSelected("CA_INCENTIVE")), "", dtRowSelected("CA_INCENTIVE"))
+                    txtTWDV.EditValue = IIf(IsDBNull(dtRowSelected("CA_TWDV")), 0, dtRowSelected("CA_TWDV"))
+
+                    If IsDBNull(dtRowSelected("CA_CTRL_TRANSFER")) = False AndAlso dtRowSelected("CA_CTRL_TRANSFER").ToString <> -1 Then
+                        chkControlTransfer.Checked = True
+                    Else
+                        chkControlTransfer.Checked = False
+                    End If
+                    Application.DoEvents()
+                    cboTypeDisposal.SelectedIndex = 0
+
+                    dtDisposal.EditValue = Now
+                    txtDisposal_PurchaseAmount.EditValue = txtPurchaseAmountFA.EditValue
+                    txtDispose_QC.EditValue = txtPurchaseAmountFA.EditValue
+                    txtDisposal_TWDV.EditValue = Calc_TWDV(dtRowSelected)
+                    txtDisposal_SalesProceed.EditValue = 0
+                    Application.DoEvents()
+
+                    txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
+                                                        txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
+
+
+                End If
             End If
         Catch ex As Exception
 

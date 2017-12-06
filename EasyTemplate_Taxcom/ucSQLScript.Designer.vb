@@ -26,6 +26,7 @@ Partial Class ucSQLScript
         Me.btnExecute = New DevExpress.XtraBars.BarButtonItem()
         Me.cboDatabase = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.btnRefresh1 = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -82,7 +83,6 @@ Partial Class ucSQLScript
         Me.Document1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
         Me.Document2 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
         Me.Document3 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.Document(Me.components)
-        Me.btnRefresh1 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -190,6 +190,15 @@ Partial Class ucSQLScript
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
         Me.RepositoryItemComboBox1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        '
+        'btnRefresh1
+        '
+        Me.btnRefresh1.Caption = "Refresh"
+        Me.btnRefresh1.Glyph = CType(resources.GetObject("btnRefresh1.Glyph"), System.Drawing.Image)
+        Me.btnRefresh1.Id = 14
+        Me.btnRefresh1.LargeGlyph = CType(resources.GetObject("btnRefresh1.LargeGlyph"), System.Drawing.Image)
+        Me.btnRefresh1.Name = "btnRefresh1"
+        Me.btnRefresh1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'barDockControlTop
         '
@@ -719,15 +728,6 @@ Partial Class ucSQLScript
         Me.Document3.Properties.AllowClose = DevExpress.Utils.DefaultBoolean.[False]
         Me.Document3.Properties.AllowFloat = DevExpress.Utils.DefaultBoolean.[True]
         Me.Document3.Properties.AllowFloatOnDoubleClick = DevExpress.Utils.DefaultBoolean.[False]
-        '
-        'btnRefresh1
-        '
-        Me.btnRefresh1.Caption = "Refresh"
-        Me.btnRefresh1.Glyph = CType(resources.GetObject("btnRefresh1.Glyph"), System.Drawing.Image)
-        Me.btnRefresh1.Id = 14
-        Me.btnRefresh1.LargeGlyph = CType(resources.GetObject("btnRefresh1.LargeGlyph"), System.Drawing.Image)
-        Me.btnRefresh1.Name = "btnRefresh1"
-        Me.btnRefresh1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'ucSQLScript
         '

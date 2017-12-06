@@ -346,6 +346,11 @@ Public Class frmMovementComplex_Add
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
                                                       txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
+                        Application.DoEvents()
+                        If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                            MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+
+                        End If
                     Else
                         MsgBox("Unsuccessfully update movement.", MsgBoxStyle.Critical)
                     End If
@@ -357,6 +362,11 @@ Public Class frmMovementComplex_Add
                         ID = tmpID
                         isEdit = True
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
+                        Application.DoEvents()
+                        If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                            MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+
+                        End If
                         Me.LoadData()
                     Else
                         MsgBox("Unsuccessfully update movement.", MsgBoxStyle.Critical)

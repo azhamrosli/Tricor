@@ -20,7 +20,7 @@ Partial Class ucDisposal
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucDisposal))
         Me.dgvDisposal = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colCA_KEY1 = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -84,7 +84,6 @@ Partial Class ucDisposal
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
-        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
         Me.cboFilterType = New DevExpress.XtraEditors.ComboBoxEdit()
@@ -93,20 +92,28 @@ Partial Class ucDisposal
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.txtFilterValue = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtYA = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
+        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
+        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
+        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
+        Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
         CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtFilterValue.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvDisposal
@@ -211,9 +218,9 @@ Partial Class ucDisposal
         '
         Me.dgvView.DataSource = Me.CABindingSource
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
-        GridLevelNode1.LevelTemplate = Me.dgvDisposal
-        GridLevelNode1.RelationName = "FK_CA_CA_DISPOSAL"
-        Me.dgvView.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
+        GridLevelNode2.LevelTemplate = Me.dgvDisposal
+        GridLevelNode2.RelationName = "FK_CA_CA_DISPOSAL"
+        Me.dgvView.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
         Me.dgvView.Location = New System.Drawing.Point(0, 135)
         Me.dgvView.MainView = Me.dgvCA
         Me.dgvView.Name = "dgvView"
@@ -586,14 +593,6 @@ Partial Class ucDisposal
         Me.barDockControlRight.Location = New System.Drawing.Point(960, 31)
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 504)
         '
-        'txtRefNo
-        '
-        Me.txtRefNo.Location = New System.Drawing.Point(133, 15)
-        Me.txtRefNo.MenuManager = Me.BarManager1
-        Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
-        Me.txtRefNo.TabIndex = 0
-        '
         'pnlLoading
         '
         Me.pnlLoading.Anchor = System.Windows.Forms.AnchorStyles.None
@@ -603,7 +602,7 @@ Partial Class ucDisposal
         Me.pnlLoading.AppearanceCaption.Options.UseFont = True
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
-        Me.pnlLoading.Location = New System.Drawing.Point(317, 297)
+        Me.pnlLoading.Location = New System.Drawing.Point(325, 297)
         Me.pnlLoading.Name = "pnlLoading"
         Me.pnlLoading.Size = New System.Drawing.Size(271, 70)
         Me.pnlLoading.TabIndex = 10
@@ -612,15 +611,19 @@ Partial Class ucDisposal
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.SimpleButton2)
+        Me.PanelControl1.Controls.Add(Me.SimpleButton1)
+        Me.PanelControl1.Controls.Add(Me.btnClear)
+        Me.PanelControl1.Controls.Add(Me.cboYA)
+        Me.PanelControl1.Controls.Add(Me.cboRefNo)
+        Me.PanelControl1.Controls.Add(Me.txtRefNo)
         Me.PanelControl1.Controls.Add(Me.cboFilterType)
         Me.PanelControl1.Controls.Add(Me.btnAllRecord)
         Me.PanelControl1.Controls.Add(Me.btnFind)
         Me.PanelControl1.Controls.Add(Me.LabelControl3)
         Me.PanelControl1.Controls.Add(Me.txtFilterValue)
         Me.PanelControl1.Controls.Add(Me.LabelControl2)
-        Me.PanelControl1.Controls.Add(Me.txtYA)
         Me.PanelControl1.Controls.Add(Me.LabelControl1)
-        Me.PanelControl1.Controls.Add(Me.txtRefNo)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
         Me.PanelControl1.Name = "PanelControl1"
@@ -680,14 +683,6 @@ Partial Class ucDisposal
         Me.LabelControl2.TabIndex = 3
         Me.LabelControl2.Text = "YA :"
         '
-        'txtYA
-        '
-        Me.txtYA.Location = New System.Drawing.Point(133, 41)
-        Me.txtYA.MenuManager = Me.BarManager1
-        Me.txtYA.Name = "txtYA"
-        Me.txtYA.Size = New System.Drawing.Size(268, 20)
-        Me.txtYA.TabIndex = 2
-        '
         'LabelControl1
         '
         Me.LabelControl1.Location = New System.Drawing.Point(12, 18)
@@ -695,6 +690,68 @@ Partial Class ucDisposal
         Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
         Me.LabelControl1.TabIndex = 1
         Me.LabelControl1.Text = "Reference No :"
+        '
+        'SimpleButton1
+        '
+        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
+        Me.SimpleButton1.Location = New System.Drawing.Point(375, 65)
+        Me.SimpleButton1.Name = "SimpleButton1"
+        Me.SimpleButton1.Size = New System.Drawing.Size(24, 23)
+        Me.SimpleButton1.TabIndex = 19
+        '
+        'btnClear
+        '
+        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.Location = New System.Drawing.Point(375, 13)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear.TabIndex = 18
+        '
+        'cboYA
+        '
+        Me.cboYA.Location = New System.Drawing.Point(101, 67)
+        Me.cboYA.Name = "cboYA"
+        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboYA.Properties.PopupSizeable = True
+        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboYA.Size = New System.Drawing.Size(268, 20)
+        Me.cboYA.TabIndex = 17
+        '
+        'cboRefNo
+        '
+        Me.cboRefNo.Location = New System.Drawing.Point(101, 15)
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 56, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 42, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(450, 0)
+        Me.cboRefNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
+        Me.cboRefNo.TabIndex = 16
+        '
+        'txtRefNo
+        '
+        Me.txtRefNo.Location = New System.Drawing.Point(101, 41)
+        Me.txtRefNo.MenuManager = Me.BarManager1
+        Me.txtRefNo.Name = "txtRefNo"
+        Me.txtRefNo.Properties.ReadOnly = True
+        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
+        Me.txtRefNo.TabIndex = 15
+        '
+        'SimpleButton2
+        '
+        Me.SimpleButton2.Image = CType(resources.GetObject("SimpleButton2.Image"), System.Drawing.Image)
+        Me.SimpleButton2.Location = New System.Drawing.Point(804, 44)
+        Me.SimpleButton2.Name = "SimpleButton2"
+        Me.SimpleButton2.Size = New System.Drawing.Size(24, 23)
+        Me.SimpleButton2.TabIndex = 20
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
         '
         'ucDisposal
         '
@@ -715,13 +772,15 @@ Partial Class ucDisposal
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
         CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtFilterValue.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -744,9 +803,7 @@ Partial Class ucDisposal
     Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtFilterValue As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtYA As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
     Friend WithEvents dgvView As DevExpress.XtraGrid.GridControl
     Friend WithEvents CABindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
@@ -798,5 +855,12 @@ Partial Class ucDisposal
     Friend WithEvents colCA_TAX_FILE_NUMBER As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCA_TRANSFERROR_NAME As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCA_TRANSFER_VAL As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents cboYA As DevExpress.XtraEditors.ComboBoxEdit
+    Friend WithEvents cboRefNo As DevExpress.XtraEditors.LookUpEdit
+    Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents SimpleButton2 As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
 
 End Class
