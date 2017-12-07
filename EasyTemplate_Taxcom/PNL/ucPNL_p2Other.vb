@@ -6,7 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p2Other
     Public txtAmount As DevExpress.XtraEditors.TextEdit
-    Public SourceNo As Integer = 0
+    Public SourceNo As DevExpress.XtraBars.BarEditItem
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False
@@ -254,6 +254,7 @@ Public Class ucPNL_p2Other
             GridView1.GetDataRow(e.RowHandle)("NT_CATEGORIZED") = "Other"
             GridView1.GetDataRow(e.RowHandle)("NT_REF_NO") = RefNo
             GridView1.GetDataRow(e.RowHandle)("NT_YA") = YA
+            GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
 
         End Try

@@ -6,7 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p3InterestResPurS33
     Public txtAmount As DevExpress.XtraEditors.TextEdit
-    Public SourceNo As Integer = 0
+    Public SourceNo As DevExpress.XtraBars.BarEditItem
     Public RefNo As String = Nothing
     Public YA As String = Nothing
 
@@ -21,6 +21,7 @@ Public Class ucPNL_p3InterestResPurS33
     Public Const MainDetails_Desc As String = "RIRD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXIR_DESC"  'PLFSD_DESC
     Public Const Main_Status As String = "EXIR_STATUS"
+
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
@@ -122,7 +123,7 @@ Public Class ucPNL_p3InterestResPurS33
 
             GridView1.GetDataRow(e.RowHandle)(Main_Status) = "Yearly"
             GridView1.GetDataRow(e.RowHandle)(MainDetail) = "No"
-
+            GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
 
         End Try

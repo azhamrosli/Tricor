@@ -6,7 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p2ExemptDividend
     Public txtAmount As DevExpress.XtraEditors.TextEdit
-    Public SourceNo As Integer = 0
+    Public SourceNo As DevExpress.XtraBars.BarEditItem
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False
@@ -132,7 +132,7 @@ Public Class ucPNL_p2ExemptDividend
         Try
             GridView1.GetDataRow(e.RowHandle)("ED_TIERSTATUS") = "First Tier"
             GridView1.GetDataRow(e.RowHandle)("ED_DATE") = Now
-
+            GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
 
         End Try

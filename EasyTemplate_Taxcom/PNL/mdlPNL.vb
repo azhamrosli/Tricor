@@ -387,7 +387,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -411,7 +411,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -435,7 +435,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -458,7 +458,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -481,7 +481,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -504,7 +504,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -527,7 +527,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -550,7 +550,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -573,7 +573,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -597,7 +597,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -621,7 +621,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -1630,7 +1630,7 @@ Module mdlPNL
                         uc.txtSales = txtSales
                         uc.DataView_Main = dsDataSet
                         uc.DataView_Main2 = dsDataSet2
-                        uc.SourceNo = SourceNo
+                        uc.SourceNo = cboSourceNo
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
                         P2_docDivIncome.Text = lbl.Text

@@ -6,7 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p2RentalIncome
     Public txtAmount As DevExpress.XtraEditors.TextEdit
-    Public SourceNo As Integer = 0
+    Public SourceNo As DevExpress.XtraBars.BarEditItem
     Public txtSales As DevExpress.XtraEditors.TextEdit
     Public RefNo As String = Nothing
     Public YA As String = Nothing
@@ -205,6 +205,7 @@ Public Class ucPNL_p2RentalIncome
             GridView1.GetDataRow(e.RowHandle)("RI_STATUS4d") = "Section 4d"
             GridView1.GetDataRow(e.RowHandle)("RI_DATE") = Now
             GridView1.GetDataRow(e.RowHandle)("RI_DATE_END") = Now.AddDays(+7)
+            GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
 
         End Try

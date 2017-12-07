@@ -6,7 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p3JKDM
     Public txtAmount As DevExpress.XtraEditors.TextEdit
-    Public SourceNo As Integer = 0
+    Public SourceNo As DevExpress.XtraBars.BarEditItem
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False
@@ -253,7 +253,7 @@ Public Class ucPNL_p3JKDM
     Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
             GridView1.GetDataRow(e.RowHandle)(Main_Desc) = Me.Parent.Text
-
+            GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
 
         End Try
