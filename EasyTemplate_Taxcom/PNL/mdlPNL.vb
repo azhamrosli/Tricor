@@ -346,7 +346,7 @@ Module mdlPNL
                             ByVal txtAmount As DevExpress.XtraEditors.TextEdit, _
                             ByVal tabView As DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView, _
                             ByVal RefNo As String, ByVal YA As String,
-                            Optional ByRef Errorlog As clsError = Nothing, Optional ByRef txtSales As DevExpress.XtraEditors.TextEdit = Nothing, Optional ByRef SourceNo As Integer = 0) As Boolean
+                            Optional ByRef Errorlog As clsError = Nothing, Optional ByRef txtSales As DevExpress.XtraEditors.TextEdit = Nothing, Optional ByRef SourceNo As Integer = 0, Optional ByVal cboSourceNo As DevExpress.XtraBars.BarEditItem = Nothing) As Boolean
         Try
             DockDocument.BeginUpdate()
             Select Case Type
@@ -358,6 +358,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = cboSourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -368,10 +369,11 @@ Module mdlPNL
                         doc = DockDocument.View.AddDocument(P1_docSales)
                     Else
                         P1_docSales.Visibility = DockVisibility.Visible
-                        If DockDocument.View.AddFloatingDocumentsHost(P1_docSales) Then
-
-                        Else
-
+                        If P1_docSales.Controls.Count > 0 AndAlso TypeOf P1_docSales.Controls(0) Is ucPNL_p1Sales Then
+                            Dim uc As ucPNL_p1Sales = CType(P1_docSales.Controls(0), ucPNL_p1Sales)
+                            uc.RefNo = RefNo
+                            uc.YA = YA
+                            uc.SourceNo = cboSourceNo
                         End If
                         doc = DockDocument.View.AddDocument(P1_docSales)
                     End If
@@ -385,6 +387,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -408,6 +411,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -431,6 +435,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -453,6 +458,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -475,6 +481,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -497,6 +504,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -519,6 +527,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -541,6 +550,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -563,6 +573,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -586,6 +597,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
@@ -609,6 +621,7 @@ Module mdlPNL
 
                         uc.RefNo = RefNo
                         uc.YA = YA
+                        uc.SourceNo = SourceNo
                         uc.DataView_Main = dsDataSet
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount

@@ -201,18 +201,6 @@ Public Class ucPNL
         End Try
     End Sub
 
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
-        Try
-            If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue IsNot Nothing AndAlso cboRefNo.EditValue <> "" Then
-                txtRefNo.EditValue = cboRefNo.EditValue
-                LoadData(2)
-            End If
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
     Private Sub cboYA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedIndexChanged
         Try
             LoadData(2)
@@ -282,4 +270,16 @@ Public Class ucPNL
 
         End Try
     End Sub
+
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue IsNot Nothing AndAlso cboRefNo.EditValue <> "" Then
+                txtRefNo.EditValue = cboRefNo.EditValue
+                LoadData(2)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    
 End Class

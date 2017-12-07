@@ -458,7 +458,7 @@ Public Class frmPNL_Add
             End If
 
             Application.DoEvents()
-            mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, cboYA.EditValue, ErrorLog, txt_p1Sales, cboMainSource.EditValue)
+            mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, cboYA.EditValue, ErrorLog, txt_p1Sales, cboMainSource.EditValue, cboMainSource)
             Application.DoEvents()
             '.View.AddDocument(doc)
 
@@ -1255,7 +1255,7 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged, cboYA.EditValueChanged, cboYA.EditValueChanged
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged, cboYA.EditValueChanged
         Try
             If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" AndAlso cboYA IsNot Nothing AndAlso cboYA.EditValue.ToString <> "" Then
                 txtRefNo.EditValue = cboRefNo.EditValue
@@ -4274,4 +4274,9 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
+
+    Private Sub lbl_p1Sales_Click(sender As Object, e As EventArgs) Handles lbl_p1Sales.Click
+
+    End Sub
+
 End Class

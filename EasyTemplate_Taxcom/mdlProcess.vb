@@ -13,12 +13,12 @@ Module mdlProcess
     Public V1 As Integer = 1
     Public V2 As Integer = 0
     Public V3 As Integer = 2
-    Public V4 As Integer = 0
+    Public V4 As Integer = 1
     Public R1 As Integer = 5
-    Public ArgParam0 As String = "frmpnl" 'Form Name
+    Public ArgParam0 As String = "frmtableofcontent" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "2055655605" '"1054242304" 'RefNo
-    Public ArgParam3 As String = "2017" 'YA"
+    Public ArgParam2 As String = "1225723109" '"1054242304" 'RefNo
+    Public ArgParam3 As String = "2015" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
     Public ListofClsError As List(Of clsError) = Nothing
     Public dsDataSetErrorlog As DataSet
@@ -8053,6 +8053,191 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
         End Try
     End Function
 #End Region
+#Region "TABLE OF CONTENT"
+
+    Public Function Load_TableofContent_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TABLE_CONTENT"
+            Dim isWhere As Boolean = False
+            SQLcmd = New SqlCommand
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE TBL_REFNO=@TBL_REFNO"
+                Else
+                    StrSQL += " AND TBL_REFNO=@TBL_REFNO"
+                End If
+                SQLcmd.Parameters.Add("@TBL_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            If YA IsNot Nothing AndAlso YA <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE TBL_YA=@TBL_YA"
+                Else
+                    StrSQL += " AND TBL_YA=@TBL_YA"
+                End If
+                SQLcmd.Parameters.Add("@TBL_YA", SqlDbType.NVarChar, 5).Value = YA
+            End If
+
+            SQLcmd.CommandText = StrSQL
+
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function CheckExist_TableofContent(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM TABLE_CONTENT WHERE TBL_REFNO=@TBL_REFNO AND TBL_YA=@TBL_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TBL_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("COUNTX")) = False AndAlso dt.Rows(0)("COUNTX") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+    Public Function Load_TableofContent_Default(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TABLE_CONTENT_DEFAULT ORDER BY TBL_TITLE"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function Load_TableofContent_ByID(ByVal ID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TABLE_CONTENT WHERE TBL_ID=@TBL_ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_ID", SqlDbType.Decimal).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function Load_TableofContent_List_ByParentID(ByVal ID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TABLE_CONTENT_LIST WHERE TBL_PARENTID=@TBL_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_PARENTID", SqlDbType.Decimal).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+#End Region
 #End Region
 #Region "SAVE"
 #Region "CA"
@@ -13707,6 +13892,75 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
         End Try
     End Function
 #End Region
+#Region "TABLE OF CONTENT"
+
+    Public Function Save_TableOfContent(ByVal RefNo As String, ByVal CompanyName As String, ByVal YA As String, dt As DataTable, ByRef ReturnID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO TABLE_CONTENT (TBL_REFNO,TBL_COMPANYNAME,TBL_YA,ModifiedBy,ModifiedDateTime) VALUES (@TBL_REFNO,@TBL_COMPANYNAME,@TBL_YA,@ModifiedBy,@ModifiedDateTime)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TBL_COMPANYNAME", SqlDbType.NVarChar, 350).Value = CompanyName
+            SQLcmd.Parameters.Add("@TBL_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+
+            If ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID) Then
+
+                If dt IsNot Nothing Then
+                    Dim ListofSQLCmd As New List(Of SqlCommand)
+
+                    For i As Integer = 0 To dt.Rows.Count - 1
+                        SQLcmd = Nothing
+                        StrSQL = "INSERT INTO TABLE_CONTENT_LIST (TBL_PARENTID,TBL_REPORTNAME,TBL_TITLE,TBL_INDEX,TBL_SEQUENCE) VALUES (@TBL_PARENTID,@TBL_REPORTNAME,@TBL_TITLE,@TBL_INDEX,@TBL_SEQUENCE)"
+
+                        SQLcmd = New SqlCommand
+                        SQLcmd.CommandText = StrSQL
+                        SQLcmd.Parameters.Add("@TBL_PARENTID", SqlDbType.Decimal).Value = ReturnID
+                        SQLcmd.Parameters.Add("@TBL_REPORTNAME", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("TBL_REPORTNAME")), "", dt.Rows(i)("TBL_REPORTNAME"))
+                        SQLcmd.Parameters.Add("@TBL_TITLE", SqlDbType.NVarChar, 300).Value = IIf(IsDBNull(dt.Rows(i)("TBL_TITLE")), "", dt.Rows(i)("TBL_TITLE"))
+                        SQLcmd.Parameters.Add("@TBL_INDEX", SqlDbType.NVarChar, 10).Value = IIf(IsDBNull(dt.Rows(i)("TBL_INDEX")), "", dt.Rows(i)("TBL_INDEX"))
+                        SQLcmd.Parameters.Add("@TBL_SEQUENCE", SqlDbType.Int).Value = i
+
+                        ListofSQLCmd.Add(SQLcmd)
+                    Next
+
+
+                    If ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog) = False Then
+                        Return False
+                    End If
+                End If
+
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
+
+#End Region
 #End Region
 #Region "UPDATE"
 #Region "CA"
@@ -14681,6 +14935,77 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
+#End Region
+#Region "TABLE OF CONTENT"
+
+    Public Function Update_TableOfContent(ByVal ID As Decimal, ByVal RefNo As String, ByVal CompanyName As String, ByVal YA As String, dt As DataTable, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = ""
+
+            Dim ListofSQLCmd As New List(Of SqlCommand)
+            SQLcmd = Nothing
+            StrSQL = "DELETE TABLE_CONTENT_LIST WHERE TBL_PARENTID=@TBL_PARENTID"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_PARENTID", SqlDbType.Decimal).Value = ID
+            ListofSQLCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "UPDATE TABLE_CONTENT SET TBL_REFNO=@TBL_REFNO,TBL_COMPANYNAME=@TBL_COMPANYNAME,TBL_YA=@TBL_YA,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime WHERE TBL_ID=@TBL_ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_ID", SqlDbType.Decimal).Value = ID
+            SQLcmd.Parameters.Add("@TBL_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TBL_COMPANYNAME", SqlDbType.NVarChar, 350).Value = CompanyName
+            SQLcmd.Parameters.Add("@TBL_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            ListofSQLCmd.Add(SQLcmd)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    SQLcmd = Nothing
+                    StrSQL = "INSERT INTO TABLE_CONTENT_LIST (TBL_PARENTID,TBL_REPORTNAME,TBL_TITLE,TBL_INDEX,TBL_SEQUENCE) VALUES (@TBL_PARENTID,@TBL_REPORTNAME,@TBL_TITLE,@TBL_INDEX,@TBL_SEQUENCE)"
+
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@TBL_PARENTID", SqlDbType.Decimal).Value = ID
+                    SQLcmd.Parameters.Add("@TBL_REPORTNAME", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("TBL_REPORTNAME")), "", dt.Rows(i)("TBL_REPORTNAME"))
+                    SQLcmd.Parameters.Add("@TBL_TITLE", SqlDbType.NVarChar, 300).Value = IIf(IsDBNull(dt.Rows(i)("TBL_TITLE")), "", dt.Rows(i)("TBL_TITLE"))
+                    SQLcmd.Parameters.Add("@TBL_INDEX", SqlDbType.NVarChar, 10).Value = IIf(IsDBNull(dt.Rows(i)("TBL_INDEX")), "", dt.Rows(i)("TBL_INDEX"))
+                    SQLcmd.Parameters.Add("@TBL_SEQUENCE", SqlDbType.Int).Value = i
+
+                    ListofSQLCmd.Add(SQLcmd)
+                Next
+            End If
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
+
 #End Region
 #End Region
 #Region "DELETE"
@@ -15681,7 +16006,50 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
     End Function
 #End Region
 
+#Region "TABLE OF CONTENT"
+    Public Function Delete_TableofContent(ByVal TBL_ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofSQL As List(Of SqlCommand)
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            ListofSQL = New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM TABLE_CONTENT WHERE TBL_ID=@TBL_ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_ID", SqlDbType.Int).Value = TBL_ID
+            ListofSQL.Add(SQLcmd)
+            StrSQL = Nothing
+            StrSQL = "DELETE FROM TABLE_CONTENT_LIST WHERE TBL_PARENTID=@TBL_PARENTID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TBL_PARENTID", SqlDbType.Int).Value = TBL_ID
+            ListofSQL.Add(SQLcmd)
+
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQL, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+#End Region
 #End Region
 End Module
 Public Class clsError

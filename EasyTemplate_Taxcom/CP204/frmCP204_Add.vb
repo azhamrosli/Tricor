@@ -375,16 +375,6 @@ Public Class frmCP204_Add
 
         End Try
     End Sub
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
-        Try
-            txtRefNo.EditValue = cboRefNo.EditValue
-            txtRefRegistrationNo.EditValue = cboRefNo.GetColumnValue("CompanyNo")
-            GenerateBreakDown()
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
     Private Sub chkCommencement_CheckedChanged(sender As Object, e As EventArgs) Handles chkCommencement.CheckedChanged
         Try
             If chkCommencement.EditValue IsNot Nothing AndAlso chkCommencement.EditValue = True Then
@@ -590,7 +580,7 @@ Public Class frmCP204_Add
                 End If
 
                 dtRow("BCP_REF_NO") = IIf(cboRefNo.EditValue Is Nothing, DBNull.Value, cboRefNo.EditValue)
-                dtRow("BCP_CO_NAME") = IIf(cboRefNo.EditValue Is Nothing, DBNull.Value, cboRefNo.GetColumnValue("CompanyName"))
+                dtRow("BCP_CO_NAME") = IIf(cboRefNo.EditValue Is Nothing, DBNull.Value, cboRefNo.Properties.View.GetFocusedRowCellValue("CompanyName"))
                 dtRow("BCP_CO_REGNO") = IIf(txtRefRegistrationNo.EditValue Is Nothing, DBNull.Value, txtRefRegistrationNo.EditValue)
                 dtRow("BCP_CORRESPOND_ADD1") = IIf(txtAdd1_Cor.EditValue Is Nothing, DBNull.Value, txtAdd1_Cor.EditValue)
                 dtRow("BCP_CORRESPOND_ADD2") = IIf(txtAdd2_Cor.EditValue Is Nothing, DBNull.Value, txtAdd2_Cor.EditValue)
@@ -701,6 +691,16 @@ Public Class frmCP204_Add
     Private Sub btnRefresh_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnRefresh.ItemClick
         Try
             Me.LoadData()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            txtRefNo.EditValue = cboRefNo.EditValue
+            txtRefRegistrationNo.EditValue = cboRefNo.Properties.View.GetFocusedRowCellValue("CompanyNo") 'cboRefNo.GetSelectedDataRow()
+            GenerateBreakDown()
         Catch ex As Exception
 
         End Try

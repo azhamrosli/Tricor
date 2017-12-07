@@ -211,10 +211,6 @@ Partial Class frmPNL_Add
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.txtLastModified = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.cboRefNo = New DevExpress.XtraBars.BarEditItem()
-        Me.RepositoryItemLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
-        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.cboYA = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox2 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.txtRefNo = New DevExpress.XtraBars.BarEditItem()
@@ -242,6 +238,11 @@ Partial Class frmPNL_Add
         Me.BarSubItem2 = New DevExpress.XtraBars.BarSubItem()
         Me.BarSubItem3 = New DevExpress.XtraBars.BarSubItem()
         Me.btnErrorLog = New DevExpress.XtraBars.BarButtonItem()
+        Me.cboRefNo = New DevExpress.XtraBars.BarEditItem()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
+        Me.RepositoryItemSearchLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit()
+        Me.RepositoryItemSearchLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -251,10 +252,20 @@ Partial Class frmPNL_Add
         Me.RibbonPageGroup6 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup5 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RepositoryItemRadioGroup1 = New DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup()
+        Me.RepositoryItemLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.RepositoryItemProgressBar1 = New DevExpress.XtraEditors.Repository.RepositoryItemProgressBar()
         Me.WorkspaceManager1 = New DevExpress.Utils.WorkspaceManager()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.PopupMenu1 = New DevExpress.XtraBars.PopupMenu(Me.components)
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.hideContainerRight.SuspendLayout()
         Me.pnlDocImport.SuspendLayout()
@@ -350,9 +361,6 @@ Partial Class frmPNL_Add
         CType(Me.RibbonControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -363,8 +371,14 @@ Partial Class frmPNL_Add
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemSearchLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemSearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemProgressBar1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PopupMenu1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DockManager1
@@ -2757,12 +2771,12 @@ Partial Class frmPNL_Add
         '
         Me.RibbonControl1.AllowMinimizeRibbon = False
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
-        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboRefNo, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog})
+        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog, Me.cboRefNo})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
-        Me.RibbonControl1.MaxItemId = 17
+        Me.RibbonControl1.MaxItemId = 1
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
-        Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7})
+        Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7, Me.RepositoryItemSearchLookUpEdit1})
         Me.RibbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl1.ShowToolbarCustomizeItem = False
         Me.RibbonControl1.Size = New System.Drawing.Size(1315, 141)
@@ -2843,37 +2857,6 @@ Partial Class frmPNL_Add
         Me.RepositoryItemTextEdit1.AutoHeight = False
         Me.RepositoryItemTextEdit1.Name = "RepositoryItemTextEdit1"
         Me.RepositoryItemTextEdit1.ReadOnly = True
-        '
-        'cboRefNo
-        '
-        Me.cboRefNo.Caption = "Tax Payer :"
-        Me.cboRefNo.Edit = Me.RepositoryItemLookUpEdit1
-        Me.cboRefNo.Glyph = CType(resources.GetObject("cboRefNo.Glyph"), System.Drawing.Image)
-        Me.cboRefNo.Id = 15
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Width = 150
-        '
-        'RepositoryItemLookUpEdit1
-        '
-        Me.RepositoryItemLookUpEdit1.AutoHeight = False
-        Me.RepositoryItemLookUpEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemLookUpEdit1.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 250, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 150, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near)})
-        Me.RepositoryItemLookUpEdit1.DataSource = Me.TaxPayerFindBindingSource
-        Me.RepositoryItemLookUpEdit1.DisplayMember = "CompanyName"
-        Me.RepositoryItemLookUpEdit1.Name = "RepositoryItemLookUpEdit1"
-        Me.RepositoryItemLookUpEdit1.NullText = "Please select"
-        Me.RepositoryItemLookUpEdit1.PopupFormMinSize = New System.Drawing.Size(450, 0)
-        Me.RepositoryItemLookUpEdit1.ValueMember = "RefNo"
-        '
-        'TaxPayerFindBindingSource
-        '
-        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
-        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
-        '
-        'DsCA
-        '
-        Me.DsCA.DataSetName = "dsCA"
-        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'cboYA
         '
@@ -3098,6 +3081,53 @@ Partial Class frmPNL_Add
         Me.btnErrorLog.LargeGlyph = CType(resources.GetObject("btnErrorLog.LargeGlyph"), System.Drawing.Image)
         Me.btnErrorLog.Name = "btnErrorLog"
         '
+        'cboRefNo
+        '
+        Me.cboRefNo.Caption = "Tax Payer"
+        Me.cboRefNo.CategoryGuid = New System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537")
+        Me.cboRefNo.DataBindings.Add(New System.Windows.Forms.Binding("AccessibleDescription", Me.TaxPayerFindBindingSource, "RefNo", True))
+        Me.cboRefNo.Edit = Me.RepositoryItemSearchLookUpEdit1
+        Me.cboRefNo.Glyph = CType(resources.GetObject("cboRefNo.Glyph"), System.Drawing.Image)
+        Me.cboRefNo.Id = 17
+        Me.cboRefNo.LargeGlyph = CType(resources.GetObject("cboRefNo.LargeGlyph"), System.Drawing.Image)
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Width = 150
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
+        '
+        'DsCA
+        '
+        Me.DsCA.DataSetName = "dsCA"
+        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'RepositoryItemSearchLookUpEdit1
+        '
+        Me.RepositoryItemSearchLookUpEdit1.AutoHeight = False
+        Me.RepositoryItemSearchLookUpEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemSearchLookUpEdit1.DataSource = Me.TaxPayerFindBindingSource
+        Me.RepositoryItemSearchLookUpEdit1.DisplayMember = "CompanyName"
+        Me.RepositoryItemSearchLookUpEdit1.Name = "RepositoryItemSearchLookUpEdit1"
+        Me.RepositoryItemSearchLookUpEdit1.NullText = "Select"
+        Me.RepositoryItemSearchLookUpEdit1.PopupFormMinSize = New System.Drawing.Size(450, 0)
+        Me.RepositoryItemSearchLookUpEdit1.ValueMember = "RefNo"
+        Me.RepositoryItemSearchLookUpEdit1.View = Me.RepositoryItemSearchLookUpEdit1View
+        '
+        'RepositoryItemSearchLookUpEdit1View
+        '
+        Me.RepositoryItemSearchLookUpEdit1View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
+        Me.RepositoryItemSearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.RepositoryItemSearchLookUpEdit1View.Name = "RepositoryItemSearchLookUpEdit1View"
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsBehavior.Editable = False
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsView.ColumnAutoWidth = False
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsView.RowAutoHeight = True
+        Me.RepositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = False
+        '
         'RibbonPage1
         '
         Me.RibbonPage1.Groups.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPageGroup() {Me.RibbonPageGroup1, Me.RibbonPageGroup3, Me.RibbonPageGroup4})
@@ -3163,6 +3193,18 @@ Partial Class frmPNL_Add
         '
         Me.RepositoryItemRadioGroup1.Name = "RepositoryItemRadioGroup1"
         '
+        'RepositoryItemLookUpEdit1
+        '
+        Me.RepositoryItemLookUpEdit1.AutoHeight = False
+        Me.RepositoryItemLookUpEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.RepositoryItemLookUpEdit1.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 250, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 150, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near)})
+        Me.RepositoryItemLookUpEdit1.DataSource = Me.TaxPayerFindBindingSource
+        Me.RepositoryItemLookUpEdit1.DisplayMember = "CompanyName"
+        Me.RepositoryItemLookUpEdit1.Name = "RepositoryItemLookUpEdit1"
+        Me.RepositoryItemLookUpEdit1.NullText = "Please select"
+        Me.RepositoryItemLookUpEdit1.PopupFormMinSize = New System.Drawing.Size(450, 0)
+        Me.RepositoryItemLookUpEdit1.ValueMember = "RefNo"
+        '
         'RepositoryItemProgressBar1
         '
         Me.RepositoryItemProgressBar1.Name = "RepositoryItemProgressBar1"
@@ -3175,6 +3217,75 @@ Partial Class frmPNL_Add
         'OpenFileDialog1
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        '
+        'PopupMenu1
+        '
+        Me.PopupMenu1.Name = "PopupMenu1"
+        Me.PopupMenu1.Ribbon = Me.RibbonControl1
+        '
+        'colRefNo
+        '
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
+        '
+        'colCompanyName
+        '
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
+        '
+        'colCompanyNo
+        '
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
+        '
+        'colEmployerNo
+        '
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
+        '
+        'colHandleBy
+        '
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
         '
         'frmPNL_Add
         '
@@ -3293,9 +3404,6 @@ Partial Class frmPNL_Add
         CType(Me.RibbonControl1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3306,8 +3414,14 @@ Partial Class frmPNL_Add
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemSearchLookUpEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemSearchLookUpEdit1View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemRadioGroup1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemProgressBar1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PopupMenu1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -3391,7 +3505,6 @@ Partial Class frmPNL_Add
     Friend WithEvents RibbonPageGroup1 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents RibbonPageGroup2 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
     Friend WithEvents RepositoryItemRadioGroup1 As DevExpress.XtraEditors.Repository.RepositoryItemRadioGroup
-    Friend WithEvents cboRefNo As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemLookUpEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
     Friend WithEvents cboYA As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemComboBox2 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
@@ -3542,4 +3655,16 @@ Partial Class frmPNL_Add
     Friend WithEvents ControlContainer1 As DevExpress.XtraBars.Docking.ControlContainer
     Friend WithEvents btnErrorLog As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents RibbonPageGroup6 As DevExpress.XtraBars.Ribbon.RibbonPageGroup
+    Friend WithEvents cboRefNo As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemSearchLookUpEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit
+    Friend WithEvents RepositoryItemSearchLookUpEdit1View As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents PopupMenu1 As DevExpress.XtraBars.PopupMenu
+    Friend WithEvents colRefNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colHandleBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colEmployerNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
 End Class

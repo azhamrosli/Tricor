@@ -827,7 +827,19 @@
     <Compile Include="PNL\ucPNL_p1Sales.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Report\frmTableofContent_Add.Designer.vb">
+      <DependentUpon>frmTableofContent_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Report\frmTableofContent_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Report\mdlReport.vb" />
+    <Compile Include="Report\ucTableofContent.Designer.vb">
+      <DependentUpon>ucTableofContent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Report\ucTableofContent.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Setting\frmDatabase.Designer.vb">
       <DependentUpon>frmDatabase.vb</DependentUpon>
     </Compile>
@@ -1133,6 +1145,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL_p1Sales.resx">
       <DependentUpon>ucPNL_p1Sales.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\frmTableofContent_Add.resx">
+      <DependentUpon>frmTableofContent_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\ucTableofContent.resx">
+      <DependentUpon>ucTableofContent.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setting\frmDatabase.resx">
       <DependentUpon>frmDatabase.vb</DependentUpon>

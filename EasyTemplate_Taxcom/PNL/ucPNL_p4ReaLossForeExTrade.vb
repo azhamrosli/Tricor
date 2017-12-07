@@ -6,6 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p4ReaLossForeExTrade
     Public txtAmount As DevExpress.XtraEditors.TextEdit
+    Public SourceNo As Integer = 0
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False

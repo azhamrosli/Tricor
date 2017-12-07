@@ -44,7 +44,6 @@ Partial Class frmHP_Add
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
         Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.txtTaxPayer = New DevExpress.XtraEditors.TextEdit()
@@ -129,6 +128,16 @@ Partial Class frmHP_Add
         Me.btnSumofDigits = New DevExpress.XtraEditors.SimpleButton()
         Me.lblTypeInstallment = New DevExpress.XtraEditors.LabelControl()
         Me.lblTitleSchedule = New DevExpress.XtraEditors.LabelControl()
+        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -138,7 +147,6 @@ Partial Class frmHP_Add
         CType(Me.txtFileNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboHP.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTaxPayer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -179,6 +187,8 @@ Partial Class frmHP_Add
         CType(Me.dtDateOnly.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumbericOnly, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -291,6 +301,7 @@ Partial Class frmHP_Add
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.cboRefNo)
         Me.PanelControl1.Controls.Add(Me.LabelControl28)
         Me.PanelControl1.Controls.Add(Me.txtCompanyCode)
         Me.PanelControl1.Controls.Add(Me.LabelControl27)
@@ -301,7 +312,6 @@ Partial Class frmHP_Add
         Me.PanelControl1.Controls.Add(Me.LabelControl3)
         Me.PanelControl1.Controls.Add(Me.LabelControl1)
         Me.PanelControl1.Controls.Add(Me.cboSourceCode)
-        Me.PanelControl1.Controls.Add(Me.cboRefNo)
         Me.PanelControl1.Controls.Add(Me.txtTaxPayer)
         Me.PanelControl1.Controls.Add(Me.cboYA)
         Me.PanelControl1.Controls.Add(Me.LabelControl5)
@@ -395,19 +405,6 @@ Partial Class frmHP_Add
         Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboSourceCode.Size = New System.Drawing.Size(242, 20)
         Me.cboSourceCode.TabIndex = 4
-        '
-        'cboRefNo
-        '
-        Me.cboRefNo.Location = New System.Drawing.Point(139, 41)
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 56, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.[True]), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near, DevExpress.Data.ColumnSortOrder.None, DevExpress.Utils.DefaultBoolean.[True]), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 42, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
-        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "RefNo"
-        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(450, 0)
-        Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
-        Me.cboRefNo.TabIndex = 0
         '
         'TaxPayerFindBindingSource
         '
@@ -1225,6 +1222,95 @@ Partial Class frmHP_Add
         Me.lblTitleSchedule.TabIndex = 269
         Me.lblTitleSchedule.Text = "Installments Schedule"
         '
+        'cboRefNo
+        '
+        Me.cboRefNo.Location = New System.Drawing.Point(139, 41)
+        Me.cboRefNo.MenuManager = Me.BarManager1
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.NullText = "Select"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
+        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
+        Me.cboRefNo.TabIndex = 181
+        '
+        'SearchLookUpEdit2View
+        '
+        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
+        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
+        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
+        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
+        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
+        '
+        'colRefNo
+        '
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
+        '
+        'colCompanyName
+        '
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
+        '
+        'colHandleBy
+        '
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
+        '
+        'colCompanyNo
+        '
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
+        '
+        'colEmployerNo
+        '
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
+        '
         'frmHP_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1250,7 +1336,6 @@ Partial Class frmHP_Add
         CType(Me.txtFileNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboHP.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTaxPayer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1294,6 +1379,8 @@ Partial Class frmHP_Add
         CType(Me.txtNumbericOnly, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1320,7 +1407,6 @@ Partial Class frmHP_Add
     Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents cboSourceCode As DevExpress.XtraEditors.ComboBoxEdit
-    Friend WithEvents cboRefNo As DevExpress.XtraEditors.LookUpEdit
     Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
     Friend WithEvents txtTaxPayer As DevExpress.XtraEditors.TextEdit
@@ -1405,4 +1491,14 @@ Partial Class frmHP_Add
     Friend WithEvents HPINSTALLMENTBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents dtDateOnly As DevExpress.XtraEditors.Repository.RepositoryItemDateEdit
     Friend WithEvents txtNumbericOnly As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents cboRefNo As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents SearchLookUpEdit2View As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colRefNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colHandleBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colEmployerNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
 End Class

@@ -6,6 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p1Sales
     Public txtAmount As DevExpress.XtraEditors.TextEdit
+    Public SourceNo As DevExpress.XtraBars.BarEditItem
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False
@@ -21,6 +22,7 @@ Public Class ucPNL_p1Sales
     Public Const MainDetail As String = "PLFS_DETAIL"  'PLFS_DETAIL
     Public Const Main_Desc As String = "PLFS_DESC"  'PLFSD_DESC
     Public Const MainDetails_Desc As String = "PLFSD_DESC"  'PLFSD_DESC
+
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
@@ -266,6 +268,7 @@ Public Class ucPNL_p1Sales
     Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
             GridView1.GetDataRow(e.RowHandle)(Main_Desc) = Me.Parent.Text
+            GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
 
         Catch ex As Exception
 

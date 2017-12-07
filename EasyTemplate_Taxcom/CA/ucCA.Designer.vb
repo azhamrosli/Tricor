@@ -36,8 +36,16 @@ Partial Class ucCA
         Me.colCA_DISP_BABC = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_DISP_REMARKS = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.dgvView = New DevExpress.XtraGrid.GridControl()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RemoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DuplicateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CreateDisposalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CopyReferenceNoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CopyCompanyNameToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CABindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.dgvCA = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colCA_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_MODE = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -73,30 +81,34 @@ Partial Class ucCA
         Me.colCA_TAX_FILE_NUMBER = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_TRANSFERROR_NAME = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCA_TRANSFER_VAL = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RemoveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DuplicateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CreateDisposalToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyReferenceNoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyCompanyNameToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.cboFilterType = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.btnEdit = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPrint = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnImportExport = New DevExpress.XtraBars.BarButtonItem()
-        Me.btnQuickCA = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
+        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.cboFilterType = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.btnAllRecord = New DevExpress.XtraEditors.SimpleButton()
         Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
@@ -104,27 +116,25 @@ Partial Class ucCA
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
-        Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
-        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
-        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
+        Me.btnImportExport = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnQuickCA = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ContextMenuStrip1.SuspendLayout()
+        CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
-        CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtFilterValue.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvDisposal
@@ -240,15 +250,63 @@ Partial Class ucCA
         Me.dgvView.TabIndex = 14
         Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.dgvCA, Me.dgvDisposal})
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.EditToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.DuplicateToolStripMenuItem, Me.ToolStripMenuItem2, Me.CreateDisposalToolStripMenuItem, Me.CopyReferenceNoToolStripMenuItem, Me.CopyCompanyNameToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 180)
+        '
+        'AddToolStripMenuItem
+        '
+        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.AddToolStripMenuItem.Text = "Add"
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.EditToolStripMenuItem.Text = "Edit"
+        '
+        'RemoveToolStripMenuItem
+        '
+        Me.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem"
+        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.RemoveToolStripMenuItem.Text = "Remove"
+        '
+        'DuplicateToolStripMenuItem
+        '
+        Me.DuplicateToolStripMenuItem.Name = "DuplicateToolStripMenuItem"
+        Me.DuplicateToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.DuplicateToolStripMenuItem.Text = "Duplicate"
+        '
+        'ToolStripMenuItem2
+        '
+        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(192, 22)
+        Me.ToolStripMenuItem2.Text = "_______________________"
+        '
+        'CreateDisposalToolStripMenuItem
+        '
+        Me.CreateDisposalToolStripMenuItem.Name = "CreateDisposalToolStripMenuItem"
+        Me.CreateDisposalToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.CreateDisposalToolStripMenuItem.Text = "Create Disposal"
+        '
+        'CopyReferenceNoToolStripMenuItem
+        '
+        Me.CopyReferenceNoToolStripMenuItem.Name = "CopyReferenceNoToolStripMenuItem"
+        Me.CopyReferenceNoToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.CopyReferenceNoToolStripMenuItem.Text = "Copy Reference No"
+        '
+        'CopyCompanyNameToolStripMenuItem
+        '
+        Me.CopyCompanyNameToolStripMenuItem.Name = "CopyCompanyNameToolStripMenuItem"
+        Me.CopyCompanyNameToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
+        Me.CopyCompanyNameToolStripMenuItem.Text = "Copy Company Name"
+        '
         'CABindingSource
         '
         Me.CABindingSource.DataMember = "CA"
-        Me.CABindingSource.DataSource = Me.DsCA
-        '
-        'DsCA
-        '
-        Me.DsCA.DataSetName = "dsCA"
-        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'dgvCA
         '
@@ -505,60 +563,6 @@ Partial Class ucCA
         Me.colCA_TRANSFER_VAL.FieldName = "CA_TRANSFER_VAL"
         Me.colCA_TRANSFER_VAL.Name = "colCA_TRANSFER_VAL"
         '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.EditToolStripMenuItem, Me.RemoveToolStripMenuItem, Me.DuplicateToolStripMenuItem, Me.ToolStripMenuItem2, Me.CreateDisposalToolStripMenuItem, Me.CopyReferenceNoToolStripMenuItem, Me.CopyCompanyNameToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(193, 180)
-        '
-        'AddToolStripMenuItem
-        '
-        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.AddToolStripMenuItem.Text = "Add"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'RemoveToolStripMenuItem
-        '
-        Me.RemoveToolStripMenuItem.Name = "RemoveToolStripMenuItem"
-        Me.RemoveToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.RemoveToolStripMenuItem.Text = "Remove"
-        '
-        'DuplicateToolStripMenuItem
-        '
-        Me.DuplicateToolStripMenuItem.Name = "DuplicateToolStripMenuItem"
-        Me.DuplicateToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.DuplicateToolStripMenuItem.Text = "Duplicate"
-        '
-        'ToolStripMenuItem2
-        '
-        Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(192, 22)
-        Me.ToolStripMenuItem2.Text = "_______________________"
-        '
-        'CreateDisposalToolStripMenuItem
-        '
-        Me.CreateDisposalToolStripMenuItem.Name = "CreateDisposalToolStripMenuItem"
-        Me.CreateDisposalToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.CreateDisposalToolStripMenuItem.Text = "Create Disposal"
-        '
-        'CopyReferenceNoToolStripMenuItem
-        '
-        Me.CopyReferenceNoToolStripMenuItem.Name = "CopyReferenceNoToolStripMenuItem"
-        Me.CopyReferenceNoToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.CopyReferenceNoToolStripMenuItem.Text = "Copy Reference No"
-        '
-        'CopyCompanyNameToolStripMenuItem
-        '
-        Me.CopyCompanyNameToolStripMenuItem.Name = "CopyCompanyNameToolStripMenuItem"
-        Me.CopyCompanyNameToolStripMenuItem.Size = New System.Drawing.Size(192, 22)
-        Me.CopyCompanyNameToolStripMenuItem.Text = "Copy Company Name"
-        '
         'pnlLoading
         '
         Me.pnlLoading.Anchor = System.Windows.Forms.AnchorStyles.None
@@ -577,11 +581,11 @@ Partial Class ucCA
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.cboRefNo)
         Me.PanelControl1.Controls.Add(Me.SimpleButton2)
         Me.PanelControl1.Controls.Add(Me.SimpleButton1)
         Me.PanelControl1.Controls.Add(Me.btnClear)
         Me.PanelControl1.Controls.Add(Me.cboYA)
-        Me.PanelControl1.Controls.Add(Me.cboRefNo)
         Me.PanelControl1.Controls.Add(Me.cboFilterType)
         Me.PanelControl1.Controls.Add(Me.btnAllRecord)
         Me.PanelControl1.Controls.Add(Me.btnFind)
@@ -596,16 +600,20 @@ Partial Class ucCA
         Me.PanelControl1.Size = New System.Drawing.Size(905, 109)
         Me.PanelControl1.TabIndex = 7
         '
-        'cboFilterType
+        'cboRefNo
         '
-        Me.cboFilterType.Location = New System.Drawing.Point(530, 15)
-        Me.cboFilterType.MenuManager = Me.BarManager1
-        Me.cboFilterType.Name = "cboFilterType"
-        Me.cboFilterType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboFilterType.Properties.Items.AddRange(New Object() {"Asset Description", "Asset Code / Stock No", "Accelerated CA", "HP Code", "RA", "ITA", "Deferred Claim", "All"})
-        Me.cboFilterType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboFilterType.Size = New System.Drawing.Size(268, 20)
-        Me.cboFilterType.TabIndex = 9
+        Me.cboRefNo.Location = New System.Drawing.Point(108, 15)
+        Me.cboRefNo.MenuManager = Me.BarManager1
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.NullText = "Select"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
+        Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
+        Me.cboRefNo.TabIndex = 160
         '
         'BarManager1
         '
@@ -617,7 +625,7 @@ Partial Class ucCA
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.btnImportExport, Me.btnQuickCA})
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint})
         Me.BarManager1.MaxItemId = 8
         '
         'Bar1
@@ -626,7 +634,7 @@ Partial Class ucCA
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.btnImportExport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnQuickCA)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -670,24 +678,6 @@ Partial Class ucCA
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
-        'btnImportExport
-        '
-        Me.btnImportExport.Caption = "Import / Export"
-        Me.btnImportExport.Glyph = CType(resources.GetObject("btnImportExport.Glyph"), System.Drawing.Image)
-        Me.btnImportExport.Id = 4
-        Me.btnImportExport.LargeGlyph = CType(resources.GetObject("btnImportExport.LargeGlyph"), System.Drawing.Image)
-        Me.btnImportExport.Name = "btnImportExport"
-        Me.btnImportExport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        '
-        'btnQuickCA
-        '
-        Me.btnQuickCA.Caption = "Quick CA"
-        Me.btnQuickCA.Glyph = CType(resources.GetObject("btnQuickCA.Glyph"), System.Drawing.Image)
-        Me.btnQuickCA.Id = 7
-        Me.btnQuickCA.LargeGlyph = CType(resources.GetObject("btnQuickCA.LargeGlyph"), System.Drawing.Image)
-        Me.btnQuickCA.Name = "btnQuickCA"
-        Me.btnQuickCA.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
@@ -715,6 +705,129 @@ Partial Class ucCA
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(905, 31)
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 471)
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        '
+        'SearchLookUpEdit2View
+        '
+        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
+        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
+        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
+        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
+        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
+        '
+        'colRefNo
+        '
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
+        '
+        'colCompanyName
+        '
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
+        '
+        'colHandleBy
+        '
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
+        '
+        'colCompanyNo
+        '
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
+        '
+        'colEmployerNo
+        '
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
+        '
+        'SimpleButton2
+        '
+        Me.SimpleButton2.Image = CType(resources.GetObject("SimpleButton2.Image"), System.Drawing.Image)
+        Me.SimpleButton2.Location = New System.Drawing.Point(804, 39)
+        Me.SimpleButton2.Name = "SimpleButton2"
+        Me.SimpleButton2.Size = New System.Drawing.Size(24, 23)
+        Me.SimpleButton2.TabIndex = 15
+        '
+        'SimpleButton1
+        '
+        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
+        Me.SimpleButton1.Location = New System.Drawing.Point(382, 65)
+        Me.SimpleButton1.Name = "SimpleButton1"
+        Me.SimpleButton1.Size = New System.Drawing.Size(24, 23)
+        Me.SimpleButton1.TabIndex = 14
+        '
+        'btnClear
+        '
+        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.Location = New System.Drawing.Point(382, 13)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear.TabIndex = 13
+        '
+        'cboYA
+        '
+        Me.cboYA.Location = New System.Drawing.Point(108, 67)
+        Me.cboYA.Name = "cboYA"
+        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboYA.Properties.PopupSizeable = True
+        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboYA.Size = New System.Drawing.Size(268, 20)
+        Me.cboYA.TabIndex = 11
+        '
+        'cboFilterType
+        '
+        Me.cboFilterType.Location = New System.Drawing.Point(530, 15)
+        Me.cboFilterType.MenuManager = Me.BarManager1
+        Me.cboFilterType.Name = "cboFilterType"
+        Me.cboFilterType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboFilterType.Properties.Items.AddRange(New Object() {"Asset Description", "Asset Code / Stock No", "Accelerated CA", "HP Code", "RA", "ITA", "Deferred Claim", "All"})
+        Me.cboFilterType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboFilterType.Size = New System.Drawing.Size(268, 20)
+        Me.cboFilterType.TabIndex = 9
         '
         'btnAllRecord
         '
@@ -775,58 +888,28 @@ Partial Class ucCA
         Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 0
         '
-        'cboRefNo
+        'DsCA
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(108, 15)
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 56, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 42, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
-        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
-        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(450, 0)
-        Me.cboRefNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
-        Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
-        Me.cboRefNo.TabIndex = 10
+        Me.DsCA.DataSetName = "dsCA"
+        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'cboYA
+        'btnImportExport
         '
-        Me.cboYA.Location = New System.Drawing.Point(108, 67)
-        Me.cboYA.Name = "cboYA"
-        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboYA.Properties.PopupSizeable = True
-        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(268, 20)
-        Me.cboYA.TabIndex = 11
+        Me.btnImportExport.Caption = "Import / Export"
+        Me.btnImportExport.Glyph = CType(resources.GetObject("btnImportExport.Glyph"), System.Drawing.Image)
+        Me.btnImportExport.Id = 4
+        Me.btnImportExport.LargeGlyph = CType(resources.GetObject("btnImportExport.LargeGlyph"), System.Drawing.Image)
+        Me.btnImportExport.Name = "btnImportExport"
+        Me.btnImportExport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
-        'btnClear
+        'btnQuickCA
         '
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(382, 13)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(24, 23)
-        Me.btnClear.TabIndex = 13
-        '
-        'SimpleButton1
-        '
-        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(382, 65)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(24, 23)
-        Me.SimpleButton1.TabIndex = 14
-        '
-        'SimpleButton2
-        '
-        Me.SimpleButton2.Image = CType(resources.GetObject("SimpleButton2.Image"), System.Drawing.Image)
-        Me.SimpleButton2.Location = New System.Drawing.Point(804, 39)
-        Me.SimpleButton2.Name = "SimpleButton2"
-        Me.SimpleButton2.Size = New System.Drawing.Size(24, 23)
-        Me.SimpleButton2.TabIndex = 15
-        '
-        'TaxPayerFindBindingSource
-        '
-        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
-        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
+        Me.btnQuickCA.Caption = "Quick CA"
+        Me.btnQuickCA.Glyph = CType(resources.GetObject("btnQuickCA.Glyph"), System.Drawing.Image)
+        Me.btnQuickCA.Id = 7
+        Me.btnQuickCA.LargeGlyph = CType(resources.GetObject("btnQuickCA.LargeGlyph"), System.Drawing.Image)
+        Me.btnQuickCA.Name = "btnQuickCA"
+        Me.btnQuickCA.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'ucCA
         '
@@ -843,25 +926,25 @@ Partial Class ucCA
         Me.Size = New System.Drawing.Size(905, 502)
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ContextMenuStrip1.ResumeLayout(False)
+        CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
-        CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtFilterValue.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents CABindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
     Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents AddToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -880,7 +963,6 @@ Partial Class ucCA
     Friend WithEvents btnEdit As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnPrint As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents btnImportExport As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
     Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
@@ -892,7 +974,6 @@ Partial Class ucCA
     Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
-    Friend WithEvents btnQuickCA As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents dgvView As DevExpress.XtraGrid.GridControl
     Friend WithEvents dgvDisposal As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents colCA_KEY1 As DevExpress.XtraGrid.Columns.GridColumn
@@ -942,11 +1023,23 @@ Partial Class ucCA
     Friend WithEvents colCA_TAX_FILE_NUMBER As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCA_TRANSFERROR_NAME As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCA_TRANSFER_VAL As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents cboRefNo As DevExpress.XtraEditors.LookUpEdit
     Friend WithEvents cboYA As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents SimpleButton2 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents SimpleButton1 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnClear As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents cboRefNo As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents SearchLookUpEdit2View As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colRefNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colHandleBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colEmployerNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
+    Friend WithEvents btnImportExport As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnQuickCA As DevExpress.XtraBars.BarButtonItem
 
 End Class

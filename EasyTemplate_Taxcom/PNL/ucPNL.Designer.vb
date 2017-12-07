@@ -37,6 +37,13 @@ Partial Class ucPNL
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.dgvView = New DevExpress.XtraGrid.GridControl()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CopyReferenceNoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CopyYAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PROFITLOSSACCOUNTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -57,33 +64,36 @@ Partial Class ucPNL
         Me.colModifiedBy = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colModifiedDateTime = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
         Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.btnAllRecord = New DevExpress.XtraEditors.SimpleButton()
         Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyReferenceNoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CopyYAToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ContextMenuStrip1.SuspendLayout()
         CType(Me.PROFITLOSSACCOUNTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
-        Me.ContextMenuStrip1.SuspendLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlLoading
@@ -95,10 +105,9 @@ Partial Class ucPNL
         Me.pnlLoading.AppearanceCaption.Options.UseFont = True
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
-        Me.pnlLoading.Location = New System.Drawing.Point(405, 254)
-        Me.pnlLoading.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.pnlLoading.Location = New System.Drawing.Point(347, 206)
         Me.pnlLoading.Name = "pnlLoading"
-        Me.pnlLoading.Size = New System.Drawing.Size(287, 81)
+        Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
         Me.pnlLoading.TabIndex = 12
         Me.pnlLoading.Text = "ProgressPanel1"
         Me.pnlLoading.Visible = False
@@ -106,29 +115,26 @@ Partial Class ucPNL
         'btnClear2
         '
         Me.btnClear2.Image = CType(resources.GetObject("btnClear2.Image"), System.Drawing.Image)
-        Me.btnClear2.Location = New System.Drawing.Point(794, 16)
-        Me.btnClear2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClear2.Location = New System.Drawing.Point(681, 13)
         Me.btnClear2.Name = "btnClear2"
-        Me.btnClear2.Size = New System.Drawing.Size(28, 28)
+        Me.btnClear2.Size = New System.Drawing.Size(24, 23)
         Me.btnClear2.TabIndex = 13
         '
         'btnClear
         '
         Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(425, 16)
-        Me.btnClear.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnClear.Location = New System.Drawing.Point(364, 13)
         Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(28, 28)
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
         Me.btnClear.TabIndex = 12
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(106, 50)
-        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRefNo.Location = New System.Drawing.Point(91, 41)
         Me.txtRefNo.MenuManager = Me.BarManager1
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(313, 22)
+        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 11
         '
         'BarManager1
@@ -199,39 +205,34 @@ Partial Class ucPNL
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1106, 37)
+        Me.barDockControlTop.Size = New System.Drawing.Size(948, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 713)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1106, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 579)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(948, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 676)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 548)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1106, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 676)
+        Me.barDockControlRight.Location = New System.Drawing.Point(948, 31)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 548)
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(493, 21)
-        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl2.Location = New System.Drawing.Point(423, 17)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(24, 16)
+        Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
         Me.LabelControl2.TabIndex = 3
         Me.LabelControl2.Text = "YA :"
         '
@@ -240,14 +241,55 @@ Partial Class ucPNL
         Me.dgvView.ContextMenuStrip = Me.ContextMenuStrip1
         Me.dgvView.DataSource = Me.PROFITLOSSACCOUNTBindingSource
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvView.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.dgvView.Location = New System.Drawing.Point(0, 129)
+        Me.dgvView.Location = New System.Drawing.Point(0, 106)
         Me.dgvView.MainView = Me.GridView1
-        Me.dgvView.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dgvView.Name = "dgvView"
-        Me.dgvView.Size = New System.Drawing.Size(1106, 584)
+        Me.dgvView.Size = New System.Drawing.Size(948, 473)
         Me.dgvView.TabIndex = 11
         Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
+        '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem, Me.PrintToolStripMenuItem, Me.CopyReferenceNoToolStripMenuItem, Me.CopyYAToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(177, 136)
+        '
+        'AddToolStripMenuItem
+        '
+        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.AddToolStripMenuItem.Text = "Add"
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.EditToolStripMenuItem.Text = "Edit"
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
+        'PrintToolStripMenuItem
+        '
+        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.PrintToolStripMenuItem.Text = "Print"
+        '
+        'CopyReferenceNoToolStripMenuItem
+        '
+        Me.CopyReferenceNoToolStripMenuItem.Name = "CopyReferenceNoToolStripMenuItem"
+        Me.CopyReferenceNoToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.CopyReferenceNoToolStripMenuItem.Text = "Copy Reference No"
+        '
+        'CopyYAToolStripMenuItem
+        '
+        Me.CopyYAToolStripMenuItem.Name = "CopyYAToolStripMenuItem"
+        Me.CopyYAToolStripMenuItem.Size = New System.Drawing.Size(176, 22)
+        Me.CopyYAToolStripMenuItem.Text = "Copy YA"
         '
         'PROFITLOSSACCOUNTBindingSource
         '
@@ -418,29 +460,13 @@ Partial Class ucPNL
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(524, 17)
-        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboYA.Location = New System.Drawing.Point(449, 14)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(264, 22)
+        Me.cboYA.Size = New System.Drawing.Size(226, 20)
         Me.cboYA.TabIndex = 10
-        '
-        'cboRefNo
-        '
-        Me.cboRefNo.Location = New System.Drawing.Point(106, 18)
-        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 56, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 42, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
-        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
-        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(450, 0)
-        Me.cboRefNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard
-        Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(313, 22)
-        Me.cboRefNo.TabIndex = 9
         '
         'TaxPayerFindBindingSource
         '
@@ -455,96 +481,138 @@ Partial Class ucPNL
         'btnAllRecord
         '
         Me.btnAllRecord.Image = CType(resources.GetObject("btnAllRecord.Image"), System.Drawing.Image)
-        Me.btnAllRecord.Location = New System.Drawing.Point(524, 47)
-        Me.btnAllRecord.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnAllRecord.Location = New System.Drawing.Point(449, 38)
         Me.btnAllRecord.Name = "btnAllRecord"
-        Me.btnAllRecord.Size = New System.Drawing.Size(128, 28)
+        Me.btnAllRecord.Size = New System.Drawing.Size(110, 23)
         Me.btnAllRecord.TabIndex = 8
         Me.btnAllRecord.Text = "All Record"
         '
         'btnFind
         '
         Me.btnFind.Image = CType(resources.GetObject("btnFind.Image"), System.Drawing.Image)
-        Me.btnFind.Location = New System.Drawing.Point(659, 47)
-        Me.btnFind.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.btnFind.Location = New System.Drawing.Point(565, 38)
         Me.btnFind.Name = "btnFind"
-        Me.btnFind.Size = New System.Drawing.Size(128, 28)
+        Me.btnFind.Size = New System.Drawing.Size(110, 23)
         Me.btnFind.TabIndex = 7
         Me.btnFind.Text = "Find"
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(14, 22)
-        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 18)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(86, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
         Me.LabelControl1.TabIndex = 1
         Me.LabelControl1.Text = "Reference No :"
         '
         'PanelControl1
         '
+        Me.PanelControl1.Controls.Add(Me.cboRefNo)
         Me.PanelControl1.Controls.Add(Me.btnClear2)
         Me.PanelControl1.Controls.Add(Me.btnClear)
         Me.PanelControl1.Controls.Add(Me.txtRefNo)
         Me.PanelControl1.Controls.Add(Me.cboYA)
-        Me.PanelControl1.Controls.Add(Me.cboRefNo)
         Me.PanelControl1.Controls.Add(Me.btnAllRecord)
         Me.PanelControl1.Controls.Add(Me.btnFind)
         Me.PanelControl1.Controls.Add(Me.LabelControl2)
         Me.PanelControl1.Controls.Add(Me.LabelControl1)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 37)
-        Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1106, 92)
+        Me.PanelControl1.Size = New System.Drawing.Size(948, 75)
         Me.PanelControl1.TabIndex = 10
         '
-        'ContextMenuStrip1
+        'cboRefNo
         '
-        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem, Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem, Me.PrintToolStripMenuItem, Me.CopyReferenceNoToolStripMenuItem, Me.CopyYAToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(207, 176)
+        Me.cboRefNo.Location = New System.Drawing.Point(91, 14)
+        Me.cboRefNo.MenuManager = Me.BarManager1
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.NullText = "Select"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
+        Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
+        Me.cboRefNo.TabIndex = 161
         '
-        'AddToolStripMenuItem
+        'SearchLookUpEdit2View
         '
-        Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(206, 24)
-        Me.AddToolStripMenuItem.Text = "Add"
+        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
+        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
+        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
+        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
+        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
         '
-        'EditToolStripMenuItem
+        'colRefNo
         '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(206, 24)
-        Me.EditToolStripMenuItem.Text = "Edit"
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
         '
-        'DeleteToolStripMenuItem
+        'colCompanyName
         '
-        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(206, 24)
-        Me.DeleteToolStripMenuItem.Text = "Delete"
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
         '
-        'PrintToolStripMenuItem
+        'colHandleBy
         '
-        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(206, 24)
-        Me.PrintToolStripMenuItem.Text = "Print"
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
         '
-        'CopyReferenceNoToolStripMenuItem
+        'colCompanyNo
         '
-        Me.CopyReferenceNoToolStripMenuItem.Name = "CopyReferenceNoToolStripMenuItem"
-        Me.CopyReferenceNoToolStripMenuItem.Size = New System.Drawing.Size(206, 24)
-        Me.CopyReferenceNoToolStripMenuItem.Text = "Copy Reference No"
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
         '
-        'CopyYAToolStripMenuItem
+        'colEmployerNo
         '
-        Me.CopyYAToolStripMenuItem.Name = "CopyYAToolStripMenuItem"
-        Me.CopyYAToolStripMenuItem.Size = New System.Drawing.Size(206, 24)
-        Me.CopyYAToolStripMenuItem.Text = "Copy YA"
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
         '
         'ucPNL
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.dgvView)
@@ -553,23 +621,23 @@ Partial Class ucPNL
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL"
-        Me.Size = New System.Drawing.Size(1106, 713)
+        Me.Size = New System.Drawing.Size(948, 579)
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ContextMenuStrip1.ResumeLayout(False)
         CType(Me.PROFITLOSSACCOUNTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
-        Me.ContextMenuStrip1.ResumeLayout(False)
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -609,7 +677,6 @@ Partial Class ucPNL
     Friend WithEvents colModifiedDateTime As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
     Friend WithEvents cboYA As DevExpress.XtraEditors.ComboBoxEdit
-    Friend WithEvents cboRefNo As DevExpress.XtraEditors.LookUpEdit
     Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
     Friend WithEvents btnAllRecord As DevExpress.XtraEditors.SimpleButton
@@ -623,5 +690,15 @@ Partial Class ucPNL
     Friend WithEvents PrintToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CopyReferenceNoToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CopyYAToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cboRefNo As DevExpress.XtraEditors.SearchLookUpEdit
+    Friend WithEvents SearchLookUpEdit2View As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colRefNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colHandleBy As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colEmployerNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

@@ -161,10 +161,6 @@
         End Try
     End Sub
 
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
-        DefaultTaxPayer(sender)
-    End Sub
-
     Private Sub rgTypeCA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles rgTypeCA.SelectedIndexChanged
         TypeCA_Add_Open()
     End Sub
@@ -601,4 +597,12 @@
         End Try
     End Sub
 
+
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            DefaultTaxPayer(sender)
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

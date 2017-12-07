@@ -104,7 +104,7 @@ Public Class frmMovement_Add
         End Try
     End Sub
 
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs)
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
@@ -370,4 +370,11 @@ Public Class frmMovement_Add
         End Try
     End Sub
 
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            txtRefNo.EditValue = cboRefNo.EditValue
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

@@ -310,15 +310,6 @@ Public Class ucCA
         End Try
        
     End Sub
-
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
-        Try
-            txtRefNo.EditValue = cboRefNo.EditValue
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
             cboRefNo.EditValue = ""
@@ -341,6 +332,14 @@ Public Class ucCA
         Try
             txtFilterValue.EditValue = ""
             Me.LoadData(2)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
 
         End Try

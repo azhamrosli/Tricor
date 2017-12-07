@@ -6,6 +6,7 @@ Imports System.Collections
 
 Public Class ucPNL_p2RentalIncome
     Public txtAmount As DevExpress.XtraEditors.TextEdit
+    Public SourceNo As Integer = 0
     Public txtSales As DevExpress.XtraEditors.TextEdit
     Public RefNo As String = Nothing
     Public YA As String = Nothing

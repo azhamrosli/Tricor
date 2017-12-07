@@ -256,7 +256,7 @@
 
         End Try
     End Sub
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs)
         DefaultTaxPayer(sender)
     End Sub
     Private Sub Save_Disposal()
@@ -657,6 +657,14 @@
     Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Try
             Save_Disposal()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            DefaultTaxPayer(sender)
         Catch ex As Exception
 
         End Try

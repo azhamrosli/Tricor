@@ -6,11 +6,11 @@ Imports System.Collections
 
 Public Class ucPNL_p3InterestResPurS33_Monthly
     Public txtAmount As DevExpress.XtraEditors.TextEdit
+    Public SourceNo As Integer = 0
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public KeyID As Integer = 0
     Public Amount As Decimal = 0
-    Public SourceNo As Integer = 0
     Public isEdit As Boolean = False
 
     Public Const MainTable As String = "EXPENSES_INTERESTRESTRICT" 'PLFST_SALES

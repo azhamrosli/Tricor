@@ -222,7 +222,7 @@ Public Class frmHP_Add
         End Try
     End Sub
 
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs)
         DefaultTaxPayer(sender)
     End Sub
 
@@ -672,4 +672,12 @@ Public Class frmHP_Add
             Return False
         End Try
     End Function
+
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            DefaultTaxPayer(sender)
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

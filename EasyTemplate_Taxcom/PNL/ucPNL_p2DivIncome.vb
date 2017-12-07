@@ -6,11 +6,11 @@ Imports System.Collections
 
 Public Class ucPNL_p2DivIncome
     Public txtAmount As DevExpress.XtraEditors.TextEdit
+    Public SourceNo As Integer = 0
     Public RefNo As String = Nothing
     Public YA As String = Nothing
     Public isEdit As Boolean = False
     Public txtSales As DevExpress.XtraEditors.TextEdit
-    Public SourceNo As Integer = 0
 
     Public Const MainTable As String = "DIVIDEND_INCOME" 'PLFST_SALES
     Public Const MainKey As String = "DI_DIVIDENDKEY" ' PLFS_KEY

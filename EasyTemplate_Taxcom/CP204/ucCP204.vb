@@ -2,6 +2,19 @@
     Dim ErrorLog As clsError = Nothing
     Private Sub frmCP204_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
+            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+                MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+
+            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+                MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            Application.DoEvents()
+
             LoadData()
         Catch ex As Exception
 
@@ -62,7 +75,7 @@
 
         End Try
     End Sub
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs)
         Try
             If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue IsNot Nothing AndAlso cboRefNo.EditValue <> "" Then
                 txtRefNo.EditValue = cboRefNo.EditValue
@@ -85,6 +98,7 @@
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
             cboRefNo.EditValue = ""
+            Me.LoadData(2)
         Catch ex As Exception
 
         End Try
@@ -93,6 +107,7 @@
     Private Sub btnClear2_Click(sender As Object, e As EventArgs) Handles btnClear2.Click
         Try
             cboYA.EditValue = ""
+            Me.LoadData(2)
         Catch ex As Exception
 
         End Try
@@ -151,6 +166,14 @@
     Private Sub GridView1_DoubleClick(sender As Object, e As EventArgs) Handles GridView1.DoubleClick
         Try
             btnEdit.PerformClick()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+        Try
+            txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
 
         End Try
