@@ -4,6 +4,65 @@ Public Class ucPNL_Import
     Dim ErrorLog As clsError = Nothing
     Public txt_p1Sales As DevExpress.XtraEditors.TextEdit = Nothing
 
+    Public txt_p1OpenStock As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p1Purchase As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p1Depreciation As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p1AllowanceExpenses As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p1NonAllowableExpenses As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p1CloseStock As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2OtherBizIncome As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2ForeignCurrExGain As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2DivIncome As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2InterestIncome As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2RentalIncome As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2RoyaltyIncome As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2OtherIncome As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2ProDispPlantEq As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2ProDisInvestment As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2ExemptDividend As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2ForeIncomeRemmit As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2UnreaGainForeEx As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2ReaForeExGainNonTrade As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2UnreaGainForeExNon As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p2Other As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3InterestResPurS33 As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3OtherInterestExHirePur As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3ProTechManLeganFees As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3TechPayNonResis As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3ContractPay As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3DirectorFee As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3Salary As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3COEStock As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3Royalty As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3Rental As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3RepairMain As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3ResearchDev As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3PromotionAds As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3Travelling As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3ForeignCurrExLoss As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3JKDM As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3Depreciation As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3DonationApp As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3DonationNonApp As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p3Zakat As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4LossDispFA As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4EntNonStaff As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4EntStaff As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4Compound As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4ProvisionAcc As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4LeavePass As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4FAWrittenOff As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4UnreaLossForeEx As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4ReaLossForeExTrade As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4ReaLossForeExNonTrade As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4InitSub As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4CAExpenditure As DevExpress.XtraEditors.TextEdit = Nothing
+    Public txt_p4Other As DevExpress.XtraEditors.TextEdit = Nothing
+
+
+    Public cboRefNo As DevExpress.XtraBars.BarEditItem
+    Public cboYA As DevExpress.XtraBars.BarEditItem
+
     Public Const MainTable As String = "ExportPNL" 'PLFST_SALES
     Public SourceNo As Integer = 0
     Dim MainDataSet As DataSet = Nothing
@@ -139,16 +198,9 @@ Public Class ucPNL_Import
                 If dtRow IsNot Nothing Then
                     Type = DirectCast([Enum].Parse(GetType(mdlEnum.TaxComPNLEnuItem), dtRow("Type")), mdlEnum.TaxComPNLEnuItem)
 
-                    Select Case Type
-                        Case TaxComPNLEnuItem.SALES
-                            TableName = ucPNL_p1Sales.MainTable
-                            TableAmount = ucPNL_p1Sales.MainAmount
-                            txt = txt_p1Sales
-                           
+                    TableName = GetTableName(Type, TableAmount, txt)
 
-                    End Select
-
-                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, ErrorLog) Then
+                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                         GridView1.DeleteRow(i)
                         CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
                     Else
@@ -171,7 +223,9 @@ Public Class ucPNL_Import
             Dim dsControl As DataSet = Nothing
             Dim TableName As String = ""
             Dim ListofRow As New List(Of DataRow)
-
+            Dim TableAmount As String = ""
+            Dim obj As Object = Nothing
+            Dim txt As DevExpress.XtraEditors.TextEdit = Nothing
             For i As Integer = 0 To dsDataSet2.Tables(Me.MainTable).Rows.Count - 1
                 dtRow = dsDataSet2.Tables(Me.MainTable).Rows(i)
 
@@ -179,17 +233,12 @@ Public Class ucPNL_Import
 
                     Type = DirectCast([Enum].Parse(GetType(mdlEnum.TaxComPNLEnuItem), dtRow("Type")), mdlEnum.TaxComPNLEnuItem)
 
-                    Select Case Type
-                        Case TaxComPNLEnuItem.SALES
-                            TableName = ucPNL_p1Sales.MainTable
+                    TableName = GetTableName(Type, TableAmount, txt)
 
-
-                    End Select
-
-                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, ErrorLog) Then
+                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                         '  GridView1.DeleteRow(i)
                         ListofRow.Add(dtRow)
-
+                        CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
 
                         ' dsDataSet2.Tables(Me.MainTable).Rows(i).Delete()
                     Else
@@ -256,21 +305,20 @@ Public Class ucPNL_Import
                 Dim contrl As Control = Nothing
                 Dim dsControl As DataSet = Nothing
                 Dim TableName As String = ""
+                Dim TableAmount As String = ""
+                Dim obj As Object = Nothing
+                Dim txt As DevExpress.XtraEditors.TextEdit = Nothing
                 For Each i As Integer In GridView1.GetSelectedRows
 
                     dtRow = GridView1.GetDataRow(i)
 
                     If dtRow IsNot Nothing Then
                        
-                        Select Case Type
-                            Case TaxComPNLEnuItem.SALES
-                                TableName = ucPNL_p1Sales.MainTable
+                        TableName = GetTableName(Type, TableAmount, txt)
 
-
-                        End Select
-
-                        If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, ErrorLog) Then
+                        If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                             GridView1.DeleteRow(i)
+                            CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
                         Else
                             MsgBox("Failed to transfer to main table." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                             Exit For
@@ -284,6 +332,232 @@ Public Class ucPNL_Import
 
         End Try
     End Sub
+    Private Function GetTableName(ByVal Type As TaxComPNLEnuItem, ByRef TableAmount As String, ByRef txt As DevExpress.XtraEditors.TextEdit) As String
+        Try
+            Select Case Type
+                Case TaxComPNLEnuItem.SALES
+                    txt = txt_p1Sales
+                    TableAmount = ucPNL_p1Sales.MainAmount
+                    Return ucPNL_p1Sales.MainTable
+                Case TaxComPNLEnuItem.OPENSTOCK
+                    TableAmount = ucPNL_p1OpeningStock.MainAmount
+                    txt = txt_p1OpenStock
+                    Return ucPNL_p1OpeningStock.MainTable
+                Case TaxComPNLEnuItem.PURCHASE
+                    TableAmount = ucPNL_p1Purchase.MainAmount
+                    txt = txt_p1Purchase
+                    Return ucPNL_p1Purchase.MainTable
+                Case TaxComPNLEnuItem.DEPRECIATION
+                    TableAmount = ucPNL_p1Depreciation.MainAmount
+                    txt = txt_p1Depreciation
+                    Return ucPNL_p1Depreciation.MainTable
+                Case TaxComPNLEnuItem.OTHERALLOWEXP
+                    TableAmount = ucPNL_p1AllowanceExpenses.MainAmount
+                    txt = txt_p1AllowanceExpenses
+                    Return ucPNL_p1AllowanceExpenses.MainTable
+                Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                    TableAmount = ucPNL_p1NonAllowableExpenses.MainAmount
+                    txt = txt_p1NonAllowableExpenses
+                    Return ucPNL_p1NonAllowableExpenses.MainTable
+                Case TaxComPNLEnuItem.CLOSESTOCK
+                    TableAmount = ucPNL_p1CloseStock.MainAmount
+                    txt = txt_p1CloseStock
+                    Return ucPNL_p1CloseStock.MainTable
+                Case TaxComPNLEnuItem.OTHERBUSINC
+                    TableAmount = ucPNL_p2OtherBizIncome.MainAmount
+                    txt = txt_p2OtherBizIncome
+                    Return ucPNL_p2OtherBizIncome.MainTable
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    TableAmount = ucPNL_p2DivIncome.MainAmount_DI_GROSS
+                    txt = txt_p2DivIncome
+                    Return ucPNL_p2DivIncome.MainTable
+                Case TaxComPNLEnuItem.INTERESTINC
+                    TableAmount = ucPNL_p2InterestIncome.MainAmount
+                    txt = txt_p2InterestIncome
+                    Return ucPNL_p2InterestIncome.MainTable
+                Case TaxComPNLEnuItem.RENTALINC
+                    TableAmount = ucPNL_p2RentalIncome.MainAmount
+                    txt = txt_p2RentalIncome
+                    Return ucPNL_p2RentalIncome.MainTable
+                Case TaxComPNLEnuItem.ROYALTYINC
+                    TableAmount = ucPNL_p2RoyaltyIncome.MainAmount
+                    txt = txt_p2RoyaltyIncome
+                    Return ucPNL_p2RoyaltyIncome.MainTable
+                Case TaxComPNLEnuItem.OTHERINC
+                    TableAmount = ucPNL_p2OtherIncome.MainAmount
+                    txt = txt_p2OtherIncome
+                    Return ucPNL_p2OtherIncome.MainTable
+                Case TaxComPNLEnuItem.PDFIXASSET
+                    TableAmount = ucPNL_p2ProDispPlantEq.MainAmount
+                    txt = txt_p2ProDispPlantEq
+                    Return ucPNL_p2ProDispPlantEq.MainTable
+                Case TaxComPNLEnuItem.PDINVEST
+                    TableAmount = ucPNL_p2ProDisInvestment.MainAmount
+                    txt = txt_p2ProDisInvestment
+                    Return ucPNL_p2ProDisInvestment.MainTable
+                Case TaxComPNLEnuItem.EXEMDIV
+                    TableAmount = ucPNL_p2ExemptDividend.MainAmount
+                    txt = txt_p2ExemptDividend
+                    Return ucPNL_p2ExemptDividend.MainTable
+                Case TaxComPNLEnuItem.FORINCREMIT
+                    TableAmount = ucPNL_p2ForeIncomeRemmit.MainAmount
+                    txt = txt_p2ForeIncomeRemmit
+                    Return ucPNL_p2ForeIncomeRemmit.MainTable
+                Case TaxComPNLEnuItem.REALFE
+                    TableAmount = ucPNL_p2UnreaGainForeEx.MainAmount
+                    txt = txt_p2UnreaGainForeEx
+                    Return ucPNL_p2UnreaGainForeEx.MainTable
+                Case TaxComPNLEnuItem.UNREALFETRADE
+                    TableAmount = ucPNL_p2UnreaGainForeExNon.MainAmount
+                    txt = txt_p2UnreaGainForeExNon
+                    Return ucPNL_p2UnreaGainForeExNon.MainTable
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                    TableAmount = ucPNL_p2ReaForeExGainNonTrade.MainAmount
+                    txt = txt_p2ReaForeExGainNonTrade
+                    Return ucPNL_p2ReaForeExGainNonTrade.MainTable
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    TableAmount = ucPNL_p2Other.MainAmount
+                    txt = txt_p2Other
+                    Return ucPNL_p2Other.MainTable
+                Case TaxComPNLEnuItem.INTERESTRESTRICT
+                    TableAmount = ucPNL_p3InterestResPurS33.MainAmount
+                    txt = txt_p3InterestResPurS33
+                    Return ucPNL_p3InterestResPurS33.MainTable
+                Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                    TableAmount = ucPNL_p3OtherInterestExHirePur.MainAmount
+                    txt = txt_p3OtherInterestExHirePur
+                    Return ucPNL_p3OtherInterestExHirePur.MainTable
+                Case TaxComPNLEnuItem.EXPLEGAL
+                    TableAmount = ucPNL_p3ProTechManLeganFees.MainAmount
+                    txt = txt_p3ProTechManLeganFees
+                    Return ucPNL_p3ProTechManLeganFees.MainTable
+                Case TaxComPNLEnuItem.EXPTECHNICAL
+                    TableAmount = ucPNL_p3TechPayNonResis.MainAmount
+                    txt = txt_p3TechPayNonResis
+                    Return ucPNL_p3TechPayNonResis.MainTable
+                Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                    TableAmount = ucPNL_p3ContractPay.MainAmount
+                    txt = txt_p3ContractPay
+                    Return ucPNL_p3ContractPay.MainTable
+                Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                    TableAmount = ucPNL_p3DirectorFee.MainAmount
+                    txt = txt_p3DirectorFee
+                    Return ucPNL_p3DirectorFee.MainTable
+                Case TaxComPNLEnuItem.EXPSALARY
+                    TableAmount = ucPNL_p3Salary.MainAmount
+                    txt = txt_p3Salary
+                    Return ucPNL_p3Salary.MainTable
+                Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                    TableAmount = ucPNL_p3COEStock.MainAmount
+                    txt = txt_p3COEStock
+                    Return ucPNL_p3COEStock.MainTable
+                Case TaxComPNLEnuItem.EXPROYALTY
+                    TableAmount = ucPNL_p3Royalty.MainAmount
+                    txt = txt_p3Royalty
+                    Return ucPNL_p3Royalty.MainTable
+                Case TaxComPNLEnuItem.EXPRENTAL
+                    TableAmount = ucPNL_p3Rental.MainAmount
+                    txt = txt_p3Rental
+                    Return ucPNL_p3Rental.MainTable
+                Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                    TableAmount = ucPNL_p3RepairMain.MainAmount
+                    txt = txt_p3RepairMain
+                    Return ucPNL_p3RepairMain.MainTable
+                Case TaxComPNLEnuItem.EXPRND
+                    TableAmount = ucPNL_p3ResearchDev.MainAmount
+                    txt = txt_p3ResearchDev
+                    Return ucPNL_p3ResearchDev.MainTable
+                Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                    TableAmount = ucPNL_p3PromotionAds.MainAmount
+                    txt = txt_p3PromotionAds
+                    Return ucPNL_p3PromotionAds.MainTable
+                Case TaxComPNLEnuItem.EXPTRAVEL
+                    TableAmount = ucPNL_p3Travelling.MainAmount
+                    txt = txt_p3Travelling
+                    Return ucPNL_p3Travelling.MainTable
+                Case TaxComPNLEnuItem.EXPJKDM
+                    TableAmount = ucPNL_p3JKDM.MainAmount
+                    txt = txt_p3JKDM
+                    Return ucPNL_p3JKDM.MainTable
+                Case TaxComPNLEnuItem.EXPDEPRECIATION
+                    TableAmount = ucPNL_p3Depreciation.MainAmount
+                    txt = txt_p3Depreciation
+                    Return ucPNL_p3Depreciation.MainTable
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    TableAmount = ucPNL_p3DonationApp.MainAmount
+                    txt = txt_p3DonationApp
+                    Return ucPNL_p3DonationApp.MainTable
+                Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
+                    TableAmount = ucPNL_p3DonationNonApp.MainAmount
+                    txt = txt_p3DonationNonApp
+                    Return ucPNL_p3DonationNonApp.MainTable
+                Case TaxComPNLEnuItem.EXPZAKAT
+                    TableAmount = ucPNL_p3Zakat.MainAmount
+                    txt = txt_p3Zakat
+                    Return ucPNL_p3Zakat.MainTable
+                Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                    TableAmount = ucPNL_p4LossDispFA.MainAmount
+                    txt = txt_p4LossDispFA
+                    Return ucPNL_p4LossDispFA.MainTable
+                Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                    TableAmount = ucPNL_p4EntNonStaff.MainAmount
+                    txt = txt_p4EntNonStaff
+                    Return ucPNL_p4EntNonStaff.MainTable
+                Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                    TableAmount = ucPNL_p4EntStaff.MainAmount
+                    txt = txt_p4EntStaff
+                    Return ucPNL_p4EntStaff.MainTable
+                Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                    TableAmount = ucPNL_p4Compound.MainAmount
+                    txt = txt_p4Compound
+                    Return ucPNL_p4Compound.MainTable
+                Case TaxComPNLEnuItem.EXPPROVISION
+                    TableAmount = ucPNL_p4ProvisionAcc.MainAmount
+                    txt = txt_p4ProvisionAcc
+                    Return ucPNL_p4ProvisionAcc.MainTable
+                Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                    TableAmount = ucPNL_p4LeavePass.MainAmount
+                    txt = txt_p4LeavePass
+                    Return ucPNL_p4LeavePass.MainTable
+                Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                    TableAmount = ucPNL_p4FAWrittenOff.MainAmount
+                    txt = txt_p4FAWrittenOff
+                    Return ucPNL_p4FAWrittenOff.MainTable
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                    TableAmount = ucPNL_p4UnreaLossForeEx.MainAmount
+                    txt = txt_p4UnreaLossForeEx
+                    Return ucPNL_p4UnreaLossForeEx.MainTable
+                Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                    TableAmount = ucPNL_p4ReaLossForeExTrade.MainAmount
+                    txt = txt_p4ReaLossForeExTrade
+                    Return ucPNL_p4ReaLossForeExTrade.MainTable
+                Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                    TableAmount = ucPNL_p4ReaLossForeExNonTrade.MainAmount
+                    txt = txt_p4ReaLossForeExNonTrade
+                    Return ucPNL_p4ReaLossForeExNonTrade.MainTable
+                Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                    TableAmount = ucPNL_p4InitSub.MainAmount
+                    txt = txt_p4InitSub
+                    Return ucPNL_p4InitSub.MainTable
+                Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                    TableAmount = ucPNL_p4CAExpenditure.MainAmount
+                    txt = txt_p4CAExpenditure
+                    Return ucPNL_p4CAExpenditure.MainTable
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    TableAmount = ucPNL_p4Other.MainAmount
+                    txt = txt_p4Other
+                    Return ucPNL_p4Other.MainTable
+                Case TaxComPNLEnuItem.REALFETRADE
+                    TableAmount = ucPNL_p2ForeignCurrExGain.MainAmount
+                    txt = txt_p2ForeignCurrExGain
+                    Return ucPNL_p2ForeignCurrExGain.MainTable
+                Case Else
+                    Return ""
+            End Select
+        Catch ex As Exception
+            Return ""
+        End Try
+    End Function
 #Region "CONTENT_MENU_CLICK"
     Private Sub SalesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SalesToolStripMenuItem.Click
         TransferToManual(TaxComPNLEnuItem.SALES)

@@ -4227,6 +4227,7 @@ Public Class frmPNL_Add
     Private Sub cboMainSource_EditValueChanged(sender As Object, e As EventArgs) Handles cboMainSource.EditValueChanged
         Try
             UcPNL_Import1.SourceNo = cboMainSource.EditValue
+
         Catch ex As Exception
 
         End Try
@@ -4270,6 +4271,63 @@ Public Class frmPNL_Add
     Private Sub UcPNL_Import1_Load(sender As Object, e As EventArgs) Handles UcPNL_Import1.Load
         Try
             UcPNL_Import1.txt_p1Sales = Me.txt_p1Sales
+            UcPNL_Import1.cboRefNo = cboRefNo
+            UcPNL_Import1.cboYA = cboYA
+            UcPNL_Import1.txt_p1OpenStock = txt_p1OpenStock
+            UcPNL_Import1.txt_p1Purchase = txt_p1Purchase
+            UcPNL_Import1.txt_p1Depreciation = txt_p1Depreciation
+            UcPNL_Import1.txt_p1AllowanceExpenses = txt_p1AllowanceExpenses
+            UcPNL_Import1.txt_p1NonAllowableExpenses = txt_p1NonAllowableExpenses
+            UcPNL_Import1.txt_p1CloseStock = txt_p1CloseStock
+            UcPNL_Import1.txt_p2OtherBizIncome = txt_p2OtherBizIncome
+            UcPNL_Import1.txt_p2ForeignCurrExGain = txt_p2ForeignCurrExGain
+            UcPNL_Import1.txt_p2DivIncome = txt_p2DivIncome
+            UcPNL_Import1.txt_p2InterestIncome = txt_p2InterestIncome
+            UcPNL_Import1.txt_p2RentalIncome = txt_p2RentalIncome
+            UcPNL_Import1.txt_p2RoyaltyIncome = txt_p2RoyaltyIncome
+            UcPNL_Import1.txt_p2OtherIncome = txt_p2OtherIncome
+            UcPNL_Import1.txt_p2ProDispPlantEq = txt_p2ProDispPlantEq
+            UcPNL_Import1.txt_p2ProDisInvestment = txt_p2ProDisInvestment
+            UcPNL_Import1.txt_p2ExemptDividend = txt_p2ExemptDividend
+            UcPNL_Import1.txt_p2ForeIncomeRemmit = txt_p2ForeIncomeRemmit
+            UcPNL_Import1.txt_p2UnreaGainForeEx = txt_p2UnreaGainForeEx
+            UcPNL_Import1.txt_p2ReaForeExGainNonTrade = txt_p2ReaForeExGainNonTrade
+            UcPNL_Import1.txt_p2UnreaGainForeExNon = txt_p2UnreaGainForeExNon
+            UcPNL_Import1.txt_p2Other = txt_p2Other
+            UcPNL_Import1.txt_p3InterestResPurS33 = txt_p3InterestResPurS33
+            UcPNL_Import1.txt_p3OtherInterestExHirePur = txt_p3OtherInterestExHirePur
+            UcPNL_Import1.txt_p3ProTechManLeganFees = txt_p3ProTechManLeganFees
+            UcPNL_Import1.txt_p3TechPayNonResis = txt_p3TechPayNonResis
+            UcPNL_Import1.txt_p3ContractPay = txt_p3ContractPay
+            UcPNL_Import1.txt_p3DirectorFee = txt_p3DirectorFee
+            UcPNL_Import1.txt_p3Salary = txt_p3Salary
+            UcPNL_Import1.txt_p3COEStock = txt_p3COEStock
+            UcPNL_Import1.txt_p3Royalty = txt_p3Royalty
+            UcPNL_Import1.txt_p3Rental = txt_p3Rental
+            UcPNL_Import1.txt_p3RepairMain = txt_p3RepairMain
+            UcPNL_Import1.txt_p3ResearchDev = txt_p3ResearchDev
+            UcPNL_Import1.txt_p3PromotionAds = txt_p3PromotionAds
+            UcPNL_Import1.txt_p3Travelling = txt_p3Travelling
+            UcPNL_Import1.txt_p3ForeignCurrExLoss = txt_p3ForeignCurrExLoss
+            UcPNL_Import1.txt_p3JKDM = txt_p3JKDM
+            UcPNL_Import1.txt_p3Depreciation = txt_p3Depreciation
+            UcPNL_Import1.txt_p3DonationApp = txt_p3DonationApp
+            UcPNL_Import1.txt_p3DonationNonApp = txt_p3DonationNonApp
+            UcPNL_Import1.txt_p3Zakat = txt_p3Zakat
+            UcPNL_Import1.txt_p4LossDispFA = txt_p4LossDispFA
+            UcPNL_Import1.txt_p4EntNonStaff = txt_p4EntNonStaff
+            UcPNL_Import1.txt_p4EntStaff = txt_p4EntStaff
+            UcPNL_Import1.txt_p4Compound = txt_p4Compound
+            UcPNL_Import1.txt_p4ProvisionAcc = txt_p4ProvisionAcc
+            UcPNL_Import1.txt_p4LeavePass = txt_p4LeavePass
+            UcPNL_Import1.txt_p4FAWrittenOff = txt_p4FAWrittenOff
+            UcPNL_Import1.txt_p4UnreaLossForeEx = txt_p4UnreaLossForeEx
+            UcPNL_Import1.txt_p4ReaLossForeExTrade = txt_p4ReaLossForeExTrade
+            UcPNL_Import1.txt_p4ReaLossForeExNonTrade = txt_p4ReaLossForeExNonTrade
+            UcPNL_Import1.txt_p4InitSub = txt_p4InitSub
+            UcPNL_Import1.txt_p4CAExpenditure = txt_p4CAExpenditure
+            UcPNL_Import1.txt_p4Other = txt_p4Other
+
         Catch ex As Exception
 
         End Try

@@ -12,7 +12,7 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 2
+    Public V3 As Integer = 3
     Public V4 As Integer = 2
     Public R1 As Integer = 5
     Public ArgParam0 As String = "frmtableofcontent" 'Form Name

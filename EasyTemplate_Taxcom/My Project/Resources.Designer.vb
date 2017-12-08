@@ -75,7 +75,9 @@ Namespace My.Resources
         '''2. [Default connection] - Now you can switch server connection without typing now instance.
         '''3. [File Compare] - For administartor check difference file between orginal and old.
         '''4. [Capital Allowance] - Improve user control and searching engine.
-        '''5. [Disposal] - Improve user control and searching engine..
+        '''5. [Disposal] - Improve user control and searching engine.
+        '''6. [Table of content] - Adding table of content configuration
+        '''7. [SourceNo PNL] - Adding auto detect source number in PNL.
         '''</summary>
         Friend ReadOnly Property UpdateNo() As String
             Get

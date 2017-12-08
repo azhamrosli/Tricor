@@ -4191,7 +4191,7 @@ Module mdlPNL2
         End Try
     End Function
 
-    Public Function TransferFromImport_ToMain(ByVal dsMain As DataSet, ByVal dsMain2 As DataSet, ByVal dtRowImport As DataRow, ByVal TableName As String, ByVal Type As mdlEnum.TaxComPNLEnuItem, ByVal SourceNo As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function TransferFromImport_ToMain(ByVal dsMain As DataSet, ByVal dsMain2 As DataSet, ByVal dtRowImport As DataRow, ByVal TableName As String, ByVal Type As mdlEnum.TaxComPNLEnuItem, ByVal SourceNo As Integer, ByRef RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Dim dtRow As DataRow = Nothing
 
@@ -4210,12 +4210,761 @@ Module mdlPNL2
                     dtRow("PLFS_NOTE") = ""
                     dtRow("PLFS_DETAIL") = "No"
                     dsMain.Tables(TableName).Rows.Add(dtRow)
-
+                Case TaxComPNLEnuItem.OPENSTOCK
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("PLFOS_KEY") = 0
+                    dtRow("PLFOS_SOURCENO") = SourceNo
+                    dtRow("PLFOS_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("PLFOS_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("PLFOS_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("PLFOS_NOTE") = ""
+                    dtRow("PLFOS_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.PURCHASE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("PLFPUR_KEY") = 0
+                    dtRow("PLFPUR_SOURCENO") = SourceNo
+                    dtRow("PLFPUR_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("PLFPUR_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("PLFPUR_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("PLFPUR_NOTE") = ""
+                    dtRow("PLFPUR_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.DEPRECIATION
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXDEP_KEY") = 0
+                    dtRow("EXDEP_SOURCENO") = SourceNo
+                    dtRow("EXDEP_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXDEP_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXDEP_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("EXDEP_NOTE") = ""
+                    dtRow("EXDEP_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.OTHERALLOWEXP
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXA_KEY") = 0
+                    dtRow("EXA_SOURCENO") = SourceNo
+                    dtRow("EXA_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXA_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXA_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("EXA_NOTE") = ""
+                    dtRow("EXA_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXNA_KEY") = 0
+                    dtRow("EXNA_SOURCENO") = SourceNo
+                    dtRow("EXNA_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXNA_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXNA_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("EXNA_NOTE") = ""
+                    dtRow("EXNA_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.CLOSESTOCK
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("PLFCS_KEY") = 0
+                    dtRow("PLFCS_SOURCENO") = SourceNo
+                    dtRow("PLFCS_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("PLFCS_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("PLFCS_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("PLFCS_NOTE") = ""
+                    dtRow("PLFCS_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.OTHERBUSINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NSBI_KEY") = 0
+                    dtRow("NSBI_SOURCENO") = SourceNo
+                    dtRow("NSBI_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NSBI_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NSBI_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NSBI_NOTE") = ""
+                    dtRow("NSBI_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.REALFETRADE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("IRFET_KEY") = 0
+                    dtRow("IRFET_SOURCENO") = SourceNo
+                    dtRow("IRFET_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("IRFET_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("IRFET_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("IRFET_NOTE") = ""
+                    dtRow("IRFET_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("DI_KEY") = 0
+                    dtRow("DI_SOURCENO") = SourceNo
+                    dtRow("DI_COMPANY") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("DI_GROSS") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("DI_GROSS") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("DI_TRANSFER") = "Single Tier"
+                    dtRow("DI_WARANT_NO") = "-"
+                    dtRow("DI_DATE") = Now
+                    dtRow("DI_TRANSFER") = "Single Tier"
+                    dtRow("DI_TAX") = 0
+                    dtRow("DI_NET") = 0
+                    dtRow("DI_TAXDEDUCTION") = 0
+                    dtRow("DI_NETDEDUCTION") = 0
+                    dtRow("DI_DISCLOSE") = "No"
+                    dtRow("DI_REGROSS") = 0
+                    dtRow("DI_CHKREGROSS") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.INTERESTINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NOBII_KEY") = 0
+                    dtRow("NOBII_SOURCENO") = SourceNo
+                    dtRow("NOBII_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NOBII_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NOBII_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NOBII_NOTE") = ""
+                    dtRow("NOBII_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.RENTALINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("RI_KEY") = 0
+                    dtRow("RI_SOURCENO") = SourceNo
+                    dtRow("RI_ADDRESS") = dtRowImport("Description")
+                    dtRow("RI_TYPE") = "Rental"
+                    dtRow("RI_DATE") = Now
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("RI_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("RI_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("RI_STATUS4d") = "Sec 4b"
+                    dtRow("RI_DATE_END") = Now
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.ROYALTYINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NOBRI_KEY") = 0
+                    dtRow("NOBRI_SOURCENO") = SourceNo
+                    dtRow("NOBRI_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NOBRI_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NOBRI_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NOBRI_NOTE") = ""
+                    dtRow("NOBRI_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.OTHERINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("OI_KEY") = 0
+                    dtRow("OI_SOURCENO") = SourceNo
+                    dtRow("OI_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("OI_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("OI_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("OI_NOTE") = ""
+                    dtRow("OI_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.PDFIXASSET
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NTIDFA_KEY") = 0
+                    dtRow("NTIDFA_SOURCENO") = SourceNo
+                    dtRow("NTIDFA_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NTIDFA_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NTIDFA_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NTIDFA_NOTE") = ""
+                    dtRow("NTIDFA_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.PDINVEST
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NTIDI_KEY") = 0
+                    dtRow("NTIDI_SOURCENO") = SourceNo
+                    dtRow("NTIDI_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NTIDI_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NTIDI_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NTIDI_NOTE") = ""
+                    dtRow("NTIDI_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXEMDIV
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("ED_KEY") = 0
+                    dtRow("ED_SOURCENO") = SourceNo
+                    dtRow("ED_COMPANY") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("ED_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("ED_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("ED_TIERSTATUS") = "First Tier"
+                    dtRow("ED_DATE") = Now
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.FORINCREMIT
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NTIFIR_KEY") = 0
+                    dtRow("NTIFIR_SOURCENO") = SourceNo
+                    dtRow("NTIFIR_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NTIFIR_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NTIFIR_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NTIFIR_NOTE") = ""
+                    dtRow("NTIFIR_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.REALFE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NTIUT_KEY") = 0
+                    dtRow("NTIUT_SOURCENO") = SourceNo
+                    dtRow("NTIUT_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NTIUT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NTIUT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NTIUT_NOTE") = ""
+                    dtRow("NTIUT_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NTIRFECT_KEY") = 0
+                    dtRow("NTIRFECT_SOURCENO") = SourceNo
+                    dtRow("NTIRFECT_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NTIRFECT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NTIRFECT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NTIRFECT_NOTE") = ""
+                    dtRow("NTIRFECT_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.UNREALFETRADE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NTIUNT_KEY") = 0
+                    dtRow("NTIUNT_SOURCENO") = SourceNo
+                    dtRow("NTIUNT_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NTIUNT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NTIUNT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NTIUNT_NOTE") = ""
+                    dtRow("NTIUNT_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("NT_KEY") = 0
+                    dtRow("NT_REF_NO") = RefNo
+                    dtRow("NT_YA") = YA
+                    dtRow("NTIUNT_SOURCENO") = SourceNo
+                    dtRow("NT_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("NT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("NT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("NT_CATEGORIZED") = "Other"
+                    dtRow("NT_NOTE") = ""
+                    dtRow("NT_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXI_KEY") = 0
+                    dtRow("EXI_SOURCENO") = SourceNo
+                    dtRow("EXI_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXI_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXI_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("EXI_DEDUCTIBLE") = False
+                    dtRow("EXI_DEDUCTIBLE_ADD") = False
+                    dtRow("EXI_NOTE") = ""
+                    dtRow("EXI_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPLEGAL
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXL_KEY") = 0
+                    dtRow("EXL_SOURCENO") = SourceNo
+                    dtRow("EXL_DESC") = dtRowImport("Description")
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXL_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXL_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dtRow("EXL_DEDUCTIBLE") = False
+                    dtRow("EXL_DEDUCTIBLE_ADD") = False
+                    dtRow("EXL_NOTE") = ""
+                    dtRow("EXL_DETAIL") = "No"
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPTECHNICAL
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXTF_KEY") = 0       
+                    dtRow("EXTF_SOURCENO") = SourceNo
+                    dtRow("EXTF_DESC") = dtRowImport("Description")
+                    dtRow("EXTF_DEDUCTIBLE") = False
+                    dtRow("EXTF_DEDUCTIBLE_ADD") = False
+                    dtRow("EXTF_NOTE") = ""
+                    dtRow("EXTF_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXTF_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXTF_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXC_KEY") = 0
+                    dtRow("EXC_SOURCENO") = SourceNo
+                    dtRow("EXC_DESC") = dtRowImport("Description")
+                    dtRow("EXC_DEDUCTIBLE") = False
+                    dtRow("EXC_DEDUCTIBLE_ADD") = False
+                    dtRow("EXC_NOTE") = ""
+                    dtRow("EXC_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXC_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXC_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXDF_KEY") = 0
+                    dtRow("EXDF_SOURCENO") = SourceNo
+                    dtRow("EXDF_DESC") = dtRowImport("Description")
+                    dtRow("EXDF_DEDUCTIBLE") = False
+                    dtRow("EXDF_DEDUCTIBLE_ADD") = False
+                    dtRow("EXDF_NOTE") = ""
+                    dtRow("EXDF_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXDF_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXDF_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPSALARY
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXS_KEY") = 0
+                    dtRow("EXS_SOURCENO") = SourceNo
+                    dtRow("EXS_DESC") = dtRowImport("Description")
+                    dtRow("EXS_DEDUCTIBLE") = False
+                    dtRow("EXS_DEDUCTIBLE_ADD") = False
+                    dtRow("EXS_NOTE") = ""
+                    dtRow("EXS_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXS_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXS_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXES_KEY") = 0
+                    dtRow("EXES_SOURCENO") = SourceNo
+                    dtRow("EXES_DESC") = dtRowImport("Description")
+                    dtRow("EXES_DEDUCTIBLE") = False
+                    dtRow("EXES_DEDUCTIBLE_ADD") = False
+                    dtRow("EXES_NOTE") = ""
+                    dtRow("EXES_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXES_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXES_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPROYALTY
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXRO_KEY") = 0
+                    dtRow("EXRO_SOURCENO") = SourceNo
+                    dtRow("EXRO_DESC") = dtRowImport("Description")
+                    dtRow("EXRO_DEDUCTIBLE") = False
+                    dtRow("EXRO_DEDUCTIBLE_ADD") = False
+                    dtRow("EXRO_NOTE") = ""
+                    dtRow("EXRO_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXRO_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXRO_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPRENTAL
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXRENT_KEY") = 0
+                    dtRow("EXRENT_SOURCENO") = SourceNo
+                    dtRow("EXRENT_DESC") = dtRowImport("Description")
+                    dtRow("EXRENT_DEDUCTIBLE") = False
+                    dtRow("EXRENT_DEDUCTIBLE_ADD") = False
+                    dtRow("EXRENT_NOTE") = ""
+                    dtRow("EXRENT_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXRENT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXRENT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXREP_KEY") = 0
+                    dtRow("EXREP_SOURCENO") = SourceNo
+                    dtRow("EXREP_DESC") = dtRowImport("Description")
+                    dtRow("EXREP_DEDUCTIBLE") = False
+                    dtRow("EXREP_DEDUCTIBLE_ADD") = False
+                    dtRow("EXREP_NOTE") = ""
+                    dtRow("EXREP_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXREP_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXREP_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPRND
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXRES_KEY") = 0
+                    dtRow("EXRES_SOURCENO") = SourceNo
+                    dtRow("EXRES_DESC") = dtRowImport("Description")
+                    dtRow("EXRES_DEDUCTIBLE") = False
+                    dtRow("EXRES_DEDUCTIBLE_ADD") = False
+                    dtRow("EXRES_NOTE") = ""
+                    dtRow("EXRES_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXRES_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXRES_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXP_KEY") = 0
+                    dtRow("EXP_SOURCENO") = SourceNo
+                    dtRow("EXP_DESC") = dtRowImport("Description")
+                    dtRow("EXP_DEDUCTIBLE") = False
+                    dtRow("EXP_DEDUCTIBLE_ADD") = False
+                    dtRow("EXP_NOTE") = ""
+                    dtRow("EXP_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXP_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXP_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPTRAVEL
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXT_KEY") = 0
+                    dtRow("EXT_SOURCENO") = SourceNo
+                    dtRow("EXT_DESC") = dtRowImport("Description")
+                    dtRow("EXT_DEDUCTIBLE") = False
+                    dtRow("EXT_DEDUCTIBLE_ADD") = False
+                    dtRow("EXT_NOTE") = ""
+                    dtRow("EXT_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPJKDM
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXJK_KEY") = 0
+                    dtRow("EXJK_SOURCENO") = SourceNo
+                    dtRow("EXJK_DESC") = dtRowImport("Description")
+                    dtRow("EXJK_DEDUCTIBLE") = False
+                    dtRow("EXJK_DEDUCTIBLE_ADD") = False
+                    dtRow("EXJK_NOTE") = ""
+                    dtRow("EXJK_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXJK_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXJK_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPDEPRECIATION
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXODEP_KEY") = 0
+                    dtRow("EXODEP_SOURCENO") = SourceNo
+                    dtRow("EXODEP_DESC") = dtRowImport("Description")
+                    dtRow("EXODEP_DEDUCTIBLE") = False
+                    dtRow("EXODEP_DEDUCTIBLE_ADD") = False
+                    dtRow("EXODEP_NOTE") = ""
+                    dtRow("EXODEP_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXODEP_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXODEP_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOAD_KEY") = 0
+                    dtRow("EXOAD_SOURCENO") = SourceNo
+                    dtRow("EXOAD_DESC") = dtRowImport("Description")
+                    dtRow("EXOAD_DEDUCTIBLE") = False
+                    dtRow("EXOAD_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOAD_NOTE") = ""
+                    dtRow("EXOAD_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOAD_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOAD_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXONAD_KEY") = 0
+                    dtRow("EXONAD_SOURCENO") = SourceNo
+                    dtRow("EXONAD_DESC") = dtRowImport("Description")
+                    dtRow("EXONAD_DEDUCTIBLE") = False
+                    dtRow("EXONAD_DEDUCTIBLE_ADD") = False
+                    dtRow("EXONAD_NOTE") = ""
+                    dtRow("EXONAD_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXONAD_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXONAD_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPZAKAT
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOZ_KEY") = 0
+                    dtRow("EXOZ_SOURCENO") = SourceNo
+                    dtRow("EXOZ_DESC") = dtRowImport("Description")
+                    dtRow("EXOZ_DEDUCTIBLE") = False
+                    dtRow("EXOZ_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOZ_NOTE") = ""
+                    dtRow("EXOZ_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOZ_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOZ_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOLD_KEY") = 0
+                    dtRow("EXOLD_SOURCENO") = SourceNo
+                    dtRow("EXOLD_DESC") = dtRowImport("Description")
+                    dtRow("EXOLD_DEDUCTIBLE") = False
+                    dtRow("EXOLD_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOLD_NOTE") = ""
+                    dtRow("EXOLD_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOLD_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOLD_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOENS_KEY") = 0
+                    dtRow("EXOENS_SOURCENO") = SourceNo
+                    dtRow("EXOENS_DESC") = dtRowImport("Description")
+                    dtRow("EXOENS_DEDUCTIBLE") = False
+                    dtRow("EXOENS_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOENS_NOTE") = ""
+                    dtRow("EXOENS_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOENS_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOENS_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOES_KEY") = 0
+                    dtRow("EXOES_SOURCENO") = SourceNo
+                    dtRow("EXOES_DESC") = dtRowImport("Description")
+                    dtRow("EXOES_DEDUCTIBLE") = False
+                    dtRow("EXOES_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOES_NOTE") = ""
+                    dtRow("EXOES_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOES_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOES_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOP_KEY") = 0
+                    dtRow("EXOP_SOURCENO") = SourceNo
+                    dtRow("EXOP_DESC") = dtRowImport("Description")
+                    dtRow("EXOP_DEDUCTIBLE") = False
+                    dtRow("EXOP_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOP_NOTE") = ""
+                    dtRow("EXOP_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOP_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOP_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPPROVISION
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOPA_KEY") = 0
+                    dtRow("EXOPA_SOURCENO") = SourceNo
+                    dtRow("EXOPA_DESC") = dtRowImport("Description")
+                    dtRow("EXOPA_DEDUCTIBLE") = False
+                    dtRow("EXOPA_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOPA_NOTE") = ""
+                    dtRow("EXOPA_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOPA_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOPA_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOLP_KEY") = 0
+                    dtRow("EXOLP_SOURCENO") = SourceNo
+                    dtRow("EXOLP_DESC") = dtRowImport("Description")
+                    dtRow("EXOLP_DEDUCTIBLE") = False
+                    dtRow("EXOLP_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOLP_NOTE") = ""
+                    dtRow("EXOLP_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOLP_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOLP_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOWO_KEY") = 0
+                    dtRow("EXOWO_SOURCENO") = SourceNo
+                    dtRow("EXOWO_DESC") = dtRowImport("Description")
+                    dtRow("EXOWO_DEDUCTIBLE") = False
+                    dtRow("EXOWO_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOWO_NOTE") = ""
+                    dtRow("EXOWO_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOWO_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOWO_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOUR_KEY") = 0
+                    dtRow("EXOUR_SOURCENO") = SourceNo
+                    dtRow("EXOUR_DESC") = dtRowImport("Description")
+                    dtRow("EXOUR_DEDUCTIBLE") = False
+                    dtRow("EXOUR_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOUR_NOTE") = ""
+                    dtRow("EXOUR_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOUR_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOUR_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXORT_KEY") = 0
+                    dtRow("EXORT_SOURCENO") = SourceNo
+                    dtRow("EXORT_DESC") = dtRowImport("Description")
+                    dtRow("EXORT_DEDUCTIBLE") = False
+                    dtRow("EXORT_DEDUCTIBLE_ADD") = False
+                    dtRow("EXORT_NOTE") = ""
+                    dtRow("EXORT_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXORT_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXORT_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOR_KEY") = 0
+                    dtRow("EXOR_SOURCENO") = SourceNo
+                    dtRow("EXOR_DESC") = dtRowImport("Description")
+                    dtRow("EXOR_DEDUCTIBLE") = False
+                    dtRow("EXOR_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOR_NOTE") = ""
+                    dtRow("EXOR_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOR_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOR_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOIS_KEY") = 0
+                    dtRow("EXOIS_SOURCENO") = SourceNo
+                    dtRow("EXOIS_DESC") = dtRowImport("Description")
+                    dtRow("EXOIS_DEDUCTIBLE") = False
+                    dtRow("EXOIS_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOIS_NOTE") = ""
+                    dtRow("EXOIS_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOIS_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOIS_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXOCE_KEY") = 0
+                    dtRow("EXOCE_SOURCENO") = SourceNo
+                    dtRow("EXOCE_DESC") = dtRowImport("Description")
+                    dtRow("EXOCE_DEDUCTIBLE") = False
+                    dtRow("EXOCE_DEDUCTIBLE_ADD") = False
+                    dtRow("EXOCE_NOTE") = ""
+                    dtRow("EXOCE_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXOCE_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXOCE_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    dtRow = dsMain.Tables(TableName).NewRow
+                    dtRow("EXO_KEY") = 0
+                    dtRow("EXO_SOURCENO") = SourceNo
+                    dtRow("EXO_DESC") = dtRowImport("Description")
+                    dtRow("EXO_DEDUCTIBLE") = False
+                    dtRow("EXO_DEDUCTIBLE_ADD") = False
+                    dtRow("EXO_NOTE") = ""
+                    dtRow("EXO_DETAIL") = "No"
+                    If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
+                        dtRow("EXO_AMOUNT") = dtRowImport("LeftAmount")
+                    Else
+                        dtRow("EXO_AMOUNT") = dtRowImport("RightAmount")
+                    End If
+                    dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case Else
 
             End Select
-
-
 
             Return True
         Catch ex As Exception
@@ -4226,8 +4975,9 @@ Module mdlPNL2
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = Type.ToString & " - " & ex.Message
             End With
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function

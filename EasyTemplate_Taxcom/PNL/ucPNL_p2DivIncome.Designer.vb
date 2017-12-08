@@ -194,13 +194,11 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.GridControl1.DataSource = Me.DIVIDENDINCOMEBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GridControl1.Location = New System.Drawing.Point(0, 37)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
         Me.GridControl1.MainView = Me.GridView1
-        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.dtDate, Me.cboTypeIncome})
-        Me.GridControl1.Size = New System.Drawing.Size(934, 476)
+        Me.GridControl1.Size = New System.Drawing.Size(801, 386)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -510,32 +508,28 @@ Partial Class ucPNL_p2DivIncome
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(934, 37)
+        Me.barDockControlTop.Size = New System.Drawing.Size(801, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(934, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(801, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 476)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(934, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 476)
+        Me.barDockControlRight.Location = New System.Drawing.Point(801, 31)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
         '
         'RepositoryItemTextEdit1
         '
@@ -558,16 +552,15 @@ Partial Class ucPNL_p2DivIncome
         '
         'ucPNL_p2DivIncome
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p2DivIncome"
-        Me.Size = New System.Drawing.Size(934, 513)
+        Me.Size = New System.Drawing.Size(801, 417)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
