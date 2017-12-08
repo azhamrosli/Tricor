@@ -5,7 +5,8 @@ Public Class frmCP204_Add
     Dim ErrorLog As clsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
-
+    Dim isBusy As Boolean = False
+    Dim isBusy2 As Boolean = False
     Public Const MainTable As String = "BORANG_CP204_TRICOR"
     Public Const MainTable_Details As String = "BORANG_CP204_TRICOR_BREAKDOWN"
     Public Const MainTable_PaymentDue As String = "CP_PAYMENT_DUE"
@@ -91,6 +92,9 @@ Public Class frmCP204_Add
                     Exit Sub
                 End If
 
+                isBusy2 = True
+                Application.DoEvents()
+
                 cboRefNo.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_REF_NO")), "", dt.Rows(0)("BCP_REF_NO"))
                 txtRefRegistrationNo.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CO_REGNO")), "", dt.Rows(0)("BCP_CO_REGNO"))
                 cboYA.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_YA")), "", dt.Rows(0)("BCP_YA"))
@@ -175,10 +179,23 @@ Public Class frmCP204_Add
 
         Catch ex As Exception
 
+        Finally
+            isBusy2 = False
+            Application.DoEvents()
         End Try
     End Sub
     Private Sub GenerateBreakDown()
         Try
+            If isBusy2 Then
+                Exit Sub
+            End If
+
+            If isBusy Then
+                Exit Sub
+            Else
+                isBusy = True
+            End If
+            Application.DoEvents()
 
             If cboRefNo.EditValue Is Nothing OrElse cboRefNo.EditValue = "" Then
                 Exit Sub
@@ -260,6 +277,8 @@ Public Class frmCP204_Add
 
         Catch ex As Exception
 
+        Finally
+            isBusy = False
         End Try
     End Sub
     Private Sub CalcEstimationPercent()
@@ -401,10 +420,9 @@ Public Class frmCP204_Add
         End Try
     End Sub
 
-    Private Sub cboYA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedIndexChanged
+    Private Sub cboYA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedValueChanged
         GenerateBreakDown()
     End Sub
-
     Private Sub dtBasisPeriodStart_EditValueChanged(sender As Object, e As EventArgs) Handles dtBasisPeriodStart.EditValueChanged
         GenerateBreakDown()
     End Sub
@@ -705,4 +723,5 @@ Public Class frmCP204_Add
 
         End Try
     End Sub
+
 End Class

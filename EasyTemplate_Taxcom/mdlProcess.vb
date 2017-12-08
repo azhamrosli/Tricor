@@ -13,7 +13,7 @@ Module mdlProcess
     Public V1 As Integer = 1
     Public V2 As Integer = 0
     Public V3 As Integer = 3
-    Public V4 As Integer = 2
+    Public V4 As Integer = 3
     Public R1 As Integer = 5
     Public ArgParam0 As String = "frmtableofcontent" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
@@ -4845,7 +4845,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENSD_KEY=@PL_KEY"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID

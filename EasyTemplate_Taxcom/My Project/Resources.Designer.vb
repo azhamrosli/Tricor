@@ -77,7 +77,10 @@ Namespace My.Resources
         '''4. [Capital Allowance] - Improve user control and searching engine.
         '''5. [Disposal] - Improve user control and searching engine.
         '''6. [Table of content] - Adding table of content configuration
-        '''7. [SourceNo PNL] - Adding auto detect source number in PNL.
+        '''7. [SourceNo PNL] - Adding auto detect source number in PNL
+        '''
+        '''Fixed Bug
+        '''1. [C [rest of string was truncated]&quot;;.
         '''</summary>
         Friend ReadOnly Property UpdateNo() As String
             Get
