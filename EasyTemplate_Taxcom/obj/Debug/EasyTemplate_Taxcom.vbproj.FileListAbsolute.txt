@@ -871,3 +871,4 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmAbout.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmTableofContent_Add.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucTableofContent.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmReportView_Crystal.resources
