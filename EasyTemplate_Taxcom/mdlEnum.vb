@@ -1,4 +1,17 @@
 ﻿Module mdlEnum
+    Public Enum CAReport_TableType
+        CA_REPORT_TEMP
+        CA_REPORT_SUMMARY_TEMP
+    End Enum
+    Public Enum CAReport_Type
+       
+        CA_REPORT_DETAILS_BYASSET = 0
+        CA_REPORT_DETAILS_BYRATE = 1
+        CA_REPORT_DETAILS_BYCATEGORY = 2
+        CA_REPORT_SUMMARY_BYRATE = 3
+        CA_REPORT_SUMMARY_BYCATEGORY = 4
+
+    End Enum
     Public Enum TaxComPNLEnuItem
         SALES
         OPENSTOCK

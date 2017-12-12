@@ -315,14 +315,14 @@
     Private Sub txtQualifyingCost_EditValueChanged(sender As Object, e As EventArgs) Handles txtQualifyingCost.EditValueChanged
         Try
             If chkREC.Checked = False Then
-                txtNonQualifyingCost.EditValue = CDec(txtQualifyingCost.EditValue) + CDec(txtPurchaseAmount.EditValue)
+                txtNonQualifyingCost.EditValue = CDec(txtPurchaseAmount.EditValue) - CDec(txtQualifyingCost.EditValue)
                 txtRemainingQualifyingCost.EditValue = txtQualifyingCost.EditValue
                 txtTWDV.EditValue = txtQualifyingCost.EditValue
             Else
                 txtIA.EditValue = 0
                 cboAA.EditValue = 0
                 txtQualifyingCost.EditValue = 0
-                txtNonQualifyingCost.EditValue = CDec(txtQualifyingCost.EditValue) + CDec(txtPurchaseAmount.EditValue)
+                txtNonQualifyingCost.EditValue = CDec(txtPurchaseAmount.EditValue) - CDec(txtQualifyingCost.EditValue)
                 txtRemainingQualifyingCost.EditValue = txtQualifyingCost.EditValue
                 txtTWDV.EditValue = 0
             End If
@@ -605,5 +605,9 @@
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub txtCategory_EditValueChanged(sender As Object, e As EventArgs) Handles txtCategory.EditValueChanged
+
     End Sub
 End Class

@@ -206,6 +206,18 @@
     <Compile Include="CA\frmCA_Quick.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CA\frmCA_ReportList.Designer.vb">
+      <DependentUpon>frmCA_ReportList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\frmCA_ReportList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CA\frmCA_ReportMenu.Designer.vb">
+      <DependentUpon>frmCA_ReportMenu.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\frmCA_ReportMenu.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CA\mdlCA.vb" />
     <Compile Include="CA\ucCA.Designer.vb">
       <DependentUpon>ucCA.vb</DependentUpon>
@@ -416,12 +428,6 @@
     </Compile>
     <Compile Include="Report\dsReport_Templatexsd.vb">
       <DependentUpon>dsReport_Templatexsd.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Report\frmReportView_Crystal.Designer.vb">
-      <DependentUpon>frmReportView_Crystal.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Report\frmReportView_Crystal.vb">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Report\frmReport_Test.Designer.vb">
       <DependentUpon>frmReport_Test.vb</DependentUpon>
@@ -840,6 +846,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Report\mdlReport.vb" />
+    <Compile Include="Report\mdlReport_CA.vb" />
     <Compile Include="Report\Reporting\CA_Addition.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -876,6 +883,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CA\frmCA_Quick.resx">
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\frmCA_ReportList.resx">
+      <DependentUpon>frmCA_ReportList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\frmCA_ReportMenu.resx">
+      <DependentUpon>frmCA_ReportMenu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CA\frmDisposal_Add.resx">
       <DependentUpon>frmDisposal_Add.vb</DependentUpon>
@@ -957,9 +970,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL_Import.resx">
       <DependentUpon>ucPNL_Import.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report\frmReportView_Crystal.resx">
-      <DependentUpon>frmReportView_Crystal.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\frmReport_Test.resx">
       <DependentUpon>frmReport_Test.vb</DependentUpon>

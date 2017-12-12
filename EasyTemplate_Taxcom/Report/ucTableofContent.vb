@@ -160,10 +160,7 @@
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
-            Dim frm As New frmReportView_Crystal
-            frm.RefNo = mdlProcess.ArgParam2
-            frm.YA = mdlProcess.ArgParam3
-            frm.Show()
+        
         Catch ex As Exception
 
         End Try

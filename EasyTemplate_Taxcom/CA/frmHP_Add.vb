@@ -163,8 +163,8 @@ Public Class frmHP_Add
         Try
             If cboRefNo.EditValue.ToString <> "" Then
 
-                Dim editor As DevExpress.XtraEditors.LookUpEdit = CType(sender, DevExpress.XtraEditors.LookUpEdit)
-                Dim row As DataRowView = CType(editor.Properties.GetDataSourceRowByKeyValue(editor.EditValue), DataRowView)
+                Dim editor As DevExpress.XtraEditors.SearchLookUpEdit = CType(sender, DevExpress.XtraEditors.SearchLookUpEdit)
+                Dim row As DataRowView = CType(editor.Properties.GetRowByKeyValue(editor.EditValue), DataRowView)
                 Dim value As Object = row("CompanyName")
                 txtTaxPayer.EditValue = value.ToString
                 txtFileNo.EditValue = row("FileNo").ToString
