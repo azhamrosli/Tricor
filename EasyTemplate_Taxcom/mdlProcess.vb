@@ -12,7 +12,7 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 4
+    Public V3 As Integer = 5
     Public V4 As Integer = 0
     Public R1 As Integer = 5
     Public ArgParam0 As String = "frmca" 'Form Name
@@ -2373,7 +2373,7 @@ tryagain:
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
             End If
 
@@ -2447,6 +2447,36 @@ tryagain:
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_CAReport_FAReconciliation_Temp(ByVal ID As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_FIXEDASSET_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_FIXEDASSET_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND a.YA=@YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 5).Value = YA
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
@@ -8933,7 +8963,92 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
+    Public Function Save_CA_FAReconliliation_TEMP_REPORT(ByVal RefNo As String, ByVal YA As Integer, ByVal CA_KEY As Integer, _
+                                                         ByVal CA_NAME As String, ByVal CA_ASSET As String, ByVal CA_ASSET_CODE As String, _
+                                                         ByVal CA_CATEGORY_CODE As String, ByVal CA_SOURCENO As Integer, _
+                                                         ByVal CA_YA As Integer, ByVal HP_CODE As String, _
+                                                         ByVal CA_MODE As String, ByVal CA_PURCHASE_YEAR As Integer, _
+                                                         ByVal CA_QUALIFYING_COST As Decimal, ByVal CA_PURCHASE_AMOUNT As Decimal, _
+                                                         ByVal CA_RATE_IA As Integer, _
+                                                         ByVal CA_RATE_AA As Integer, ByVal QC_BF As Decimal, _
+                                                         ByVal QC_ADD As Decimal, ByVal QC_DISP As Decimal, ByVal QC_CF As Decimal, _
+                                                         ByVal TWDV_BF As Decimal, ByVal TWDV_ADD As Decimal, ByVal TWDV_DISP As Decimal, _
+                                                         ByVal TWDV_IA As Decimal, ByVal TWDV_AA As Decimal, ByVal TWDV_CF As Decimal, _
+                                                         ByVal PC_BF As Decimal, ByVal PC_ADD As Decimal, ByVal PC_DISP As Decimal, _
+                                                         ByVal PC_CF As Decimal, ByVal IndexNo As Integer, _
+                                                         ByVal Type As mdlEnum.CAReport_TableType, _
+                                                         ByRef ID As String, _
+                                                         Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = ""
+
+            Select Case Type
+                Case CAReport_TableType.CA_REPORT_FIXEDASET_RECONCILIATION
+                    'CA_REPORT_TEMP
+                    StrSQL = "INSERT INTO CA_REPORT_FIXEDASSET_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_ASSET_CODE,CA_CATEGORY_CODE,CA_MODE,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_PURCHASE_AMOUNT,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,PC_BF,PC_ADD,PC_DISP,PC_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_ASSET_CODE,@CA_CATEGORY_CODE,@CA_MODE,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_PURCHASE_AMOUNT,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@PC_BF,@PC_ADD,@PC_DISP,@PC_CF,@IndexNo)"
+            End Select
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+            SQLcmd.Parameters.Add("@CA_KEY", SqlDbType.Int).Value = CA_KEY
+            SQLcmd.Parameters.Add("@CA_NAME", SqlDbType.NVarChar, 255).Value = CA_NAME
+            SQLcmd.Parameters.Add("@CA_SOURCENO", SqlDbType.Int).Value = CA_SOURCENO
+            SQLcmd.Parameters.Add("@CA_YA", SqlDbType.Int).Value = CA_YA
+            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = HP_CODE
+            SQLcmd.Parameters.Add("@CA_ASSET", SqlDbType.NVarChar, 255).Value = CA_ASSET
+            SQLcmd.Parameters.Add("@CA_ASSET_CODE", SqlDbType.NVarChar, 20).Value = CA_ASSET_CODE
+            SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = CA_CATEGORY_CODE
+            SQLcmd.Parameters.Add("@CA_MODE", SqlDbType.NVarChar, 3).Value = CA_MODE
+            SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.Int).Value = CA_PURCHASE_YEAR
+            SQLcmd.Parameters.Add("@CA_QUALIFYING_COST", SqlDbType.Decimal).Value = CA_QUALIFYING_COST
+            SQLcmd.Parameters.Add("@CA_PURCHASE_AMOUNT", SqlDbType.Decimal).Value = CA_PURCHASE_AMOUNT
+            SQLcmd.Parameters.Add("@CA_RATE_IA", SqlDbType.Int).Value = CA_RATE_IA
+            SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Int).Value = CA_RATE_AA
+            SQLcmd.Parameters.Add("@QC_BF", SqlDbType.Decimal).Value = QC_BF
+            SQLcmd.Parameters.Add("@QC_ADD", SqlDbType.Decimal).Value = QC_ADD
+            SQLcmd.Parameters.Add("@QC_DISP", SqlDbType.Decimal).Value = QC_DISP
+            SQLcmd.Parameters.Add("@QC_CF", SqlDbType.Decimal).Value = QC_CF
+
+            SQLcmd.Parameters.Add("@TWDV_BF", SqlDbType.Decimal).Value = TWDV_BF
+            SQLcmd.Parameters.Add("@TWDV_ADD", SqlDbType.Decimal).Value = TWDV_ADD
+            SQLcmd.Parameters.Add("@TWDV_DISP", SqlDbType.Decimal).Value = TWDV_CF
+            SQLcmd.Parameters.Add("@TWDV_AI", SqlDbType.Decimal).Value = TWDV_IA
+            SQLcmd.Parameters.Add("@TWDV_AA", SqlDbType.Decimal).Value = TWDV_AA
+            SQLcmd.Parameters.Add("@TWDV_CF", SqlDbType.Decimal).Value = TWDV_CF
+
+            SQLcmd.Parameters.Add("@PC_BF", SqlDbType.Decimal).Value = PC_BF
+            SQLcmd.Parameters.Add("@PC_ADD", SqlDbType.Decimal).Value = PC_ADD
+            SQLcmd.Parameters.Add("@PC_DISP", SqlDbType.Decimal).Value = PC_DISP
+            SQLcmd.Parameters.Add("@PC_CF", SqlDbType.Decimal).Value = PC_CF
+            SQLcmd.Parameters.Add("@IndexNo", SqlDbType.Int).Value = IndexNo
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
 
 
 #End Region
@@ -15384,14 +15499,14 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Dim StrSQL As String = "DELETE FROM CA_REPORT_TEMP WHERE ID=@ID"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 20).Value = ID
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
             SQLcmd = Nothing
             StrSQL = "DELETE FROM CA_REPORT_SUMMARY_TEMP WHERE ID=@ID"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 20).Value = ID
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
             Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -15409,8 +15524,37 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
         End Try
     End Function
 
+    Public Function Delete_CA_Report_FAReconciliation_TEMP(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofSQLCmd As New List(Of SqlCommand)
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM CA_REPORT_FIXEDASSET_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            ListofSQLCmd.Add(SQLcmd)
 
 
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
 
     Public Function Delete_CA(ByVal CA_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try

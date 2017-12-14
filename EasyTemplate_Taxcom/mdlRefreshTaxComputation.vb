@@ -1796,7 +1796,7 @@ Module mdlRefreshTaxComputation
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_DEDUCT] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_NORMAL WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_DEDUCT] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_NORMAL WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_Deduct=1"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
@@ -1834,7 +1834,20 @@ Module mdlRefreshTaxComputation
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_COMPLEX_ADD] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            Dim StrSQL As String = "SELECT SUM(totalsum) as sumx "
+            StrSQL += "FROM ("
+            StrSQL += "SELECT Isnull(SUM(MM_GENERAL),0) as totalsum FROM MOVEMENT_COMPLEX_ADD "
+            StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
+            StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_GENERAL_ADDBACK=1 "
+            StrSQL += "UNION ALL "
+            StrSQL += "SELECT Isnull(SUM(MM_SPECIFIC_ALLOWABLE),0) as totalsum FROM MOVEMENT_COMPLEX_ADD "
+            StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
+            StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_SPECIFIC_ALLOWABLE_ADDBACK=1 "
+            StrSQL += "UNION ALL "
+            StrSQL += "SELECT Isnull(SUM(MM_SPECIFIC_NONALLOWABLE),0) as totalsum FROM MOVEMENT_COMPLEX_ADD "
+            StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
+            StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_SPECIFIC_NONALLOWABLE_ADDBACK=1 "
+            StrSQL += ") a"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
@@ -1872,7 +1885,20 @@ Module mdlRefreshTaxComputation
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_COMPLEX_DEDUCT] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
+            Dim StrSQL As String = "SELECT SUM(totalsum) as sumx "
+            StrSQL += "FROM ("
+            StrSQL += "SELECT Isnull(SUM(MM_GENERAL),0) as totalsum FROM MOVEMENT_COMPLEX_DEDUCT "
+            StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
+            StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_GENERAL_DEDUCT=1 "
+            StrSQL += "UNION ALL "
+            StrSQL += "SELECT Isnull(SUM(MM_SPECIFIC_ALLOWABLE),0) as totalsum FROM MOVEMENT_COMPLEX_DEDUCT "
+            StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
+            StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_SPECIFIC_ALLOWABLE_DEDUCT=1 "
+            StrSQL += "UNION ALL "
+            StrSQL += "SELECT Isnull(SUM(MM_SPECIFIC_NONALLOWABLE),0) as totalsum FROM MOVEMENT_COMPLEX_DEDUCT "
+            StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
+            StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_SPECIFIC_NONALLOWABLE_DEDUCT=1 "
+            StrSQL += ") a"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo

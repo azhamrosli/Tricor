@@ -14,7 +14,7 @@
   <xs:element name="dsCA" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCA" msprop:Generator_UserDSName="dsCA">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="TaxPayerFind" msprop:Generator_TableClassName="TaxPayerFindDataTable" msprop:Generator_TableVarName="tableTaxPayerFind" msprop:Generator_TablePropName="TaxPayerFind" msprop:Generator_RowDeletingName="TaxPayerFindRowDeleting" msprop:Generator_RowChangingName="TaxPayerFindRowChanging" msprop:Generator_RowEvHandlerName="TaxPayerFindRowChangeEventHandler" msprop:Generator_RowDeletedName="TaxPayerFindRowDeleted" msprop:Generator_UserTableName="TaxPayerFind" msprop:Generator_RowChangedName="TaxPayerFindRowChanged" msprop:Generator_RowEvArgName="TaxPayerFindRowChangeEvent" msprop:Generator_RowClassName="TaxPayerFindRow">
+        <xs:element name="TaxPayerFind" msprop:Generator_TableClassName="TaxPayerFindDataTable" msprop:Generator_TableVarName="tableTaxPayerFind" msprop:Generator_RowChangedName="TaxPayerFindRowChanged" msprop:Generator_TablePropName="TaxPayerFind" msprop:Generator_RowDeletingName="TaxPayerFindRowDeleting" msprop:Generator_RowChangingName="TaxPayerFindRowChanging" msprop:Generator_RowEvHandlerName="TaxPayerFindRowChangeEventHandler" msprop:Generator_RowDeletedName="TaxPayerFindRowDeleted" msprop:Generator_RowClassName="TaxPayerFindRow" msprop:Generator_UserTableName="TaxPayerFind" msprop:Generator_RowEvArgName="TaxPayerFindRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="RefNo" msprop:Generator_ColumnVarNameInTable="columnRefNo" msprop:Generator_ColumnPropNameInRow="RefNo" msprop:Generator_ColumnPropNameInTable="RefNoColumn" msprop:Generator_UserColumnName="RefNo" type="xs:string" minOccurs="0" />
@@ -28,7 +28,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Category" msprop:Generator_TableClassName="CategoryDataTable" msprop:Generator_TableVarName="tableCategory" msprop:Generator_RowChangedName="CategoryRowChanged" msprop:Generator_TablePropName="Category" msprop:Generator_RowDeletingName="CategoryRowDeleting" msprop:Generator_RowChangingName="CategoryRowChanging" msprop:Generator_RowEvHandlerName="CategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="CategoryRowDeleted" msprop:Generator_RowClassName="CategoryRow" msprop:Generator_UserTableName="Category" msprop:Generator_RowEvArgName="CategoryRowChangeEvent">
+        <xs:element name="Category" msprop:Generator_TableClassName="CategoryDataTable" msprop:Generator_TableVarName="tableCategory" msprop:Generator_TablePropName="Category" msprop:Generator_RowDeletingName="CategoryRowDeleting" msprop:Generator_RowChangingName="CategoryRowChanging" msprop:Generator_RowEvHandlerName="CategoryRowChangeEventHandler" msprop:Generator_RowDeletedName="CategoryRowDeleted" msprop:Generator_UserTableName="Category" msprop:Generator_RowChangedName="CategoryRowChanged" msprop:Generator_RowEvArgName="CategoryRowChangeEvent" msprop:Generator_RowClassName="CategoryRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CA_CODE" msprop:Generator_ColumnVarNameInTable="columnCA_CODE" msprop:Generator_ColumnPropNameInRow="CA_CODE" msprop:Generator_ColumnPropNameInTable="CA_CODEColumn" msprop:Generator_UserColumnName="CA_CODE" type="xs:string" minOccurs="0" />
@@ -36,7 +36,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="CA" msprop:Generator_TableClassName="CADataTable" msprop:Generator_TableVarName="tableCA" msprop:Generator_TablePropName="CA" msprop:Generator_RowDeletingName="CARowDeleting" msprop:Generator_RowChangingName="CARowChanging" msprop:Generator_RowEvHandlerName="CARowChangeEventHandler" msprop:Generator_RowDeletedName="CARowDeleted" msprop:Generator_UserTableName="CA" msprop:Generator_RowChangedName="CARowChanged" msprop:Generator_RowEvArgName="CARowChangeEvent" msprop:Generator_RowClassName="CARow">
+        <xs:element name="CA" msprop:Generator_TableClassName="CADataTable" msprop:Generator_TableVarName="tableCA" msprop:Generator_RowChangedName="CARowChanged" msprop:Generator_TablePropName="CA" msprop:Generator_RowDeletingName="CARowDeleting" msprop:Generator_RowChangingName="CARowChanging" msprop:Generator_RowEvHandlerName="CARowChangeEventHandler" msprop:Generator_RowDeletedName="CARowDeleted" msprop:Generator_RowClassName="CARow" msprop:Generator_UserTableName="CA" msprop:Generator_RowEvArgName="CARowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CA_KEY" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnCA_KEY" msprop:Generator_ColumnPropNameInRow="CA_KEY" msprop:Generator_ColumnPropNameInTable="CA_KEYColumn" msprop:Generator_UserColumnName="CA_KEY" type="xs:int" />
@@ -185,7 +185,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="HP" msprop:Generator_TableClassName="HPDataTable" msprop:Generator_TableVarName="tableHP" msprop:Generator_RowChangedName="HPRowChanged" msprop:Generator_TablePropName="HP" msprop:Generator_RowDeletingName="HPRowDeleting" msprop:Generator_RowChangingName="HPRowChanging" msprop:Generator_RowEvHandlerName="HPRowChangeEventHandler" msprop:Generator_RowDeletedName="HPRowDeleted" msprop:Generator_RowClassName="HPRow" msprop:Generator_UserTableName="HP" msprop:Generator_RowEvArgName="HPRowChangeEvent">
+        <xs:element name="HP" msprop:Generator_TableClassName="HPDataTable" msprop:Generator_TableVarName="tableHP" msprop:Generator_TablePropName="HP" msprop:Generator_RowDeletingName="HPRowDeleting" msprop:Generator_RowChangingName="HPRowChanging" msprop:Generator_RowEvHandlerName="HPRowChangeEventHandler" msprop:Generator_RowDeletedName="HPRowDeleted" msprop:Generator_UserTableName="HP" msprop:Generator_RowChangedName="HPRowChanged" msprop:Generator_RowEvArgName="HPRowChangeEvent" msprop:Generator_RowClassName="HPRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="HP_KEY" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnHP_KEY" msprop:Generator_ColumnPropNameInRow="HP_KEY" msprop:Generator_ColumnPropNameInTable="HP_KEYColumn" msprop:Generator_UserColumnName="HP_KEY" type="xs:int" />
@@ -330,7 +330,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="HP_YEARLY" msprop:Generator_TableClassName="HP_YEARLYDataTable" msprop:Generator_TableVarName="tableHP_YEARLY" msprop:Generator_RowChangedName="HP_YEARLYRowChanged" msprop:Generator_TablePropName="HP_YEARLY" msprop:Generator_RowDeletingName="HP_YEARLYRowDeleting" msprop:Generator_RowChangingName="HP_YEARLYRowChanging" msprop:Generator_RowEvHandlerName="HP_YEARLYRowChangeEventHandler" msprop:Generator_RowDeletedName="HP_YEARLYRowDeleted" msprop:Generator_RowClassName="HP_YEARLYRow" msprop:Generator_UserTableName="HP_YEARLY" msprop:Generator_RowEvArgName="HP_YEARLYRowChangeEvent">
+        <xs:element name="HP_YEARLY" msprop:Generator_TableClassName="HP_YEARLYDataTable" msprop:Generator_TableVarName="tableHP_YEARLY" msprop:Generator_TablePropName="HP_YEARLY" msprop:Generator_RowDeletingName="HP_YEARLYRowDeleting" msprop:Generator_RowChangingName="HP_YEARLYRowChanging" msprop:Generator_RowEvHandlerName="HP_YEARLYRowChangeEventHandler" msprop:Generator_RowDeletedName="HP_YEARLYRowDeleted" msprop:Generator_UserTableName="HP_YEARLY" msprop:Generator_RowChangedName="HP_YEARLYRowChanged" msprop:Generator_RowEvArgName="HP_YEARLYRowChangeEvent" msprop:Generator_RowClassName="HP_YEARLYRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="HP_KEY" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnHP_KEY" msprop:Generator_ColumnPropNameInRow="HP_KEY" msprop:Generator_ColumnPropNameInTable="HP_KEYColumn" msprop:Generator_UserColumnName="HP_KEY" type="xs:int" />
@@ -380,7 +380,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="HP_INSTALLMENT" msprop:Generator_TableClassName="HP_INSTALLMENTDataTable" msprop:Generator_TableVarName="tableHP_INSTALLMENT" msprop:Generator_RowChangedName="HP_INSTALLMENTRowChanged" msprop:Generator_TablePropName="HP_INSTALLMENT" msprop:Generator_RowDeletingName="HP_INSTALLMENTRowDeleting" msprop:Generator_RowChangingName="HP_INSTALLMENTRowChanging" msprop:Generator_RowEvHandlerName="HP_INSTALLMENTRowChangeEventHandler" msprop:Generator_RowDeletedName="HP_INSTALLMENTRowDeleted" msprop:Generator_RowClassName="HP_INSTALLMENTRow" msprop:Generator_UserTableName="HP_INSTALLMENT" msprop:Generator_RowEvArgName="HP_INSTALLMENTRowChangeEvent">
+        <xs:element name="HP_INSTALLMENT" msprop:Generator_TableClassName="HP_INSTALLMENTDataTable" msprop:Generator_TableVarName="tableHP_INSTALLMENT" msprop:Generator_TablePropName="HP_INSTALLMENT" msprop:Generator_RowDeletingName="HP_INSTALLMENTRowDeleting" msprop:Generator_RowChangingName="HP_INSTALLMENTRowChanging" msprop:Generator_RowEvHandlerName="HP_INSTALLMENTRowChangeEventHandler" msprop:Generator_RowDeletedName="HP_INSTALLMENTRowDeleted" msprop:Generator_UserTableName="HP_INSTALLMENT" msprop:Generator_RowChangedName="HP_INSTALLMENTRowChanged" msprop:Generator_RowEvArgName="HP_INSTALLMENTRowChangeEvent" msprop:Generator_RowClassName="HP_INSTALLMENTRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="HP_KEY" msprop:Generator_ColumnVarNameInTable="columnHP_KEY" msprop:Generator_ColumnPropNameInRow="HP_KEY" msprop:Generator_ColumnPropNameInTable="HP_KEYColumn" msprop:Generator_UserColumnName="HP_KEY" type="xs:int" minOccurs="0" />
@@ -433,7 +433,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="CA_DISPOSAL" msprop:Generator_TableClassName="CA_DISPOSALDataTable" msprop:Generator_TableVarName="tableCA_DISPOSAL" msprop:Generator_RowChangedName="CA_DISPOSALRowChanged" msprop:Generator_TablePropName="CA_DISPOSAL" msprop:Generator_RowDeletingName="CA_DISPOSALRowDeleting" msprop:Generator_RowChangingName="CA_DISPOSALRowChanging" msprop:Generator_RowEvHandlerName="CA_DISPOSALRowChangeEventHandler" msprop:Generator_RowDeletedName="CA_DISPOSALRowDeleted" msprop:Generator_RowClassName="CA_DISPOSALRow" msprop:Generator_UserTableName="CA_DISPOSAL" msprop:Generator_RowEvArgName="CA_DISPOSALRowChangeEvent">
+        <xs:element name="CA_DISPOSAL" msprop:Generator_TableClassName="CA_DISPOSALDataTable" msprop:Generator_TableVarName="tableCA_DISPOSAL" msprop:Generator_TablePropName="CA_DISPOSAL" msprop:Generator_RowDeletingName="CA_DISPOSALRowDeleting" msprop:Generator_RowChangingName="CA_DISPOSALRowChanging" msprop:Generator_RowEvHandlerName="CA_DISPOSALRowChangeEventHandler" msprop:Generator_RowDeletedName="CA_DISPOSALRowDeleted" msprop:Generator_UserTableName="CA_DISPOSAL" msprop:Generator_RowChangedName="CA_DISPOSALRowChanged" msprop:Generator_RowEvArgName="CA_DISPOSALRowChangeEvent" msprop:Generator_RowClassName="CA_DISPOSALRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CA_KEY" msprop:Generator_ColumnVarNameInTable="columnCA_KEY" msprop:Generator_ColumnPropNameInRow="CA_KEY" msprop:Generator_ColumnPropNameInTable="CA_KEYColumn" msprop:Generator_UserColumnName="CA_KEY" type="xs:int" />
@@ -505,7 +505,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="CA_REPORT_TEMP" msprop:Generator_TableClassName="CA_REPORT_TEMPDataTable" msprop:Generator_TableVarName="tableCA_REPORT_TEMP" msprop:Generator_TablePropName="CA_REPORT_TEMP" msprop:Generator_RowDeletingName="CA_REPORT_TEMPRowDeleting" msprop:Generator_RowChangingName="CA_REPORT_TEMPRowChanging" msprop:Generator_RowEvHandlerName="CA_REPORT_TEMPRowChangeEventHandler" msprop:Generator_RowDeletedName="CA_REPORT_TEMPRowDeleted" msprop:Generator_UserTableName="CA_REPORT_TEMP" msprop:Generator_RowChangedName="CA_REPORT_TEMPRowChanged" msprop:Generator_RowEvArgName="CA_REPORT_TEMPRowChangeEvent" msprop:Generator_RowClassName="CA_REPORT_TEMPRow">
+        <xs:element name="CA_REPORT_TEMP" msprop:Generator_TableClassName="CA_REPORT_TEMPDataTable" msprop:Generator_TableVarName="tableCA_REPORT_TEMP" msprop:Generator_RowChangedName="CA_REPORT_TEMPRowChanged" msprop:Generator_TablePropName="CA_REPORT_TEMP" msprop:Generator_RowDeletingName="CA_REPORT_TEMPRowDeleting" msprop:Generator_RowChangingName="CA_REPORT_TEMPRowChanging" msprop:Generator_RowEvHandlerName="CA_REPORT_TEMPRowChangeEventHandler" msprop:Generator_RowDeletedName="CA_REPORT_TEMPRowDeleted" msprop:Generator_RowClassName="CA_REPORT_TEMPRow" msprop:Generator_UserTableName="CA_REPORT_TEMP" msprop:Generator_RowEvArgName="CA_REPORT_TEMPRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID_Key" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_Key" msprop:Generator_ColumnPropNameInRow="ID_Key" msprop:Generator_ColumnPropNameInTable="ID_KeyColumn" msprop:Generator_UserColumnName="ID_Key" type="xs:decimal" />
@@ -571,6 +571,93 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="CA_REPORT_FIXEDASSET_TEMP" msprop:Generator_TableClassName="CA_REPORT_FIXEDASSET_TEMPDataTable" msprop:Generator_TableVarName="tableCA_REPORT_FIXEDASSET_TEMP" msprop:Generator_TablePropName="CA_REPORT_FIXEDASSET_TEMP" msprop:Generator_RowDeletingName="CA_REPORT_FIXEDASSET_TEMPRowDeleting" msprop:Generator_RowChangingName="CA_REPORT_FIXEDASSET_TEMPRowChanging" msprop:Generator_RowEvHandlerName="CA_REPORT_FIXEDASSET_TEMPRowChangeEventHandler" msprop:Generator_RowDeletedName="CA_REPORT_FIXEDASSET_TEMPRowDeleted" msprop:Generator_UserTableName="CA_REPORT_FIXEDASSET_TEMP" msprop:Generator_RowChangedName="CA_REPORT_FIXEDASSET_TEMPRowChanged" msprop:Generator_RowEvArgName="CA_REPORT_FIXEDASSET_TEMPRowChangeEvent" msprop:Generator_RowClassName="CA_REPORT_FIXEDASSET_TEMPRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_Key" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_Key" msprop:Generator_ColumnPropNameInRow="ID_Key" msprop:Generator_ColumnPropNameInTable="ID_KeyColumn" msprop:Generator_UserColumnName="ID_Key" type="xs:decimal" />
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RefNo" msprop:Generator_ColumnVarNameInTable="columnRefNo" msprop:Generator_ColumnPropNameInRow="RefNo" msprop:Generator_ColumnPropNameInTable="RefNoColumn" msprop:Generator_UserColumnName="RefNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YA" msprop:Generator_ColumnVarNameInTable="columnYA" msprop:Generator_ColumnPropNameInRow="YA" msprop:Generator_ColumnPropNameInTable="YAColumn" msprop:Generator_UserColumnName="YA" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_KEY" msprop:Generator_ColumnVarNameInTable="columnCA_KEY" msprop:Generator_ColumnPropNameInRow="CA_KEY" msprop:Generator_ColumnPropNameInTable="CA_KEYColumn" msprop:Generator_UserColumnName="CA_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_NAME" msprop:Generator_ColumnVarNameInTable="columnCA_NAME" msprop:Generator_ColumnPropNameInRow="CA_NAME" msprop:Generator_ColumnPropNameInTable="CA_NAMEColumn" msprop:Generator_UserColumnName="CA_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnCA_SOURCENO" msprop:Generator_ColumnPropNameInRow="CA_SOURCENO" msprop:Generator_ColumnPropNameInTable="CA_SOURCENOColumn" msprop:Generator_UserColumnName="CA_SOURCENO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_YA" msprop:Generator_ColumnVarNameInTable="columnCA_YA" msprop:Generator_ColumnPropNameInRow="CA_YA" msprop:Generator_ColumnPropNameInTable="CA_YAColumn" msprop:Generator_UserColumnName="CA_YA" type="xs:int" minOccurs="0" />
+              <xs:element name="HP_CODE" msprop:Generator_ColumnVarNameInTable="columnHP_CODE" msprop:Generator_ColumnPropNameInRow="HP_CODE" msprop:Generator_ColumnPropNameInTable="HP_CODEColumn" msprop:Generator_UserColumnName="HP_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_ASSET" msprop:Generator_ColumnVarNameInTable="columnCA_ASSET" msprop:Generator_ColumnPropNameInRow="CA_ASSET" msprop:Generator_ColumnPropNameInTable="CA_ASSETColumn" msprop:Generator_UserColumnName="CA_ASSET" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_ASSET_CODE" msprop:Generator_ColumnVarNameInTable="columnCA_ASSET_CODE" msprop:Generator_ColumnPropNameInRow="CA_ASSET_CODE" msprop:Generator_ColumnPropNameInTable="CA_ASSET_CODEColumn" msprop:Generator_UserColumnName="CA_ASSET_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_CATEGORY_CODE" msprop:Generator_ColumnVarNameInTable="columnCA_CATEGORY_CODE" msprop:Generator_ColumnPropNameInRow="CA_CATEGORY_CODE" msprop:Generator_ColumnPropNameInTable="CA_CATEGORY_CODEColumn" msprop:Generator_UserColumnName="CA_CATEGORY_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_MODE" msprop:Generator_ColumnVarNameInTable="columnCA_MODE" msprop:Generator_ColumnPropNameInRow="CA_MODE" msprop:Generator_ColumnPropNameInTable="CA_MODEColumn" msprop:Generator_UserColumnName="CA_MODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_PURCHASE_YEAR" msprop:Generator_ColumnVarNameInTable="columnCA_PURCHASE_YEAR" msprop:Generator_ColumnPropNameInRow="CA_PURCHASE_YEAR" msprop:Generator_ColumnPropNameInTable="CA_PURCHASE_YEARColumn" msprop:Generator_UserColumnName="CA_PURCHASE_YEAR" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_QUALIFYING_COST" msprop:Generator_ColumnVarNameInTable="columnCA_QUALIFYING_COST" msprop:Generator_ColumnPropNameInRow="CA_QUALIFYING_COST" msprop:Generator_ColumnPropNameInTable="CA_QUALIFYING_COSTColumn" msprop:Generator_UserColumnName="CA_QUALIFYING_COST" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_PURCHASE_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnCA_PURCHASE_AMOUNT" msprop:Generator_ColumnPropNameInRow="CA_PURCHASE_AMOUNT" msprop:Generator_ColumnPropNameInTable="CA_PURCHASE_AMOUNTColumn" msprop:Generator_UserColumnName="CA_PURCHASE_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_RATE_IA" msprop:Generator_ColumnVarNameInTable="columnCA_RATE_IA" msprop:Generator_ColumnPropNameInRow="CA_RATE_IA" msprop:Generator_ColumnPropNameInTable="CA_RATE_IAColumn" msprop:Generator_UserColumnName="CA_RATE_IA" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_RATE_AA" msprop:Generator_ColumnVarNameInTable="columnCA_RATE_AA" msprop:Generator_ColumnPropNameInRow="CA_RATE_AA" msprop:Generator_ColumnPropNameInTable="CA_RATE_AAColumn" msprop:Generator_UserColumnName="CA_RATE_AA" type="xs:int" minOccurs="0" />
+              <xs:element name="QC_BF" msprop:Generator_ColumnVarNameInTable="columnQC_BF" msprop:Generator_ColumnPropNameInRow="QC_BF" msprop:Generator_ColumnPropNameInTable="QC_BFColumn" msprop:Generator_UserColumnName="QC_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="QC_ADD" msprop:Generator_ColumnVarNameInTable="columnQC_ADD" msprop:Generator_ColumnPropNameInRow="QC_ADD" msprop:Generator_ColumnPropNameInTable="QC_ADDColumn" msprop:Generator_UserColumnName="QC_ADD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="QC_DISP" msprop:Generator_ColumnVarNameInTable="columnQC_DISP" msprop:Generator_ColumnPropNameInRow="QC_DISP" msprop:Generator_ColumnPropNameInTable="QC_DISPColumn" msprop:Generator_UserColumnName="QC_DISP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="QC_CF" msprop:Generator_ColumnVarNameInTable="columnQC_CF" msprop:Generator_ColumnPropNameInRow="QC_CF" msprop:Generator_ColumnPropNameInTable="QC_CFColumn" msprop:Generator_UserColumnName="QC_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TWDV_BF" msprop:Generator_ColumnVarNameInTable="columnTWDV_BF" msprop:Generator_ColumnPropNameInRow="TWDV_BF" msprop:Generator_ColumnPropNameInTable="TWDV_BFColumn" msprop:Generator_UserColumnName="TWDV_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TWDV_ADD" msprop:Generator_ColumnVarNameInTable="columnTWDV_ADD" msprop:Generator_ColumnPropNameInRow="TWDV_ADD" msprop:Generator_ColumnPropNameInTable="TWDV_ADDColumn" msprop:Generator_UserColumnName="TWDV_ADD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TWDV_DISP" msprop:Generator_ColumnVarNameInTable="columnTWDV_DISP" msprop:Generator_ColumnPropNameInRow="TWDV_DISP" msprop:Generator_ColumnPropNameInTable="TWDV_DISPColumn" msprop:Generator_UserColumnName="TWDV_DISP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TWDV_AI" msprop:Generator_ColumnVarNameInTable="columnTWDV_AI" msprop:Generator_ColumnPropNameInRow="TWDV_AI" msprop:Generator_ColumnPropNameInTable="TWDV_AIColumn" msprop:Generator_UserColumnName="TWDV_AI" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TWDV_AA" msprop:Generator_ColumnVarNameInTable="columnTWDV_AA" msprop:Generator_ColumnPropNameInRow="TWDV_AA" msprop:Generator_ColumnPropNameInTable="TWDV_AAColumn" msprop:Generator_UserColumnName="TWDV_AA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="TWDV_CF" msprop:Generator_ColumnVarNameInTable="columnTWDV_CF" msprop:Generator_ColumnPropNameInRow="TWDV_CF" msprop:Generator_ColumnPropNameInTable="TWDV_CFColumn" msprop:Generator_UserColumnName="TWDV_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PC_BF" msprop:Generator_ColumnVarNameInTable="columnPC_BF" msprop:Generator_ColumnPropNameInRow="PC_BF" msprop:Generator_ColumnPropNameInTable="PC_BFColumn" msprop:Generator_UserColumnName="PC_BF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PC_ADD" msprop:Generator_ColumnVarNameInTable="columnPC_ADD" msprop:Generator_ColumnPropNameInRow="PC_ADD" msprop:Generator_ColumnPropNameInTable="PC_ADDColumn" msprop:Generator_UserColumnName="PC_ADD" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PC_DISP" msprop:Generator_ColumnVarNameInTable="columnPC_DISP" msprop:Generator_ColumnPropNameInRow="PC_DISP" msprop:Generator_ColumnPropNameInTable="PC_DISPColumn" msprop:Generator_UserColumnName="PC_DISP" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PC_CF" msprop:Generator_ColumnVarNameInTable="columnPC_CF" msprop:Generator_ColumnPropNameInRow="PC_CF" msprop:Generator_ColumnPropNameInTable="PC_CFColumn" msprop:Generator_UserColumnName="PC_CF" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1">
@@ -582,15 +669,15 @@
       <xs:field xpath="mstns:CA_KEY" />
       <xs:field xpath="mstns:CA_DISP_KEY" />
     </xs:unique>
-    <xs:keyref name="FK_CA_CA_DISPOSAL" refer="Constraint1" msprop:rel_Generator_UserChildTable="CA_DISPOSAL" msprop:rel_Generator_ChildPropName="GetCA_DISPOSALRows" msprop:rel_Generator_UserRelationName="FK_CA_CA_DISPOSAL" msprop:rel_Generator_RelationVarName="relationFK_CA_CA_DISPOSAL" msprop:rel_Generator_UserParentTable="CA" msprop:rel_Generator_ParentPropName="CARow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_CA_CA_DISPOSAL" refer="Constraint1" msprop:rel_Generator_UserChildTable="CA_DISPOSAL" msprop:rel_Generator_ChildPropName="GetCA_DISPOSALRows" msprop:rel_Generator_UserRelationName="FK_CA_CA_DISPOSAL" msprop:rel_Generator_ParentPropName="CARow" msprop:rel_Generator_RelationVarName="relationFK_CA_CA_DISPOSAL" msprop:rel_Generator_UserParentTable="CA" msdata:UpdateRule="None">
       <xs:selector xpath=".//mstns:CA_DISPOSAL" />
       <xs:field xpath="mstns:CA_KEY" />
     </xs:keyref>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="HP_HP_YEARLY" msdata:parent="HP" msdata:child="HP_YEARLY" msdata:parentkey="HP_KEY" msdata:childkey="HPD_KEY" msprop:Generator_UserChildTable="HP_YEARLY" msprop:Generator_ChildPropName="GetHP_YEARLYRows" msprop:Generator_UserRelationName="HP_HP_YEARLY" msprop:Generator_RelationVarName="relationHP_HP_YEARLY" msprop:Generator_UserParentTable="HP" msprop:Generator_ParentPropName="HPRow" />
-      <msdata:Relationship name="HP_HP_INSTALLMENT" msdata:parent="HP" msdata:child="HP_INSTALLMENT" msdata:parentkey="HP_KEY" msdata:childkey="HP_KEY" msprop:Generator_UserChildTable="HP_INSTALLMENT" msprop:Generator_ChildPropName="GetHP_INSTALLMENTRows" msprop:Generator_UserRelationName="HP_HP_INSTALLMENT" msprop:Generator_ParentPropName="HPRow" msprop:Generator_RelationVarName="relationHP_HP_INSTALLMENT" msprop:Generator_UserParentTable="HP" />
+      <msdata:Relationship name="HP_HP_YEARLY" msdata:parent="HP" msdata:child="HP_YEARLY" msdata:parentkey="HP_KEY" msdata:childkey="HPD_KEY" msprop:Generator_UserChildTable="HP_YEARLY" msprop:Generator_ChildPropName="GetHP_YEARLYRows" msprop:Generator_UserRelationName="HP_HP_YEARLY" msprop:Generator_ParentPropName="HPRow" msprop:Generator_RelationVarName="relationHP_HP_YEARLY" msprop:Generator_UserParentTable="HP" />
+      <msdata:Relationship name="HP_HP_INSTALLMENT" msdata:parent="HP" msdata:child="HP_INSTALLMENT" msdata:parentkey="HP_KEY" msdata:childkey="HP_KEY" msprop:Generator_UserChildTable="HP_INSTALLMENT" msprop:Generator_ChildPropName="GetHP_INSTALLMENTRows" msprop:Generator_UserRelationName="HP_HP_INSTALLMENT" msprop:Generator_RelationVarName="relationHP_HP_INSTALLMENT" msprop:Generator_UserParentTable="HP" msprop:Generator_ParentPropName="HPRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

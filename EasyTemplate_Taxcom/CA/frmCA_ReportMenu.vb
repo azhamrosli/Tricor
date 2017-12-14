@@ -129,19 +129,34 @@
                    
                 Case 3, 4, 5
                     Status = mdlReport_CA.Report_CA_Summary(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, cboType.SelectedIndex, ErrorLog)
+
+                Case 6
+                    Status = mdlReport_CA.Report_CA_FAConciliation(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
             End Select
 
             If Status = False Then
                 MsgBox("Failed to generate report", MsgBoxStyle.Critical)
             Else
-                Dim frm As New frmCA_ReportList
-                frm.TypeReport = cboType.SelectedIndex
-                frm.ID = ID
-                frm.RefNo = cboRefNo.EditValue
-                frm.YA = cboYA.EditValue
-                frm.ComName = cboRefNo.Text
-                frm.Show()
+                Select Case cboType.SelectedIndex
+                    Case 0, 1, 2, 3, 4, 5
+                        Dim frm As New frmCA_Report
+                        frm.TypeReport = cboType.SelectedIndex
+                        frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
 
+                    Case 6
+                        Dim frm As New frmCA_Report_FA_Reconciliation
+                        frm.TypeReport = cboType.SelectedIndex
+                        frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
+                End Select
+                
             End If
         Catch ex As Exception
 

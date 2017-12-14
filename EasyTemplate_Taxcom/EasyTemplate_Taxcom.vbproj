@@ -103,6 +103,8 @@
     <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.Pdf.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v15.1.Drawing, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.PivotGrid.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -148,6 +150,7 @@
     <Reference Include="DevExpress.XtraNavBar.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraPdfViewer.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -206,10 +209,16 @@
     <Compile Include="CA\frmCA_Quick.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CA\frmCA_ReportList.Designer.vb">
-      <DependentUpon>frmCA_ReportList.vb</DependentUpon>
+    <Compile Include="CA\frmCA_Report_FA_Reconciliation.Designer.vb">
+      <DependentUpon>frmCA_Report_FA_Reconciliation.vb</DependentUpon>
     </Compile>
-    <Compile Include="CA\frmCA_ReportList.vb">
+    <Compile Include="CA\frmCA_Report_FA_Reconciliation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CA\frmCA_Report.Designer.vb">
+      <DependentUpon>frmCA_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\frmCA_Report.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CA\frmCA_ReportMenu.Designer.vb">
@@ -872,6 +881,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SQLDataObject.vb" />
+    <Compile Include="TaxCom\frmExemptionCalculator.Designer.vb">
+      <DependentUpon>frmExemptionCalculator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TaxCom\frmExemptionCalculator.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ucSQLScript.Designer.vb">
       <DependentUpon>ucSQLScript.vb</DependentUpon>
     </Compile>
@@ -884,8 +899,11 @@
     <EmbeddedResource Include="CA\frmCA_Quick.resx">
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CA\frmCA_ReportList.resx">
-      <DependentUpon>frmCA_ReportList.vb</DependentUpon>
+    <EmbeddedResource Include="CA\frmCA_Report_FA_Reconciliation.resx">
+      <DependentUpon>frmCA_Report_FA_Reconciliation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\frmCA_Report.resx">
+      <DependentUpon>frmCA_Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CA\frmCA_ReportMenu.resx">
       <DependentUpon>frmCA_ReportMenu.vb</DependentUpon>
@@ -1194,6 +1212,9 @@
     <EmbeddedResource Include="Setting\frmDatabase.resx">
       <DependentUpon>frmDatabase.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TaxCom\frmExemptionCalculator.resx">
+      <DependentUpon>frmExemptionCalculator.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ucSQLScript.resx">
       <DependentUpon>ucSQLScript.vb</DependentUpon>
     </EmbeddedResource>
@@ -1317,7 +1338,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MasterData\" />
-    <Folder Include="TaxCom\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

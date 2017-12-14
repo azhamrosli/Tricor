@@ -2,6 +2,7 @@
     Public Enum CAReport_TableType
         CA_REPORT_TEMP
         CA_REPORT_SUMMARY_TEMP
+        CA_REPORT_FIXEDASET_RECONCILIATION
     End Enum
     Public Enum CAReport_Type
        
@@ -10,7 +11,7 @@
         CA_REPORT_DETAILS_BYCATEGORY = 2
         CA_REPORT_SUMMARY_BYRATE = 3
         CA_REPORT_SUMMARY_BYCATEGORY = 4
-
+        CA_REPORT_FIXEDASET_RECONCILIATION = 5
     End Enum
     Public Enum TaxComPNLEnuItem
         SALES
