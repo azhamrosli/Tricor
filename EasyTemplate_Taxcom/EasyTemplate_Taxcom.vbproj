@@ -177,6 +177,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -404,6 +406,12 @@
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
     </Compile>
     <Compile Include="PNL\frmPNL_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Report.Designer.vb">
+      <DependentUpon>frmPNL_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Report.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PNL\PNL Import\frmPNL_Import.Designer.vb">
@@ -856,18 +864,6 @@
     </Compile>
     <Compile Include="Report\mdlReport.vb" />
     <Compile Include="Report\mdlReport_CA.vb" />
-    <Compile Include="Report\Reporting\CA_Addition.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CA_Addition.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Report\Reporting\CA_Disposal.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CA_Disposal.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Report\ucTableofContent.Designer.vb">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </Compile>
@@ -976,6 +972,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL_Add.resx">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\frmPNL_Report.resx">
+      <DependentUpon>frmPNL_Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\PNL Import\frmPNL_Import.resx">
       <DependentUpon>frmPNL_Import.vb</DependentUpon>
@@ -1198,14 +1197,7 @@
     <EmbeddedResource Include="Report\frmTableofContent_Add.resx">
       <DependentUpon>frmTableofContent_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\Reporting\CA_Addition.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CA_Addition.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Report\Reporting\CA_Disposal.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CA_Disposal.vb</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Report\Reporting\rptCA_ByRate.rdlc" />
     <EmbeddedResource Include="Report\ucTableofContent.resx">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </EmbeddedResource>
@@ -1337,6 +1329,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CA\Report\" />
     <Folder Include="MasterData\" />
   </ItemGroup>
   <ItemGroup>

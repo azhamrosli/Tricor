@@ -15,7 +15,7 @@ Module mdlProcess
     Public V3 As Integer = 5
     Public V4 As Integer = 0
     Public R1 As Integer = 5
-    Public ArgParam0 As String = "frmca" 'Form Name
+    Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "0388601701" '"1054242304" 'RefNo
     Public ArgParam3 As String = "2015" 'YA"
@@ -1267,7 +1267,113 @@ tryagain:
     End Function
 
 #End Region
+#Region "VALIDATE"
+    Public Function Validate_CA_TEMP_REPORTID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM CA_REPORT_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("COUNTX")) = False AndAlso dt.Rows(0)("COUNTX") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+    Public Function Validate_CA__FA_TEMP_REPORTID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM CA_REPORT_FIXEDASSET_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("COUNTX")) = False AndAlso dt.Rows(0)("COUNTX") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+    Public Function Validate_PNL_TEMP_REPORTID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM PROFIT_LOSS_ACCOUNT_REPORT_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("COUNTX")) = False AndAlso dt.Rows(0)("COUNTX") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+#End Region
 #Region "LOAD"
 #Region "CA"
     Public Function LOAD_GetDTYA(ByVal TC_REF_NO As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
@@ -2367,43 +2473,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
-    Public Function Validate_CA_TEMP_REPORTID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
-        Try
-            ADO = New SQLDataObject()
-            Dim SqlCon As SqlConnection
-
-            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
-                Return False
-            End If
-
-            Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM CA_REPORT_TEMP WHERE ID=@ID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
-
-            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
-
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("COUNTX")) = False AndAlso dt.Rows(0)("COUNTX") > 0 Then
-                Return True
-            Else
-                Return False
-            End If
-        Catch ex As Exception
-            If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
-            End If
-            With ErrorLog
-                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = ex.GetHashCode.ToString
-                .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
-            End With
-            Return False
-        End Try
-    End Function
-
     Public Function Load_CAReportSummary2_Temp(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -2489,6 +2558,8 @@ tryagain:
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(ErrorLog)
+
             Return Nothing
         End Try
     End Function
@@ -2522,6 +2593,8 @@ tryagain:
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(ErrorLog)
+
             Return Nothing
         End Try
     End Function
@@ -2555,12 +2628,44 @@ tryagain:
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(ErrorLog)
+
             Return Nothing
         End Try
     End Function
 #End Region
 #Region "PNL"
 
+    Public Function Load_PNLReport_ByID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PROFIT_LOSS_ACCOUNT_REPORT_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function Check_AdjustedIncomeExist(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -9053,6 +9158,59 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
 #End Region
 #Region "PNL"
+
+    Public Function Save_PNL_Report_TEMP(ByVal dt As DataTable, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = Nothing
+
+            If dt Is Nothing Then
+                Return False
+            End If
+
+            Dim ListofSQLCmd As New List(Of SqlCommand)
+            For i As Integer = 0 To dt.Rows.Count - 1
+                StrSQL = "INSERT INTO PROFIT_LOSS_ACCOUNT_REPORT_TEMP (ID_KEY,PARENT_ID,ID,RefNo,YA,IndexNo,Caption,LeftAmount,RightAmount,TypeRow,Note) VALUES (@ID_KEY,@PARENT_ID,@ID,@RefNo,@YA,@IndexNo,@Caption,@LeftAmount,@RightAmount,@TypeRow,@Note)"
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@ID_KEY", SqlDbType.Int).Value = dt.Rows(i)("ID_KEY")
+                SQLcmd.Parameters.Add("@PARENT_ID", SqlDbType.Int).Value = dt.Rows(i)("PARENT_ID")
+                SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = dt.Rows(i)("ID")
+                SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = dt.Rows(i)("RefNo")
+                SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = dt.Rows(i)("YA")
+                SQLcmd.Parameters.Add("@IndexNo", SqlDbType.Int).Value = dt.Rows(i)("IndexNo")
+                SQLcmd.Parameters.Add("@Caption", SqlDbType.NVarChar, 4000).Value = dt.Rows(i)("Caption")
+                SQLcmd.Parameters.Add("@LeftAmount", SqlDbType.Decimal).Value = dt.Rows(i)("LeftAmount")
+                SQLcmd.Parameters.Add("@RightAmount", SqlDbType.Decimal).Value = dt.Rows(i)("RightAmount")
+                SQLcmd.Parameters.Add("@TypeRow", SqlDbType.Int).Value = dt.Rows(i)("TypeRow")
+                SQLcmd.Parameters.Add("@Note", SqlDbType.NVarChar, 4000).Value = dt.Rows(i)("Note")
+                ListofSQLCmd.Add(SQLcmd)
+            Next
+
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
 
     Public Function Save_PNLExecute(ByVal ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try

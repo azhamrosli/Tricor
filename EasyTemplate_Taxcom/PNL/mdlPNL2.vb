@@ -4982,6 +4982,175 @@ Module mdlPNL2
         End Try
     End Function
 
+    Public Function PNL_GenerateReport(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
+                                       Optional ByRef Errorlog As clsError = Nothing) As Boolean
+
+        Try
+            Dim dtPNL As DataTable = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
+
+            If dtPNL Is Nothing Then
+                If Errorlog Is Nothing Then
+                    Errorlog = New clsError
+                End If
+                With Errorlog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "P10001"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "No data found for PNL = " & RefNo
+                End With
+                Return False
+            End If
+
+            Dim dtRow As DataRow = Nothing
+            Dim TableName As String = "PROFIT_LOSS_ACCOUNT_REPORT_TEMP"
+            dsDataSet2.Tables(TableName).Rows.Clear()
+
+            ID = "PNL_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+
+            While mdlProcess.Validate_PNL_TEMP_REPORTID(ID)
+                ID = "PNL_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+            End While
+
+            Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName_Report(Errorlog)
+
+            If listoflabelname IsNot Nothing Then
+                Dim ParentID As Integer = 0
+                Dim IDData As Integer = 0
+                Dim indexNo As Integer = 0
+                Dim ColumnName As String = Nothing
+                Dim AlignAmountLeft As Boolean = True
+                Dim TypeRow As PNL_REPORT_TypeRow = PNL_REPORT_TypeRow.NORMAL
+                Dim SubStatus As Boolean = False
+                For Each lbl As clsPNL_LabelName In listoflabelname
+                    
+                    Select Case lbl.Type
+                        Case TaxComPNLEnuItem.SALES
+                            ColumnName = "PL_SALES"
+                            AlignAmountLeft = False
+                            TypeRow = PNL_REPORT_TypeRow.TITLE
+                        Case TaxComPNLEnuItem.LESSCOSTSALES_TITLEONLY
+                            ColumnName = ""
+                            AlignAmountLeft = True
+                            TypeRow = PNL_REPORT_TypeRow.TITLE
+                        Case TaxComPNLEnuItem.OPENSTOCK
+                            ColumnName = "PL_OP_STK"
+                            AlignAmountLeft = True
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                        Case TaxComPNLEnuItem.PURCHASE
+                            ColumnName = "PL_PURCHASES"
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.DEPRECIATION
+                            ColumnName = "PL_PRO_COST_DPC"
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.OTHERALLOWEXP
+                            ColumnName = "PL_PRO_COST_OAE"
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                            ColumnName = "PL_PRO_COST_ONAE"
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.COSTPRODUCT_TITLEONLY
+                            ColumnName = ""
+                            TypeRow = PNL_REPORT_TypeRow.TITLE
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.COSTPRODUCT
+                            ColumnName = "PL_PURCHASES_PRO_COST"
+                            TypeRow = PNL_REPORT_TypeRow.SUBTOTAL
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.CLOSESTOCK
+                            ColumnName = "PL_CLS_STK"
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                            AlignAmountLeft = True
+                        Case TaxComPNLEnuItem.COSTOFSALES
+                            ColumnName = "PL_COGS"
+                            TypeRow = PNL_REPORT_TypeRow.SUBTOTAL
+                            AlignAmountLeft = False
+                        Case TaxComPNLEnuItem.GROSSPROFIT
+                            ColumnName = "PL_GROSS_PROFIT"
+                            TypeRow = PNL_REPORT_TypeRow.TOTAL
+                            AlignAmountLeft = False
+                        Case Else
+                            ColumnName = ""
+                            TypeRow = PNL_REPORT_TypeRow.NORMAL
+                            AlignAmountLeft = False
+                    End Select
+
+                    If ColumnName <> "" AndAlso IsDBNull(dtPNL.Rows(0)(ColumnName)) = False AndAlso IsNumeric(dtPNL.Rows(0)(ColumnName)) = True AndAlso CDec(dtPNL.Rows(0)(ColumnName)) <> 0 Then
+                        SubStatus = True
+                    Else
+                        SubStatus = False
+                    End If
+
+                    If TypeRow = PNL_REPORT_TypeRow.TOTAL Or TypeRow = PNL_REPORT_TypeRow.TITLE Or TypeRow = PNL_REPORT_TypeRow.SUBTOTAL Or SubStatus Then
+
+                        indexNo += 1
+
+                        dtRow = dsDataSet2.Tables(TableName).NewRow
+                        IDData = dsDataSet2.Tables(TableName).Rows.Count + 1
+
+                        dtRow("ID_KEY") = IDData
+                        dtRow("PARENT_ID") = ParentID
+                        dtRow("ID") = ID
+                        dtRow("RefNo") = RefNo
+                        dtRow("YA") = CInt(YA)
+                        dtRow("IndexNo") = indexNo
+
+                        If TypeRow <> PNL_REPORT_TypeRow.SUBTOTAL Then
+                            If isVersionLicenseType = VersionLicenseType.Tricor Then
+                                dtRow("Caption") = lbl.LabelTricor
+                            Else
+                                dtRow("Caption") = lbl.LabelName
+                            End If
+                        Else
+                            dtRow("Caption") = ""
+                        End If
+
+                        If ColumnName <> "" Then
+                            If AlignAmountLeft = True Then
+                                dtRow("LeftAmount") = CDec(IIf(IsDBNull(dtPNL.Rows(0)(ColumnName)), 0, dtPNL.Rows(0)(ColumnName)))
+                                dtRow("RightAmount") = DBNull.Value
+                            Else
+                                dtRow("LeftAmount") = DBNull.Value
+                                dtRow("RightAmount") = CDec(IIf(IsDBNull(dtPNL.Rows(0)(ColumnName)), 0, dtPNL.Rows(0)(ColumnName)))
+                            End If
+                        Else
+                            dtRow("LeftAmount") = DBNull.Value
+                            dtRow("RightAmount") = DBNull.Value
+                        End If
+                       
+
+                        dtRow("TypeRow") = TypeRow
+                        dtRow("Note") = ""
+
+                        dsDataSet2.Tables(TableName).Rows.Add(dtRow)
+
+                    End If
+                   
+                Next
+
+                Return mdlProcess.Save_PNL_Report_TEMP(dsDataSet2.Tables(TableName), Errorlog)
+            End If
+
+            Return False
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return True
+        End Try
+    End Function
+
+
 
 
 End Module

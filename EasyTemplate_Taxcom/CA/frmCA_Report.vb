@@ -14,6 +14,14 @@ Public Class frmCA_Report
     Public ComName As String = ""
     Public TypeReport As Integer = 0
     Dim link As PrintableComponentLink
+
+    Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Try
+            mdlProcess.Delete_CA_Report_TEMP(ID)
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub frmCA_ReportList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadData()
@@ -42,7 +50,7 @@ Public Class frmCA_Report
                 Next
             End If
 
-            mdlProcess.Delete_CA_Report_TEMP(ID)
+
 
             Application.DoEvents()
             BandedGridView1.BeginSort()
@@ -108,22 +116,27 @@ Public Class frmCA_Report
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
 
-            'Dim str As String = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
-            'BandedGridView1.OptionsPrint.RtfPageHeader &= str
+            Dim frm As New frmReport_Test
+            frm.ID = ID
+            frm.ShowDialog()
 
-            '  GridControl1.PrintDialog()
-            '  GridControl1.ShowPrintPreview()
-            Dim link As New PrintableComponentLink(New PrintingSystem())
-            AddHandler link.CreateReportHeaderArea, AddressOf Link_CreateReportHeaderArea
-            ' AddHandler link.createPageHeaderArea, AddressOf Link_CreateReportHeaderArea1
-            link.Component = GridControl1
 
-            'Dim sb = New System.Text.StringBuilder()
-            'sb.Append("{\rtf1\deff0{\fonttbl{\f0 Calibri;}}{\colortbl ;\red0\green0\blue255 ;\red79\green129\blue189 ;\red238\green236\blue225 ;}{\*\defchp \fs22}{\stylesheet {\ql\fs22 Normal;}{\*\cs1\fs22 Default Paragraph Font;}{\*\cs2\sbasedon1\fs22 Line Number;}{\*\cs3\ul\fs22\cf1 Hyperlink;}{\*\ts4\tsrowd\fs22\ql\trautofit1\tscellpaddfl3\tscellpaddl108\tscellpaddfr3\tscellpaddr108\tsvertalt\cltxlrtb Normal Table;}{\*\ts5\tsrowd\sbasedon4\fs22\ql\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trautofit1\tscellpaddfl3\tscellpaddl108\tscellpaddfr3\tscellpaddr108\tsvertalt\cltxlrtb Table Simple 1;}}{\*\listoverridetable}\nouicompat\splytwnine\htmautsp\sectd\trowd\irow0\irowband-1\lastrow\ts5\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trleft-1080\trftsWidth1\trautofit1\trpaddfl3\trpaddl108\trpaddfr3\trpaddr108\tbllkhdrcols\tbllkhdrrows\tbllknocolband\tblindtype3\tblind-972\clvertalt\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cltxlrtb\clftsWidth3\clwWidth10785\clpadfr3\clpadr108\clpadft3\clpadt108\cellx9720\pard\plain\ql\intbl\fi1080\li-1080\lin-1080\cbpat2\yts5{\lang17417\langfe17417\fs22\cf3\chcbpat2 CAPITAL ALLOWANCE}\fs22\cf3\cell\trowd\irow0\irowband-1\lastrow\ts5\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trleft-1080\trftsWidth1\trautofit1\trpaddfl3\trpaddl108\trpaddfr3\trpaddr108\tbllkhdrcols\tbllkhdrrows\tbllknocolband\tblindtype3\tblind-972\clvertalt\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cltxlrtb\clftsWidth3\clwWidth10785\clpadfr3\clpadr108\clpadft3\clpadt108\cellx9720\row\pard\plain\ql\fs22\par}")
-            'link.RtfReportHeader = sb.ToString()
-            link.Landscape = True
+            ''Dim str As String = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
+            ''BandedGridView1.OptionsPrint.RtfPageHeader &= str
 
-            link.ShowPreview()
+            ''  GridControl1.PrintDialog()
+            ''  GridControl1.ShowPrintPreview()
+            'Dim link As New PrintableComponentLink(New PrintingSystem())
+            'AddHandler link.CreateReportHeaderArea, AddressOf Link_CreateReportHeaderArea
+            '' AddHandler link.createPageHeaderArea, AddressOf Link_CreateReportHeaderArea1
+            'link.Component = GridControl1
+
+            ''Dim sb = New System.Text.StringBuilder()
+            ''sb.Append("{\rtf1\deff0{\fonttbl{\f0 Calibri;}}{\colortbl ;\red0\green0\blue255 ;\red79\green129\blue189 ;\red238\green236\blue225 ;}{\*\defchp \fs22}{\stylesheet {\ql\fs22 Normal;}{\*\cs1\fs22 Default Paragraph Font;}{\*\cs2\sbasedon1\fs22 Line Number;}{\*\cs3\ul\fs22\cf1 Hyperlink;}{\*\ts4\tsrowd\fs22\ql\trautofit1\tscellpaddfl3\tscellpaddl108\tscellpaddfr3\tscellpaddr108\tsvertalt\cltxlrtb Normal Table;}{\*\ts5\tsrowd\sbasedon4\fs22\ql\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trautofit1\tscellpaddfl3\tscellpaddl108\tscellpaddfr3\tscellpaddr108\tsvertalt\cltxlrtb Table Simple 1;}}{\*\listoverridetable}\nouicompat\splytwnine\htmautsp\sectd\trowd\irow0\irowband-1\lastrow\ts5\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trleft-1080\trftsWidth1\trautofit1\trpaddfl3\trpaddl108\trpaddfr3\trpaddr108\tbllkhdrcols\tbllkhdrrows\tbllknocolband\tblindtype3\tblind-972\clvertalt\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cltxlrtb\clftsWidth3\clwWidth10785\clpadfr3\clpadr108\clpadft3\clpadt108\cellx9720\pard\plain\ql\intbl\fi1080\li-1080\lin-1080\cbpat2\yts5{\lang17417\langfe17417\fs22\cf3\chcbpat2 CAPITAL ALLOWANCE}\fs22\cf3\cell\trowd\irow0\irowband-1\lastrow\ts5\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trleft-1080\trftsWidth1\trautofit1\trpaddfl3\trpaddl108\trpaddfr3\trpaddr108\tbllkhdrcols\tbllkhdrrows\tbllknocolband\tblindtype3\tblind-972\clvertalt\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cltxlrtb\clftsWidth3\clwWidth10785\clpadfr3\clpadr108\clpadft3\clpadt108\cellx9720\row\pard\plain\ql\fs22\par}")
+            ''link.RtfReportHeader = sb.ToString()
+            'link.Landscape = True
+
+            'link.ShowPreview()
 
 
         Catch ex As Exception

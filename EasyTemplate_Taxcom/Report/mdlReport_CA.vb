@@ -48,7 +48,7 @@
 
                 ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_CA_TEMP_REPORTID(ID)
+                While mdlProcess.Validate_CA__FA_TEMP_REPORTID(ID)
                     ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 

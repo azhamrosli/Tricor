@@ -258,10 +258,6 @@
 
             mdlReport.CreateDataSetReport(ds, CDec(tmpDec).ToString("N0"), "", 6, rowxStart, False, DevExpress.Spreadsheet.UnderlineType.None, False, "", "", DevExpress.Spreadsheet.BorderLineStyle.None, DevExpress.Spreadsheet.BorderLineStyle.Thin, DevExpress.Spreadsheet.BorderLineStyle.None, DevExpress.Spreadsheet.BorderLineStyle.Double, -1, -1, ErrorLog)
 
-            Dim frm As New frmReport_Test
-            frm.dsData = ds
-            frm.ShowDialog()
-
         Catch ex As Exception
 
         Finally

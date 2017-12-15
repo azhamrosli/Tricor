@@ -4203,7 +4203,14 @@ Public Class frmPNL_Add
     End Sub
 
     Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
-        btnExport.PerformClick()
+        Try
+            Dim frm As New frmPNL_Report
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.ShowDialog()
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub TabbedView1_EndDocumentsHostDocking(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs) Handles TabbedView1.EndDocumentsHostDocking

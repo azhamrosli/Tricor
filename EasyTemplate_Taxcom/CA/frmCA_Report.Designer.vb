@@ -117,12 +117,16 @@ Partial Class frmCA_Report
         Me.BandedGridView1.OptionsPrint.AllowMultilineHeaders = True
         Me.BandedGridView1.OptionsPrint.EnableAppearanceOddRow = True
         Me.BandedGridView1.OptionsPrint.ExpandAllDetails = True
+        Me.BandedGridView1.OptionsPrint.PrintHorzLines = False
+        Me.BandedGridView1.OptionsPrint.PrintVertLines = False
         Me.BandedGridView1.OptionsPrint.RtfPageFooter = resources.GetString("BandedGridView1.OptionsPrint.RtfPageFooter")
         Me.BandedGridView1.OptionsView.ColumnAutoWidth = False
         Me.BandedGridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.[True]
         Me.BandedGridView1.OptionsView.EnableAppearanceEvenRow = True
         Me.BandedGridView1.OptionsView.RowAutoHeight = True
         Me.BandedGridView1.OptionsView.ShowFooter = True
+        Me.BandedGridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.[False]
+        Me.BandedGridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.[False]
         Me.BandedGridView1.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colCA_ASSET, DevExpress.Data.ColumnSortOrder.Ascending)})
         '
         'gridBand5
@@ -483,7 +487,7 @@ Partial Class frmCA_Report
         Me.barDockControlRight.Location = New System.Drawing.Point(1069, 31)
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 536)
         '
-        'frmCA_ReportList
+        'frmCA_Report
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -494,7 +498,7 @@ Partial Class frmCA_Report
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
         Me.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Name = "frmCA_ReportList"
+        Me.Name = "frmCA_Report"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Report List"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
