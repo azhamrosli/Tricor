@@ -3,7 +3,7 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dt As DataTable = mdlProcess.LoadCA_Search_Report(RefNo, YA, RateFrom, RateTo, Category, Errorlog)
+            Dim dt As DataTable = mdlProcess.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
             If dt IsNot Nothing Then
 
@@ -115,6 +115,7 @@
                     Dim CurrentYA As Integer = 0
                     Dim CA_KEY As Integer = 0
                     Dim CA_NAME As String = Nothing
+                    Dim CA_TRANSFERROR_NAME As String = Nothing
                     Dim CA_ASSET As String = Nothing
                     Dim CA_CATEGORY_CODE As String = Nothing
                     Dim CA_SOURCENO As Integer = 0
@@ -166,6 +167,7 @@
                         HP_CODE = ""
                         CA_MODE = ""
                         CA_PURCHASE_YEAR = CInt(IIf(IsDBNull(dt.Rows(i)("CA_PURCHASE_YEAR")), 0, dt.Rows(i)("CA_PURCHASE_YEAR")))
+                        CA_TRANSFERROR_NAME = CInt(IIf(IsDBNull(dt.Rows(i)("CA_TRANSFERROR_NAME")), "", dt.Rows(i)("CA_TRANSFERROR_NAME")))
                         CA_QUALIFYING_COST = 0
                        
                         QC_BF = CDec(IIf(IsDBNull(dt.Rows(i)("QC_BF")), 0, dt.Rows(i)("QC_BF")))
@@ -182,7 +184,7 @@
                         IndexNo = i
 
                         If mdlProcess.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET, CA_CATEGORY_CODE, _
-                                              CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, _
+                                              CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, _
                                               CA_RATE_IA, CA_RATE_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, _
                                               TWDV_IA, TWDV_AA, TWDV_CF, IndexNo, CAReport_TableType.CA_REPORT_SUMMARY_TEMP, ID, Errorlog) = False Then
                             Return False
@@ -237,6 +239,7 @@
             Dim CA_SOURCENO As Integer = 0
             Dim CA_PURCHASE_YE As Integer = 0
             Dim CA_NAME As String = Nothing
+            Dim CA_TRANSFERROR_NAME As String = Nothing
             Dim HP_CODE As String = Nothing
             Dim CA_ASSET_NAME As String = Nothing
             Dim CA_CATEGORY As String = Nothing
@@ -267,6 +270,7 @@
                 CA_AA = CInt(IIf(IsDBNull(dt.Rows(0)("CA_RATE_AA")), 0, dt.Rows(0)("CA_RATE_AA")))
                 CA_MODE = CStr(IIf(IsDBNull(dt.Rows(0)("CA_MODE")), "OPN", dt.Rows(0)("CA_MODE")))
                 CA_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("CA_NAME")), "", dt.Rows(0)("CA_NAME")))
+                CA_TRANSFERROR_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("CA_TRANSFERROR_NAME")), "", dt.Rows(0)("CA_TRANSFERROR_NAME")))
                 CA_ASSET_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("CA_ASSET")), "", dt.Rows(0)("CA_ASSET")))
                 CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
                 HP_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CODE")), "", dt.Rows(0)("HP_CODE")))
@@ -352,7 +356,7 @@
                 TWDV_CF = 0
             End If
             If mdlProcess.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_CATEGORY, _
-                                              CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_PURCHASE_YE, CA_QUA_AMOUNT, _
+                                              CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YE, CA_QUA_AMOUNT, _
                                               CA_IA, CA_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, _
                                               TWDV_IA, TWDV_AA, TWDV_CF, IndexNo, CAReport_TableType.CA_REPORT_TEMP, ID, Errorlog) = False Then
                 Return False
@@ -402,7 +406,7 @@
                     TWDV_CF = 0
                 End If
                 If mdlProcess.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_CATEGORY, _
-                                            CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_PURCHASE_YE, CA_QUA_AMOUNT, _
+                                            CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YE, CA_QUA_AMOUNT, _
                                             CA_IA, CA_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, _
                                             TWDV_IA, TWDV_AA, TWDV_CF, IndexNo, CAReport_TableType.CA_REPORT_TEMP, ID, Errorlog) = False Then
                     Return False

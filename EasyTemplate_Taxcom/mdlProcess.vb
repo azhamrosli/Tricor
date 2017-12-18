@@ -2502,7 +2502,7 @@ tryagain:
             Return Nothing
         End Try
     End Function
-    Public Function Load_CAReport_Temp(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_CAReport_Temp(ByVal ID As String, ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -2512,10 +2512,11 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID"
+            Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND YA=@YA"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
@@ -2575,7 +2576,7 @@ tryagain:
             Dim SQLcmd As SqlCommand
             'Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND a.YA=@YA"
 
-            Dim StrSQL As String = "select RefNo,CA_NAME,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_RATE_AA,CA_PURCHASE_YEAR"
+            Dim StrSQL As String = "select RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_RATE_AA,CA_PURCHASE_YEAR"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -2610,7 +2611,7 @@ tryagain:
             Dim SQLcmd As SqlCommand
             'Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND a.YA=@YA"
 
-            Dim StrSQL As String = "select RefNo,CA_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR"
+            Dim StrSQL As String = "select RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -8996,7 +8997,8 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
     Public Function Save_CA_TEMP_REPORT(ByVal RefNo As String, ByVal YA As Integer, ByVal CA_KEY As Integer, ByVal CA_NAME As String, _
                                         ByVal CA_ASSET As String, ByVal CA_CATEGORY_CODE As String, ByVal CA_SOURCENO As Integer, _
                                         ByVal CA_YA As Integer, ByVal HP_CODE As String, _
-                                        ByVal CA_MODE As String, ByVal CA_PURCHASE_YEAR As Integer, ByVal CA_QUALIFYING_COST As Decimal, _
+                                        ByVal CA_MODE As String, ByVal CA_TRANSFERROR_NAME As String, _
+                                        ByVal CA_PURCHASE_YEAR As Integer, ByVal CA_QUALIFYING_COST As Decimal, _
                                         ByVal CA_RATE_IA As Integer, ByVal CA_RATE_AA As Integer, ByVal QC_BF As Decimal, _
                                         ByVal QC_ADD As Decimal, ByVal QC_DISP As Decimal, ByVal QC_CF As Decimal, _
                                         ByVal TWDV_BF As Decimal, ByVal TWDV_ADD As Decimal, ByVal TWDV_DISP As Decimal, _
@@ -9017,10 +9019,10 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Select Case Type
                 Case CAReport_TableType.CA_REPORT_TEMP
                     'CA_REPORT_TEMP
-                    StrSQL = "INSERT INTO CA_REPORT_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@IndexNo)"
+                    StrSQL = "INSERT INTO CA_REPORT_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@IndexNo)"
                 Case CAReport_TableType.CA_REPORT_SUMMARY_TEMP
                     'CA_REPORT_SUMMARY_TEMP
-                    StrSQL = "INSERT INTO CA_REPORT_SUMMARY_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@IndexNo)"
+                    StrSQL = "INSERT INTO CA_REPORT_SUMMARY_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@IndexNo)"
             End Select
 
             SQLcmd = New SqlCommand
@@ -9036,6 +9038,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@CA_ASSET", SqlDbType.NVarChar, 255).Value = CA_ASSET
             SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = CA_CATEGORY_CODE
             SQLcmd.Parameters.Add("@CA_MODE", SqlDbType.NVarChar, 3).Value = CA_MODE
+            SQLcmd.Parameters.Add("@CA_TRANSFERROR_NAME", SqlDbType.NVarChar, 255).Value = CA_TRANSFERROR_NAME
             SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.Int).Value = CA_PURCHASE_YEAR
             SQLcmd.Parameters.Add("@CA_QUALIFYING_COST", SqlDbType.Decimal).Value = CA_QUALIFYING_COST
             SQLcmd.Parameters.Add("@CA_RATE_IA", SqlDbType.Int).Value = CA_RATE_IA

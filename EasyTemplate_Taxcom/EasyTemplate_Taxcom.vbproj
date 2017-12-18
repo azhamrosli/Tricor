@@ -1197,7 +1197,6 @@
     <EmbeddedResource Include="Report\frmTableofContent_Add.resx">
       <DependentUpon>frmTableofContent_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\Reporting\rptCA_ByRate.rdlc" />
     <EmbeddedResource Include="Report\ucTableofContent.resx">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </EmbeddedResource>
@@ -1331,6 +1330,7 @@
   <ItemGroup>
     <Folder Include="CA\Report\" />
     <Folder Include="MasterData\" />
+    <Folder Include="Report\Reporting\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

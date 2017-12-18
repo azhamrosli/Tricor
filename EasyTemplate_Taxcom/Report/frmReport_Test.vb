@@ -9,23 +9,23 @@ Public Class frmReport_Test
         Me.ReportViewer1.RefreshReport()
     End Sub
     Private Sub LoadData()
-        Try
+        'Try
 
-            Dim dt As DataTable = mdlProcess.Load_CAReport_Temp(ID, ErrorLog)
+        '    Dim dt As DataTable = mdlProcess.Load_CAReport_Temp(ID, ErrorLog)
 
-            If dt IsNot Nothing Then
-                dsCA.Tables("CA_REPORT_TEMP").Rows.Clear()
-                For i As Integer = 0 To dt.Rows.Count - 1
-                    dsCA.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
-                Next
+        '    If dt IsNot Nothing Then
+        '        dsCA.Tables("CA_REPORT_TEMP").Rows.Clear()
+        '        For i As Integer = 0 To dt.Rows.Count - 1
+        '            dsCA.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
+        '        Next
 
-                Me.ReportViewer1.RefreshReport()
-            End If
+        '        Me.ReportViewer1.RefreshReport()
+        '    End If
 
 
-        Catch ex As Exception
+        'Catch ex As Exception
 
-        End Try
+        'End Try
     End Sub
 
 End Class

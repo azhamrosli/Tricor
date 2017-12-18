@@ -459,6 +459,7 @@ Module mdlPNL
                         If P1_docSales.Controls.Count > 0 AndAlso TypeOf P1_docSales.Controls(0) Is ucPNL_p1Sales Then
                             Dim uc As ucPNL_p1Sales = CType(P1_docSales.Controls(0), ucPNL_p1Sales)
                             uc.RefNo = RefNo
+                            uc.txtAmount = txtAmount
                             uc.YA = YA
                             uc.SourceNo = cboSourceNo
                         End If

@@ -36,7 +36,7 @@ Public Class frmCA_Report
 
             Select Case TypeReport
                 Case 0, 1, 2
-                    dt = mdlProcess.Load_CAReport_Temp(ID)
+                    dt = mdlProcess.Load_CAReport_Temp(ID, CInt(YA))
                 Case 3, 4, 5
                     dt = mdlProcess.Load_CAReportSummary2_Temp(ID)
             End Select
@@ -44,9 +44,11 @@ Public Class frmCA_Report
 
 
             DsCA.Tables("CA_REPORT_TEMP").Rows.Clear()
+            DsCA1.Tables("CA_REPORT_TEMP").Rows.Clear()
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
                     DsCA.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
+                    DsCA1.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
                 Next
             End If
 
@@ -57,20 +59,26 @@ Public Class frmCA_Report
             Select Case TypeReport
                 Case 0
                     'Capital Allowance Details By Rate
-                    Dim col1 As GridColumn = BandedGridView1.Columns("YA")
-                    Dim col2 As GridColumn = BandedGridView1.Columns("CA_RATE_AA")
+                    Dim col1 As GridColumn = BandedGridView1.Columns("CA_TRANSFERROR_NAME")
+                    Dim col2 As GridColumn = BandedGridView1.Columns("CA_PURCHASE_YEAR")
+                    Dim col3 As GridColumn = BandedGridView1.Columns("CA_RATE_AA")
 
                     BandedGridView1.ClearGrouping()
                     col1.GroupIndex = 0
                     col2.GroupIndex = 1
+                    col2.GroupIndex = 2
                 Case 1
                     'Capital Allowance Details By Category
-                    Dim col1 As GridColumn = BandedGridView1.Columns("CA_CATEGORY_CODE")
-                    Dim col2 As GridColumn = BandedGridView1.Columns("YA")
+                    Dim col1 As GridColumn = BandedGridView1.Columns("CA_TRANSFERROR_NAME")
+                    Dim col2 As GridColumn = BandedGridView1.Columns("CA_CATEGORY_CODE")
+                    Dim col3 As GridColumn = BandedGridView1.Columns("CA_PURCHASE_YEAR")
+                    Dim col4 As GridColumn = BandedGridView1.Columns("CA_RATE_AA")
 
                     BandedGridView1.ClearGrouping()
                     col1.GroupIndex = 0
                     col2.GroupIndex = 1
+                    col3.GroupIndex = 2
+                    col4.GroupIndex = 3
 
                     'BandedGridView1.SortInfo.ClearAndAddRange(New GridColumnSortInfo() {
                     '        New GridColumnSortInfo(col1, DevExpress.Data.ColumnSortOrder.Ascending),
@@ -79,8 +87,10 @@ Public Class frmCA_Report
 
                 Case 2, 5
                     'Capital Allowance Details By Asset
-                    Dim col1 As GridColumn = BandedGridView1.Columns("YA")
-                    Dim col2 As GridColumn = BandedGridView1.Columns("CA_ASSET")
+                    Dim col1 As GridColumn = BandedGridView1.Columns("CA_TRANSFERROR_NAME")
+                    Dim col2 As GridColumn = BandedGridView1.Columns("YA")
+                    Dim col3 As GridColumn = BandedGridView1.Columns("CA_ASSET")
+
 
                     BandedGridView1.ClearGrouping()
                     col1.GroupIndex = 0
@@ -116,9 +126,32 @@ Public Class frmCA_Report
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
 
-            Dim frm As New frmReport_Test
-            frm.ID = ID
-            frm.ShowDialog()
+            Dim ListofGridControl As New List(Of DevExpress.XtraGrid.GridControl)
+
+            ListofGridControl.Add(GridControl1)
+            '  ListofGridControl.Add(GridControl2)
+            Dim ps As PrintingSystem = New PrintingSystem
+            Dim compisiteLink As DevExpress.XtraPrintingLinks.CompositeLink = New DevExpress.XtraPrintingLinks.CompositeLink
+            compisiteLink.PrintingSystem = ps
+
+            Dim Link As PrintableComponentLink
+
+            For Each grid As DevExpress.XtraGrid.GridControl In ListofGridControl
+                Link = New PrintableComponentLink
+                '  AddHandler Link.CreateReportHeaderArea, AddressOf Grid_CreateReportHeaderArea
+                Link.Component = grid
+
+                compisiteLink.Links.Add(Link)
+
+            Next
+
+            compisiteLink.RtfReportHeader = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
+            compisiteLink.Landscape = True
+            compisiteLink.MinMargins.Left = 5
+            compisiteLink.MinMargins.Right = 5
+            compisiteLink.PaperKind = PaperKind.A4
+            compisiteLink.CreateDocument()
+            compisiteLink.ShowPreview()
 
 
             ''Dim str As String = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
@@ -151,7 +184,32 @@ Public Class frmCA_Report
             If rslt = Windows.Forms.DialogResult.OK Then
                 Dim Path As String = FolderBrowserDialog1.SelectedPath
 
-                GridControl1.ExportToXlsx(Path & "\CA_REPORT_" & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx")
+                ' GridControl1.ExportToXlsx(Path & "\CA_REPORT_" & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx")
+
+                Dim ListofGridControl As New List(Of DevExpress.XtraGrid.GridControl)
+
+                ListofGridControl.Add(GridControl1)
+                '  ListofGridControl.Add(GridControl2)
+                Dim ps As PrintingSystem = New PrintingSystem
+                Dim compisiteLink As DevExpress.XtraPrintingLinks.CompositeLink = New DevExpress.XtraPrintingLinks.CompositeLink
+                compisiteLink.PrintingSystem = ps
+
+                Dim Link As PrintableComponentLink
+
+                For Each grid As DevExpress.XtraGrid.GridControl In ListofGridControl
+                    Link = New PrintableComponentLink
+                    '  AddHandler Link.CreateReportHeaderArea, AddressOf Grid_CreateReportHeaderArea
+                    Link.Component = grid
+
+                    compisiteLink.Links.Add(Link)
+
+                Next
+
+                compisiteLink.RtfReportHeader = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
+                compisiteLink.CreateDocument()
+                compisiteLink.Landscape = True
+                compisiteLink.ExportToXlsx(Path & "\CA_REPORT_" & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx")
+
             End If
 
 
@@ -160,7 +218,16 @@ Public Class frmCA_Report
 
         End Try
     End Sub
+    Private Sub Grid_CreateReportHeaderArea(ByVal sender As System.Object, ByVal e As DevExpress.XtraPrinting.CreateAreaEventArgs)
+        Try
+            Dim pb As PanelBrick = New PanelBrick
+            pb.Rect = New RectangleF(0, 0, 111, 111)
+            e.Graph.DrawBrick(pb)
 
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub Link_CreateReportHeaderArea(sender As Object, e As CreateAreaEventArgs)
         Dim reportHeader As String = "Capital Allowance"
         e.Graph.StringFormat = New BrickStringFormat(StringAlignment.Near)
