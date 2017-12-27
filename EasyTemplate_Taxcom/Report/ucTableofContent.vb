@@ -1,4 +1,6 @@
-﻿Public Class ucTableofContent
+﻿Imports DevExpress.XtraReports.ReportGeneration
+Imports DevExpress.XtraReports.UI
+Public Class ucTableofContent
     Dim ErrorLog As clsError = Nothing
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
@@ -51,7 +53,7 @@
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_TableofContent_Search(cboRefNo.EditValue, cboYA.EditValue, errorlog)
+            Dim dt As DataTable = mdlProcess.Load_TableofContent_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             DsReport_Templatexsd.Tables("TABLE_CONTENT").Rows.Clear()
             If dt IsNot Nothing Then
@@ -89,7 +91,7 @@
         Me.LoadData(2)
     End Sub
 
-   
+
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
             cboRefNo.EditValue = ""
@@ -160,7 +162,156 @@
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
-        
+
+            Dim dt As DataTable = Nothing
+            Dim dtChild As DataTable = Nothing
+            Dim ID As Integer = 0
+            Dim RefNo As String = Nothing
+            Dim dsMovement As New dsMovement
+
+            dt = mdlProcess.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+
+            dsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
+
+            If dt Is Nothing Then
+                MsgBox("Data not found.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                ID = IIf(IsDBNull(dt.Rows(i)("MM_ID")), 0, dt.Rows(i)("MM_ID"))
+                RefNo = IIf(IsDBNull(dt.Rows(i)("MM_REFNO")), "", dt.Rows(i)("MM_REFNO"))
+                dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the Year Ended " & IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), "", dt.Rows(i)("MM_YEAR_ENDED"))
+                Application.DoEvents()
+                dsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
+            Next
+
+            dt = mdlProcess.Load_MovementNormal_Add(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    dsMovement.Tables("MOVEMENT_ADD").ImportRow(dt.Rows(i))
+                Next
+            End If
+            Application.DoEvents()
+            dt = mdlProcess.Load_MovementNormal_Deduct(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    dsMovement.Tables("MOVEMENT_DEDUCT").ImportRow(dt.Rows(i))
+                Next
+            End If
+
+
+            dt = mdlProcess.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+
+            dsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
+            dsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
+
+            If dt Is Nothing Then
+                MsgBox("Data not found.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                ID = IIf(IsDBNull(dt.Rows(i)("MM_ID")), 0, dt.Rows(i)("MM_ID"))
+                dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the Year Ended " & IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), "", dt.Rows(i)("MM_YEAR_ENDED"))
+                Application.DoEvents()
+                dsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
+            Next
+
+            dt = mdlProcess.Load_MovementComplex_Add(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    dsMovement.Tables("MOVEMENT_COMPLEX_ADD").ImportRow(dt.Rows(i))
+                Next
+            End If
+            Application.DoEvents()
+            dt = mdlProcess.Load_MovementComplex_Deduct(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    dsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").ImportRow(dt.Rows(i))
+                Next
+            End If
+
+
+            Dim CAID As String = ""
+            Dim dsCA As New dsCA
+            mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, CAID, -1, -1, "", ErrorLog)
+
+            dt = mdlProcess.Load_CAReport_Temp(CAID, CInt(cboYA.EditValue))
+
+            dsCA.Tables("CA_REPORT_TEMP").Rows.Clear()
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                dsCA.Tables("CA_REPORT_TEMP").ImportRow(dt.Rows(i))
+            Next
+
+
+            Dim rpt1 As New rptMovementNormal
+            rpt1.paramCompanyName.Value = cboRefNo.EditValue
+            rpt1.DataSource = dsMovement.Tables("MOVEMENT_NORMAL")
+            rpt1.CreateDocument()
+
+            Dim rpt2 As New rptMovementComplex
+            rpt2.paramCompanyName.Value = cboRefNo.EditValue
+            rpt2.DataSource = dsMovement.Tables("MOVEMENT_COMPLEX")
+            rpt2.CreateDocument()
+
+            Dim rpt3 As New rpt_CAByCategory
+            rpt3.paramCompanyName.Value = cboRefNo.EditValue
+            rpt3.paramYA.Value = cboYA.EditValue
+            rpt3.DataSource = dsCA.Tables("CA_REPORT_TEMP")
+            rpt3.CreateDocument()
+
+            Dim minPageCount As Integer = Math.Min(rpt1.Pages.Count, rpt2.Pages.Count)
+
+            minPageCount = Math.Min(minPageCount, rpt3.Pages.Count)
+
+            Dim x As Integer = 0
+            Do While x < minPageCount
+                rpt1.Pages.Insert(x * 2 + 1, rpt2.Pages(x))
+                '  rpt1.Pages.Insert(x * 2 + 1, rpt3.Pages(x))
+                x += 1
+            Loop
+
+            If rpt2.Pages.Count <> minPageCount Then
+                x = minPageCount
+                Do While x < rpt2.Pages.Count
+                    rpt1.Pages.Add(rpt2.Pages(x))
+                    x += 1
+                Loop
+            End If
+
+            If rpt3.Pages.Count <> minPageCount Then
+                x = minPageCount
+                Do While x < rpt3.Pages.Count
+                    rpt1.Pages.Add(rpt3.Pages(x))
+                    x += 1
+                Loop
+            End If
+
+            ' Reset all page numbers in the resulting document. 
+            rpt1.PrintingSystem.ContinuousPageNumbering = True
+
+            ' Show the Print Preview form (in a WinForms application). 
+            Dim printTool As New ReportPrintTool(rpt1)
+            printTool.ShowPreviewDialog()
+
+            'Dim rptTableofContent As New rptTableofContent
+
+            'rptTableofContent.paramCompanyName.Value = txtRefNo.EditValue
+
+            'rptTableofContent.XrSubreport1.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_NORMAL")
+            'rptTableofContent.XrSubreport2.ReportSource.DataSource = dsMovement.Tables("MOVEMENT_COMPLEX")
+
+
+            'rptTableofContent.showpreview()
         Catch ex As Exception
 
         End Try

@@ -12,7 +12,7 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 5
+    Public V3 As Integer = 6
     Public V4 As Integer = 0
     Public R1 As Integer = 5
     Public ArgParam0 As String = "frmpnl" 'Form Name
@@ -22,6 +22,8 @@ Module mdlProcess
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
     Public ListofClsError As List(Of clsError) = Nothing
     Public dsDataSetErrorlog As DataSet
+
+    Dim MaxYearForCA As Integer = 50
 #Region "SCRIPT DATABASE"
 
 #End Region
@@ -1376,6 +1378,7 @@ tryagain:
 #End Region
 #Region "LOAD"
 #Region "CA"
+
     Public Function LOAD_GetDTYA(ByVal TC_REF_NO As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -1836,6 +1839,38 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_CA_Report(ByVal CA_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA WHERE CA_KEY=@CA_KEY AND CA_QUALIFYING_COST <> '0'"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CA_KEY", SqlDbType.Int).Value = CA_KEY
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_DISPOSAL_BY_CA_KEY(ByVal CA_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -1868,7 +1903,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function Load_DISPOSAL_BY_CA_KEY_DISP_YA(ByVal CA_KEY As Integer, ByVal CA_DISP_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -2384,6 +2418,184 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function LoadDisposal_Search_Report(ByVal RefNo As String, ByVal YA As String, ByVal RateFrom As Integer, ByVal RateTo As Integer, _
+                                   ByVal Category As String, ByVal Type As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA_DISPOSAL WHERE CA_KEY in (SELECT CA_KEY FROM CA"
+            Dim isWhere As Boolean = False
+            SQLcmd = New SqlCommand
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_REF_NO=@CA_REF_NO"
+                Else
+                    StrSQL += " AND CA_REF_NO=@CA_REF_NO"
+                End If
+                SQLcmd.Parameters.Add("@CA_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            'If YA IsNot Nothing AndAlso YA <> "" Then
+            '    If isWhere = False Then
+            '        isWhere = True
+            '        StrSQL += " WHERE CA_PURCHASE_YEAR=@CA_PURCHASE_YEAR"
+            '    Else
+            '        StrSQL += " AND CA_PURCHASE_YEAR=@CA_PURCHASE_YEAR"
+            '    End If
+            '    SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.NVarChar, 5).Value = YA
+            'End If
+
+            If Category IsNot Nothing AndAlso Category <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_CATEGORY_CODE=@CA_CATEGORY_CODE"
+                Else
+                    StrSQL += " AND CA_CATEGORY_CODE=@CA_CATEGORY_CODE"
+                End If
+                SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = Category
+            End If
+
+            If RateFrom <> -1 Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_RATE_AA >=@CA_RATE_AA"
+                Else
+                    StrSQL += " AND CA_RATE_AA >=@CA_RATE_AA"
+                End If
+                SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Float).Value = RateFrom
+            End If
+
+            If RateTo <> -1 Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_RATE_AA <=@CA_RATE_AA"
+                Else
+                    StrSQL += " AND CA_RATE_AA <=@CA_RATE_AA"
+                End If
+                SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Float).Value = RateTo
+            End If
+
+            StrSQL += ") AND CA_DISP_YA=@CA_DISP_YA AND CA_DISP_TYPE=@CA_DISP_TYPE"
+            SQLcmd.Parameters.Add("@CA_DISP_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@CA_DISP_TYPE", SqlDbType.Int).Value = Type
+
+
+
+            SQLcmd.CommandText = StrSQL
+
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function LoadCA_Search_Report_ControlTransfer(ByVal RefNo As String, ByVal YA As String, ByVal RateFrom As Integer, ByVal RateTo As Integer, _
+                                   ByVal Category As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA"
+            Dim isWhere As Boolean = False
+            SQLcmd = New SqlCommand
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_REF_NO=@CA_REF_NO"
+                Else
+                    StrSQL += " AND CA_REF_NO=@CA_REF_NO"
+                End If
+                SQLcmd.Parameters.Add("@CA_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            If YA IsNot Nothing AndAlso YA <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_YA=@CA_YA"
+                Else
+                    StrSQL += " AND CA_YA=@CA_YA"
+                End If
+                SQLcmd.Parameters.Add("@CA_YA", SqlDbType.NVarChar, 5).Value = YA
+            End If
+
+            If Category IsNot Nothing AndAlso Category <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_CATEGORY_CODE=@CA_CATEGORY_CODE"
+                Else
+                    StrSQL += " AND CA_CATEGORY_CODE=@CA_CATEGORY_CODE"
+                End If
+                SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = Category
+            End If
+
+            If RateFrom <> -1 Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_RATE_AA >=@CA_RATE_AA"
+                Else
+                    StrSQL += " AND CA_RATE_AA >=@CA_RATE_AA"
+                End If
+                SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Float).Value = RateFrom
+            End If
+
+            If RateTo <> -1 Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE CA_RATE_AA <=@CA_RATE_AA"
+                Else
+                    StrSQL += " AND CA_RATE_AA <=@CA_RATE_AA"
+                End If
+                SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Float).Value = RateTo
+            End If
+
+            StrSQL += " AND CA_TRANSFERROR_NAME is not null and CA_TRANSFERROR_NAME <> ''"
+
+            SQLcmd.CommandText = StrSQL
+
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function LoadHP_Search(ByVal RefNo As String, ByVal YA As String, ByVal FilterType As Integer, ByVal FilterValue As String, _
                                        Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -2532,6 +2744,64 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_CAReport_ControlTransfer_Temp(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA_REPORT_CONTROLTRANSFER_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_CAReport_Disposal(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA_REPORT_DISPOSAL_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_CAReport_FAReconciliation_Temp(ByVal ID As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -2576,7 +2846,7 @@ tryagain:
             Dim SQLcmd As SqlCommand
             'Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND a.YA=@YA"
 
-            Dim StrSQL As String = "select RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_RATE_AA,CA_PURCHASE_YEAR"
+            Dim StrSQL As String = "select RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF,sum(TWDV_TOTAL) as TWDV_TOTAL from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_RATE_AA,CA_PURCHASE_YEAR"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -2611,7 +2881,7 @@ tryagain:
             Dim SQLcmd As SqlCommand
             'Dim StrSQL As String = "SELECT a.* FROM CA_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,ca_key,CA_NAME,CA_ASSET from CA_REPORT_TEMP GROUP BY RefNo,ca_key,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND a.YA=@YA"
 
-            Dim StrSQL As String = "select RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR"
+            Dim StrSQL As String = "select RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR,sum(QC_BF) as QC_BF,sum(QC_ADD) as QC_ADD,sum(QC_DISP) as QC_DISP,sum(QC_CF) as QC_CF,sum(TWDV_BF) as TWDV_BF,sum(TWDV_ADD) as TWDV_ADD,sum(TWDV_DISP) as TWDV_DISP,sum(TWDV_AI) as TWDV_AI,sum(TWDV_AA) as TWDV_AA,sum(TWDV_CF) as TWDV_CF,sum(TWDV_TOTAL) as TWDV_TOTAL from CA_REPORT_TEMP where ID=@ID AND YA=@YA GROUP BY RefNo,CA_NAME,CA_TRANSFERROR_NAME,CA_CATEGORY_CODE,CA_RATE_AA,CA_PURCHASE_YEAR"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -8121,7 +8391,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM TAXP_PROFILE WHERE TP_REF_NO=@TP_REF_NO"
+            Dim StrSQL As String = "SELECT TP_COM_NAME FROM TAXP_PROFILE WHERE TP_REF_NO=@TP_REF_NO"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@TP_REF_NO", SqlDbType.NVarChar, 20).Value = TP_REF_NO
@@ -8662,7 +8932,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                   ByVal CA_DISP_AMOUNT As Decimal, ByVal CA_DISP_QC As Decimal, ByVal CA_DISP_BALANCE As Decimal, _
                                   ByVal CA_DISP_TWDV As Decimal, ByVal CA_DISP_SPROCEED As Decimal, _
                                   ByVal CA_DISP_BABC As Decimal, ByVal CA_DISP_REMARKS As String, ByVal CA_ACCUMULATED As Decimal, _
-                                  ByVal CA_TRANSFEREE_NAME As String, ByVal CA_TAX_FILE_NO As String, _
+                                  ByVal CA_TRANSFEREE_NAME As String, ByVal CA_TAX_FILE_NO As String, ByVal CA_DISP_TYPE As Integer, _
                                   ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -8673,7 +8943,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "INSERT INTO CA_DISPOSAL (CA_KEY,CA_DISP_KEY,CA_DISP_YA,CA_DISP_DATE,CA_DISP_WITHIN_2,CA_DISP_AMOUNT,CA_DISP_QC,CA_DISP_BALANCE,CA_DISP_TWDV,CA_DISP_SPROCEED,CA_DISP_BABC,CA_DISP_REMARKS,CA_ACCUMULATED,CA_TRANSFEREE_NAME,CA_TAX_FILE_NO) VALUES (@CA_KEY,@CA_DISP_KEY,@CA_DISP_YA,@CA_DISP_DATE,@CA_DISP_WITHIN_2,@CA_DISP_AMOUNT,@CA_DISP_QC,@CA_DISP_BALANCE,@CA_DISP_TWDV,@CA_DISP_SPROCEED,@CA_DISP_BABC,@CA_DISP_REMARKS,@CA_ACCUMULATED,@CA_TRANSFEREE_NAME,@CA_TAX_FILE_NO)"
+            Dim StrSQL As String = "INSERT INTO CA_DISPOSAL (CA_KEY,CA_DISP_KEY,CA_DISP_YA,CA_DISP_DATE,CA_DISP_WITHIN_2,CA_DISP_AMOUNT,CA_DISP_QC,CA_DISP_BALANCE,CA_DISP_TWDV,CA_DISP_SPROCEED,CA_DISP_BABC,CA_DISP_REMARKS,CA_ACCUMULATED,CA_TRANSFEREE_NAME,CA_TAX_FILE_NO,CA_DISP_TYPE) VALUES (@CA_KEY,@CA_DISP_KEY,@CA_DISP_YA,@CA_DISP_DATE,@CA_DISP_WITHIN_2,@CA_DISP_AMOUNT,@CA_DISP_QC,@CA_DISP_BALANCE,@CA_DISP_TWDV,@CA_DISP_SPROCEED,@CA_DISP_BABC,@CA_DISP_REMARKS,@CA_ACCUMULATED,@CA_TRANSFEREE_NAME,@CA_TAX_FILE_NO,@CA_DISP_TYPE)"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -8692,6 +8962,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@CA_ACCUMULATED", SqlDbType.NVarChar, 25).Value = CA_ACCUMULATED
             SQLcmd.Parameters.Add("@CA_TRANSFEREE_NAME", SqlDbType.NVarChar, 255).Value = IIf(CA_TRANSFEREE_NAME Is Nothing, "", CA_TRANSFEREE_NAME)
             SQLcmd.Parameters.Add("@CA_TAX_FILE_NO", SqlDbType.NVarChar, 255).Value = IIf(CA_TAX_FILE_NO Is Nothing, "", CA_TAX_FILE_NO)
+            SQLcmd.Parameters.Add("@CA_DISP_TYPE", SqlDbType.Int).Value = CA_DISP_TYPE
 
             Dim rlst As Boolean = ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
@@ -8992,8 +9263,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
-
     Public Function Save_CA_TEMP_REPORT(ByVal RefNo As String, ByVal YA As Integer, ByVal CA_KEY As Integer, ByVal CA_NAME As String, _
                                         ByVal CA_ASSET As String, ByVal CA_CATEGORY_CODE As String, ByVal CA_SOURCENO As Integer, _
                                         ByVal CA_YA As Integer, ByVal HP_CODE As String, _
@@ -9002,7 +9271,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                         ByVal CA_RATE_IA As Integer, ByVal CA_RATE_AA As Integer, ByVal QC_BF As Decimal, _
                                         ByVal QC_ADD As Decimal, ByVal QC_DISP As Decimal, ByVal QC_CF As Decimal, _
                                         ByVal TWDV_BF As Decimal, ByVal TWDV_ADD As Decimal, ByVal TWDV_DISP As Decimal, _
-                                        ByVal TWDV_AI As Decimal, ByVal TWDV_AA As Decimal, ByVal TWDV_CF As Decimal, _
+                                        ByVal TWDV_AI As Decimal, ByVal TWDV_AA As Decimal, ByVal TWDV_TOTAL As Decimal, ByVal TWDV_CF As Decimal, _
                                         ByVal IndexNo As Integer, ByVal Type As mdlEnum.CAReport_TableType, ByRef ID As String, _
                                         Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -9019,10 +9288,10 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Select Case Type
                 Case CAReport_TableType.CA_REPORT_TEMP
                     'CA_REPORT_TEMP
-                    StrSQL = "INSERT INTO CA_REPORT_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@IndexNo)"
+                    StrSQL = "INSERT INTO CA_REPORT_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_TOTAL,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_TOTAL,@TWDV_CF,@IndexNo)"
                 Case CAReport_TableType.CA_REPORT_SUMMARY_TEMP
                     'CA_REPORT_SUMMARY_TEMP
-                    StrSQL = "INSERT INTO CA_REPORT_SUMMARY_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_CF,@IndexNo)"
+                    StrSQL = "INSERT INTO CA_REPORT_SUMMARY_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,QC_BF,QC_ADD,QC_DISP,QC_CF,TWDV_BF,TWDV_ADD,TWDV_DISP,TWDV_AI,TWDV_AA,TWDV_TOTAL,TWDV_CF,IndexNo) VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@QC_BF,@QC_ADD,@QC_DISP,@QC_CF,@TWDV_BF,@TWDV_ADD,@TWDV_DISP,@TWDV_AI,@TWDV_AA,@TWDV_TOTAL,@TWDV_CF,@IndexNo)"
             End Select
 
             SQLcmd = New SqlCommand
@@ -9052,6 +9321,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@TWDV_DISP", SqlDbType.Decimal).Value = TWDV_DISP
             SQLcmd.Parameters.Add("@TWDV_AI", SqlDbType.Decimal).Value = TWDV_AI
             SQLcmd.Parameters.Add("@TWDV_AA", SqlDbType.Decimal).Value = TWDV_AA
+            SQLcmd.Parameters.Add("@TWDV_TOTAL", SqlDbType.Decimal).Value = TWDV_TOTAL
             SQLcmd.Parameters.Add("@TWDV_CF", SqlDbType.Decimal).Value = TWDV_CF
             SQLcmd.Parameters.Add("@IndexNo", SqlDbType.Int).Value = IndexNo
 
@@ -9157,6 +9427,143 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
+    Public Function Save_CA_ControlTranfer(ByVal ID As String, ByVal RefNo As String, ByVal YA As Integer, ByVal CA_KEY As Integer, ByVal CA_NAME As String, ByVal CA_SOURCENO As Integer, ByVal CA_YA As Integer, _
+                                           ByVal HP_CODE As String, ByVal CA_ASSET As String, ByVal CA_CATEGORY_CODE As String, ByVal CA_PURCHASE_AMOUNT As Decimal, _
+                                           ByVal CA_TRANSFERROR_NAME As String, ByVal CA_TRANSFER_VAL As Decimal, ByVal CA_PURCHASE_YEAR As Integer, ByVal CA_QUALIFYING_COST As Decimal, ByVal CA_RATE_IA As Integer, _
+                                           ByVal CA_RATE_AA As Integer, ByVal CA_CAEEO As Boolean, ByVal QC_CF As Decimal, ByVal TWDV_BF As Decimal, ByVal AA_0 As Decimal, ByVal AA_2 As Decimal, ByVal AA_3 As Decimal, _
+                                           ByVal AA_8 As Decimal, ByVal AA_10 As Decimal, ByVal AA_12 As Decimal, ByVal AA_14 As Decimal, ByVal AA_16 As Decimal, ByVal AA_20 As Decimal, ByVal AA_40 As Decimal, _
+                                           ByVal AA_50 As Decimal, ByVal AA_60 As Decimal, ByVal AA_80 As Decimal, ByVal AA_90 As Decimal, ByVal AA_100 As Decimal, ByVal IndexNo As Integer, ByRef ReturnID As Integer, _
+                                           Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO CA_REPORT_CONTROLTRANSFER_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_PURCHASE_AMOUNT,CA_TRANSFERROR_NAME,CA_TRANSFER_VAL,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,CA_CAEEO,QC_CF,TWDV_BF,AA_0,AA_2,AA_3,AA_8,AA_10,AA_12,AA_14,AA_16,AA_20,AA_40,AA_50,AA_60,AA_80,AA_90,AA_100,IndexNo)"
+            StrSQL &= " VALUES (@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_PURCHASE_AMOUNT,@CA_TRANSFERROR_NAME,@CA_TRANSFER_VAL,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@CA_CAEEO,@QC_CF,@TWDV_BF,@AA_0,@AA_2,@AA_3,@AA_8,@AA_10,@AA_12,@AA_14,@AA_16,@AA_20,@AA_40,@AA_50,@AA_60,@AA_80,@AA_90,@AA_100,@IndexNo)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+            SQLcmd.Parameters.Add("@CA_KEY", SqlDbType.Int).Value = CA_KEY
+            SQLcmd.Parameters.Add("@CA_NAME", SqlDbType.NVarChar, 255).Value = CA_NAME
+            SQLcmd.Parameters.Add("@CA_SOURCENO", SqlDbType.Int).Value = CA_SOURCENO
+            SQLcmd.Parameters.Add("@CA_YA", SqlDbType.Int).Value = CA_YA
+            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = HP_CODE
+            SQLcmd.Parameters.Add("@CA_ASSET", SqlDbType.NVarChar, 255).Value = CA_ASSET
+            SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = CA_CATEGORY_CODE
+            SQLcmd.Parameters.Add("@CA_PURCHASE_AMOUNT", SqlDbType.Decimal).Value = CA_PURCHASE_AMOUNT
+            SQLcmd.Parameters.Add("@CA_TRANSFERROR_NAME", SqlDbType.NVarChar, 255).Value = CA_TRANSFERROR_NAME
+            SQLcmd.Parameters.Add("@CA_TRANSFER_VAL", SqlDbType.Decimal).Value = CA_TRANSFER_VAL
+            SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.Int).Value = CA_PURCHASE_YEAR
+            SQLcmd.Parameters.Add("@CA_QUALIFYING_COST", SqlDbType.Decimal).Value = CA_QUALIFYING_COST
+            SQLcmd.Parameters.Add("@CA_RATE_IA", SqlDbType.Int).Value = CA_RATE_IA
+            SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Int).Value = CA_RATE_AA
+            SQLcmd.Parameters.Add("@CA_CAEEO", SqlDbType.Bit).Value = CA_CAEEO
+            SQLcmd.Parameters.Add("@QC_CF", SqlDbType.Decimal).Value = QC_CF
+            SQLcmd.Parameters.Add("@TWDV_BF", SqlDbType.Decimal).Value = TWDV_BF
+            SQLcmd.Parameters.Add("@AA_0", SqlDbType.Decimal).Value = AA_0
+            SQLcmd.Parameters.Add("@AA_2", SqlDbType.Decimal).Value = AA_2
+            SQLcmd.Parameters.Add("@AA_3", SqlDbType.Decimal).Value = AA_3
+            SQLcmd.Parameters.Add("@AA_8", SqlDbType.Decimal).Value = AA_8
+            SQLcmd.Parameters.Add("@AA_10", SqlDbType.Decimal).Value = AA_10
+            SQLcmd.Parameters.Add("@AA_12", SqlDbType.Decimal).Value = AA_12
+            SQLcmd.Parameters.Add("@AA_14", SqlDbType.Decimal).Value = AA_14
+            SQLcmd.Parameters.Add("@AA_16", SqlDbType.Decimal).Value = AA_16
+            SQLcmd.Parameters.Add("@AA_20", SqlDbType.Decimal).Value = AA_20
+            SQLcmd.Parameters.Add("@AA_40", SqlDbType.Decimal).Value = AA_40
+            SQLcmd.Parameters.Add("@AA_50", SqlDbType.Decimal).Value = AA_50
+            SQLcmd.Parameters.Add("@AA_60", SqlDbType.Decimal).Value = AA_60
+            SQLcmd.Parameters.Add("@AA_80", SqlDbType.Decimal).Value = AA_80
+            SQLcmd.Parameters.Add("@AA_90", SqlDbType.Decimal).Value = AA_90
+            SQLcmd.Parameters.Add("@AA_100", SqlDbType.Decimal).Value = AA_100
+            SQLcmd.Parameters.Add("@IndexNo", SqlDbType.Int).Value = IndexNo
+
+            Return ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
+
+    Public Function Save_Disposal_Report_TEMP(ByVal ID As String, ByVal RefNo As String, ByVal YA As Integer, ByVal CA_KEY As Integer, ByVal CA_NAME As String, _
+                                              ByVal CA_SOURCENO As Integer, ByVal CA_YA As Integer, ByVal HP_CODE As String, ByVal CA_ASSET As String, _
+                                              ByVal CA_CATEGORY_CODE As String, ByVal CA_MODE As String, ByVal CA_TRANSFERROR_NAME As String, _
+                                              ByVal CA_PURCHASE_YEAR As Integer, ByVal CA_QUALIFYING_COST As Decimal, _
+                                              ByVal CA_RATE_IA As Integer, ByVal CA_RATE_AA As Integer, ByVal CA_CAEEO As Boolean, _
+                                              ByVal DISP_DEPRECIATION As Decimal, ByVal DISP_WDV As Decimal, ByVal DISP_DISPOSAL_VALUE As Decimal, _
+                                              ByVal DISP_PNL As Decimal, ByVal DISP_TWDV As Decimal, ByVal DISP_BABC As Decimal, _
+                                              ByVal Type As Integer, ByVal IndexNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO CA_REPORT_DISPOSAL_TEMP (ID,RefNo,YA,CA_KEY,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_MODE,CA_TRANSFERROR_NAME,CA_PURCHASE_YEAR,CA_QUALIFYING_COST,CA_RATE_IA,CA_RATE_AA,CA_CAEEO,DISP_DEPRECIATION,DISP_WDV,DISP_DISPOSAL_VALUE,DISP_PNL,DISP_TWDV,DISP_BABC,Type,IndexNo) VALUES "
+            StrSQL += "(@ID,@RefNo,@YA,@CA_KEY,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_MODE,@CA_TRANSFERROR_NAME,@CA_PURCHASE_YEAR,@CA_QUALIFYING_COST,@CA_RATE_IA,@CA_RATE_AA,@CA_CAEEO,@DISP_DEPRECIATION,@DISP_WDV,@DISP_DISPOSAL_VALUE,@DISP_PNL,@DISP_TWDV,@DISP_BABC,@Type,@IndexNo)"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+            SQLcmd.Parameters.Add("@CA_KEY", SqlDbType.Int).Value = CA_KEY
+            SQLcmd.Parameters.Add("@CA_NAME", SqlDbType.NVarChar, 255).Value = CA_NAME
+            SQLcmd.Parameters.Add("@CA_SOURCENO", SqlDbType.Decimal).Value = CA_SOURCENO
+            SQLcmd.Parameters.Add("@CA_YA", SqlDbType.Int).Value = CA_YA
+            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = HP_CODE
+            SQLcmd.Parameters.Add("@CA_ASSET", SqlDbType.NVarChar, 255).Value = CA_ASSET
+            SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = CA_CATEGORY_CODE
+            SQLcmd.Parameters.Add("@CA_MODE", SqlDbType.NVarChar, 3).Value = CA_MODE
+            SQLcmd.Parameters.Add("@CA_TRANSFERROR_NAME", SqlDbType.NVarChar, 255).Value = CA_TRANSFERROR_NAME
+            SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.Int).Value = CA_PURCHASE_YEAR
+            SQLcmd.Parameters.Add("@CA_QUALIFYING_COST", SqlDbType.Decimal).Value = CA_QUALIFYING_COST
+            SQLcmd.Parameters.Add("@CA_RATE_IA", SqlDbType.Int).Value = CA_RATE_IA
+            SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Int).Value = CA_RATE_AA
+            SQLcmd.Parameters.Add("@CA_CAEEO", SqlDbType.Bit).Value = CA_CAEEO
+            SQLcmd.Parameters.Add("@DISP_DEPRECIATION", SqlDbType.Decimal).Value = DISP_DEPRECIATION
+            SQLcmd.Parameters.Add("@DISP_WDV", SqlDbType.Decimal).Value = DISP_WDV
+            SQLcmd.Parameters.Add("@DISP_DISPOSAL_VALUE", SqlDbType.Decimal).Value = DISP_DISPOSAL_VALUE
+            SQLcmd.Parameters.Add("@DISP_PNL", SqlDbType.Decimal).Value = DISP_PNL
+            SQLcmd.Parameters.Add("@DISP_TWDV", SqlDbType.Decimal).Value = DISP_TWDV
+            SQLcmd.Parameters.Add("@DISP_BABC", SqlDbType.Decimal).Value = DISP_BABC
+            SQLcmd.Parameters.Add("@Type", SqlDbType.Int).Value = Type
+            SQLcmd.Parameters.Add("@IndexNo", SqlDbType.Int).Value = IndexNo
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
 
 
 #End Region
@@ -14143,7 +14550,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                     ByVal MM_GENERAL_START As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_START As Decimal, _
                                     ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
                                     ByVal NoteStart As String, ByVal NoteEnd As String, _
-                                    ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, _
+                                    ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, ByVal MM_ADD_DEDUCT_AMOUNT As Decimal, _
                                     ByVal ds As DataSet, _
                                     ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -14158,7 +14565,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Dim tmpID As Decimal = 0
 
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT)"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -14179,7 +14586,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_END), 0, MM_SPECIFIC_NONALLOWABLE_END)
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
-
+            SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = MM_ADD_DEDUCT_AMOUNT
 
             ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
             Application.DoEvents()
@@ -14193,7 +14600,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_ADDBACK,MM_SPECIFIC_ALLOWABLE_ADDBACK,MM_SPECIFIC_NONALLOWABLE_ADDBACK,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_ADDBACK,@MM_SPECIFIC_ALLOWABLE_ADDBACK,@MM_SPECIFIC_NONALLOWABLE_ADDBACK,@MM_NOTE)"
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_ADDBACK,MM_SPECIFIC_ALLOWABLE_ADDBACK,MM_SPECIFIC_NONALLOWABLE_ADDBACK,MM_NOTE,MM_ADDBACK_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_ADDBACK,@MM_SPECIFIC_ALLOWABLE_ADDBACK,@MM_SPECIFIC_NONALLOWABLE_ADDBACK,@MM_NOTE,@MM_ADDBACK_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -14207,8 +14614,8 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_GENERAL_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL_ADDBACK"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK"))
-                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE"))
-
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE")), "", ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE"))
+                    SQLcmd.Parameters.Add("@MM_ADDBACK_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_ADDBACK_AMOUNT")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_ADDBACK_AMOUNT"))
 
                     ListofCmd.Add(SQLcmd)
                 Next
@@ -14216,7 +14623,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_DEDUCT,MM_SPECIFIC_ALLOWABLE_DEDUCT,MM_SPECIFIC_NONALLOWABLE_DEDUCT,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_DEDUCT,@MM_SPECIFIC_ALLOWABLE_DEDUCT,@MM_SPECIFIC_NONALLOWABLE_DEDUCT,@MM_NOTE)"
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_DEDUCT,MM_SPECIFIC_ALLOWABLE_DEDUCT,MM_SPECIFIC_NONALLOWABLE_DEDUCT,MM_NOTE,MM_DEDUCT_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_DEDUCT,@MM_SPECIFIC_ALLOWABLE_DEDUCT,@MM_SPECIFIC_NONALLOWABLE_DEDUCT,@MM_NOTE,@MM_DEDUCT_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -14230,7 +14637,8 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_GENERAL_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL_DEDUCT"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT"))
-                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE"))
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE")), "", ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE"))
+                    SQLcmd.Parameters.Add("@MM_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT"))
 
                     ListofCmd.Add(SQLcmd)
                 Next
@@ -14260,7 +14668,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                         ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
                                         ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                         ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                        ByVal NoteStart As String, ByVal NoteEnd As String, _
+                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, _
                                         ByVal ds As DataSet, _
                                         ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -14274,8 +14682,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Dim SQLcmd As SqlCommand
             Dim tmpID As Decimal = 0
 
-
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
@@ -14291,6 +14698,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@MM_NOTE_END", SqlDbType.NVarChar, 250).Value = IIf(NoteEnd Is Nothing, "", NoteEnd)
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddBackDeduct
 
 
             ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
@@ -14305,7 +14713,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_ADD").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_ADD").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack)"
+                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -14314,14 +14722,14 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_ADD").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_ADD").Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
                     SQLcmd.Parameters.Add("@MM_AddBack", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_ADD").Rows(i)("MM_AddBack")), False, ds.Tables("MOVEMENT_ADD").Rows(i)("MM_AddBack"))
-
+                    SQLcmd.Parameters.Add("@MM_ADDBACK_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_ADD").Rows(i)("MM_ADDBACK_AMOUNT")), 0, ds.Tables("MOVEMENT_ADD").Rows(i)("MM_ADDBACK_AMOUNT"))
                     ListofCmd.Add(SQLcmd)
                 Next
             End If
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_DEDUCT").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_DEDUCT").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct)"
+                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -14330,6 +14738,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
                     SQLcmd.Parameters.Add("@MM_Deduct", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Deduct")), False, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Deduct"))
+                    SQLcmd.Parameters.Add("@MM_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT")), 0, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT"))
 
                     ListofCmd.Add(SQLcmd)
                 Next
@@ -14861,7 +15270,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                   ByVal CA_DISP_AMOUNT As Decimal, ByVal CA_DISP_QC As Decimal, ByVal CA_DISP_BALANCE As Decimal, _
                                   ByVal CA_DISP_TWDV As Decimal, ByVal CA_DISP_SPROCEED As Decimal, _
                                   ByVal CA_DISP_BABC As Decimal, ByVal CA_DISP_REMARKS As String, ByVal CA_ACCUMULATED As Decimal, _
-                                  ByVal CA_TRANSFEREE_NAME As String, ByVal CA_TAX_FILE_NO As String, _
+                                  ByVal CA_TRANSFEREE_NAME As String, ByVal CA_TAX_FILE_NO As String, ByVal CA_DISP_TYPE As Integer, _
                                   ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -14872,7 +15281,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "UPDATE CA_DISPOSAL SET CA_DISP_DATE=@CA_DISP_DATE,CA_DISP_WITHIN_2=@CA_DISP_WITHIN_2,CA_DISP_AMOUNT=@CA_DISP_AMOUNT,CA_DISP_QC=@CA_DISP_QC,CA_DISP_BALANCE=@CA_DISP_BALANCE,CA_DISP_TWDV=@CA_DISP_TWDV,CA_DISP_SPROCEED=@CA_DISP_SPROCEED,CA_DISP_BABC=@CA_DISP_BABC,CA_DISP_REMARKS=@CA_DISP_REMARKS,CA_ACCUMULATED=@CA_ACCUMULATED,CA_TRANSFEREE_NAME=@CA_TRANSFEREE_NAME,CA_TAX_FILE_NO=@CA_TAX_FILE_NO WHERE CA_DISP_KEY=@CA_DISP_KEY AND CA_KEY=@CA_KEY AND CA_DISP_YA=@CA_DISP_YA"
+            Dim StrSQL As String = "UPDATE CA_DISPOSAL SET CA_DISP_DATE=@CA_DISP_DATE,CA_DISP_WITHIN_2=@CA_DISP_WITHIN_2,CA_DISP_AMOUNT=@CA_DISP_AMOUNT,CA_DISP_QC=@CA_DISP_QC,CA_DISP_BALANCE=@CA_DISP_BALANCE,CA_DISP_TWDV=@CA_DISP_TWDV,CA_DISP_SPROCEED=@CA_DISP_SPROCEED,CA_DISP_BABC=@CA_DISP_BABC,CA_DISP_REMARKS=@CA_DISP_REMARKS,CA_ACCUMULATED=@CA_ACCUMULATED,CA_TRANSFEREE_NAME=@CA_TRANSFEREE_NAME,CA_TAX_FILE_NO=@CA_TAX_FILE_NO,CA_DISP_TYPE=@CA_DISP_TYPE WHERE CA_DISP_KEY=@CA_DISP_KEY AND CA_KEY=@CA_KEY AND CA_DISP_YA=@CA_DISP_YA"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -14891,6 +15300,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@CA_ACCUMULATED", SqlDbType.NVarChar, 25).Value = CA_ACCUMULATED
             SQLcmd.Parameters.Add("@CA_TRANSFEREE_NAME", SqlDbType.NVarChar, 255).Value = IIf(CA_TRANSFEREE_NAME Is Nothing, "", CA_TRANSFEREE_NAME)
             SQLcmd.Parameters.Add("@CA_TAX_FILE_NO", SqlDbType.NVarChar, 255).Value = IIf(CA_TAX_FILE_NO Is Nothing, "", CA_TAX_FILE_NO)
+            SQLcmd.Parameters.Add("@CA_DISP_TYPE", SqlDbType.Int).Value = CA_DISP_TYPE
 
             Dim rlst As Boolean = ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
@@ -15126,7 +15536,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                         ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
                                         ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                         ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                        ByVal NoteStart As String, ByVal NoteEnd As String, _
+                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, _
                                         ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -15140,7 +15550,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Dim tmpID As Decimal = 0
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -15158,6 +15568,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@MM_NOTE_END", SqlDbType.NVarChar, 250).Value = IIf(NoteEnd Is Nothing, "", NoteEnd)
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddbackDeduct
 
             ListofCmd.Add(SQLcmd)
 
@@ -15178,7 +15589,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_ADD").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_ADD").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack)"
+                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -15187,14 +15598,14 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_ADD").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_ADD").Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
                     SQLcmd.Parameters.Add("@MM_AddBack", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_ADD").Rows(i)("MM_AddBack")), False, ds.Tables("MOVEMENT_ADD").Rows(i)("MM_AddBack"))
-
+                    SQLcmd.Parameters.Add("@MM_ADDBACK_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_ADD").Rows(i)("MM_ADDBACK_AMOUNT")), 0, ds.Tables("MOVEMENT_ADD").Rows(i)("MM_ADDBACK_AMOUNT"))
                     ListofCmd.Add(SQLcmd)
                 Next
             End If
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_DEDUCT").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_DEDUCT").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct)"
+                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -15203,6 +15614,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Amount")), 0, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
                     SQLcmd.Parameters.Add("@MM_Deduct", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Deduct")), False, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_Deduct"))
+                    SQLcmd.Parameters.Add("@MM_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT")), 0, ds.Tables("MOVEMENT_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT"))
 
                     ListofCmd.Add(SQLcmd)
                 Next
@@ -15234,7 +15646,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                                    ByVal MM_GENERAL_START As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_START As Decimal, _
                                    ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
                                    ByVal NoteStart As String, ByVal NoteEnd As String, _
-                                   ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, _
+                                   ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, ByVal MM_ADD_DEDUCT_AMOUNT As Decimal, _
                                    ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -15247,7 +15659,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Dim SQLcmd As SqlCommand
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -15264,11 +15676,13 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_START", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_START) = False, 0, MM_SPECIFIC_NONALLOWABLE_START)
             SQLcmd.Parameters.Add("@MM_NOTE_START", SqlDbType.NVarChar, 250).Value = IIf(NoteStart Is Nothing, "", NoteStart)
             SQLcmd.Parameters.Add("@MM_NOTE_END", SqlDbType.NVarChar, 250).Value = IIf(NoteEnd Is Nothing, "", NoteEnd)
-            SQLcmd.Parameters.Add("@MM_GENERAL_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_GENERAL_END), 0, MM_GENERAL_END)
-            SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_ALLOWABLE_END), 0, MM_SPECIFIC_ALLOWABLE_END)
-            SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_END), 0, MM_SPECIFIC_NONALLOWABLE_END)
+            SQLcmd.Parameters.Add("@MM_GENERAL_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_GENERAL_END), MM_GENERAL_END, 0)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_ALLOWABLE_END), MM_SPECIFIC_ALLOWABLE_END, 0)
+            SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_END", SqlDbType.Decimal).Value = IIf(IsNumeric(MM_SPECIFIC_NONALLOWABLE_END), MM_SPECIFIC_NONALLOWABLE_END, 0)
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = MM_ADD_DEDUCT_AMOUNT
+
             ListofCmd.Add(SQLcmd)
 
             SQLcmd = Nothing
@@ -15288,7 +15702,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_ADDBACK,MM_SPECIFIC_ALLOWABLE_ADDBACK,MM_SPECIFIC_NONALLOWABLE_ADDBACK,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_ADDBACK,@MM_SPECIFIC_ALLOWABLE_ADDBACK,@MM_SPECIFIC_NONALLOWABLE_ADDBACK,@MM_NOTE)"
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_ADDBACK,MM_SPECIFIC_ALLOWABLE_ADDBACK,MM_SPECIFIC_NONALLOWABLE_ADDBACK,MM_NOTE,MM_ADDBACK_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_ADDBACK,@MM_SPECIFIC_ALLOWABLE_ADDBACK,@MM_SPECIFIC_NONALLOWABLE_ADDBACK,@MM_NOTE,@MM_ADDBACK_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -15302,8 +15716,8 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_GENERAL_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_GENERAL_ADDBACK"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_ALLOWABLE_ADDBACK"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_ADDBACK", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_SPECIFIC_NONALLOWABLE_ADDBACK"))
-                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE"))
-
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE")), "", ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_NOTE"))
+                    SQLcmd.Parameters.Add("@MM_ADDBACK_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_ADDBACK_AMOUNT")), 0, ds.Tables("MOVEMENT_COMPLEX_ADD").Rows(i)("MM_ADDBACK_AMOUNT"))
 
                     ListofCmd.Add(SQLcmd)
                 Next
@@ -15311,7 +15725,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             If ds IsNot Nothing AndAlso ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_DEDUCT,MM_SPECIFIC_ALLOWABLE_DEDUCT,MM_SPECIFIC_NONALLOWABLE_DEDUCT,MM_NOTE) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_DEDUCT,@MM_SPECIFIC_ALLOWABLE_DEDUCT,@MM_SPECIFIC_NONALLOWABLE_DEDUCT,@MM_NOTE)"
+                    StrSQL = "INSERT INTO MOVEMENT_COMPLEX_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_GENERAL,MM_SPECIFIC_ALLOWABLE,MM_SPECIFIC_NONALLOWABLE,MM_GENERAL_DEDUCT,MM_SPECIFIC_ALLOWABLE_DEDUCT,MM_SPECIFIC_NONALLOWABLE_DEDUCT,MM_NOTE,MM_DEDUCT_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_GENERAL,@MM_SPECIFIC_ALLOWABLE,@MM_SPECIFIC_NONALLOWABLE,@MM_GENERAL_DEDUCT,@MM_SPECIFIC_ALLOWABLE_DEDUCT,@MM_SPECIFIC_NONALLOWABLE_DEDUCT,@MM_NOTE,@MM_DEDUCT_AMOUNT)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -15325,7 +15739,8 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@MM_GENERAL_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_GENERAL_DEDUCT"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_ALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_ALLOWABLE_DEDUCT"))
                     SQLcmd.Parameters.Add("@MM_SPECIFIC_NONALLOWABLE_DEDUCT", SqlDbType.Bit).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_SPECIFIC_NONALLOWABLE_DEDUCT"))
-                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE")), False, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE"))
+                    SQLcmd.Parameters.Add("@MM_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE")), "", ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_NOTE"))
+                    SQLcmd.Parameters.Add("@MM_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT")), 0, ds.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows(i)("MM_DEDUCT_AMOUNT"))
 
                     ListofCmd.Add(SQLcmd)
                 Next

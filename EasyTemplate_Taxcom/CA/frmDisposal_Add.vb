@@ -128,7 +128,15 @@
                 txtDisposal_SalesProceed.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_DISP_SPROCEED")), 0, dt.Rows(0)("CA_DISP_SPROCEED"))
                 Application.DoEvents()
 
-                txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
+                If DateDiff(DateInterval.Year, dtDateofPurchase.EditValue, dtDisposal.EditValue) <= 2 Then
+                    rgWithIn2YA.SelectedIndex = 0
+                Else
+                    rgWithIn2YA.SelectedIndex = 1
+                End If
+
+
+
+                txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
                                                     txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
                 dtRowSelected = dtCA.Rows(0)
@@ -256,7 +264,7 @@
 
         End Try
     End Sub
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         DefaultTaxPayer(sender)
     End Sub
     Private Sub Save_Disposal()
@@ -326,7 +334,7 @@
                                     If mdlProcess.Save_Disposal(CA_KEY, LOAD_GetDISPKey(CA_KEY), cboYA.EditValue, dtDisposal.EditValue, _
                                                                 IIf(rgWithIn2YA.SelectedIndex = 0, True, False), DISPOSEAMOUNT, DISPOSEQC, _
                                                                 REMAINING_QC, TWDV, txtDisposal_SalesProceed.EditValue, BABC, txtDisposal_Remarks.EditValue, _
-                                                                txtAccumulated.EditValue, txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, ReturnID, ErrorLog) = False Then
+                                                                txtAccumulated.EditValue, txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, cboTypeDisposal.EditValue, ReturnID, ErrorLog) = False Then
                                         MsgBox("Failed to save disposal." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                                         Exit Sub
                                     End If
@@ -362,7 +370,7 @@
                             If mdlProcess.Update_Disposal(ID, CA_KEY, cboYA.EditValue, dtDisposal.EditValue, _
                                                         IIf(rgWithIn2YA.SelectedIndex = 0, True, False), txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
                                                         txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, txtDisposal_BABC.EditValue, txtDisposal_Remarks.EditValue, txtAccumulated.EditValue, _
-                                                        txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, 0, ErrorLog) = False Then
+                                                        txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, cboTypeDisposal.SelectedIndex, 0, ErrorLog) = False Then
                                 MsgBox("Failed to update disposal." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                                 Exit Sub
                             End If
@@ -371,7 +379,7 @@
                             If mdlProcess.Save_Disposal(CA_KEY, DispKey, cboYA.EditValue, dtDisposal.EditValue, _
                                                         IIf(rgWithIn2YA.SelectedIndex = 0, True, False), txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
                                                         txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, txtDisposal_BABC.EditValue, txtDisposal_Remarks.EditValue, txtAccumulated.EditValue, _
-                                                        txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, 0, ErrorLog) = False Then
+                                                        txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, cboTypeDisposal.SelectedIndex, 0, ErrorLog) = False Then
                                 MsgBox("Failed to save disposal." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                                 Exit Sub
                             Else
@@ -505,7 +513,7 @@
                 txtDisposal_SalesProceed.EditValue = 0
                 Application.DoEvents()
 
-                txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
+                txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
                                                     txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
                 dtRowSelected = dtrow
@@ -527,7 +535,7 @@
                         dblTotalTWDV = dtRow("CA_TWDV")
                     End If
                 Case "ADD"
-                    If CDbl(cboYA.EditValue) > CDbl(dtRow("strCAYA")) Then
+                    If CDbl(cboYA.EditValue) > CDbl(dtRow("CA_YA")) Then
                         dblTotalTWDV = FormatNumber(CDbl(dtRow("CA_TWDV")) - (FormatNumber((CDbl(dtRow("CA_RATE_IA")) * CDbl(dtRow("CA_QUALIFYING_COST")) / 100), 2) + ((CDbl(cboYA.EditValue) - CDbl(dtRow("CA_YA"))) * FormatNumber((CDbl(dtRow("CA_RATE_AA")) * CDbl(dtRow("CA_QUALIFYING_COST")) / 100), 2))))
                     Else
                         dblTotalTWDV = dtRow("CA_TWDV")
@@ -602,7 +610,7 @@
         End Try
 
     End Function
-    Private Sub rgWithIn2YA_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub rgWithIn2YA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles rgWithIn2YA.SelectedIndexChanged
         Try
             txtDisposal_BABC.EditValue = CalculateBABC(IIf(chkControlTransfer.Checked, "True", "False"), txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, _
                                                        txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
@@ -624,6 +632,7 @@
 
             txtDisposal_RemainingQuaCost.EditValue = CDec(txtDisposal_PurchaseAmount.EditValue) - CDec(txtDispose_QC.EditValue)
 
+
             Application.DoEvents()
 
             If dtRowSelected IsNot Nothing Then
@@ -634,10 +643,10 @@
 
         End Try
     End Sub
-    Private Sub txtDispose_QC_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtDispose_QC_EditValueChanged(sender As Object, e As EventArgs) Handles txtDispose_QC.EditValueChanged
         CalcRemainingCost()
     End Sub
-    Private Sub txtDisposal_PurchaseAmount_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub txtDisposal_PurchaseAmount_EditValueChanged(sender As Object, e As EventArgs) Handles txtDisposal_PurchaseAmount.EditValueChanged
         CalcRemainingCost()
     End Sub
     Private Sub btnClose_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnClose.ItemClick

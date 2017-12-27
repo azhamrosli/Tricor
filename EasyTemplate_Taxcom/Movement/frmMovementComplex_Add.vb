@@ -72,9 +72,20 @@ Public Class frmMovementComplex_Add
                 txtAmountSpecificAllow.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SPECIFIC_ALLOWABLE_START")), 0, dt.Rows(0)("MM_SPECIFIC_ALLOWABLE_START"))
                 txtAmountSpecificNonAllow.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SPECIFIC_NONALLOWABLE_START")), 0, dt.Rows(0)("MM_SPECIFIC_NONALLOWABLE_START"))
 
+                DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
+                DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
+                DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
+
+
+                If dt IsNot Nothing Then
+                    For Each rowx As DataRow In dt.Rows
+                        DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(rowx)
+                    Next
+                End If
+
                 dt = mdlProcess.Load_MovementComplex_Deduct(ID, ErrorLog)
 
-                DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
+           
                 If dt IsNot Nothing Then
                     For Each rowx As DataRow In dt.Rows
                         rowx("MM_ID") = DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count + 1
@@ -104,11 +115,69 @@ Public Class frmMovementComplex_Add
 
         End Try
     End Sub
+
+    Private Sub GridView1_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView1.CellValueChanged
+        Try
+            If e.Column.FieldName = "MM_GENERAL_ADDBACK" Or e.Column.FieldName = "MM_SPECIFIC_ALLOWABLE_ADDBACK" Or e.Column.FieldName = "MM_SPECIFIC_NONALLOWABLE_ADDBACK" Then
+
+                If TypeOf sender Is GridView Then
+                    Dim view As GridView = CType(sender, GridView)
+                    Dim row As DataRow = view.GetDataRow(e.RowHandle)
+                    Dim Total As Decimal = 0
+
+                    If IsDBNull(row("MM_GENERAL_ADDBACK")) = False AndAlso CBool(row("MM_GENERAL_ADDBACK")) = True Then
+                        Total += IIf(IsDBNull(row("MM_GENERAL")), 0, row("MM_GENERAL"))
+                    End If
+                    If IsDBNull(row("MM_SPECIFIC_ALLOWABLE_ADDBACK")) = False AndAlso CBool(row("MM_SPECIFIC_ALLOWABLE_ADDBACK")) = True Then
+                        Total += IIf(IsDBNull(row("MM_SPECIFIC_ALLOWABLE")), 0, row("MM_SPECIFIC_ALLOWABLE"))
+                    End If
+                    If IsDBNull(row("MM_SPECIFIC_NONALLOWABLE_ADDBACK")) = False AndAlso CBool(row("MM_SPECIFIC_NONALLOWABLE_ADDBACK")) = True Then
+                        Total += IIf(IsDBNull(row("MM_SPECIFIC_NONALLOWABLE")), 0, row("MM_SPECIFIC_NONALLOWABLE"))
+                    End If
+
+                    row("MM_ADDBACK_AMOUNT") = Total
+                End If
+               
+
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub GridView2_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView2.CellValueChanged
+        Try
+            If e.Column.FieldName = "MM_GENERAL_DEDUCT" Or e.Column.FieldName = "MM_SPECIFIC_ALLOWABLE_DEDUCT" Or e.Column.FieldName = "MM_SPECIFIC_NONALLOWABLE_DEDUCT" Then
+
+                If TypeOf sender Is GridView Then
+                    Dim view As GridView = CType(sender, GridView)
+                    Dim row As DataRow = view.GetDataRow(e.RowHandle)
+                    Dim Total As Decimal = 0
+
+                    If IsDBNull(row("MM_GENERAL_DEDUCT")) = False AndAlso CBool(row("MM_GENERAL_DEDUCT")) = True Then
+                        Total += IIf(IsDBNull(row("MM_GENERAL")), 0, row("MM_GENERAL"))
+                    End If
+                    If IsDBNull(row("MM_SPECIFIC_ALLOWABLE_DEDUCT")) = False AndAlso CBool(row("MM_SPECIFIC_ALLOWABLE_DEDUCT")) = True Then
+                        Total += IIf(IsDBNull(row("MM_SPECIFIC_ALLOWABLE")), 0, row("MM_SPECIFIC_ALLOWABLE"))
+                    End If
+                    If IsDBNull(row("MM_SPECIFIC_NONALLOWABLE_DEDUCT")) = False AndAlso CBool(row("MM_SPECIFIC_NONALLOWABLE_DEDUCT")) = True Then
+                        Total += IIf(IsDBNull(row("MM_SPECIFIC_NONALLOWABLE")), 0, row("MM_SPECIFIC_NONALLOWABLE"))
+                    End If
+
+                    row("MM_DEDUCT_AMOUNT") = Total
+                End If
+
+
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub GridView1_InitNewRow(sender As Object, e As DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
             GridView1.GetDataRow(e.RowHandle)("MM_GENERAL_ADDBACK") = False
             GridView1.GetDataRow(e.RowHandle)("MM_SPECIFIC_ALLOWABLE_ADDBACK") = False
             GridView1.GetDataRow(e.RowHandle)("MM_SPECIFIC_NONALLOWABLE_ADDBACK") = False
+            GridView1.GetDataRow(e.RowHandle)("MM_ADDBACK_AMOUNT") = 0
         Catch ex As Exception
 
         End Try
@@ -118,6 +187,7 @@ Public Class frmMovementComplex_Add
             GridView2.GetDataRow(e.RowHandle)("MM_GENERAL_DEDUCT") = False
             GridView2.GetDataRow(e.RowHandle)("MM_SPECIFIC_ALLOWABLE_DEDUCT") = False
             GridView2.GetDataRow(e.RowHandle)("MM_SPECIFIC_NONALLOWABLE_DEDUCT") = False
+            GridView2.GetDataRow(e.RowHandle)("MM_DEDUCT_AMOUNT") = 0
         Catch ex As Exception
 
         End Try
@@ -208,6 +278,7 @@ Public Class frmMovementComplex_Add
             Dim TotalGeneral As Decimal = 0
             Dim TotalSpecificAllawable As Decimal = 0
             Dim TotalSpecificNonAllawable As Decimal = 0
+            Dim Total_AddbackDeduct As Decimal = 0
 
             If txtAmountGeneral.EditValue IsNot Nothing AndAlso IsNumeric(txtAmountGeneral.EditValue) = True Then
                 TotalGeneral = CDec(txtAmountGeneral.EditValue)
@@ -238,6 +309,12 @@ Public Class frmMovementComplex_Add
                         TotalSpecificNonAllawable += CDec(rowx("MM_SPECIFIC_NONALLOWABLE"))
 
                     End If
+                    If IsDBNull(rowx("MM_ADDBACK_AMOUNT")) = False Then
+
+                        Total_AddbackDeduct += CDec(rowx("MM_ADDBACK_AMOUNT"))
+
+                    End If
+
                 Next
 
             End If
@@ -261,6 +338,11 @@ Public Class frmMovementComplex_Add
                         TotalSpecificNonAllawable -= CDec(rowx("MM_SPECIFIC_NONALLOWABLE"))
 
                     End If
+                    If IsDBNull(rowx("MM_DEDUCT_AMOUNT")) = False Then
+
+                        Total_AddbackDeduct -= CDec(rowx("MM_DEDUCT_AMOUNT"))
+
+                    End If
                 Next
 
             End If
@@ -268,6 +350,7 @@ Public Class frmMovementComplex_Add
             txtAmountGeneral_End.EditValue = TotalGeneral
             txtAmountSpecificAllow_End.EditValue = TotalSpecificAllawable
             txtAmountSpecificNonAllow_End.EditValue = TotalSpecificNonAllawable
+            txtTotal_AddBackDeduct.EditValue = Total_AddbackDeduct
         Catch ex As Exception
 
         End Try
@@ -344,7 +427,7 @@ Public Class frmMovementComplex_Add
                 If isEdit Then
                     If mdlProcess.Update_MovementComplex(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, DsMovement, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
                         If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
@@ -358,7 +441,7 @@ Public Class frmMovementComplex_Add
                     Dim tmpID As Integer = 0
                     If mdlProcess.Save_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, DsMovement, tmpID, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)

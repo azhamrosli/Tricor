@@ -132,6 +132,19 @@
 
                 Case 6
                     Status = mdlReport_CA.Report_CA_FAConciliation(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+
+                Case 7
+                    'control transfer
+                    Status = mdlReport_CA.Report_CA_ControlTransfer(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+                Case 8
+                    'Disposal Report
+                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 0, ErrorLog)
+                Case 9
+                    'Disposal Report_Written_Out
+                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 1, ErrorLog)
+                Case 10
+                    'Disposal Report Control Transfer Out
+                    Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 2, ErrorLog)
             End Select
 
             If Status = False Then
@@ -151,6 +164,39 @@
                         Dim frm As New frmCA_Report_FA_Reconciliation
                         frm.TypeReport = cboType.SelectedIndex
                         frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
+
+                    Case 7
+                        'control transfer
+                        Dim frm As New frmCA_Report_ControlTransfer
+                        frm.TypeReport = cboType.SelectedIndex
+                        frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
+                    Case 8, 9, 10
+                        'disposal
+                        'written off
+                        'control transfer out
+
+                        Dim frm As New frmCA_Report_Disposal
+                        frm.TypeReport = cboType.SelectedIndex
+                        frm.ID = ID
+
+                        Select Case cboType.SelectedIndex
+                            Case 8
+                                frm.Type = 0
+                            Case 9
+                                frm.Type = 1
+                            Case 10
+                                frm.Type = 2
+                            Case Else
+                                frm.Type = 0
+                        End Select
                         frm.RefNo = cboRefNo.EditValue
                         frm.YA = cboYA.EditValue
                         frm.ComName = cboRefNo.Text

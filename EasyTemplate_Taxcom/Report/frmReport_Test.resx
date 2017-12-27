@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="DocumentViewerRibbonController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="SpreadsheetCommandGalleryItem79.Description" xml:space="preserve">
     <value>Compare the percentage each value contributes to a total across categories using horizontal rectangles.
 
@@ -127,10 +130,4 @@ Use it when the values on the chart represent durations or when the category tex
 
 Use it when the values on the chart represent durations or when the category text is very long.</value>
   </data>
-  <metadata name="CA_REPORT_TEMPBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>97, 17</value>
-  </metadata>
-  <metadata name="dsCA.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

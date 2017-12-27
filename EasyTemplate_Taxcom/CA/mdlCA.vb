@@ -25,6 +25,7 @@ Module mdlCA
     Private drGetDTApprDonationDetail As DataTable = Nothing
     Private drBusinessSource As DataTable = Nothing
 #Region "LOAD"
+
     Private Function GetBoolPLS60FA(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -431,7 +432,7 @@ Module mdlCA
             Return Nothing
         End Try
     End Function
-   Private Function GetDTApprDonationDetail(ByVal strPLKEYs As Integer, ByVal strBusiness As String, ByVal strEXOADKEY As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTApprDonationDetail(ByVal strPLKEYs As Integer, ByVal strBusiness As String, ByVal strEXOADKEY As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -542,7 +543,7 @@ Module mdlCA
             Return False
         End Try
     End Function
-   
+
 #End Region
 #Region "UPDATE"
     Public Function Update_TAXCOMPUTATION(ByVal TC_BUSINESS As Integer, _
@@ -800,7 +801,7 @@ Module mdlCA
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@value", SqlDbType.NVarChar, 25).Value = CStr(value)
-            SQLcmd.Parameters.Add("@pl_ref_no", SqlDbType.NVarChar, 20).Value = strRefNo
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -1043,62 +1044,65 @@ Module mdlCA
                             TC_SI_ADJ_BS_IN = FormatNumber(row("TC_AI_ADJ_IN_LOSS"), 0)
                         End If
                     End If
+                    drOpeningBalance = mdlProcess.Load_OpeningBalance(strRefNo, strCYa, Errorlog)
+                    If drOpeningBalance IsNot Nothing Then
+                        For Each dtrowOB As DataRow In drOpeningBalance.Rows
+                            OB_SCHEDULE = CDbl(dtrowOB("OB_SCHEDULE"))
 
-                    For Each dtrowOB As DataRow In drOpeningBalance.Rows
-                        OB_SCHEDULE = CDbl(dtrowOB("OB_SCHEDULE"))
-
-                        If CDbl(dtrowOB("OB_SOURCENO")) = CDbl(row("TC_BUSINESS")) Then
-                            If GetBoolPLS60FA() Then
-                                TC_CB_CA_BAL_BF = 0
-                            Else
-                                If CDbl(row("TC_BUSINESS").ToString) > 0 Then
-                                    TC_CB_CA_BAL_BF = FormatNumber(CDbl(OB_SCHEDULE), 0) 'Balance b/f
-
-                                Else
+                            If CDbl(dtrowOB("OB_SOURCENO")) = CDbl(row("TC_BUSINESS")) Then
+                                If GetBoolPLS60FA() Then
                                     TC_CB_CA_BAL_BF = 0
+                                Else
+                                    If CDbl(row("TC_BUSINESS").ToString) > 0 Then
+                                        TC_CB_CA_BAL_BF = FormatNumber(CDbl(OB_SCHEDULE), 0) 'Balance b/f
 
+                                    Else
+                                        TC_CB_CA_BAL_BF = 0
+
+                                    End If
                                 End If
                             End If
-                        End If
 
-                        If CDbl(dtrowOB("OB_RA")) - CDbl(row("TC_RA_WITHDRAWAL")) > 0 Then
-                            TC_RA_BALANCINGALLOWANCE = FormatNumber(CDbl(dtrowOB("OB_RA")) - CDbl(row("TC_RA_WITHDRAWAL")), 0) 'RA Balance b/f
-                        Else
-                            TC_RA_BALANCINGALLOWANCE = 0
-                        End If
+                            If CDbl(dtrowOB("OB_RA")) - CDbl(row("TC_RA_WITHDRAWAL")) > 0 Then
+                                TC_RA_BALANCINGALLOWANCE = FormatNumber(CDbl(dtrowOB("OB_RA")) - CDbl(row("TC_RA_WITHDRAWAL")), 0) 'RA Balance b/f
+                            Else
+                                TC_RA_BALANCINGALLOWANCE = 0
+                            End If
 
-                        If CDbl(dtrowOB("OB_INVESTMENT")) - CDbl(row("TC_ITA_WITHDRAWAL")) > 0 Then
-                            TC_ITA_BALANCINGALLOWANCE = FormatNumber(CDbl(dtrowOB("OB_INVESTMENT")) - CDbl(row("TC_ITA_WITHDRAWAL")), 0) 'ITA Balance b/f
-                        Else
-                            TC_ITA_BALANCINGALLOWANCE = 0
-                        End If
+                            If CDbl(dtrowOB("OB_INVESTMENT")) - CDbl(row("TC_ITA_WITHDRAWAL")) > 0 Then
+                                TC_ITA_BALANCINGALLOWANCE = FormatNumber(CDbl(dtrowOB("OB_INVESTMENT")) - CDbl(row("TC_ITA_WITHDRAWAL")), 0) 'ITA Balance b/f
+                            Else
+                                TC_ITA_BALANCINGALLOWANCE = 0
+                            End If
 
-                        TC_RA_TOTAL1 = FormatNumber(CDbl(TC_RA_BALANCINGALLOWANCE) + CDbl(row("TC_RA_QUALIFYINGCAPITALEXP_AMOUNT")), 0)
-                        TC_ITA_TOTAL1 = FormatNumber(CDbl(TC_ITA_BALANCINGALLOWANCE) + CDbl(row("TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT")), 0)
+                            TC_RA_TOTAL1 = FormatNumber(CDbl(TC_RA_BALANCINGALLOWANCE) + CDbl(row("TC_RA_QUALIFYINGCAPITALEXP_AMOUNT")), 0)
+                            TC_ITA_TOTAL1 = FormatNumber(CDbl(TC_ITA_BALANCINGALLOWANCE) + CDbl(row("TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT")), 0)
 
-                        TC_CB_RA_BAL_BF = FormatNumber(dtrowOB("OB_RA"), 0) 'Balance b/f
-                        RATOTAL = FormatNumber(CDbl(TC_CB_RA_BAL_BF) + CDbl(row("TC_CB_RA_CURR")) - CDbl(row("TC_RA_WITHDRAWAL")), 0)
-                        TC_CB_RA_BAL_CF = FormatNumber(CDbl(RATOTAL) - CDbl(row("TC_SI_RA")) - CDbl(row("TC_RA_ADJUSTMENT")), 0)
-                        If TC_CB_RA_BAL_CF < 0 Then
-                            TC_CB_RA_BAL_CF = 0
-                        End If
-                        If RATOTAL < 0 Then
-                            RATOTAL = 0
-                        End If
+                            TC_CB_RA_BAL_BF = FormatNumber(dtrowOB("OB_RA"), 0) 'Balance b/f
+                            RATOTAL = FormatNumber(CDbl(TC_CB_RA_BAL_BF) + CDbl(row("TC_CB_RA_CURR")) - CDbl(row("TC_RA_WITHDRAWAL")), 0)
+                            TC_CB_RA_BAL_CF = FormatNumber(CDbl(RATOTAL) - CDbl(row("TC_SI_RA")) - CDbl(row("TC_RA_ADJUSTMENT")), 0)
+                            If TC_CB_RA_BAL_CF < 0 Then
+                                TC_CB_RA_BAL_CF = 0
+                            End If
+                            If RATOTAL < 0 Then
+                                RATOTAL = 0
+                            End If
 
-                        TC_CB_ITA_BAL_BF = FormatNumber(CDbl(dtrowOB("OB_INVESTMENT")), 0) 'Balance b/f
-                        ITATOTAL = FormatNumber(CDbl(TC_CB_ITA_BAL_BF) + CDbl(row("TC_CB_ITA_CURR")) - CDbl(row("TC_ITA_WITHDRAWAL")), 0)
-                        TC_CB_ITA_BAL_CF = FormatNumber(CDbl(ITATOTAL) - CDbl(row("TC_SI_INVEST_ALLOW")) - CDbl(row("TC_ITA_ADJUSTMENT")), 0)
-                        If TC_CB_ITA_BAL_CF < 0 Then
-                            TC_CB_ITA_BAL_CF = 0
-                        End If
-                        If ITATOTAL < 0 Then
-                            ITATOTAL = 0
-                        End If
+                            TC_CB_ITA_BAL_BF = FormatNumber(CDbl(dtrowOB("OB_INVESTMENT")), 0) 'Balance b/f
+                            ITATOTAL = FormatNumber(CDbl(TC_CB_ITA_BAL_BF) + CDbl(row("TC_CB_ITA_CURR")) - CDbl(row("TC_ITA_WITHDRAWAL")), 0)
+                            TC_CB_ITA_BAL_CF = FormatNumber(CDbl(ITATOTAL) - CDbl(row("TC_SI_INVEST_ALLOW")) - CDbl(row("TC_ITA_ADJUSTMENT")), 0)
+                            If TC_CB_ITA_BAL_CF < 0 Then
+                                TC_CB_ITA_BAL_CF = 0
+                            End If
+                            If ITATOTAL < 0 Then
+                                ITATOTAL = 0
+                            End If
 
-                        Exit For
-                    Next
+                            Exit For
+                        Next
 
+                    End If
+                    
                     Dim sourcenum As String = ""
                     Dim pre_sourcenum As String = ""
                     drCA_sourceNum = GetDTCA_SourceNum() 'LeeCC rmk

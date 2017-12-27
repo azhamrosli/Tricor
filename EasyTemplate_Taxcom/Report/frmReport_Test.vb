@@ -6,7 +6,6 @@ Public Class frmReport_Test
     Private Sub frmReport_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
 
-        Me.ReportViewer1.RefreshReport()
     End Sub
     Private Sub LoadData()
         'Try

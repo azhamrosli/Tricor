@@ -1,4 +1,6 @@
-﻿Public Class ucMovementComplex
+﻿Imports DevExpress.XtraReports.ReportGeneration
+Imports DevExpress.XtraReports.UI
+Public Class ucMovementComplex
     Dim ErrorLog As clsError = Nothing
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -14,7 +16,7 @@
 
             Dim tmpType As Integer = -1
 
-            If mdlProcess.CreateLookUpTaxPayer(dsCA, ErrorLog) = False Then
+            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -43,6 +45,8 @@
 
             Dim dt As DataTable = mdlProcess.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
+            DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
+            DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
             DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
 
             If dt Is Nothing Then
@@ -178,6 +182,76 @@
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
+        Try
+            Try
+
+                Dim dt As DataTable = Nothing
+                Dim dtChild As DataTable = Nothing
+                Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
+
+                dt = mdlProcess.Load_MovementComplex(ID, ErrorLog)
+
+                DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
+                DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
+                DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
+
+                If dt Is Nothing Then
+                    MsgBox("Data not found.", MsgBoxStyle.Critical)
+                    Exit Sub
+                End If
+
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the Year Ended " & IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), "", dt.Rows(i)("MM_YEAR_ENDED"))
+                    Application.DoEvents()
+                    DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
+                Next
+
+                dt = mdlProcess.Load_MovementComplex_Add(ID, ErrorLog)
+
+                If dt IsNot Nothing Then
+                    For i As Integer = 0 To dt.Rows.Count - 1
+                        DsMovement.Tables("MOVEMENT_COMPLEX_ADD").ImportRow(dt.Rows(i))
+                    Next
+                End If
+                Application.DoEvents()
+                dt = mdlProcess.Load_MovementComplex_Deduct(ID, ErrorLog)
+
+                If dt IsNot Nothing Then
+                    For i As Integer = 0 To dt.Rows.Count - 1
+                        DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").ImportRow(dt.Rows(i))
+                    Next
+                End If
+
+                Dim rpt As New rptMovementComplex
+                rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
+                rpt.DataSource = DsMovement.Tables("MOVEMENT_COMPLEX")
+
+                rpt.ShowPreview()
+
+
+            Catch ex As Exception
+                If ErrorLog Is Nothing Then
+                    ErrorLog = New clsError
+                End If
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "C1001"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = ex.Message
+                End With
+
+                AddListOfError(ErrorLog)
+            Finally
+                pnlLoading.Visible = False
+                Application.DoEvents()
+            End Try
+
         Catch ex As Exception
 
         End Try

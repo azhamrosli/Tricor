@@ -100,6 +100,9 @@ Partial Class frmMovement_Add
         Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_AddBack_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtTotalAmount_AddbackDeduct = New DevExpress.XtraEditors.TextEdit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -135,6 +138,7 @@ Partial Class frmMovement_Add
         CType(Me.txtAmountEnd.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotalAmount_AddbackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -166,10 +170,10 @@ Partial Class frmMovement_Add
         'btnAdd
         '
         Me.btnAdd.Caption = "Save"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -182,10 +186,10 @@ Partial Class frmMovement_Add
         'btnAddChild
         '
         Me.btnAddChild.Caption = "Add"
-        Me.btnAddChild.Glyph = CType(resources.GetObject("btnAddChild.Glyph"), System.Drawing.Image)
         Me.btnAddChild.Id = 1
+        Me.btnAddChild.ImageOptions.Image = CType(resources.GetObject("btnAddChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddChild.ImageOptions.LargeImage = CType(resources.GetObject("btnAddChild.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
-        Me.btnAddChild.LargeGlyph = CType(resources.GetObject("btnAddChild.LargeGlyph"), System.Drawing.Image)
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Add new record"
@@ -198,10 +202,10 @@ Partial Class frmMovement_Add
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem3.Text = "Delete record"
@@ -214,18 +218,18 @@ Partial Class frmMovement_Add
         'btnMoveUp
         '
         Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
         Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.Image = CType(resources.GetObject("btnMoveUp.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveUp.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveUp.Name = "btnMoveUp"
         Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnMoveDown
         '
         Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
         Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.Image = CType(resources.GetObject("btnMoveDown.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -234,6 +238,7 @@ Partial Class frmMovement_Add
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(924, 31)
         '
         'barDockControlBottom
@@ -241,6 +246,7 @@ Partial Class frmMovement_Add
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 569)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(924, 0)
         '
         'barDockControlLeft
@@ -248,6 +254,7 @@ Partial Class frmMovement_Add
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 538)
         '
         'barDockControlRight
@@ -255,6 +262,7 @@ Partial Class frmMovement_Add
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(924, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 538)
         '
         'RepositoryItemTextEdit1
@@ -355,6 +363,7 @@ Partial Class frmMovement_Add
         'LabelControl6
         '
         Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl6.Appearance.Options.UseFont = True
         Me.LabelControl6.Location = New System.Drawing.Point(10, 210)
         Me.LabelControl6.Name = "LabelControl6"
         Me.LabelControl6.Size = New System.Drawing.Size(26, 16)
@@ -364,6 +373,7 @@ Partial Class frmMovement_Add
         'LabelControl7
         '
         Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl7.Appearance.Options.UseFont = True
         Me.LabelControl7.Location = New System.Drawing.Point(12, 384)
         Me.LabelControl7.Name = "LabelControl7"
         Me.LabelControl7.Size = New System.Drawing.Size(29, 16)
@@ -426,7 +436,7 @@ Partial Class frmMovement_Add
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_Description, Me.colMM_Amount, Me.colMM_AddBack})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_Description, Me.colMM_Amount, Me.colMM_AddBack, Me.colMM_AddBack_Amount})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -517,7 +527,7 @@ Partial Class frmMovement_Add
         '
         'GridView2
         '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4})
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4, Me.colMM_DEDUCT_AMOUNT})
         Me.GridView2.GridControl = Me.GridControl2
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.[True]
@@ -789,11 +799,51 @@ Partial Class frmMovement_Add
         Me.colCompanyCode.VisibleIndex = 7
         Me.colCompanyCode.Width = 100
         '
+        'colMM_AddBack_Amount
+        '
+        Me.colMM_AddBack_Amount.Caption = "AddBack Amount"
+        Me.colMM_AddBack_Amount.ColumnEdit = Me.txtAmount
+        Me.colMM_AddBack_Amount.FieldName = "MM_ADDBACK_AMOUNT"
+        Me.colMM_AddBack_Amount.Name = "colMM_AddBack_Amount"
+        Me.colMM_AddBack_Amount.OptionsColumn.TabStop = False
+        Me.colMM_AddBack_Amount.Visible = True
+        Me.colMM_AddBack_Amount.VisibleIndex = 3
+        '
+        'colMM_DEDUCT_AMOUNT
+        '
+        Me.colMM_DEDUCT_AMOUNT.Caption = "Deduct Amount"
+        Me.colMM_DEDUCT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colMM_DEDUCT_AMOUNT.FieldName = "MM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.Name = "colMM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
+        Me.colMM_DEDUCT_AMOUNT.Visible = True
+        Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 3
+        '
+        'txtTotalAmount_AddbackDeduct
+        '
+        Me.txtTotalAmount_AddbackDeduct.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtTotalAmount_AddbackDeduct.Location = New System.Drawing.Point(502, 150)
+        Me.txtTotalAmount_AddbackDeduct.MenuManager = Me.BarManager1
+        Me.txtTotalAmount_AddbackDeduct.Name = "txtTotalAmount_AddbackDeduct"
+        Me.txtTotalAmount_AddbackDeduct.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtTotalAmount_AddbackDeduct.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotalAmount_AddbackDeduct.Properties.EditFormat.FormatString = "n0"
+        Me.txtTotalAmount_AddbackDeduct.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotalAmount_AddbackDeduct.Properties.Mask.EditMask = "n0"
+        Me.txtTotalAmount_AddbackDeduct.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtTotalAmount_AddbackDeduct.Properties.NullText = "0"
+        Me.txtTotalAmount_AddbackDeduct.Properties.NullValuePrompt = "0"
+        Me.txtTotalAmount_AddbackDeduct.Properties.NullValuePromptShowForEmptyValue = True
+        Me.txtTotalAmount_AddbackDeduct.Size = New System.Drawing.Size(149, 20)
+        Me.txtTotalAmount_AddbackDeduct.TabIndex = 186
+        Me.txtTotalAmount_AddbackDeduct.Visible = False
+        '
         'frmMovement_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(924, 569)
+        Me.Controls.Add(Me.txtTotalAmount_AddbackDeduct)
         Me.Controls.Add(Me.cboRefNo)
         Me.Controls.Add(Me.txtAmountEnd)
         Me.Controls.Add(Me.txtNoteEnd)
@@ -864,6 +914,7 @@ Partial Class frmMovement_Add
         CType(Me.txtAmountEnd.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotalAmount_AddbackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -938,4 +989,7 @@ Partial Class frmMovement_Add
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_DEDUCT_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_AddBack_Amount As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents txtTotalAmount_AddbackDeduct As DevExpress.XtraEditors.TextEdit
 End Class

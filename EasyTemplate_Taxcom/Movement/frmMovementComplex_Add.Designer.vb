@@ -49,6 +49,16 @@ Partial Class frmMovementComplex_Add
         Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
         Me.MOVEMENTCOMPLEXDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.XtraScrollableControl1 = New DevExpress.XtraEditors.XtraScrollableControl()
+        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.SplitContainerControl1 = New DevExpress.XtraEditors.SplitContainerControl()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -121,16 +131,9 @@ Partial Class frmMovementComplex_Add
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
-        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_ADDBACK_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtTotal_AddBackDeduct = New DevExpress.XtraEditors.TextEdit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -140,6 +143,8 @@ Partial Class frmMovementComplex_Add
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraScrollableControl1.SuspendLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainerControl1.SuspendLayout()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -179,8 +184,7 @@ Partial Class frmMovementComplex_Add
         CType(Me.dtStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtStart.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTitle.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -212,10 +216,10 @@ Partial Class frmMovementComplex_Add
         'btnAdd
         '
         Me.btnAdd.Caption = "Save"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -228,10 +232,10 @@ Partial Class frmMovementComplex_Add
         'btnAddChild
         '
         Me.btnAddChild.Caption = "Add"
-        Me.btnAddChild.Glyph = CType(resources.GetObject("btnAddChild.Glyph"), System.Drawing.Image)
         Me.btnAddChild.Id = 1
+        Me.btnAddChild.ImageOptions.Image = CType(resources.GetObject("btnAddChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddChild.ImageOptions.LargeImage = CType(resources.GetObject("btnAddChild.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
-        Me.btnAddChild.LargeGlyph = CType(resources.GetObject("btnAddChild.LargeGlyph"), System.Drawing.Image)
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Add new record"
@@ -244,10 +248,10 @@ Partial Class frmMovementComplex_Add
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem3.Text = "Delete record"
@@ -260,18 +264,18 @@ Partial Class frmMovementComplex_Add
         'btnMoveUp
         '
         Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
         Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.Image = CType(resources.GetObject("btnMoveUp.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveUp.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveUp.Name = "btnMoveUp"
         Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnMoveDown
         '
         Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
         Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.Image = CType(resources.GetObject("btnMoveDown.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -280,6 +284,7 @@ Partial Class frmMovementComplex_Add
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(961, 31)
         '
         'barDockControlBottom
@@ -287,6 +292,7 @@ Partial Class frmMovementComplex_Add
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 777)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(961, 0)
         '
         'barDockControlLeft
@@ -294,6 +300,7 @@ Partial Class frmMovementComplex_Add
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 746)
         '
         'barDockControlRight
@@ -301,6 +308,7 @@ Partial Class frmMovementComplex_Add
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(961, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 746)
         '
         'RepositoryItemTextEdit1
@@ -343,6 +351,7 @@ Partial Class frmMovementComplex_Add
         '
         'XtraScrollableControl1
         '
+        Me.XtraScrollableControl1.Controls.Add(Me.txtTotal_AddBackDeduct)
         Me.XtraScrollableControl1.Controls.Add(Me.cboRefNo)
         Me.XtraScrollableControl1.Controls.Add(Me.SplitContainerControl1)
         Me.XtraScrollableControl1.Controls.Add(Me.PanelControl2)
@@ -371,6 +380,95 @@ Partial Class frmMovementComplex_Add
         Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
         Me.XtraScrollableControl1.Size = New System.Drawing.Size(961, 746)
         Me.XtraScrollableControl1.TabIndex = 210
+        '
+        'cboRefNo
+        '
+        Me.cboRefNo.Location = New System.Drawing.Point(96, 6)
+        Me.cboRefNo.MenuManager = Me.BarManager1
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.NullText = "Select"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
+        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
+        Me.cboRefNo.TabIndex = 233
+        '
+        'SearchLookUpEdit2View
+        '
+        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
+        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
+        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
+        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
+        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
+        '
+        'colRefNo
+        '
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
+        '
+        'colCompanyName
+        '
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
+        '
+        'colHandleBy
+        '
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
+        '
+        'colCompanyNo
+        '
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
+        '
+        'colEmployerNo
+        '
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
         '
         'SplitContainerControl1
         '
@@ -407,7 +505,7 @@ Partial Class frmMovementComplex_Add
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_PARENTID, Me.colMM_Sequence, Me.colMM_Description, Me.colMM_Amount, Me.colMM_GENERAL, Me.colMM_GENERAL_ADDBACK, Me.colMM_SPECIFIC_ALLOWABLE, Me.colMM_SPECIFIC_ALLOWABLE_ADDBACK, Me.colMM_SPECIFIC_NONALLOWABLE, Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK, Me.colMM_NOTE})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_PARENTID, Me.colMM_Sequence, Me.colMM_Description, Me.colMM_Amount, Me.colMM_GENERAL, Me.colMM_GENERAL_ADDBACK, Me.colMM_SPECIFIC_ALLOWABLE, Me.colMM_SPECIFIC_ALLOWABLE_ADDBACK, Me.colMM_SPECIFIC_NONALLOWABLE, Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK, Me.colMM_ADDBACK_AMOUNT, Me.colMM_NOTE})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -544,7 +642,7 @@ Partial Class frmMovementComplex_Add
         Me.colMM_NOTE.FieldName = "MM_NOTE"
         Me.colMM_NOTE.Name = "colMM_NOTE"
         Me.colMM_NOTE.Visible = True
-        Me.colMM_NOTE.VisibleIndex = 8
+        Me.colMM_NOTE.VisibleIndex = 9
         Me.colMM_NOTE.Width = 350
         '
         'PanelControl3
@@ -559,6 +657,7 @@ Partial Class frmMovementComplex_Add
         'LabelControl9
         '
         Me.LabelControl9.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl9.Appearance.Options.UseFont = True
         Me.LabelControl9.Location = New System.Drawing.Point(5, 3)
         Me.LabelControl9.Name = "LabelControl9"
         Me.LabelControl9.Size = New System.Drawing.Size(26, 16)
@@ -580,7 +679,7 @@ Partial Class frmMovementComplex_Add
         '
         'GridView2
         '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID1, Me.colMM_PARENTID1, Me.colMM_Sequence1, Me.colMM_Description1, Me.colMM_Amount1, Me.colMM_GENERAL1, Me.colMM_GENERAL_DEDUCT, Me.colMM_SPECIFIC_ALLOWABLE1, Me.colMM_SPECIFIC_ALLOWABLE_DEDUCT, Me.colMM_SPECIFIC_NONALLOWABLE1, Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT, Me.colMM_NOTE1})
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID1, Me.colMM_PARENTID1, Me.colMM_Sequence1, Me.colMM_Description1, Me.colMM_Amount1, Me.colMM_GENERAL1, Me.colMM_GENERAL_DEDUCT, Me.colMM_SPECIFIC_ALLOWABLE1, Me.colMM_SPECIFIC_ALLOWABLE_DEDUCT, Me.colMM_SPECIFIC_NONALLOWABLE1, Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT, Me.colMM_DEDUCT_AMOUNT, Me.colMM_NOTE1})
         Me.GridView2.GridControl = Me.GridControl2
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -717,7 +816,7 @@ Partial Class frmMovementComplex_Add
         Me.colMM_NOTE1.FieldName = "MM_NOTE"
         Me.colMM_NOTE1.Name = "colMM_NOTE1"
         Me.colMM_NOTE1.Visible = True
-        Me.colMM_NOTE1.VisibleIndex = 8
+        Me.colMM_NOTE1.VisibleIndex = 9
         Me.colMM_NOTE1.Width = 350
         '
         'PanelControl4
@@ -732,6 +831,7 @@ Partial Class frmMovementComplex_Add
         'LabelControl12
         '
         Me.LabelControl12.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl12.Appearance.Options.UseFont = True
         Me.LabelControl12.Location = New System.Drawing.Point(5, 3)
         Me.LabelControl12.Name = "LabelControl12"
         Me.LabelControl12.Size = New System.Drawing.Size(29, 16)
@@ -873,6 +973,7 @@ Partial Class frmMovementComplex_Add
         'LabelControl8
         '
         Me.LabelControl8.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl8.Appearance.Options.UseFont = True
         Me.LabelControl8.Location = New System.Drawing.Point(12, 120)
         Me.LabelControl8.Name = "LabelControl8"
         Me.LabelControl8.Size = New System.Drawing.Size(52, 16)
@@ -1095,94 +1196,48 @@ Partial Class frmMovementComplex_Add
         Me.LabelControl1.TabIndex = 210
         Me.LabelControl1.Text = "Title :"
         '
-        'cboRefNo
+        'colMM_ADDBACK_AMOUNT
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(96, 6)
-        Me.cboRefNo.MenuManager = Me.BarManager1
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
-        Me.cboRefNo.Properties.NullText = "Select"
-        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
-        Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
-        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
-        Me.cboRefNo.TabIndex = 233
+        Me.colMM_ADDBACK_AMOUNT.Caption = "Add Back Amount"
+        Me.colMM_ADDBACK_AMOUNT.ColumnEdit = Me.txtAmount
+        Me.colMM_ADDBACK_AMOUNT.FieldName = "MM_ADDBACK_AMOUNT"
+        Me.colMM_ADDBACK_AMOUNT.Name = "colMM_ADDBACK_AMOUNT"
+        Me.colMM_ADDBACK_AMOUNT.OptionsColumn.ReadOnly = True
+        Me.colMM_ADDBACK_AMOUNT.OptionsColumn.TabStop = False
+        Me.colMM_ADDBACK_AMOUNT.Visible = True
+        Me.colMM_ADDBACK_AMOUNT.VisibleIndex = 8
+        Me.colMM_ADDBACK_AMOUNT.Width = 100
         '
-        'SearchLookUpEdit2View
+        'colMM_DEDUCT_AMOUNT
         '
-        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
-        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
-        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
-        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
-        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
+        Me.colMM_DEDUCT_AMOUNT.Caption = "Deduct Amount"
+        Me.colMM_DEDUCT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colMM_DEDUCT_AMOUNT.FieldName = "MM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.Name = "colMM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.ReadOnly = True
+        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
+        Me.colMM_DEDUCT_AMOUNT.Visible = True
+        Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 8
+        Me.colMM_DEDUCT_AMOUNT.Width = 100
         '
-        'colRefNo
+        'txtTotal_AddBackDeduct
         '
-        Me.colRefNo.FieldName = "RefNo"
-        Me.colRefNo.Name = "colRefNo"
-        Me.colRefNo.Visible = True
-        Me.colRefNo.VisibleIndex = 0
-        Me.colRefNo.Width = 100
-        '
-        'colCompanyName
-        '
-        Me.colCompanyName.FieldName = "CompanyName"
-        Me.colCompanyName.Name = "colCompanyName"
-        Me.colCompanyName.Visible = True
-        Me.colCompanyName.VisibleIndex = 1
-        Me.colCompanyName.Width = 250
-        '
-        'colHandleBy
-        '
-        Me.colHandleBy.FieldName = "HandleBy"
-        Me.colHandleBy.Name = "colHandleBy"
-        Me.colHandleBy.Visible = True
-        Me.colHandleBy.VisibleIndex = 2
-        Me.colHandleBy.Width = 150
-        '
-        'colCompanyNo
-        '
-        Me.colCompanyNo.FieldName = "CompanyNo"
-        Me.colCompanyNo.Name = "colCompanyNo"
-        Me.colCompanyNo.Visible = True
-        Me.colCompanyNo.VisibleIndex = 3
-        Me.colCompanyNo.Width = 100
-        '
-        'colEmployerNo
-        '
-        Me.colEmployerNo.FieldName = "EmployerNo"
-        Me.colEmployerNo.Name = "colEmployerNo"
-        Me.colEmployerNo.Visible = True
-        Me.colEmployerNo.VisibleIndex = 4
-        Me.colEmployerNo.Width = 100
-        '
-        'colFileNo
-        '
-        Me.colFileNo.FieldName = "FileNo"
-        Me.colFileNo.Name = "colFileNo"
-        Me.colFileNo.Visible = True
-        Me.colFileNo.VisibleIndex = 5
-        Me.colFileNo.Width = 100
-        '
-        'colCountry
-        '
-        Me.colCountry.FieldName = "Country"
-        Me.colCountry.Name = "colCountry"
-        Me.colCountry.Visible = True
-        Me.colCountry.VisibleIndex = 6
-        Me.colCountry.Width = 100
-        '
-        'colCompanyCode
-        '
-        Me.colCompanyCode.FieldName = "CompanyCode"
-        Me.colCompanyCode.Name = "colCompanyCode"
-        Me.colCompanyCode.Visible = True
-        Me.colCompanyCode.VisibleIndex = 7
-        Me.colCompanyCode.Width = 100
+        Me.txtTotal_AddBackDeduct.Location = New System.Drawing.Point(283, 674)
+        Me.txtTotal_AddBackDeduct.MenuManager = Me.BarManager1
+        Me.txtTotal_AddBackDeduct.Name = "txtTotal_AddBackDeduct"
+        Me.txtTotal_AddBackDeduct.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtTotal_AddBackDeduct.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotal_AddBackDeduct.Properties.EditFormat.FormatString = "n0"
+        Me.txtTotal_AddBackDeduct.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotal_AddBackDeduct.Properties.Mask.EditMask = "n0"
+        Me.txtTotal_AddBackDeduct.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtTotal_AddBackDeduct.Properties.NullText = "0"
+        Me.txtTotal_AddBackDeduct.Properties.NullValuePrompt = "0"
+        Me.txtTotal_AddBackDeduct.Properties.NullValuePromptShowForEmptyValue = True
+        Me.txtTotal_AddBackDeduct.Properties.ReadOnly = True
+        Me.txtTotal_AddBackDeduct.Size = New System.Drawing.Size(149, 20)
+        Me.txtTotal_AddBackDeduct.TabIndex = 187
+        Me.txtTotal_AddBackDeduct.Visible = False
         '
         'frmMovementComplex_Add
         '
@@ -1208,6 +1263,8 @@ Partial Class frmMovementComplex_Add
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraScrollableControl1.ResumeLayout(False)
         Me.XtraScrollableControl1.PerformLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainerControl1.ResumeLayout(False)
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1251,9 +1308,9 @@ Partial Class frmMovementComplex_Add
         CType(Me.dtStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtStart.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTitle.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
@@ -1357,4 +1414,7 @@ Partial Class frmMovementComplex_Add
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_ADDBACK_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_DEDUCT_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents txtTotal_AddBackDeduct As DevExpress.XtraEditors.TextEdit
 End Class

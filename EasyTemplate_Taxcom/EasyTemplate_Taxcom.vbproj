@@ -79,101 +79,114 @@
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.BonusSkins.v15.1">
+    <Reference Include="DevExpress.BonusSkins.v17.1">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Charts.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v15.1">
+    <Reference Include="DevExpress.Data.v17.1">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.DataAccess.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.DataAccess.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Docs.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Docs.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Images.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Images.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Office.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Office.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Pdf.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Pdf.v15.1.Drawing, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.PivotGrid.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Pdf.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Pdf.v17.1.Drawing, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.RichEdit.v17.1.Export, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Spreadsheet.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.RichEdit.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v15.1">
+    <Reference Include="DevExpress.Spreadsheet.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v15.1.Core">
+    <Reference Include="DevExpress.Utils.v17.1">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v15.1.UI, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Sparkline.v17.1.Core">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.Utils.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v15.1">
+    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGauges.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraEditors.v17.1">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraGauges.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPdfViewer.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPrinting.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraNavBar.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v15.1.Extensions, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraPdfViewer.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.CodeParser.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v15.1.Extensions, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraScheduler.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraReports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v15.1.Core, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraReports.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraSpreadsheet.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XtraRichEdit.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v15.1, Version=15.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+    <Reference Include="DevExpress.XtraRichEdit.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1.Reporting.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraSpreadsheet.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -211,6 +224,18 @@
     <Compile Include="CA\frmCA_Quick.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="CA\frmCA_Report_Disposal.Designer.vb">
+      <DependentUpon>frmCA_Report_Disposal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\frmCA_Report_Disposal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CA\frmCA_Report_ControlTransfer.Designer.vb">
+      <DependentUpon>frmCA_Report_ControlTransfer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="CA\frmCA_Report_ControlTransfer.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CA\frmCA_Report_FA_Reconciliation.Designer.vb">
       <DependentUpon>frmCA_Report_FA_Reconciliation.vb</DependentUpon>
     </Compile>
@@ -230,6 +255,27 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CA\mdlCA.vb" />
+    <Compile Include="CA\rptCAReport.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CA\rpt_CAByCategory.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CA\rpt_CAByRate.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CA\rpt_CAControlTransfer.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CA\rpt_CAControlTransfer_Out.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CA\rpt_CADisposal.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CA\rpt_CAWrittenOff.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CA\ucCA.Designer.vb">
       <DependentUpon>ucCA.vb</DependentUpon>
     </Compile>
@@ -381,6 +427,18 @@
     <Compile Include="Movement\frmMovement_Add.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Movement\rptMovementComplex.Designer.vb">
+      <DependentUpon>rptMovementComplex.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\rptMovementComplex.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Movement\rptMovementNormal.Designer.vb">
+      <DependentUpon>rptMovementNormal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Movement\rptMovementNormal.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Movement\ucMovement.Designer.vb">
       <DependentUpon>ucMovement.vb</DependentUpon>
     </Compile>
@@ -392,12 +450,6 @@
     </Compile>
     <Compile Include="Movement\ucMovementComplex.vb">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Movement\XtraReport1.Designer.vb">
-      <DependentUpon>XtraReport1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Movement\XtraReport1.vb">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="PNL\dsPNL2.vb">
       <DependentUpon>dsPNL2.xsd</DependentUpon>
@@ -864,6 +916,12 @@
     </Compile>
     <Compile Include="Report\mdlReport.vb" />
     <Compile Include="Report\mdlReport_CA.vb" />
+    <Compile Include="Report\rptTableofContent.Designer.vb">
+      <DependentUpon>rptTableofContent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Report\rptTableofContent.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Report\ucTableofContent.Designer.vb">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </Compile>
@@ -895,6 +953,12 @@
     <EmbeddedResource Include="CA\frmCA_Quick.resx">
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CA\frmCA_Report_Disposal.resx">
+      <DependentUpon>frmCA_Report_Disposal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\frmCA_Report_ControlTransfer.resx">
+      <DependentUpon>frmCA_Report_ControlTransfer.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CA\frmCA_Report_FA_Reconciliation.resx">
       <DependentUpon>frmCA_Report_FA_Reconciliation.vb</DependentUpon>
     </EmbeddedResource>
@@ -912,6 +976,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rptCAReport.resx">
+      <DependentUpon>rptCAReport.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rpt_CAByCategory.resx">
+      <DependentUpon>rpt_CAByCategory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rpt_CAByRate.resx">
+      <DependentUpon>rpt_CAByRate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rpt_CAControlTransfer.resx">
+      <DependentUpon>rpt_CAControlTransfer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rpt_CAControlTransfer_Out.resx">
+      <DependentUpon>rpt_CAControlTransfer_Out.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rpt_CADisposal.resx">
+      <DependentUpon>rpt_CADisposal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CA\rpt_CAWrittenOff.resx">
+      <DependentUpon>rpt_CAWrittenOff.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CA\ucCA.resx">
       <DependentUpon>ucCA.vb</DependentUpon>
@@ -961,14 +1046,17 @@
     <EmbeddedResource Include="Movement\frmMovement_Add.resx">
       <DependentUpon>frmMovement_Add.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Movement\rptMovementComplex.resx">
+      <DependentUpon>rptMovementComplex.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Movement\rptMovementNormal.resx">
+      <DependentUpon>rptMovementNormal.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Movement\ucMovement.resx">
       <DependentUpon>ucMovement.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Movement\ucMovementComplex.resx">
       <DependentUpon>ucMovementComplex.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Movement\XtraReport1.resx">
-      <DependentUpon>XtraReport1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL_Add.resx">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
@@ -1197,6 +1285,9 @@
     <EmbeddedResource Include="Report\frmTableofContent_Add.resx">
       <DependentUpon>frmTableofContent_Add.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\rptTableofContent.resx">
+      <DependentUpon>rptTableofContent.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\ucTableofContent.resx">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </EmbeddedResource>
@@ -1329,6 +1420,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CA\Report\" />
+    <Folder Include="Income Calculation\" />
     <Folder Include="MasterData\" />
     <Folder Include="Report\Reporting\" />
   </ItemGroup>

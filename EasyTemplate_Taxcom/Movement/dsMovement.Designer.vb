@@ -26,16 +26,24 @@ Partial Public Class dsMovement
     Inherits Global.System.Data.DataSet
     
     Private tableMOVEMENT_ADD As MOVEMENT_ADDDataTable
-
+    
     Private tableMOVEMENT_DEDUCT As MOVEMENT_DEDUCTDataTable
-
+    
     Private tableMOVEMENT_NORMAL As MOVEMENT_NORMALDataTable
-
+    
     Private tableMOVEMENT_COMPLEX_ADD As MOVEMENT_COMPLEX_ADDDataTable
+    
+    Private tableMOVEMENT_COMPLEX As MOVEMENT_COMPLEXDataTable
 
     Private tableMOVEMENT_COMPLEX_DEDUCT As MOVEMENT_COMPLEX_DEDUCTDataTable
 
-    Private tableMOVEMENT_COMPLEX As MOVEMENT_COMPLEXDataTable
+    Private relationFK_MOVEMENT_NORMAL_MOVEMENT_ADD As Global.System.Data.DataRelation
+
+    Private relationFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT As Global.System.Data.DataRelation
+
+    Private relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD As Global.System.Data.DataRelation
+
+    Private relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT As Global.System.Data.DataRelation
 
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
 
@@ -78,11 +86,11 @@ Partial Public Class dsMovement
             If (Not (ds.Tables("MOVEMENT_COMPLEX_ADD")) Is Nothing) Then
                 MyBase.Tables.Add(New MOVEMENT_COMPLEX_ADDDataTable(ds.Tables("MOVEMENT_COMPLEX_ADD")))
             End If
-            If (Not (ds.Tables("MOVEMENT_COMPLEX_DEDUCT")) Is Nothing) Then
-                MyBase.Tables.Add(New MOVEMENT_COMPLEX_DEDUCTDataTable(ds.Tables("MOVEMENT_COMPLEX_DEDUCT")))
-            End If
             If (Not (ds.Tables("MOVEMENT_COMPLEX")) Is Nothing) Then
                 MyBase.Tables.Add(New MOVEMENT_COMPLEXDataTable(ds.Tables("MOVEMENT_COMPLEX")))
+            End If
+            If (Not (ds.Tables("MOVEMENT_COMPLEX_DEDUCT")) Is Nothing) Then
+                MyBase.Tables.Add(New MOVEMENT_COMPLEX_DEDUCTDataTable(ds.Tables("MOVEMENT_COMPLEX_DEDUCT")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -145,9 +153,9 @@ Partial Public Class dsMovement
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
      Global.System.ComponentModel.Browsable(False), _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)> _
-    Public ReadOnly Property MOVEMENT_COMPLEX_DEDUCT() As MOVEMENT_COMPLEX_DEDUCTDataTable
+    Public ReadOnly Property MOVEMENT_COMPLEX() As MOVEMENT_COMPLEXDataTable
         Get
-            Return Me.tableMOVEMENT_COMPLEX_DEDUCT
+            Return Me.tableMOVEMENT_COMPLEX
         End Get
     End Property
 
@@ -155,9 +163,9 @@ Partial Public Class dsMovement
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
      Global.System.ComponentModel.Browsable(False), _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)> _
-    Public ReadOnly Property MOVEMENT_COMPLEX() As MOVEMENT_COMPLEXDataTable
+    Public ReadOnly Property MOVEMENT_COMPLEX_DEDUCT() As MOVEMENT_COMPLEX_DEDUCTDataTable
         Get
-            Return Me.tableMOVEMENT_COMPLEX
+            Return Me.tableMOVEMENT_COMPLEX_DEDUCT
         End Get
     End Property
 
@@ -240,11 +248,11 @@ Partial Public Class dsMovement
             If (Not (ds.Tables("MOVEMENT_COMPLEX_ADD")) Is Nothing) Then
                 MyBase.Tables.Add(New MOVEMENT_COMPLEX_ADDDataTable(ds.Tables("MOVEMENT_COMPLEX_ADD")))
             End If
-            If (Not (ds.Tables("MOVEMENT_COMPLEX_DEDUCT")) Is Nothing) Then
-                MyBase.Tables.Add(New MOVEMENT_COMPLEX_DEDUCTDataTable(ds.Tables("MOVEMENT_COMPLEX_DEDUCT")))
-            End If
             If (Not (ds.Tables("MOVEMENT_COMPLEX")) Is Nothing) Then
                 MyBase.Tables.Add(New MOVEMENT_COMPLEXDataTable(ds.Tables("MOVEMENT_COMPLEX")))
+            End If
+            If (Not (ds.Tables("MOVEMENT_COMPLEX_DEDUCT")) Is Nothing) Then
+                MyBase.Tables.Add(New MOVEMENT_COMPLEX_DEDUCTDataTable(ds.Tables("MOVEMENT_COMPLEX_DEDUCT")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -302,18 +310,22 @@ Partial Public Class dsMovement
                 Me.tableMOVEMENT_COMPLEX_ADD.InitVars()
             End If
         End If
-        Me.tableMOVEMENT_COMPLEX_DEDUCT = CType(MyBase.Tables("MOVEMENT_COMPLEX_DEDUCT"), MOVEMENT_COMPLEX_DEDUCTDataTable)
-        If (initTable = True) Then
-            If (Not (Me.tableMOVEMENT_COMPLEX_DEDUCT) Is Nothing) Then
-                Me.tableMOVEMENT_COMPLEX_DEDUCT.InitVars()
-            End If
-        End If
         Me.tableMOVEMENT_COMPLEX = CType(MyBase.Tables("MOVEMENT_COMPLEX"), MOVEMENT_COMPLEXDataTable)
         If (initTable = True) Then
             If (Not (Me.tableMOVEMENT_COMPLEX) Is Nothing) Then
                 Me.tableMOVEMENT_COMPLEX.InitVars()
             End If
         End If
+        Me.tableMOVEMENT_COMPLEX_DEDUCT = CType(MyBase.Tables("MOVEMENT_COMPLEX_DEDUCT"), MOVEMENT_COMPLEX_DEDUCTDataTable)
+        If (initTable = True) Then
+            If (Not (Me.tableMOVEMENT_COMPLEX_DEDUCT) Is Nothing) Then
+                Me.tableMOVEMENT_COMPLEX_DEDUCT.InitVars()
+            End If
+        End If
+        Me.relationFK_MOVEMENT_NORMAL_MOVEMENT_ADD = Me.Relations("FK_MOVEMENT_NORMAL_MOVEMENT_ADD")
+        Me.relationFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT = Me.Relations("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT")
+        Me.relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD = Me.Relations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD")
+        Me.relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT = Me.Relations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT")
     End Sub
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -332,10 +344,39 @@ Partial Public Class dsMovement
         MyBase.Tables.Add(Me.tableMOVEMENT_NORMAL)
         Me.tableMOVEMENT_COMPLEX_ADD = New MOVEMENT_COMPLEX_ADDDataTable()
         MyBase.Tables.Add(Me.tableMOVEMENT_COMPLEX_ADD)
-        Me.tableMOVEMENT_COMPLEX_DEDUCT = New MOVEMENT_COMPLEX_DEDUCTDataTable()
-        MyBase.Tables.Add(Me.tableMOVEMENT_COMPLEX_DEDUCT)
         Me.tableMOVEMENT_COMPLEX = New MOVEMENT_COMPLEXDataTable()
         MyBase.Tables.Add(Me.tableMOVEMENT_COMPLEX)
+        Me.tableMOVEMENT_COMPLEX_DEDUCT = New MOVEMENT_COMPLEX_DEDUCTDataTable()
+        MyBase.Tables.Add(Me.tableMOVEMENT_COMPLEX_DEDUCT)
+        Dim fkc As Global.System.Data.ForeignKeyConstraint
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_MOVEMENT_NORMAL_MOVEMENT_ADD", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_NORMAL.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_ADD.MM_PARENTIDColumn})
+        Me.tableMOVEMENT_ADD.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_NORMAL.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_DEDUCT.MM_PARENTIDColumn})
+        Me.tableMOVEMENT_DEDUCT.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX_ADD.MM_PARENTIDColumn})
+        Me.tableMOVEMENT_COMPLEX_ADD.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn})
+        Me.tableMOVEMENT_COMPLEX_DEDUCT.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        Me.relationFK_MOVEMENT_NORMAL_MOVEMENT_ADD = New Global.System.Data.DataRelation("FK_MOVEMENT_NORMAL_MOVEMENT_ADD", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_NORMAL.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_ADD.MM_PARENTIDColumn}, False)
+        Me.Relations.Add(Me.relationFK_MOVEMENT_NORMAL_MOVEMENT_ADD)
+        Me.relationFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT = New Global.System.Data.DataRelation("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_NORMAL.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_DEDUCT.MM_PARENTIDColumn}, False)
+        Me.Relations.Add(Me.relationFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT)
+        Me.relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD = New Global.System.Data.DataRelation("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX_ADD.MM_PARENTIDColumn}, False)
+        Me.Relations.Add(Me.relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD)
+        Me.relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT = New Global.System.Data.DataRelation("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT", New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX.MM_IDColumn}, New Global.System.Data.DataColumn() {Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn}, False)
+        Me.Relations.Add(Me.relationFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT)
     End Sub
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -364,13 +405,13 @@ Partial Public Class dsMovement
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Private Function ShouldSerializeMOVEMENT_COMPLEX_DEDUCT() As Boolean
+    Private Function ShouldSerializeMOVEMENT_COMPLEX() As Boolean
         Return False
     End Function
 
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Private Function ShouldSerializeMOVEMENT_COMPLEX() As Boolean
+    Private Function ShouldSerializeMOVEMENT_COMPLEX_DEDUCT() As Boolean
         Return False
     End Function
 
@@ -445,10 +486,10 @@ Partial Public Class dsMovement
     Public Delegate Sub MOVEMENT_COMPLEX_ADDRowChangeEventHandler(ByVal sender As Object, ByVal e As MOVEMENT_COMPLEX_ADDRowChangeEvent)
 
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Delegate Sub MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler(ByVal sender As Object, ByVal e As MOVEMENT_COMPLEX_DEDUCTRowChangeEvent)
+    Public Delegate Sub MOVEMENT_COMPLEXRowChangeEventHandler(ByVal sender As Object, ByVal e As MOVEMENT_COMPLEXRowChangeEvent)
 
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Delegate Sub MOVEMENT_COMPLEXRowChangeEventHandler(ByVal sender As Object, ByVal e As MOVEMENT_COMPLEXRowChangeEvent)
+    Public Delegate Sub MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler(ByVal sender As Object, ByVal e As MOVEMENT_COMPLEX_DEDUCTRowChangeEvent)
 
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -469,6 +510,8 @@ Partial Public Class dsMovement
         Private columnMM_PARENTID As Global.System.Data.DataColumn
 
         Private columnMM_Sequence As Global.System.Data.DataColumn
+
+        Private columnMM_ADDBACK_AMOUNT As Global.System.Data.DataColumn
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
@@ -554,6 +597,14 @@ Partial Public Class dsMovement
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_ADDBACK_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_ADDBACK_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -590,9 +641,12 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddMOVEMENT_ADDRow(ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_AddBack As Boolean, ByVal MM_PARENTID As Short) As MOVEMENT_ADDRow
+        Public Overloads Function AddMOVEMENT_ADDRow(ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_AddBack As Boolean, ByVal parentMOVEMENT_NORMALRowByFK_MOVEMENT_NORMAL_MOVEMENT_ADD As MOVEMENT_NORMALRow, ByVal MM_ADDBACK_AMOUNT As Decimal) As MOVEMENT_ADDRow
             Dim rowMOVEMENT_ADDRow As MOVEMENT_ADDRow = CType(Me.NewRow, MOVEMENT_ADDRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, MM_Description, MM_Amount, MM_AddBack, MM_PARENTID, Nothing}
+            Dim columnValuesArray() As Object = New Object() {Nothing, MM_Description, MM_Amount, MM_AddBack, Nothing, Nothing, MM_ADDBACK_AMOUNT}
+            If (Not (parentMOVEMENT_NORMALRowByFK_MOVEMENT_NORMAL_MOVEMENT_ADD) Is Nothing) Then
+                columnValuesArray(4) = parentMOVEMENT_NORMALRowByFK_MOVEMENT_NORMAL_MOVEMENT_ADD(0)
+            End If
             rowMOVEMENT_ADDRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowMOVEMENT_ADDRow)
             Return rowMOVEMENT_ADDRow
@@ -621,6 +675,7 @@ Partial Public Class dsMovement
             Me.columnMM_AddBack = MyBase.Columns("MM_AddBack")
             Me.columnMM_PARENTID = MyBase.Columns("MM_PARENTID")
             Me.columnMM_Sequence = MyBase.Columns("MM_Sequence")
+            Me.columnMM_ADDBACK_AMOUNT = MyBase.Columns("MM_ADDBACK_AMOUNT")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -634,10 +689,12 @@ Partial Public Class dsMovement
             MyBase.Columns.Add(Me.columnMM_Amount)
             Me.columnMM_AddBack = New Global.System.Data.DataColumn("MM_AddBack", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_AddBack)
-            Me.columnMM_PARENTID = New Global.System.Data.DataColumn("MM_PARENTID", GetType(Short), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnMM_PARENTID = New Global.System.Data.DataColumn("MM_PARENTID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_PARENTID)
             Me.columnMM_Sequence = New Global.System.Data.DataColumn("MM_Sequence", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_Sequence)
+            Me.columnMM_ADDBACK_AMOUNT = New Global.System.Data.DataColumn("MM_ADDBACK_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_ADDBACK_AMOUNT)
             Me.columnMM_ID.AutoIncrement = True
             Me.columnMM_ID.AllowDBNull = False
             Me.columnMM_ID.ReadOnly = True
@@ -792,6 +849,8 @@ Partial Public Class dsMovement
 
         Private columnMM_Sequence As Global.System.Data.DataColumn
 
+        Private columnMM_DEDUCT_AMOUNT As Global.System.Data.DataColumn
+
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub New()
@@ -876,6 +935,14 @@ Partial Public Class dsMovement
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_DEDUCT_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_DEDUCT_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -912,9 +979,12 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddMOVEMENT_DEDUCTRow(ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_Deduct As Boolean, ByVal MM_PARENTID As Short) As MOVEMENT_DEDUCTRow
+        Public Overloads Function AddMOVEMENT_DEDUCTRow(ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_Deduct As Boolean, ByVal parentMOVEMENT_NORMALRowByFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT As MOVEMENT_NORMALRow, ByVal MM_DEDUCT_AMOUNT As Decimal) As MOVEMENT_DEDUCTRow
             Dim rowMOVEMENT_DEDUCTRow As MOVEMENT_DEDUCTRow = CType(Me.NewRow, MOVEMENT_DEDUCTRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, MM_Description, MM_Amount, MM_Deduct, MM_PARENTID, Nothing}
+            Dim columnValuesArray() As Object = New Object() {Nothing, MM_Description, MM_Amount, MM_Deduct, Nothing, Nothing, MM_DEDUCT_AMOUNT}
+            If (Not (parentMOVEMENT_NORMALRowByFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT) Is Nothing) Then
+                columnValuesArray(4) = parentMOVEMENT_NORMALRowByFK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT(0)
+            End If
             rowMOVEMENT_DEDUCTRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowMOVEMENT_DEDUCTRow)
             Return rowMOVEMENT_DEDUCTRow
@@ -943,6 +1013,7 @@ Partial Public Class dsMovement
             Me.columnMM_Deduct = MyBase.Columns("MM_Deduct")
             Me.columnMM_PARENTID = MyBase.Columns("MM_PARENTID")
             Me.columnMM_Sequence = MyBase.Columns("MM_Sequence")
+            Me.columnMM_DEDUCT_AMOUNT = MyBase.Columns("MM_DEDUCT_AMOUNT")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -956,10 +1027,12 @@ Partial Public Class dsMovement
             MyBase.Columns.Add(Me.columnMM_Amount)
             Me.columnMM_Deduct = New Global.System.Data.DataColumn("MM_Deduct", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_Deduct)
-            Me.columnMM_PARENTID = New Global.System.Data.DataColumn("MM_PARENTID", GetType(Short), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnMM_PARENTID = New Global.System.Data.DataColumn("MM_PARENTID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_PARENTID)
             Me.columnMM_Sequence = New Global.System.Data.DataColumn("MM_Sequence", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_Sequence)
+            Me.columnMM_DEDUCT_AMOUNT = New Global.System.Data.DataColumn("MM_DEDUCT_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_DEDUCT_AMOUNT)
             Me.columnMM_ID.AutoIncrement = True
             Me.columnMM_ID.AllowDBNull = False
             Me.columnMM_ID.ReadOnly = True
@@ -1131,6 +1204,8 @@ Partial Public Class dsMovement
 
         Private columnModifiedDateTime As Global.System.Data.DataColumn
 
+        Private columnMM_ADD_DEDUCT_AMOUNT As Global.System.Data.DataColumn
+
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub New()
@@ -1279,6 +1354,14 @@ Partial Public Class dsMovement
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_ADD_DEDUCT_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_ADD_DEDUCT_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -1315,9 +1398,9 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddMOVEMENT_NORMALRow(ByVal MM_REFNO As String, ByVal MM_YA As String, ByVal MM_TITLE As String, ByVal MM_PERIOD_ENDED As Date, ByVal MM_YEAR_ENDED As Date, ByVal MM_BALANCE_START As Date, ByVal MM_BALANCE_END As Date, ByVal MM_AMOUNT_START As Decimal, ByVal MM_AMOUNT_END As Decimal, ByVal MM_NOTE_START As String, ByVal MM_NOTE_END As String, ByVal ModifiedBy As String, ByVal ModifiedDateTime As Date) As MOVEMENT_NORMALRow
+        Public Overloads Function AddMOVEMENT_NORMALRow(ByVal MM_REFNO As String, ByVal MM_YA As String, ByVal MM_TITLE As String, ByVal MM_PERIOD_ENDED As Date, ByVal MM_YEAR_ENDED As Date, ByVal MM_BALANCE_START As Date, ByVal MM_BALANCE_END As Date, ByVal MM_AMOUNT_START As Decimal, ByVal MM_AMOUNT_END As Decimal, ByVal MM_NOTE_START As String, ByVal MM_NOTE_END As String, ByVal ModifiedBy As String, ByVal ModifiedDateTime As Date, ByVal MM_ADD_DEDUCT_AMOUNT As Decimal) As MOVEMENT_NORMALRow
             Dim rowMOVEMENT_NORMALRow As MOVEMENT_NORMALRow = CType(Me.NewRow, MOVEMENT_NORMALRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, MM_REFNO, MM_YA, MM_TITLE, MM_PERIOD_ENDED, MM_YEAR_ENDED, MM_BALANCE_START, MM_BALANCE_END, MM_AMOUNT_START, MM_AMOUNT_END, MM_NOTE_START, MM_NOTE_END, ModifiedBy, ModifiedDateTime}
+            Dim columnValuesArray() As Object = New Object() {Nothing, MM_REFNO, MM_YA, MM_TITLE, MM_PERIOD_ENDED, MM_YEAR_ENDED, MM_BALANCE_START, MM_BALANCE_END, MM_AMOUNT_START, MM_AMOUNT_END, MM_NOTE_START, MM_NOTE_END, ModifiedBy, ModifiedDateTime, MM_ADD_DEDUCT_AMOUNT}
             rowMOVEMENT_NORMALRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowMOVEMENT_NORMALRow)
             Return rowMOVEMENT_NORMALRow
@@ -1354,6 +1437,7 @@ Partial Public Class dsMovement
             Me.columnMM_NOTE_END = MyBase.Columns("MM_NOTE_END")
             Me.columnModifiedBy = MyBase.Columns("ModifiedBy")
             Me.columnModifiedDateTime = MyBase.Columns("ModifiedDateTime")
+            Me.columnMM_ADD_DEDUCT_AMOUNT = MyBase.Columns("MM_ADD_DEDUCT_AMOUNT")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1387,11 +1471,15 @@ Partial Public Class dsMovement
             MyBase.Columns.Add(Me.columnModifiedBy)
             Me.columnModifiedDateTime = New Global.System.Data.DataColumn("ModifiedDateTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnModifiedDateTime)
+            Me.columnMM_ADD_DEDUCT_AMOUNT = New Global.System.Data.DataColumn("MM_ADD_DEDUCT_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_ADD_DEDUCT_AMOUNT)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnMM_ID}, False))
             Me.columnMM_ID.AutoIncrement = True
             Me.columnMM_ID.AutoIncrementSeed = -1
             Me.columnMM_ID.AutoIncrementStep = -1
             Me.columnMM_ID.AllowDBNull = False
             Me.columnMM_ID.ReadOnly = True
+            Me.columnMM_ID.Unique = True
             Me.columnMM_REFNO.MaxLength = 20
             Me.columnMM_YA.MaxLength = 5
             Me.columnMM_TITLE.MaxLength = 250
@@ -1560,6 +1648,8 @@ Partial Public Class dsMovement
 
         Private columnMM_NOTE As Global.System.Data.DataColumn
 
+        Private columnMM_ADDBACK_AMOUNT As Global.System.Data.DataColumn
+
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub New()
@@ -1692,6 +1782,14 @@ Partial Public Class dsMovement
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_ADDBACK_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_ADDBACK_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -1728,9 +1826,12 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddMOVEMENT_COMPLEX_ADDRow(ByVal MM_PARENTID As Integer, ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_Sequence As Integer, ByVal MM_GENERAL As Decimal, ByVal MM_SPECIFIC_ALLOWABLE As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE As Decimal, ByVal MM_GENERAL_ADDBACK As Boolean, ByVal MM_SPECIFIC_ALLOWABLE_ADDBACK As Boolean, ByVal MM_SPECIFIC_NONALLOWABLE_ADDBACK As Boolean, ByVal MM_NOTE As String) As MOVEMENT_COMPLEX_ADDRow
+        Public Overloads Function AddMOVEMENT_COMPLEX_ADDRow(ByVal parentMOVEMENT_COMPLEXRowByFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD As MOVEMENT_COMPLEXRow, ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_Sequence As Integer, ByVal MM_GENERAL As Decimal, ByVal MM_SPECIFIC_ALLOWABLE As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE As Decimal, ByVal MM_GENERAL_ADDBACK As Boolean, ByVal MM_SPECIFIC_ALLOWABLE_ADDBACK As Boolean, ByVal MM_SPECIFIC_NONALLOWABLE_ADDBACK As Boolean, ByVal MM_NOTE As String, ByVal MM_ADDBACK_AMOUNT As Decimal) As MOVEMENT_COMPLEX_ADDRow
             Dim rowMOVEMENT_COMPLEX_ADDRow As MOVEMENT_COMPLEX_ADDRow = CType(Me.NewRow, MOVEMENT_COMPLEX_ADDRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, MM_PARENTID, MM_Description, MM_Amount, MM_Sequence, MM_GENERAL, MM_SPECIFIC_ALLOWABLE, MM_SPECIFIC_NONALLOWABLE, MM_GENERAL_ADDBACK, MM_SPECIFIC_ALLOWABLE_ADDBACK, MM_SPECIFIC_NONALLOWABLE_ADDBACK, MM_NOTE}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Nothing, MM_Description, MM_Amount, MM_Sequence, MM_GENERAL, MM_SPECIFIC_ALLOWABLE, MM_SPECIFIC_NONALLOWABLE, MM_GENERAL_ADDBACK, MM_SPECIFIC_ALLOWABLE_ADDBACK, MM_SPECIFIC_NONALLOWABLE_ADDBACK, MM_NOTE, MM_ADDBACK_AMOUNT}
+            If (Not (parentMOVEMENT_COMPLEXRowByFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD) Is Nothing) Then
+                columnValuesArray(1) = parentMOVEMENT_COMPLEXRowByFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD(0)
+            End If
             rowMOVEMENT_COMPLEX_ADDRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowMOVEMENT_COMPLEX_ADDRow)
             Return rowMOVEMENT_COMPLEX_ADDRow
@@ -1765,6 +1866,7 @@ Partial Public Class dsMovement
             Me.columnMM_SPECIFIC_ALLOWABLE_ADDBACK = MyBase.Columns("MM_SPECIFIC_ALLOWABLE_ADDBACK")
             Me.columnMM_SPECIFIC_NONALLOWABLE_ADDBACK = MyBase.Columns("MM_SPECIFIC_NONALLOWABLE_ADDBACK")
             Me.columnMM_NOTE = MyBase.Columns("MM_NOTE")
+            Me.columnMM_ADDBACK_AMOUNT = MyBase.Columns("MM_ADDBACK_AMOUNT")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1794,6 +1896,8 @@ Partial Public Class dsMovement
             MyBase.Columns.Add(Me.columnMM_SPECIFIC_NONALLOWABLE_ADDBACK)
             Me.columnMM_NOTE = New Global.System.Data.DataColumn("MM_NOTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnMM_NOTE)
+            Me.columnMM_ADDBACK_AMOUNT = New Global.System.Data.DataColumn("MM_ADDBACK_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_ADDBACK_AMOUNT)
             Me.columnMM_ID.AutoIncrement = True
             Me.columnMM_ID.AllowDBNull = False
             Me.columnMM_ID.ReadOnly = True
@@ -1939,412 +2043,6 @@ Partial Public Class dsMovement
     '''</summary>
     <Global.System.Serializable(), _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
-    Partial Public Class MOVEMENT_COMPLEX_DEDUCTDataTable
-        Inherits Global.System.Data.TypedTableBase(Of MOVEMENT_COMPLEX_DEDUCTRow)
-
-        Private columnMM_ID As Global.System.Data.DataColumn
-
-        Private columnMM_PARENTID As Global.System.Data.DataColumn
-
-        Private columnMM_Description As Global.System.Data.DataColumn
-
-        Private columnMM_Amount As Global.System.Data.DataColumn
-
-        Private columnMM_Sequence As Global.System.Data.DataColumn
-
-        Private columnMM_GENERAL As Global.System.Data.DataColumn
-
-        Private columnMM_SPECIFIC_ALLOWABLE As Global.System.Data.DataColumn
-
-        Private columnMM_SPECIFIC_NONALLOWABLE As Global.System.Data.DataColumn
-
-        Private columnMM_GENERAL_DEDUCT As Global.System.Data.DataColumn
-
-        Private columnMM_SPECIFIC_ALLOWABLE_DEDUCT As Global.System.Data.DataColumn
-
-        Private columnMM_SPECIFIC_NONALLOWABLE_DEDUCT As Global.System.Data.DataColumn
-
-        Private columnMM_NOTE As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub New()
-            MyBase.New()
-            Me.TableName = "MOVEMENT_COMPLEX_DEDUCT"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
-            Me.TableName = table.TableName
-            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
-                Me.CaseSensitive = table.CaseSensitive
-            End If
-            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
-                Me.Locale = table.Locale
-            End If
-            If (table.Namespace <> table.DataSet.Namespace) Then
-                Me.Namespace = table.Namespace
-            End If
-            Me.Prefix = table.Prefix
-            Me.MinimumCapacity = table.MinimumCapacity
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-            MyBase.New(info, context)
-            Me.InitVars()
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_IDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_ID
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_PARENTIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_PARENTID
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_DescriptionColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_Description
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_AmountColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_Amount
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_SequenceColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_Sequence
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_GENERALColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_GENERAL
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_SPECIFIC_ALLOWABLEColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_SPECIFIC_ALLOWABLE
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_SPECIFIC_NONALLOWABLEColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_SPECIFIC_NONALLOWABLE
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_GENERAL_DEDUCTColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_GENERAL_DEDUCT
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_SPECIFIC_ALLOWABLE_DEDUCTColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property MM_NOTEColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMM_NOTE
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
-        Public ReadOnly Property Count() As Integer
-            Get
-                Return Me.Rows.Count
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As MOVEMENT_COMPLEX_DEDUCTRow
-            Get
-                Return CType(Me.Rows(index), MOVEMENT_COMPLEX_DEDUCTRow)
-            End Get
-        End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event MOVEMENT_COMPLEX_DEDUCTRowChanging As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event MOVEMENT_COMPLEX_DEDUCTRowChanged As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event MOVEMENT_COMPLEX_DEDUCTRowDeleting As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Event MOVEMENT_COMPLEX_DEDUCTRowDeleted As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Sub AddMOVEMENT_COMPLEX_DEDUCTRow(ByVal row As MOVEMENT_COMPLEX_DEDUCTRow)
-            Me.Rows.Add(row)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overloads Function AddMOVEMENT_COMPLEX_DEDUCTRow(ByVal MM_PARENTID As Integer, ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_Sequence As Integer, ByVal MM_GENERAL As Decimal, ByVal MM_SPECIFIC_ALLOWABLE As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE As Decimal, ByVal MM_GENERAL_DEDUCT As Boolean, ByVal MM_SPECIFIC_ALLOWABLE_DEDUCT As Boolean, ByVal MM_SPECIFIC_NONALLOWABLE_DEDUCT As Boolean, ByVal MM_NOTE As String) As MOVEMENT_COMPLEX_DEDUCTRow
-            Dim rowMOVEMENT_COMPLEX_DEDUCTRow As MOVEMENT_COMPLEX_DEDUCTRow = CType(Me.NewRow, MOVEMENT_COMPLEX_DEDUCTRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, MM_PARENTID, MM_Description, MM_Amount, MM_Sequence, MM_GENERAL, MM_SPECIFIC_ALLOWABLE, MM_SPECIFIC_NONALLOWABLE, MM_GENERAL_DEDUCT, MM_SPECIFIC_ALLOWABLE_DEDUCT, MM_SPECIFIC_NONALLOWABLE_DEDUCT, MM_NOTE}
-            rowMOVEMENT_COMPLEX_DEDUCTRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowMOVEMENT_COMPLEX_DEDUCTRow)
-            Return rowMOVEMENT_COMPLEX_DEDUCTRow
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As MOVEMENT_COMPLEX_DEDUCTDataTable = CType(MyBase.Clone, MOVEMENT_COMPLEX_DEDUCTDataTable)
-            cln.InitVars()
-            Return cln
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New MOVEMENT_COMPLEX_DEDUCTDataTable()
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Friend Sub InitVars()
-            Me.columnMM_ID = MyBase.Columns("MM_ID")
-            Me.columnMM_PARENTID = MyBase.Columns("MM_PARENTID")
-            Me.columnMM_Description = MyBase.Columns("MM_Description")
-            Me.columnMM_Amount = MyBase.Columns("MM_Amount")
-            Me.columnMM_Sequence = MyBase.Columns("MM_Sequence")
-            Me.columnMM_GENERAL = MyBase.Columns("MM_GENERAL")
-            Me.columnMM_SPECIFIC_ALLOWABLE = MyBase.Columns("MM_SPECIFIC_ALLOWABLE")
-            Me.columnMM_SPECIFIC_NONALLOWABLE = MyBase.Columns("MM_SPECIFIC_NONALLOWABLE")
-            Me.columnMM_GENERAL_DEDUCT = MyBase.Columns("MM_GENERAL_DEDUCT")
-            Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT = MyBase.Columns("MM_SPECIFIC_ALLOWABLE_DEDUCT")
-            Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT = MyBase.Columns("MM_SPECIFIC_NONALLOWABLE_DEDUCT")
-            Me.columnMM_NOTE = MyBase.Columns("MM_NOTE")
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Private Sub InitClass()
-            Me.columnMM_ID = New Global.System.Data.DataColumn("MM_ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_ID)
-            Me.columnMM_PARENTID = New Global.System.Data.DataColumn("MM_PARENTID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_PARENTID)
-            Me.columnMM_Description = New Global.System.Data.DataColumn("MM_Description", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_Description)
-            Me.columnMM_Amount = New Global.System.Data.DataColumn("MM_Amount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_Amount)
-            Me.columnMM_Sequence = New Global.System.Data.DataColumn("MM_Sequence", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_Sequence)
-            Me.columnMM_GENERAL = New Global.System.Data.DataColumn("MM_GENERAL", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_GENERAL)
-            Me.columnMM_SPECIFIC_ALLOWABLE = New Global.System.Data.DataColumn("MM_SPECIFIC_ALLOWABLE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_SPECIFIC_ALLOWABLE)
-            Me.columnMM_SPECIFIC_NONALLOWABLE = New Global.System.Data.DataColumn("MM_SPECIFIC_NONALLOWABLE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_SPECIFIC_NONALLOWABLE)
-            Me.columnMM_GENERAL_DEDUCT = New Global.System.Data.DataColumn("MM_GENERAL_DEDUCT", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_GENERAL_DEDUCT)
-            Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT = New Global.System.Data.DataColumn("MM_SPECIFIC_ALLOWABLE_DEDUCT", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT)
-            Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT = New Global.System.Data.DataColumn("MM_SPECIFIC_NONALLOWABLE_DEDUCT", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT)
-            Me.columnMM_NOTE = New Global.System.Data.DataColumn("MM_NOTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMM_NOTE)
-            Me.columnMM_ID.AutoIncrement = True
-            Me.columnMM_ID.AllowDBNull = False
-            Me.columnMM_ID.ReadOnly = True
-            Me.columnMM_Description.MaxLength = 3000
-            Me.columnMM_GENERAL.DefaultValue = CType(0D, Decimal)
-            Me.columnMM_SPECIFIC_ALLOWABLE.DefaultValue = CType(0D, Decimal)
-            Me.columnMM_SPECIFIC_NONALLOWABLE.DefaultValue = CType(0D, Decimal)
-            Me.columnMM_GENERAL_DEDUCT.DefaultValue = CType(False, Boolean)
-            Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT.DefaultValue = CType(False, Boolean)
-            Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT.DefaultValue = CType(False, Boolean)
-            Me.columnMM_NOTE.MaxLength = 3000
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function NewMOVEMENT_COMPLEX_DEDUCTRow() As MOVEMENT_COMPLEX_DEDUCTRow
-            Return CType(Me.NewRow, MOVEMENT_COMPLEX_DEDUCTRow)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New MOVEMENT_COMPLEX_DEDUCTRow(builder)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(MOVEMENT_COMPLEX_DEDUCTRow)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanged(e)
-            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowChangedEvent) Is Nothing) Then
-                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowChanged(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanging(e)
-            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowChangingEvent) Is Nothing) Then
-                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowChanging(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleted(e)
-            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowDeletedEvent) Is Nothing) Then
-                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowDeleted(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleting(e)
-            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowDeletingEvent) Is Nothing) Then
-                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowDeleting(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
-            End If
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub RemoveMOVEMENT_COMPLEX_DEDUCTRow(ByVal row As MOVEMENT_COMPLEX_DEDUCTRow)
-            Me.Rows.Remove(row)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
-            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As dsMovement = New dsMovement()
-            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
-            any1.MinOccurs = New Decimal(0)
-            any1.MaxOccurs = Decimal.MaxValue
-            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any1)
-            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
-            any2.MinOccurs = New Decimal(1)
-            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any2)
-            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute1.Name = "namespace"
-            attribute1.FixedValue = ds.Namespace
-            type.Attributes.Add(attribute1)
-            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "MOVEMENT_COMPLEX_DEDUCTDataTable"
-            type.Attributes.Add(attribute2)
-            type.Particle = sequence
-            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
-            If xs.Contains(dsSchema.TargetNamespace) Then
-                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
-                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
-                    dsSchema.Write(s1)
-                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
-                    Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
-                        s2.SetLength(0)
-                        schema.Write(s2)
-                        If (s1.Length = s2.Length) Then
-                            s1.Position = 0
-                            s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
-                                        AndAlso (s1.ReadByte = s2.ReadByte))
-
-
-                            Loop
-                            If (s1.Position = s1.Length) Then
-                                Return type
-                            End If
-                        End If
-
-                    Loop
-                Finally
-                    If (Not (s1) Is Nothing) Then
-                        s1.Close()
-                    End If
-                    If (Not (s2) Is Nothing) Then
-                        s2.Close()
-                    End If
-                End Try
-            End If
-            xs.Add(dsSchema)
-            Return type
-        End Function
-    End Class
-
-    '''<summary>
-    '''Represents the strongly named DataTable class.
-    '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
     Partial Public Class MOVEMENT_COMPLEXDataTable
         Inherits Global.System.Data.TypedTableBase(Of MOVEMENT_COMPLEXRow)
 
@@ -2383,6 +2081,8 @@ Partial Public Class dsMovement
         Private columnModifiedBy As Global.System.Data.DataColumn
 
         Private columnModifiedDateTime As Global.System.Data.DataColumn
+
+        Private columnMM_ADD_DEDUCT_AMOUNT As Global.System.Data.DataColumn
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
@@ -2564,6 +2264,14 @@ Partial Public Class dsMovement
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_ADD_DEDUCT_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_ADD_DEDUCT_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -2617,9 +2325,10 @@ Partial Public Class dsMovement
                     ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, _
                     ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, _
                     ByVal ModifiedBy As String, _
-                    ByVal ModifiedDateTime As Date) As MOVEMENT_COMPLEXRow
+                    ByVal ModifiedDateTime As Date, _
+                    ByVal MM_ADD_DEDUCT_AMOUNT As Decimal) As MOVEMENT_COMPLEXRow
             Dim rowMOVEMENT_COMPLEXRow As MOVEMENT_COMPLEXRow = CType(Me.NewRow, MOVEMENT_COMPLEXRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, MM_REFNO, MM_YA, MM_TITLE, MM_PERIOD_ENDED, MM_YEAR_ENDED, MM_BALANCE_START, MM_BALANCE_END, MM_GENERAL_START, MM_SPECIFIC_ALLOWABLE_START, MM_SPECIFIC_NONALLOWABLE_START, MM_NOTE_START, MM_NOTE_END, MM_GENERAL_END, MM_SPECIFIC_ALLOWABLE_END, MM_SPECIFIC_NONALLOWABLE_END, ModifiedBy, ModifiedDateTime}
+            Dim columnValuesArray() As Object = New Object() {Nothing, MM_REFNO, MM_YA, MM_TITLE, MM_PERIOD_ENDED, MM_YEAR_ENDED, MM_BALANCE_START, MM_BALANCE_END, MM_GENERAL_START, MM_SPECIFIC_ALLOWABLE_START, MM_SPECIFIC_NONALLOWABLE_START, MM_NOTE_START, MM_NOTE_END, MM_GENERAL_END, MM_SPECIFIC_ALLOWABLE_END, MM_SPECIFIC_NONALLOWABLE_END, ModifiedBy, ModifiedDateTime, MM_ADD_DEDUCT_AMOUNT}
             rowMOVEMENT_COMPLEXRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowMOVEMENT_COMPLEXRow)
             Return rowMOVEMENT_COMPLEXRow
@@ -2660,6 +2369,7 @@ Partial Public Class dsMovement
             Me.columnMM_SPECIFIC_NONALLOWABLE_END = MyBase.Columns("MM_SPECIFIC_NONALLOWABLE_END")
             Me.columnModifiedBy = MyBase.Columns("ModifiedBy")
             Me.columnModifiedDateTime = MyBase.Columns("ModifiedDateTime")
+            Me.columnMM_ADD_DEDUCT_AMOUNT = MyBase.Columns("MM_ADD_DEDUCT_AMOUNT")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -2701,11 +2411,15 @@ Partial Public Class dsMovement
             MyBase.Columns.Add(Me.columnModifiedBy)
             Me.columnModifiedDateTime = New Global.System.Data.DataColumn("ModifiedDateTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnModifiedDateTime)
+            Me.columnMM_ADD_DEDUCT_AMOUNT = New Global.System.Data.DataColumn("MM_ADD_DEDUCT_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_ADD_DEDUCT_AMOUNT)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnMM_ID}, False))
             Me.columnMM_ID.AutoIncrement = True
             Me.columnMM_ID.AutoIncrementSeed = -1
             Me.columnMM_ID.AutoIncrementStep = -1
             Me.columnMM_ID.AllowDBNull = False
             Me.columnMM_ID.ReadOnly = True
+            Me.columnMM_ID.Unique = True
             Me.columnMM_REFNO.MaxLength = 20
             Me.columnMM_YA.MaxLength = 5
             Me.columnMM_TITLE.MaxLength = 250
@@ -2843,6 +2557,428 @@ Partial Public Class dsMovement
     End Class
 
     '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(), _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    Partial Public Class MOVEMENT_COMPLEX_DEDUCTDataTable
+        Inherits Global.System.Data.TypedTableBase(Of MOVEMENT_COMPLEX_DEDUCTRow)
+
+        Private columnMM_ID As Global.System.Data.DataColumn
+
+        Private columnMM_PARENTID As Global.System.Data.DataColumn
+
+        Private columnMM_Description As Global.System.Data.DataColumn
+
+        Private columnMM_Amount As Global.System.Data.DataColumn
+
+        Private columnMM_Sequence As Global.System.Data.DataColumn
+
+        Private columnMM_GENERAL As Global.System.Data.DataColumn
+
+        Private columnMM_SPECIFIC_ALLOWABLE As Global.System.Data.DataColumn
+
+        Private columnMM_SPECIFIC_NONALLOWABLE As Global.System.Data.DataColumn
+
+        Private columnMM_GENERAL_DEDUCT As Global.System.Data.DataColumn
+
+        Private columnMM_SPECIFIC_ALLOWABLE_DEDUCT As Global.System.Data.DataColumn
+
+        Private columnMM_SPECIFIC_NONALLOWABLE_DEDUCT As Global.System.Data.DataColumn
+
+        Private columnMM_NOTE As Global.System.Data.DataColumn
+
+        Private columnMM_DEDUCT_AMOUNT As Global.System.Data.DataColumn
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New()
+            MyBase.New()
+            Me.TableName = "MOVEMENT_COMPLEX_DEDUCT"
+            Me.BeginInit()
+            Me.InitClass()
+            Me.EndInit()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New()
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars()
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_ID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_PARENTIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_PARENTID
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_DescriptionColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_Description
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_AmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_Amount
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_SequenceColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_Sequence
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_GENERALColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_GENERAL
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_SPECIFIC_ALLOWABLEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_SPECIFIC_ALLOWABLE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_SPECIFIC_NONALLOWABLEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_SPECIFIC_NONALLOWABLE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_GENERAL_DEDUCTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_GENERAL_DEDUCT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_SPECIFIC_ALLOWABLE_DEDUCTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_NOTEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_NOTE
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property MM_DEDUCT_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMM_DEDUCT_AMOUNT
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
+         Global.System.ComponentModel.Browsable(False)> _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Default Public ReadOnly Property Item(ByVal index As Integer) As MOVEMENT_COMPLEX_DEDUCTRow
+            Get
+                Return CType(Me.Rows(index), MOVEMENT_COMPLEX_DEDUCTRow)
+            End Get
+        End Property
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MOVEMENT_COMPLEX_DEDUCTRowChanging As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MOVEMENT_COMPLEX_DEDUCTRowChanged As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MOVEMENT_COMPLEX_DEDUCTRowDeleting As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
+
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Event MOVEMENT_COMPLEX_DEDUCTRowDeleted As MOVEMENT_COMPLEX_DEDUCTRowChangeEventHandler
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Sub AddMOVEMENT_COMPLEX_DEDUCTRow(ByVal row As MOVEMENT_COMPLEX_DEDUCTRow)
+            Me.Rows.Add(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overloads Function AddMOVEMENT_COMPLEX_DEDUCTRow(ByVal parentMOVEMENT_COMPLEXRowByFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT As MOVEMENT_COMPLEXRow, ByVal MM_Description As String, ByVal MM_Amount As Decimal, ByVal MM_Sequence As Integer, ByVal MM_GENERAL As Decimal, ByVal MM_SPECIFIC_ALLOWABLE As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE As Decimal, ByVal MM_GENERAL_DEDUCT As Boolean, ByVal MM_SPECIFIC_ALLOWABLE_DEDUCT As Boolean, ByVal MM_SPECIFIC_NONALLOWABLE_DEDUCT As Boolean, ByVal MM_NOTE As String, ByVal MM_DEDUCT_AMOUNT As Decimal) As MOVEMENT_COMPLEX_DEDUCTRow
+            Dim rowMOVEMENT_COMPLEX_DEDUCTRow As MOVEMENT_COMPLEX_DEDUCTRow = CType(Me.NewRow, MOVEMENT_COMPLEX_DEDUCTRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, Nothing, MM_Description, MM_Amount, MM_Sequence, MM_GENERAL, MM_SPECIFIC_ALLOWABLE, MM_SPECIFIC_NONALLOWABLE, MM_GENERAL_DEDUCT, MM_SPECIFIC_ALLOWABLE_DEDUCT, MM_SPECIFIC_NONALLOWABLE_DEDUCT, MM_NOTE, MM_DEDUCT_AMOUNT}
+            If (Not (parentMOVEMENT_COMPLEXRowByFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT) Is Nothing) Then
+                columnValuesArray(1) = parentMOVEMENT_COMPLEXRowByFK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT(0)
+            End If
+            rowMOVEMENT_COMPLEX_DEDUCTRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowMOVEMENT_COMPLEX_DEDUCTRow)
+            Return rowMOVEMENT_COMPLEX_DEDUCTRow
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As MOVEMENT_COMPLEX_DEDUCTDataTable = CType(MyBase.Clone, MOVEMENT_COMPLEX_DEDUCTDataTable)
+            cln.InitVars()
+            Return cln
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New MOVEMENT_COMPLEX_DEDUCTDataTable()
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub InitVars()
+            Me.columnMM_ID = MyBase.Columns("MM_ID")
+            Me.columnMM_PARENTID = MyBase.Columns("MM_PARENTID")
+            Me.columnMM_Description = MyBase.Columns("MM_Description")
+            Me.columnMM_Amount = MyBase.Columns("MM_Amount")
+            Me.columnMM_Sequence = MyBase.Columns("MM_Sequence")
+            Me.columnMM_GENERAL = MyBase.Columns("MM_GENERAL")
+            Me.columnMM_SPECIFIC_ALLOWABLE = MyBase.Columns("MM_SPECIFIC_ALLOWABLE")
+            Me.columnMM_SPECIFIC_NONALLOWABLE = MyBase.Columns("MM_SPECIFIC_NONALLOWABLE")
+            Me.columnMM_GENERAL_DEDUCT = MyBase.Columns("MM_GENERAL_DEDUCT")
+            Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT = MyBase.Columns("MM_SPECIFIC_ALLOWABLE_DEDUCT")
+            Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT = MyBase.Columns("MM_SPECIFIC_NONALLOWABLE_DEDUCT")
+            Me.columnMM_NOTE = MyBase.Columns("MM_NOTE")
+            Me.columnMM_DEDUCT_AMOUNT = MyBase.Columns("MM_DEDUCT_AMOUNT")
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Private Sub InitClass()
+            Me.columnMM_ID = New Global.System.Data.DataColumn("MM_ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_ID)
+            Me.columnMM_PARENTID = New Global.System.Data.DataColumn("MM_PARENTID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_PARENTID)
+            Me.columnMM_Description = New Global.System.Data.DataColumn("MM_Description", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_Description)
+            Me.columnMM_Amount = New Global.System.Data.DataColumn("MM_Amount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_Amount)
+            Me.columnMM_Sequence = New Global.System.Data.DataColumn("MM_Sequence", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_Sequence)
+            Me.columnMM_GENERAL = New Global.System.Data.DataColumn("MM_GENERAL", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_GENERAL)
+            Me.columnMM_SPECIFIC_ALLOWABLE = New Global.System.Data.DataColumn("MM_SPECIFIC_ALLOWABLE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_SPECIFIC_ALLOWABLE)
+            Me.columnMM_SPECIFIC_NONALLOWABLE = New Global.System.Data.DataColumn("MM_SPECIFIC_NONALLOWABLE", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_SPECIFIC_NONALLOWABLE)
+            Me.columnMM_GENERAL_DEDUCT = New Global.System.Data.DataColumn("MM_GENERAL_DEDUCT", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_GENERAL_DEDUCT)
+            Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT = New Global.System.Data.DataColumn("MM_SPECIFIC_ALLOWABLE_DEDUCT", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT)
+            Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT = New Global.System.Data.DataColumn("MM_SPECIFIC_NONALLOWABLE_DEDUCT", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT)
+            Me.columnMM_NOTE = New Global.System.Data.DataColumn("MM_NOTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_NOTE)
+            Me.columnMM_DEDUCT_AMOUNT = New Global.System.Data.DataColumn("MM_DEDUCT_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMM_DEDUCT_AMOUNT)
+            Me.columnMM_ID.AutoIncrement = True
+            Me.columnMM_ID.AllowDBNull = False
+            Me.columnMM_ID.ReadOnly = True
+            Me.columnMM_Description.MaxLength = 3000
+            Me.columnMM_GENERAL.DefaultValue = CType(0D, Decimal)
+            Me.columnMM_SPECIFIC_ALLOWABLE.DefaultValue = CType(0D, Decimal)
+            Me.columnMM_SPECIFIC_NONALLOWABLE.DefaultValue = CType(0D, Decimal)
+            Me.columnMM_GENERAL_DEDUCT.DefaultValue = CType(False, Boolean)
+            Me.columnMM_SPECIFIC_ALLOWABLE_DEDUCT.DefaultValue = CType(False, Boolean)
+            Me.columnMM_SPECIFIC_NONALLOWABLE_DEDUCT.DefaultValue = CType(False, Boolean)
+            Me.columnMM_NOTE.MaxLength = 3000
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function NewMOVEMENT_COMPLEX_DEDUCTRow() As MOVEMENT_COMPLEX_DEDUCTRow
+            Return CType(Me.NewRow, MOVEMENT_COMPLEX_DEDUCTRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New MOVEMENT_COMPLEX_DEDUCTRow(builder)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(MOVEMENT_COMPLEX_DEDUCTRow)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowChangedEvent) Is Nothing) Then
+                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowChanged(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowChangingEvent) Is Nothing) Then
+                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowChanging(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowDeletedEvent) Is Nothing) Then
+                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowDeleted(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.MOVEMENT_COMPLEX_DEDUCTRowDeletingEvent) Is Nothing) Then
+                RaiseEvent MOVEMENT_COMPLEX_DEDUCTRowDeleting(Me, New MOVEMENT_COMPLEX_DEDUCTRowChangeEvent(CType(e.Row, MOVEMENT_COMPLEX_DEDUCTRow), e.Action))
+            End If
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub RemoveMOVEMENT_COMPLEX_DEDUCTRow(ByVal row As MOVEMENT_COMPLEX_DEDUCTRow)
+            Me.Rows.Remove(row)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsMovement = New dsMovement()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "MOVEMENT_COMPLEX_DEDUCTDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+
+                            Do While ((s1.Position <> s1.Length) _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+
+
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close()
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close()
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+
+    '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class MOVEMENT_ADDRow
@@ -2911,15 +3047,15 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_PARENTID() As Short
+        Public Property MM_PARENTID() As Integer
             Get
                 Try
-                    Return CType(Me(Me.tableMOVEMENT_ADD.MM_PARENTIDColumn), Short)
+                    Return CType(Me(Me.tableMOVEMENT_ADD.MM_PARENTIDColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'MM_PARENTID' in table 'MOVEMENT_ADD' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Short)
+            Set(value As Integer)
                 Me(Me.tableMOVEMENT_ADD.MM_PARENTIDColumn) = value
             End Set
         End Property
@@ -2936,6 +3072,32 @@ Partial Public Class dsMovement
             End Get
             Set(value As Integer)
                 Me(Me.tableMOVEMENT_ADD.MM_SequenceColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_ADDBACK_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_ADD.MM_ADDBACK_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_ADDBACK_AMOUNT' in table 'MOVEMENT_ADD' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_ADD.MM_ADDBACK_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MOVEMENT_NORMALRow() As MOVEMENT_NORMALRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_MOVEMENT_NORMAL_MOVEMENT_ADD")), MOVEMENT_NORMALRow)
+            End Get
+            Set(value As MOVEMENT_NORMALRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("FK_MOVEMENT_NORMAL_MOVEMENT_ADD"))
             End Set
         End Property
 
@@ -2985,6 +3147,18 @@ Partial Public Class dsMovement
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetMM_SequenceNull()
             Me(Me.tableMOVEMENT_ADD.MM_SequenceColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_ADDBACK_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_ADD.MM_ADDBACK_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_ADDBACK_AMOUNTNull()
+            Me(Me.tableMOVEMENT_ADD.MM_ADDBACK_AMOUNTColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
 
@@ -3057,15 +3231,15 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_PARENTID() As Short
+        Public Property MM_PARENTID() As Integer
             Get
                 Try
-                    Return CType(Me(Me.tableMOVEMENT_DEDUCT.MM_PARENTIDColumn), Short)
+                    Return CType(Me(Me.tableMOVEMENT_DEDUCT.MM_PARENTIDColumn), Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'MM_PARENTID' in table 'MOVEMENT_DEDUCT' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Short)
+            Set(value As Integer)
                 Me(Me.tableMOVEMENT_DEDUCT.MM_PARENTIDColumn) = value
             End Set
         End Property
@@ -3082,6 +3256,32 @@ Partial Public Class dsMovement
             End Get
             Set(value As Integer)
                 Me(Me.tableMOVEMENT_DEDUCT.MM_SequenceColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_DEDUCT_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_DEDUCT.MM_DEDUCT_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_DEDUCT_AMOUNT' in table 'MOVEMENT_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_DEDUCT.MM_DEDUCT_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MOVEMENT_NORMALRow() As MOVEMENT_NORMALRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT")), MOVEMENT_NORMALRow)
+            End Get
+            Set(value As MOVEMENT_NORMALRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT"))
             End Set
         End Property
 
@@ -3131,6 +3331,18 @@ Partial Public Class dsMovement
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetMM_SequenceNull()
             Me(Me.tableMOVEMENT_DEDUCT.MM_SequenceColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_DEDUCT_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_DEDUCT.MM_DEDUCT_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_DEDUCT_AMOUNTNull()
+            Me(Me.tableMOVEMENT_DEDUCT.MM_DEDUCT_AMOUNTColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
 
@@ -3353,6 +3565,22 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_ADD_DEDUCT_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_NORMAL.MM_ADD_DEDUCT_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_ADD_DEDUCT_AMOUNT' in table 'MOVEMENT_NORMAL' is DBNull." & _
+                            "", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_NORMAL.MM_ADD_DEDUCT_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsMM_REFNONull() As Boolean
             Return Me.IsNull(Me.tableMOVEMENT_NORMAL.MM_REFNOColumn)
         End Function
@@ -3494,6 +3722,38 @@ Partial Public Class dsMovement
         Public Sub SetModifiedByNull()
             Me(Me.tableMOVEMENT_NORMAL.ModifiedByColumn) = Global.System.Convert.DBNull
         End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_ADD_DEDUCT_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_NORMAL.MM_ADD_DEDUCT_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_ADD_DEDUCT_AMOUNTNull()
+            Me(Me.tableMOVEMENT_NORMAL.MM_ADD_DEDUCT_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function GetMOVEMENT_DEDUCTRows() As MOVEMENT_DEDUCTRow()
+            If (Me.Table.ChildRelations("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT") Is Nothing) Then
+                Return New MOVEMENT_DEDUCTRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("FK_MOVEMENT_NORMAL_MOVEMENT_DEDUCT")), MOVEMENT_DEDUCTRow())
+            End If
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function GetMOVEMENT_ADDRows() As MOVEMENT_ADDRow()
+            If (Me.Table.ChildRelations("FK_MOVEMENT_NORMAL_MOVEMENT_ADD") Is Nothing) Then
+                Return New MOVEMENT_ADDRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("FK_MOVEMENT_NORMAL_MOVEMENT_ADD")), MOVEMENT_ADDRow())
+            End If
+        End Function
     End Class
 
     '''<summary>
@@ -3694,6 +3954,33 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_ADDBACK_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_ADD.MM_ADDBACK_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_ADDBACK_AMOUNT' in table 'MOVEMENT_COMPLEX_ADD' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX_ADD.MM_ADDBACK_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MOVEMENT_COMPLEXRow() As MOVEMENT_COMPLEXRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD")), MOVEMENT_COMPLEXRow)
+            End Get
+            Set(value As MOVEMENT_COMPLEXRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD"))
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsMM_PARENTIDNull() As Boolean
             Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_ADD.MM_PARENTIDColumn)
         End Function
@@ -3823,335 +4110,17 @@ Partial Public Class dsMovement
         Public Sub SetMM_NOTENull()
             Me(Me.tableMOVEMENT_COMPLEX_ADD.MM_NOTEColumn) = Global.System.Convert.DBNull
         End Sub
-    End Class
-
-    '''<summary>
-    '''Represents strongly named DataRow class.
-    '''</summary>
-    Partial Public Class MOVEMENT_COMPLEX_DEDUCTRow
-        Inherits Global.System.Data.DataRow
-
-        Private tableMOVEMENT_COMPLEX_DEDUCT As MOVEMENT_COMPLEX_DEDUCTDataTable
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
-            MyBase.New(rb)
-            Me.tableMOVEMENT_COMPLEX_DEDUCT = CType(Me.Table, MOVEMENT_COMPLEX_DEDUCTDataTable)
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_ID() As Integer
-            Get
-                Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_IDColumn), Integer)
-            End Get
-            Set(value As Integer)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_IDColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_PARENTID() As Integer
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn), Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_PARENTID' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Integer)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_Description() As String
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn), String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_Description' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNul" & _
-                            "l.", e)
-                End Try
-            End Get
-            Set(value As String)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_Amount() As Decimal
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn), Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_Amount' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Decimal)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_Sequence() As Integer
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn), Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_Sequence' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Integer)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_GENERAL() As Decimal
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn), Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_GENERAL' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Decimal)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_SPECIFIC_ALLOWABLE() As Decimal
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn), Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_ALLOWABLE' in table 'MOVEMENT_COMPLEX_DEDUCT' i" & _
-                            "s DBNull.", e)
-                End Try
-            End Get
-            Set(value As Decimal)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_SPECIFIC_NONALLOWABLE() As Decimal
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn), Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_NONALLOWABLE' in table 'MOVEMENT_COMPLEX_DEDUCT" & _
-                            "' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Decimal)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_GENERAL_DEDUCT() As Boolean
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_GENERAL_DEDUCT' in table 'MOVEMENT_COMPLEX_DEDUCT' is DB" & _
-                            "Null.", e)
-                End Try
-            End Get
-            Set(value As Boolean)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_SPECIFIC_ALLOWABLE_DEDUCT() As Boolean
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_ALLOWABLE_DEDUCT' in table 'MOVEMENT_COMPLEX_DE" & _
-                            "DUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Boolean)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_SPECIFIC_NONALLOWABLE_DEDUCT() As Boolean
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_NONALLOWABLE_DEDUCT' in table 'MOVEMENT_COMPLEX" & _
-                            "_DEDUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As Boolean)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property MM_NOTE() As String
-            Get
-                Try
-                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn), String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_NOTE' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
-                End Try
-            End Get
-            Set(value As String)
-                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn) = value
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_PARENTIDNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn)
+        Public Function IsMM_ADDBACK_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_ADD.MM_ADDBACK_AMOUNTColumn)
         End Function
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_PARENTIDNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_DescriptionNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_DescriptionNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_AmountNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_AmountNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_SequenceNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_SequenceNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_GENERALNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_GENERALNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_SPECIFIC_ALLOWABLENull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_SPECIFIC_ALLOWABLENull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_SPECIFIC_NONALLOWABLENull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_SPECIFIC_NONALLOWABLENull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_GENERAL_DEDUCTNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_GENERAL_DEDUCTNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_SPECIFIC_ALLOWABLE_DEDUCTNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_SPECIFIC_ALLOWABLE_DEDUCTNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_SPECIFIC_NONALLOWABLE_DEDUCTNull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_SPECIFIC_NONALLOWABLE_DEDUCTNull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsMM_NOTENull() As Boolean
-            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetMM_NOTENull()
-            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn) = Global.System.Convert.DBNull
+        Public Sub SetMM_ADDBACK_AMOUNTNull()
+            Me(Me.tableMOVEMENT_COMPLEX_ADD.MM_ADDBACK_AMOUNTColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
 
@@ -4438,6 +4407,22 @@ Partial Public Class dsMovement
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_ADD_DEDUCT_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX.MM_ADD_DEDUCT_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_ADD_DEDUCT_AMOUNT' in table 'MOVEMENT_COMPLEX' is DBNull" & _
+                            ".", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX.MM_ADD_DEDUCT_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsMM_REFNONull() As Boolean
             Return Me.IsNull(Me.tableMOVEMENT_COMPLEX.MM_REFNOColumn)
         End Function
@@ -4627,6 +4612,407 @@ Partial Public Class dsMovement
         Public Sub SetModifiedByNull()
             Me(Me.tableMOVEMENT_COMPLEX.ModifiedByColumn) = Global.System.Convert.DBNull
         End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_ADD_DEDUCT_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX.MM_ADD_DEDUCT_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_ADD_DEDUCT_AMOUNTNull()
+            Me(Me.tableMOVEMENT_COMPLEX.MM_ADD_DEDUCT_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function GetMOVEMENT_COMPLEX_DEDUCTRows() As MOVEMENT_COMPLEX_DEDUCTRow()
+            If (Me.Table.ChildRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT") Is Nothing) Then
+                Return New MOVEMENT_COMPLEX_DEDUCTRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT")), MOVEMENT_COMPLEX_DEDUCTRow())
+            End If
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function GetMOVEMENT_COMPLEX_ADDRows() As MOVEMENT_COMPLEX_ADDRow()
+            If (Me.Table.ChildRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD") Is Nothing) Then
+                Return New MOVEMENT_COMPLEX_ADDRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_ADD")), MOVEMENT_COMPLEX_ADDRow())
+            End If
+        End Function
+    End Class
+
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class MOVEMENT_COMPLEX_DEDUCTRow
+        Inherits Global.System.Data.DataRow
+
+        Private tableMOVEMENT_COMPLEX_DEDUCT As MOVEMENT_COMPLEX_DEDUCTDataTable
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableMOVEMENT_COMPLEX_DEDUCT = CType(Me.Table, MOVEMENT_COMPLEX_DEDUCTDataTable)
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_ID() As Integer
+            Get
+                Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_IDColumn), Integer)
+            End Get
+            Set(value As Integer)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_IDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_PARENTID() As Integer
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn), Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_PARENTID' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Integer)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_Description() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_Description' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNul" & _
+                            "l.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_Amount() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_Amount' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_Sequence() As Integer
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn), Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_Sequence' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Integer)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_GENERAL() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_GENERAL' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_SPECIFIC_ALLOWABLE() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_ALLOWABLE' in table 'MOVEMENT_COMPLEX_DEDUCT' i" & _
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_SPECIFIC_NONALLOWABLE() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_NONALLOWABLE' in table 'MOVEMENT_COMPLEX_DEDUCT" & _
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_GENERAL_DEDUCT() As Boolean
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn), Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_GENERAL_DEDUCT' in table 'MOVEMENT_COMPLEX_DEDUCT' is DB" & _
+                            "Null.", e)
+                End Try
+            End Get
+            Set(value As Boolean)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_SPECIFIC_ALLOWABLE_DEDUCT() As Boolean
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn), Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_ALLOWABLE_DEDUCT' in table 'MOVEMENT_COMPLEX_DE" & _
+                            "DUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Boolean)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_SPECIFIC_NONALLOWABLE_DEDUCT() As Boolean
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn), Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_SPECIFIC_NONALLOWABLE_DEDUCT' in table 'MOVEMENT_COMPLEX" & _
+                            "_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As Boolean)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_NOTE() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_NOTE' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MM_DEDUCT_AMOUNT() As Decimal
+            Get
+                Try
+                    Return CType(Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DEDUCT_AMOUNTColumn), Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MM_DEDUCT_AMOUNT' in table 'MOVEMENT_COMPLEX_DEDUCT' is DBN" & _
+                            "ull.", e)
+                End Try
+            End Get
+            Set(value As Decimal)
+                Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DEDUCT_AMOUNTColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property MOVEMENT_COMPLEXRow() As MOVEMENT_COMPLEXRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT")), MOVEMENT_COMPLEXRow)
+            End Get
+            Set(value As MOVEMENT_COMPLEXRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("FK_MOVEMENT_COMPLEX_MOVEMENT_COMPLEX_DEDUCT"))
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_PARENTIDNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_PARENTIDNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_PARENTIDColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_DescriptionNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_DescriptionNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DescriptionColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_AmountNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_AmountNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_AmountColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_SequenceNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_SequenceNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SequenceColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_GENERALNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_GENERALNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERALColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_SPECIFIC_ALLOWABLENull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_SPECIFIC_ALLOWABLENull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_SPECIFIC_NONALLOWABLENull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_SPECIFIC_NONALLOWABLENull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_GENERAL_DEDUCTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_GENERAL_DEDUCTNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_GENERAL_DEDUCTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_SPECIFIC_ALLOWABLE_DEDUCTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_SPECIFIC_ALLOWABLE_DEDUCTNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_ALLOWABLE_DEDUCTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_SPECIFIC_NONALLOWABLE_DEDUCTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_SPECIFIC_NONALLOWABLE_DEDUCTNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_SPECIFIC_NONALLOWABLE_DEDUCTColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_NOTENull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_NOTENull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_NOTEColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsMM_DEDUCT_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DEDUCT_AMOUNTColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetMM_DEDUCT_AMOUNTNull()
+            Me(Me.tableMOVEMENT_COMPLEX_DEDUCT.MM_DEDUCT_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
     End Class
 
     '''<summary>
@@ -4777,42 +5163,6 @@ Partial Public Class dsMovement
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-    Public Class MOVEMENT_COMPLEX_DEDUCTRowChangeEvent
-        Inherits Global.System.EventArgs
-
-        Private eventRow As MOVEMENT_COMPLEX_DEDUCTRow
-
-        Private eventAction As Global.System.Data.DataRowAction
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub New(ByVal row As MOVEMENT_COMPLEX_DEDUCTRow, ByVal action As Global.System.Data.DataRowAction)
-            MyBase.New()
-            Me.eventRow = row
-            Me.eventAction = action
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property Row() As MOVEMENT_COMPLEX_DEDUCTRow
-            Get
-                Return Me.eventRow
-            End Get
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
-            Get
-                Return Me.eventAction
-            End Get
-        End Property
-    End Class
-
-    '''<summary>
-    '''Row event argument class
-    '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
     Public Class MOVEMENT_COMPLEXRowChangeEvent
         Inherits Global.System.EventArgs
 
@@ -4831,6 +5181,42 @@ Partial Public Class dsMovement
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public ReadOnly Property Row() As MOVEMENT_COMPLEXRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+    Public Class MOVEMENT_COMPLEX_DEDUCTRowChangeEvent
+        Inherits Global.System.EventArgs
+
+        Private eventRow As MOVEMENT_COMPLEX_DEDUCTRow
+
+        Private eventAction As Global.System.Data.DataRowAction
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub New(ByVal row As MOVEMENT_COMPLEX_DEDUCTRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New()
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property Row() As MOVEMENT_COMPLEX_DEDUCTRow
             Get
                 Return Me.eventRow
             End Get

@@ -25,20 +25,25 @@ Partial Class frmCA_Report
         Me.CAREPORTTEMPBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.BandedGridView1 = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridView()
+        Me.gridBand5 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
         Me.colYA = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
-        Me.colCA_PURCHASE_YEAR = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colCA_ASSET = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.txtMemo = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
+        Me.gridBand4 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
         Me.colCA_CATEGORY_CODE = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colCA_RATE_IA = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colCA_RATE_AA = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
+        Me.colCA_PURCHASE_YEAR = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
+        Me.gridBand1 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
         Me.colQC_BF = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colQC_ADD = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colQC_DISP = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colQC_CF = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
+        Me.gridBand2 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
         Me.colTWDV_BF = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colTWDV_ADD = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colTWDV_DISP = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
+        Me.colTWDV_TOTAL = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colTWDV_AI = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colTWDV_AA = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colTWDV_CF = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
@@ -51,8 +56,6 @@ Partial Class frmCA_Report
         Me.colCA_QUALIFYING_COST = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colIndexNo = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.colCA_TRANSFERROR_NAME = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
-        Me.BandedGridView2 = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridView()
-        Me.GridBand3 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnPrint = New DevExpress.XtraBars.BarButtonItem()
@@ -65,13 +68,9 @@ Partial Class frmCA_Report
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.SplitContainerControl1 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.GridControl2 = New DevExpress.XtraGrid.GridControl()
         Me.CAREPORTTEMPBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA1 = New EasyTemplate_Taxcom.dsCA()
-        Me.gridBand5 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
-        Me.gridBand4 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
-        Me.gridBand1 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
-        Me.gridBand2 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
-        Me.GridControl2 = New DevExpress.XtraGrid.GridControl()
         Me.BandedGridView3 = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridView()
         Me.GridBand6 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
         Me.BandedGridColumn1 = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
@@ -105,18 +104,19 @@ Partial Class frmCA_Report
         Me.BandedGridColumn25 = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn()
         Me.BandedGridView4 = New DevExpress.XtraGrid.Views.BandedGrid.BandedGridView()
         Me.GridBand10 = New DevExpress.XtraGrid.Views.BandedGrid.GridBand()
+        Me.ReportGenerator1 = New DevExpress.XtraReports.ReportGeneration.ReportGenerator(Me.components)
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CAREPORTTEMPBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BandedGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtMemo, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.BandedGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainerControl1.SuspendLayout()
+        CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CAREPORTTEMPBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BandedGridView3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemMemoEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BandedGridView4, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -132,9 +132,9 @@ Partial Class frmCA_Report
         Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtMemo})
-        Me.GridControl1.Size = New System.Drawing.Size(1247, 661)
+        Me.GridControl1.Size = New System.Drawing.Size(1069, 536)
         Me.GridControl1.TabIndex = 0
-        Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.BandedGridView1, Me.BandedGridView2})
+        Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.BandedGridView1})
         '
         'CAREPORTTEMPBindingSource
         '
@@ -163,9 +163,9 @@ Partial Class frmCA_Report
         Me.BandedGridView1.AppearancePrint.Row.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.BandedGridView1.Bands.AddRange(New DevExpress.XtraGrid.Views.BandedGrid.GridBand() {Me.gridBand5, Me.gridBand4, Me.gridBand1, Me.gridBand2})
         Me.BandedGridView1.ColumnPanelRowHeight = 50
-        Me.BandedGridView1.Columns.AddRange(New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn() {Me.colID_Key, Me.colID, Me.colRefNo, Me.colYA, Me.colCA_KEY, Me.colCA_NAME, Me.colCA_ASSET, Me.colCA_CATEGORY_CODE, Me.colCA_MODE, Me.colCA_PURCHASE_YEAR, Me.colCA_QUALIFYING_COST, Me.colCA_RATE_IA, Me.colCA_RATE_AA, Me.colQC_BF, Me.colQC_ADD, Me.colQC_DISP, Me.colQC_CF, Me.colTWDV_BF, Me.colTWDV_ADD, Me.colTWDV_DISP, Me.colTWDV_AI, Me.colTWDV_AA, Me.colTWDV_CF, Me.colIndexNo, Me.colCA_TRANSFERROR_NAME})
+        Me.BandedGridView1.Columns.AddRange(New DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn() {Me.colID_Key, Me.colID, Me.colRefNo, Me.colYA, Me.colCA_KEY, Me.colCA_NAME, Me.colCA_ASSET, Me.colCA_CATEGORY_CODE, Me.colCA_MODE, Me.colCA_PURCHASE_YEAR, Me.colCA_QUALIFYING_COST, Me.colCA_RATE_IA, Me.colCA_RATE_AA, Me.colQC_BF, Me.colQC_ADD, Me.colQC_DISP, Me.colQC_CF, Me.colTWDV_BF, Me.colTWDV_ADD, Me.colTWDV_DISP, Me.colTWDV_AI, Me.colTWDV_AA, Me.colTWDV_TOTAL, Me.colTWDV_CF, Me.colIndexNo, Me.colCA_TRANSFERROR_NAME})
         Me.BandedGridView1.GridControl = Me.GridControl1
-        Me.BandedGridView1.GroupCount = 1
+        Me.BandedGridView1.GroupCount = 3
         Me.BandedGridView1.GroupSummary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QC_BF", Me.colQC_BF, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QC_ADD", Me.colQC_ADD, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QC_DISP", Me.colQC_DISP, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QC_CF", Me.colQC_CF, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_BF", Me.colTWDV_BF, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_ADD", Me.colTWDV_ADD, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_DISP", Me.colTWDV_DISP, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_AI", Me.colTWDV_AI, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_AA", Me.colTWDV_AA, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_CF", Me.colTWDV_CF, "{0:n2}"), New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Custom, "", Me.colCA_ASSET, "Sub Total :")})
         Me.BandedGridView1.Name = "BandedGridView1"
         Me.BandedGridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
@@ -183,7 +183,16 @@ Partial Class frmCA_Report
         Me.BandedGridView1.OptionsView.ShowFooter = True
         Me.BandedGridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.[False]
         Me.BandedGridView1.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.[False]
-        Me.BandedGridView1.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colCA_ASSET, DevExpress.Data.ColumnSortOrder.Ascending)})
+        Me.BandedGridView1.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colCA_TRANSFERROR_NAME, DevExpress.Data.ColumnSortOrder.Ascending), New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colCA_PURCHASE_YEAR, DevExpress.Data.ColumnSortOrder.Ascending), New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colCA_RATE_AA, DevExpress.Data.ColumnSortOrder.Ascending), New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colCA_ASSET, DevExpress.Data.ColumnSortOrder.Ascending)})
+        '
+        'gridBand5
+        '
+        Me.gridBand5.Columns.Add(Me.colYA)
+        Me.gridBand5.Columns.Add(Me.colCA_ASSET)
+        Me.gridBand5.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
+        Me.gridBand5.Name = "gridBand5"
+        Me.gridBand5.VisibleIndex = 0
+        Me.gridBand5.Width = 230
         '
         'colYA
         '
@@ -191,17 +200,6 @@ Partial Class frmCA_Report
         Me.colYA.FieldName = "YA"
         Me.colYA.Name = "colYA"
         Me.colYA.Width = 80
-        '
-        'colCA_PURCHASE_YEAR
-        '
-        Me.colCA_PURCHASE_YEAR.AppearanceHeader.Options.UseTextOptions = True
-        Me.colCA_PURCHASE_YEAR.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.colCA_PURCHASE_YEAR.Caption = "Year of Purchase"
-        Me.colCA_PURCHASE_YEAR.FieldName = "CA_PURCHASE_YEAR"
-        Me.colCA_PURCHASE_YEAR.MinWidth = 10
-        Me.colCA_PURCHASE_YEAR.Name = "colCA_PURCHASE_YEAR"
-        Me.colCA_PURCHASE_YEAR.Visible = True
-        Me.colCA_PURCHASE_YEAR.Width = 99
         '
         'colCA_ASSET
         '
@@ -217,6 +215,16 @@ Partial Class frmCA_Report
         'txtMemo
         '
         Me.txtMemo.Name = "txtMemo"
+        '
+        'gridBand4
+        '
+        Me.gridBand4.Columns.Add(Me.colCA_CATEGORY_CODE)
+        Me.gridBand4.Columns.Add(Me.colCA_RATE_IA)
+        Me.gridBand4.Columns.Add(Me.colCA_RATE_AA)
+        Me.gridBand4.Columns.Add(Me.colCA_PURCHASE_YEAR)
+        Me.gridBand4.Name = "gridBand4"
+        Me.gridBand4.VisibleIndex = 1
+        Me.gridBand4.Width = 295
         '
         'colCA_CATEGORY_CODE
         '
@@ -242,6 +250,30 @@ Partial Class frmCA_Report
         Me.colCA_RATE_AA.OptionsColumn.Printable = DevExpress.Utils.DefaultBoolean.[True]
         Me.colCA_RATE_AA.Visible = True
         Me.colCA_RATE_AA.Width = 99
+        '
+        'colCA_PURCHASE_YEAR
+        '
+        Me.colCA_PURCHASE_YEAR.AppearanceHeader.Options.UseTextOptions = True
+        Me.colCA_PURCHASE_YEAR.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.colCA_PURCHASE_YEAR.Caption = "Year of Purchase"
+        Me.colCA_PURCHASE_YEAR.FieldName = "CA_PURCHASE_YEAR"
+        Me.colCA_PURCHASE_YEAR.MinWidth = 10
+        Me.colCA_PURCHASE_YEAR.Name = "colCA_PURCHASE_YEAR"
+        Me.colCA_PURCHASE_YEAR.Visible = True
+        Me.colCA_PURCHASE_YEAR.Width = 99
+        '
+        'gridBand1
+        '
+        Me.gridBand1.AppearanceHeader.Options.UseTextOptions = True
+        Me.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.gridBand1.Caption = "QUALIFYING EXPENDITURE"
+        Me.gridBand1.Columns.Add(Me.colQC_BF)
+        Me.gridBand1.Columns.Add(Me.colQC_ADD)
+        Me.gridBand1.Columns.Add(Me.colQC_DISP)
+        Me.gridBand1.Columns.Add(Me.colQC_CF)
+        Me.gridBand1.Name = "gridBand1"
+        Me.gridBand1.VisibleIndex = 2
+        Me.gridBand1.Width = 300
         '
         'colQC_BF
         '
@@ -291,6 +323,22 @@ Partial Class frmCA_Report
         Me.colQC_CF.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "QC_CF", "{0:n2}")})
         Me.colQC_CF.Visible = True
         '
+        'gridBand2
+        '
+        Me.gridBand2.AppearanceHeader.Options.UseTextOptions = True
+        Me.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
+        Me.gridBand2.Caption = "RESIDUAL EXPENDITURE"
+        Me.gridBand2.Columns.Add(Me.colTWDV_BF)
+        Me.gridBand2.Columns.Add(Me.colTWDV_ADD)
+        Me.gridBand2.Columns.Add(Me.colTWDV_DISP)
+        Me.gridBand2.Columns.Add(Me.colTWDV_TOTAL)
+        Me.gridBand2.Columns.Add(Me.colTWDV_AI)
+        Me.gridBand2.Columns.Add(Me.colTWDV_AA)
+        Me.gridBand2.Columns.Add(Me.colTWDV_CF)
+        Me.gridBand2.Name = "gridBand2"
+        Me.gridBand2.VisibleIndex = 3
+        Me.gridBand2.Width = 525
+        '
         'colTWDV_BF
         '
         Me.colTWDV_BF.AppearanceHeader.Options.UseTextOptions = True
@@ -326,6 +374,13 @@ Partial Class frmCA_Report
         Me.colTWDV_DISP.Name = "colTWDV_DISP"
         Me.colTWDV_DISP.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "TWDV_DISP", "{0:n2}")})
         Me.colTWDV_DISP.Visible = True
+        '
+        'colTWDV_TOTAL
+        '
+        Me.colTWDV_TOTAL.Caption = "Total RM"
+        Me.colTWDV_TOTAL.FieldName = "TWDV_TOTAL"
+        Me.colTWDV_TOTAL.Name = "colTWDV_TOTAL"
+        Me.colTWDV_TOTAL.Visible = True
         '
         'colTWDV_AI
         '
@@ -427,18 +482,6 @@ Partial Class frmCA_Report
         Me.colCA_TRANSFERROR_NAME.Name = "colCA_TRANSFERROR_NAME"
         Me.colCA_TRANSFERROR_NAME.Visible = True
         '
-        'BandedGridView2
-        '
-        Me.BandedGridView2.Bands.AddRange(New DevExpress.XtraGrid.Views.BandedGrid.GridBand() {Me.GridBand3})
-        Me.BandedGridView2.GridControl = Me.GridControl1
-        Me.BandedGridView2.Name = "BandedGridView2"
-        '
-        'GridBand3
-        '
-        Me.GridBand3.Caption = "GridBand3"
-        Me.GridBand3.Name = "GridBand3"
-        Me.GridBand3.VisibleIndex = 0
-        '
         'BarManager1
         '
         Me.BarManager1.AllowQuickCustomization = False
@@ -469,36 +512,36 @@ Partial Class frmCA_Report
         'btnPrint
         '
         Me.btnPrint.Caption = "Print"
-        Me.btnPrint.Glyph = CType(resources.GetObject("btnPrint.Glyph"), System.Drawing.Image)
         Me.btnPrint.Id = 3
-        Me.btnPrint.LargeGlyph = CType(resources.GetObject("btnPrint.LargeGlyph"), System.Drawing.Image)
+        Me.btnPrint.ImageOptions.Image = CType(resources.GetObject("btnPrint.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnPrint.ImageOptions.LargeImage = CType(resources.GetObject("btnPrint.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnExport
         '
         Me.btnExport.Caption = "Export"
-        Me.btnExport.Glyph = CType(resources.GetObject("btnExport.Glyph"), System.Drawing.Image)
         Me.btnExport.Id = 2
-        Me.btnExport.LargeGlyph = CType(resources.GetObject("btnExport.LargeGlyph"), System.Drawing.Image)
+        Me.btnExport.ImageOptions.Image = CType(resources.GetObject("btnExport.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExport.ImageOptions.LargeImage = CType(resources.GetObject("btnExport.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnExpand
         '
         Me.btnExpand.Caption = "Expand"
-        Me.btnExpand.Glyph = CType(resources.GetObject("btnExpand.Glyph"), System.Drawing.Image)
         Me.btnExpand.Id = 8
-        Me.btnExpand.LargeGlyph = CType(resources.GetObject("btnExpand.LargeGlyph"), System.Drawing.Image)
+        Me.btnExpand.ImageOptions.Image = CType(resources.GetObject("btnExpand.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExpand.ImageOptions.LargeImage = CType(resources.GetObject("btnExpand.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnExpand.Name = "btnExpand"
         Me.btnExpand.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnCollepase
         '
         Me.btnCollepase.Caption = "Collepase"
-        Me.btnCollepase.Glyph = CType(resources.GetObject("btnCollepase.Glyph"), System.Drawing.Image)
         Me.btnCollepase.Id = 9
-        Me.btnCollepase.LargeGlyph = CType(resources.GetObject("btnCollepase.LargeGlyph"), System.Drawing.Image)
+        Me.btnCollepase.ImageOptions.Image = CType(resources.GetObject("btnCollepase.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnCollepase.ImageOptions.LargeImage = CType(resources.GetObject("btnCollepase.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnCollepase.Name = "btnCollepase"
         Me.btnCollepase.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -507,105 +550,49 @@ Partial Class frmCA_Report
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1247, 37)
+        Me.barDockControlTop.Manager = Me.BarManager1
+        Me.barDockControlTop.Size = New System.Drawing.Size(1069, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 698)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1247, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 567)
+        Me.barDockControlBottom.Manager = Me.BarManager1
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1069, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 661)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 536)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1247, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 661)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1069, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 536)
         '
         'SplitContainerControl1
         '
         Me.SplitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 37)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 31)
+        Me.SplitContainerControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Text = "Panel1"
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.GridControl2)
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
         Me.SplitContainerControl1.PanelVisibility = DevExpress.XtraEditors.SplitPanelVisibility.Panel1
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(1247, 661)
-        Me.SplitContainerControl1.SplitterPosition = 411
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(1069, 536)
+        Me.SplitContainerControl1.SplitterPosition = 352
         Me.SplitContainerControl1.TabIndex = 5
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
-        '
-        'CAREPORTTEMPBindingSource1
-        '
-        Me.CAREPORTTEMPBindingSource1.DataMember = "CA_REPORT_TEMP"
-        Me.CAREPORTTEMPBindingSource1.DataSource = Me.DsCA1
-        '
-        'DsCA1
-        '
-        Me.DsCA1.DataSetName = "dsCA"
-        Me.DsCA1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'gridBand5
-        '
-        Me.gridBand5.Columns.Add(Me.colYA)
-        Me.gridBand5.Columns.Add(Me.colCA_ASSET)
-        Me.gridBand5.Fixed = DevExpress.XtraGrid.Columns.FixedStyle.Left
-        Me.gridBand5.Name = "gridBand5"
-        Me.gridBand5.VisibleIndex = 0
-        Me.gridBand5.Width = 230
-        '
-        'gridBand4
-        '
-        Me.gridBand4.Columns.Add(Me.colCA_CATEGORY_CODE)
-        Me.gridBand4.Columns.Add(Me.colCA_RATE_IA)
-        Me.gridBand4.Columns.Add(Me.colCA_RATE_AA)
-        Me.gridBand4.Columns.Add(Me.colCA_PURCHASE_YEAR)
-        Me.gridBand4.Name = "gridBand4"
-        Me.gridBand4.VisibleIndex = 1
-        Me.gridBand4.Width = 295
-        '
-        'gridBand1
-        '
-        Me.gridBand1.AppearanceHeader.Options.UseTextOptions = True
-        Me.gridBand1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.gridBand1.Caption = "QUALIFYING EXPENDITURE"
-        Me.gridBand1.Columns.Add(Me.colQC_BF)
-        Me.gridBand1.Columns.Add(Me.colQC_ADD)
-        Me.gridBand1.Columns.Add(Me.colQC_DISP)
-        Me.gridBand1.Columns.Add(Me.colQC_CF)
-        Me.gridBand1.Name = "gridBand1"
-        Me.gridBand1.VisibleIndex = 2
-        Me.gridBand1.Width = 300
-        '
-        'gridBand2
-        '
-        Me.gridBand2.AppearanceHeader.Options.UseTextOptions = True
-        Me.gridBand2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center
-        Me.gridBand2.Caption = "RESIDUAL EXPENDITURE"
-        Me.gridBand2.Columns.Add(Me.colTWDV_BF)
-        Me.gridBand2.Columns.Add(Me.colTWDV_ADD)
-        Me.gridBand2.Columns.Add(Me.colTWDV_DISP)
-        Me.gridBand2.Columns.Add(Me.colTWDV_AI)
-        Me.gridBand2.Columns.Add(Me.colTWDV_AA)
-        Me.gridBand2.Columns.Add(Me.colTWDV_CF)
-        Me.gridBand2.Name = "gridBand2"
-        Me.gridBand2.VisibleIndex = 3
-        Me.gridBand2.Width = 450
         '
         'GridControl2
         '
@@ -620,6 +607,16 @@ Partial Class frmCA_Report
         Me.GridControl2.Size = New System.Drawing.Size(0, 0)
         Me.GridControl2.TabIndex = 1
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.BandedGridView3, Me.BandedGridView4})
+        '
+        'CAREPORTTEMPBindingSource1
+        '
+        Me.CAREPORTTEMPBindingSource1.DataMember = "CA_REPORT_TEMP"
+        Me.CAREPORTTEMPBindingSource1.DataSource = Me.DsCA1
+        '
+        'DsCA1
+        '
+        Me.DsCA1.DataSetName = "dsCA"
+        Me.DsCA1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'BandedGridView3
         '
@@ -955,9 +952,9 @@ Partial Class frmCA_Report
         '
         'frmCA_Report
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1247, 698)
+        Me.ClientSize = New System.Drawing.Size(1069, 567)
         Me.Controls.Add(Me.SplitContainerControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
@@ -973,17 +970,17 @@ Partial Class frmCA_Report
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BandedGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtMemo, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.BandedGridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainerControl1.ResumeLayout(False)
+        CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CAREPORTTEMPBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BandedGridView3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemMemoEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BandedGridView4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
@@ -1026,16 +1023,10 @@ Partial Class frmCA_Report
     Friend WithEvents txtMemo As DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit
     Friend WithEvents btnExpand As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnCollepase As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents BandedGridView2 As DevExpress.XtraGrid.Views.BandedGrid.BandedGridView
-    Friend WithEvents GridBand3 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
     Friend WithEvents SplitContainerControl1 As DevExpress.XtraEditors.SplitContainerControl
     Friend WithEvents CAREPORTTEMPBindingSource1 As System.Windows.Forms.BindingSource
     Friend WithEvents DsCA1 As EasyTemplate_Taxcom.dsCA
     Friend WithEvents colCA_TRANSFERROR_NAME As DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn
-    Friend WithEvents gridBand5 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
-    Friend WithEvents gridBand4 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
-    Friend WithEvents gridBand1 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
-    Friend WithEvents gridBand2 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
     Friend WithEvents GridControl2 As DevExpress.XtraGrid.GridControl
     Friend WithEvents BandedGridView3 As DevExpress.XtraGrid.Views.BandedGrid.BandedGridView
     Friend WithEvents GridBand6 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
@@ -1070,4 +1061,11 @@ Partial Class frmCA_Report
     Friend WithEvents BandedGridColumn25 As DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn
     Friend WithEvents BandedGridView4 As DevExpress.XtraGrid.Views.BandedGrid.BandedGridView
     Friend WithEvents GridBand10 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
+    Friend WithEvents ReportGenerator1 As DevExpress.XtraReports.ReportGeneration.ReportGenerator
+    Friend WithEvents gridBand5 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
+    Friend WithEvents gridBand4 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
+    Friend WithEvents gridBand1 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
+    Friend WithEvents gridBand2 As DevExpress.XtraGrid.Views.BandedGrid.GridBand
+    Friend WithEvents colTWDV_TOTAL As DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn
+    Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
 End Class

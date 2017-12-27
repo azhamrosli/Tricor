@@ -60,6 +60,14 @@ Public Class frmMovement_Add
                 txtAmountEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_AMOUNT_END")), 0, dt.Rows(0)("MM_AMOUNT_END"))
                 txtNoteStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_START")), 0, dt.Rows(0)("MM_NOTE_START"))
                 txtNoteEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_END")), 0, dt.Rows(0)("MM_NOTE_END"))
+                txtTotalAmount_AddbackDeduct.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT")), 0, dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+
+                DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
+                If dt IsNot Nothing Then
+                    For Each rowx As DataRow In dt.Rows
+                        DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(rowx)
+                    Next
+                End If
 
                 dt = mdlProcess.Load_MovementNormal_Add(ID, ErrorLog)
 
@@ -89,9 +97,47 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
+
+    Private Sub GridView1_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView1.CellValueChanged
+        Try
+            If e.Column.FieldName = "MM_AddBack" Then
+                If TypeOf sender Is GridView Then
+                    Dim view As GridView = CType(sender, GridView)
+                    Dim row As DataRow = view.GetDataRow(e.RowHandle)
+
+                    If IsDBNull(row("MM_AddBack")) = False AndAlso CBool(row("MM_AddBack")) = True Then
+                        row("MM_ADDBACK_AMOUNT") = row("MM_Amount")
+                    Else
+                        row("MM_ADDBACK_AMOUNT") = 0
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub GridView2_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView2.CellValueChanged
+        Try
+            If e.Column.FieldName = "MM_Deduct" AndAlso CBool(e.Value) = True Then
+                If TypeOf sender Is GridView Then
+                    Dim view As GridView = CType(sender, GridView)
+                    Dim row As DataRow = view.GetDataRow(e.RowHandle)
+
+                    If IsDBNull(row("MM_Deduct")) = False AndAlso CBool(row("MM_Deduct")) = True Then
+                        row("MM_ADDBACK_AMOUNT") = row("MM_Amount")
+                    Else
+                        row("MM_ADDBACK_AMOUNT") = 0
+                    End If
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
     Private Sub GridView1_InitNewRow(sender As Object, e As DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
             GridView1.GetDataRow(e.RowHandle)("MM_AddBack") = False
+            GridView1.GetDataRow(e.RowHandle)("MM_ADDBACK_AMOUNT") = 0
         Catch ex As Exception
 
         End Try
@@ -99,6 +145,7 @@ Public Class frmMovement_Add
     Private Sub GridView2_InitNewRow(sender As Object, e As DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs) Handles GridView2.InitNewRow
         Try
             GridView2.GetDataRow(e.RowHandle)("MM_Deduct") = False
+            GridView2.GetDataRow(e.RowHandle)("MM_DEDUCT_AMOUNT") = 0
         Catch ex As Exception
 
         End Try
@@ -114,6 +161,7 @@ Public Class frmMovement_Add
     Private Sub CalcVal()
         Try
             Dim Total As Decimal = 0
+            Dim TotalAddBackDeduct As Decimal = 0
             If txtAmountStart.EditValue IsNot Nothing AndAlso IsNumeric(txtAmountStart.EditValue) = True Then
                 Total += CDec(txtAmountStart.EditValue)
             End If
@@ -123,6 +171,7 @@ Public Class frmMovement_Add
                 For Each rowx As DataRow In DsMovement.Tables("MOVEMENT_ADD").Rows
                     If rowx.RowState <> DataRowState.Deleted AndAlso IsDBNull(rowx("MM_Amount")) = False Then
                         Total += CDec(rowx("MM_Amount"))
+                        TotalAddBackDeduct += CDec(IIf(IsDBNull(rowx("MM_ADDBACK_AMOUNT")), 0, rowx("MM_ADDBACK_AMOUNT")))
                     End If
                 Next
             End If
@@ -131,11 +180,13 @@ Public Class frmMovement_Add
                 For Each rowx As DataRow In DsMovement.Tables("MOVEMENT_DEDUCT").Rows
                     If rowx.RowState <> DataRowState.Deleted AndAlso IsDBNull(rowx("MM_Amount")) = False Then
                         Total -= CDec(rowx("MM_Amount"))
+                        TotalAddBackDeduct -= CDec(IIf(IsDBNull(rowx("MM_DEDUCT_AMOUNT")), 0, rowx("MM_DEDUCT_AMOUNT")))
                     End If
                 Next
             End If
 
             txtAmountEnd.EditValue = Total
+            txtTotalAmount_AddbackDeduct.EditValue = TotalAddBackDeduct
         Catch ex As Exception
             txtAmountEnd.EditValue = 0
         End Try
@@ -150,7 +201,12 @@ Public Class frmMovement_Add
     End Sub
 
     Private Sub GridView1_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView1.RowUpdated
-        CalcVal()
+        Try
+           CalcVal()
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub GridView1_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView1.ValidateRow
@@ -166,6 +222,13 @@ Public Class frmMovement_Add
                     e.ErrorText = "Please put amount."
                     e.Valid = False
                 Else
+                    If IsDBNull(row("MM_AddBack")) = False AndAlso CBool(row("MM_AddBack")) = True Then
+                        row("MM_ADDBACK_AMOUNT") = row("MM_Amount")
+                    Else
+                        row("MM_ADDBACK_AMOUNT") = 0
+                    End If
+
+                    Application.DoEvents()
                     CalcVal()
                 End If
             End If
@@ -174,7 +237,14 @@ Public Class frmMovement_Add
         End Try
     End Sub
     Private Sub GridView2_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView2.RowUpdated
-        CalcVal()
+        Try
+          
+           CalcVal()
+
+        Catch ex As Exception
+
+        End Try
+
     End Sub
     Private Sub GridView2_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView2.RowDeleted
         CalcVal()
@@ -193,6 +263,9 @@ Public Class frmMovement_Add
                     e.ErrorText = "Please put amount."
                     e.Valid = False
                 Else
+                   
+
+                    Application.DoEvents()
                     CalcVal()
                 End If
             End If
@@ -226,7 +299,7 @@ Public Class frmMovement_Add
                 If isEdit Then
                     If mdlProcess.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
-                                                     txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, _
+                                                     txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
                                                      DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
@@ -241,7 +314,7 @@ Public Class frmMovement_Add
                     Dim tmpID As Integer = 0
                     If mdlProcess.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                       dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
-                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, _
+                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
                                                       DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True

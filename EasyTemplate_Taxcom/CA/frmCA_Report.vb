@@ -6,6 +6,8 @@ Imports DevExpress.XtraEditors
 Imports DevExpress.XtraPrinting.Links
 Imports DevExpress.XtraPrintingLinks
 Imports System.Drawing.Printing
+Imports DevExpress.XtraReports.ReportGeneration
+Imports DevExpress.XtraReports.UI
 
 Public Class frmCA_Report
     Public ID As String = ""
@@ -124,96 +126,99 @@ Public Class frmCA_Report
     End Sub
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
+        PrintExport(False)
+    End Sub
+    Private Sub PrintExport(ByVal isExport As Boolean)
         Try
+            Try
+                Dim Path As String = Nothing
+                If isExport Then
+                    SaveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx"
+                    Dim rslt As DialogResult = SaveFileDialog1.ShowDialog
 
-            Dim ListofGridControl As New List(Of DevExpress.XtraGrid.GridControl)
-
-            ListofGridControl.Add(GridControl1)
-            '  ListofGridControl.Add(GridControl2)
-            Dim ps As PrintingSystem = New PrintingSystem
-            Dim compisiteLink As DevExpress.XtraPrintingLinks.CompositeLink = New DevExpress.XtraPrintingLinks.CompositeLink
-            compisiteLink.PrintingSystem = ps
-
-            Dim Link As PrintableComponentLink
-
-            For Each grid As DevExpress.XtraGrid.GridControl In ListofGridControl
-                Link = New PrintableComponentLink
-                '  AddHandler Link.CreateReportHeaderArea, AddressOf Grid_CreateReportHeaderArea
-                Link.Component = grid
-
-                compisiteLink.Links.Add(Link)
-
-            Next
-
-            compisiteLink.RtfReportHeader = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
-            compisiteLink.Landscape = True
-            compisiteLink.MinMargins.Left = 5
-            compisiteLink.MinMargins.Right = 5
-            compisiteLink.PaperKind = PaperKind.A4
-            compisiteLink.CreateDocument()
-            compisiteLink.ShowPreview()
+                    If rslt = Windows.Forms.DialogResult.OK Then
+                        Path = SaveFileDialog1.FileName
+                    Else
+                        Exit Sub
+                    End If
+                End If
 
 
-            ''Dim str As String = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
-            ''BandedGridView1.OptionsPrint.RtfPageHeader &= str
 
-            ''  GridControl1.PrintDialog()
-            ''  GridControl1.ShowPrintPreview()
-            'Dim link As New PrintableComponentLink(New PrintingSystem())
-            'AddHandler link.CreateReportHeaderArea, AddressOf Link_CreateReportHeaderArea
-            '' AddHandler link.createPageHeaderArea, AddressOf Link_CreateReportHeaderArea1
-            'link.Component = GridControl1
+                Select Case TypeReport
+                    Case 0, 3
+                        'Capital Allowance Details By Rate
+                        Dim rpt As New rpt_CAByRate
 
-            ''Dim sb = New System.Text.StringBuilder()
-            ''sb.Append("{\rtf1\deff0{\fonttbl{\f0 Calibri;}}{\colortbl ;\red0\green0\blue255 ;\red79\green129\blue189 ;\red238\green236\blue225 ;}{\*\defchp \fs22}{\stylesheet {\ql\fs22 Normal;}{\*\cs1\fs22 Default Paragraph Font;}{\*\cs2\sbasedon1\fs22 Line Number;}{\*\cs3\ul\fs22\cf1 Hyperlink;}{\*\ts4\tsrowd\fs22\ql\trautofit1\tscellpaddfl3\tscellpaddl108\tscellpaddfr3\tscellpaddr108\tsvertalt\cltxlrtb Normal Table;}{\*\ts5\tsrowd\sbasedon4\fs22\ql\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trautofit1\tscellpaddfl3\tscellpaddl108\tscellpaddfr3\tscellpaddr108\tsvertalt\cltxlrtb Table Simple 1;}}{\*\listoverridetable}\nouicompat\splytwnine\htmautsp\sectd\trowd\irow0\irowband-1\lastrow\ts5\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trleft-1080\trftsWidth1\trautofit1\trpaddfl3\trpaddl108\trpaddfr3\trpaddr108\tbllkhdrcols\tbllkhdrrows\tbllknocolband\tblindtype3\tblind-972\clvertalt\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cltxlrtb\clftsWidth3\clwWidth10785\clpadfr3\clpadr108\clpadft3\clpadt108\cellx9720\pard\plain\ql\intbl\fi1080\li-1080\lin-1080\cbpat2\yts5{\lang17417\langfe17417\fs22\cf3\chcbpat2 CAPITAL ALLOWANCE}\fs22\cf3\cell\trowd\irow0\irowband-1\lastrow\ts5\trbrdrt\brdrs\brdrw10\trbrdrl\brdrs\brdrw10\trbrdrb\brdrs\brdrw10\trbrdrr\brdrs\brdrw10\trbrdrh\brdrs\brdrw10\trbrdrv\brdrs\brdrw10\trleft-1080\trftsWidth1\trautofit1\trpaddfl3\trpaddl108\trpaddfr3\trpaddr108\tbllkhdrcols\tbllkhdrrows\tbllknocolband\tblindtype3\tblind-972\clvertalt\clbrdrt\brdrs\brdrw10\clbrdrl\brdrs\brdrw10\clbrdrb\brdrs\brdrw10\clbrdrr\brdrs\brdrw10\cltxlrtb\clftsWidth3\clwWidth10785\clpadfr3\clpadr108\clpadft3\clpadt108\cellx9720\row\pard\plain\ql\fs22\par}")
-            ''link.RtfReportHeader = sb.ToString()
-            'link.Landscape = True
-
-            'link.ShowPreview()
+                        rpt.paramCompanyName.Value = ComName
+                        rpt.paramYA.Value = CInt(YA)
 
 
+                        rpt.Landscape = True
+                        rpt.DataSource = DsCA.Tables("CA_REPORT_TEMP")
+
+                        If isExport Then
+                            rpt.ExportToXlsx(Path)
+                        Else
+                            rpt.ShowPreview()
+                        End If
+
+                    Case 1, 4
+                        'Capital Allowance Details By Category
+                        Dim rpt As New rpt_CAByCategory
+
+                        rpt.paramCompanyName.Value = ComName
+                        rpt.paramYA.Value = CInt(YA)
+
+
+                        rpt.Landscape = True
+                        rpt.DataSource = DsCA.Tables("CA_REPORT_TEMP")
+
+
+                        If isExport Then
+                            rpt.ExportToXlsx(Path)
+                        Else
+                            rpt.ShowPreview()
+                        End If
+
+                    Case 2, 5
+                        'Capital Allowance Details By Asset
+                        Dim rpt As New rptCAReport
+
+                        rpt.paramCompanyName.Value = ComName
+                        rpt.paramYA.Value = CInt(YA)
+
+
+                        rpt.Landscape = True
+                        rpt.DataSource = DsCA.Tables("CA_REPORT_TEMP")
+
+
+                        If isExport Then
+                            rpt.ExportToXlsx(Path)
+
+                        Else
+                            rpt.ShowPreview()
+                        End If
+
+                End Select
+
+                If isExport Then
+                    MsgBox("Succesfully export report to " & vbCrLf & Path, MsgBoxStyle.Information)
+
+                End If
+
+
+            Catch ex As Exception
+
+            End Try
         Catch ex As Exception
 
         End Try
     End Sub
-
     Private Sub btnExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExport.ItemClick
         Try
-            Dim rslt As DialogResult = FolderBrowserDialog1.ShowDialog
-
-            If rslt = Windows.Forms.DialogResult.OK Then
-                Dim Path As String = FolderBrowserDialog1.SelectedPath
-
-                ' GridControl1.ExportToXlsx(Path & "\CA_REPORT_" & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx")
-
-                Dim ListofGridControl As New List(Of DevExpress.XtraGrid.GridControl)
-
-                ListofGridControl.Add(GridControl1)
-                '  ListofGridControl.Add(GridControl2)
-                Dim ps As PrintingSystem = New PrintingSystem
-                Dim compisiteLink As DevExpress.XtraPrintingLinks.CompositeLink = New DevExpress.XtraPrintingLinks.CompositeLink
-                compisiteLink.PrintingSystem = ps
-
-                Dim Link As PrintableComponentLink
-
-                For Each grid As DevExpress.XtraGrid.GridControl In ListofGridControl
-                    Link = New PrintableComponentLink
-                    '  AddHandler Link.CreateReportHeaderArea, AddressOf Grid_CreateReportHeaderArea
-                    Link.Component = grid
-
-                    compisiteLink.Links.Add(Link)
-
-                Next
-
-                compisiteLink.RtfReportHeader = vbCrLf & ComName & vbCrLf & "Reference No : C" & RefNo & vbCrLf & "Year of Assessment :" & YA
-                compisiteLink.CreateDocument()
-                compisiteLink.Landscape = True
-                compisiteLink.ExportToXlsx(Path & "\CA_REPORT_" & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx")
-
-            End If
-
-
-
+            PrintExport(True)
+           
         Catch ex As Exception
 
         End Try

@@ -112,9 +112,9 @@ Partial Class frmCA_ReportMenu
         'btnPrint
         '
         Me.btnPrint.Caption = "Print"
-        Me.btnPrint.Glyph = CType(resources.GetObject("btnPrint.Glyph"), System.Drawing.Image)
         Me.btnPrint.Id = 3
-        Me.btnPrint.LargeGlyph = CType(resources.GetObject("btnPrint.LargeGlyph"), System.Drawing.Image)
+        Me.btnPrint.ImageOptions.Image = CType(resources.GetObject("btnPrint.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnPrint.ImageOptions.LargeImage = CType(resources.GetObject("btnPrint.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -123,6 +123,7 @@ Partial Class frmCA_ReportMenu
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(425, 31)
         '
         'barDockControlBottom
@@ -130,6 +131,7 @@ Partial Class frmCA_ReportMenu
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 358)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(425, 0)
         '
         'barDockControlLeft
@@ -137,6 +139,7 @@ Partial Class frmCA_ReportMenu
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 327)
         '
         'barDockControlRight
@@ -144,14 +147,15 @@ Partial Class frmCA_ReportMenu
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(425, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 327)
         '
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 2
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -256,7 +260,7 @@ Partial Class frmCA_ReportMenu
         '
         'SimpleButton1
         '
-        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
+        Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
         Me.SimpleButton1.Location = New System.Drawing.Point(381, 92)
         Me.SimpleButton1.Name = "SimpleButton1"
         Me.SimpleButton1.Size = New System.Drawing.Size(24, 23)
@@ -264,7 +268,7 @@ Partial Class frmCA_ReportMenu
         '
         'btnClear
         '
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
+        Me.btnClear.ImageOptions.Image = CType(resources.GetObject("btnClear.ImageOptions.Image"), System.Drawing.Image)
         Me.btnClear.Location = New System.Drawing.Point(381, 40)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(24, 23)
@@ -310,7 +314,7 @@ Partial Class frmCA_ReportMenu
         Me.cboType.Location = New System.Drawing.Point(106, 118)
         Me.cboType.Name = "cboType"
         Me.cboType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboType.Properties.Items.AddRange(New Object() {"1. Capital Allowance Details By Rate", "2. Capital Allowance Details By Category", "3. Capital Allowance Details By Asset", "4. Capital Allowance Summary By Rate", "5. Capital Allowance Summary By Category", "6. Capital Allowance Summary By Asset", "7. Fixed Asset Reconciliation Report"})
+        Me.cboType.Properties.Items.AddRange(New Object() {"1.   Capital Allowance Details By Rate", "2.   Capital Allowance Details By Category", "3.   Capital Allowance Details By Asset", "4.   Capital Allowance Summary By Rate", "5.   Capital Allowance Summary By Category", "6.   Capital Allowance Summary By Asset", "7.   Fixed Asset Reconciliation Report", "8.   Control Transfer In Report", "9.   Disposal Report", "10. Written-Off Report", "11. Control Transfer Out Report"})
         Me.cboType.Properties.PopupSizeable = True
         Me.cboType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboType.Size = New System.Drawing.Size(268, 20)
