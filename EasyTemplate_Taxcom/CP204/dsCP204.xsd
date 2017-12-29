@@ -14,7 +14,7 @@
   <xs:element name="dsCP204" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsCP204" msprop:Generator_UserDSName="dsCP204">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="BORANG_CP204_TRICOR" msprop:Generator_TableClassName="BORANG_CP204_TRICORDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR" msprop:Generator_TablePropName="BORANG_CP204_TRICOR" msprop:Generator_RowDeletingName="BORANG_CP204_TRICORRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICORRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICORRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICORRowDeleted" msprop:Generator_UserTableName="BORANG_CP204_TRICOR" msprop:Generator_RowChangedName="BORANG_CP204_TRICORRowChanged" msprop:Generator_RowEvArgName="BORANG_CP204_TRICORRowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204_TRICORRow">
+        <xs:element name="BORANG_CP204_TRICOR" msprop:Generator_TableClassName="BORANG_CP204_TRICORDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR" msprop:Generator_RowChangedName="BORANG_CP204_TRICORRowChanged" msprop:Generator_TablePropName="BORANG_CP204_TRICOR" msprop:Generator_RowDeletingName="BORANG_CP204_TRICORRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICORRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICORRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICORRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_TRICORRow" msprop:Generator_UserTableName="BORANG_CP204_TRICOR" msprop:Generator_RowEvArgName="BORANG_CP204_TRICORRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
@@ -52,7 +52,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TableClassName="BORANG_CP204_TRICOR_BREAKDOWNDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TablePropName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowDeletingName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICOR_BREAKDOWNRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleted" msprop:Generator_UserTableName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowChangedName="BORANG_CP204_TRICOR_BREAKDOWNRowChanged" msprop:Generator_RowEvArgName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204_TRICOR_BREAKDOWNRow">
+        <xs:element name="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_TableClassName="BORANG_CP204_TRICOR_BREAKDOWNDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowChangedName="BORANG_CP204_TRICOR_BREAKDOWNRowChanged" msprop:Generator_TablePropName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowDeletingName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICOR_BREAKDOWNRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICOR_BREAKDOWNRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_TRICOR_BREAKDOWNRow" msprop:Generator_UserTableName="BORANG_CP204_TRICOR_BREAKDOWN" msprop:Generator_RowEvArgName="BORANG_CP204_TRICOR_BREAKDOWNRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
@@ -88,7 +88,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BORANG_CP204" msprop:Generator_TableClassName="BORANG_CP204DataTable" msprop:Generator_TableVarName="tableBORANG_CP204" msprop:Generator_TablePropName="BORANG_CP204" msprop:Generator_RowDeletingName="BORANG_CP204RowDeleting" msprop:Generator_RowChangingName="BORANG_CP204RowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204RowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204RowDeleted" msprop:Generator_UserTableName="BORANG_CP204" msprop:Generator_RowChangedName="BORANG_CP204RowChanged" msprop:Generator_RowEvArgName="BORANG_CP204RowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204Row">
+        <xs:element name="BORANG_CP204" msprop:Generator_TableClassName="BORANG_CP204DataTable" msprop:Generator_TableVarName="tableBORANG_CP204" msprop:Generator_RowChangedName="BORANG_CP204RowChanged" msprop:Generator_TablePropName="BORANG_CP204" msprop:Generator_RowDeletingName="BORANG_CP204RowDeleting" msprop:Generator_RowChangingName="BORANG_CP204RowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204RowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204RowDeleted" msprop:Generator_RowClassName="BORANG_CP204Row" msprop:Generator_UserTableName="BORANG_CP204" msprop:Generator_RowEvArgName="BORANG_CP204RowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="BCP_KEY" msprop:Generator_ColumnVarNameInTable="columnBCP_KEY" msprop:Generator_ColumnPropNameInRow="BCP_KEY" msprop:Generator_ColumnPropNameInTable="BCP_KEYColumn" msprop:Generator_UserColumnName="BCP_KEY" type="xs:int" minOccurs="0" />
@@ -274,6 +274,42 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BORANG_CP204_TRICOR_BREAKDOWN_REPORT" msprop:Generator_TableClassName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_TRICOR_BREAKDOWN_REPORT" msprop:Generator_TablePropName="BORANG_CP204_TRICOR_BREAKDOWN_REPORT" msprop:Generator_RowDeletingName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRowDeleted" msprop:Generator_UserTableName="BORANG_CP204_TRICOR_BREAKDOWN_REPORT" msprop:Generator_RowChangedName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRowChanged" msprop:Generator_RowEvArgName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRowChangeEvent" msprop:Generator_RowClassName="BORANG_CP204_TRICOR_BREAKDOWN_REPORTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CP_ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msprop:Generator_ColumnVarNameInTable="columnCP_ID" msprop:Generator_ColumnPropNameInRow="CP_ID" msprop:Generator_ColumnPropNameInTable="CP_IDColumn" msprop:Generator_UserColumnName="CP_ID" type="xs:int" />
+              <xs:element name="CP_PARENTID" msprop:Generator_ColumnVarNameInTable="columnCP_PARENTID" msprop:Generator_ColumnPropNameInRow="CP_PARENTID" msprop:Generator_ColumnPropNameInTable="CP_PARENTIDColumn" msprop:Generator_UserColumnName="CP_PARENTID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CP_INSTALL_NO" msprop:Generator_ColumnVarNameInTable="columnCP_INSTALL_NO" msprop:Generator_ColumnPropNameInRow="CP_INSTALL_NO" msprop:Generator_ColumnPropNameInTable="CP_INSTALL_NOColumn" msprop:Generator_UserColumnName="CP_INSTALL_NO" type="xs:int" minOccurs="0" />
+              <xs:element name="CP_PAYMENT_DUE" msprop:Generator_ColumnVarNameInTable="columnCP_PAYMENT_DUE" msprop:Generator_ColumnPropNameInRow="CP_PAYMENT_DUE" msprop:Generator_ColumnPropNameInTable="CP_PAYMENT_DUEColumn" msprop:Generator_UserColumnName="CP_PAYMENT_DUE" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_INSTALLMENT_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnCP_INSTALLMENT_AMOUNT" msprop:Generator_ColumnPropNameInRow="CP_INSTALLMENT_AMOUNT" msprop:Generator_ColumnPropNameInTable="CP_INSTALLMENT_AMOUNTColumn" msprop:Generator_UserColumnName="CP_INSTALLMENT_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_PAYMENT_DATE_1" msprop:Generator_ColumnVarNameInTable="columnCP_PAYMENT_DATE_1" msprop:Generator_ColumnPropNameInRow="CP_PAYMENT_DATE_1" msprop:Generator_ColumnPropNameInTable="CP_PAYMENT_DATE_1Column" msprop:Generator_UserColumnName="CP_PAYMENT_DATE_1" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_AMOUNT_PAID_1" msprop:Generator_ColumnVarNameInTable="columnCP_AMOUNT_PAID_1" msprop:Generator_ColumnPropNameInRow="CP_AMOUNT_PAID_1" msprop:Generator_ColumnPropNameInTable="CP_AMOUNT_PAID_1Column" msprop:Generator_UserColumnName="CP_AMOUNT_PAID_1" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_PAYMENT_DATE_2" msprop:Generator_ColumnVarNameInTable="columnCP_PAYMENT_DATE_2" msprop:Generator_ColumnPropNameInRow="CP_PAYMENT_DATE_2" msprop:Generator_ColumnPropNameInTable="CP_PAYMENT_DATE_2Column" msprop:Generator_UserColumnName="CP_PAYMENT_DATE_2" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CP_AMOUNT_PAID_2" msprop:Generator_ColumnVarNameInTable="columnCP_AMOUNT_PAID_2" msprop:Generator_ColumnPropNameInRow="CP_AMOUNT_PAID_2" msprop:Generator_ColumnPropNameInTable="CP_AMOUNT_PAID_2Column" msprop:Generator_UserColumnName="CP_AMOUNT_PAID_2" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_PENALTY" msprop:Generator_ColumnVarNameInTable="columnCP_PENALTY" msprop:Generator_ColumnPropNameInRow="CP_PENALTY" msprop:Generator_ColumnPropNameInTable="CP_PENALTYColumn" msprop:Generator_UserColumnName="CP_PENALTY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_NOTE_TITLE" msprop:Generator_ColumnVarNameInTable="columnCP_NOTE_TITLE" msprop:Generator_ColumnPropNameInRow="CP_NOTE_TITLE" msprop:Generator_ColumnPropNameInTable="CP_NOTE_TITLEColumn" msprop:Generator_UserColumnName="CP_NOTE_TITLE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CP_NOTE" msprop:Generator_ColumnVarNameInTable="columnCP_NOTE" msprop:Generator_ColumnPropNameInRow="CP_NOTE" msprop:Generator_ColumnPropNameInTable="CP_NOTEColumn" msprop:Generator_UserColumnName="CP_NOTE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="3000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

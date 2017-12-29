@@ -1,12 +1,15 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraPrinting
-
+Imports DevExpress.XtraEditors.Calendar
+Imports DevExpress.XtraReports.UI
 Public Class frmCP204_Add
     Dim ErrorLog As clsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
     Dim isBusy As Boolean = False
     Dim isBusy2 As Boolean = False
+
+
     Public Const MainTable As String = "BORANG_CP204_TRICOR"
     Public Const MainTable_Details As String = "BORANG_CP204_TRICOR_BREAKDOWN"
     Public Const MainTable_PaymentDue As String = "CP_PAYMENT_DUE"
@@ -16,6 +19,8 @@ Public Class frmCP204_Add
     Public Const MainTable_Amount2 As String = "CP_AMOUNT_PAID_2"
     Public Const MainTable_Payment1 As String = "CP_PAYMENT_DATE_1"
     Public Const MainTable_Payment2 As String = "CP_PAYMENT_DATE_2"
+    Public Const MainTable_Note_Title As String = "CP_NOTE_TITLE"
+    Public Const MainTable_Note As String = "CP_NOTE"
 
     Private Sub frmCP204_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -83,19 +88,33 @@ Public Class frmCP204_Add
                     cboYA.EditValue = mdlProcess.ArgParam3
                 End If
 
+                cboRefNo.ReadOnly = False
+                cboYA.ReadOnly = False
+                btnExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                btnPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             Else
 
                 Dim dt As DataTable = mdlProcess.Load_CP204_ByID(ID)
 
                 If dt Is Nothing Then
+                    cboRefNo.ReadOnly = False
+                    cboYA.ReadOnly = False
+                    btnExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                    btnPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                     isEdit = False
                     Exit Sub
                 End If
 
+                cboRefNo.ReadOnly = True
+                cboYA.ReadOnly = True
+                btnExport.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+                btnPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+
                 isBusy2 = True
-                Application.DoEvents()
+
 
                 cboRefNo.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_REF_NO")), "", dt.Rows(0)("BCP_REF_NO"))
+                txtRefNo.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CO_NAME")), "", dt.Rows(0)("BCP_CO_NAME"))
                 txtRefRegistrationNo.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_CO_REGNO")), "", dt.Rows(0)("BCP_CO_REGNO"))
                 cboYA.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_YA")), "", dt.Rows(0)("BCP_YA"))
                 Application.DoEvents()
@@ -350,6 +369,7 @@ Public Class frmCP204_Add
                     paymentdue = New DateTime(Format(dtBasisPeriodStart.EditValue, "yyyy"), Format(dtBasisPeriodStart.EditValue, "MM"), 15)
 
                 End If
+
                 Dim tmpDt As DateTime = paymentdue
                 For i As Integer = 0 To DsCP204.Tables(MainTable_Details).Rows.Count - 1
 
@@ -359,14 +379,14 @@ Public Class frmCP204_Add
 
                     If i = (DsCP204.Tables(MainTable_Details).Rows.Count - 1) Then
                         DsCP204.Tables(MainTable_Details).Rows(i)("CP_INSTALLMENT_AMOUNT") = LastAmount
-                        DsCP204.Tables(MainTable_Details).Rows(i)(MainTable_Amount1) = LastAmount
+                        DsCP204.Tables(MainTable_Details).Rows(i)(MainTable_Amount1) = 0
                         txtLastInstallment.EditValue = LastAmount
                     Else
                         If i = 0 Then
                             txtFirstInstallment.EditValue = MonthyInstall
                         End If
                         DsCP204.Tables(MainTable_Details).Rows(i)("CP_INSTALLMENT_AMOUNT") = MonthyInstall
-                        DsCP204.Tables(MainTable_Details).Rows(i)(MainTable_Amount1) = MonthyInstall
+                        DsCP204.Tables(MainTable_Details).Rows(i)(MainTable_Amount1) = 0
                     End If
 
                 Next
@@ -423,38 +443,77 @@ Public Class frmCP204_Add
     Private Sub cboYA_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedValueChanged
         GenerateBreakDown()
     End Sub
-    Private Sub dtBasisPeriodStart_EditValueChanged(sender As Object, e As EventArgs) Handles dtBasisPeriodStart.EditValueChanged
-        GenerateBreakDown()
+
+    Private Sub dtBasisPeriodEnd_EditValueChanged(sender As Object, e As EventArgs) Handles dtBasisPeriodEnd.EditValueChanged, dtBasisPeriodStart.EditValueChanged
+        Try
+            If isEdit = False Then
+                CalcEstimationPercent()
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
-    Private Sub dtBasisPeriodEnd_EditValueChanged(sender As Object, e As EventArgs) Handles dtBasisPeriodEnd.EditValueChanged
-        GenerateBreakDown()
-    End Sub
+    'Private Sub dtBasisPeriodEnd_KeyUp(sender As Object, e As KeyEventArgs) Handles dtBasisPeriodEnd.KeyUp, dtBasisPeriodStart.KeyUp
+    '    If isEdit Then
+    '        Dim rlst As MsgBoxResult = MessageBox.Show("Are you want to change basis period? your previous monthly breakdown will be loss.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+    '        If rlst = MsgBoxResult.Yes Then
+    '            CalcEstimationPercent()
+    '        End If
+    '    End If
+
+    'End Sub
 
     Private Sub txtAmountTaxPayable_EditValueChanged(sender As Object, e As EventArgs) Handles txtAmountTaxPayable.EditValueChanged
         CalcEstimationPercent()
     End Sub
 
-    Private Sub GridView1_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView1.RowUpdated
+    Private Sub GridView1_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView1.CellValueChanged
+
+    End Sub
+
+    Private Sub CalcPenalty(ByVal rowHandlex As Integer)
         Try
-            Dim rowHandle As Integer = e.RowHandle
+            Dim rowHandle As Integer = rowHandlex
             Dim CurrPenalty As Decimal = 0
+            Dim CurrInstall As Decimal = 0
             Dim SubTotal As Decimal = 0
+            Dim CurrPayAmount As Decimal = 0
 
             If rowHandle < 0 OrElse rowHandle > (DsCP204.Tables(MainTable_Details).Rows.Count - 1) Then
                 Exit Sub
             End If
 
+
             Dim dtRow As DataRow = DsCP204.Tables(MainTable_Details).Rows(rowHandle)
             Dim dtRowPrevious As DataRow = Nothing
-
-            If rowHandle <> 0 Then
-                dtRowPrevious = DsCP204.Tables(MainTable_Details).Rows(rowHandle - 1)
-            End If
 
             If dtRow Is Nothing Then
                 Exit Sub
             End If
+
+            Dim obj As Object = DsCP204.Tables(MainTable_Details).Compute("sum(" & MainTable_Amount1 & ")", "")
+
+            If obj IsNot Nothing AndAlso IsNumeric(obj) Then
+                CurrPayAmount += CDec(obj)
+            End If
+           
+            obj = DsCP204.Tables(MainTable_Details).Compute("sum(" & MainTable_Amount2 & ")", "")
+            If obj IsNot Nothing AndAlso IsNumeric(obj) Then
+                CurrPayAmount += CDec(obj)
+            End If
+
+            For i As Integer = 0 To DsCP204.Tables(MainTable_Details).Rows.Count - 1
+                With DsCP204.Tables(MainTable_Details)
+                    If IsDBNull(.Rows(i)(MainTable_Payment1)) = False Then
+                        If IsDBNull(.Rows(i)(MainTable_InstallmentAmount)) = False AndAlso IsNumeric(.Rows(i)(MainTable_InstallmentAmount)) Then
+                            CurrInstall += CDec(.Rows(i)(MainTable_InstallmentAmount))
+                        End If
+                    End If
+                 
+                End With
+            Next
 
             If IsDBNull(dtRow(MainTable_Payment1)) Then
                 Exit Sub
@@ -463,54 +522,75 @@ Public Class frmCP204_Add
             Dim Installment As Decimal = CDec(IIf(IsDBNull(dtRow(MainTable_InstallmentAmount)), 0, dtRow(MainTable_InstallmentAmount)))
             Dim Amount1 As Decimal = CDec(IIf(IsDBNull(dtRow(MainTable_Amount1)), 0, dtRow(MainTable_Amount1)))
             Dim Amount2 As Decimal = CDec(IIf(IsDBNull(dtRow(MainTable_Amount2)), 0, dtRow(MainTable_Amount2)))
-            Dim dtNextPaymentDue As DateTime = CDate(dtRow(MainTable_PaymentDue)).AddDays(+30)
-            'checking if payment lated
-            'if late have penalty
-            If IsDBNull(dtRow(MainTable_Payment2)) Then
-                'check if payment 2 is null
 
-                If DateDiff(DateInterval.Day, dtRow(MainTable_PaymentDue), dtRow(MainTable_Payment1)) > 0 Then
-                    If (Amount1 + Amount2) >= Installment Then
-                        '9k > 8333
-                        CurrPenalty += Installment * 0.1
-                    Else
-                        CurrPenalty += (Installment - Amount1) * 0.1
+            If IsDBNull(dtRow(MainTable_Payment1)) = False AndAlso DateDiff(DateInterval.Day, dtRow(MainTable_PaymentDue), dtRow(MainTable_Payment1)) > 0 Then
+                'Payment 1 Already late
+                CurrPenalty = Installment * 0.1
+
+                'If CurrPayAmount > CurrInstall Then
+                '    CurrPenalty = CurrPenalty - (CurrPayAmount - CurrInstall)
+                'End If
+
+            ElseIf IsDBNull(dtRow(MainTable_Payment2)) = False AndAlso DateDiff(DateInterval.Day, dtRow(MainTable_PaymentDue), dtRow(MainTable_Payment2)) > 0 Then
+                CurrPenalty = (Installment - Amount1) * 0.1
+
+                'If CurrPayAmount > CurrInstall Then
+                '    CurrPenalty = CurrPenalty - (CurrPayAmount - CurrInstall)
+                'End If
+            ElseIf IsDBNull(dtRow(MainTable_Payment1)) Then
+                CurrPenalty = 0
+            ElseIf (Amount1 + Amount2) < dtRow(MainTable_InstallmentAmount) Then
+
+                If IsNumeric(txtCurrAvaiblePayment.EditValue) AndAlso CDec(txtCurrAvaiblePayment.EditValue) > 0 Then
+
+                    If (Amount1 + Amount2 + CDec(txtCurrAvaiblePayment.EditValue)) < Installment Then
+                        CurrPenalty = (Installment - (Amount1 + Amount2 + CDec(txtCurrAvaiblePayment.EditValue))) * 0.1
+                        dtRow(MainTable_Note) = "Carry foward balance payment."
+                        dtRow(MainTable_Note) = Installment.ToString & " - (" & Amount1.ToString & " + " & Amount2.ToString & " + " & txtCurrAvaiblePayment.EditValue & ") x 10%"
                     End If
-                End If
 
-                If (Amount1 + Amount2) < Installment Then
-                    CurrPenalty += (Installment - (Amount1 + Amount2)) * 0.1
-                End If
-
-                If DateDiff(DateInterval.Day, dtNextPaymentDue, dtRow(MainTable_Payment1)) > 0 Then
-                    CurrPenalty += (CurrPenalty + Installment) * 0.05
-                End If
-
-            Else
-
-                If DateDiff(DateInterval.Day, dtRow(MainTable_PaymentDue), dtRow(MainTable_Payment1)) > 0 Then
-                    CurrPenalty += Installment * 0.1
-                End If
-
-                If DateDiff(DateInterval.Day, dtRow(MainTable_PaymentDue), dtRow(MainTable_Payment2)) > 0 Then
-                    CurrPenalty += (Installment - Amount1) * 0.1
-                End If
-
-                If (Amount1 + Amount2) < Installment Then
-                    CurrPenalty += (Installment - (Amount1 + Amount2)) * 0.1
-                End If
-
-                If DateDiff(DateInterval.Day, dtNextPaymentDue, dtRow(MainTable_Payment1)) > 0 Then
-                    CurrPenalty += (CurrPenalty + Installment) * 0.05
+                Else
+                    CurrPenalty = (Installment - (Amount1 + Amount2)) * 0.1
                 End If
 
             End If
 
+            If CurrPenalty < 0 Then
+                CurrPenalty = 0
+            End If
+
             dtRow(MainTable_Penalty) = CurrPenalty
+           
+            If (CurrPayAmount - CurrInstall) > 0 Then
+                txtCurrAvaiblePayment.EditValue = CurrPayAmount - CurrInstall
+            Else
+                txtCurrAvaiblePayment.EditValue = 0
+            End If
         Catch ex As Exception
 
         End Try
+    End Sub
+    Private Sub cboDate_BeforePopup(sender As Object, e As EventArgs) Handles cboDate.BeforePopup
+        Try
+            Dim dtRow As DataRow = GridView1.GetDataRow(GridView1.FocusedRowHandle)
 
+            If dtRow IsNot Nothing Then
+                Dim cbo As DevExpress.XtraEditors.DateEdit = CType(sender, DevExpress.XtraEditors.DateEdit)
+                If IsDBNull(dtRow(MainTable_Payment1)) Then
+                    cbo.EditValue = dtRow(MainTable_PaymentDue)
+                    dtRow(MainTable_Amount1) = dtRow(MainTable_InstallmentAmount)
+                ElseIf IsDBNull(dtRow(MainTable_Payment2)) Then
+                    cbo.EditValue = dtRow(MainTable_Payment1)
+
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub GridView1_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView1.RowUpdated
+        CalcPenalty(e.RowHandle)
     End Sub
 
     Private Sub GridView1_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView1.ValidateRow
@@ -547,37 +627,104 @@ Public Class frmCP204_Add
     End Sub
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
-        Try
-            '  GridControl1.PrintDialog()
-            '  GridControl1.ShowPrintPreview()
-            Dim link As New PrintableComponentLink(New PrintingSystem())
-
-            link.Component = GridControl1
-
-            link.Landscape = True
-
-            link.ShowPreview()
-        Catch ex As Exception
-
-        End Try
+        PrintCP204(False)
     End Sub
-
-
-    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExport.ItemClick
+    Private Sub PrintCP204(ByVal isExport As Boolean)
         Try
-            Dim rslt As DialogResult = FolderBrowserDialog1.ShowDialog
 
-            If rslt = Windows.Forms.DialogResult.OK Then
-                Dim Path As String = FolderBrowserDialog1.SelectedPath
+            Dim Path As String = Nothing
+            If isExport Then
+                SaveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx"
+                Dim rslt As DialogResult = SaveFileDialog1.ShowDialog
 
-                GridControl1.ExportToXlsx(Path & "\CP204_MonthBreakDown_" & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx")
+                If rslt = Windows.Forms.DialogResult.OK Then
+                    Path = SaveFileDialog1.FileName
+                Else
+                    Exit Sub
+                End If
+            End If
+
+            Dim dt As DataTable = mdlProcess.Load_CP204_BreakDown_ByParentID(ID)
+
+            DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Clear()
+            If dt Is Nothing Then
+                MsgBox("Record not found.", MsgBoxStyle.Critical)
+                Exit Sub
             End If
 
 
+            Dim dtRow As DataRow = Nothing
+
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                dtRow = Nothing
+                dtRow = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").NewRow
+                dtRow("CP_ID") = IIf(IsDBNull(dt.Rows(i)("CP_ID")), 0, dt.Rows(i)("CP_ID"))
+                dtRow("CP_PARENTID") = IIf(IsDBNull(dt.Rows(i)("CP_PARENTID")), 0, dt.Rows(i)("CP_PARENTID"))
+                dtRow("CP_INSTALL_NO") = i + 1
+                dtRow("CP_PAYMENT_DUE") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DUE")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DUE"))
+                dtRow("CP_INSTALLMENT_AMOUNT") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
+                dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_1")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_1"))
+                dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_1")), 0, dt.Rows(i)("CP_AMOUNT_PAID_1"))
+
+
+                If IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")) = False AndAlso IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")) = False AndAlso CDec(dt.Rows(i)("CP_AMOUNT_PAID_2")) <> 0 Then
+                    dtRow("CP_PENALTY") = 0
+                Else
+                    dtRow("CP_PENALTY") = IIf(IsDBNull(dt.Rows(i)("CP_PENALTY")), 0, dt.Rows(i)("CP_PENALTY"))
+                End If
+
+                DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Add(dtRow)
+
+
+                If IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")) = False AndAlso IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")) = False AndAlso CDec(dt.Rows(i)("CP_AMOUNT_PAID_2")) <> 0 Then
+                    dtRow = Nothing
+
+                    dtRow = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").NewRow
+                    dtRow("CP_ID") = IIf(IsDBNull(dt.Rows(i)("CP_ID")), 0, dt.Rows(i)("CP_ID"))
+                    dtRow("CP_PARENTID") = IIf(IsDBNull(dt.Rows(i)("CP_PARENTID")), 0, dt.Rows(i)("CP_PARENTID"))
+                    dtRow("CP_INSTALL_NO") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALL_NO")), 0, dt.Rows(i)("CP_INSTALL_NO"))
+                    dtRow("CP_PAYMENT_DUE") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DUE")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DUE"))
+                    dtRow("CP_INSTALLMENT_AMOUNT") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
+                    dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_2"))
+                    dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")), 0, dt.Rows(i)("CP_AMOUNT_PAID_2"))
+
+                    dtRow("CP_PENALTY") = IIf(IsDBNull(dt.Rows(i)("CP_PENALTY")), 0, dt.Rows(i)("CP_PENALTY"))
+                    DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Add(dtRow)
+
+                End If
+
+            Next
+
+            Dim rpt As New rpt_CP204_Breakdown
+            rpt.paramCompanyName.Value = txtRefNo.EditValue
+            rpt.paramYA.Value = cboYA.EditValue
+            rpt.paramApendix.Value = "APPENDIX"
+            rpt.DataSource = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT")
+
+            If isExport Then
+                rpt.ExportToXlsx(Path)
+                MsgBox("Succesfully export data.", MsgBoxStyle.Information)
+            Else
+                rpt.ShowPreview()
+            End If
 
         Catch ex As Exception
-
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
         End Try
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExport.ItemClick
+        PrintCP204(True)
     End Sub
 
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
@@ -598,7 +745,7 @@ Public Class frmCP204_Add
                 End If
 
                 dtRow("BCP_REF_NO") = IIf(cboRefNo.EditValue Is Nothing, DBNull.Value, cboRefNo.EditValue)
-                dtRow("BCP_CO_NAME") = IIf(cboRefNo.EditValue Is Nothing, DBNull.Value, cboRefNo.Properties.View.GetFocusedRowCellValue("CompanyName"))
+                dtRow("BCP_CO_NAME") = txtRefNo.EditValue
                 dtRow("BCP_CO_REGNO") = IIf(txtRefRegistrationNo.EditValue Is Nothing, DBNull.Value, txtRefRegistrationNo.EditValue)
                 dtRow("BCP_CORRESPOND_ADD1") = IIf(txtAdd1_Cor.EditValue Is Nothing, DBNull.Value, txtAdd1_Cor.EditValue)
                 dtRow("BCP_CORRESPOND_ADD2") = IIf(txtAdd2_Cor.EditValue Is Nothing, DBNull.Value, txtAdd2_Cor.EditValue)
@@ -716,7 +863,7 @@ Public Class frmCP204_Add
 
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
-            txtRefNo.EditValue = cboRefNo.EditValue
+            txtRefNo.EditValue = cboRefNo.Properties.View.GetDataRow(cboRefNo.Properties.View.FocusedRowHandle)("CompanyName")
             txtRefRegistrationNo.EditValue = cboRefNo.Properties.View.GetFocusedRowCellValue("CompanyNo") 'cboRefNo.GetSelectedDataRow()
             GenerateBreakDown()
         Catch ex As Exception
@@ -724,4 +871,60 @@ Public Class frmCP204_Add
         End Try
     End Sub
 
+   
+    Private Sub ApplyPaymentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ApplyPaymentToolStripMenuItem.Click
+        Try
+            Dim dtRow As DataRow = GridView1.GetDataRow(GridView1.FocusedRowHandle)
+
+            If dtRow IsNot Nothing Then
+
+                If IsDBNull(dtRow(MainTable_Payment1)) Or IsDate(dtRow(MainTable_Payment1)) = False Then
+                    dtRow(MainTable_Payment1) = dtRow(MainTable_PaymentDue)
+                    dtRow(MainTable_Amount1) = dtRow(MainTable_InstallmentAmount)
+                ElseIf (CDec(dtRow(MainTable_InstallmentAmount)) - CDec(dtRow(MainTable_Amount1))) > 0 Then
+                        dtRow(MainTable_Payment2) = dtRow(MainTable_PaymentDue)
+                        dtRow(MainTable_Amount2) = CDec(dtRow(MainTable_InstallmentAmount)) - CDec(dtRow(MainTable_Amount1))
+                End If
+
+
+                CalcPenalty(GridView1.FocusedRowHandle)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub ClearPaymentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearPaymentToolStripMenuItem.Click
+        Try
+            Dim dtRow As DataRow = GridView1.GetDataRow(GridView1.FocusedRowHandle)
+
+            If dtRow IsNot Nothing Then
+                dtRow(MainTable_Payment1) = DBNull.Value
+                dtRow(MainTable_Amount1) = 0
+                dtRow(MainTable_Payment2) = DBNull.Value
+                dtRow(MainTable_Amount2) = 0
+                dtRow(MainTable_Penalty) = 0
+
+                CalcPenalty(GridView1.FocusedRowHandle)
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub LabelControl34_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnRefreshMonthlyBreakdown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnRefreshMonthlyBreakdown.ItemClick
+        Try
+            Dim rlst As MsgBoxResult = MessageBox.Show("Are you want to change basis period? your previous monthly breakdown will be loss.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+            If rlst = MsgBoxResult.Yes Then
+                CalcEstimationPercent()
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

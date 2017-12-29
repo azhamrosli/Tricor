@@ -20,7 +20,7 @@ Partial Class ucDisposal
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim GridLevelNode2 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
+        Dim GridLevelNode1 As DevExpress.XtraGrid.GridLevelNode = New DevExpress.XtraGrid.GridLevelNode()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucDisposal))
         Me.dgvDisposal = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colCA_KEY1 = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -86,20 +86,8 @@ Partial Class ucDisposal
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.pnlLoading = New DevExpress.XtraWaitForm.ProgressPanel()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
-        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
-        Me.cboFilterType = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.btnAllRecord = New DevExpress.XtraEditors.SimpleButton()
-        Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
-        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
-        Me.txtFilterValue = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -109,6 +97,18 @@ Partial Class ucDisposal
         Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.SimpleButton2 = New DevExpress.XtraEditors.SimpleButton()
+        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnClear = New DevExpress.XtraEditors.SimpleButton()
+        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
+        Me.cboFilterType = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.btnAllRecord = New DevExpress.XtraEditors.SimpleButton()
+        Me.btnFind = New DevExpress.XtraEditors.SimpleButton()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
+        Me.txtFilterValue = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,13 +117,13 @@ Partial Class ucDisposal
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
-        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtFilterValue.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'dgvDisposal
@@ -228,9 +228,9 @@ Partial Class ucDisposal
         '
         Me.dgvView.DataSource = Me.CABindingSource
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
-        GridLevelNode2.LevelTemplate = Me.dgvDisposal
-        GridLevelNode2.RelationName = "FK_CA_CA_DISPOSAL"
-        Me.dgvView.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode2})
+        GridLevelNode1.LevelTemplate = Me.dgvDisposal
+        GridLevelNode1.RelationName = "FK_CA_CA_DISPOSAL"
+        Me.dgvView.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
         Me.dgvView.Location = New System.Drawing.Point(0, 135)
         Me.dgvView.MainView = Me.dgvCA
         Me.dgvView.Name = "dgvView"
@@ -506,9 +506,9 @@ Partial Class ucDisposal
         'btnAdd
         '
         Me.btnAdd.Caption = "Add"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -542,36 +542,36 @@ Partial Class ucDisposal
         'btnEdit
         '
         Me.btnEdit.Caption = "Edit"
-        Me.btnEdit.Glyph = CType(resources.GetObject("btnEdit.Glyph"), System.Drawing.Image)
         Me.btnEdit.Id = 1
-        Me.btnEdit.LargeGlyph = CType(resources.GetObject("btnEdit.LargeGlyph"), System.Drawing.Image)
+        Me.btnEdit.ImageOptions.Image = CType(resources.GetObject("btnEdit.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnEdit.ImageOptions.LargeImage = CType(resources.GetObject("btnEdit.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnEdit.Name = "btnEdit"
         Me.btnEdit.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 2
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnPrint
         '
         Me.btnPrint.Caption = "Print"
-        Me.btnPrint.Glyph = CType(resources.GetObject("btnPrint.Glyph"), System.Drawing.Image)
         Me.btnPrint.Id = 3
-        Me.btnPrint.LargeGlyph = CType(resources.GetObject("btnPrint.LargeGlyph"), System.Drawing.Image)
+        Me.btnPrint.ImageOptions.Image = CType(resources.GetObject("btnPrint.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnPrint.ImageOptions.LargeImage = CType(resources.GetObject("btnPrint.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnImportExport
         '
         Me.btnImportExport.Caption = "Import / Export"
-        Me.btnImportExport.Glyph = CType(resources.GetObject("btnImportExport.Glyph"), System.Drawing.Image)
         Me.btnImportExport.Id = 4
-        Me.btnImportExport.LargeGlyph = CType(resources.GetObject("btnImportExport.LargeGlyph"), System.Drawing.Image)
+        Me.btnImportExport.ImageOptions.Image = CType(resources.GetObject("btnImportExport.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnImportExport.ImageOptions.LargeImage = CType(resources.GetObject("btnImportExport.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnImportExport.Name = "btnImportExport"
         Me.btnImportExport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -580,6 +580,7 @@ Partial Class ucDisposal
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(960, 31)
         '
         'barDockControlBottom
@@ -587,6 +588,7 @@ Partial Class ucDisposal
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 535)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(960, 0)
         '
         'barDockControlLeft
@@ -594,6 +596,7 @@ Partial Class ucDisposal
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 504)
         '
         'barDockControlRight
@@ -601,6 +604,7 @@ Partial Class ucDisposal
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(960, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 504)
         '
         'pnlLoading
@@ -612,6 +616,7 @@ Partial Class ucDisposal
         Me.pnlLoading.AppearanceCaption.Options.UseFont = True
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
+        Me.pnlLoading.BarAnimationElementThickness = 2
         Me.pnlLoading.Location = New System.Drawing.Point(325, 297)
         Me.pnlLoading.Name = "pnlLoading"
         Me.pnlLoading.Size = New System.Drawing.Size(271, 70)
@@ -640,115 +645,6 @@ Partial Class ucDisposal
         Me.PanelControl1.Size = New System.Drawing.Size(960, 104)
         Me.PanelControl1.TabIndex = 8
         '
-        'SimpleButton2
-        '
-        Me.SimpleButton2.Image = CType(resources.GetObject("SimpleButton2.Image"), System.Drawing.Image)
-        Me.SimpleButton2.Location = New System.Drawing.Point(804, 44)
-        Me.SimpleButton2.Name = "SimpleButton2"
-        Me.SimpleButton2.Size = New System.Drawing.Size(24, 23)
-        Me.SimpleButton2.TabIndex = 20
-        '
-        'SimpleButton1
-        '
-        Me.SimpleButton1.Image = CType(resources.GetObject("SimpleButton1.Image"), System.Drawing.Image)
-        Me.SimpleButton1.Location = New System.Drawing.Point(375, 65)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(24, 23)
-        Me.SimpleButton1.TabIndex = 19
-        '
-        'btnClear
-        '
-        Me.btnClear.Image = CType(resources.GetObject("btnClear.Image"), System.Drawing.Image)
-        Me.btnClear.Location = New System.Drawing.Point(375, 13)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(24, 23)
-        Me.btnClear.TabIndex = 18
-        '
-        'cboYA
-        '
-        Me.cboYA.Location = New System.Drawing.Point(101, 67)
-        Me.cboYA.Name = "cboYA"
-        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboYA.Properties.PopupSizeable = True
-        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(268, 20)
-        Me.cboYA.TabIndex = 17
-        '
-        'TaxPayerFindBindingSource
-        '
-        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
-        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
-        '
-        'txtRefNo
-        '
-        Me.txtRefNo.Location = New System.Drawing.Point(101, 41)
-        Me.txtRefNo.MenuManager = Me.BarManager1
-        Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
-        Me.txtRefNo.TabIndex = 15
-        '
-        'cboFilterType
-        '
-        Me.cboFilterType.Location = New System.Drawing.Point(530, 15)
-        Me.cboFilterType.MenuManager = Me.BarManager1
-        Me.cboFilterType.Name = "cboFilterType"
-        Me.cboFilterType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboFilterType.Properties.Items.AddRange(New Object() {"Asset Description", "Asset Code / Stock No", "Accelerated CA", "HP Code", "RA", "ITA", "Deferred Claim", "All"})
-        Me.cboFilterType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboFilterType.Size = New System.Drawing.Size(268, 20)
-        Me.cboFilterType.TabIndex = 9
-        '
-        'btnAllRecord
-        '
-        Me.btnAllRecord.Image = CType(resources.GetObject("btnAllRecord.Image"), System.Drawing.Image)
-        Me.btnAllRecord.Location = New System.Drawing.Point(572, 67)
-        Me.btnAllRecord.Name = "btnAllRecord"
-        Me.btnAllRecord.Size = New System.Drawing.Size(110, 23)
-        Me.btnAllRecord.TabIndex = 8
-        Me.btnAllRecord.Text = "All Record"
-        '
-        'btnFind
-        '
-        Me.btnFind.Image = CType(resources.GetObject("btnFind.Image"), System.Drawing.Image)
-        Me.btnFind.Location = New System.Drawing.Point(688, 67)
-        Me.btnFind.Name = "btnFind"
-        Me.btnFind.Size = New System.Drawing.Size(110, 23)
-        Me.btnFind.TabIndex = 7
-        Me.btnFind.Text = "Find"
-        '
-        'LabelControl3
-        '
-        Me.LabelControl3.Location = New System.Drawing.Point(409, 18)
-        Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(76, 13)
-        Me.LabelControl3.TabIndex = 5
-        Me.LabelControl3.Text = "Filter Advance :"
-        '
-        'txtFilterValue
-        '
-        Me.txtFilterValue.Location = New System.Drawing.Point(530, 41)
-        Me.txtFilterValue.MenuManager = Me.BarManager1
-        Me.txtFilterValue.Name = "txtFilterValue"
-        Me.txtFilterValue.Size = New System.Drawing.Size(268, 20)
-        Me.txtFilterValue.TabIndex = 4
-        '
-        'LabelControl2
-        '
-        Me.LabelControl2.Location = New System.Drawing.Point(12, 44)
-        Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
-        Me.LabelControl2.TabIndex = 3
-        Me.LabelControl2.Text = "YA :"
-        '
-        'LabelControl1
-        '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 18)
-        Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
-        Me.LabelControl1.TabIndex = 1
-        Me.LabelControl1.Text = "Reference No :"
-        '
         'cboRefNo
         '
         Me.cboRefNo.Location = New System.Drawing.Point(101, 15)
@@ -763,6 +659,11 @@ Partial Class ucDisposal
         Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
         Me.cboRefNo.Size = New System.Drawing.Size(268, 20)
         Me.cboRefNo.TabIndex = 160
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
         '
         'SearchLookUpEdit2View
         '
@@ -838,6 +739,110 @@ Partial Class ucDisposal
         Me.colCompanyCode.VisibleIndex = 7
         Me.colCompanyCode.Width = 100
         '
+        'SimpleButton2
+        '
+        Me.SimpleButton2.ImageOptions.Image = CType(resources.GetObject("SimpleButton2.ImageOptions.Image"), System.Drawing.Image)
+        Me.SimpleButton2.Location = New System.Drawing.Point(804, 44)
+        Me.SimpleButton2.Name = "SimpleButton2"
+        Me.SimpleButton2.Size = New System.Drawing.Size(24, 23)
+        Me.SimpleButton2.TabIndex = 20
+        '
+        'SimpleButton1
+        '
+        Me.SimpleButton1.ImageOptions.Image = CType(resources.GetObject("SimpleButton1.ImageOptions.Image"), System.Drawing.Image)
+        Me.SimpleButton1.Location = New System.Drawing.Point(375, 65)
+        Me.SimpleButton1.Name = "SimpleButton1"
+        Me.SimpleButton1.Size = New System.Drawing.Size(24, 23)
+        Me.SimpleButton1.TabIndex = 19
+        '
+        'btnClear
+        '
+        Me.btnClear.ImageOptions.Image = CType(resources.GetObject("btnClear.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnClear.Location = New System.Drawing.Point(375, 13)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(24, 23)
+        Me.btnClear.TabIndex = 18
+        '
+        'cboYA
+        '
+        Me.cboYA.Location = New System.Drawing.Point(101, 67)
+        Me.cboYA.Name = "cboYA"
+        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboYA.Properties.PopupSizeable = True
+        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboYA.Size = New System.Drawing.Size(268, 20)
+        Me.cboYA.TabIndex = 17
+        '
+        'txtRefNo
+        '
+        Me.txtRefNo.Location = New System.Drawing.Point(101, 41)
+        Me.txtRefNo.MenuManager = Me.BarManager1
+        Me.txtRefNo.Name = "txtRefNo"
+        Me.txtRefNo.Properties.ReadOnly = True
+        Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
+        Me.txtRefNo.TabIndex = 15
+        '
+        'cboFilterType
+        '
+        Me.cboFilterType.Location = New System.Drawing.Point(530, 15)
+        Me.cboFilterType.MenuManager = Me.BarManager1
+        Me.cboFilterType.Name = "cboFilterType"
+        Me.cboFilterType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboFilterType.Properties.Items.AddRange(New Object() {"Asset Description", "Asset Code / Stock No", "Accelerated CA", "HP Code", "RA", "ITA", "Deferred Claim", "All"})
+        Me.cboFilterType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboFilterType.Size = New System.Drawing.Size(268, 20)
+        Me.cboFilterType.TabIndex = 9
+        '
+        'btnAllRecord
+        '
+        Me.btnAllRecord.ImageOptions.Image = CType(resources.GetObject("btnAllRecord.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAllRecord.Location = New System.Drawing.Point(572, 67)
+        Me.btnAllRecord.Name = "btnAllRecord"
+        Me.btnAllRecord.Size = New System.Drawing.Size(110, 23)
+        Me.btnAllRecord.TabIndex = 8
+        Me.btnAllRecord.Text = "All Record"
+        '
+        'btnFind
+        '
+        Me.btnFind.ImageOptions.Image = CType(resources.GetObject("btnFind.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnFind.Location = New System.Drawing.Point(688, 67)
+        Me.btnFind.Name = "btnFind"
+        Me.btnFind.Size = New System.Drawing.Size(110, 23)
+        Me.btnFind.TabIndex = 7
+        Me.btnFind.Text = "Find"
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Location = New System.Drawing.Point(409, 18)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(76, 13)
+        Me.LabelControl3.TabIndex = 5
+        Me.LabelControl3.Text = "Filter Advance :"
+        '
+        'txtFilterValue
+        '
+        Me.txtFilterValue.Location = New System.Drawing.Point(530, 41)
+        Me.txtFilterValue.MenuManager = Me.BarManager1
+        Me.txtFilterValue.Name = "txtFilterValue"
+        Me.txtFilterValue.Size = New System.Drawing.Size(268, 20)
+        Me.txtFilterValue.TabIndex = 4
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(12, 44)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(20, 13)
+        Me.LabelControl2.TabIndex = 3
+        Me.LabelControl2.Text = "YA :"
+        '
+        'LabelControl1
+        '
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 18)
+        Me.LabelControl1.Name = "LabelControl1"
+        Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
+        Me.LabelControl1.TabIndex = 1
+        Me.LabelControl1.Text = "Reference No :"
+        '
         'ucDisposal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -860,14 +865,15 @@ Partial Class ucDisposal
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
-        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboFilterType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtFilterValue.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem

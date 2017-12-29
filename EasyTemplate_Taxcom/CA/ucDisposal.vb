@@ -178,4 +178,15 @@
 
         End Try
     End Sub
+
+    Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
+        Try
+            Dim frm As New frmCA_ReportMenu
+            frm.TypeReport = 8
+            frm.ShowDialog()
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

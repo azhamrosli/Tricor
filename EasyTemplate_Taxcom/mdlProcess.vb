@@ -12,10 +12,10 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 6
+    Public V3 As Integer = 7
     Public V4 As Integer = 0
     Public R1 As Integer = 5
-    Public ArgParam0 As String = "frmpnl" 'Form Name
+    Public ArgParam0 As String = "frmcp204" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "0388601701" '"1054242304" 'RefNo
     Public ArgParam3 As String = "2015" 'YA"
@@ -9498,7 +9498,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_Disposal_Report_TEMP(ByVal ID As String, ByVal RefNo As String, ByVal YA As Integer, ByVal CA_KEY As Integer, ByVal CA_NAME As String, _
                                               ByVal CA_SOURCENO As Integer, ByVal CA_YA As Integer, ByVal HP_CODE As String, ByVal CA_ASSET As String, _
                                               ByVal CA_CATEGORY_CODE As String, ByVal CA_MODE As String, ByVal CA_TRANSFERROR_NAME As String, _
@@ -9563,8 +9562,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
-
 
 #End Region
 #Region "PNL"
@@ -15849,28 +15846,25 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             ListofSQLcmd.Add(SQLcmd)
 
             If ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count > 0 Then
-
+                Dim dtRow As DataRow = Nothing
                 For i As Integer = 0 To ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows.Count - 1
                     SQLcmd = Nothing
                     StrSQL = "INSERT INTO BORANG_CP204_TRICOR_BREAKDOWN (CP_PARENTID,CP_INSTALL_NO,CP_PAYMENT_DUE,CP_INSTALLMENT_AMOUNT,CP_PAYMENT_DATE_1,CP_AMOUNT_PAID_1,CP_PAYMENT_DATE_2,CP_AMOUNT_PAID_2,CP_PENALTY,CP_NOTE_TITLE,CP_NOTE) VALUES (@CP_PARENTID,@CP_INSTALL_NO,@CP_PAYMENT_DUE,@CP_INSTALLMENT_AMOUNT,@CP_PAYMENT_DATE_1,@CP_AMOUNT_PAID_1,@CP_PAYMENT_DATE_2,@CP_AMOUNT_PAID_2,@CP_PENALTY,@CP_NOTE_TITLE,@CP_NOTE)"
 
-                    With ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN")
-
-                        SQLcmd = New SqlCommand
-                        SQLcmd.CommandText = StrSQL
-                        SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
-                        SQLcmd.Parameters.Add("@CP_INSTALL_NO", SqlDbType.Int).Value = IIf(IsDBNull(.Rows(0)("CP_INSTALL_NO")), i, .Rows(0)("CP_INSTALL_NO"))
-                        SQLcmd.Parameters.Add("@CP_PAYMENT_DUE", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DUE")), DBNull.Value, .Rows(0)("CP_PAYMENT_DUE"))
-                        SQLcmd.Parameters.Add("@CP_INSTALLMENT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_INSTALLMENT_AMOUNT")), DBNull.Value, .Rows(0)("CP_INSTALLMENT_AMOUNT"))
-                        SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_1", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DATE_1")), DBNull.Value, .Rows(0)("CP_PAYMENT_DATE_1"))
-                        SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_1", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_AMOUNT_PAID_1")), DBNull.Value, .Rows(0)("CP_AMOUNT_PAID_1"))
-                        SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_2", SqlDbType.DateTime).Value = IIf(IsDBNull(.Rows(0)("CP_PAYMENT_DATE_2")), DBNull.Value, .Rows(0)("CP_PAYMENT_DATE_2"))
-                        SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_2", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_AMOUNT_PAID_2")), DBNull.Value, .Rows(0)("CP_AMOUNT_PAID_2"))
-                        SQLcmd.Parameters.Add("@CP_PENALTY", SqlDbType.Decimal).Value = IIf(IsDBNull(.Rows(0)("CP_PENALTY")), DBNull.Value, .Rows(0)("CP_PENALTY"))
-                        SQLcmd.Parameters.Add("@CP_NOTE_TITLE", SqlDbType.NVarChar, 100).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE_TITLE")), DBNull.Value, .Rows(0)("CP_NOTE_TITLE"))
-                        SQLcmd.Parameters.Add("@CP_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE")), DBNull.Value, .Rows(0)("CP_NOTE"))
-
-                    End With
+                    dtRow = ds.Tables("BORANG_CP204_TRICOR_BREAKDOWN").Rows(i)
+                    SQLcmd = New SqlCommand
+                    SQLcmd.CommandText = StrSQL
+                    SQLcmd.Parameters.Add("@CP_PARENTID", SqlDbType.Int).Value = ds.Tables("BORANG_CP204").Rows(0)("BCP_KEY")
+                    SQLcmd.Parameters.Add("@CP_INSTALL_NO", SqlDbType.Int).Value = IIf(IsDBNull(dtRow("CP_INSTALL_NO")), i, dtRow("CP_INSTALL_NO"))
+                    SQLcmd.Parameters.Add("@CP_PAYMENT_DUE", SqlDbType.DateTime).Value = IIf(IsDBNull(dtRow("CP_PAYMENT_DUE")), DBNull.Value, dtRow("CP_PAYMENT_DUE"))
+                    SQLcmd.Parameters.Add("@CP_INSTALLMENT_AMOUNT", SqlDbType.Decimal).Value = IIf(IsDBNull(dtRow("CP_INSTALLMENT_AMOUNT")), DBNull.Value, dtRow("CP_INSTALLMENT_AMOUNT"))
+                    SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_1", SqlDbType.DateTime).Value = IIf(IsDBNull(dtRow("CP_PAYMENT_DATE_1")), DBNull.Value, dtRow("CP_PAYMENT_DATE_1"))
+                    SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_1", SqlDbType.Decimal).Value = IIf(IsDBNull(dtRow("CP_AMOUNT_PAID_1")), DBNull.Value, dtRow("CP_AMOUNT_PAID_1"))
+                    SQLcmd.Parameters.Add("@CP_PAYMENT_DATE_2", SqlDbType.DateTime).Value = IIf(IsDBNull(dtRow("CP_PAYMENT_DATE_2")), DBNull.Value, dtRow("CP_PAYMENT_DATE_2"))
+                    SQLcmd.Parameters.Add("@CP_AMOUNT_PAID_2", SqlDbType.Decimal).Value = IIf(IsDBNull(dtRow("CP_AMOUNT_PAID_2")), DBNull.Value, dtRow("CP_AMOUNT_PAID_2"))
+                    SQLcmd.Parameters.Add("@CP_PENALTY", SqlDbType.Decimal).Value = IIf(IsDBNull(dtRow("CP_PENALTY")), DBNull.Value, dtRow("CP_PENALTY"))
+                    SQLcmd.Parameters.Add("@CP_NOTE_TITLE", SqlDbType.NVarChar, 100).Value = IIf(IsDBNull(dtRow("CP_NOTE_TITLE")), DBNull.Value, dtRow("CP_NOTE_TITLE"))
+                    SQLcmd.Parameters.Add("@CP_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dtRow("CP_NOTE")), DBNull.Value, dtRow("CP_NOTE"))
 
 
                     ListofSQLcmd.Add(SQLcmd)

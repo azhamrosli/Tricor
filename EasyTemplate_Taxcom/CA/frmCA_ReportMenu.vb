@@ -1,5 +1,6 @@
 ﻿Public Class frmCA_ReportMenu 
     Dim ErrorLog As clsError = Nothing
+    Public TypeReport As Integer = 0
     Private Sub frmCA_ReportMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData()
@@ -24,7 +25,7 @@
                 Exit Sub
             End If
 
-            cboType.SelectedIndex = 0
+            cboType.SelectedIndex = TypeReport
 
             If mdlProcess.ArgParam2 <> "" Then
                 cboRefNo.EditValue = mdlProcess.ArgParam2

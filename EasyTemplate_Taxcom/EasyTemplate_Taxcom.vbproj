@@ -319,6 +319,9 @@
     <Compile Include="CA\dsCA.vb">
       <DependentUpon>dsCA.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CP204\rpt_CP204_Breakdown.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CP204\ucCP204.Designer.vb">
       <DependentUpon>ucCP204.vb</DependentUpon>
     </Compile>
@@ -1012,6 +1015,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CP204\frmCP204_PenaltyLate.resx">
       <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CP204\rpt_CP204_Breakdown.resx">
+      <DependentUpon>rpt_CP204_Breakdown.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CP204\ucCP204.resx">
       <DependentUpon>ucCP204.vb</DependentUpon>
