@@ -1,5 +1,6 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraGrid.Views.Base
+Imports DevExpress.XtraReports.UI
 
 Public Class ucPNL
     Dim ErrorLog As clsError = Nothing
@@ -282,4 +283,34 @@ Public Class ucPNL
         End Try
     End Sub
     
+    Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
+        Try
+            Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
+            Dim YA As String = GridView1.GetFocusedDataRow()("PL_YA")
+
+            If RefNo Is Nothing OrElse YA Is Nothing OrElse IsNumeric(YA) = False Then
+                Exit Sub
+            End If
+
+
+            If mdlPNL2.PNL_Report(RefNo, YA, ErrorLog) Then
+
+                Dim rpt As New rptPNL
+
+                rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(RefNo)
+                rpt.paramYA.Value = CInt(YA)
+
+                rpt.DataSource = dsDataSet2
+                rpt.DsPNL1 = dsDataSet
+                rpt.DsPNL21 = dsDataSet2
+                rpt.ShowPreview()
+            Else
+                MsgBox("Failed to load report.", MsgBoxStyle.Critical)
+            End If
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

@@ -1244,9 +1244,9 @@ Module mdlPNL2
             Return True
         End Try
     End Function
-
     Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, _
-                                    ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, _
+                                    Optional ByRef Errorlog As clsError = Nothing, Optional ByRef isHaveData As Boolean = False) As Boolean
         Dim strError As String = Nothing
         Try
 
@@ -1264,7 +1264,7 @@ Module mdlPNL2
                     ds.Tables("PLFST_SALES").Rows.Clear()
 
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("PLFST_SALES").NewRow
@@ -1295,6 +1295,8 @@ Module mdlPNL2
                                 ds.Tables("PLFST_SALES_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.OPENSTOCK
                     dt = Nothing
@@ -1303,7 +1305,7 @@ Module mdlPNL2
                     ds.Tables("PLFST_OPENSTOCK").Rows.Clear()
                     ds.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("PLFST_OPENSTOCK").ImportRow(rowx)
                         Next
@@ -1316,6 +1318,8 @@ Module mdlPNL2
                                 ds.Tables("PLFST_OPENSTOCK_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.PURCHASE
                     dt = Nothing
@@ -1324,7 +1328,7 @@ Module mdlPNL2
                     ds.Tables("PLFST_PURCHASE").Rows.Clear()
                     ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("PLFST_PURCHASE").NewRow
@@ -1368,6 +1372,8 @@ Module mdlPNL2
                                 ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.DEPRECIATION
                     dt = Nothing
@@ -1376,7 +1382,7 @@ Module mdlPNL2
                     ds.Tables("EXPENSES_DEPRECIATION").Rows.Clear()
                     ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("EXPENSES_DEPRECIATION").NewRow
@@ -1421,6 +1427,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
                     dt = Nothing
@@ -1429,7 +1437,7 @@ Module mdlPNL2
                     ds.Tables("EXPENSES_ALLOW").Rows.Clear()
                     ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("EXPENSES_ALLOW").NewRow
@@ -1478,6 +1486,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
                     dt = Nothing
@@ -1486,7 +1496,7 @@ Module mdlPNL2
                     ds.Tables("EXPENSES_NONALLOW").Rows.Clear()
                     ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("EXPENSES_NONALLOW").NewRow
@@ -1532,6 +1542,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.CLOSESTOCK
                     dt = Nothing
@@ -1540,7 +1552,7 @@ Module mdlPNL2
                     ds.Tables("PLFST_CLOSESTOCK").Rows.Clear()
                     ds.Tables("PLFST_CLOSESTOCK_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("PLFST_CLOSESTOCK").ImportRow(rowx)
                         Next
@@ -1553,6 +1565,8 @@ Module mdlPNL2
                                 ds.Tables("PLFST_CLOSESTOCK_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.OTHERBUSINC
                     dt = Nothing
@@ -1561,7 +1575,7 @@ Module mdlPNL2
                     ds.Tables("NONSOURCE_BUSINESSINCOME").Rows.Clear()
                     ds.Tables("NONSOURCE_BUSINESSINCOME_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("NONSOURCE_BUSINESSINCOME").ImportRow(rowx)
                         Next
@@ -1574,6 +1588,8 @@ Module mdlPNL2
                                 ds.Tables("NONSOURCE_BUSINESSINCOME_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.REALFETRADE
                     dt = Nothing
@@ -1582,7 +1598,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_REALFET").Rows.Clear()
                     ds.Tables("INCOME_REALFET_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_REALFET").ImportRow(rowx)
                         Next
@@ -1595,6 +1611,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_REALFET_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     dt = Nothing
@@ -1603,11 +1621,12 @@ Module mdlPNL2
                     ds2.Tables("dividend_income").Rows.Clear()
 
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds2.Tables("dividend_income").ImportRow(rowx)
                         Next
-
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.INTERESTINC
                     dt = Nothing
@@ -1616,7 +1635,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NBINTEREST").Rows.Clear()
                     ds.Tables("INCOME_NBINTEREST_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NBINTEREST").ImportRow(rowx)
                         Next
@@ -1629,6 +1648,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NBINTEREST_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.RENTALINC
                     dt = Nothing
@@ -1636,11 +1657,12 @@ Module mdlPNL2
 
                     ds.Tables("rental_income").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("rental_income").ImportRow(rowx)
                         Next
-
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.ROYALTYINC
                     dt = Nothing
@@ -1649,7 +1671,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NBROYALTY").Rows.Clear()
                     ds.Tables("INCOME_NBROYALTY_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NBROYALTY").ImportRow(rowx)
                         Next
@@ -1662,6 +1684,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NBROYALTY_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.OTHERINC
                     dt = Nothing
@@ -1670,7 +1694,7 @@ Module mdlPNL2
                     ds.Tables("OTHER_INCOME").Rows.Clear()
                     ds.Tables("OTHER_INCOME_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("OTHER_INCOME").ImportRow(rowx)
                         Next
@@ -1683,6 +1707,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_INCOME_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.PDFIXASSET
                     dt = Nothing
@@ -1691,7 +1717,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NTDISPOSALFA").Rows.Clear()
                     ds.Tables("INCOME_NTDISPOSALFA_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NTDISPOSALFA").ImportRow(rowx)
                         Next
@@ -1704,6 +1730,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NTDISPOSALFA_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.PDINVEST
                     dt = Nothing
@@ -1712,7 +1740,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NTDISPOSALINVEST").Rows.Clear()
                     ds.Tables("INCOME_NTDISPOSALINVEST_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NTDISPOSALINVEST").ImportRow(rowx)
                         Next
@@ -1725,6 +1753,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NTDISPOSALINVEST_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXEMDIV
                     dt = Nothing
@@ -1732,7 +1762,7 @@ Module mdlPNL2
 
                     ds.Tables("exempt_dividend").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("exempt_dividend").ImportRow(rowx)
                         Next
@@ -1744,7 +1774,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NTFOREIGNINCREM").Rows.Clear()
                     ds.Tables("INCOME_NTFOREIGNINCREM_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NTFOREIGNINCREM").ImportRow(rowx)
                         Next
@@ -1757,6 +1787,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NTFOREIGNINCREM_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.REALFE
                     dt = Nothing
@@ -1765,7 +1797,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NTUREALFET").Rows.Clear()
                     ds.Tables("INCOME_NTUREALFET_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NTUREALFET").ImportRow(rowx)
                         Next
@@ -1778,6 +1810,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NTUREALFET_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
                     dt = Nothing
@@ -1786,7 +1820,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NTREALFE").Rows.Clear()
                     ds.Tables("INCOME_NTREALFE_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NTREALFE").ImportRow(rowx)
                         Next
@@ -1799,6 +1833,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NTREALFE_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.UNREALFETRADE
                     dt = Nothing
@@ -1807,7 +1843,7 @@ Module mdlPNL2
                     ds.Tables("INCOME_NTUREALFENT").Rows.Clear()
                     ds.Tables("INCOME_NTUREALFENT_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("INCOME_NTUREALFENT").ImportRow(rowx)
                         Next
@@ -1820,6 +1856,8 @@ Module mdlPNL2
                                 ds.Tables("INCOME_NTUREALFENT_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
                     dt = Nothing
@@ -1828,7 +1866,7 @@ Module mdlPNL2
                     ds.Tables("non_taxable_income").Rows.Clear()
                     ds.Tables("NON_TAXABLE_INCOME_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             ds.Tables("non_taxable_income").ImportRow(rowx)
                         Next
@@ -1841,6 +1879,8 @@ Module mdlPNL2
                                 ds.Tables("NON_TAXABLE_INCOME_DETAIL").ImportRow(rowx)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     dt = Nothing
@@ -1848,7 +1888,7 @@ Module mdlPNL2
 
                     ds.Tables("expenses_interestrestrict").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_interestrestrict").NewRow
@@ -1875,6 +1915,8 @@ Module mdlPNL2
 
                             ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
                         Next
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     dt = Nothing
@@ -1883,7 +1925,7 @@ Module mdlPNL2
                     ds.Tables("expenses_interest").Rows.Clear()
                     ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_interest").NewRow
@@ -1938,6 +1980,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPLEGAL
                     dt = Nothing
@@ -1946,7 +1990,7 @@ Module mdlPNL2
                     ds.Tables("expenses_legal").Rows.Clear()
                     ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_legal").NewRow
@@ -2001,6 +2045,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPTECHNICAL
                     dt = Nothing
@@ -2009,7 +2055,7 @@ Module mdlPNL2
                     ds.Tables("expenses_tech_fee").Rows.Clear()
                     ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_tech_fee").NewRow
@@ -2064,6 +2110,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
                     dt = Nothing
@@ -2072,7 +2120,7 @@ Module mdlPNL2
                     ds.Tables("expenses_contract").Rows.Clear()
                     ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_contract").NewRow
@@ -2127,6 +2175,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
                     dt = Nothing
@@ -2135,7 +2185,7 @@ Module mdlPNL2
                     ds.Tables("expenses_directors_fee").Rows.Clear()
                     ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_directors_fee").NewRow
@@ -2190,6 +2240,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPSALARY
                     dt = Nothing
@@ -2198,7 +2250,7 @@ Module mdlPNL2
                     ds.Tables("expenses_salary").Rows.Clear()
                     ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_salary").NewRow
@@ -2253,6 +2305,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
                     dt = Nothing
@@ -2261,7 +2315,7 @@ Module mdlPNL2
                     ds.Tables("expenses_empl_stock").Rows.Clear()
                     ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_empl_stock").NewRow
@@ -2317,6 +2371,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPROYALTY
                     dt = Nothing
@@ -2325,7 +2381,7 @@ Module mdlPNL2
                     ds.Tables("expenses_royalty").Rows.Clear()
                     ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_royalty").NewRow
@@ -2380,6 +2436,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPRENTAL
                     dt = Nothing
@@ -2388,7 +2446,7 @@ Module mdlPNL2
                     ds.Tables("expenses_rental").Rows.Clear()
                     ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_rental").NewRow
@@ -2443,6 +2501,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
                     dt = Nothing
@@ -2451,7 +2511,7 @@ Module mdlPNL2
                     ds.Tables("expenses_repair").Rows.Clear()
                     ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_repair").NewRow
@@ -2506,6 +2566,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPRND
                     dt = Nothing
@@ -2514,7 +2576,7 @@ Module mdlPNL2
                     ds.Tables("expenses_research").Rows.Clear()
                     ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_research").NewRow
@@ -2569,6 +2631,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
                     dt = Nothing
@@ -2577,7 +2641,7 @@ Module mdlPNL2
                     ds.Tables("expenses_promote").Rows.Clear()
                     ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_promote").NewRow
@@ -2631,6 +2695,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPTRAVEL
                     dt = Nothing
@@ -2639,7 +2705,7 @@ Module mdlPNL2
                     ds.Tables("expenses_travel").Rows.Clear()
                     ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_travel").NewRow
@@ -2692,6 +2758,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPJKDM
                     dt = Nothing
@@ -2700,7 +2768,7 @@ Module mdlPNL2
                     ds.Tables("expenses_jkdm").Rows.Clear()
                     ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_jkdm").NewRow
@@ -2756,6 +2824,8 @@ Module mdlPNL2
                                 ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
                     dt = Nothing
@@ -2764,7 +2834,7 @@ Module mdlPNL2
                     ds.Tables("other_exdepreciation").Rows.Clear()
                     ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exdepreciation").NewRow
@@ -2821,6 +2891,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
                     dt = Nothing
@@ -2829,7 +2901,7 @@ Module mdlPNL2
                     ds.Tables("other_exapprdonation").Rows.Clear()
                     ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exapprdonation").NewRow
@@ -2886,6 +2958,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
                     dt = Nothing
@@ -2894,7 +2968,7 @@ Module mdlPNL2
                     ds.Tables("other_exnapprdonation").Rows.Clear()
                     ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exnapprdonation").NewRow
@@ -2951,6 +3025,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPZAKAT
                     dt = Nothing
@@ -2959,7 +3035,7 @@ Module mdlPNL2
                     ds.Tables("other_exzakat").Rows.Clear()
                     ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exzakat").NewRow
@@ -3016,6 +3092,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
                     dt = Nothing
@@ -3024,7 +3102,7 @@ Module mdlPNL2
                     ds.Tables("other_exlossdisposalfa").Rows.Clear()
                     ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exlossdisposalfa").NewRow
@@ -3081,6 +3159,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
                     dt = Nothing
@@ -3089,7 +3169,7 @@ Module mdlPNL2
                     ds.Tables("other_entertainnstaff").Rows.Clear()
                     ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_entertainnstaff").NewRow
@@ -3146,6 +3226,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
                     dt = Nothing
@@ -3154,7 +3236,7 @@ Module mdlPNL2
                     ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Clear()
                     ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("OTHER_ENTERTAINSTAFF").NewRow
@@ -3210,6 +3292,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
                     dt = Nothing
@@ -3218,7 +3302,7 @@ Module mdlPNL2
                     ds.Tables("other_expenalty").Rows.Clear()
                     ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_expenalty").NewRow
@@ -3275,6 +3359,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPPROVISION
                     dt = Nothing
@@ -3283,7 +3369,7 @@ Module mdlPNL2
                     ds.Tables("other_exprovisionacc").Rows.Clear()
                     ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exprovisionacc").NewRow
@@ -3339,6 +3425,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
                     dt = Nothing
@@ -3347,7 +3435,7 @@ Module mdlPNL2
                     ds.Tables("other_exleavepassage").Rows.Clear()
                     ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exleavepassage").NewRow
@@ -3404,6 +3492,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     dt = Nothing
@@ -3412,7 +3502,7 @@ Module mdlPNL2
                     ds.Tables("other_exfawrittenoff").Rows.Clear()
                     ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exfawrittenoff").NewRow
@@ -3468,6 +3558,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
                     dt = Nothing
@@ -3476,7 +3568,7 @@ Module mdlPNL2
                     ds.Tables("other_exurlossforeign").Rows.Clear()
                     ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exurlossforeign").NewRow
@@ -3532,6 +3624,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
                     dt = Nothing
@@ -3540,7 +3634,7 @@ Module mdlPNL2
                     ds.Tables("other_exrlossforeignt").Rows.Clear()
                     ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exrlossforeignt").NewRow
@@ -3595,6 +3689,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
                     dt = Nothing
@@ -3603,7 +3699,7 @@ Module mdlPNL2
                     ds.Tables("other_exrlossforeign").Rows.Clear()
                     ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exrlossforeign").NewRow
@@ -3658,6 +3754,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
                     dt = Nothing
@@ -3666,7 +3764,7 @@ Module mdlPNL2
                     ds.Tables("other_exinitialsub").Rows.Clear()
                     ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_exinitialsub").NewRow
@@ -3722,6 +3820,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
                     dt = Nothing
@@ -3730,7 +3830,7 @@ Module mdlPNL2
                     ds.Tables("other_excapitalexp").Rows.Clear()
                     ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Clear()
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("other_excapitalexp").NewRow
@@ -3785,6 +3885,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
                     dt = Nothing
@@ -3794,7 +3896,7 @@ Module mdlPNL2
                     ds.Tables("other_expenses").Rows.Clear()
 
                     If dt IsNot Nothing Then
-
+                        isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtChild = Nothing
@@ -3860,6 +3962,8 @@ Module mdlPNL2
                                 ds.Tables("OTHER_EXPENSES_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
+                    Else
+                        isHaveData = False
                     End If
             End Select
         Catch ex As Exception
@@ -3876,7 +3980,6 @@ Module mdlPNL2
             Return False
         End Try
     End Function
-
     Public Function Load_DT_Deduct(ByVal PNLKey As Integer, ByVal ID As Integer, ByVal Type As TaxComPNLEnuItem, Optional ByRef Errorlog As clsError = Nothing) As DataTable
         Try
             Dim SQLCmd As SqlCommand
@@ -4190,11 +4293,9 @@ Module mdlPNL2
             Return Nothing
         End Try
     End Function
-
     Public Function TransferFromImport_ToMain(ByVal dsMain As DataSet, ByVal dsMain2 As DataSet, ByVal dtRowImport As DataRow, ByVal TableName As String, ByVal Type As mdlEnum.TaxComPNLEnuItem, ByVal SourceNo As Integer, ByRef RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Dim dtRow As DataRow = Nothing
-
 
             Select Case Type
                 Case TaxComPNLEnuItem.SALES
@@ -4981,7 +5082,6 @@ Module mdlPNL2
             Return False
         End Try
     End Function
-
     Public Function PNL_GenerateReport(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                                        Optional ByRef Errorlog As clsError = Nothing) As Boolean
 
@@ -5149,6 +5249,254 @@ Module mdlPNL2
             Return True
         End Try
     End Function
+
+
+
+    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+
+            Dim dtPNL As DataTable = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
+
+            If dsDataSet2 Is Nothing Then
+                dsDataSet2 = New dsPNL2
+            End If
+            If dsDataSet Is Nothing Then
+                dsDataSet = New dsPNL
+            End If
+
+            dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
+            dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
+
+            If dtPNL Is Nothing Then
+                If Errorlog Is Nothing Then
+                    Errorlog = New clsError
+                End If
+                With Errorlog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "A10001"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "Data not found."
+                End With
+                AddListOfError(Errorlog)
+                Return False
+            End If
+
+            Dim dtRow As DataRow = Nothing
+            Dim PNL_KEY As Integer = 0
+            Dim ScheduleInt As Integer = 0
+            Dim ColumnName As String = Nothing
+            Dim isHaveData As Boolean = False
+            Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+
+            For i As Integer = 0 To dtPNL.Rows.Count - 1
+                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").ImportRow(dtPNL.Rows(i))
+
+                PNL_KEY = IIf(IsDBNull(dtPNL.Rows(i)("PL_KEY")), 0, dtPNL.Rows(i)("PL_KEY"))
+
+                dtRow = Nothing
+                dtRow = dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
+                dtRow("PL_KEY") = PNL_KEY
+
+                If listofclsPNLLabel IsNot Nothing Then
+                    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
+
+                        mdlPNL2.PNL_GetData(PNL_KEY, tmp.Type, RefNo, YA, dsDataSet, dsDataSet2, Errorlog, isHaveData)
+
+                        Select Case tmp.Type
+                            Case TaxComPNLEnuItem.SALES
+                                ColumnName = "PL_SALES"
+                               
+                            Case TaxComPNLEnuItem.OPENSTOCK
+                                ColumnName = "PL_OP_STK"                               
+                            Case TaxComPNLEnuItem.PURCHASE
+                                ColumnName = "PL_PURCHASES"
+
+                            Case TaxComPNLEnuItem.DEPRECIATION
+                                ColumnName = "PL_PRO_COST_DPC"
+
+                            Case TaxComPNLEnuItem.OTHERALLOWEXP
+                                ColumnName = "PL_PRO_COST_OAE"
+
+                            Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                                ColumnName = "PL_DISALLOWED_EXP"
+
+                            Case TaxComPNLEnuItem.CLOSESTOCK
+                                ColumnName = "PL_CLS_STK"
+
+                            Case TaxComPNLEnuItem.OTHERBUSINC
+                                ColumnName = "PL_OTH_BSIN"
+
+                            Case TaxComPNLEnuItem.REALFETRADE
+                                ColumnName = "PL_OTH_BSIN_REALGT"
+
+                            Case TaxComPNLEnuItem.INTERESTINC
+                                ColumnName = "PL_OTH_IN_INTEREST"
+
+                            Case TaxComPNLEnuItem.ROYALTYINC
+                                ColumnName = "PL_OTH_IN_ROYALTY"
+
+                            Case TaxComPNLEnuItem.OTHERINC
+                                ColumnName = "PL_OTH_IN_OTHER"
+
+                            Case TaxComPNLEnuItem.PDFIXASSET
+                                ColumnName = "PL_NONTAX_IN_FA_DISP"
+
+                            Case TaxComPNLEnuItem.PDINVEST
+                                ColumnName = "PL_NONTAX_IN_INV_DISP"
+
+                            Case TaxComPNLEnuItem.FORINCREMIT
+                                ColumnName = "PL_NONTAX_IN_FIR"
+
+                            Case TaxComPNLEnuItem.REALFE
+                                ColumnName = "PL_OTH_BSIN_UNREALGT"
+
+                            Case TaxComPNLEnuItem.UNREALFETRADE
+                                ColumnName = "PL_NONTAX_IN_UNREALG"
+
+                            Case TaxComPNLEnuItem.UNREALFENONTRADE
+                                ColumnName = "PL_NONTAX_IN_REALG"
+
+                            Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                                ColumnName = "PL_EXP_INT"
+
+                            Case TaxComPNLEnuItem.EXPLEGAL
+                                ColumnName = "PL_LAWYER_COST"
+
+                            Case TaxComPNLEnuItem.EXPTECHNICAL
+                                ColumnName = "PL_TECH_FEE"
+
+                            Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                                ColumnName = "PL_CONTRACT_EXP"
+
+                            Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                                ColumnName = "PL_DIRECTORS_FEE"
+
+                            Case TaxComPNLEnuItem.EXPSALARY
+                                ColumnName = "PL_EXP_SALARY"
+
+                            Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                                ColumnName = "PL_EMPL_STOCK"
+
+                            Case TaxComPNLEnuItem.EXPROYALTY
+                                ColumnName = "PL_ROYALTY"
+
+                            Case TaxComPNLEnuItem.EXPRENTAL
+                                ColumnName = "PL_EXP_RENT"
+
+                            Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                                ColumnName = "PL_EXP_MAINTENANCE"
+
+                            Case TaxComPNLEnuItem.EXPRND
+                                ColumnName = "PL_RND"
+
+                            Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                                ColumnName = "PL_ADVERT"
+
+                            Case TaxComPNLEnuItem.EXPTRAVEL
+                                ColumnName = "PL_TRAVEL"
+
+                            Case TaxComPNLEnuItem.EXPJKDM
+                                ColumnName = "PL_JKDM"
+
+                            Case TaxComPNLEnuItem.EXPDEPRECIATION
+                                ColumnName = "PL_OTHER_EXP_DPC"
+
+                            Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                                ColumnName = "PL_OTHER_EXP_DNT_APP"
+
+                            Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
+                                ColumnName = "PL_OTHER_EXP_DNT_NAPP"
+
+                            Case TaxComPNLEnuItem.EXPZAKAT
+                                ColumnName = "PL_OTHER_EXP_ZAKAT"
+
+                            Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                                ColumnName = "PL_OTHER_EXP_FA_DISP"
+
+                            Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                                ColumnName = "PL_OTHER_EXP_ENTM_CLNT"
+
+                            Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                                ColumnName = "PL_OTHER_EXP_ENTM_STFF"
+
+                            Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                                ColumnName = "PL_OTHER_EXP_PENALTY"
+
+                            Case TaxComPNLEnuItem.EXPPROVISION
+                                ColumnName = "PL_OTHER_EXP_PROV_ACC"
+
+                            Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                                ColumnName = "PL_OTHER_EXP_LEAVE"
+
+                            Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                                ColumnName = "PL_OTHER_EXP_FA_WO"
+
+                            Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                                ColumnName = "PL_OTHER_EXP_UNREALOSS"
+
+                            Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                                ColumnName = "PL_OTHER_EXP_REALOSS"
+
+                            Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                                ColumnName = "PL_OTHER_EXRLOSSFOREIGNT"
+
+                            Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                                ColumnName = "PL_OTHER_EXP_INI_SUB"
+
+                            Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                                ColumnName = "PL_OTHER_EXP_CAP_EXP"
+
+                            Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                                ColumnName = "PL_OTHER_EXP_OTHERS"
+
+                            Case TaxComPNLEnuItem.RENTALINC
+                                ColumnName = "PL_OTH_IN_RENTAL"
+
+                            Case TaxComPNLEnuItem.OTHERNONTAXINC
+                                ColumnName = "PL_NONTAX_IN_INSU_COMP"
+
+                            Case TaxComPNLEnuItem.EXEMDIV
+                                ColumnName = "PL_NONTAX_IN_EXM_DIV"
+
+                            Case TaxComPNLEnuItem.INTERESTRESTRICT
+                                ColumnName = "PL_EXP_INTRESTRICT"
+
+                            Case TaxComPNLEnuItem.DIVIDENDINC
+                                ColumnName = "PL_OTH_IN_DIVIDEND"
+
+                        End Select
+
+
+                        If isHaveData Then
+                            ScheduleInt += 1
+                            dtRow(ColumnName) = "Sch " & ScheduleInt
+                        Else
+                            dtRow(ColumnName) = DBNull.Value
+                        End If
+                        Application.DoEvents()
+                    Next
+                End If
+
+                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
+
+            Next
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return False
+        End Try
+    End Function
+
 
 
 

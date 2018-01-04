@@ -481,6 +481,12 @@
     <Compile Include="PNL\PNL Import\frmPNL_Import_Select.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PNL\Report\rptPNL.Designer.vb">
+      <DependentUpon>rptPNL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\Report\rptPNL.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PNL\ucPNL.Designer.vb">
       <DependentUpon>ucPNL.vb</DependentUpon>
     </Compile>
@@ -1075,6 +1081,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\PNL Import\frmPNL_Import_Select.resx">
       <DependentUpon>frmPNL_Import_Select.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\Report\rptPNL.resx">
+      <DependentUpon>rptPNL.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL.resx">
       <DependentUpon>ucPNL.vb</DependentUpon>

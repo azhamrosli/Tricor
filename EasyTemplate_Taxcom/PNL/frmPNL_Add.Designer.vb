@@ -243,6 +243,14 @@ Partial Class frmPNL_Add
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.RepositoryItemSearchLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit()
         Me.RepositoryItemSearchLookUpEdit1View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.RibbonPage1 = New DevExpress.XtraBars.Ribbon.RibbonPage()
         Me.RibbonPageGroup1 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
         Me.RibbonPageGroup3 = New DevExpress.XtraBars.Ribbon.RibbonPageGroup()
@@ -258,14 +266,6 @@ Partial Class frmPNL_Add
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.PopupMenu1 = New DevExpress.XtraBars.PopupMenu(Me.components)
-        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.hideContainerRight.SuspendLayout()
         Me.pnlDocImport.SuspendLayout()
@@ -571,11 +571,11 @@ Partial Class frmPNL_Add
         Me.pnlProgress.Caption = "Please wait"
         Me.pnlProgress.CaptionAlignment = DevExpress.Utils.HorzAlignment.Center
         Me.pnlProgress.Edit = Me.RepositoryItemProgressBar2
+        Me.pnlProgress.EditWidth = 100
         Me.pnlProgress.Id = 0
         Me.pnlProgress.Name = "pnlProgress"
         Me.pnlProgress.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         Me.pnlProgress.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
-        Me.pnlProgress.Width = 100
         '
         'RepositoryItemProgressBar2
         '
@@ -586,13 +586,13 @@ Partial Class frmPNL_Add
         Me.txtPCName.Caption = "BarStaticItem1"
         Me.txtPCName.Id = 3
         Me.txtPCName.Name = "txtPCName"
-        Me.txtPCName.TextAlignment = System.Drawing.StringAlignment.Near
         '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(1315, 0)
         '
         'barDockControlBottom
@@ -600,6 +600,7 @@ Partial Class frmPNL_Add
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 724)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(1315, 25)
         '
         'barDockControlLeft
@@ -607,6 +608,7 @@ Partial Class frmPNL_Add
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 724)
         '
         'barDockControlRight
@@ -614,6 +616,7 @@ Partial Class frmPNL_Add
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(1315, 0)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 724)
         '
         'RepositoryItemTextEdit5
@@ -646,7 +649,7 @@ Partial Class frmPNL_Add
         Me.DockPanel1_Container.Location = New System.Drawing.Point(4, 23)
         Me.DockPanel1_Container.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DockPanel1_Container.Name = "DockPanel1_Container"
-        Me.DockPanel1_Container.Size = New System.Drawing.Size(612, 556)
+        Me.DockPanel1_Container.Size = New System.Drawing.Size(611, 556)
         Me.DockPanel1_Container.TabIndex = 0
         '
         'XtraScrollableControl1
@@ -713,6 +716,7 @@ Partial Class frmPNL_Add
         'lbl_p1NonAllowableExpenses
         '
         Me.lbl_p1NonAllowableExpenses.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p1NonAllowableExpenses.Appearance.Options.UseFont = True
         Me.lbl_p1NonAllowableExpenses.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1NonAllowableExpenses.Location = New System.Drawing.Point(5, 190)
         Me.lbl_p1NonAllowableExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -731,6 +735,7 @@ Partial Class frmPNL_Add
         Me.ProgressPanel1.AppearanceCaption.Options.UseFont = True
         Me.ProgressPanel1.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.ProgressPanel1.AppearanceDescription.Options.UseFont = True
+        Me.ProgressPanel1.BarAnimationElementThickness = 2
         Me.ProgressPanel1.Location = New System.Drawing.Point(256, 122)
         Me.ProgressPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ProgressPanel1.Name = "ProgressPanel1"
@@ -919,6 +924,7 @@ Partial Class frmPNL_Add
         'LabelControl11
         '
         Me.LabelControl11.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl11.Appearance.Options.UseFont = True
         Me.LabelControl11.Location = New System.Drawing.Point(5, 344)
         Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl11.Name = "LabelControl11"
@@ -929,6 +935,7 @@ Partial Class frmPNL_Add
         'LabelControl10
         '
         Me.LabelControl10.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl10.Appearance.Options.UseFont = True
         Me.LabelControl10.Location = New System.Drawing.Point(5, 307)
         Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl10.Name = "LabelControl10"
@@ -939,6 +946,7 @@ Partial Class frmPNL_Add
         'LabelControl9
         '
         Me.LabelControl9.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl9.Appearance.Options.UseFont = True
         Me.LabelControl9.Location = New System.Drawing.Point(5, 248)
         Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl9.Name = "LabelControl9"
@@ -949,6 +957,7 @@ Partial Class frmPNL_Add
         'lbl_p1CloseStock
         '
         Me.lbl_p1CloseStock.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p1CloseStock.Appearance.Options.UseFont = True
         Me.lbl_p1CloseStock.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1CloseStock.Location = New System.Drawing.Point(5, 288)
         Me.lbl_p1CloseStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -961,6 +970,7 @@ Partial Class frmPNL_Add
         'lbl_p1AllowanceExpenses
         '
         Me.lbl_p1AllowanceExpenses.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p1AllowanceExpenses.Appearance.Options.UseFont = True
         Me.lbl_p1AllowanceExpenses.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1AllowanceExpenses.Location = New System.Drawing.Point(5, 167)
         Me.lbl_p1AllowanceExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -973,6 +983,7 @@ Partial Class frmPNL_Add
         'lbl_p1Depreciation
         '
         Me.lbl_p1Depreciation.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p1Depreciation.Appearance.Options.UseFont = True
         Me.lbl_p1Depreciation.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1Depreciation.Location = New System.Drawing.Point(5, 145)
         Me.lbl_p1Depreciation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -985,6 +996,7 @@ Partial Class frmPNL_Add
         'LabelControl5
         '
         Me.LabelControl5.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl5.Appearance.Options.UseFont = True
         Me.LabelControl5.Location = New System.Drawing.Point(5, 123)
         Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl5.Name = "LabelControl5"
@@ -995,6 +1007,7 @@ Partial Class frmPNL_Add
         'LabelControl4
         '
         Me.LabelControl4.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl4.Appearance.Options.UseFont = True
         Me.LabelControl4.Location = New System.Drawing.Point(5, 42)
         Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl4.Name = "LabelControl4"
@@ -1005,6 +1018,7 @@ Partial Class frmPNL_Add
         'lbl_p1Purchase
         '
         Me.lbl_p1Purchase.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p1Purchase.Appearance.Options.UseFont = True
         Me.lbl_p1Purchase.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1Purchase.Location = New System.Drawing.Point(5, 91)
         Me.lbl_p1Purchase.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1017,6 +1031,7 @@ Partial Class frmPNL_Add
         'lbl_p1OpenStock
         '
         Me.lbl_p1OpenStock.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p1OpenStock.Appearance.Options.UseFont = True
         Me.lbl_p1OpenStock.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1OpenStock.Location = New System.Drawing.Point(5, 73)
         Me.lbl_p1OpenStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1029,6 +1044,7 @@ Partial Class frmPNL_Add
         'lbl_p1Sales
         '
         Me.lbl_p1Sales.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, System.Drawing.FontStyle.Underline)
+        Me.lbl_p1Sales.Appearance.Options.UseFont = True
         Me.lbl_p1Sales.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p1Sales.Location = New System.Drawing.Point(5, 17)
         Me.lbl_p1Sales.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1083,6 +1099,7 @@ Partial Class frmPNL_Add
         'lbl_p2UnreaGainForeExNon
         '
         Me.lbl_p2UnreaGainForeExNon.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2UnreaGainForeExNon.Appearance.Options.UseFont = True
         Me.lbl_p2UnreaGainForeExNon.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2UnreaGainForeExNon.Location = New System.Drawing.Point(5, 401)
         Me.lbl_p2UnreaGainForeExNon.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1369,6 +1386,7 @@ Partial Class frmPNL_Add
         'lbl_p2Other
         '
         Me.lbl_p2Other.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2Other.Appearance.Options.UseFont = True
         Me.lbl_p2Other.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2Other.Location = New System.Drawing.Point(5, 425)
         Me.lbl_p2Other.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1381,6 +1399,7 @@ Partial Class frmPNL_Add
         'lbl_p2UnreaGainForeEx
         '
         Me.lbl_p2UnreaGainForeEx.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2UnreaGainForeEx.Appearance.Options.UseFont = True
         Me.lbl_p2UnreaGainForeEx.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2UnreaGainForeEx.Location = New System.Drawing.Point(5, 378)
         Me.lbl_p2UnreaGainForeEx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1393,6 +1412,7 @@ Partial Class frmPNL_Add
         'lbl_p2ReaForeExGainNonTrade
         '
         Me.lbl_p2ReaForeExGainNonTrade.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2ReaForeExGainNonTrade.Appearance.Options.UseFont = True
         Me.lbl_p2ReaForeExGainNonTrade.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2ReaForeExGainNonTrade.Location = New System.Drawing.Point(5, 355)
         Me.lbl_p2ReaForeExGainNonTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1404,6 +1424,7 @@ Partial Class frmPNL_Add
         'lbl_p2ForeIncomeRemmit
         '
         Me.lbl_p2ForeIncomeRemmit.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2ForeIncomeRemmit.Appearance.Options.UseFont = True
         Me.lbl_p2ForeIncomeRemmit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2ForeIncomeRemmit.Location = New System.Drawing.Point(5, 332)
         Me.lbl_p2ForeIncomeRemmit.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1416,6 +1437,7 @@ Partial Class frmPNL_Add
         'lbl_p2ExemptDividend
         '
         Me.lbl_p2ExemptDividend.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2ExemptDividend.Appearance.Options.UseFont = True
         Me.lbl_p2ExemptDividend.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2ExemptDividend.Location = New System.Drawing.Point(5, 310)
         Me.lbl_p2ExemptDividend.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1428,6 +1450,7 @@ Partial Class frmPNL_Add
         'lbl_p2ProDisInvestment
         '
         Me.lbl_p2ProDisInvestment.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2ProDisInvestment.Appearance.Options.UseFont = True
         Me.lbl_p2ProDisInvestment.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2ProDisInvestment.Location = New System.Drawing.Point(5, 287)
         Me.lbl_p2ProDisInvestment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1440,6 +1463,7 @@ Partial Class frmPNL_Add
         'lbl_p2ProDispPlantEq
         '
         Me.lbl_p2ProDispPlantEq.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2ProDispPlantEq.Appearance.Options.UseFont = True
         Me.lbl_p2ProDispPlantEq.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2ProDispPlantEq.Location = New System.Drawing.Point(5, 264)
         Me.lbl_p2ProDispPlantEq.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1452,6 +1476,7 @@ Partial Class frmPNL_Add
         'LabelControl21
         '
         Me.LabelControl21.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl21.Appearance.Options.UseFont = True
         Me.LabelControl21.Location = New System.Drawing.Point(5, 233)
         Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl21.Name = "LabelControl21"
@@ -1462,6 +1487,7 @@ Partial Class frmPNL_Add
         'lbl_p2OtherIncome
         '
         Me.lbl_p2OtherIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2OtherIncome.Appearance.Options.UseFont = True
         Me.lbl_p2OtherIncome.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2OtherIncome.Location = New System.Drawing.Point(5, 189)
         Me.lbl_p2OtherIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1474,6 +1500,7 @@ Partial Class frmPNL_Add
         'lbl_p2RoyaltyIncome
         '
         Me.lbl_p2RoyaltyIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2RoyaltyIncome.Appearance.Options.UseFont = True
         Me.lbl_p2RoyaltyIncome.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2RoyaltyIncome.Location = New System.Drawing.Point(5, 167)
         Me.lbl_p2RoyaltyIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1486,6 +1513,7 @@ Partial Class frmPNL_Add
         'lbl_p2RentalIncome
         '
         Me.lbl_p2RentalIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2RentalIncome.Appearance.Options.UseFont = True
         Me.lbl_p2RentalIncome.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2RentalIncome.Location = New System.Drawing.Point(5, 144)
         Me.lbl_p2RentalIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1498,6 +1526,7 @@ Partial Class frmPNL_Add
         'lbl_p2InterestIncome
         '
         Me.lbl_p2InterestIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2InterestIncome.Appearance.Options.UseFont = True
         Me.lbl_p2InterestIncome.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2InterestIncome.Location = New System.Drawing.Point(5, 121)
         Me.lbl_p2InterestIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1510,6 +1539,7 @@ Partial Class frmPNL_Add
         'lbl_p2DivIncome
         '
         Me.lbl_p2DivIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2DivIncome.Appearance.Options.UseFont = True
         Me.lbl_p2DivIncome.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2DivIncome.Location = New System.Drawing.Point(5, 98)
         Me.lbl_p2DivIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1522,6 +1552,7 @@ Partial Class frmPNL_Add
         'LabelControl15
         '
         Me.LabelControl15.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl15.Appearance.Options.UseFont = True
         Me.LabelControl15.Location = New System.Drawing.Point(5, 71)
         Me.LabelControl15.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl15.Name = "LabelControl15"
@@ -1532,6 +1563,7 @@ Partial Class frmPNL_Add
         'lbl_p2ForeignCurrExGain
         '
         Me.lbl_p2ForeignCurrExGain.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2ForeignCurrExGain.Appearance.Options.UseFont = True
         Me.lbl_p2ForeignCurrExGain.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2ForeignCurrExGain.Location = New System.Drawing.Point(5, 47)
         Me.lbl_p2ForeignCurrExGain.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1543,6 +1575,7 @@ Partial Class frmPNL_Add
         'lbl_p2OtherBizIncome
         '
         Me.lbl_p2OtherBizIncome.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p2OtherBizIncome.Appearance.Options.UseFont = True
         Me.lbl_p2OtherBizIncome.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p2OtherBizIncome.Location = New System.Drawing.Point(5, 24)
         Me.lbl_p2OtherBizIncome.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1622,6 +1655,7 @@ Partial Class frmPNL_Add
         'lbl_p3ForeignCurrExLoss
         '
         Me.lbl_p3ForeignCurrExLoss.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3ForeignCurrExLoss.Appearance.Options.UseFont = True
         Me.lbl_p3ForeignCurrExLoss.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3ForeignCurrExLoss.Location = New System.Drawing.Point(18, 362)
         Me.lbl_p3ForeignCurrExLoss.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1634,6 +1668,7 @@ Partial Class frmPNL_Add
         'LabelControl46
         '
         Me.LabelControl46.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl46.Appearance.Options.UseFont = True
         Me.LabelControl46.Location = New System.Drawing.Point(18, 423)
         Me.LabelControl46.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl46.Name = "LabelControl46"
@@ -1660,6 +1695,7 @@ Partial Class frmPNL_Add
         'lbl_p3Zakat
         '
         Me.lbl_p3Zakat.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3Zakat.Appearance.Options.UseFont = True
         Me.lbl_p3Zakat.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3Zakat.Location = New System.Drawing.Point(18, 516)
         Me.lbl_p3Zakat.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1688,6 +1724,7 @@ Partial Class frmPNL_Add
         'lbl_p3DonationNonApp
         '
         Me.lbl_p3DonationNonApp.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3DonationNonApp.Appearance.Options.UseFont = True
         Me.lbl_p3DonationNonApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3DonationNonApp.Location = New System.Drawing.Point(18, 492)
         Me.lbl_p3DonationNonApp.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1716,6 +1753,7 @@ Partial Class frmPNL_Add
         'lbl_p3DonationApp
         '
         Me.lbl_p3DonationApp.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3DonationApp.Appearance.Options.UseFont = True
         Me.lbl_p3DonationApp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3DonationApp.Location = New System.Drawing.Point(18, 468)
         Me.lbl_p3DonationApp.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1744,6 +1782,7 @@ Partial Class frmPNL_Add
         'lbl_p3Depreciation
         '
         Me.lbl_p3Depreciation.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3Depreciation.Appearance.Options.UseFont = True
         Me.lbl_p3Depreciation.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3Depreciation.Location = New System.Drawing.Point(18, 444)
         Me.lbl_p3Depreciation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1772,6 +1811,7 @@ Partial Class frmPNL_Add
         'lbl_p3JKDM
         '
         Me.lbl_p3JKDM.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3JKDM.Appearance.Options.UseFont = True
         Me.lbl_p3JKDM.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3JKDM.Location = New System.Drawing.Point(18, 386)
         Me.lbl_p3JKDM.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1800,6 +1840,7 @@ Partial Class frmPNL_Add
         'lbl_p3Travelling
         '
         Me.lbl_p3Travelling.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3Travelling.Appearance.Options.UseFont = True
         Me.lbl_p3Travelling.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3Travelling.Location = New System.Drawing.Point(18, 338)
         Me.lbl_p3Travelling.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1828,6 +1869,7 @@ Partial Class frmPNL_Add
         'lbl_p3PromotionAds
         '
         Me.lbl_p3PromotionAds.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3PromotionAds.Appearance.Options.UseFont = True
         Me.lbl_p3PromotionAds.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3PromotionAds.Location = New System.Drawing.Point(18, 314)
         Me.lbl_p3PromotionAds.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1856,6 +1898,7 @@ Partial Class frmPNL_Add
         'lbl_p3ResearchDev
         '
         Me.lbl_p3ResearchDev.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3ResearchDev.Appearance.Options.UseFont = True
         Me.lbl_p3ResearchDev.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3ResearchDev.Location = New System.Drawing.Point(18, 290)
         Me.lbl_p3ResearchDev.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1884,6 +1927,7 @@ Partial Class frmPNL_Add
         'lbl_p3RepairMain
         '
         Me.lbl_p3RepairMain.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3RepairMain.Appearance.Options.UseFont = True
         Me.lbl_p3RepairMain.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3RepairMain.Location = New System.Drawing.Point(18, 266)
         Me.lbl_p3RepairMain.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1912,6 +1956,7 @@ Partial Class frmPNL_Add
         'lbl_p3Rental
         '
         Me.lbl_p3Rental.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3Rental.Appearance.Options.UseFont = True
         Me.lbl_p3Rental.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3Rental.Location = New System.Drawing.Point(18, 242)
         Me.lbl_p3Rental.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1940,6 +1985,7 @@ Partial Class frmPNL_Add
         'lbl_p3Royalty
         '
         Me.lbl_p3Royalty.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3Royalty.Appearance.Options.UseFont = True
         Me.lbl_p3Royalty.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3Royalty.Location = New System.Drawing.Point(18, 218)
         Me.lbl_p3Royalty.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1968,6 +2014,7 @@ Partial Class frmPNL_Add
         'lbl_p3COEStock
         '
         Me.lbl_p3COEStock.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3COEStock.Appearance.Options.UseFont = True
         Me.lbl_p3COEStock.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3COEStock.Location = New System.Drawing.Point(18, 194)
         Me.lbl_p3COEStock.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -1996,6 +2043,7 @@ Partial Class frmPNL_Add
         'lbl_p3Salary
         '
         Me.lbl_p3Salary.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3Salary.Appearance.Options.UseFont = True
         Me.lbl_p3Salary.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3Salary.Location = New System.Drawing.Point(18, 170)
         Me.lbl_p3Salary.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2024,6 +2072,7 @@ Partial Class frmPNL_Add
         'lbl_p3DirectorFee
         '
         Me.lbl_p3DirectorFee.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3DirectorFee.Appearance.Options.UseFont = True
         Me.lbl_p3DirectorFee.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3DirectorFee.Location = New System.Drawing.Point(18, 146)
         Me.lbl_p3DirectorFee.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2052,6 +2101,7 @@ Partial Class frmPNL_Add
         'lbl_p3ContractPay
         '
         Me.lbl_p3ContractPay.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3ContractPay.Appearance.Options.UseFont = True
         Me.lbl_p3ContractPay.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3ContractPay.Location = New System.Drawing.Point(18, 122)
         Me.lbl_p3ContractPay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2080,6 +2130,7 @@ Partial Class frmPNL_Add
         'lbl_p3TechPayNonResis
         '
         Me.lbl_p3TechPayNonResis.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3TechPayNonResis.Appearance.Options.UseFont = True
         Me.lbl_p3TechPayNonResis.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3TechPayNonResis.Location = New System.Drawing.Point(18, 98)
         Me.lbl_p3TechPayNonResis.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2107,6 +2158,7 @@ Partial Class frmPNL_Add
         'lbl_p3ProTechManLeganFees
         '
         Me.lbl_p3ProTechManLeganFees.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3ProTechManLeganFees.Appearance.Options.UseFont = True
         Me.lbl_p3ProTechManLeganFees.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3ProTechManLeganFees.Location = New System.Drawing.Point(18, 74)
         Me.lbl_p3ProTechManLeganFees.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2135,6 +2187,7 @@ Partial Class frmPNL_Add
         'lbl_p3OtherInterestExHirePur
         '
         Me.lbl_p3OtherInterestExHirePur.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3OtherInterestExHirePur.Appearance.Options.UseFont = True
         Me.lbl_p3OtherInterestExHirePur.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3OtherInterestExHirePur.Location = New System.Drawing.Point(18, 50)
         Me.lbl_p3OtherInterestExHirePur.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2163,6 +2216,7 @@ Partial Class frmPNL_Add
         'lbl_p3InterestResPurS33
         '
         Me.lbl_p3InterestResPurS33.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p3InterestResPurS33.Appearance.Options.UseFont = True
         Me.lbl_p3InterestResPurS33.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p3InterestResPurS33.Location = New System.Drawing.Point(18, 26)
         Me.lbl_p3InterestResPurS33.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2175,6 +2229,7 @@ Partial Class frmPNL_Add
         'LabelControl2
         '
         Me.LabelControl2.Appearance.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl2.Appearance.Options.UseFont = True
         Me.LabelControl2.Location = New System.Drawing.Point(18, 2)
         Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl2.Name = "LabelControl2"
@@ -2248,6 +2303,7 @@ Partial Class frmPNL_Add
         'LabelControl1
         '
         Me.LabelControl1.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl1.Appearance.Options.UseFont = True
         Me.LabelControl1.Location = New System.Drawing.Point(7, 336)
         Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl1.Name = "LabelControl1"
@@ -2274,6 +2330,7 @@ Partial Class frmPNL_Add
         'lblP4NonAllowableExpenses
         '
         Me.lblP4NonAllowableExpenses.Appearance.Font = New System.Drawing.Font("Tahoma", 7.8!, CType((System.Drawing.FontStyle.Italic Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblP4NonAllowableExpenses.Appearance.Options.UseFont = True
         Me.lblP4NonAllowableExpenses.Location = New System.Drawing.Point(7, 471)
         Me.lblP4NonAllowableExpenses.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.lblP4NonAllowableExpenses.Name = "lblP4NonAllowableExpenses"
@@ -2303,6 +2360,7 @@ Partial Class frmPNL_Add
         'LabelControl63
         '
         Me.LabelControl63.Appearance.Font = New System.Drawing.Font("Tahoma", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl63.Appearance.Options.UseFont = True
         Me.LabelControl63.Location = New System.Drawing.Point(7, 447)
         Me.LabelControl63.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl63.Name = "LabelControl63"
@@ -2383,6 +2441,7 @@ Partial Class frmPNL_Add
         'LabelControl60
         '
         Me.LabelControl60.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl60.Appearance.Options.UseFont = True
         Me.LabelControl60.Location = New System.Drawing.Point(7, 357)
         Me.LabelControl60.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.LabelControl60.Name = "LabelControl60"
@@ -2409,6 +2468,7 @@ Partial Class frmPNL_Add
         'lbl_p4Other
         '
         Me.lbl_p4Other.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4Other.Appearance.Options.UseFont = True
         Me.lbl_p4Other.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4Other.Location = New System.Drawing.Point(7, 314)
         Me.lbl_p4Other.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2437,6 +2497,7 @@ Partial Class frmPNL_Add
         'lbl_p4CAExpenditure
         '
         Me.lbl_p4CAExpenditure.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4CAExpenditure.Appearance.Options.UseFont = True
         Me.lbl_p4CAExpenditure.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4CAExpenditure.Location = New System.Drawing.Point(7, 290)
         Me.lbl_p4CAExpenditure.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2465,6 +2526,7 @@ Partial Class frmPNL_Add
         'lbl_p4InitSub
         '
         Me.lbl_p4InitSub.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4InitSub.Appearance.Options.UseFont = True
         Me.lbl_p4InitSub.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4InitSub.Location = New System.Drawing.Point(7, 266)
         Me.lbl_p4InitSub.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2493,6 +2555,7 @@ Partial Class frmPNL_Add
         'lbl_p4ReaLossForeExNonTrade
         '
         Me.lbl_p4ReaLossForeExNonTrade.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4ReaLossForeExNonTrade.Appearance.Options.UseFont = True
         Me.lbl_p4ReaLossForeExNonTrade.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4ReaLossForeExNonTrade.Location = New System.Drawing.Point(7, 242)
         Me.lbl_p4ReaLossForeExNonTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2521,6 +2584,7 @@ Partial Class frmPNL_Add
         'lbl_p4ReaLossForeExTrade
         '
         Me.lbl_p4ReaLossForeExTrade.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4ReaLossForeExTrade.Appearance.Options.UseFont = True
         Me.lbl_p4ReaLossForeExTrade.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4ReaLossForeExTrade.Location = New System.Drawing.Point(7, 218)
         Me.lbl_p4ReaLossForeExTrade.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2549,6 +2613,7 @@ Partial Class frmPNL_Add
         'lbl_p4UnreaLossForeEx
         '
         Me.lbl_p4UnreaLossForeEx.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4UnreaLossForeEx.Appearance.Options.UseFont = True
         Me.lbl_p4UnreaLossForeEx.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4UnreaLossForeEx.Location = New System.Drawing.Point(7, 194)
         Me.lbl_p4UnreaLossForeEx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2577,6 +2642,7 @@ Partial Class frmPNL_Add
         'lbl_p4FAWrittenOff
         '
         Me.lbl_p4FAWrittenOff.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4FAWrittenOff.Appearance.Options.UseFont = True
         Me.lbl_p4FAWrittenOff.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4FAWrittenOff.Location = New System.Drawing.Point(7, 170)
         Me.lbl_p4FAWrittenOff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2605,6 +2671,7 @@ Partial Class frmPNL_Add
         'lbl_p4LeavePass
         '
         Me.lbl_p4LeavePass.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4LeavePass.Appearance.Options.UseFont = True
         Me.lbl_p4LeavePass.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4LeavePass.Location = New System.Drawing.Point(7, 146)
         Me.lbl_p4LeavePass.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2633,6 +2700,7 @@ Partial Class frmPNL_Add
         'lbl_p4ProvisionAcc
         '
         Me.lbl_p4ProvisionAcc.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4ProvisionAcc.Appearance.Options.UseFont = True
         Me.lbl_p4ProvisionAcc.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4ProvisionAcc.Location = New System.Drawing.Point(7, 122)
         Me.lbl_p4ProvisionAcc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2661,6 +2729,7 @@ Partial Class frmPNL_Add
         'lbl_p4Compound
         '
         Me.lbl_p4Compound.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4Compound.Appearance.Options.UseFont = True
         Me.lbl_p4Compound.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4Compound.Location = New System.Drawing.Point(7, 98)
         Me.lbl_p4Compound.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2689,6 +2758,7 @@ Partial Class frmPNL_Add
         'lbl_p4EntStaff
         '
         Me.lbl_p4EntStaff.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4EntStaff.Appearance.Options.UseFont = True
         Me.lbl_p4EntStaff.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4EntStaff.Location = New System.Drawing.Point(7, 74)
         Me.lbl_p4EntStaff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2717,6 +2787,7 @@ Partial Class frmPNL_Add
         'lbl_p4EntNonStaff
         '
         Me.lbl_p4EntNonStaff.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4EntNonStaff.Appearance.Options.UseFont = True
         Me.lbl_p4EntNonStaff.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4EntNonStaff.Location = New System.Drawing.Point(7, 50)
         Me.lbl_p4EntNonStaff.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2745,6 +2816,7 @@ Partial Class frmPNL_Add
         'lbl_p4LossDispFA
         '
         Me.lbl_p4LossDispFA.Appearance.Font = New System.Drawing.Font("Tahoma", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lbl_p4LossDispFA.Appearance.Options.UseFont = True
         Me.lbl_p4LossDispFA.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lbl_p4LossDispFA.Location = New System.Drawing.Point(7, 26)
         Me.lbl_p4LossDispFA.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -2766,6 +2838,7 @@ Partial Class frmPNL_Add
         Me.TabbedView1.DocumentProperties.AllowPin = True
         Me.TabbedView1.FloatingDocumentContainer = DevExpress.XtraBars.Docking2010.Views.FloatingDocumentContainer.DocumentsHost
         Me.TabbedView1.OptionsLayout.PropertiesRestoreMode = DevExpress.XtraBars.Docking2010.Views.PropertiesRestoreMode.All
+        Me.TabbedView1.RootContainer.Element = Nothing
         '
         'RibbonControl1
         '
@@ -2776,65 +2849,65 @@ Partial Class frmPNL_Add
         Me.RibbonControl1.MaxItemId = 1
         Me.RibbonControl1.Name = "RibbonControl1"
         Me.RibbonControl1.Pages.AddRange(New DevExpress.XtraBars.Ribbon.RibbonPage() {Me.RibbonPage1, Me.RibbonPage2})
+        Me.RibbonControl1.QuickToolbarItemLinks.Add(Me.BarSubItem1)
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7, Me.RepositoryItemSearchLookUpEdit1})
         Me.RibbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl1.ShowToolbarCustomizeItem = False
         Me.RibbonControl1.Size = New System.Drawing.Size(1315, 141)
-        Me.RibbonControl1.Toolbar.ItemLinks.Add(Me.BarSubItem1)
         Me.RibbonControl1.Toolbar.ShowCustomizeItem = False
         '
         'btnSave
         '
         Me.btnSave.Caption = "Save"
-        Me.btnSave.Glyph = CType(resources.GetObject("btnSave.Glyph"), System.Drawing.Image)
         Me.btnSave.Id = 1
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S))
-        Me.btnSave.LargeGlyph = CType(resources.GetObject("btnSave.LargeGlyph"), System.Drawing.Image)
         Me.btnSave.Name = "btnSave"
         '
         'BarButtonItem2
         '
         Me.BarButtonItem2.Caption = "Print"
-        Me.BarButtonItem2.Glyph = CType(resources.GetObject("BarButtonItem2.Glyph"), System.Drawing.Image)
         Me.BarButtonItem2.Id = 2
+        Me.BarButtonItem2.ImageOptions.Image = CType(resources.GetObject("BarButtonItem2.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItem2.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem2.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.BarButtonItem2.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P))
-        Me.BarButtonItem2.LargeGlyph = CType(resources.GetObject("BarButtonItem2.LargeGlyph"), System.Drawing.Image)
         Me.BarButtonItem2.Name = "BarButtonItem2"
         '
         'BarButtonItem3
         '
         Me.BarButtonItem3.Caption = "Close"
-        Me.BarButtonItem3.Glyph = CType(resources.GetObject("BarButtonItem3.Glyph"), System.Drawing.Image)
         Me.BarButtonItem3.Id = 3
+        Me.BarButtonItem3.ImageOptions.Image = CType(resources.GetObject("BarButtonItem3.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItem3.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem3.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.BarButtonItem3.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F12)
-        Me.BarButtonItem3.LargeGlyph = CType(resources.GetObject("BarButtonItem3.LargeGlyph"), System.Drawing.Image)
         Me.BarButtonItem3.Name = "BarButtonItem3"
         '
         'btnImport
         '
         Me.btnImport.Caption = "Import"
-        Me.btnImport.Glyph = CType(resources.GetObject("btnImport.Glyph"), System.Drawing.Image)
         Me.btnImport.Id = 4
+        Me.btnImport.ImageOptions.Image = CType(resources.GetObject("btnImport.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnImport.ImageOptions.LargeImage = CType(resources.GetObject("btnImport.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnImport.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F9)
-        Me.btnImport.LargeGlyph = CType(resources.GetObject("btnImport.LargeGlyph"), System.Drawing.Image)
         Me.btnImport.Name = "btnImport"
         '
         'btnExport
         '
         Me.btnExport.Caption = "Export"
-        Me.btnExport.Glyph = CType(resources.GetObject("btnExport.Glyph"), System.Drawing.Image)
         Me.btnExport.Id = 5
+        Me.btnExport.ImageOptions.Image = CType(resources.GetObject("btnExport.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExport.ImageOptions.LargeImage = CType(resources.GetObject("btnExport.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnExport.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F10)
-        Me.btnExport.LargeGlyph = CType(resources.GetObject("btnExport.LargeGlyph"), System.Drawing.Image)
         Me.btnExport.Name = "btnExport"
         '
         'cboPNLStatus
         '
         Me.cboPNLStatus.Caption = "Status P&&L :"
         Me.cboPNLStatus.Edit = Me.RepositoryItemComboBox1
+        Me.cboPNLStatus.EditWidth = 160
         Me.cboPNLStatus.Id = 10
         Me.cboPNLStatus.Name = "cboPNLStatus"
-        Me.cboPNLStatus.Width = 160
         '
         'RepositoryItemComboBox1
         '
@@ -2848,9 +2921,9 @@ Partial Class frmPNL_Add
         '
         Me.txtLastModified.Caption = "Last Modified :"
         Me.txtLastModified.Edit = Me.RepositoryItemTextEdit1
+        Me.txtLastModified.EditWidth = 350
         Me.txtLastModified.Id = 11
         Me.txtLastModified.Name = "txtLastModified"
-        Me.txtLastModified.Width = 350
         '
         'RepositoryItemTextEdit1
         '
@@ -2862,11 +2935,11 @@ Partial Class frmPNL_Add
         '
         Me.cboYA.Caption = "YA : "
         Me.cboYA.Edit = Me.RepositoryItemComboBox2
-        Me.cboYA.Glyph = CType(resources.GetObject("cboYA.Glyph"), System.Drawing.Image)
+        Me.cboYA.EditWidth = 150
         Me.cboYA.Id = 16
-        Me.cboYA.LargeGlyph = CType(resources.GetObject("cboYA.LargeGlyph"), System.Drawing.Image)
+        Me.cboYA.ImageOptions.Image = CType(resources.GetObject("cboYA.ImageOptions.Image"), System.Drawing.Image)
+        Me.cboYA.ImageOptions.LargeImage = CType(resources.GetObject("cboYA.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.cboYA.Name = "cboYA"
-        Me.cboYA.Width = 150
         '
         'RepositoryItemComboBox2
         '
@@ -2878,11 +2951,11 @@ Partial Class frmPNL_Add
         '
         Me.txtRefNo.Caption = "Tax Payer :"
         Me.txtRefNo.Edit = Me.RepositoryItemTextEdit2
-        Me.txtRefNo.Glyph = CType(resources.GetObject("txtRefNo.Glyph"), System.Drawing.Image)
+        Me.txtRefNo.EditWidth = 150
         Me.txtRefNo.Id = 17
-        Me.txtRefNo.LargeGlyph = CType(resources.GetObject("txtRefNo.LargeGlyph"), System.Drawing.Image)
+        Me.txtRefNo.ImageOptions.Image = CType(resources.GetObject("txtRefNo.ImageOptions.Image"), System.Drawing.Image)
+        Me.txtRefNo.ImageOptions.LargeImage = CType(resources.GetObject("txtRefNo.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Width = 150
         '
         'RepositoryItemTextEdit2
         '
@@ -2894,9 +2967,9 @@ Partial Class frmPNL_Add
         '
         Me.txtNetProfit2.Caption = "Net Profit :"
         Me.txtNetProfit2.Edit = Me.RepositoryItemTextEdit3
+        Me.txtNetProfit2.EditWidth = 175
         Me.txtNetProfit2.Id = 18
         Me.txtNetProfit2.Name = "txtNetProfit2"
-        Me.txtNetProfit2.Width = 175
         '
         'RepositoryItemTextEdit3
         '
@@ -2915,9 +2988,9 @@ Partial Class frmPNL_Add
         '
         Me.txtNonAllowableExpense.Caption = "Non Allowable Expenses : "
         Me.txtNonAllowableExpense.Edit = Me.RepositoryItemTextEdit4
+        Me.txtNonAllowableExpense.EditWidth = 100
         Me.txtNonAllowableExpense.Id = 19
         Me.txtNonAllowableExpense.Name = "txtNonAllowableExpense"
-        Me.txtNonAllowableExpense.Width = 100
         '
         'RepositoryItemTextEdit4
         '
@@ -2932,9 +3005,9 @@ Partial Class frmPNL_Add
         '
         Me.cboMainSource.Caption = "Source No :"
         Me.cboMainSource.Edit = Me.RepositoryItemLookUpEdit2
+        Me.cboMainSource.EditWidth = 130
         Me.cboMainSource.Id = 20
         Me.cboMainSource.Name = "cboMainSource"
-        Me.cboMainSource.Width = 130
         '
         'RepositoryItemLookUpEdit2
         '
@@ -2962,9 +3035,9 @@ Partial Class frmPNL_Add
         '
         Me.cboS60F.Caption = "S60F Applicable :   "
         Me.cboS60F.Edit = Me.RepositoryItemComboBox3
+        Me.cboS60F.EditWidth = 100
         Me.cboS60F.Id = 21
         Me.cboS60F.Name = "cboS60F"
-        Me.cboS60F.Width = 100
         '
         'RepositoryItemComboBox3
         '
@@ -2981,9 +3054,9 @@ Partial Class frmPNL_Add
         '
         Me.cboS60FA.Caption = "S60FA Applicable : "
         Me.cboS60FA.Edit = Me.RepositoryItemComboBox4
+        Me.cboS60FA.EditWidth = 100
         Me.cboS60FA.Id = 23
         Me.cboS60FA.Name = "cboS60FA"
-        Me.cboS60FA.Width = 100
         '
         'RepositoryItemComboBox4
         '
@@ -3005,9 +3078,9 @@ Partial Class frmPNL_Add
         '
         Me.txtBalacingFigure.Caption = "Balancing Figure : "
         Me.txtBalacingFigure.Edit = Me.RepositoryItemTextEdit7
+        Me.txtBalacingFigure.EditWidth = 145
         Me.txtBalacingFigure.Id = 3
         Me.txtBalacingFigure.Name = "txtBalacingFigure"
-        Me.txtBalacingFigure.Width = 145
         '
         'RepositoryItemTextEdit7
         '
@@ -3018,10 +3091,10 @@ Partial Class frmPNL_Add
         'btnRefresh
         '
         Me.btnRefresh.Caption = "Refresh"
-        Me.btnRefresh.Glyph = CType(resources.GetObject("btnRefresh.Glyph"), System.Drawing.Image)
         Me.btnRefresh.Id = 4
+        Me.btnRefresh.ImageOptions.Image = CType(resources.GetObject("btnRefresh.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnRefresh.ImageOptions.LargeImage = CType(resources.GetObject("btnRefresh.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnRefresh.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F5)
-        Me.btnRefresh.LargeGlyph = CType(resources.GetObject("btnRefresh.LargeGlyph"), System.Drawing.Image)
         Me.btnRefresh.Name = "btnRefresh"
         ToolTipTitleItem1.Text = "Refresh Data"
         ToolTipItem1.LeftIndent = 6
@@ -3034,9 +3107,9 @@ Partial Class frmPNL_Add
         '
         Me.BarSubItem1.Caption = "View"
         Me.BarSubItem1.Description = "View"
-        Me.BarSubItem1.Glyph = CType(resources.GetObject("BarSubItem1.Glyph"), System.Drawing.Image)
         Me.BarSubItem1.Id = 9
-        Me.BarSubItem1.LargeGlyph = CType(resources.GetObject("BarSubItem1.LargeGlyph"), System.Drawing.Image)
+        Me.BarSubItem1.ImageOptions.Image = CType(resources.GetObject("BarSubItem1.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarSubItem1.ImageOptions.LargeImage = CType(resources.GetObject("BarSubItem1.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.BarSubItem1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem4), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem5)})
         Me.BarSubItem1.Name = "BarSubItem1"
         Me.BarSubItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
@@ -3076,9 +3149,9 @@ Partial Class frmPNL_Add
         'btnErrorLog
         '
         Me.btnErrorLog.Caption = "Error Log"
-        Me.btnErrorLog.Glyph = CType(resources.GetObject("btnErrorLog.Glyph"), System.Drawing.Image)
         Me.btnErrorLog.Id = 16
-        Me.btnErrorLog.LargeGlyph = CType(resources.GetObject("btnErrorLog.LargeGlyph"), System.Drawing.Image)
+        Me.btnErrorLog.ImageOptions.Image = CType(resources.GetObject("btnErrorLog.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnErrorLog.ImageOptions.LargeImage = CType(resources.GetObject("btnErrorLog.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnErrorLog.Name = "btnErrorLog"
         '
         'cboRefNo
@@ -3087,11 +3160,11 @@ Partial Class frmPNL_Add
         Me.cboRefNo.CategoryGuid = New System.Guid("6ffddb2b-9015-4d97-a4c1-91613e0ef537")
         Me.cboRefNo.DataBindings.Add(New System.Windows.Forms.Binding("AccessibleDescription", Me.TaxPayerFindBindingSource, "RefNo", True))
         Me.cboRefNo.Edit = Me.RepositoryItemSearchLookUpEdit1
-        Me.cboRefNo.Glyph = CType(resources.GetObject("cboRefNo.Glyph"), System.Drawing.Image)
+        Me.cboRefNo.EditWidth = 150
         Me.cboRefNo.Id = 17
-        Me.cboRefNo.LargeGlyph = CType(resources.GetObject("cboRefNo.LargeGlyph"), System.Drawing.Image)
+        Me.cboRefNo.ImageOptions.Image = CType(resources.GetObject("cboRefNo.ImageOptions.Image"), System.Drawing.Image)
+        Me.cboRefNo.ImageOptions.LargeImage = CType(resources.GetObject("cboRefNo.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Width = 150
         '
         'TaxPayerFindBindingSource
         '
@@ -3127,6 +3200,70 @@ Partial Class frmPNL_Add
         Me.RepositoryItemSearchLookUpEdit1View.OptionsView.ColumnAutoWidth = False
         Me.RepositoryItemSearchLookUpEdit1View.OptionsView.RowAutoHeight = True
         Me.RepositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = False
+        '
+        'colRefNo
+        '
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
+        '
+        'colCompanyName
+        '
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
+        '
+        'colHandleBy
+        '
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
+        '
+        'colCompanyNo
+        '
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
+        '
+        'colEmployerNo
+        '
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
         '
         'RibbonPage1
         '
@@ -3222,70 +3359,6 @@ Partial Class frmPNL_Add
         '
         Me.PopupMenu1.Name = "PopupMenu1"
         Me.PopupMenu1.Ribbon = Me.RibbonControl1
-        '
-        'colRefNo
-        '
-        Me.colRefNo.FieldName = "RefNo"
-        Me.colRefNo.Name = "colRefNo"
-        Me.colRefNo.Visible = True
-        Me.colRefNo.VisibleIndex = 0
-        Me.colRefNo.Width = 100
-        '
-        'colCompanyName
-        '
-        Me.colCompanyName.FieldName = "CompanyName"
-        Me.colCompanyName.Name = "colCompanyName"
-        Me.colCompanyName.Visible = True
-        Me.colCompanyName.VisibleIndex = 1
-        Me.colCompanyName.Width = 250
-        '
-        'colCompanyNo
-        '
-        Me.colCompanyNo.FieldName = "CompanyNo"
-        Me.colCompanyNo.Name = "colCompanyNo"
-        Me.colCompanyNo.Visible = True
-        Me.colCompanyNo.VisibleIndex = 3
-        Me.colCompanyNo.Width = 100
-        '
-        'colEmployerNo
-        '
-        Me.colEmployerNo.FieldName = "EmployerNo"
-        Me.colEmployerNo.Name = "colEmployerNo"
-        Me.colEmployerNo.Visible = True
-        Me.colEmployerNo.VisibleIndex = 4
-        Me.colEmployerNo.Width = 100
-        '
-        'colFileNo
-        '
-        Me.colFileNo.FieldName = "FileNo"
-        Me.colFileNo.Name = "colFileNo"
-        Me.colFileNo.Visible = True
-        Me.colFileNo.VisibleIndex = 5
-        Me.colFileNo.Width = 100
-        '
-        'colCountry
-        '
-        Me.colCountry.FieldName = "Country"
-        Me.colCountry.Name = "colCountry"
-        Me.colCountry.Visible = True
-        Me.colCountry.VisibleIndex = 6
-        Me.colCountry.Width = 100
-        '
-        'colCompanyCode
-        '
-        Me.colCompanyCode.FieldName = "CompanyCode"
-        Me.colCompanyCode.Name = "colCompanyCode"
-        Me.colCompanyCode.Visible = True
-        Me.colCompanyCode.VisibleIndex = 7
-        Me.colCompanyCode.Width = 100
-        '
-        'colHandleBy
-        '
-        Me.colHandleBy.FieldName = "HandleBy"
-        Me.colHandleBy.Name = "colHandleBy"
-        Me.colHandleBy.Visible = True
-        Me.colHandleBy.VisibleIndex = 2
-        Me.colHandleBy.Width = 150
         '
         'frmPNL_Add
         '

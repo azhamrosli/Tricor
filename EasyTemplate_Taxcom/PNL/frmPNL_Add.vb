@@ -724,7 +724,7 @@ Public Class frmPNL_Add
                 dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
                 dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
                 dtrow("PL_NONTAX_IN_INSU_COMP") = IIf(IsDBNull(txt_p2Other.EditValue), 0, txt_p2Other.EditValue)
-                dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3InterestResPurS33.EditValue), 0, txt_p3InterestResPurS33.EditValue)
+                dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3OtherInterestExHirePur.EditValue), 0, txt_p3OtherInterestExHirePur.EditValue)
                 dtrow("PL_LAWYER_COST") = IIf(IsDBNull(txt_p3ProTechManLeganFees.EditValue), 0, txt_p3ProTechManLeganFees.EditValue)
                 dtrow("PL_CONTRACT_EXP") = IIf(IsDBNull(txt_p3ContractPay.EditValue), 0, txt_p3ContractPay.EditValue)
                 dtrow("PL_EXP_SALARY") = IIf(IsDBNull(txt_p3Salary.EditValue), 0, txt_p3Salary.EditValue)
@@ -831,7 +831,7 @@ Public Class frmPNL_Add
                 dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
                 dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
                 dtrow("PL_NONTAX_IN_INSU_COMP") = IIf(IsDBNull(txt_p2Other.EditValue), 0, txt_p2Other.EditValue)
-                dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3InterestResPurS33.EditValue), 0, txt_p3InterestResPurS33.EditValue)
+                dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3OtherInterestExHirePur.EditValue), 0, txt_p3OtherInterestExHirePur.EditValue)
                 dtrow("PL_LAWYER_COST") = IIf(IsDBNull(txt_p3ProTechManLeganFees.EditValue), 0, txt_p3ProTechManLeganFees.EditValue)
                 dtrow("PL_CONTRACT_EXP") = IIf(IsDBNull(txt_p3ContractPay.EditValue), 0, txt_p3ContractPay.EditValue)
                 dtrow("PL_EXP_SALARY") = IIf(IsDBNull(txt_p3Salary.EditValue), 0, txt_p3Salary.EditValue)
@@ -4338,10 +4338,6 @@ Public Class frmPNL_Add
         Catch ex As Exception
 
         End Try
-    End Sub
-
-    Private Sub lbl_p1Sales_Click(sender As Object, e As EventArgs) Handles lbl_p1Sales.Click
-
     End Sub
 
 End Class
