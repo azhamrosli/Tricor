@@ -487,6 +487,12 @@
     <Compile Include="PNL\Report\rptPNL.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PNL\Report\rptPNL_Sales.Designer.vb">
+      <DependentUpon>rptPNL_Sales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\Report\rptPNL_Sales.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PNL\ucPNL.Designer.vb">
       <DependentUpon>ucPNL.vb</DependentUpon>
     </Compile>
@@ -1084,6 +1090,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\Report\rptPNL.resx">
       <DependentUpon>rptPNL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\Report\rptPNL_Sales.resx">
+      <DependentUpon>rptPNL_Sales.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\ucPNL.resx">
       <DependentUpon>ucPNL.vb</DependentUpon>

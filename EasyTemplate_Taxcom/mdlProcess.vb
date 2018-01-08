@@ -14,8 +14,8 @@ Module mdlProcess
     Public V2 As Integer = 0
     Public V3 As Integer = 7
     Public V4 As Integer = 0
-    Public R1 As Integer = 5
-    Public ArgParam0 As String = "frmcp204" 'Form Name
+    Public R1 As Integer = 2
+    Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "0388601701" '"1054242304" 'RefNo
     Public ArgParam3 As String = "2015" 'YA"

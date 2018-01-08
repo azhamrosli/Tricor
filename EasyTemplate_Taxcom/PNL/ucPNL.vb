@@ -16,6 +16,13 @@ Public Class ucPNL
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
         End If
 
+        If dsDataSet Is Nothing Then
+            dsDataSet = New dsPNL
+        End If
+        If dsDataSet2 Is Nothing Then
+            dsDataSet2 = New dsPNL2
+        End If
+
         InitializeComponent()
     End Sub
 
@@ -293,18 +300,20 @@ Public Class ucPNL
             End If
 
 
-            If mdlPNL2.PNL_Report(RefNo, YA, ErrorLog) Then
+            Dim rpt As New rptPNL
 
-                Dim rpt As New rptPNL
+            rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(RefNo)
+            rpt.paramYA.Value = CInt(YA)
 
-                rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(RefNo)
-                rpt.paramYA.Value = CInt(YA)
 
+
+            If mdlPNL2.PNL_Report(RefNo, YA, rpt.DsPNL1, dsDataSet2, ErrorLog) Then
                 rpt.DataSource = dsDataSet2
-                rpt.DsPNL1 = dsDataSet
-                rpt.DsPNL21 = dsDataSet2
+                '   rpt.DsPNL1 = dsDataSet
+               
                 rpt.ShowPreview()
             Else
+                rpt = Nothing
                 MsgBox("Failed to load report.", MsgBoxStyle.Critical)
             End If
 

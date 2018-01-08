@@ -1480,7 +1480,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("EXAD_DEDUCTIBLE") = False
                                 End If
-                                dtRow("EXAD_DEDUCTIBLE") = rowx("EXAD_DEDUCTIBLE")
+                                '  dtRow("EXAD_DEDUCTIBLE") = rowx("EXAD_DEDUCTIBLE")
                                 dtRow("EXAD_NOTE") = rowx("EXAD_NOTE")
 
                                 ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Add(dtRow)
@@ -5252,20 +5252,20 @@ Module mdlPNL2
 
 
 
-    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
 
             Dim dtPNL As DataTable = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
 
-            If dsDataSet2 Is Nothing Then
-                dsDataSet2 = New dsPNL2
+            If ds2 Is Nothing Then
+                ds2 = New dsPNL2
             End If
-            If dsDataSet Is Nothing Then
-                dsDataSet = New dsPNL
+            If ds Is Nothing Then
+                ds = New dsPNL
             End If
 
-            dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
-            dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
+            ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
+            ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
 
             If dtPNL Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -5288,26 +5288,28 @@ Module mdlPNL2
             Dim isHaveData As Boolean = False
             Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
+            ClearMemoryDataset()
+
             For i As Integer = 0 To dtPNL.Rows.Count - 1
-                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").ImportRow(dtPNL.Rows(i))
+                ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").ImportRow(dtPNL.Rows(i))
 
                 PNL_KEY = IIf(IsDBNull(dtPNL.Rows(i)("PL_KEY")), 0, dtPNL.Rows(i)("PL_KEY"))
 
                 dtRow = Nothing
-                dtRow = dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
+                dtRow = ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
                 dtRow("PL_KEY") = PNL_KEY
 
                 If listofclsPNLLabel IsNot Nothing Then
                     For Each tmp As clsPNL_LabelName In listofclsPNLLabel
 
-                        mdlPNL2.PNL_GetData(PNL_KEY, tmp.Type, RefNo, YA, dsDataSet, dsDataSet2, Errorlog, isHaveData)
+                        mdlPNL2.PNL_GetData(PNL_KEY, tmp.Type, RefNo, YA, ds, ds2, Errorlog, isHaveData)
 
                         Select Case tmp.Type
                             Case TaxComPNLEnuItem.SALES
                                 ColumnName = "PL_SALES"
-                               
+
                             Case TaxComPNLEnuItem.OPENSTOCK
-                                ColumnName = "PL_OP_STK"                               
+                                ColumnName = "PL_OP_STK"
                             Case TaxComPNLEnuItem.PURCHASE
                                 ColumnName = "PL_PURCHASES"
 
@@ -5469,7 +5471,7 @@ Module mdlPNL2
 
                         If isHaveData Then
                             ScheduleInt += 1
-                            dtRow(ColumnName) = "Sch " & ScheduleInt
+                            dtRow(ColumnName) = ScheduleInt
                         Else
                             dtRow(ColumnName) = DBNull.Value
                         End If
@@ -5477,7 +5479,7 @@ Module mdlPNL2
                     Next
                 End If
 
-                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
+                ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
 
             Next
 

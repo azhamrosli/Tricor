@@ -349,7 +349,7 @@ Public Class ucCA
         Try
             Dim frm As New frmCA_ReportMenu
             frm.ShowDialog()
-            'Dim ID As String = Nothing
+            'Dim ID As String = Notrything
             'If mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID, ErrorLog) = False Then
             '    MsgBox("Failed to generate report", MsgBoxStyle.Critical)
             'Else
@@ -362,5 +362,15 @@ Public Class ucCA
 
         End Try
 
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Try
+            Dim frm As New frmCA_Quick
+            frm.ShowDialog()
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

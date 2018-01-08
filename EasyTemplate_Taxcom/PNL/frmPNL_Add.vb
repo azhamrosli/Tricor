@@ -4036,7 +4036,6 @@ Public Class frmPNL_Add
                             dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
 
-
                             If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
                                 obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
 

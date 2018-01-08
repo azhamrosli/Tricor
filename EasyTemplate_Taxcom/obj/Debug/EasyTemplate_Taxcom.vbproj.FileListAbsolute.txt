@@ -780,7 +780,6 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpre
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.XtraTreeList.v17.1.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ja\DevExpress.XtraTreeList.v17.1.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpress.XtraTreeList.v17.1.resources.dll
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbprojResolveAssemblyReference.cache
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbproj.ResolveComReference.cache
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Add3.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Quick.resources
@@ -900,3 +899,5 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAWrittenOff.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CP204_Breakdown.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rptPNL.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rptPNL_Sales.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbprojResolveAssemblyReference.cache

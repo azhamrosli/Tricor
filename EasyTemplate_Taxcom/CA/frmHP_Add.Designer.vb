@@ -34,6 +34,18 @@ Partial Class frmHP_Add
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
+        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.LabelControl28 = New DevExpress.XtraEditors.LabelControl()
         Me.txtCompanyCode = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl27 = New DevExpress.XtraEditors.LabelControl()
@@ -44,8 +56,6 @@ Partial Class frmHP_Add
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.txtTaxPayer = New DevExpress.XtraEditors.TextEdit()
         Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
         Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
@@ -128,27 +138,19 @@ Partial Class frmHP_Add
         Me.btnSumofDigits = New DevExpress.XtraEditors.SimpleButton()
         Me.lblTypeInstallment = New DevExpress.XtraEditors.LabelControl()
         Me.lblTitleSchedule = New DevExpress.XtraEditors.LabelControl()
-        Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
-        Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyName = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colHandleBy = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colEmployerNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtCompanyCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtFileNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboHP.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTaxPayer.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboPurchaseYE.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -187,8 +189,6 @@ Partial Class frmHP_Add
         CType(Me.dtDateOnly.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumbericOnly, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -222,27 +222,27 @@ Partial Class frmHP_Add
         'btnSave
         '
         Me.btnSave.Caption = "Save"
-        Me.btnSave.Glyph = CType(resources.GetObject("btnSave.Glyph"), System.Drawing.Image)
         Me.btnSave.Id = 0
-        Me.btnSave.LargeGlyph = CType(resources.GetObject("btnSave.LargeGlyph"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnClose
         '
         Me.btnClose.Caption = "Close"
-        Me.btnClose.Glyph = CType(resources.GetObject("btnClose.Glyph"), System.Drawing.Image)
         Me.btnClose.Id = 2
-        Me.btnClose.LargeGlyph = CType(resources.GetObject("btnClose.LargeGlyph"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.Image = CType(resources.GetObject("btnClose.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.LargeImage = CType(resources.GetObject("btnClose.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnDuplicate
         '
         Me.btnDuplicate.Caption = "Duplicate CA"
-        Me.btnDuplicate.Glyph = CType(resources.GetObject("btnDuplicate.Glyph"), System.Drawing.Image)
         Me.btnDuplicate.Id = 6
-        Me.btnDuplicate.LargeGlyph = CType(resources.GetObject("btnDuplicate.LargeGlyph"), System.Drawing.Image)
+        Me.btnDuplicate.ImageOptions.Image = CType(resources.GetObject("btnDuplicate.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDuplicate.ImageOptions.LargeImage = CType(resources.GetObject("btnDuplicate.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDuplicate.Name = "btnDuplicate"
         Me.btnDuplicate.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         Me.btnDuplicate.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
@@ -271,6 +271,7 @@ Partial Class frmHP_Add
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(1132, 31)
         '
         'barDockControlBottom
@@ -278,6 +279,7 @@ Partial Class frmHP_Add
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 561)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(1132, 0)
         '
         'barDockControlLeft
@@ -285,6 +287,7 @@ Partial Class frmHP_Add
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 530)
         '
         'barDockControlRight
@@ -292,6 +295,7 @@ Partial Class frmHP_Add
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(1132, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 530)
         '
         'RepositoryItemTextEdit1
@@ -324,6 +328,105 @@ Partial Class frmHP_Add
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(1132, 166)
         Me.PanelControl1.TabIndex = 4
+        '
+        'cboRefNo
+        '
+        Me.cboRefNo.Location = New System.Drawing.Point(139, 41)
+        Me.cboRefNo.MenuManager = Me.BarManager1
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.NullText = "Select"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
+        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
+        Me.cboRefNo.TabIndex = 181
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
+        '
+        'DsCA
+        '
+        Me.DsCA.DataSetName = "dsCA"
+        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'SearchLookUpEdit2View
+        '
+        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
+        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
+        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
+        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
+        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
+        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
+        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
+        '
+        'colRefNo
+        '
+        Me.colRefNo.FieldName = "RefNo"
+        Me.colRefNo.Name = "colRefNo"
+        Me.colRefNo.Visible = True
+        Me.colRefNo.VisibleIndex = 0
+        Me.colRefNo.Width = 100
+        '
+        'colCompanyName
+        '
+        Me.colCompanyName.FieldName = "CompanyName"
+        Me.colCompanyName.Name = "colCompanyName"
+        Me.colCompanyName.Visible = True
+        Me.colCompanyName.VisibleIndex = 1
+        Me.colCompanyName.Width = 250
+        '
+        'colHandleBy
+        '
+        Me.colHandleBy.FieldName = "HandleBy"
+        Me.colHandleBy.Name = "colHandleBy"
+        Me.colHandleBy.Visible = True
+        Me.colHandleBy.VisibleIndex = 2
+        Me.colHandleBy.Width = 150
+        '
+        'colCompanyNo
+        '
+        Me.colCompanyNo.FieldName = "CompanyNo"
+        Me.colCompanyNo.Name = "colCompanyNo"
+        Me.colCompanyNo.Visible = True
+        Me.colCompanyNo.VisibleIndex = 3
+        Me.colCompanyNo.Width = 100
+        '
+        'colEmployerNo
+        '
+        Me.colEmployerNo.FieldName = "EmployerNo"
+        Me.colEmployerNo.Name = "colEmployerNo"
+        Me.colEmployerNo.Visible = True
+        Me.colEmployerNo.VisibleIndex = 4
+        Me.colEmployerNo.Width = 100
+        '
+        'colFileNo
+        '
+        Me.colFileNo.FieldName = "FileNo"
+        Me.colFileNo.Name = "colFileNo"
+        Me.colFileNo.Visible = True
+        Me.colFileNo.VisibleIndex = 5
+        Me.colFileNo.Width = 100
+        '
+        'colCountry
+        '
+        Me.colCountry.FieldName = "Country"
+        Me.colCountry.Name = "colCountry"
+        Me.colCountry.Visible = True
+        Me.colCountry.VisibleIndex = 6
+        Me.colCountry.Width = 100
+        '
+        'colCompanyCode
+        '
+        Me.colCompanyCode.FieldName = "CompanyCode"
+        Me.colCompanyCode.Name = "colCompanyCode"
+        Me.colCompanyCode.Visible = True
+        Me.colCompanyCode.VisibleIndex = 7
+        Me.colCompanyCode.Width = 100
         '
         'LabelControl28
         '
@@ -360,6 +463,7 @@ Partial Class frmHP_Add
         'LabelControl26
         '
         Me.LabelControl26.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl26.Appearance.Options.UseFont = True
         Me.LabelControl26.Location = New System.Drawing.Point(12, 6)
         Me.LabelControl26.Name = "LabelControl26"
         Me.LabelControl26.Size = New System.Drawing.Size(185, 19)
@@ -405,16 +509,6 @@ Partial Class frmHP_Add
         Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboSourceCode.Size = New System.Drawing.Size(242, 20)
         Me.cboSourceCode.TabIndex = 4
-        '
-        'TaxPayerFindBindingSource
-        '
-        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
-        Me.TaxPayerFindBindingSource.DataSource = Me.DsCA
-        '
-        'DsCA
-        '
-        Me.DsCA.DataSetName = "dsCA"
-        Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'txtTaxPayer
         '
@@ -617,6 +711,7 @@ Partial Class frmHP_Add
         'LabelControl19
         '
         Me.LabelControl19.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl19.Appearance.Options.UseFont = True
         Me.LabelControl19.Location = New System.Drawing.Point(570, 160)
         Me.LabelControl19.Name = "LabelControl19"
         Me.LabelControl19.Size = New System.Drawing.Size(197, 19)
@@ -702,6 +797,7 @@ Partial Class frmHP_Add
         'LabelControl7
         '
         Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl7.Appearance.Options.UseFont = True
         Me.LabelControl7.Location = New System.Drawing.Point(570, 24)
         Me.LabelControl7.Name = "LabelControl7"
         Me.LabelControl7.Size = New System.Drawing.Size(113, 19)
@@ -867,6 +963,7 @@ Partial Class frmHP_Add
         'lblTitle_FA
         '
         Me.lblTitle_FA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitle_FA.Appearance.Options.UseFont = True
         Me.lblTitle_FA.Location = New System.Drawing.Point(11, 24)
         Me.lblTitle_FA.Name = "lblTitle_FA"
         Me.lblTitle_FA.Size = New System.Drawing.Size(196, 19)
@@ -1018,6 +1115,7 @@ Partial Class frmHP_Add
         Me.dgvInstallment.Name = "dgvInstallment"
         Me.dgvInstallment.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
         Me.dgvInstallment.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.dgvInstallment.OptionsSelection.MultiSelect = True
         Me.dgvInstallment.OptionsView.ColumnAutoWidth = False
         '
         'colHP_KEY1
@@ -1158,7 +1256,7 @@ Partial Class frmHP_Add
         '
         'btnRemove
         '
-        Me.btnRemove.Image = CType(resources.GetObject("btnRemove.Image"), System.Drawing.Image)
+        Me.btnRemove.ImageOptions.Image = CType(resources.GetObject("btnRemove.ImageOptions.Image"), System.Drawing.Image)
         Me.btnRemove.Location = New System.Drawing.Point(659, 11)
         Me.btnRemove.Name = "btnRemove"
         Me.btnRemove.Size = New System.Drawing.Size(106, 23)
@@ -1167,7 +1265,7 @@ Partial Class frmHP_Add
         '
         'btnApplyPayment
         '
-        Me.btnApplyPayment.Image = CType(resources.GetObject("btnApplyPayment.Image"), System.Drawing.Image)
+        Me.btnApplyPayment.ImageOptions.Image = CType(resources.GetObject("btnApplyPayment.ImageOptions.Image"), System.Drawing.Image)
         Me.btnApplyPayment.Location = New System.Drawing.Point(547, 11)
         Me.btnApplyPayment.Name = "btnApplyPayment"
         Me.btnApplyPayment.Size = New System.Drawing.Size(106, 23)
@@ -1176,7 +1274,7 @@ Partial Class frmHP_Add
         '
         'btnPrintCalc
         '
-        Me.btnPrintCalc.Image = CType(resources.GetObject("btnPrintCalc.Image"), System.Drawing.Image)
+        Me.btnPrintCalc.ImageOptions.Image = CType(resources.GetObject("btnPrintCalc.ImageOptions.Image"), System.Drawing.Image)
         Me.btnPrintCalc.Location = New System.Drawing.Point(435, 11)
         Me.btnPrintCalc.Name = "btnPrintCalc"
         Me.btnPrintCalc.Size = New System.Drawing.Size(106, 23)
@@ -1185,7 +1283,7 @@ Partial Class frmHP_Add
         '
         'btnStraightLine
         '
-        Me.btnStraightLine.Image = CType(resources.GetObject("btnStraightLine.Image"), System.Drawing.Image)
+        Me.btnStraightLine.ImageOptions.Image = CType(resources.GetObject("btnStraightLine.ImageOptions.Image"), System.Drawing.Image)
         Me.btnStraightLine.Location = New System.Drawing.Point(323, 11)
         Me.btnStraightLine.Name = "btnStraightLine"
         Me.btnStraightLine.Size = New System.Drawing.Size(106, 23)
@@ -1194,7 +1292,7 @@ Partial Class frmHP_Add
         '
         'btnSumofDigits
         '
-        Me.btnSumofDigits.Image = CType(resources.GetObject("btnSumofDigits.Image"), System.Drawing.Image)
+        Me.btnSumofDigits.ImageOptions.Image = CType(resources.GetObject("btnSumofDigits.ImageOptions.Image"), System.Drawing.Image)
         Me.btnSumofDigits.Location = New System.Drawing.Point(211, 11)
         Me.btnSumofDigits.Name = "btnSumofDigits"
         Me.btnSumofDigits.Size = New System.Drawing.Size(106, 23)
@@ -1205,6 +1303,8 @@ Partial Class frmHP_Add
         '
         Me.lblTypeInstallment.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblTypeInstallment.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTypeInstallment.Appearance.Options.UseFont = True
+        Me.lblTypeInstallment.Appearance.Options.UseTextOptions = True
         Me.lblTypeInstallment.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
         Me.lblTypeInstallment.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
         Me.lblTypeInstallment.Location = New System.Drawing.Point(889, 15)
@@ -1216,100 +1316,12 @@ Partial Class frmHP_Add
         'lblTitleSchedule
         '
         Me.lblTitleSchedule.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTitleSchedule.Appearance.Options.UseFont = True
         Me.lblTitleSchedule.Location = New System.Drawing.Point(11, 15)
         Me.lblTitleSchedule.Name = "lblTitleSchedule"
         Me.lblTitleSchedule.Size = New System.Drawing.Size(180, 19)
         Me.lblTitleSchedule.TabIndex = 269
         Me.lblTitleSchedule.Text = "Installments Schedule"
-        '
-        'cboRefNo
-        '
-        Me.cboRefNo.Location = New System.Drawing.Point(139, 41)
-        Me.cboRefNo.MenuManager = Me.BarManager1
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
-        Me.cboRefNo.Properties.NullText = "Select"
-        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
-        Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
-        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
-        Me.cboRefNo.TabIndex = 181
-        '
-        'SearchLookUpEdit2View
-        '
-        Me.SearchLookUpEdit2View.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colRefNo, Me.colCompanyName, Me.colHandleBy, Me.colCompanyNo, Me.colEmployerNo, Me.colFileNo, Me.colCountry, Me.colCompanyCode})
-        Me.SearchLookUpEdit2View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus
-        Me.SearchLookUpEdit2View.Name = "SearchLookUpEdit2View"
-        Me.SearchLookUpEdit2View.OptionsSelection.EnableAppearanceFocusedCell = False
-        Me.SearchLookUpEdit2View.OptionsView.ColumnAutoWidth = False
-        Me.SearchLookUpEdit2View.OptionsView.RowAutoHeight = True
-        Me.SearchLookUpEdit2View.OptionsView.ShowGroupPanel = False
-        '
-        'colRefNo
-        '
-        Me.colRefNo.FieldName = "RefNo"
-        Me.colRefNo.Name = "colRefNo"
-        Me.colRefNo.Visible = True
-        Me.colRefNo.VisibleIndex = 0
-        Me.colRefNo.Width = 100
-        '
-        'colCompanyName
-        '
-        Me.colCompanyName.FieldName = "CompanyName"
-        Me.colCompanyName.Name = "colCompanyName"
-        Me.colCompanyName.Visible = True
-        Me.colCompanyName.VisibleIndex = 1
-        Me.colCompanyName.Width = 250
-        '
-        'colHandleBy
-        '
-        Me.colHandleBy.FieldName = "HandleBy"
-        Me.colHandleBy.Name = "colHandleBy"
-        Me.colHandleBy.Visible = True
-        Me.colHandleBy.VisibleIndex = 2
-        Me.colHandleBy.Width = 150
-        '
-        'colCompanyNo
-        '
-        Me.colCompanyNo.FieldName = "CompanyNo"
-        Me.colCompanyNo.Name = "colCompanyNo"
-        Me.colCompanyNo.Visible = True
-        Me.colCompanyNo.VisibleIndex = 3
-        Me.colCompanyNo.Width = 100
-        '
-        'colEmployerNo
-        '
-        Me.colEmployerNo.FieldName = "EmployerNo"
-        Me.colEmployerNo.Name = "colEmployerNo"
-        Me.colEmployerNo.Visible = True
-        Me.colEmployerNo.VisibleIndex = 4
-        Me.colEmployerNo.Width = 100
-        '
-        'colFileNo
-        '
-        Me.colFileNo.FieldName = "FileNo"
-        Me.colFileNo.Name = "colFileNo"
-        Me.colFileNo.Visible = True
-        Me.colFileNo.VisibleIndex = 5
-        Me.colFileNo.Width = 100
-        '
-        'colCountry
-        '
-        Me.colCountry.FieldName = "Country"
-        Me.colCountry.Name = "colCountry"
-        Me.colCountry.Visible = True
-        Me.colCountry.VisibleIndex = 6
-        Me.colCountry.Width = 100
-        '
-        'colCompanyCode
-        '
-        Me.colCompanyCode.FieldName = "CompanyCode"
-        Me.colCompanyCode.Name = "colCompanyCode"
-        Me.colCompanyCode.Visible = True
-        Me.colCompanyCode.VisibleIndex = 7
-        Me.colCompanyCode.Width = 100
         '
         'frmHP_Add
         '
@@ -1332,12 +1344,14 @@ Partial Class frmHP_Add
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtCompanyCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtFileNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboHP.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTaxPayer.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboPurchaseYE.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1379,9 +1393,8 @@ Partial Class frmHP_Add
         CType(Me.txtNumbericOnly, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager

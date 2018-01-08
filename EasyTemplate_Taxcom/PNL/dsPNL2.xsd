@@ -14,7 +14,7 @@
   <xs:element name="dsPNL2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsPNL2" msprop:Generator_UserDSName="dsPNL2">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DIVIDEND_INCOME" msprop:Generator_TableClassName="DIVIDEND_INCOMEDataTable" msprop:Generator_TableVarName="tableDIVIDEND_INCOME" msprop:Generator_TablePropName="DIVIDEND_INCOME" msprop:Generator_RowDeletingName="DIVIDEND_INCOMERowDeleting" msprop:Generator_RowChangingName="DIVIDEND_INCOMERowChanging" msprop:Generator_RowEvHandlerName="DIVIDEND_INCOMERowChangeEventHandler" msprop:Generator_RowDeletedName="DIVIDEND_INCOMERowDeleted" msprop:Generator_UserTableName="DIVIDEND_INCOME" msprop:Generator_RowChangedName="DIVIDEND_INCOMERowChanged" msprop:Generator_RowEvArgName="DIVIDEND_INCOMERowChangeEvent" msprop:Generator_RowClassName="DIVIDEND_INCOMERow">
+        <xs:element name="DIVIDEND_INCOME" msprop:Generator_TableClassName="DIVIDEND_INCOMEDataTable" msprop:Generator_TableVarName="tableDIVIDEND_INCOME" msprop:Generator_RowChangedName="DIVIDEND_INCOMERowChanged" msprop:Generator_TablePropName="DIVIDEND_INCOME" msprop:Generator_RowDeletingName="DIVIDEND_INCOMERowDeleting" msprop:Generator_RowChangingName="DIVIDEND_INCOMERowChanging" msprop:Generator_RowEvHandlerName="DIVIDEND_INCOMERowChangeEventHandler" msprop:Generator_RowDeletedName="DIVIDEND_INCOMERowDeleted" msprop:Generator_RowClassName="DIVIDEND_INCOMERow" msprop:Generator_UserTableName="DIVIDEND_INCOME" msprop:Generator_RowEvArgName="DIVIDEND_INCOMERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="DI_KEY" msprop:Generator_ColumnVarNameInTable="columnDI_KEY" msprop:Generator_ColumnPropNameInRow="DI_KEY" msprop:Generator_ColumnPropNameInTable="DI_KEYColumn" msprop:Generator_UserColumnName="DI_KEY" type="xs:int" minOccurs="0" />
@@ -68,7 +68,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="BUSINESS_SOURCE" msprop:Generator_TableClassName="BUSINESS_SOURCEDataTable" msprop:Generator_TableVarName="tableBUSINESS_SOURCE" msprop:Generator_TablePropName="BUSINESS_SOURCE" msprop:Generator_RowDeletingName="BUSINESS_SOURCERowDeleting" msprop:Generator_RowChangingName="BUSINESS_SOURCERowChanging" msprop:Generator_RowEvHandlerName="BUSINESS_SOURCERowChangeEventHandler" msprop:Generator_RowDeletedName="BUSINESS_SOURCERowDeleted" msprop:Generator_UserTableName="BUSINESS_SOURCE" msprop:Generator_RowChangedName="BUSINESS_SOURCERowChanged" msprop:Generator_RowEvArgName="BUSINESS_SOURCERowChangeEvent" msprop:Generator_RowClassName="BUSINESS_SOURCERow">
+        <xs:element name="BUSINESS_SOURCE" msprop:Generator_TableClassName="BUSINESS_SOURCEDataTable" msprop:Generator_TableVarName="tableBUSINESS_SOURCE" msprop:Generator_RowChangedName="BUSINESS_SOURCERowChanged" msprop:Generator_TablePropName="BUSINESS_SOURCE" msprop:Generator_RowDeletingName="BUSINESS_SOURCERowDeleting" msprop:Generator_RowChangingName="BUSINESS_SOURCERowChanging" msprop:Generator_RowEvHandlerName="BUSINESS_SOURCERowChangeEventHandler" msprop:Generator_RowDeletedName="BUSINESS_SOURCERowDeleted" msprop:Generator_RowClassName="BUSINESS_SOURCERow" msprop:Generator_UserTableName="BUSINESS_SOURCE" msprop:Generator_RowEvArgName="BUSINESS_SOURCERowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="BC_KEY" msprop:Generator_ColumnVarNameInTable="columnBC_KEY" msprop:Generator_ColumnPropNameInRow="BC_KEY" msprop:Generator_ColumnPropNameInTable="BC_KEYColumn" msprop:Generator_UserColumnName="BC_KEY" minOccurs="0">
@@ -111,7 +111,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PROFIT_LOSS_ACCOUNT" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNTDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNTRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNTRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNTRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNTRowDeleted" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNTRowChanged" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNTRowChangeEvent" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNTRow">
+        <xs:element name="PROFIT_LOSS_ACCOUNT" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNTDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNTRowChanged" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNTRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNTRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNTRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNTRowDeleted" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNTRow" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNTRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PL_KEY" msprop:Generator_ColumnVarNameInTable="columnPL_KEY" msprop:Generator_ColumnPropNameInRow="PL_KEY" msprop:Generator_ColumnPropNameInTable="PL_KEYColumn" msprop:Generator_UserColumnName="PL_KEY" type="xs:int" />
@@ -688,7 +688,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ExportPNL" msprop:Generator_TableClassName="ExportPNLDataTable" msprop:Generator_TableVarName="tableExportPNL" msprop:Generator_RowChangedName="ExportPNLRowChanged" msprop:Generator_TablePropName="ExportPNL" msprop:Generator_RowDeletingName="ExportPNLRowDeleting" msprop:Generator_RowChangingName="ExportPNLRowChanging" msprop:Generator_RowEvHandlerName="ExportPNLRowChangeEventHandler" msprop:Generator_RowDeletedName="ExportPNLRowDeleted" msprop:Generator_RowClassName="ExportPNLRow" msprop:Generator_UserTableName="ExportPNL" msprop:Generator_RowEvArgName="ExportPNLRowChangeEvent">
+        <xs:element name="ExportPNL" msprop:Generator_TableClassName="ExportPNLDataTable" msprop:Generator_TableVarName="tableExportPNL" msprop:Generator_TablePropName="ExportPNL" msprop:Generator_RowDeletingName="ExportPNLRowDeleting" msprop:Generator_RowChangingName="ExportPNLRowChanging" msprop:Generator_RowEvHandlerName="ExportPNLRowChangeEventHandler" msprop:Generator_RowDeletedName="ExportPNLRowDeleted" msprop:Generator_UserTableName="ExportPNL" msprop:Generator_RowChangedName="ExportPNLRowChanged" msprop:Generator_RowEvArgName="ExportPNLRowChangeEvent" msprop:Generator_RowClassName="ExportPNLRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:short" minOccurs="0" />
@@ -700,7 +700,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PNLImport_TableList" msprop:Generator_TableClassName="PNLImport_TableListDataTable" msprop:Generator_TableVarName="tablePNLImport_TableList" msprop:Generator_RowChangedName="PNLImport_TableListRowChanged" msprop:Generator_TablePropName="PNLImport_TableList" msprop:Generator_RowDeletingName="PNLImport_TableListRowDeleting" msprop:Generator_RowChangingName="PNLImport_TableListRowChanging" msprop:Generator_RowEvHandlerName="PNLImport_TableListRowChangeEventHandler" msprop:Generator_RowDeletedName="PNLImport_TableListRowDeleted" msprop:Generator_RowClassName="PNLImport_TableListRow" msprop:Generator_UserTableName="PNLImport_TableList" msprop:Generator_RowEvArgName="PNLImport_TableListRowChangeEvent">
+        <xs:element name="PNLImport_TableList" msprop:Generator_TableClassName="PNLImport_TableListDataTable" msprop:Generator_TableVarName="tablePNLImport_TableList" msprop:Generator_TablePropName="PNLImport_TableList" msprop:Generator_RowDeletingName="PNLImport_TableListRowDeleting" msprop:Generator_RowChangingName="PNLImport_TableListRowChanging" msprop:Generator_RowEvHandlerName="PNLImport_TableListRowChangeEventHandler" msprop:Generator_RowDeletedName="PNLImport_TableListRowDeleted" msprop:Generator_UserTableName="PNLImport_TableList" msprop:Generator_RowChangedName="PNLImport_TableListRowChanged" msprop:Generator_RowEvArgName="PNLImport_TableListRowChangeEvent" msprop:Generator_RowClassName="PNLImport_TableListRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:string" minOccurs="0" />
@@ -708,7 +708,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PNLImport_TableList_Select" msprop:Generator_TableClassName="PNLImport_TableList_SelectDataTable" msprop:Generator_TableVarName="tablePNLImport_TableList_Select" msprop:Generator_RowChangedName="PNLImport_TableList_SelectRowChanged" msprop:Generator_TablePropName="PNLImport_TableList_Select" msprop:Generator_RowDeletingName="PNLImport_TableList_SelectRowDeleting" msprop:Generator_RowChangingName="PNLImport_TableList_SelectRowChanging" msprop:Generator_RowEvHandlerName="PNLImport_TableList_SelectRowChangeEventHandler" msprop:Generator_RowDeletedName="PNLImport_TableList_SelectRowDeleted" msprop:Generator_RowClassName="PNLImport_TableList_SelectRow" msprop:Generator_UserTableName="PNLImport_TableList_Select" msprop:Generator_RowEvArgName="PNLImport_TableList_SelectRowChangeEvent">
+        <xs:element name="PNLImport_TableList_Select" msprop:Generator_TableClassName="PNLImport_TableList_SelectDataTable" msprop:Generator_TableVarName="tablePNLImport_TableList_Select" msprop:Generator_TablePropName="PNLImport_TableList_Select" msprop:Generator_RowDeletingName="PNLImport_TableList_SelectRowDeleting" msprop:Generator_RowChangingName="PNLImport_TableList_SelectRowChanging" msprop:Generator_RowEvHandlerName="PNLImport_TableList_SelectRowChangeEventHandler" msprop:Generator_RowDeletedName="PNLImport_TableList_SelectRowDeleted" msprop:Generator_UserTableName="PNLImport_TableList_Select" msprop:Generator_RowChangedName="PNLImport_TableList_SelectRowChanged" msprop:Generator_RowEvArgName="PNLImport_TableList_SelectRowChangeEvent" msprop:Generator_RowClassName="PNLImport_TableList_SelectRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="No" msprop:Generator_ColumnVarNameInTable="columnNo" msprop:Generator_ColumnPropNameInRow="No" msprop:Generator_ColumnPropNameInTable="NoColumn" msprop:Generator_UserColumnName="No" type="xs:string" minOccurs="0" />
@@ -716,7 +716,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNT_REPORTDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNT_REPORTRowChanged" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNT_REPORTRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNT_REPORTRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNT_REPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNT_REPORTRowDeleted" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNT_REPORTRow" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNT_REPORTRowChangeEvent">
+        <xs:element name="PROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNT_REPORTDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNT_REPORTRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNT_REPORTRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNT_REPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNT_REPORTRowDeleted" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT_REPORT" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNT_REPORTRowChanged" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNT_REPORTRowChangeEvent" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNT_REPORTRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PL_KEY" msprop:Generator_ColumnVarNameInTable="columnPL_KEY" msprop:Generator_ColumnPropNameInRow="PL_KEY" msprop:Generator_ColumnPropNameInTable="PL_KEYColumn" msprop:Generator_UserColumnName="PL_KEY" type="xs:int" />
@@ -1154,13 +1154,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="PL_DISALLOWED_EXP" msprop:Generator_ColumnVarNameInTable="columnPL_DISALLOWED_EXP" msprop:Generator_ColumnPropNameInRow="PL_DISALLOWED_EXP" msprop:Generator_ColumnPropNameInTable="PL_DISALLOWED_EXPColumn" msprop:Generator_UserColumnName="PL_DISALLOWED_EXP" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="25" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="PL_DISALLOWED_EXP" msprop:Generator_ColumnVarNameInTable="columnPL_DISALLOWED_EXP" msprop:Generator_ColumnPropNameInRow="PL_DISALLOWED_EXP" msprop:Generator_ColumnPropNameInTable="PL_DISALLOWED_EXPColumn" msprop:Generator_UserColumnName="PL_DISALLOWED_EXP" type="xs:decimal" minOccurs="0" />
               <xs:element name="PL_TOTALX" msprop:Generator_ColumnVarNameInTable="columnPL_TOTALX" msprop:Generator_ColumnPropNameInRow="PL_TOTALX" msprop:Generator_ColumnPropNameInTable="PL_TOTALXColumn" msprop:Generator_UserColumnName="PL_TOTALX" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -1293,7 +1287,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNT_REPORT_SCHDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowDeleted" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChanged" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChangeEvent" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRow">
+        <xs:element name="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_TableClassName="PROFIT_LOSS_ACCOUNT_REPORT_SCHDataTable" msprop:Generator_TableVarName="tablePROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_RowChangedName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChanged" msprop:Generator_TablePropName="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_RowDeletingName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowDeleting" msprop:Generator_RowChangingName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChanging" msprop:Generator_RowEvHandlerName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChangeEventHandler" msprop:Generator_RowDeletedName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowDeleted" msprop:Generator_RowClassName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRow" msprop:Generator_UserTableName="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:Generator_RowEvArgName="PROFIT_LOSS_ACCOUNT_REPORT_SCHRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PL_KEY" msprop:Generator_ColumnVarNameInTable="columnPL_KEY" msprop:Generator_ColumnPropNameInRow="PL_KEY" msprop:Generator_ColumnPropNameInTable="PL_KEYColumn" msprop:Generator_UserColumnName="PL_KEY" type="xs:int" />
@@ -1861,7 +1855,7 @@
       <xs:selector xpath=".//mstns:PROFIT_LOSS_ACCOUNT_REPORT" />
       <xs:field xpath="mstns:PL_KEY" />
     </xs:unique>
-    <xs:keyref name="FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPORT_SCH" refer="PROFIT_LOSS_ACCOUNT_REPORT_Constraint1" msprop:rel_Generator_UserChildTable="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:rel_Generator_ChildPropName="GetPROFIT_LOSS_ACCOUNT_REPORT_SCHRows" msprop:rel_Generator_UserRelationName="FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:rel_Generator_ParentPropName="PROFIT_LOSS_ACCOUNT_REPORTRow" msprop:rel_Generator_RelationVarName="relationFK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:rel_Generator_UserParentTable="PROFIT_LOSS_ACCOUNT_REPORT">
+    <xs:keyref name="FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPORT_SCH" refer="PROFIT_LOSS_ACCOUNT_REPORT_Constraint1" msprop:rel_Generator_UserChildTable="PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:rel_Generator_ChildPropName="GetPROFIT_LOSS_ACCOUNT_REPORT_SCHRows" msprop:rel_Generator_UserRelationName="FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:rel_Generator_RelationVarName="relationFK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPORT_SCH" msprop:rel_Generator_UserParentTable="PROFIT_LOSS_ACCOUNT_REPORT" msprop:rel_Generator_ParentPropName="PROFIT_LOSS_ACCOUNT_REPORTRow">
       <xs:selector xpath=".//mstns:PROFIT_LOSS_ACCOUNT_REPORT_SCH" />
       <xs:field xpath="mstns:PL_KEY" />
     </xs:keyref>
