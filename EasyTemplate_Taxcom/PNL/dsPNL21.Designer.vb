@@ -11063,7 +11063,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As Decimal)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_DISALLOWED_EXPColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_DISALLOWED_EXPColumn) = value
             End Set
         End Property
 
@@ -11079,7 +11079,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TOTALXColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TOTALXColumn) = value
             End Set
         End Property
 
@@ -11095,7 +11095,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TOTALYColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TOTALYColumn) = value
             End Set
         End Property
 
@@ -11111,7 +11111,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_INTRESTRICTColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_INTRESTRICTColumn) = value
             End Set
         End Property
 
@@ -11127,7 +11127,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN_NONSOURCEColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN_NONSOURCEColumn) = value
             End Set
         End Property
 
@@ -11142,7 +11142,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_S60FColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_S60FColumn) = value
             End Set
         End Property
 
@@ -11158,7 +11158,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As Integer)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_MAINBUZColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_MAINBUZColumn) = value
             End Set
         End Property
 
@@ -11174,7 +11174,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ZAKATColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ZAKATColumn) = value
             End Set
         End Property
 
@@ -11190,7 +11190,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_COMPANYColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_COMPANYColumn) = value
             End Set
         End Property
 
@@ -11206,7 +11206,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TREGROSSColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TREGROSSColumn) = value
             End Set
         End Property
 
@@ -11222,7 +11222,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TTAXDEDUCTIONColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TTAXDEDUCTIONColumn) = value
             End Set
         End Property
 
@@ -11238,7 +11238,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TNETDEDUCTIONColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TNETDEDUCTIONColumn) = value
             End Set
         End Property
 
@@ -11254,7 +11254,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TECH_FEEColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_TECH_FEEColumn) = value
             End Set
         End Property
 
@@ -11270,7 +11270,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_EMPL_STOCKColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_EMPL_STOCKColumn) = value
             End Set
         End Property
 
@@ -11285,7 +11285,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_S60FAColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_S60FAColumn) = value
             End Set
         End Property
 
@@ -11301,7 +11301,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_BALANCEColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_BALANCEColumn) = value
             End Set
         End Property
 
@@ -11317,7 +11317,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXRLOSSFOREIGNTColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXRLOSSFOREIGNTColumn) = value
             End Set
         End Property
 
@@ -11333,7 +11333,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_DIRECTORS_FEEColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_DIRECTORS_FEEColumn) = value
             End Set
         End Property
 
@@ -11348,7 +11348,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_JKDMColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PL_JKDMColumn) = value
             End Set
         End Property
 
@@ -11364,7 +11364,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.ModifiedByColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.ModifiedByColumn) = value
             End Set
         End Property
 
@@ -11380,7 +11380,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As Date)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.ModifiedDateTimeColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.ModifiedDateTimeColumn) = value
             End Set
         End Property
 
@@ -11396,7 +11396,7 @@ Partial Public Class dsPNL2
                 End Try
             End Get
             Set(value As String)
-                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PNL_StatusColumn) = Value
+                Me(Me.tablePROFIT_LOSS_ACCOUNT_REPORT.PNL_StatusColumn) = value
             End Set
         End Property
 

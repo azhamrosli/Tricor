@@ -18,9 +18,7 @@ Public Class frmPNL_Add
         If dsDataSet Is Nothing Then
             dsDataSet = New dsPNL
         End If
-        If dsDataSet2 Is Nothing Then
-            dsDataSet2 = New dsPNL2
-        End If
+      
 
         txtPCName.Caption = My.Computer.Name & " | " & GetServerName() & " | V" & mdlProcess.V1 & "." & mdlProcess.V2 & "." & mdlProcess.V3 & "." & mdlProcess.V4 & " R." & System.Reflection.Assembly.GetExecutingAssembly.GetName.Version.Revision.ToString
         ' Add any initialization after the InitializeComponent() call.
@@ -263,7 +261,6 @@ Public Class frmPNL_Add
             ClearMemoryDataset()
 
             UcPNL_Import1.MainData = dsDataSet
-            UcPNL_Import1.MainData2 = dsDataSet2
 
             If isEdit = False Then
               
@@ -406,7 +403,7 @@ Public Class frmPNL_Add
 
                         End If
                         CurrentProgress += 1
-                        mdlPNL2.PNL_GetData(ID, tmp.Type, txtRefNo.EditValue, cboYA.EditValue, dsDataSet, dsDataSet2, ErrorLog)
+                        mdlPNL2.PNL_GetData(ID, tmp.Type, txtRefNo.EditValue, cboYA.EditValue, dsDataSet, ErrorLog)
                         Progress(CurrentProgress, "Loading " & tmp.LabelTricor & " data...")
                         Application.DoEvents()
 
@@ -421,7 +418,7 @@ Public Class frmPNL_Add
                     Dim txtamount As DevExpress.XtraEditors.TextEdit
                     For Each tmp As clsPNL_LabelName In listofclsPNLLabel
                         GetTxtAmount(tmp.Type, txtamount)
-                        mdlPNL2.PNL_ReCalcAll_Amount(tmp.Type, dsDataSet, dsDataSet2, txtamount, ErrorLog)
+                        mdlPNL2.PNL_ReCalcAll_Amount(tmp.Type, dsDataSet, txtamount, ErrorLog)
                         'CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
                     Next
                 End If
@@ -680,8 +677,8 @@ Public Class frmPNL_Add
             ListofCmd = Nothing
             ListofCmd = New List(Of SqlCommand)
 
-            If dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT") IsNot Nothing Then
-                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT").Rows.Clear()
+            If dsDataSet.Tables("PROFIT_LOSS_ACCOUNT") IsNot Nothing Then
+                dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Clear()
             End If
             Dim tmpID As Integer = 0
             Dim dtrow As DataRow = Nothing
@@ -689,7 +686,7 @@ Public Class frmPNL_Add
                 'edit
                 Progress(4, "Saving new PNL data...")
 
-                dtrow = dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT").NewRow
+                dtrow = dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").NewRow
                 tmpID = ID
                 dtrow("PL_KEY") = tmpID
                 dtrow("PL_REF_NO") = cboRefNo.EditValue
@@ -777,9 +774,9 @@ Public Class frmPNL_Add
                 dtrow("ModifiedDateTime") = Now
                 dtrow("PNL_Status") = IIf(cboPNLStatus.EditValue Is Nothing, "New", cboPNLStatus.EditValue)
 
-                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
+                dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
 
-                mdlProcess.Update_ProfitAndLoss_Query(dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
+                mdlProcess.Update_ProfitAndLoss_Query(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
 
                 Progress(6, "trying to connect with database...")
 
@@ -796,7 +793,7 @@ Public Class frmPNL_Add
                 tmpID = GETPNLKEY(ErrorLog)
                 tmpID += 1
 
-                dtrow = dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT").NewRow
+                dtrow = dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").NewRow
 
                 dtrow("PL_KEY") = tmpID
                 dtrow("PL_REF_NO") = cboRefNo.EditValue
@@ -884,9 +881,9 @@ Public Class frmPNL_Add
                 dtrow("ModifiedDateTime") = Now
                 dtrow("PNL_Status") = IIf(cboPNLStatus.EditValue Is Nothing, "New", cboPNLStatus.EditValue)
 
-                dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
+                dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
 
-                mdlProcess.Save_ProfitAndLoss_Query(dsDataSet2.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
+                mdlProcess.Save_ProfitAndLoss_Query(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
 
                 Progress(6, "trying to connect with database...")
 
@@ -968,7 +965,7 @@ Public Class frmPNL_Add
     End Sub
     Public Function GetTotalTaxDeductuibDividendIncome(Optional ByRef Errorlog As clsError = Nothing) As Decimal
         Try
-            Dim obj As Object = dsDataSet2.Tables("DIVIDEND_INCOME").Compute("sum('di_taxdeduction')", "")
+            Dim obj As Object = dsDataSet.Tables("DIVIDEND_INCOME").Compute("sum('di_taxdeduction')", "")
 
             If obj IsNot Nothing AndAlso IsNumeric(obj) Then
                 Return CDec(obj)
@@ -1260,7 +1257,7 @@ Public Class frmPNL_Add
             If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" AndAlso cboYA IsNot Nothing AndAlso cboYA.EditValue.ToString <> "" Then
                 txtRefNo.EditValue = cboRefNo.EditValue
                 mdlProcess.CreateLookUpSourceNO(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
-                mdlProcess.CreateLookUpSourceNO(dsDataSet2, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
+                mdlProcess.CreateLookUpSourceNO(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, "BUSINESS_SOURCE", ErrorLog)
                 Application.DoEvents()
                 BUSINESSSOURCEBindingSource.DataSource = dsDataSet.Tables("BUSINESS_SOURCE")
 
@@ -4201,16 +4198,16 @@ Public Class frmPNL_Add
         e.Action = DataTableExporterAction.Continue
     End Sub
 
-    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
-        Try
-            Dim frm As New frmPNL_Report
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.ShowDialog()
-        Catch ex As Exception
+    'Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
+    '    Try
+    '        Dim frm As New frmPNL_Report
+    '        frm.RefNo = cboRefNo.EditValue
+    '        frm.YA = cboYA.EditValue
+    '        frm.ShowDialog()
+    '    Catch ex As Exception
 
-        End Try
-    End Sub
+    '    End Try
+    'End Sub
 
     Private Sub TabbedView1_EndDocumentsHostDocking(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs) Handles TabbedView1.EndDocumentsHostDocking
 

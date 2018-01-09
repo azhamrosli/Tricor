@@ -22,7 +22,7 @@ Module mdlPNL2
             dsDataSet.Tables("NONSOURCE_BUSINESSINCOME").Rows.Clear()
             dsDataSet.Tables("INCOME_REALFET_DETAIL").Rows.Clear()
             dsDataSet.Tables("INCOME_REALFET").Rows.Clear()
-            dsDataSet2.Tables("dividend_income").Rows.Clear()
+            dsDataSet.Tables("dividend_income").Rows.Clear()
             dsDataSet.Tables("INCOME_NBINTEREST_DETAIL").Rows.Clear()
             dsDataSet.Tables("INCOME_NBINTEREST").Rows.Clear()
             dsDataSet.Tables("rental_income").Rows.Clear()
@@ -1100,7 +1100,7 @@ Module mdlPNL2
             Return False
         End Try
     End Function
-    Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef ds2 As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Select Case Type
                 Case TaxComPNLEnuItem.SALES
@@ -1133,9 +1133,9 @@ Module mdlPNL2
                         Dim uc As ucPNL_p2DivIncome = CType(contrl, ucPNL_p2DivIncome)
 
                         If uc.GetDiscloseNet Then
-                            CalcTotalofView(txtAmount, ds2, ucPNL_p2DivIncome.MainTable, ucPNL_p2DivIncome.MainAmount_DI_NET, 0, Errorlog)
+                            CalcTotalofView(txtAmount, ds, ucPNL_p2DivIncome.MainTable, ucPNL_p2DivIncome.MainAmount_DI_NET, 0, Errorlog)
                         Else
-                            CalcTotalofView(txtAmount, ds2, ucPNL_p2DivIncome.MainTable, ucPNL_p2DivIncome.MainAmount_DI_GROSS, 0, Errorlog)
+                            CalcTotalofView(txtAmount, ds, ucPNL_p2DivIncome.MainTable, ucPNL_p2DivIncome.MainAmount_DI_GROSS, 0, Errorlog)
                         End If
 
                     End If
@@ -1245,7 +1245,7 @@ Module mdlPNL2
         End Try
     End Function
     Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, _
-                                    ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, _
+                                    ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, _
                                     Optional ByRef Errorlog As clsError = Nothing, Optional ByRef isHaveData As Boolean = False) As Boolean
         Dim strError As String = Nothing
         Try
@@ -1301,9 +1301,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.OPENSTOCK
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_PLFST_OPENSTOCK(PNL_KEY, Errorlog)
-
-                    ds.Tables("PLFST_OPENSTOCK").Rows.Clear()
                     ds.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Clear()
+                    ds.Tables("PLFST_OPENSTOCK").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1324,9 +1324,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.PURCHASE
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_PLFST_PURCHASE(PNL_KEY, Errorlog)
-
-                    ds.Tables("PLFST_PURCHASE").Rows.Clear()
                     ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Clear()
+                    ds.Tables("PLFST_PURCHASE").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1378,9 +1378,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.DEPRECIATION
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_EXPENSES_DEPRECIATION(PNL_KEY, Errorlog)
-
-                    ds.Tables("EXPENSES_DEPRECIATION").Rows.Clear()
                     ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Clear()
+                    ds.Tables("EXPENSES_DEPRECIATION").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1433,9 +1433,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_EXPENSES_ALLOW(PNL_KEY, Errorlog)
-
-                    ds.Tables("EXPENSES_ALLOW").Rows.Clear()
                     ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Clear()
+                    ds.Tables("EXPENSES_ALLOW").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1492,9 +1492,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_EXPENSES_NONALLOW(PNL_KEY, Errorlog)
-
-                    ds.Tables("EXPENSES_NONALLOW").Rows.Clear()
                     ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Clear()
+                    ds.Tables("EXPENSES_NONALLOW").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1548,9 +1548,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.CLOSESTOCK
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_PLFST_CLOSESTOCK(PNL_KEY, Errorlog)
-
-                    ds.Tables("PLFST_CLOSESTOCK").Rows.Clear()
                     ds.Tables("PLFST_CLOSESTOCK_DETAIL").Rows.Clear()
+                    ds.Tables("PLFST_CLOSESTOCK").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1572,8 +1572,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_NONSOURCE_BUSINESSINCOME(PNL_KEY, Errorlog)
 
-                    ds.Tables("NONSOURCE_BUSINESSINCOME").Rows.Clear()
                     ds.Tables("NONSOURCE_BUSINESSINCOME_DETAIL").Rows.Clear()
+                    ds.Tables("NONSOURCE_BUSINESSINCOME").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1595,8 +1595,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_REALFET(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_REALFET").Rows.Clear()
                     ds.Tables("INCOME_REALFET_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_REALFET").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1618,12 +1618,12 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_dividend_income(PNL_KEY, Errorlog)
 
-                    ds2.Tables("dividend_income").Rows.Clear()
+                    ds.Tables("dividend_income").Rows.Clear()
 
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
-                            ds2.Tables("dividend_income").ImportRow(rowx)
+                            ds.Tables("dividend_income").ImportRow(rowx)
                         Next
                     Else
                         isHaveData = False
@@ -1632,8 +1632,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NBINTEREST(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NBINTEREST").Rows.Clear()
                     ds.Tables("INCOME_NBINTEREST_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NBINTEREST").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1668,8 +1668,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NBROYALTY(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NBROYALTY").Rows.Clear()
                     ds.Tables("INCOME_NBROYALTY_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NBROYALTY").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1691,8 +1691,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_OTHER_INCOME(PNL_KEY, Errorlog)
 
-                    ds.Tables("OTHER_INCOME").Rows.Clear()
                     ds.Tables("OTHER_INCOME_DETAIL").Rows.Clear()
+                    ds.Tables("OTHER_INCOME").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1714,8 +1714,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NTDISPOSALFA(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NTDISPOSALFA").Rows.Clear()
                     ds.Tables("INCOME_NTDISPOSALFA_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NTDISPOSALFA").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1737,8 +1737,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NTDISPOSALINVEST(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NTDISPOSALINVEST").Rows.Clear()
                     ds.Tables("INCOME_NTDISPOSALINVEST_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NTDISPOSALINVEST").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1771,8 +1771,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NTFOREIGNINCREM(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NTFOREIGNINCREM").Rows.Clear()
                     ds.Tables("INCOME_NTFOREIGNINCREM_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NTFOREIGNINCREM").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1794,8 +1794,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NTUREALFET(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NTUREALFET").Rows.Clear()
                     ds.Tables("INCOME_NTUREALFET_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NTUREALFET").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1817,8 +1817,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NTREALFE(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NTREALFE").Rows.Clear()
                     ds.Tables("INCOME_NTREALFE_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NTREALFE").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1840,8 +1840,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_INCOME_NTUREALFENT(PNL_KEY, Errorlog)
 
-                    ds.Tables("INCOME_NTUREALFENT").Rows.Clear()
                     ds.Tables("INCOME_NTUREALFENT_DETAIL").Rows.Clear()
+                    ds.Tables("INCOME_NTUREALFENT").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1863,8 +1863,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_non_taxable_income(RefNo, YA, Errorlog)
 
-                    ds.Tables("non_taxable_income").Rows.Clear()
                     ds.Tables("NON_TAXABLE_INCOME_DETAIL").Rows.Clear()
+                    ds.Tables("non_taxable_income").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1921,9 +1921,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_interest(PNL_KEY, Errorlog)
-
-                    ds.Tables("expenses_interest").Rows.Clear()
                     ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_interest").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1986,9 +1986,9 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.EXPLEGAL
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_legal(PNL_KEY, Errorlog)
-
-                    ds.Tables("expenses_legal").Rows.Clear()
                     ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_legal").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2052,8 +2052,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_tech_fee(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_tech_fee").Rows.Clear()
                     ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_tech_fee").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2117,8 +2117,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_contract(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_contract").Rows.Clear()
                     ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_contract").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2182,8 +2182,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_directors_fee(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_directors_fee").Rows.Clear()
                     ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_directors_fee").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2247,8 +2247,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_salary(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_salary").Rows.Clear()
                     ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_salary").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2312,30 +2312,29 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_empl_stock(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_empl_stock").Rows.Clear()
                     ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_empl_stock").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtRow = ds.Tables("expenses_empl_stock").NewRow
-                            dtRow("EXESD_KEY") = rowx("EXESD_KEY")
-                            dtRow("EXESD_EXESKEY") = rowx("EXESD_EXESKEY")
-                            dtRow("EXESD_SOURCENO") = rowx("EXESD_SOURCENO")
-                            dtRow("EXESD_EXESDKEY") = rowx("EXESD_EXESDKEY")
-                            dtRow("EXESD_DESC") = rowx("EXESD_DESC")
-                            If IsDBNull(rowx("EXESD_DEDUCTIBLE")) = False AndAlso rowx("EXESD_DEDUCTIBLE") = "Yes" Then
-                                dtRow("EXESD_DEDUCTIBLE") = True
+                            dtRow("EXES_KEY") = rowx("EXES_KEY")
+                            dtRow("EXES_EXESKEY") = rowx("EXES_EXESKEY")
+                            dtRow("EXES_SOURCENO") = rowx("EXES_SOURCENO")
+                            dtRow("EXES_DESC") = rowx("EXES_DESC")
+                            If IsDBNull(rowx("EXES_DEDUCTIBLE")) = False AndAlso rowx("EXES_DEDUCTIBLE") = "Yes" Then
+                                dtRow("EXES_DEDUCTIBLE") = True
                             Else
-                                dtRow("EXESD_DEDUCTIBLE") = False
+                                dtRow("EXES_DEDUCTIBLE") = False
                             End If
-                            dtRow("EXESD_AMOUNT") = rowx("EXESD_AMOUNT")
-                            dtRow("EXESD_NOTE") = rowx("EXESD_NOTE")
+                            dtRow("EXES_AMOUNT") = rowx("EXES_AMOUNT")
+                            dtRow("EXES_NOTE") = rowx("EXES_NOTE")
                             dtRow("RowIndex") = rowx("RowIndex")
-                            If IsDBNull(rowx("EXESD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXESD_DEDUCTIBLE_ADD") = "Yes" Then
-                                dtRow("EXESD_DEDUCTIBLE_ADD") = True
+                            If IsDBNull(rowx("EXES_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXES_DEDUCTIBLE_ADD") = "Yes" Then
+                                dtRow("EXES_DEDUCTIBLE_ADD") = True
                             Else
-                                dtRow("EXESD_DEDUCTIBLE_ADD") = False
+                                dtRow("EXES_DEDUCTIBLE_ADD") = False
                             End If
 
                             ds.Tables("expenses_empl_stock").Rows.Add(dtRow)
@@ -2348,22 +2347,22 @@ Module mdlPNL2
                             For Each rowx As DataRow In dt.Rows
                                 dtRow = Nothing
                                 dtRow = ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").NewRow
-                                dtRow("EXES_KEY") = rowx("EXES_KEY")
-                                dtRow("EXES_EXESKEY") = rowx("EXES_EXESKEY")
-                                dtRow("EXES_SOURCENO") = rowx("EXES_SOURCENO")
-                                dtRow("EXES_DESC") = rowx("EXES_DESC")
-                                dtRow("EXES_AMOUNT") = rowx("EXES_AMOUNT")
-                                If IsDBNull(rowx("EXES_DEDUCTIBLE")) = False AndAlso rowx("EXES_DEDUCTIBLE") = "Yes" Then
-                                    dtRow("EXES_DEDUCTIBLE") = True
+                                dtRow("EXESD_KEY") = rowx("EXESD_KEY")
+                                dtRow("EXESD_EXESKEY") = rowx("EXESD_EXESKEY")
+                                dtRow("EXESD_SOURCENO") = rowx("EXESD_SOURCENO")
+                                dtRow("EXESD_DESC") = rowx("EXESD_DESC")
+                                dtRow("EXESD_AMOUNT") = rowx("EXESD_AMOUNT")
+                                If IsDBNull(rowx("EXESD_DEDUCTIBLE")) = False AndAlso rowx("EXESD_DEDUCTIBLE") = "Yes" Then
+                                    dtRow("EXESD_DEDUCTIBLE") = True
                                 Else
-                                    dtRow("EXES_DEDUCTIBLE") = False
+                                    dtRow("EXESD_DEDUCTIBLE") = False
                                 End If
-                                dtRow("EXES_NOTE") = rowx("EXES_NOTE")
-                                dtRow("EXES_DETAIL") = rowx("EXES_DETAIL")
-                                If IsDBNull(rowx("EXES_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXES_DEDUCTIBLE_ADD") = "Yes" Then
-                                    dtRow("EXES_DEDUCTIBLE_ADD") = True
+                                dtRow("EXESD_NOTE") = rowx("EXESD_NOTE")
+                                dtRow("EXESD_DETAIL") = rowx("EXESD_DETAIL")
+                                If IsDBNull(rowx("EXESD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXESD_DEDUCTIBLE_ADD") = "Yes" Then
+                                    dtRow("EXESD_DEDUCTIBLE_ADD") = True
                                 Else
-                                    dtRow("EXES_DEDUCTIBLE_ADD") = False
+                                    dtRow("EXESD_DEDUCTIBLE_ADD") = False
                                 End If
 
                                 dtRow("RowIndex") = rowx("RowIndex")
@@ -2378,8 +2377,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_royalty(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_royalty").Rows.Clear()
                     ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_royalty").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2443,8 +2442,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_rental(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_rental").Rows.Clear()
                     ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_rental").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2508,8 +2507,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_repair(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_repair").Rows.Clear()
                     ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_repair").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2573,8 +2572,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_research(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_research").Rows.Clear()
                     ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_research").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2638,8 +2637,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_promote(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_promote").Rows.Clear()
                     ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_promote").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2702,8 +2701,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_travel(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_travel").Rows.Clear()
                     ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_travel").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2765,8 +2764,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_jkdm(PNL_KEY, Errorlog)
 
-                    ds.Tables("expenses_jkdm").Rows.Clear()
                     ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Clear()
+                    ds.Tables("expenses_jkdm").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2831,8 +2830,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exdepreciation(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exdepreciation").Rows.Clear()
                     ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Clear()
+                    ds.Tables("other_exdepreciation").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2898,8 +2897,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exapprdonation(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exapprdonation").Rows.Clear()
                     ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Clear()
+                    ds.Tables("other_exapprdonation").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -2965,8 +2964,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exnapprdonation(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exnapprdonation").Rows.Clear()
                     ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Clear()
+                    ds.Tables("other_exnapprdonation").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3032,8 +3031,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exzakat(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exzakat").Rows.Clear()
                     ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Clear()
+                    ds.Tables("other_exzakat").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3099,8 +3098,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exlossdisposalfa(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exlossdisposalfa").Rows.Clear()
                     ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Clear()
+                    ds.Tables("other_exlossdisposalfa").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3166,8 +3165,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_entertainnstaff(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_entertainnstaff").Rows.Clear()
                     ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Clear()
+                    ds.Tables("other_entertainnstaff").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3233,8 +3232,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_OTHER_ENTERTAINSTAFF(PNL_KEY, Errorlog)
 
-                    ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Clear()
                     ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Clear()
+                    ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3299,8 +3298,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_expenalty(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_expenalty").Rows.Clear()
                     ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Clear()
+                    ds.Tables("other_expenalty").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3366,8 +3365,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exprovisionacc(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exprovisionacc").Rows.Clear()
                     ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Clear()
+                    ds.Tables("other_exprovisionacc").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3432,8 +3431,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exleavepassage(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exleavepassage").Rows.Clear()
                     ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Clear()
+                    ds.Tables("other_exleavepassage").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3499,8 +3498,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exfawrittenoff(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exfawrittenoff").Rows.Clear()
                     ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Clear()
+                    ds.Tables("other_exfawrittenoff").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3565,8 +3564,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exurlossforeign(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exurlossforeign").Rows.Clear()
                     ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Clear()
+                    ds.Tables("other_exurlossforeign").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3631,8 +3630,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exrlossforeignt(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exrlossforeignt").Rows.Clear()
                     ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Clear()
+                    ds.Tables("other_exrlossforeignt").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3696,8 +3695,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exrlossforeign(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exrlossforeign").Rows.Clear()
                     ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Clear()
+                    ds.Tables("other_exrlossforeign").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3761,8 +3760,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_exinitialsub(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_exinitialsub").Rows.Clear()
                     ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Clear()
+                    ds.Tables("other_exinitialsub").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -3827,8 +3826,8 @@ Module mdlPNL2
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_other_excapitalexp(PNL_KEY, Errorlog)
 
-                    ds.Tables("other_excapitalexp").Rows.Clear()
                     ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Clear()
+                    ds.Tables("other_excapitalexp").Rows.Clear()
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -5103,7 +5102,7 @@ Module mdlPNL2
 
             Dim dtRow As DataRow = Nothing
             Dim TableName As String = "PROFIT_LOSS_ACCOUNT_REPORT_TEMP"
-            dsDataSet2.Tables(TableName).Rows.Clear()
+            dsDataSet.Tables(TableName).Rows.Clear()
 
             ID = "PNL_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
@@ -5122,7 +5121,7 @@ Module mdlPNL2
                 Dim TypeRow As PNL_REPORT_TypeRow = PNL_REPORT_TypeRow.NORMAL
                 Dim SubStatus As Boolean = False
                 For Each lbl As clsPNL_LabelName In listoflabelname
-                    
+
                     Select Case lbl.Type
                         Case TaxComPNLEnuItem.SALES
                             ColumnName = "PL_SALES"
@@ -5188,8 +5187,8 @@ Module mdlPNL2
 
                         indexNo += 1
 
-                        dtRow = dsDataSet2.Tables(TableName).NewRow
-                        IDData = dsDataSet2.Tables(TableName).Rows.Count + 1
+                        dtRow = dsDataSet.Tables(TableName).NewRow
+                        IDData = dsDataSet.Tables(TableName).Rows.Count + 1
 
                         dtRow("ID_KEY") = IDData
                         dtRow("PARENT_ID") = ParentID
@@ -5220,18 +5219,18 @@ Module mdlPNL2
                             dtRow("LeftAmount") = DBNull.Value
                             dtRow("RightAmount") = DBNull.Value
                         End If
-                       
+
 
                         dtRow("TypeRow") = TypeRow
                         dtRow("Note") = ""
 
-                        dsDataSet2.Tables(TableName).Rows.Add(dtRow)
+                        dsDataSet.Tables(TableName).Rows.Add(dtRow)
 
                     End If
-                   
+
                 Next
 
-                Return mdlProcess.Save_PNL_Report_TEMP(dsDataSet2.Tables(TableName), Errorlog)
+                Return mdlProcess.Save_PNL_Report_TEMP(dsDataSet.Tables(TableName), Errorlog)
             End If
 
             Return False
@@ -5252,20 +5251,18 @@ Module mdlPNL2
 
 
 
-    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, ByRef ds2 As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
 
             Dim dtPNL As DataTable = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
 
-            If ds2 Is Nothing Then
-                ds2 = New dsPNL2
-            End If
+           
             If ds Is Nothing Then
                 ds = New dsPNL
             End If
 
-            ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
-            ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
+            ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
+            ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
 
             If dtPNL Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -5291,18 +5288,18 @@ Module mdlPNL2
             ClearMemoryDataset()
 
             For i As Integer = 0 To dtPNL.Rows.Count - 1
-                ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT").ImportRow(dtPNL.Rows(i))
+                ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT").ImportRow(dtPNL.Rows(i))
 
                 PNL_KEY = IIf(IsDBNull(dtPNL.Rows(i)("PL_KEY")), 0, dtPNL.Rows(i)("PL_KEY"))
 
                 dtRow = Nothing
-                dtRow = ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
+                dtRow = ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
                 dtRow("PL_KEY") = PNL_KEY
 
                 If listofclsPNLLabel IsNot Nothing Then
                     For Each tmp As clsPNL_LabelName In listofclsPNLLabel
 
-                        mdlPNL2.PNL_GetData(PNL_KEY, tmp.Type, RefNo, YA, ds, ds2, Errorlog, isHaveData)
+                        mdlPNL2.PNL_GetData(PNL_KEY, tmp.Type, RefNo, YA, ds, Errorlog, isHaveData)
 
                         Select Case tmp.Type
                             Case TaxComPNLEnuItem.SALES
@@ -5479,7 +5476,7 @@ Module mdlPNL2
                     Next
                 End If
 
-                ds2.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
+                ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
 
             Next
 

@@ -44,10 +44,10 @@ Public Class ucPNL_p2DivIncome
 
     Public Property DataView_Main2() As DataSet
         Get
-            Return DsPNL2
+            Return DsPNL1
         End Get
         Set(ByVal value As DataSet)
-            DsPNL2 = value
+            DsPNL1 = value
         End Set
     End Property
 
@@ -62,8 +62,8 @@ Public Class ucPNL_p2DivIncome
 
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
-            BUSINESSSOURCEBindingSource.DataSource = DsPNL2.Tables("BUSINESS_SOURCE")
-            DIVIDENDINCOMEBindingSource.DataSource = dsDataSet2.Tables("DIVIDEND_INCOME")
+            BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
+            DIVIDENDINCOMEBindingSource.DataSource = dsDataSet.Tables("DIVIDEND_INCOME")
 
             cboSourceNo1.EditValue = SourceNo
             cboTypeofIncome.EditValue = "Single Tier"
@@ -125,17 +125,17 @@ Public Class ucPNL_p2DivIncome
 
     Private Sub GridView1_RowUpdated(sender As Object, e As RowObjectEventArgs) Handles GridView1.RowUpdated
         Try
-          
+
 
             'If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
-            '                              MainAmount, MainAmount_Details, DsPNL2, ErrorLog) = False Then
+            '                              MainAmount, MainAmount_Details, DsPNL1, ErrorLog) = False Then
 
             '    MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             'Else
             If chkDiscloseNet.EditValue = True Then
-                CalcTotalofView(txtAmount, DsPNL2, MainTable, MainAmount_DI_NET, 0, ErrorLog)
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount_DI_NET, 0, ErrorLog)
             Else
-                CalcTotalofView(txtAmount, DsPNL2, MainTable, MainAmount_DI_GROSS, 0, ErrorLog)
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount_DI_GROSS, 0, ErrorLog)
             End If
 
             'End If
@@ -209,9 +209,9 @@ Public Class ucPNL_p2DivIncome
             Transfer()
 
             If chkDiscloseNet.EditValue = True Then
-                CalcTotalofView(txtAmount, DsPNL2, MainTable, MainAmount_DI_NET, 0, ErrorLog)
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount_DI_NET, 0, ErrorLog)
             Else
-                CalcTotalofView(txtAmount, DsPNL2, MainTable, MainAmount_DI_GROSS, 0, ErrorLog)
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount_DI_GROSS, 0, ErrorLog)
             End If
 
         Catch ex As Exception
@@ -285,7 +285,7 @@ Public Class ucPNL_p2DivIncome
 
 
 
-            For Each row As DataRow In DsPNL2.Tables("DIVIDEND_INCOME").Rows
+            For Each row As DataRow In DsPNL1.Tables("DIVIDEND_INCOME").Rows
 
                 If cboTypeofIncome.EditValue = "Section 4a" Then
                     dtRow = Nothing
@@ -311,9 +311,9 @@ Public Class ucPNL_p2DivIncome
     Private Sub chkDiscloseNet_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles chkDiscloseNet.ItemClick
         Try
             If chkDiscloseNet.EditValue = True Then
-                CalcTotalofView(txtAmount, DsPNL2, MainTable, MainAmount_DI_NET, 0, ErrorLog)
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount_DI_NET, 0, ErrorLog)
             Else
-                CalcTotalofView(txtAmount, DsPNL2, MainTable, MainAmount_DI_GROSS, 0, ErrorLog)
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount_DI_GROSS, 0, ErrorLog)
             End If
 
         Catch ex As Exception

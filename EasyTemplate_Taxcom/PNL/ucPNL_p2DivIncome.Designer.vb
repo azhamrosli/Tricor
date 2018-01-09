@@ -40,7 +40,6 @@ Partial Class ucPNL_p2DivIncome
         Me.colNTD_NTKEYN = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
         Me.DIVIDENDINCOMEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsPNL2 = New EasyTemplate_Taxcom.dsPNL2()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colDI_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colDI_DIVIDENDKEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -81,12 +80,12 @@ Partial Class ucPNL_p2DivIncome
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
+        Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DIVIDENDINCOMEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -100,6 +99,7 @@ Partial Class ucPNL_p2DivIncome
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GridView2
@@ -194,11 +194,13 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.GridControl1.DataSource = Me.DIVIDENDINCOMEBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 39)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.dtDate, Me.cboTypeIncome})
-        Me.GridControl1.Size = New System.Drawing.Size(801, 386)
+        Me.GridControl1.Size = New System.Drawing.Size(934, 474)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -207,12 +209,7 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.DIVIDENDINCOMEBindingSource.AllowNew = True
         Me.DIVIDENDINCOMEBindingSource.DataMember = "DIVIDEND_INCOME"
-        Me.DIVIDENDINCOMEBindingSource.DataSource = Me.DsPNL2
-        '
-        'DsPNL2
-        '
-        Me.DsPNL2.DataSetName = "dsPNL2"
-        Me.DsPNL2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        Me.DIVIDENDINCOMEBindingSource.DataSource = Me.DsPNL1
         '
         'GridView1
         '
@@ -263,7 +260,7 @@ Partial Class ucPNL_p2DivIncome
         'BUSINESSSOURCEBindingSource
         '
         Me.BUSINESSSOURCEBindingSource.DataMember = "BUSINESS_SOURCE"
-        Me.BUSINESSSOURCEBindingSource.DataSource = Me.DsPNL2
+        Me.BUSINESSSOURCEBindingSource.DataSource = Me.DsPNL1
         '
         'colDI_COMPANY
         '
@@ -418,10 +415,10 @@ Partial Class ucPNL_p2DivIncome
         'btnAdd
         '
         Me.btnAdd.Caption = "Add Data"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -434,10 +431,10 @@ Partial Class ucPNL_p2DivIncome
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Delete record"
@@ -451,10 +448,10 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.cboTypeofIncome.Caption = "Type of Income"
         Me.cboTypeofIncome.Edit = Me.RepositoryItemComboBox1
+        Me.cboTypeofIncome.EditWidth = 150
         Me.cboTypeofIncome.Id = 12
         Me.cboTypeofIncome.Name = "cboTypeofIncome"
         Me.cboTypeofIncome.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.cboTypeofIncome.Width = 150
         '
         'RepositoryItemComboBox1
         '
@@ -468,10 +465,10 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.cboSourceNo1.Caption = "Source No"
         Me.cboSourceNo1.Edit = Me.RepositoryItemLookUpEdit2
+        Me.cboSourceNo1.EditWidth = 100
         Me.cboSourceNo1.Id = 13
         Me.cboSourceNo1.Name = "cboSourceNo1"
         Me.cboSourceNo1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.cboSourceNo1.Width = 100
         '
         'RepositoryItemLookUpEdit2
         '
@@ -490,10 +487,10 @@ Partial Class ucPNL_p2DivIncome
         Me.chkDiscloseNet.Caption = "Disclose Nett : "
         Me.chkDiscloseNet.Edit = Me.RepositoryItemCheckEdit1
         Me.chkDiscloseNet.EditValue = True
+        Me.chkDiscloseNet.EditWidth = 80
         Me.chkDiscloseNet.Id = 14
         Me.chkDiscloseNet.Name = "chkDiscloseNet"
         Me.chkDiscloseNet.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.chkDiscloseNet.Width = 80
         '
         'RepositoryItemCheckEdit1
         '
@@ -508,28 +505,36 @@ Partial Class ucPNL_p2DivIncome
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(801, 31)
+        Me.barDockControlTop.Manager = Me.BarManager1
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(934, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(801, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
+        Me.barDockControlBottom.Manager = Me.BarManager1
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(934, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Manager = Me.BarManager1
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 474)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(801, 31)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlRight.Location = New System.Drawing.Point(934, 39)
+        Me.barDockControlRight.Manager = Me.BarManager1
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 474)
         '
         'RepositoryItemTextEdit1
         '
@@ -550,23 +555,28 @@ Partial Class ucPNL_p2DivIncome
         Me.RepositoryItemLookUpEdit1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemLookUpEdit1.Name = "RepositoryItemLookUpEdit1"
         '
+        'DsPNL1
+        '
+        Me.DsPNL1.DataSetName = "dsPNL"
+        Me.DsPNL1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
         'ucPNL_p2DivIncome
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p2DivIncome"
-        Me.Size = New System.Drawing.Size(801, 417)
+        Me.Size = New System.Drawing.Size(934, 513)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DIVIDENDINCOMEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
@@ -580,7 +590,9 @@ Partial Class ucPNL_p2DivIncome
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
@@ -609,7 +621,6 @@ Partial Class ucPNL_p2DivIncome
     Friend WithEvents colNTD_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colNTD_NTKEYN As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents DIVIDENDINCOMEBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DsPNL2 As EasyTemplate_Taxcom.dsPNL2
     Friend WithEvents BUSINESSSOURCEBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents colDI_KEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colDI_DIVIDENDKEY As DevExpress.XtraGrid.Columns.GridColumn
@@ -638,5 +649,6 @@ Partial Class ucPNL_p2DivIncome
     Friend WithEvents RepositoryItemLookUpEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
     Friend WithEvents chkDiscloseNet As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemCheckEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit
+    Friend WithEvents DsPNL1 As EasyTemplate_Taxcom.dsPNL
 
 End Class

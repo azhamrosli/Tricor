@@ -23,11 +23,25 @@ Partial Class frmPNL_Import
         Me.DockManager1 = New DevExpress.XtraBars.Docking.DockManager(Me.components)
         Me.DockPanel1 = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel1_Container = New DevExpress.XtraBars.Docking.ControlContainer()
+        Me.cboMainSource = New DevExpress.XtraEditors.LookUpEdit()
+        Me.BUSINESSSOURCEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
+        Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
+        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
         Me.txtFileURL2 = New DevExpress.XtraEditors.TextEdit()
+        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
+        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsDefault = New EasyTemplate_Taxcom.dsDefault()
+        Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
         Me.DockPanel2 = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel2_Container = New DevExpress.XtraBars.Docking.ControlContainer()
         Me.dgvExport = New DevExpress.XtraGrid.GridControl()
+        Me.ExportPNLBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsPNL2 = New EasyTemplate_Taxcom.dsPNL2()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colNo2 = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -37,40 +51,26 @@ Partial Class frmPNL_Import
         Me.colRightAmount = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.DocumentManager1 = New DevExpress.XtraBars.Docking2010.DocumentManager(Me.components)
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
-        Me.DsPNL2 = New EasyTemplate_Taxcom.dsPNL2()
-        Me.ExportPNLBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl11 = New DevExpress.XtraEditors.LabelControl()
-        Me.cboYA = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
-        Me.cboRefNo = New DevExpress.XtraEditors.LookUpEdit()
-        Me.DsDefault = New EasyTemplate_Taxcom.dsDefault()
-        Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.SimpleButton1 = New DevExpress.XtraEditors.SimpleButton()
-        Me.LabelControl5 = New DevExpress.XtraEditors.LabelControl()
-        Me.cboMainSource = New DevExpress.XtraEditors.LookUpEdit()
-        Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
-        Me.BUSINESSSOURCEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.DockManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DockPanel1.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
+        CType(Me.cboMainSource.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtFileURL2.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsDefault, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DockPanel2.SuspendLayout()
         Me.DockPanel2_Container.SuspendLayout()
         CType(Me.dgvExport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ExportPNLBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ExportPNLBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsDefault, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboMainSource.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'DockManager1
@@ -85,11 +85,12 @@ Partial Class frmPNL_Import
         Me.DockPanel1.Dock = DevExpress.XtraBars.Docking.DockingStyle.Top
         Me.DockPanel1.ID = New System.Guid("3dbfc6f7-c52e-4e4e-8f57-54670badd480")
         Me.DockPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.DockPanel1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DockPanel1.Name = "DockPanel1"
         Me.DockPanel1.Options.ShowCloseButton = False
         Me.DockPanel1.Options.ShowMaximizeButton = False
         Me.DockPanel1.OriginalSize = New System.Drawing.Size(200, 108)
-        Me.DockPanel1.Size = New System.Drawing.Size(1099, 108)
+        Me.DockPanel1.Size = New System.Drawing.Size(1282, 108)
         Me.DockPanel1.Text = "Tax Payer Information"
         '
         'DockPanel1_Container
@@ -104,26 +105,135 @@ Partial Class frmPNL_Import
         Me.DockPanel1_Container.Controls.Add(Me.cboYA)
         Me.DockPanel1_Container.Controls.Add(Me.cboRefNo)
         Me.DockPanel1_Container.Controls.Add(Me.LabelControl10)
-        Me.DockPanel1_Container.Location = New System.Drawing.Point(4, 23)
+        Me.DockPanel1_Container.Location = New System.Drawing.Point(5, 27)
+        Me.DockPanel1_Container.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DockPanel1_Container.Name = "DockPanel1_Container"
-        Me.DockPanel1_Container.Size = New System.Drawing.Size(1091, 81)
+        Me.DockPanel1_Container.Size = New System.Drawing.Size(1272, 74)
         Me.DockPanel1_Container.TabIndex = 0
+        '
+        'cboMainSource
+        '
+        Me.cboMainSource.Location = New System.Drawing.Point(526, 68)
+        Me.cboMainSource.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboMainSource.Name = "cboMainSource"
+        Me.cboMainSource.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboMainSource.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_SOURCEKEY", "BC_SOURCEKEY", 101, DevExpress.Utils.FormatType.Numeric, "", False, DevExpress.Utils.HorzAlignment.Far), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_SOURCENO", "BC_SOURCENO", 85, DevExpress.Utils.FormatType.Numeric, "", True, DevExpress.Utils.HorzAlignment.Far), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_CODE", "BC_CODE", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_TYPE", "BC_TYPE", 250, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 43, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 100, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near)})
+        Me.cboMainSource.Properties.DataSource = Me.BUSINESSSOURCEBindingSource
+        Me.cboMainSource.Properties.DisplayMember = "BC_SOURCENO"
+        Me.cboMainSource.Properties.NullText = "Select"
+        Me.cboMainSource.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboMainSource.Properties.ValueMember = "BC_SOURCENO"
+        Me.cboMainSource.Size = New System.Drawing.Size(328, 22)
+        Me.cboMainSource.TabIndex = 160
+        '
+        'BUSINESSSOURCEBindingSource
+        '
+        Me.BUSINESSSOURCEBindingSource.DataMember = "BUSINESS_SOURCE"
+        Me.BUSINESSSOURCEBindingSource.DataSource = Me.DsPNL
+        '
+        'DsPNL
+        '
+        Me.DsPNL.DataSetName = "dsPNL"
+        Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'LabelControl5
+        '
+        Me.LabelControl5.Location = New System.Drawing.Point(429, 71)
+        Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl5.Name = "LabelControl5"
+        Me.LabelControl5.Size = New System.Drawing.Size(82, 16)
+        Me.LabelControl5.TabIndex = 162
+        Me.LabelControl5.Text = "Source Code :"
+        '
+        'SimpleButton1
+        '
+        Me.SimpleButton1.Location = New System.Drawing.Point(916, 39)
+        Me.SimpleButton1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.SimpleButton1.Name = "SimpleButton1"
+        Me.SimpleButton1.Size = New System.Drawing.Size(87, 28)
+        Me.SimpleButton1.TabIndex = 164
+        Me.SimpleButton1.Text = "SimpleButton1"
+        '
+        'txtRefNo
+        '
+        Me.txtRefNo.Location = New System.Drawing.Point(71, 68)
+        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRefNo.Name = "txtRefNo"
+        Me.txtRefNo.Properties.ReadOnly = True
+        Me.txtRefNo.Size = New System.Drawing.Size(327, 22)
+        Me.txtRefNo.TabIndex = 163
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(9, 6)
+        Me.LabelControl2.Location = New System.Drawing.Point(10, 7)
+        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(45, 13)
+        Me.LabelControl2.Size = New System.Drawing.Size(55, 16)
         Me.LabelControl2.TabIndex = 1
         Me.LabelControl2.Text = "File URL :"
         '
+        'LabelControl11
+        '
+        Me.LabelControl11.Location = New System.Drawing.Point(429, 39)
+        Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl11.Name = "LabelControl11"
+        Me.LabelControl11.Size = New System.Drawing.Size(24, 16)
+        Me.LabelControl11.TabIndex = 162
+        Me.LabelControl11.Text = "YA :"
+        '
         'txtFileURL2
         '
-        Me.txtFileURL2.Location = New System.Drawing.Point(60, 3)
+        Me.txtFileURL2.Location = New System.Drawing.Point(70, 4)
+        Me.txtFileURL2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtFileURL2.Name = "txtFileURL2"
         Me.txtFileURL2.Properties.ReadOnly = True
-        Me.txtFileURL2.Size = New System.Drawing.Size(991, 20)
+        Me.txtFileURL2.Size = New System.Drawing.Size(1156, 22)
         Me.txtFileURL2.TabIndex = 0
+        '
+        'cboYA
+        '
+        Me.cboYA.Location = New System.Drawing.Point(527, 36)
+        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboYA.Name = "cboYA"
+        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboYA.Properties.PopupSizeable = True
+        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        Me.cboYA.Size = New System.Drawing.Size(327, 22)
+        Me.cboYA.TabIndex = 160
+        '
+        'cboRefNo
+        '
+        Me.cboRefNo.Location = New System.Drawing.Point(70, 36)
+        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboRefNo.Name = "cboRefNo"
+        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 200, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 500, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
+        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
+        Me.cboRefNo.Properties.NullText = "Select"
+        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
+        Me.cboRefNo.Properties.ValueMember = "RefNo"
+        Me.cboRefNo.Size = New System.Drawing.Size(328, 22)
+        Me.cboRefNo.TabIndex = 159
+        '
+        'TaxPayerFindBindingSource
+        '
+        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
+        Me.TaxPayerFindBindingSource.DataSource = Me.DsDefault
+        '
+        'DsDefault
+        '
+        Me.DsDefault.DataSetName = "dsDefault"
+        Me.DsDefault.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'LabelControl10
+        '
+        Me.LabelControl10.Location = New System.Drawing.Point(9, 39)
+        Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl10.Name = "LabelControl10"
+        Me.LabelControl10.Size = New System.Drawing.Size(47, 16)
+        Me.LabelControl10.TabIndex = 161
+        Me.LabelControl10.Text = "Ref No :"
         '
         'DockPanel2
         '
@@ -131,18 +241,20 @@ Partial Class frmPNL_Import
         Me.DockPanel2.Dock = DevExpress.XtraBars.Docking.DockingStyle.Left
         Me.DockPanel2.ID = New System.Guid("94ff1069-46d7-41ac-a959-174c7385ab23")
         Me.DockPanel2.Location = New System.Drawing.Point(0, 108)
+        Me.DockPanel2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DockPanel2.Name = "DockPanel2"
         Me.DockPanel2.Options.ShowCloseButton = False
         Me.DockPanel2.OriginalSize = New System.Drawing.Size(553, 200)
-        Me.DockPanel2.Size = New System.Drawing.Size(553, 505)
+        Me.DockPanel2.Size = New System.Drawing.Size(553, 646)
         Me.DockPanel2.Text = "Import Data"
         '
         'DockPanel2_Container
         '
         Me.DockPanel2_Container.Controls.Add(Me.dgvExport)
-        Me.DockPanel2_Container.Location = New System.Drawing.Point(4, 23)
+        Me.DockPanel2_Container.Location = New System.Drawing.Point(5, 27)
+        Me.DockPanel2_Container.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.DockPanel2_Container.Name = "DockPanel2_Container"
-        Me.DockPanel2_Container.Size = New System.Drawing.Size(545, 478)
+        Me.DockPanel2_Container.Size = New System.Drawing.Size(541, 614)
         Me.DockPanel2_Container.TabIndex = 0
         '
         'dgvExport
@@ -154,9 +266,19 @@ Partial Class frmPNL_Import
         Me.dgvExport.MainView = Me.GridView1
         Me.dgvExport.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvExport.Name = "dgvExport"
-        Me.dgvExport.Size = New System.Drawing.Size(545, 478)
+        Me.dgvExport.Size = New System.Drawing.Size(541, 614)
         Me.dgvExport.TabIndex = 62
         Me.dgvExport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
+        '
+        'ExportPNLBindingSource
+        '
+        Me.ExportPNLBindingSource.DataMember = "ExportPNL"
+        Me.ExportPNLBindingSource.DataSource = Me.DsPNL
+        '
+        'DsPNL2
+        '
+        Me.DsPNL2.DataSetName = "dsPNL2"
+        Me.DsPNL2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'GridView1
         '
@@ -232,122 +354,16 @@ Partial Class frmPNL_Import
         Me.TabbedView1.DocumentProperties.AllowFloat = False
         Me.TabbedView1.DocumentProperties.AllowFloatOnDoubleClick = False
         Me.TabbedView1.FloatingDocumentContainer = DevExpress.XtraBars.Docking2010.Views.FloatingDocumentContainer.SingleDocument
-        '
-        'DsPNL2
-        '
-        Me.DsPNL2.DataSetName = "dsPNL2"
-        Me.DsPNL2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'ExportPNLBindingSource
-        '
-        Me.ExportPNLBindingSource.DataMember = "ExportPNL"
-        Me.ExportPNLBindingSource.DataSource = Me.DsPNL2
-        '
-        'txtRefNo
-        '
-        Me.txtRefNo.Location = New System.Drawing.Point(61, 55)
-        Me.txtRefNo.Name = "txtRefNo"
-        Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(280, 20)
-        Me.txtRefNo.TabIndex = 163
-        '
-        'LabelControl11
-        '
-        Me.LabelControl11.Location = New System.Drawing.Point(368, 32)
-        Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(20, 13)
-        Me.LabelControl11.TabIndex = 162
-        Me.LabelControl11.Text = "YA :"
-        '
-        'cboYA
-        '
-        Me.cboYA.Location = New System.Drawing.Point(452, 29)
-        Me.cboYA.Name = "cboYA"
-        Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboYA.Properties.PopupSizeable = True
-        Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(280, 20)
-        Me.cboYA.TabIndex = 160
-        '
-        'LabelControl10
-        '
-        Me.LabelControl10.Location = New System.Drawing.Point(8, 32)
-        Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(40, 13)
-        Me.LabelControl10.TabIndex = 161
-        Me.LabelControl10.Text = "Ref No :"
-        '
-        'cboRefNo
-        '
-        Me.cboRefNo.Location = New System.Drawing.Point(60, 29)
-        Me.cboRefNo.Name = "cboRefNo"
-        Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboRefNo.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 200, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 500, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 71, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 70, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near)})
-        Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
-        Me.cboRefNo.Properties.NullText = "Select"
-        Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
-        Me.cboRefNo.Properties.ValueMember = "RefNo"
-        Me.cboRefNo.Size = New System.Drawing.Size(281, 20)
-        Me.cboRefNo.TabIndex = 159
-        '
-        'DsDefault
-        '
-        Me.DsDefault.DataSetName = "dsDefault"
-        Me.DsDefault.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'TaxPayerFindBindingSource
-        '
-        Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
-        Me.TaxPayerFindBindingSource.DataSource = Me.DsDefault
-        '
-        'SimpleButton1
-        '
-        Me.SimpleButton1.Location = New System.Drawing.Point(785, 32)
-        Me.SimpleButton1.Name = "SimpleButton1"
-        Me.SimpleButton1.Size = New System.Drawing.Size(75, 23)
-        Me.SimpleButton1.TabIndex = 164
-        Me.SimpleButton1.Text = "SimpleButton1"
-        '
-        'LabelControl5
-        '
-        Me.LabelControl5.Location = New System.Drawing.Point(368, 58)
-        Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(68, 13)
-        Me.LabelControl5.TabIndex = 162
-        Me.LabelControl5.Text = "Source Code :"
-        '
-        'cboMainSource
-        '
-        Me.cboMainSource.Location = New System.Drawing.Point(451, 55)
-        Me.cboMainSource.Name = "cboMainSource"
-        Me.cboMainSource.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboMainSource.Properties.Columns.AddRange(New DevExpress.XtraEditors.Controls.LookUpColumnInfo() {New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_SOURCEKEY", "BC_SOURCEKEY", 101, DevExpress.Utils.FormatType.Numeric, "", False, DevExpress.Utils.HorzAlignment.Far), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_SOURCENO", "BC_SOURCENO", 85, DevExpress.Utils.FormatType.Numeric, "", True, DevExpress.Utils.HorzAlignment.Far), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_CODE", "BC_CODE", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("BC_TYPE", "BC_TYPE", 250, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("RefNo", "Ref No", 43, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyName", "Company Name", 85, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyNo", "Company No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("EmployerNo", "Employer No", 100, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("FileNo", "File No", 100, DevExpress.Utils.FormatType.None, "", True, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("Country", "Country", 49, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near), New DevExpress.XtraEditors.Controls.LookUpColumnInfo("CompanyCode", "Company Code", 83, DevExpress.Utils.FormatType.None, "", False, DevExpress.Utils.HorzAlignment.Near)})
-        Me.cboMainSource.Properties.DataSource = Me.BUSINESSSOURCEBindingSource
-        Me.cboMainSource.Properties.DisplayMember = "BC_SOURCENO"
-        Me.cboMainSource.Properties.NullText = "Select"
-        Me.cboMainSource.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
-        Me.cboMainSource.Properties.ValueMember = "BC_SOURCENO"
-        Me.cboMainSource.Size = New System.Drawing.Size(281, 20)
-        Me.cboMainSource.TabIndex = 160
-        '
-        'DsPNL
-        '
-        Me.DsPNL.DataSetName = "dsPNL"
-        Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'BUSINESSSOURCEBindingSource
-        '
-        Me.BUSINESSSOURCEBindingSource.DataMember = "BUSINESS_SOURCE"
-        Me.BUSINESSSOURCEBindingSource.DataSource = Me.DsPNL
+        Me.TabbedView1.RootContainer.Element = Nothing
         '
         'frmPNL_Import
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1099, 613)
+        Me.ClientSize = New System.Drawing.Size(1282, 754)
         Me.Controls.Add(Me.DockPanel2)
         Me.Controls.Add(Me.DockPanel1)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmPNL_Import"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frmPNL_Import"
@@ -356,23 +372,23 @@ Partial Class frmPNL_Import
         Me.DockPanel1.ResumeLayout(False)
         Me.DockPanel1_Container.ResumeLayout(False)
         Me.DockPanel1_Container.PerformLayout()
+        CType(Me.cboMainSource.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtFileURL2.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsDefault, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DockPanel2.ResumeLayout(False)
         Me.DockPanel2_Container.ResumeLayout(False)
         CType(Me.dgvExport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ExportPNLBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ExportPNLBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboYA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsDefault, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboMainSource.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

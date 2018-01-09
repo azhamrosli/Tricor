@@ -14,7 +14,8 @@ Module mdlProcess
     Public V2 As Integer = 0
     Public V3 As Integer = 7
     Public V4 As Integer = 0
-    Public R1 As Integer = 2
+    Public R1 As Integer = 3 'After Dispose dsPNL2
+
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "0388601701" '"1054242304" 'RefNo
@@ -6151,7 +6152,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXCAPITALEXP_DETAIL WHERE EXOCEDD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXCAPITALEXP_DETAIL WHERE EXOCED_KEY=@PL_KEY"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID

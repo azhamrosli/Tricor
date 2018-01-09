@@ -66,21 +66,12 @@ Public Class ucPNL_Import
     Public Const MainTable As String = "ExportPNL" 'PLFST_SALES
     Public SourceNo As Integer = 0
     Dim MainDataSet As DataSet = Nothing
-    Dim MainDataSet2 As DataSet = Nothing
     Public Property MainData() As DataSet
         Get
             Return MainDataSet
         End Get
         Set(ByVal value As DataSet)
             MainDataSet = value
-        End Set
-    End Property
-    Public Property MainData2() As DataSet
-        Get
-            Return MainDataSet2
-        End Get
-        Set(ByVal value As DataSet)
-            MainDataSet2 = value
         End Set
     End Property
     Private Sub Import_Data()
@@ -102,7 +93,7 @@ Public Class ucPNL_Import
             adapter = New OleDbDataAdapter(strSQL, connectionString)
             adapter.Fill(ds, "Sheet")
 
-            MainDataSet2.Tables(MainTable).Rows.Clear()
+            MainDataSet.Tables(MainTable).Rows.Clear()
             Dim loopx As Integer = -1
             If ds IsNot Nothing AndAlso ds.Tables.Count > 0 AndAlso ds.Tables(0).Rows.Count > 0 Then
                 For Each rowx As DataRow In ds.Tables(0).Rows
@@ -111,21 +102,21 @@ Public Class ucPNL_Import
 
                     Else
                         If IsDBNull(rowx(0)) = False AndAlso rowx(0).ToString <> "" Then
-                            dtRow = MainDataSet2.Tables(MainTable).NewRow
+                            dtRow = MainDataSet.Tables(MainTable).NewRow
                             dtRow("No") = rowx(0)
                             dtRow("No2") = rowx(1)
                             dtRow("Type") = rowx(2)
                             dtRow("Description") = rowx(3)
                             dtRow("LeftAmount") = rowx(4)
                             dtRow("RightAmount") = rowx(5)
-                            MainDataSet2.Tables(MainTable).Rows.Add(dtRow)
+                            MainDataSet.Tables(MainTable).Rows.Add(dtRow)
                         End If
                     End If
-                    
+
                 Next
             End If
 
-            ExportPNLBindingSource.DataSource = MainDataSet2.Tables(MainTable)
+            ExportPNLBindingSource.DataSource = MainDataSet.Tables(MainTable)
             ds = Nothing
         Catch ex As Exception
             If ErrorLog Is Nothing Then
@@ -200,7 +191,7 @@ Public Class ucPNL_Import
 
                     TableName = GetTableName(Type, TableAmount, txt)
 
-                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                         GridView1.DeleteRow(i)
                         CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
                     Else
@@ -226,8 +217,8 @@ Public Class ucPNL_Import
             Dim TableAmount As String = ""
             Dim obj As Object = Nothing
             Dim txt As DevExpress.XtraEditors.TextEdit = Nothing
-            For i As Integer = 0 To dsDataSet2.Tables(Me.MainTable).Rows.Count - 1
-                dtRow = dsDataSet2.Tables(Me.MainTable).Rows(i)
+            For i As Integer = 0 To dsDataSet.Tables(Me.MainTable).Rows.Count - 1
+                dtRow = dsDataSet.Tables(Me.MainTable).Rows(i)
 
                 If dtRow IsNot Nothing AndAlso IsDBNull(dtRow("No")) = False Then
 
@@ -235,12 +226,12 @@ Public Class ucPNL_Import
 
                     TableName = GetTableName(Type, TableAmount, txt)
 
-                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                    If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                         '  GridView1.DeleteRow(i)
                         ListofRow.Add(dtRow)
                         CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
 
-                        ' dsDataSet2.Tables(Me.MainTable).Rows(i).Delete()
+                        ' dsDataSet.Tables(Me.MainTable).Rows(i).Delete()
                     Else
                         MsgBox("Failed to transfer to main table.", MsgBoxStyle.Critical)
                         Exit For
@@ -251,31 +242,31 @@ Public Class ucPNL_Import
 
             For i As Integer = 0 To ListofRow.Count - 1
                 'x = -1
-                'For Each rowx As DataRow In dsDataSet2.Tables(Me.MainTable).Rows
+                'For Each rowx As DataRow In dsDataSet.Tables(Me.MainTable).Rows
                 '    x += 1
                 '    If IsDBNull(rowx("No")) = False AndAlso rowx("No") = ListofRow(i) Then
-                '        dsDataSet2.Tables(Me.MainTable).Rows(x).Delete()
+                '        dsDataSet.Tables(Me.MainTable).Rows(x).Delete()
 
                 '    End If
                 'Next
 
-                'For x As Integer = 0 To (dsDataSet2.Tables(Me.MainTable).Rows.Count - 1)
-                '    If IsDBNull(dsDataSet2.Tables(Me.MainTable).Rows(x)("No")) = False AndAlso dsDataSet2.Tables(Me.MainTable).Rows(x)("No") = ListofRow(i) Then
+                'For x As Integer = 0 To (dsDataSet.Tables(Me.MainTable).Rows.Count - 1)
+                '    If IsDBNull(dsDataSet.Tables(Me.MainTable).Rows(x)("No")) = False AndAlso dsDataSet.Tables(Me.MainTable).Rows(x)("No") = ListofRow(i) Then
 
 
                 '    End If
 
                 'Next
-                dsDataSet2.Tables(Me.MainTable).Rows.Remove(ListofRow(i))
+                dsDataSet.Tables(Me.MainTable).Rows.Remove(ListofRow(i))
             Next
-            ' dsDataSet2.Tables(Me.MainTable).AcceptChanges()
+            ' dsDataSet.Tables(Me.MainTable).AcceptChanges()
 
             MsgBox("Successfully Import to main table.", MsgBoxStyle.Information)
 
-            'dsDataSet2.Tables(Me.MainTable).AcceptChanges()
+            'dsDataSet.Tables(Me.MainTable).AcceptChanges()
             'Application.DoEvents()
 
-            'ExportPNLBindingSource.DataSource = dsDataSet2.Tables(Me.MainTable)
+            'ExportPNLBindingSource.DataSource = dsDataSet.Tables(Me.MainTable)
         Catch ex As Exception
 
         End Try
@@ -313,10 +304,10 @@ Public Class ucPNL_Import
                     dtRow = GridView1.GetDataRow(i)
 
                     If dtRow IsNot Nothing Then
-                       
+
                         TableName = GetTableName(Type, TableAmount, txt)
 
-                        If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet2, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                        If mdlPNL2.TransferFromImport_ToMain(MainDataSet, MainDataSet, dtRow, TableName, Type, SourceNo, cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                             GridView1.DeleteRow(i)
                             CalcTotalofView(txt, MainDataSet, TableName, TableAmount, 0, ErrorLog)
                         Else

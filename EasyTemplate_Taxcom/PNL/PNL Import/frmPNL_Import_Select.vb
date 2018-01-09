@@ -50,19 +50,19 @@ Public Class frmPNL_Import_Select
             Dim dt As DataTable = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, Nothing)
             Dim dtRow As DataRow = Nothing
 
-            DsPNL2.Tables("PNLImport_TableList").Rows.Clear()
-            DsPNL2.Tables("PNLImport_TableList_Select").Rows.Clear()
+            DsPNL1.Tables("PNLImport_TableList").Rows.Clear()
+            DsPNL1.Tables("PNLImport_TableList_Select").Rows.Clear()
             If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
 
                 For i As Integer = 0 To dt.Rows.Count - 1
                     If dt.Rows(i)("TABLE_NAME").ToString.Contains("FilterDatabase") = False AndAlso dt.Rows(i)("TABLE_NAME").ToString.Contains("Print_Titles") = False Then
-                        dtRow = DsPNL2.Tables("PNLImport_TableList").NewRow
-                        dtRow("No") = DsPNL2.Tables("PNLImport_TableList").Rows.Count + 1
+                        dtRow = DsPNL1.Tables("PNLImport_TableList").NewRow
+                        dtRow("No") = DsPNL1.Tables("PNLImport_TableList").Rows.Count + 1
                         dtRow("SheetName") = dt.Rows(i)("TABLE_NAME")
-                        DsPNL2.Tables("PNLImport_TableList").Rows.Add(dtRow)
+                        DsPNL1.Tables("PNLImport_TableList").Rows.Add(dtRow)
                     End If
                 Next
-               
+
             End If
             ''ds.DataSource = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, Nothing)        cmbSheets.DisplayMember = "TABLE_NAME"        cmbSheets.ValueMember = "TABLE_NAME"        connExcel.Close()   
 
@@ -90,7 +90,7 @@ Public Class frmPNL_Import_Select
                 dtRow = GridView1.GetDataRow(rowindx)
 
                 If dtRow IsNot Nothing Then
-                    DsPNL2.Tables("PNLImport_TableList_Select").ImportRow(dtRow)
+                    DsPNL1.Tables("PNLImport_TableList_Select").ImportRow(dtRow)
                 End If
 
                 GridView1.DeleteRow(rowindx)
@@ -108,7 +108,7 @@ Public Class frmPNL_Import_Select
                 dtRow = GridView2.GetDataRow(rowindx)
 
                 If dtRow IsNot Nothing Then
-                    DsPNL2.Tables("PNLImport_TableList").ImportRow(dtRow)
+                    DsPNL1.Tables("PNLImport_TableList").ImportRow(dtRow)
                 End If
 
                 GridView2.DeleteRow(rowindx)
@@ -123,11 +123,11 @@ Public Class frmPNL_Import_Select
         Try
             Dim dtRow As DataRow = Nothing
 
-            For i As Integer = 0 To DsPNL2.Tables("PNLImport_TableList").Rows.Count - 1
-                DsPNL2.Tables("PNLImport_TableList_Select").ImportRow(DsPNL2.Tables("PNLImport_TableList").Rows(i))
+            For i As Integer = 0 To DsPNL1.Tables("PNLImport_TableList").Rows.Count - 1
+                DsPNL1.Tables("PNLImport_TableList_Select").ImportRow(DsPNL1.Tables("PNLImport_TableList").Rows(i))
             Next
 
-            DsPNL2.Tables("PNLImport_TableList").Rows.Clear()
+            DsPNL1.Tables("PNLImport_TableList").Rows.Clear()
 
         Catch ex As Exception
 
@@ -138,11 +138,11 @@ Public Class frmPNL_Import_Select
         Try
             Dim dtRow As DataRow = Nothing
 
-            For i As Integer = 0 To DsPNL2.Tables("PNLImport_TableList_Select").Rows.Count - 1
-                DsPNL2.Tables("PNLImport_TableList").ImportRow(DsPNL2.Tables("PNLImport_TableList_Select").Rows(i))
+            For i As Integer = 0 To DsPNL1.Tables("PNLImport_TableList_Select").Rows.Count - 1
+                DsPNL1.Tables("PNLImport_TableList").ImportRow(DsPNL1.Tables("PNLImport_TableList_Select").Rows(i))
             Next
 
-            DsPNL2.Tables("PNLImport_TableList_Select").Rows.Clear()
+            DsPNL1.Tables("PNLImport_TableList_Select").Rows.Clear()
 
         Catch ex As Exception
 
@@ -151,7 +151,7 @@ Public Class frmPNL_Import_Select
 
     Private Sub frmPNL_Import_Select_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-        
+
         Catch ex As Exception
 
         End Try
@@ -159,15 +159,15 @@ Public Class frmPNL_Import_Select
 
     Private Sub btnNext_Click(sender As Object, e As EventArgs) Handles btnNext.Click
         Try
-           
-            If DsPNL2.Tables("PNLImport_TableList_Select").Rows.Count = 0 Then
+
+            If DsPNL1.Tables("PNLImport_TableList_Select").Rows.Count = 0 Then
                 MsgBox("Please select at least one sheet.", MsgBoxStyle.Exclamation)
                 Exit Sub
             End If
 
             Dim frm As New frmPNL_Import
             frm.FileURL = txtFileUrl.EditValue
-            frm.DataView_TableSheet = DsPNL2.Tables("PNLImport_TableList_Select")
+            frm.DataView_TableSheet = DsPNL1.Tables("PNLImport_TableList_Select")
             frm.ShowDialog()
         Catch ex As Exception
 

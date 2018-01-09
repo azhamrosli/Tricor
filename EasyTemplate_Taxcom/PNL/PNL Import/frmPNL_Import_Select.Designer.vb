@@ -22,6 +22,7 @@ Partial Class frmPNL_Import_Select
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPNL_Import_Select))
         Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.PanelControl3 = New DevExpress.XtraEditors.PanelControl()
         Me.btnImport = New DevExpress.XtraEditors.SimpleButton()
         Me.btnOpenFile = New DevExpress.XtraEditors.SimpleButton()
         Me.txtFileUrl = New DevExpress.XtraEditors.TextEdit()
@@ -30,7 +31,6 @@ Partial Class frmPNL_Import_Select
         Me.btnNext = New DevExpress.XtraEditors.SimpleButton()
         Me.btnCancel = New DevExpress.XtraEditors.SimpleButton()
         Me.PNLImportTableListSelectBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsPNL2 = New EasyTemplate_Taxcom.dsPNL2()
         Me.PNLImportTableListBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.btnMoveLeft2 = New DevExpress.XtraEditors.SimpleButton()
@@ -45,20 +45,20 @@ Partial Class frmPNL_Import_Select
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colSheetName = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.PanelControl3 = New DevExpress.XtraEditors.PanelControl()
+        Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl1.SuspendLayout()
+        CType(Me.PanelControl3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtFileUrl.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PanelControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PanelControl2.SuspendLayout()
         CType(Me.PNLImportTableListSelectBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PNLImportTableListBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PanelControl3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'PanelControl1
@@ -70,42 +70,55 @@ Partial Class frmPNL_Import_Select
         Me.PanelControl1.Controls.Add(Me.LabelControl1)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1117, 75)
+        Me.PanelControl1.Size = New System.Drawing.Size(1303, 92)
         Me.PanelControl1.TabIndex = 0
+        '
+        'PanelControl3
+        '
+        Me.PanelControl3.Location = New System.Drawing.Point(107, 23)
+        Me.PanelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PanelControl3.Name = "PanelControl3"
+        Me.PanelControl3.Size = New System.Drawing.Size(9, 10)
+        Me.PanelControl3.TabIndex = 3
         '
         'btnImport
         '
         Me.btnImport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnImport.Location = New System.Drawing.Point(938, 35)
+        Me.btnImport.Location = New System.Drawing.Point(1094, 43)
+        Me.btnImport.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnImport.Name = "btnImport"
-        Me.btnImport.Size = New System.Drawing.Size(122, 32)
+        Me.btnImport.Size = New System.Drawing.Size(142, 39)
         Me.btnImport.TabIndex = 2
         Me.btnImport.Text = "Import"
         '
         'btnOpenFile
         '
         Me.btnOpenFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenFile.Image = CType(resources.GetObject("btnOpenFile.Image"), System.Drawing.Image)
-        Me.btnOpenFile.Location = New System.Drawing.Point(1066, 7)
+        Me.btnOpenFile.ImageOptions.Image = CType(resources.GetObject("btnOpenFile.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnOpenFile.Location = New System.Drawing.Point(1244, 9)
+        Me.btnOpenFile.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnOpenFile.Name = "btnOpenFile"
-        Me.btnOpenFile.Size = New System.Drawing.Size(34, 23)
+        Me.btnOpenFile.Size = New System.Drawing.Size(40, 28)
         Me.btnOpenFile.TabIndex = 2
         '
         'txtFileUrl
         '
         Me.txtFileUrl.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtFileUrl.Location = New System.Drawing.Point(82, 9)
+        Me.txtFileUrl.Location = New System.Drawing.Point(96, 11)
+        Me.txtFileUrl.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtFileUrl.Name = "txtFileUrl"
-        Me.txtFileUrl.Size = New System.Drawing.Size(978, 20)
+        Me.txtFileUrl.Size = New System.Drawing.Size(1141, 22)
         Me.txtFileUrl.TabIndex = 1
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 12)
+        Me.LabelControl1.Location = New System.Drawing.Point(14, 15)
+        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(55, 13)
+        Me.LabelControl1.Size = New System.Drawing.Size(68, 16)
         Me.LabelControl1.TabIndex = 0
         Me.LabelControl1.Text = "Select File :"
         '
@@ -114,43 +127,41 @@ Partial Class frmPNL_Import_Select
         Me.PanelControl2.Controls.Add(Me.btnNext)
         Me.PanelControl2.Controls.Add(Me.btnCancel)
         Me.PanelControl2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PanelControl2.Location = New System.Drawing.Point(0, 478)
+        Me.PanelControl2.Location = New System.Drawing.Point(0, 589)
+        Me.PanelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl2.Name = "PanelControl2"
-        Me.PanelControl2.Size = New System.Drawing.Size(1117, 67)
+        Me.PanelControl2.Size = New System.Drawing.Size(1303, 82)
         Me.PanelControl2.TabIndex = 1
         '
         'btnNext
         '
         Me.btnNext.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnNext.Location = New System.Drawing.Point(850, 6)
+        Me.btnNext.Location = New System.Drawing.Point(992, 7)
+        Me.btnNext.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnNext.Name = "btnNext"
-        Me.btnNext.Size = New System.Drawing.Size(122, 32)
+        Me.btnNext.Size = New System.Drawing.Size(142, 39)
         Me.btnNext.TabIndex = 1
         Me.btnNext.Text = "Next"
         '
         'btnCancel
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCancel.Location = New System.Drawing.Point(978, 6)
+        Me.btnCancel.Location = New System.Drawing.Point(1141, 7)
+        Me.btnCancel.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(122, 32)
+        Me.btnCancel.Size = New System.Drawing.Size(142, 39)
         Me.btnCancel.TabIndex = 0
         Me.btnCancel.Text = "Cancel"
         '
         'PNLImportTableListSelectBindingSource
         '
         Me.PNLImportTableListSelectBindingSource.DataMember = "PNLImport_TableList_Select"
-        Me.PNLImportTableListSelectBindingSource.DataSource = Me.DsPNL2
-        '
-        'DsPNL2
-        '
-        Me.DsPNL2.DataSetName = "dsPNL2"
-        Me.DsPNL2.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        Me.PNLImportTableListSelectBindingSource.DataSource = Me.DsPNL1
         '
         'PNLImportTableListBindingSource
         '
         Me.PNLImportTableListBindingSource.DataMember = "PNLImport_TableList"
-        Me.PNLImportTableListBindingSource.DataSource = Me.DsPNL2
+        Me.PNLImportTableListBindingSource.DataSource = Me.DsPNL1
         '
         'OpenFileDialog1
         '
@@ -159,36 +170,40 @@ Partial Class frmPNL_Import_Select
         'btnMoveLeft2
         '
         Me.btnMoveLeft2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnMoveLeft2.Location = New System.Drawing.Point(532, 302)
+        Me.btnMoveLeft2.Location = New System.Drawing.Point(621, 372)
+        Me.btnMoveLeft2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnMoveLeft2.Name = "btnMoveLeft2"
-        Me.btnMoveLeft2.Size = New System.Drawing.Size(53, 32)
+        Me.btnMoveLeft2.Size = New System.Drawing.Size(62, 39)
         Me.btnMoveLeft2.TabIndex = 15
         Me.btnMoveLeft2.Text = "<<"
         '
         'btnMoveLeft1
         '
         Me.btnMoveLeft1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnMoveLeft1.Location = New System.Drawing.Point(531, 264)
+        Me.btnMoveLeft1.Location = New System.Drawing.Point(619, 325)
+        Me.btnMoveLeft1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnMoveLeft1.Name = "btnMoveLeft1"
-        Me.btnMoveLeft1.Size = New System.Drawing.Size(53, 32)
+        Me.btnMoveLeft1.Size = New System.Drawing.Size(62, 39)
         Me.btnMoveLeft1.TabIndex = 14
         Me.btnMoveLeft1.Text = "<"
         '
         'btnMoveRight2
         '
         Me.btnMoveRight2.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnMoveRight2.Location = New System.Drawing.Point(531, 226)
+        Me.btnMoveRight2.Location = New System.Drawing.Point(619, 278)
+        Me.btnMoveRight2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnMoveRight2.Name = "btnMoveRight2"
-        Me.btnMoveRight2.Size = New System.Drawing.Size(53, 32)
+        Me.btnMoveRight2.Size = New System.Drawing.Size(62, 39)
         Me.btnMoveRight2.TabIndex = 13
         Me.btnMoveRight2.Text = ">>"
         '
         'btnMoveRight1
         '
         Me.btnMoveRight1.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnMoveRight1.Location = New System.Drawing.Point(530, 188)
+        Me.btnMoveRight1.Location = New System.Drawing.Point(618, 231)
+        Me.btnMoveRight1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.btnMoveRight1.Name = "btnMoveRight1"
-        Me.btnMoveRight1.Size = New System.Drawing.Size(53, 32)
+        Me.btnMoveRight1.Size = New System.Drawing.Size(62, 39)
         Me.btnMoveRight1.TabIndex = 10
         Me.btnMoveRight1.Text = ">"
         '
@@ -197,11 +212,11 @@ Partial Class frmPNL_Import_Select
         Me.GridControl2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.GridControl2.DataSource = Me.PNLImportTableListSelectBindingSource
         Me.GridControl2.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GridControl2.Location = New System.Drawing.Point(589, 90)
+        Me.GridControl2.Location = New System.Drawing.Point(687, 111)
         Me.GridControl2.MainView = Me.GridView2
         Me.GridControl2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GridControl2.Name = "GridControl2"
-        Me.GridControl2.Size = New System.Drawing.Size(518, 365)
+        Me.GridControl2.Size = New System.Drawing.Size(604, 449)
         Me.GridControl2.TabIndex = 12
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -237,11 +252,11 @@ Partial Class frmPNL_Import_Select
         Me.GridControl1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom), System.Windows.Forms.AnchorStyles)
         Me.GridControl1.DataSource = Me.PNLImportTableListBindingSource
         Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GridControl1.Location = New System.Drawing.Point(10, 90)
+        Me.GridControl1.Location = New System.Drawing.Point(12, 111)
         Me.GridControl1.MainView = Me.GridView1
         Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.Size = New System.Drawing.Size(515, 365)
+        Me.GridControl1.Size = New System.Drawing.Size(601, 449)
         Me.GridControl1.TabIndex = 11
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -272,18 +287,16 @@ Partial Class frmPNL_Import_Select
         Me.colSheetName.VisibleIndex = 1
         Me.colSheetName.Width = 500
         '
-        'PanelControl3
+        'DsPNL1
         '
-        Me.PanelControl3.Location = New System.Drawing.Point(92, 19)
-        Me.PanelControl3.Name = "PanelControl3"
-        Me.PanelControl3.Size = New System.Drawing.Size(8, 8)
-        Me.PanelControl3.TabIndex = 3
+        Me.DsPNL1.DataSetName = "dsPNL"
+        Me.DsPNL1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'frmPNL_Import_Select
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1117, 545)
+        Me.ClientSize = New System.Drawing.Size(1303, 671)
         Me.Controls.Add(Me.btnMoveLeft2)
         Me.Controls.Add(Me.btnMoveLeft1)
         Me.Controls.Add(Me.btnMoveRight2)
@@ -292,6 +305,7 @@ Partial Class frmPNL_Import_Select
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.PanelControl2)
         Me.Controls.Add(Me.PanelControl1)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.MinimumSize = New System.Drawing.Size(1133, 584)
         Me.Name = "frmPNL_Import_Select"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -299,17 +313,17 @@ Partial Class frmPNL_Import_Select
         CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl1.ResumeLayout(False)
         Me.PanelControl1.PerformLayout()
+        CType(Me.PanelControl3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtFileUrl.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PanelControl2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.PanelControl2.ResumeLayout(False)
         CType(Me.PNLImportTableListSelectBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PNLImportTableListBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PanelControl3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -323,7 +337,6 @@ Partial Class frmPNL_Import_Select
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents btnImport As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents PNLImportTableListBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DsPNL2 As EasyTemplate_Taxcom.dsPNL2
     Friend WithEvents PNLImportTableListSelectBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents btnMoveLeft2 As DevExpress.XtraEditors.SimpleButton
     Friend WithEvents btnMoveLeft1 As DevExpress.XtraEditors.SimpleButton
@@ -338,4 +351,5 @@ Partial Class frmPNL_Import_Select
     Friend WithEvents colNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colSheetName As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents PanelControl3 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents DsPNL1 As EasyTemplate_Taxcom.dsPNL
 End Class

@@ -600,10 +600,7 @@ C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\EasyTe
 C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucPNL_p1Sales.resources
 C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbproj.GenerateResource.Cache
 C:\Users\Azham-PC\Source\Repos\TaxcomTricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.exe.licenses
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.XtraTreeList.v17.1.xml
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.Data.v17.1.resources.dll
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.PivotGrid.v17.1.Core.resources.dll
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.RichEdit.v17.1.Core.resources.dll
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.Utils.v17.1.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ET_Taxcom.exe.config
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ET_Taxcom.exe
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ET_Taxcom.pdb
@@ -622,7 +619,6 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.RichEdit.v17.1.Export.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.Sparkline.v17.1.Core.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.Spreadsheet.v17.1.Core.dll
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.Utils.v17.1.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.Utils.v17.1.UI.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.Xpo.v17.1.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.XtraBars.v17.1.dll
@@ -671,7 +667,9 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.XtraScheduler.v17.1.xml
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.XtraScheduler.v17.1.Core.xml
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.XtraSpreadsheet.v17.1.xml
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\DevExpress.XtraTreeList.v17.1.xml
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpress.Data.v17.1.resources.dll
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.Data.v17.1.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ja\DevExpress.Data.v17.1.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpress.Data.v17.1.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpress.DataAccess.v17.1.resources.dll
@@ -687,6 +685,7 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpre
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ja\DevExpress.Office.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpress.Office.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpress.PivotGrid.v17.1.Core.resources.dll
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.PivotGrid.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ja\DevExpress.PivotGrid.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpress.PivotGrid.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpress.Printing.v17.1.Core.resources.dll
@@ -694,6 +693,7 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpre
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ja\DevExpress.Printing.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpress.Printing.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpress.RichEdit.v17.1.Core.resources.dll
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\es\DevExpress.RichEdit.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ja\DevExpress.RichEdit.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpress.RichEdit.v17.1.Core.resources.dll
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\de\DevExpress.Spreadsheet.v17.1.Core.resources.dll
@@ -783,6 +783,7 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\bin\Debug\ru\DevExpre
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbproj.ResolveComReference.cache
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Add3.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Quick.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Report_Disposal.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Report_ControlTransfer.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Report_FA_Reconciliation.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Report.resources
@@ -794,11 +795,15 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAByCategory.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAByRate.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAControlTransfer.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAControlTransfer_Out.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CADisposal.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAWrittenOff.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucCA.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucDisposal.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucHP.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCP204_Add.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCP204_PenaltyLate.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CP204_Breakdown.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucCP204.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucDeemedInterest.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmAbout.resources
@@ -815,9 +820,10 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucMovement.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucMovementComplex.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmPNL_Add.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmPNL_Report.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmPNL_Import.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmPNL_Import_Select.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rptPNL.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rptPNL_Sales.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucPNL.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.ucPNL_Import.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmReport_Test.resources
@@ -893,11 +899,4 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplat
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.exe.licenses
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.exe
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.pdb
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmCA_Report_Disposal.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAControlTransfer_Out.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CADisposal.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CAWrittenOff.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rpt_CP204_Breakdown.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rptPNL.resources
-C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.rptPNL_Sales.resources
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbprojResolveAssemblyReference.cache

@@ -64,7 +64,7 @@ Module mdlPNL
     Public p4_docNonAllowableExpenses As DockPanel
 
     Public dsDataSet As DataSet
-    Public dsDataSet2 As DataSet
+    ' Public dsDataSet2 As DataSet
 
     Public Function GetPNLLabelName(Optional ByRef Errorlog As clsError = Nothing) As List(Of clsPNL_LabelName)
         Try
@@ -1717,7 +1717,7 @@ Module mdlPNL
                         uc.YA = YA
                         uc.txtSales = txtSales
                         uc.DataView_Main = dsDataSet
-                        uc.DataView_Main2 = dsDataSet2
+                        uc.DataView_Main2 = dsDataSet
                         uc.SourceNo = cboSourceNo
                         uc.Dock = DockStyle.Fill
                         uc.txtAmount = txtAmount
