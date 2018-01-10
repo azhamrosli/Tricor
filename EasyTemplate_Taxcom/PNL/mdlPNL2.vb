@@ -1339,12 +1339,11 @@ Module mdlPNL2
                             dtRow("PLFPUR_AMOUNT") = rowx("PLFPUR_AMOUNT")
                             dtRow("PLFPUR_NOTE") = rowx("PLFPUR_NOTE")
                             dtRow("PLFPUR_DETAIL") = rowx("PLFPUR_DETAIL")
-                            If IsDBNull(rowx("PLFPUR_DEDUCTIBLE")) = False AndAlso rowx("PLFPUR_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("PLFPUR_DEDUCTIBLE")) = False AndAlso (rowx("PLFPUR_DEDUCTIBLE") = "Yes" OrElse rowx("PLFPUR_DEDUCTIBLE") = "True") Then
                                 dtRow("PLFPUR_DEDUCTIBLE") = True
                             Else
                                 dtRow("PLFPUR_DEDUCTIBLE") = False
                             End If
-
 
                             ds.Tables("PLFST_PURCHASE").Rows.Add(dtRow)
                         Next
@@ -1363,7 +1362,7 @@ Module mdlPNL2
                                 dtRow("PLFPURD_DESC") = rowx("PLFPURD_DESC")
                                 dtRow("PLFPURD_AMOUNT") = rowx("PLFPURD_AMOUNT")
                                 dtRow("PLFPURD_NOTE") = rowx("PLFPURD_NOTE")
-                                If IsDBNull(rowx("PLFPURD_DEDUCTIBLE")) = False AndAlso rowx("PLFPURD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("PLFPURD_DEDUCTIBLE")) = False AndAlso (rowx("PLFPURD_DEDUCTIBLE") = "Yes" OrElse rowx("PLFPURD_DEDUCTIBLE") = "True") Then
                                     dtRow("PLFPURD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("PLFPURD_DEDUCTIBLE") = False
@@ -1392,7 +1391,7 @@ Module mdlPNL2
                             dtRow("EXDEP_DESC") = rowx("EXDEP_DESC")
                             dtRow("EXDEP_AMOUNT") = rowx("EXDEP_AMOUNT")
 
-                            If IsDBNull(rowx("EXDEP_DEDUCTIBLE")) = False AndAlso rowx("EXDEP_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXDEP_DEDUCTIBLE")) = False AndAlso (rowx("EXDEP_DEDUCTIBLE") = "Yes" OrElse rowx("EXDEP_DEDUCTIBLE") = "True") Then
                                 dtRow("EXDEP_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXDEP_DEDUCTIBLE") = False
@@ -1417,7 +1416,7 @@ Module mdlPNL2
                                 dtRow("EXDEPD_DESC") = rowx("EXDEPD_DESC")
                                 dtRow("EXDEPD_AMOUNT") = rowx("EXDEPD_AMOUNT")
 
-                                If IsDBNull(rowx("EXDEPD_DEDUCTIBLE")) = False AndAlso rowx("EXDEPD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXDEPD_DEDUCTIBLE")) = False AndAlso (rowx("EXDEPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXDEPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXDEPD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXDEPD_DEDUCTIBLE") = False
@@ -1446,12 +1445,12 @@ Module mdlPNL2
                             dtRow("EXA_SOURCENO") = rowx("EXA_SOURCENO")
                             dtRow("EXA_DESC") = rowx("EXA_DESC")
                             dtRow("EXA_AMOUNT") = rowx("EXA_AMOUNT")
-                            If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso rowx("EXA_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso (rowx("EXA_DEDUCTIBLE") = "Yes" OrElse rowx("EXA_DEDUCTIBLE") = "True") Then
                                 dtRow("EXA_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXA_DEDUCTIBLE") = False
                             End If
-                            If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso rowx("EXA_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso (rowx("EXA_DEDUCTIBLE") = "Yes" OrElse rowx("EXA_DEDUCTIBLE") = "True") Then
                                 dtRow("EXA_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXA_DEDUCTIBLE") = False
@@ -1475,7 +1474,7 @@ Module mdlPNL2
                                 dtRow("EXAD_EXADKEY") = rowx("EXAD_EXADKEY")
                                 dtRow("EXAD_DESC") = rowx("EXAD_DESC")
                                 dtRow("EXAD_AMOUNT") = rowx("EXAD_AMOUNT")
-                                If IsDBNull(rowx("EXAD_DEDUCTIBLE")) = False AndAlso rowx("EXAD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXAD_DEDUCTIBLE")) = False AndAlso (rowx("EXAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXAD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXAD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXAD_DEDUCTIBLE") = False
@@ -1505,7 +1504,7 @@ Module mdlPNL2
                             dtRow("EXNA_SOURCENO") = rowx("EXNA_SOURCENO")
                             dtRow("EXNA_DESC") = rowx("EXNA_DESC")
                             dtRow("EXNA_AMOUNT") = rowx("EXNA_AMOUNT")
-                            If IsDBNull(rowx("EXNA_DEDUCTIBLE")) = False AndAlso rowx("EXNA_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXNA_DEDUCTIBLE")) = False AndAlso (rowx("EXNA_DEDUCTIBLE") = "Yes" OrElse rowx("EXNA_DEDUCTIBLE") = "True") Then
                                 dtRow("EXNA_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXNA_DEDUCTIBLE") = False
@@ -1529,7 +1528,7 @@ Module mdlPNL2
                                 dtRow("EXNAD_SOURCENO") = rowx("EXNAD_SOURCENO")
                                 dtRow("EXNAD_EXNADKEY") = rowx("EXNAD_EXNADKEY")
                                 dtRow("EXNAD_DESC") = rowx("EXNAD_DESC")
-                                If IsDBNull(rowx("EXNAD_DEDUCTIBLE")) = False AndAlso rowx("EXNAD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXNAD_DEDUCTIBLE")) = False AndAlso (rowx("EXNAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXNAD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXNAD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXNAD_DEDUCTIBLE") = False
@@ -1897,7 +1896,7 @@ Module mdlPNL2
                             dtRow("EXIR_SOURCENO") = rowx("EXIR_SOURCENO")
                             dtRow("EXIR_AMOUNT") = rowx("EXIR_AMOUNT")
                             dtRow("EXIR_DESC") = rowx("EXIR_DESC")
-                            If IsDBNull(rowx("EXIR_DEDUCTIBLE")) = False AndAlso rowx("EXIR_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXIR_DEDUCTIBLE")) = False AndAlso (rowx("EXIR_DEDUCTIBLE") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE") = "True") Then
                                 rowx("EXIR_DEDUCTIBLE") = True
                             Else
                                 rowx("EXIR_DEDUCTIBLE") = False
@@ -1906,7 +1905,7 @@ Module mdlPNL2
                             dtRow("EXIR_DETAIL") = rowx("EXIR_DETAIL")
                             dtRow("EXIR_YEAREND") = rowx("EXIR_YEAREND")
                             dtRow("EXIR_STATUS") = rowx("EXIR_STATUS")
-                            If IsDBNull(rowx("EXIR_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXIR_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXIR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXIR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXIR_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXIR_DEDUCTIBLE_ADD") = False
@@ -1934,14 +1933,14 @@ Module mdlPNL2
                             dtRow("EXI_SOURCENO") = rowx("EXI_SOURCENO")
                             dtRow("EXI_DESC") = rowx("EXI_DESC")
                             dtRow("EXI_AMOUNT") = rowx("EXI_AMOUNT")
-                            If IsDBNull(rowx("EXI_DEDUCTIBLE")) = False AndAlso rowx("EXI_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXI_DEDUCTIBLE")) = False AndAlso (rowx("EXI_DEDUCTIBLE") = "Yes" OrElse rowx("EXI_DEDUCTIBLE") = "True") Then
                                 rowx("EXI_DEDUCTIBLE") = True
                             Else
                                 rowx("EXI_DEDUCTIBLE") = False
                             End If
                             dtRow("EXI_NOTE") = rowx("EXI_NOTE")
                             dtRow("EXI_DETAIL") = rowx("EXI_DETAIL")
-                            If IsDBNull(rowx("Exi_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXI_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("Exi_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXI_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXI_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXI_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXI_DEDUCTIBLE_ADD") = False
@@ -1963,14 +1962,14 @@ Module mdlPNL2
                                 dtRow("EXID_SOURCENO") = rowx("EXID_SOURCENO")
                                 dtRow("EXID_EXIDKEY") = rowx("EXID_EXIDKEY")
                                 dtRow("EXID_DESC") = rowx("EXID_DESC")
-                                If IsDBNull(rowx("EXID_DEDUCTIBLE")) = False AndAlso rowx("EXID_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXID_DEDUCTIBLE")) = False AndAlso (rowx("EXID_DEDUCTIBLE") = "Yes" OrElse rowx("EXID_DEDUCTIBLE") = "True") Then
                                     rowx("EXID_DEDUCTIBLE") = True
                                 Else
                                     rowx("EXID_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXID_AMOUNT") = rowx("EXID_AMOUNT")
                                 dtRow("EXID_NOTE") = rowx("EXID_NOTE")
-                                If IsDBNull(rowx("EXID_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXID_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXID_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXID_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXID_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXID_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXID_DEDUCTIBLE_ADD") = False
@@ -1999,14 +1998,14 @@ Module mdlPNL2
                             dtRow("EXL_SOURCENO") = rowx("EXL_SOURCENO")
                             dtRow("EXL_DESC") = rowx("EXL_DESC")
                             dtRow("EXL_AMOUNT") = rowx("EXL_AMOUNT")
-                            If IsDBNull(rowx("EXL_DEDUCTIBLE")) = False AndAlso rowx("EXL_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXL_DEDUCTIBLE")) = False AndAlso (rowx("EXL_DEDUCTIBLE") = "Yes" OrElse rowx("EXL_DEDUCTIBLE") = "True") Then
                                 rowx("EXL_DEDUCTIBLE") = True
                             Else
                                 rowx("EXL_DEDUCTIBLE") = False
                             End If
                             dtRow("EXL_NOTE") = rowx("EXL_NOTE")
                             dtRow("EXL_DETAIL") = rowx("EXL_DETAIL")
-                            If IsDBNull(rowx("EXL_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXL_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXL_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXL_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXL_DEDUCTIBLE_ADD") = "True") Then
                                 rowx("EXL_DEDUCTIBLE_ADD") = True
                             Else
                                 rowx("EXL_DEDUCTIBLE_ADD") = False
@@ -2028,14 +2027,14 @@ Module mdlPNL2
                                 dtRow("EXLD_SOURCENO") = rowx("EXLD_SOURCENO")
                                 dtRow("EXLD_EXLDKEY") = rowx("EXLD_EXLDKEY")
                                 dtRow("EXLD_DESC") = rowx("EXLD_DESC")
-                                If IsDBNull(rowx("EXLD_DEDUCTIBLE")) = False AndAlso rowx("EXLD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXLD_DEDUCTIBLE")) = False AndAlso (rowx("EXLD_DEDUCTIBLE") = "Yes" OrElse rowx("EXLD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXLD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXLD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXLD_AMOUNT") = rowx("EXLD_AMOUNT")
                                 dtRow("EXLD_NOTE") = rowx("EXLD_NOTE")
-                                If IsDBNull(rowx("EXLD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXLD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXLD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXLD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXLD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXLD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXLD_DEDUCTIBLE_ADD") = False
@@ -2064,14 +2063,14 @@ Module mdlPNL2
                             dtRow("EXTF_SOURCENO") = rowx("EXTF_SOURCENO")
                             dtRow("EXTF_DESC") = rowx("EXTF_DESC")
                             dtRow("EXTF_AMOUNT") = rowx("EXTF_AMOUNT")
-                            If IsDBNull(rowx("EXTF_DEDUCTIBLE")) = False AndAlso rowx("EXTF_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXTF_DEDUCTIBLE")) = False AndAlso (rowx("EXTF_DEDUCTIBLE") = "Yes" OrElse rowx("EXTF_DEDUCTIBLE") = "True") Then
                                 dtRow("EXTF_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXTF_DEDUCTIBLE") = False
                             End If
                             dtRow("EXTF_NOTE") = rowx("EXTF_NOTE")
                             dtRow("EXTF_DETAIL") = rowx("EXTF_DETAIL")
-                            If IsDBNull(rowx("EXTF_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXTF_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXTF_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXTF_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXTF_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXTF_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXTF_DEDUCTIBLE_ADD") = False
@@ -2093,14 +2092,14 @@ Module mdlPNL2
                                 dtRow("EXTFD_SOURCENO") = rowx("EXTFD_SOURCENO")
                                 dtRow("EXTFD_EXTFDKEY") = rowx("EXTFD_EXTFDKEY")
                                 dtRow("EXTFD_DESC") = rowx("EXTFD_DESC")
-                                If IsDBNull(rowx("EXTFD_DEDUCTIBLE")) = False AndAlso rowx("EXTFD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXTFD_DEDUCTIBLE")) = False AndAlso (rowx("EXTFD_DEDUCTIBLE") = "Yes" OrElse rowx("EXTFD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXTFD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXTFD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXTFD_AMOUNT") = rowx("EXTFD_AMOUNT")
                                 dtRow("EXTFD_NOTE") = rowx("EXTFD_NOTE")
-                                If IsDBNull(rowx("EXTFD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXTFD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXTFD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXTFD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXTFD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXTFD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXTFD_DEDUCTIBLE_ADD") = False
@@ -2129,14 +2128,14 @@ Module mdlPNL2
                             dtRow("EXC_SOURCENO") = rowx("EXC_SOURCENO")
                             dtRow("EXC_DESC") = rowx("EXC_DESC")
                             dtRow("EXC_AMOUNT") = rowx("EXC_AMOUNT")
-                            If IsDBNull(rowx("EXC_DEDUCTIBLE")) = False AndAlso rowx("EXC_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXC_DEDUCTIBLE")) = False AndAlso (rowx("EXC_DEDUCTIBLE") = "Yes" OrElse rowx("EXC_DEDUCTIBLE") = "True") Then
                                 dtRow("EXC_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXC_DEDUCTIBLE") = False
                             End If
                             dtRow("EXC_NOTE") = rowx("EXC_NOTE")
                             dtRow("EXC_DETAIL") = rowx("EXC_DETAIL")
-                            If IsDBNull(rowx("EXC_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXC_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXC_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXC_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXC_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXC_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXC_DEDUCTIBLE_ADD") = False
@@ -2158,14 +2157,14 @@ Module mdlPNL2
                                 dtRow("EXCD_SOURCENO") = rowx("EXCD_SOURCENO")
                                 dtRow("EXCD_EXCDKEY") = rowx("EXCD_EXCDKEY")
                                 dtRow("EXCD_DESC") = rowx("EXCD_DESC")
-                                If IsDBNull(rowx("EXCD_DEDUCTIBLE")) = False AndAlso rowx("EXCD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXCD_DEDUCTIBLE")) = False AndAlso (rowx("EXCD_DEDUCTIBLE") = "Yes" OrElse rowx("EXCD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXCD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXCD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXCD_AMOUNT") = rowx("EXCD_AMOUNT")
                                 dtRow("EXCD_NOTE") = rowx("EXCD_NOTE")
-                                If IsDBNull(rowx("EXCD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXCD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXCD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXCD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXCD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXCD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXCD_DEDUCTIBLE_ADD") = False
@@ -2194,14 +2193,14 @@ Module mdlPNL2
                             dtRow("EXDF_SOURCENO") = rowx("EXDF_SOURCENO")
                             dtRow("EXDF_DESC") = rowx("EXDF_DESC")
                             dtRow("EXDF_AMOUNT") = rowx("EXDF_AMOUNT")
-                            If IsDBNull(rowx("EXDF_DEDUCTIBLE")) = False AndAlso rowx("EXDF_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXDF_DEDUCTIBLE")) = False AndAlso (rowx("EXDF_DEDUCTIBLE") = "Yes" OrElse rowx("EXDF_DEDUCTIBLE") = "True") Then
                                 dtRow("EXDF_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXDF_DEDUCTIBLE") = False
                             End If
                             dtRow("EXDF_NOTE") = rowx("EXDF_NOTE")
                             dtRow("EXDF_DETAIL") = rowx("EXDF_DETAIL")
-                            If IsDBNull(rowx("EXDF_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXDF_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXDF_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXDF_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXDF_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXDF_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXDF_DEDUCTIBLE_ADD") = False
@@ -2223,14 +2222,14 @@ Module mdlPNL2
                                 dtRow("EXDFD_SOURCENO") = rowx("EXDFD_SOURCENO")
                                 dtRow("EXDFD_EXDFDKEY") = rowx("EXDFD_EXDFDKEY")
                                 dtRow("EXDFD_DESC") = rowx("EXDFD_DESC")
-                                If IsDBNull(rowx("EXDFD_DEDUCTIBLE")) = False AndAlso rowx("EXDFD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXDFD_DEDUCTIBLE")) = False AndAlso (rowx("EXDFD_DEDUCTIBLE") = "Yes" OrElse rowx("EXDFD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXDFD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXDFD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXDFD_AMOUNT") = rowx("EXDFD_AMOUNT")
                                 dtRow("EXDFD_NOTE") = rowx("EXDFD_NOTE")
-                                If IsDBNull(rowx("EXDFD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXDFD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXDFD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXDFD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXDFD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXDFD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXDFD_DEDUCTIBLE_ADD") = False
@@ -2259,14 +2258,14 @@ Module mdlPNL2
                             dtRow("EXS_SOURCENO") = rowx("EXS_SOURCENO")
                             dtRow("EXS_DESC") = rowx("EXS_DESC")
                             dtRow("EXS_AMOUNT") = rowx("EXS_AMOUNT")
-                            If IsDBNull(rowx("EXS_DEDUCTIBLE")) = False AndAlso rowx("EXS_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXS_DEDUCTIBLE")) = False AndAlso (rowx("EXS_DEDUCTIBLE") = "Yes" OrElse rowx("EXS_DEDUCTIBLE") = "True") Then
                                 dtRow("EXS_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXS_DEDUCTIBLE") = False
                             End If
                             dtRow("EXS_NOTE") = rowx("EXS_NOTE")
                             dtRow("EXS_DETAIL") = rowx("EXS_DETAIL")
-                            If IsDBNull(rowx("EXS_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXS_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXS_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXS_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXS_DEDUCTIBLE_ADD") = False
@@ -2288,14 +2287,14 @@ Module mdlPNL2
                                 dtRow("EXSD_SOURCENO") = rowx("EXSD_SOURCENO")
                                 dtRow("EXSD_EXSDKEY") = ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Count + 1
                                 dtRow("EXSD_DESC") = rowx("EXSD_DESC")
-                                If IsDBNull(rowx("EXSD_DEDUCTIBLE")) = False AndAlso rowx("EXSD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXSD_DEDUCTIBLE")) = False AndAlso (rowx("EXSD_DEDUCTIBLE") = "Yes" OrElse rowx("EXSD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXSD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXSD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXSD_AMOUNT") = rowx("EXSD_AMOUNT")
                                 dtRow("EXSD_NOTE") = rowx("EXSD_NOTE")
-                                If IsDBNull(rowx("EXSD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXSD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXSD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXSD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXSD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXSD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXSD_DEDUCTIBLE_ADD") = False
@@ -2323,7 +2322,7 @@ Module mdlPNL2
                             dtRow("EXES_EXESKEY") = rowx("EXES_EXESKEY")
                             dtRow("EXES_SOURCENO") = rowx("EXES_SOURCENO")
                             dtRow("EXES_DESC") = rowx("EXES_DESC")
-                            If IsDBNull(rowx("EXES_DEDUCTIBLE")) = False AndAlso rowx("EXES_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXES_DEDUCTIBLE")) = False AndAlso (rowx("EXES_DEDUCTIBLE") = "Yes" OrElse rowx("EXES_DEDUCTIBLE") = "True") Then
                                 dtRow("EXES_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXES_DEDUCTIBLE") = False
@@ -2331,7 +2330,7 @@ Module mdlPNL2
                             dtRow("EXES_AMOUNT") = rowx("EXES_AMOUNT")
                             dtRow("EXES_NOTE") = rowx("EXES_NOTE")
                             dtRow("RowIndex") = rowx("RowIndex")
-                            If IsDBNull(rowx("EXES_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXES_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXES_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXES_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXES_DEDUCTIBLE_ADD") = False
@@ -2352,14 +2351,14 @@ Module mdlPNL2
                                 dtRow("EXESD_SOURCENO") = rowx("EXESD_SOURCENO")
                                 dtRow("EXESD_DESC") = rowx("EXESD_DESC")
                                 dtRow("EXESD_AMOUNT") = rowx("EXESD_AMOUNT")
-                                If IsDBNull(rowx("EXESD_DEDUCTIBLE")) = False AndAlso rowx("EXESD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXESD_DEDUCTIBLE")) = False AndAlso (rowx("EXESD_DEDUCTIBLE") = "Yes" OrElse rowx("EXESD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXESD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXESD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXESD_NOTE") = rowx("EXESD_NOTE")
                                 dtRow("EXESD_DETAIL") = rowx("EXESD_DETAIL")
-                                If IsDBNull(rowx("EXESD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXESD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXESD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXESD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXESD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXESD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXESD_DEDUCTIBLE_ADD") = False
@@ -2389,14 +2388,14 @@ Module mdlPNL2
                             dtRow("EXRO_SOURCENO") = rowx("EXRO_SOURCENO")
                             dtRow("EXRO_DESC") = rowx("EXRO_DESC")
                             dtRow("EXRO_AMOUNT") = rowx("EXRO_AMOUNT")
-                            If IsDBNull(rowx("EXRO_DEDUCTIBLE")) = False AndAlso rowx("EXRO_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXRO_DEDUCTIBLE")) = False AndAlso (rowx("EXRO_DEDUCTIBLE") = "Yes" OrElse rowx("EXRO_DEDUCTIBLE") = "True") Then
                                 dtRow("EXRO_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXRO_DEDUCTIBLE") = False
                             End If
                             dtRow("EXRO_NOTE") = rowx("EXRO_NOTE")
                             dtRow("EXRO_DETAIL") = rowx("EXRO_DETAIL")
-                            If IsDBNull(rowx("EXRO_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXRO_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXRO_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRO_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRO_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXRO_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXRO_DEDUCTIBLE_ADD") = False
@@ -2418,14 +2417,14 @@ Module mdlPNL2
                                 dtRow("EXROD_SOURCENO") = rowx("EXROD_SOURCENO")
                                 dtRow("EXROD_EXRODKEY") = rowx("EXROD_EXRODKEY")
                                 dtRow("EXROD_DESC") = rowx("EXROD_DESC")
-                                If IsDBNull(rowx("EXROD_DEDUCTIBLE")) = False AndAlso rowx("EXROD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXROD_DEDUCTIBLE")) = False AndAlso (rowx("EXROD_DEDUCTIBLE") = "Yes" OrElse rowx("EXROD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXROD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXROD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXROD_AMOUNT") = rowx("EXROD_AMOUNT")
                                 dtRow("EXROD_NOTE") = rowx("EXROD_NOTE")
-                                If IsDBNull(rowx("EXROD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXROD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXROD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXROD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXROD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXROD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXROD_DEDUCTIBLE_ADD") = False
@@ -2454,14 +2453,14 @@ Module mdlPNL2
                             dtRow("EXRENT_SOURCENO") = rowx("EXRENT_SOURCENO")
                             dtRow("EXRENT_DESC") = rowx("EXRENT_DESC")
                             dtRow("EXRENT_AMOUNT") = rowx("EXRENT_AMOUNT")
-                            If IsDBNull(rowx("EXRENT_DEDUCTIBLE")) = False AndAlso rowx("EXRENT_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXRENT_DEDUCTIBLE")) = False AndAlso (rowx("EXRENT_DEDUCTIBLE") = "Yes" OrElse rowx("EXRENT_DEDUCTIBLE") = "True") Then
                                 dtRow("EXRENT_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXRENT_DEDUCTIBLE") = False
                             End If
                             dtRow("EXRENT_NOTE") = rowx("EXRENT_NOTE")
                             dtRow("EXRENT_DETAIL") = rowx("EXRENT_DETAIL")
-                            If IsDBNull(rowx("EXRENT_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXRENT_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXRENT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRENT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRENT_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXRENT_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXRENT_DEDUCTIBLE_ADD") = False
@@ -2483,14 +2482,14 @@ Module mdlPNL2
                                 dtRow("EXRENTD_SOURCENO") = rowx("EXRENTD_SOURCENO")
                                 dtRow("EXRENTD_EXRENTDKEY") = rowx("EXRENTD_EXRENTDKEY")
                                 dtRow("EXRENTD_DESC") = rowx("EXRENTD_DESC")
-                                If IsDBNull(rowx("EXRENTD_DEDUCTIBLE")) = False AndAlso rowx("EXRENTD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXRENTD_DEDUCTIBLE")) = False AndAlso (rowx("EXRENTD_DEDUCTIBLE") = "Yes" OrElse rowx("EXRENTD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXRENTD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXRENTD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXRENTD_AMOUNT") = rowx("EXRENTD_AMOUNT")
                                 dtRow("EXRENTD_NOTE") = rowx("EXRENTD_NOTE")
-                                If IsDBNull(rowx("EXRENTD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXRENTD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXRENTD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRENTD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRENTD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXRENTD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXRENTD_DEDUCTIBLE_ADD") = False
@@ -2519,14 +2518,14 @@ Module mdlPNL2
                             dtRow("EXREP_SOURCENO") = rowx("EXREP_SOURCENO")
                             dtRow("EXREP_DESC") = rowx("EXREP_DESC")
                             dtRow("EXREP_AMOUNT") = rowx("EXREP_AMOUNT")
-                            If IsDBNull(rowx("EXREP_DEDUCTIBLE")) = False AndAlso rowx("EXREP_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXREP_DEDUCTIBLE")) = False AndAlso (rowx("EXREP_DEDUCTIBLE") = "Yes" OrElse rowx("EXREP_DEDUCTIBLE") = "True") Then
                                 dtRow("EXREP_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXREP_DEDUCTIBLE") = False
                             End If
                             dtRow("EXREP_NOTE") = rowx("EXREP_NOTE")
                             dtRow("EXREP_DETAIL") = rowx("EXREP_DETAIL")
-                            If IsDBNull(rowx("EXREP_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXREP_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXREP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXREP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXREP_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXREP_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXREP_DEDUCTIBLE_ADD") = False
@@ -2548,14 +2547,14 @@ Module mdlPNL2
                                 dtRow("EXREPD_SOURCENO") = rowx("EXREPD_SOURCENO")
                                 dtRow("EXREPD_EXREPDKEY") = rowx("EXREPD_EXREPDKEY")
                                 dtRow("EXREPD_DESC") = rowx("EXREPD_DESC")
-                                If IsDBNull(rowx("EXREPD_DEDUCTIBLE")) = False AndAlso rowx("EXREPD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXREPD_DEDUCTIBLE")) = False AndAlso (rowx("EXREPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXREPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXREPD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXREPD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXREPD_AMOUNT") = rowx("EXREPD_AMOUNT")
                                 dtRow("EXREPD_NOTE") = rowx("EXREPD_NOTE")
-                                If IsDBNull(rowx("EXREPD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXREPD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXREPD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXREPD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXREPD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXREPD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXREPD_DEDUCTIBLE_ADD") = False
@@ -2584,14 +2583,14 @@ Module mdlPNL2
                             dtRow("EXRES_SOURCENO") = rowx("EXRES_SOURCENO")
                             dtRow("EXRES_DESC") = rowx("EXRES_DESC")
                             dtRow("EXRES_AMOUNT") = rowx("EXRES_AMOUNT")
-                            If IsDBNull(rowx("EXRES_DEDUCTIBLE")) = False AndAlso rowx("EXRES_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXRES_DEDUCTIBLE")) = False AndAlso (rowx("EXRES_DEDUCTIBLE") = "Yes" OrElse rowx("EXRES_DEDUCTIBLE") = "True") Then
                                 dtRow("EXRES_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXRES_DEDUCTIBLE") = False
                             End If
                             dtRow("EXRES_NOTE") = rowx("EXRES_NOTE")
                             dtRow("EXRES_DETAIL") = rowx("EXRES_DETAIL")
-                            If IsDBNull(rowx("EXRES_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXRES_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXRES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRES_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXRES_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXRES_DEDUCTIBLE_ADD") = False
@@ -2613,14 +2612,14 @@ Module mdlPNL2
                                 dtRow("EXRESD_SOURCENO") = rowx("EXRESD_SOURCENO")
                                 dtRow("EXRESD_EXRESDKEY") = rowx("EXRESD_EXRESDKEY")
                                 dtRow("EXRESD_DESC") = rowx("EXRESD_DESC")
-                                If IsDBNull(rowx("EXRESD_DEDUCTIBLE")) = False AndAlso rowx("EXRESD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXRESD_DEDUCTIBLE")) = False AndAlso (rowx("EXRESD_DEDUCTIBLE") = "Yes" OrElse rowx("EXRESD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXRESD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXRESD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXRESD_AMOUNT") = rowx("EXRESD_AMOUNT")
                                 dtRow("EXRESD_NOTE") = rowx("EXRESD_NOTE")
-                                If IsDBNull(rowx("EXRESD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXRESD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXRESD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRESD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRESD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXRESD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXRESD_DEDUCTIBLE_ADD") = False
@@ -2649,14 +2648,14 @@ Module mdlPNL2
                             dtRow("EXP_SOURCENO") = rowx("EXP_SOURCENO")
                             dtRow("EXP_DESC") = rowx("EXP_DESC")
                             dtRow("EXP_AMOUNT") = rowx("EXP_AMOUNT")
-                            If IsDBNull(rowx("EXP_DEDUCTIBLE")) = False AndAlso rowx("EXP_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXP_DEDUCTIBLE")) = False AndAlso (rowx("EXP_DEDUCTIBLE") = "Yes" OrElse rowx("EXP_DEDUCTIBLE") = "True") Then
                                 dtRow("EXP_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXP_DEDUCTIBLE") = False
                             End If
                             dtRow("EXP_NOTE") = rowx("EXP_NOTE")
                             dtRow("EXP_DETAIL") = rowx("EXP_DETAIL")
-                            If IsDBNull(rowx("EXP_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXP_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXP_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXP_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXP_DEDUCTIBLE_ADD") = False
@@ -2677,14 +2676,14 @@ Module mdlPNL2
                                 dtRow("EXPD_SOURCENO") = rowx("EXPD_SOURCENO")
                                 dtRow("EXPD_EXPDKEY") = rowx("EXPD_EXPDKEY")
                                 dtRow("EXPD_DESC") = rowx("EXPD_DESC")
-                                If IsDBNull(rowx("EXPD_DEDUCTIBLE")) = False AndAlso rowx("EXPD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXPD_DEDUCTIBLE")) = False AndAlso (rowx("EXPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXPD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXPD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXPD_AMOUNT") = rowx("EXPD_AMOUNT")
                                 dtRow("EXPD_NOTE") = rowx("EXPD_NOTE")
-                                If IsDBNull(rowx("EXPD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXPD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXPD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXPD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXPD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXPD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXPD_DEDUCTIBLE_ADD") = False
@@ -2713,14 +2712,14 @@ Module mdlPNL2
                             dtRow("EXT_SOURCENO") = rowx("EXT_SOURCENO")
                             dtRow("EXT_DESC") = rowx("EXT_DESC")
                             dtRow("EXT_AMOUNT") = rowx("EXT_AMOUNT")
-                            If IsDBNull(rowx("EXT_DEDUCTIBLE")) = False AndAlso rowx("EXT_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXT_DEDUCTIBLE")) = False AndAlso (rowx("EXT_DEDUCTIBLE") = "Yes" OrElse rowx("EXT_DEDUCTIBLE") = "True") Then
                                 dtRow("EXT_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXT_DEDUCTIBLE") = False
                             End If
                             dtRow("EXT_NOTE") = rowx("EXT_NOTE")
                             dtRow("EXT_DETAIL") = rowx("EXT_DETAIL")
-                            If IsDBNull(rowx("EXT_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXT_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXT_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXT_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXT_DEDUCTIBLE_ADD") = False
@@ -2741,14 +2740,14 @@ Module mdlPNL2
                                 dtRow("EXTD_SOURCENO") = rowx("EXTD_SOURCENO")
                                 dtRow("EXTD_EXTDKEY") = rowx("EXTD_EXTDKEY")
                                 dtRow("EXTD_DESC") = rowx("EXTD_DESC")
-                                If IsDBNull(rowx("EXTD_DEDUCTIBLE")) = False AndAlso rowx("EXTD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXTD_DEDUCTIBLE")) = False AndAlso (rowx("EXTD_DEDUCTIBLE") = "Yes" OrElse rowx("EXTD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXTD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXTD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXTD_AMOUNT") = rowx("EXTD_AMOUNT")
                                 dtRow("EXTD_NOTE") = rowx("EXTD_NOTE")
-                                If IsDBNull(rowx("EXTD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXTD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXTD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXTD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXTD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXTD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXTD_DEDUCTIBLE_ADD") = False
@@ -2776,14 +2775,14 @@ Module mdlPNL2
                             dtRow("EXJK_SOURCENO") = rowx("EXJK_SOURCENO")
                             dtRow("EXJK_DESC") = rowx("EXJK_DESC")
                             dtRow("EXJK_AMOUNT") = rowx("EXJK_AMOUNT")
-                            If IsDBNull(rowx("EXJK_DEDUCTIBLE")) = False AndAlso rowx("EXJK_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXJK_DEDUCTIBLE")) = False AndAlso (rowx("EXJK_DEDUCTIBLE") = "Yes" OrElse rowx("EXJK_DEDUCTIBLE") = "True") Then
                                 dtRow("EXJK_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXJK_DEDUCTIBLE") = False
                             End If
                             dtRow("EXJK_NOTE") = rowx("EXJK_NOTE")
                             dtRow("EXJK_DETAIL") = rowx("EXJK_DETAIL")
-                            If IsDBNull(rowx("EXJK_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXJK_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXJK_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXJK_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXJK_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXJK_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXJK_DEDUCTIBLE_ADD") = False
@@ -2806,14 +2805,14 @@ Module mdlPNL2
                                 dtRow("EXJKD_SOURCENO") = rowx("EXJKD_SOURCENO")
                                 dtRow("EXJKD_EXJKDKEY") = rowx("EXJKD_EXJKDKEY")
                                 dtRow("EXJKD_DESC") = rowx("EXJKD_DESC")
-                                If IsDBNull(rowx("EXJKD_DEDUCTIBLE")) = False AndAlso rowx("EXJKD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXJKD_DEDUCTIBLE")) = False AndAlso (rowx("EXJKD_DEDUCTIBLE") = "Yes" OrElse rowx("EXJKD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXJKD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXJKD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXJKD_AMOUNT") = rowx("EXJKD_AMOUNT")
                                 dtRow("EXJKD_NOTE") = rowx("EXJKD_NOTE")
-                                If IsDBNull(rowx("EXJKD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXJKD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXJKD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXJKD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXJKD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXJKD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXJKD_DEDUCTIBLE_ADD") = False
@@ -2842,14 +2841,14 @@ Module mdlPNL2
                             dtRow("EXODEP_SOURCENO") = rowx("EXODEP_SOURCENO")
                             dtRow("EXODEP_DESC") = rowx("EXODEP_DESC")
                             dtRow("EXODEP_AMOUNT") = rowx("EXODEP_AMOUNT")
-                            If IsDBNull(rowx("EXODEP_DEDUCTIBLE")) = False AndAlso rowx("EXODEP_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXODEP_DEDUCTIBLE")) = False AndAlso (rowx("EXODEP_DEDUCTIBLE") = "Yes" OrElse rowx("EXODEP_DEDUCTIBLE") = "True") Then
                                 dtRow("EXODEP_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXODEP_DEDUCTIBLE") = False
                             End If
                             dtRow("EXODEP_NOTE") = rowx("EXODEP_NOTE")
                             dtRow("EXODEP_DETAIL") = rowx("EXODEP_DETAIL")
-                            If IsDBNull(rowx("EXODEP_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXODEP_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXODEP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXODEP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXODEP_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXODEP_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXODEP_DEDUCTIBLE_ADD") = False
@@ -2872,14 +2871,14 @@ Module mdlPNL2
                                 dtRow("EXODEPD_SOURCENO") = rowx("EXODEPD_SOURCENO")
                                 dtRow("EXODEPD_EXODEPDKEY") = rowx("EXODEPD_EXODEPDKEY")
                                 dtRow("EXODEPD_DESC") = rowx("EXODEPD_DESC")
-                                If IsDBNull(rowx("EXODEPD_DEDUCTIBLE")) = False AndAlso rowx("EXODEPD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXODEPD_DEDUCTIBLE")) = False AndAlso (rowx("EXODEPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXODEPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXODEPD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXODEPD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXODEPD_AMOUNT") = rowx("EXODEPD_AMOUNT")
                                 dtRow("EXODEPD_NOTE") = rowx("EXODEPD_NOTE")
-                                If IsDBNull(rowx("EXODEPD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXODEPD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXODEPD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXODEPD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXODEPD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXODEPD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXODEPD_DEDUCTIBLE_ADD") = False
@@ -2909,7 +2908,7 @@ Module mdlPNL2
                             dtRow("EXOAD_SOURCENO") = rowx("EXOAD_SOURCENO")
                             dtRow("EXOAD_DESC") = rowx("EXOAD_DESC")
                             dtRow("EXOAD_AMOUNT") = rowx("EXOAD_AMOUNT")
-                            If IsDBNull(rowx("EXOAD_DEDUCTIBLE")) = False AndAlso rowx("EXOAD_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOAD_DEDUCTIBLE")) = False AndAlso (rowx("EXOAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOAD_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOAD_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOAD_DEDUCTIBLE") = False
@@ -2917,7 +2916,7 @@ Module mdlPNL2
                             dtRow("EXOAD_NOTE") = rowx("EXOAD_NOTE")
                             dtRow("EXOAD_DETAIL") = rowx("EXOAD_DETAIL")
                             dtRow("EXOAD_TYPE") = rowx("EXOAD_TYPE")
-                            If IsDBNull(rowx("EXOAD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOAD_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOAD_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOAD_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOAD_DEDUCTIBLE_ADD") = False
@@ -2940,7 +2939,7 @@ Module mdlPNL2
                                 dtRow("EXOADD_SOURCENO") = rowx("EXOADD_SOURCENO")
                                 dtRow("EXOADD_EXOADDKEY") = rowx("EXOADD_EXOADDKEY")
                                 dtRow("EXOADD_DESC") = rowx("EXOADD_DESC")
-                                If IsDBNull(rowx("EXOADD_DEDUCTIBLE")) = False AndAlso rowx("EXOADD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOADD_DEDUCTIBLE")) = False AndAlso (rowx("EXOADD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOADD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOADD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOADD_DEDUCTIBLE") = False
@@ -2948,7 +2947,7 @@ Module mdlPNL2
                                 dtRow("EXOADD_AMOUNT") = rowx("EXOADD_AMOUNT")
                                 dtRow("EXOADD_NOTE") = rowx("EXOADD_NOTE")
                                 dtRow("EXOADD_TYPE") = rowx("EXOADD_TYPE")
-                                If IsDBNull(rowx("EXOADD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOADD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOADD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOADD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOADD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOADD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOADD_DEDUCTIBLE_ADD") = False
@@ -2976,14 +2975,14 @@ Module mdlPNL2
                             dtRow("EXONAD_SOURCENO") = rowx("EXONAD_SOURCENO")
                             dtRow("EXONAD_DESC") = rowx("EXONAD_DESC")
                             dtRow("EXONAD_AMOUNT") = rowx("EXONAD_AMOUNT")
-                            If IsDBNull(rowx("EXONAD_DEDUCTIBLE")) = False AndAlso rowx("EXONAD_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXONAD_DEDUCTIBLE")) = False AndAlso (rowx("EXONAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXONAD_DEDUCTIBLE") = "True") Then
                                 dtRow("EXONAD_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXONAD_DEDUCTIBLE") = False
                             End If
                             dtRow("EXONAD_NOTE") = rowx("EXONAD_NOTE")
                             dtRow("EXONAD_DETAIL") = rowx("EXONAD_DETAIL")
-                            If IsDBNull(rowx("EXONAD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXONAD_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXONAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXONAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXONAD_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXONAD_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXONAD_DEDUCTIBLE_ADD") = False
@@ -3006,14 +3005,14 @@ Module mdlPNL2
                                 dtRow("EXONADD_SOURCENO") = rowx("EXONADD_SOURCENO")
                                 dtRow("EXONADD_EXONADDKEY") = rowx("EXONADD_EXONADDKEY")
                                 dtRow("EXONADD_DESC") = rowx("EXONADD_DESC")
-                                If IsDBNull(rowx("EXONADD_DEDUCTIBLE")) = False AndAlso rowx("EXONADD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXONADD_DEDUCTIBLE")) = False AndAlso (rowx("EXONADD_DEDUCTIBLE") = "Yes" OrElse rowx("EXONADD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXONADD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXONADD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXONADD_AMOUNT") = rowx("EXONADD_AMOUNT")
                                 dtRow("EXONADD_NOTE") = rowx("EXONADD_NOTE")
-                                If IsDBNull(rowx("EXONADD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXONADD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXONADD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXONADD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXONADD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXONADD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXONADD_DEDUCTIBLE_ADD") = False
@@ -3043,14 +3042,14 @@ Module mdlPNL2
                             dtRow("EXOZ_SOURCENO") = rowx("EXOZ_SOURCENO")
                             dtRow("EXOZ_DESC") = rowx("EXOZ_DESC")
                             dtRow("EXOZ_AMOUNT") = rowx("EXOZ_AMOUNT")
-                            If IsDBNull(rowx("EXOZ_DEDUCTIBLE")) = False AndAlso rowx("EXOZ_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOZ_DEDUCTIBLE")) = False AndAlso (rowx("EXOZ_DEDUCTIBLE") = "Yes" OrElse rowx("EXOZ_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOZ_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOZ_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOZ_NOTE") = rowx("EXOZ_NOTE")
                             dtRow("EXOZ_DETAIL") = rowx("EXOZ_DETAIL")
-                            If IsDBNull(rowx("EXOZ_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOZ_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOZ_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOZ_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOZ_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOZ_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOZ_DEDUCTIBLE_ADD") = False
@@ -3073,14 +3072,14 @@ Module mdlPNL2
                                 dtRow("EXOZD_SOURCENO") = rowx("EXOZD_SOURCENO")
                                 dtRow("EXOZD_EXOZDKEY") = rowx("EXOZD_EXOZDKEY")
                                 dtRow("EXOZD_DESC") = rowx("EXOZD_DESC")
-                                If IsDBNull(rowx("EXOZD_DEDUCTIBLE")) = False AndAlso rowx("EXOZD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOZD_DEDUCTIBLE")) = False AndAlso (rowx("EXOZD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOZD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOZD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOZD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOZD_AMOUNT") = rowx("EXOZD_AMOUNT")
                                 dtRow("EXOZD_NOTE") = rowx("EXOZD_NOTE")
-                                If IsDBNull(rowx("EXOZD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOZD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOZD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOZD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOZD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOZD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOZD_DEDUCTIBLE_ADD") = False
@@ -3110,14 +3109,14 @@ Module mdlPNL2
                             dtRow("EXOLD_SOURCENO") = rowx("EXOLD_SOURCENO")
                             dtRow("EXOLD_DESC") = rowx("EXOLD_DESC")
                             dtRow("EXOLD_AMOUNT") = rowx("EXOLD_AMOUNT")
-                            If IsDBNull(rowx("EXOLD_DEDUCTIBLE")) = False AndAlso rowx("EXOLD_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOLD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLD_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOLD_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOLD_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOLD_NOTE") = rowx("EXOLD_NOTE")
                             dtRow("EXOLD_DETAIL") = rowx("EXOLD_DETAIL")
-                            If IsDBNull(rowx("EXOLD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOLD_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOLD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLD_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOLD_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOLD_DEDUCTIBLE_ADD") = False
@@ -3140,14 +3139,14 @@ Module mdlPNL2
                                 dtRow("EXOLDD_SOURCENO") = rowx("EXOLDD_SOURCENO")
                                 dtRow("EXOLDD_EXOLDDKEY") = rowx("EXOLDD_EXOLDDKEY")
                                 dtRow("EXOLDD_DESC") = rowx("EXOLDD_DESC")
-                                If IsDBNull(rowx("EXOLDD_DEDUCTIBLE")) = False AndAlso rowx("EXOLDD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOLDD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLDD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLDD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOLDD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOLDD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOLDD_AMOUNT") = rowx("EXOLDD_AMOUNT")
                                 dtRow("EXOLDD_NOTE") = rowx("EXOLDD_NOTE")
-                                If IsDBNull(rowx("EXOLDD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOLDD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOLDD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLDD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLDD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOLDD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOLDD_DEDUCTIBLE_ADD") = False
@@ -3177,14 +3176,14 @@ Module mdlPNL2
                             dtRow("EXOENS_SOURCENO") = rowx("EXOENS_SOURCENO")
                             dtRow("EXOENS_DESC") = rowx("EXOENS_DESC")
                             dtRow("EXOENS_AMOUNT") = rowx("EXOENS_AMOUNT")
-                            If IsDBNull(rowx("EXOENS_DEDUCTIBLE")) = False AndAlso rowx("EXOENS_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOENS_DEDUCTIBLE")) = False AndAlso (rowx("EXOENS_DEDUCTIBLE") = "Yes" OrElse rowx("EXOENS_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOENS_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOENS_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOENS_NOTE") = rowx("EXOENS_NOTE")
                             dtRow("EXOENS_DETAIL") = rowx("EXOENS_DETAIL")
-                            If IsDBNull(rowx("EXOENS_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOENS_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOENS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOENS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOENS_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOENS_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOENS_DEDUCTIBLE_ADD") = False
@@ -3207,14 +3206,14 @@ Module mdlPNL2
                                 dtRow("EXOENSD_SOURCENO") = rowx("EXOENSD_SOURCENO")
                                 dtRow("EXOENSD_EXOENSDKEY") = rowx("EXOENSD_EXOENSDKEY")
                                 dtRow("EXOENSD_DESC") = rowx("EXOENSD_DESC")
-                                If IsDBNull(rowx("EXOENSD_DEDUCTIBLE")) = False AndAlso rowx("EXOENSD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOENSD_DEDUCTIBLE")) = False AndAlso (rowx("EXOENSD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOENSD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOENSD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOENSD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOENSD_AMOUNT") = rowx("EXOENSD_AMOUNT")
                                 dtRow("EXOENSD_NOTE") = rowx("EXOENSD_NOTE")
-                                If IsDBNull(rowx("EXOENSD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOENSD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOENSD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOENSD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOENSD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOENSD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOENSD_DEDUCTIBLE_ADD") = False
@@ -3244,14 +3243,14 @@ Module mdlPNL2
                             dtRow("EXOES_SOURCENO") = rowx("EXOES_SOURCENO")
                             dtRow("EXOES_DESC") = rowx("EXOES_DESC")
                             dtRow("EXOES_AMOUNT") = rowx("EXOES_AMOUNT")
-                            If IsDBNull(rowx("EXOES_DEDUCTIBLE")) = False AndAlso rowx("EXOES_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOES_DEDUCTIBLE")) = False AndAlso (rowx("EXOES_DEDUCTIBLE") = "Yes" OrElse rowx("EXOES_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOES_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOES_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOES_NOTE") = rowx("EXOES_NOTE")
                             dtRow("EXOES_DETAIL") = rowx("EXOES_DETAIL")
-                            If IsDBNull(rowx("EXOES_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOES_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOES_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOES_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOES_DEDUCTIBLE_ADD") = False
@@ -3274,14 +3273,14 @@ Module mdlPNL2
                                 dtRow("EXOESD_SOURCENO") = rowx("EXOESD_SOURCENO")
                                 dtRow("EXOESD_EXOESDKEY") = rowx("EXOESD_EXOESDKEY")
                                 dtRow("EXOESD_DESC") = rowx("EXOESD_DESC")
-                                If IsDBNull(rowx("EXOESD_DEDUCTIBLE")) = False AndAlso rowx("EXOESD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOESD_DEDUCTIBLE")) = False AndAlso (rowx("EXOESD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOESD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOESD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOESD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOESD_AMOUNT") = rowx("EXOESD_AMOUNT")
                                 dtRow("EXOESD_NOTE") = rowx("EXOESD_NOTE")
-                                If IsDBNull(rowx("EXOESD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOESD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOESD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOESD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOESD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOESD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOESD_DEDUCTIBLE_ADD") = False
@@ -3310,14 +3309,14 @@ Module mdlPNL2
                             dtRow("EXOP_SOURCENO") = rowx("EXOP_SOURCENO")
                             dtRow("EXOP_DESC") = rowx("EXOP_DESC")
                             dtRow("EXOP_AMOUNT") = rowx("EXOP_AMOUNT")
-                            If IsDBNull(rowx("EXOP_DEDUCTIBLE")) = False AndAlso rowx("EXOP_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOP_DEDUCTIBLE")) = False AndAlso (rowx("EXOP_DEDUCTIBLE") = "Yes" OrElse rowx("EXOP_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOP_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOP_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOP_NOTE") = rowx("EXOP_NOTE")
                             dtRow("EXOP_DETAIL") = rowx("EXOP_DETAIL")
-                            If IsDBNull(rowx("EXOP_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOP_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOP_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOP_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOP_DEDUCTIBLE_ADD") = False
@@ -3340,14 +3339,14 @@ Module mdlPNL2
                                 dtRow("EXOPD_SOURCENO") = rowx("EXOPD_SOURCENO")
                                 dtRow("EXOPD_EXOPDKEY") = rowx("EXOPD_EXOPDKEY")
                                 dtRow("EXOPD_DESC") = rowx("EXOPD_DESC")
-                                If IsDBNull(rowx("EXOPD_DEDUCTIBLE")) = False AndAlso rowx("EXOPD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOPD_DEDUCTIBLE")) = False AndAlso (rowx("EXOPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOPD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOPD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOPD_AMOUNT") = rowx("EXOPD_AMOUNT")
                                 dtRow("EXOPD_NOTE") = rowx("EXOPD_NOTE")
-                                If IsDBNull(rowx("EXOPD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOPD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOPD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOPD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOPD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOPD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOPD_DEDUCTIBLE_ADD") = False
@@ -3377,14 +3376,14 @@ Module mdlPNL2
                             dtRow("EXOPA_SOURCENO") = rowx("EXOPA_SOURCENO")
                             dtRow("EXOPA_DESC") = rowx("EXOPA_DESC")
                             dtRow("EXOPA_AMOUNT") = rowx("EXOPA_AMOUNT")
-                            If IsDBNull(rowx("EXOPA_DEDUCTIBLE")) = False AndAlso rowx("EXOPA_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOPA_DEDUCTIBLE")) = False AndAlso (rowx("EXOPA_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPA_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOPA_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOPA_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOPA_NOTE") = rowx("EXOPA_NOTE")
                             dtRow("EXOPA_DETAIL") = rowx("EXOPA_DETAIL")
-                            If IsDBNull(rowx("EXOPA_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOPA_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOPA_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOPA_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOPA_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOPA_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOPA_DEDUCTIBLE_ADD") = False
@@ -3407,14 +3406,14 @@ Module mdlPNL2
                                 dtRow("EXOPAD_SOURCENO") = rowx("EXOPAD_SOURCENO")
                                 dtRow("EXOPAD_EXOPADKEY") = rowx("EXOPAD_EXOPADKEY")
                                 dtRow("EXOPAD_DESC") = rowx("EXOPAD_DESC")
-                                If IsDBNull(rowx("EXOPAD_DEDUCTIBLE")) = False AndAlso rowx("EXOPAD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOPAD_DEDUCTIBLE")) = False AndAlso (rowx("EXOPAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPAD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOPAD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOPAD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOPAD_AMOUNT") = rowx("EXOPAD_AMOUNT")
                                 dtRow("EXOPAD_NOTE") = rowx("EXOPAD_NOTE")
-                                If IsDBNull(rowx("EXOPAD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOPAD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOPAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOPAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOPAD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOPAD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOPAD_DEDUCTIBLE_ADD") = False
@@ -3443,14 +3442,14 @@ Module mdlPNL2
                             dtRow("EXOLP_SOURCENO") = rowx("EXOLP_SOURCENO")
                             dtRow("EXOLP_DESC") = rowx("EXOLP_DESC")
                             dtRow("EXOLP_AMOUNT") = rowx("EXOLP_AMOUNT")
-                            If IsDBNull(rowx("EXOLP_DEDUCTIBLE")) = False AndAlso rowx("EXOLP_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOLP_DEDUCTIBLE")) = False AndAlso (rowx("EXOLP_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLP_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOLP_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOLP_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOLP_NOTE") = rowx("EXOLP_NOTE")
                             dtRow("EXOLP_DETAIL") = rowx("EXOLP_DETAIL")
-                            If IsDBNull(rowx("EXOLP_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOLP_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOLP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLP_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOLP_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOLP_DEDUCTIBLE_ADD") = False
@@ -3473,14 +3472,14 @@ Module mdlPNL2
                                 dtRow("EXOLPD_SOURCENO") = rowx("EXOLPD_SOURCENO")
                                 dtRow("EXOLPD_EXOLPDKEY") = rowx("EXOLPD_EXOLPDKEY")
                                 dtRow("EXOLPD_DESC") = rowx("EXOLPD_DESC")
-                                If IsDBNull(rowx("EXOLPD_DEDUCTIBLE")) = False AndAlso rowx("EXOLPD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOLPD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOLPD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOLPD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOLPD_AMOUNT") = rowx("EXOLPD_AMOUNT")
                                 dtRow("EXOLPD_NOTE") = rowx("EXOLPD_NOTE")
-                                If IsDBNull(rowx("EXOLPD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOLPD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOLPD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLPD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLPD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOLPD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOLPD_DEDUCTIBLE_ADD") = False
@@ -3510,14 +3509,14 @@ Module mdlPNL2
                             dtRow("EXOWO_SOURCENO") = rowx("EXOWO_SOURCENO")
                             dtRow("EXOWO_DESC") = rowx("EXOWO_DESC")
                             dtRow("EXOWO_AMOUNT") = rowx("EXOWO_AMOUNT")
-                            If IsDBNull(rowx("EXOWO_DEDUCTIBLE")) = False AndAlso rowx("EXOWO_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOWO_DEDUCTIBLE")) = False AndAlso (rowx("EXOWO_DEDUCTIBLE") = "Yes" OrElse rowx("EXOWO_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOWO_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOWO_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOWO_NOTE") = rowx("EXOWO_NOTE")
                             dtRow("EXOWO_DETAIL") = rowx("EXOWO_DETAIL")
-                            If IsDBNull(rowx("EXOWO_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOWO_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOWO_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOWO_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOWO_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOWO_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOWO_DEDUCTIBLE_ADD") = False
@@ -3539,14 +3538,14 @@ Module mdlPNL2
                                 dtRow("EXOWOD_SOURCENO") = rowx("EXOWOD_SOURCENO")
                                 dtRow("EXOWOD_EXOWODKEY") = rowx("EXOWOD_EXOWODKEY")
                                 dtRow("EXOWOD_DESC") = rowx("EXOWOD_DESC")
-                                If IsDBNull(rowx("EXOWOD_DEDUCTIBLE")) = False AndAlso rowx("EXOWOD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOWOD_DEDUCTIBLE")) = False AndAlso (rowx("EXOWOD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOWOD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOWOD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOWOD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOWOD_AMOUNT") = rowx("EXOWOD_AMOUNT")
                                 dtRow("EXOWOD_NOTE") = rowx("EXOWOD_NOTE")
-                                If IsDBNull(rowx("EXOWOD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOWOD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOWOD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOWOD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOWOD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOWOD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOWOD_DEDUCTIBLE_ADD") = False
@@ -3576,14 +3575,14 @@ Module mdlPNL2
                             dtRow("EXOUR_SOURCENO") = rowx("EXOUR_SOURCENO")
                             dtRow("EXOUR_DESC") = rowx("EXOUR_DESC")
                             dtRow("EXOUR_AMOUNT") = rowx("EXOUR_AMOUNT")
-                            If IsDBNull(rowx("EXOUR_DEDUCTIBLE")) = False AndAlso rowx("EXOUR_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOUR_DEDUCTIBLE")) = False AndAlso (rowx("EXOUR_DEDUCTIBLE") = "Yes" OrElse rowx("EXOUR_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOUR_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOUR_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOUR_NOTE") = rowx("EXOUR_NOTE")
                             dtRow("EXOUR_DETAIL") = rowx("EXOUR_DETAIL")
-                            If IsDBNull(rowx("EXOUR_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOUR_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOUR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOUR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOUR_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOUR_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOUR_DEDUCTIBLE_ADD") = False
@@ -3606,14 +3605,14 @@ Module mdlPNL2
                                 dtRow("EXOURD_SOURCENO") = rowx("EXOURD_SOURCENO")
                                 dtRow("EXOURD_EXOURDKEY") = rowx("EXOURD_EXOURDKEY")
                                 dtRow("EXOURD_DESC") = rowx("EXOURD_DESC")
-                                If IsDBNull(rowx("EXOURD_DEDUCTIBLE")) = False AndAlso rowx("EXOURD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOURD_DEDUCTIBLE")) = False AndAlso (rowx("EXOURD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOURD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOURD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOURD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOURD_AMOUNT") = rowx("EXOURD_AMOUNT")
                                 dtRow("EXOURD_NOTE") = rowx("EXOURD_NOTE")
-                                If IsDBNull(rowx("EXOURD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOURD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOURD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOURD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOURD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOURD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOURD_DEDUCTIBLE_ADD") = False
@@ -3642,14 +3641,14 @@ Module mdlPNL2
                             dtRow("EXORT_SOURCENO") = rowx("EXORT_SOURCENO")
                             dtRow("EXORT_DESC") = rowx("EXORT_DESC")
                             dtRow("EXORT_AMOUNT") = rowx("EXORT_AMOUNT")
-                            If IsDBNull(rowx("EXORT_DEDUCTIBLE")) = False AndAlso rowx("EXORT_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXORT_DEDUCTIBLE")) = False AndAlso (rowx("EXORT_DEDUCTIBLE") = "Yes" OrElse rowx("EXORT_DEDUCTIBLE") = "True") Then
                                 dtRow("EXORT_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXORT_DEDUCTIBLE") = False
                             End If
                             dtRow("EXORT_NOTE") = rowx("EXORT_NOTE")
                             dtRow("EXORT_DETAIL") = rowx("EXORT_DETAIL")
-                            If IsDBNull(rowx("EXORT_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXORT_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXORT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXORT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXORT_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXORT_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXORT_DEDUCTIBLE_ADD") = False
@@ -3671,14 +3670,14 @@ Module mdlPNL2
                                 dtRow("EXORTD_SOURCENO") = rowx("EXORTD_SOURCENO")
                                 dtRow("EXORTD_EXORTDKEY") = rowx("EXORTD_EXORTDKEY")
                                 dtRow("EXORTD_DESC") = rowx("EXORTD_DESC")
-                                If IsDBNull(rowx("EXORTD_DEDUCTIBLE")) = False AndAlso rowx("EXORTD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXORTD_DEDUCTIBLE")) = False AndAlso (rowx("EXORTD_DEDUCTIBLE") = "Yes" OrElse rowx("EXORTD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXORTD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXORTD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXORTD_AMOUNT") = rowx("EXORTD_AMOUNT")
                                 dtRow("EXORTD_NOTE") = rowx("EXORTD_NOTE")
-                                If IsDBNull(rowx("EXORTD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXORTD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXORTD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXORTD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXORTD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXORTD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXORTD_DEDUCTIBLE_ADD") = False
@@ -3707,14 +3706,14 @@ Module mdlPNL2
                             dtRow("EXOR_SOURCENO") = rowx("EXOR_SOURCENO")
                             dtRow("EXOR_DESC") = rowx("EXOR_DESC")
                             dtRow("EXOR_AMOUNT") = rowx("EXOR_AMOUNT")
-                            If IsDBNull(rowx("EXOR_DEDUCTIBLE")) = False AndAlso rowx("EXOR_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOR_DEDUCTIBLE")) = False AndAlso (rowx("EXOR_DEDUCTIBLE") = "Yes" OrElse rowx("EXOR_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOR_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOR_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOR_NOTE") = rowx("EXOR_NOTE")
                             dtRow("EXOR_DETAIL") = rowx("EXOR_DETAIL")
-                            If IsDBNull(rowx("EXOR_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOR_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOR_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOR_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOR_DEDUCTIBLE_ADD") = False
@@ -3736,14 +3735,14 @@ Module mdlPNL2
                                 dtRow("EXORD_SOURCENO") = rowx("EXORD_SOURCENO")
                                 dtRow("EXORD_EXORDKEY") = rowx("EXORD_EXORDKEY")
                                 dtRow("EXORD_DESC") = rowx("EXORD_DESC")
-                                If IsDBNull(rowx("EXORD_DEDUCTIBLE")) = False AndAlso rowx("EXORD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXORD_DEDUCTIBLE")) = False AndAlso (rowx("EXORD_DEDUCTIBLE") = "Yes" OrElse rowx("EXORD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXORD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXORD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXORD_AMOUNT") = rowx("EXORD_AMOUNT")
                                 dtRow("EXORD_NOTE") = rowx("EXORD_NOTE")
-                                If IsDBNull(rowx("EXORD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXORD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXORD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXORD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXORD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXORD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXORD_DEDUCTIBLE_ADD") = False
@@ -3772,14 +3771,14 @@ Module mdlPNL2
                             dtRow("EXOIS_SOURCENO") = rowx("EXOIS_SOURCENO")
                             dtRow("EXOIS_DESC") = rowx("EXOIS_DESC")
                             dtRow("EXOIS_AMOUNT") = rowx("EXOIS_AMOUNT")
-                            If IsDBNull(rowx("EXOIS_DEDUCTIBLE")) = False AndAlso rowx("EXOIS_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOIS_DEDUCTIBLE")) = False AndAlso (rowx("EXOIS_DEDUCTIBLE") = "Yes" OrElse rowx("EXOIS_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOIS_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOIS_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOIS_NOTE") = rowx("EXOIS_NOTE")
                             dtRow("EXOIS_DETAIL") = rowx("EXOIS_DETAIL")
-                            If IsDBNull(rowx("EXOIS_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOIS_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOIS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOIS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOIS_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOIS_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOIS_DEDUCTIBLE_ADD") = False
@@ -3802,14 +3801,14 @@ Module mdlPNL2
                                 dtRow("EXOISD_SOURCENO") = rowx("EXOISD_SOURCENO")
                                 dtRow("EXOISD_EXOISDKEY") = rowx("EXOISD_EXOISDKEY")
                                 dtRow("EXOISD_DESC") = rowx("EXOISD_DESC")
-                                If IsDBNull(rowx("EXOISD_DEDUCTIBLE")) = False AndAlso rowx("EXOISD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOISD_DEDUCTIBLE")) = False AndAlso (rowx("EXOISD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOISD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOISD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOISD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOISD_AMOUNT") = rowx("EXOISD_AMOUNT")
                                 dtRow("EXOISD_NOTE") = rowx("EXOISD_NOTE")
-                                If IsDBNull(rowx("EXOISD_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOISD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOISD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOISD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOISD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOISD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOISD_DEDUCTIBLE_ADD") = False
@@ -3838,14 +3837,14 @@ Module mdlPNL2
                             dtRow("EXOCE_SOURCENO") = rowx("EXOCE_SOURCENO")
                             dtRow("EXOCE_DESC") = rowx("EXOCE_DESC")
                             dtRow("EXOCE_AMOUNT") = rowx("EXOCE_AMOUNT")
-                            If IsDBNull(rowx("EXOCE_DEDUCTIBLE")) = False AndAlso rowx("EXOCE_DEDUCTIBLE") = "Yes" Then
+                            If IsDBNull(rowx("EXOCE_DEDUCTIBLE")) = False AndAlso (rowx("EXOCE_DEDUCTIBLE") = "Yes" OrElse rowx("EXOCE_DEDUCTIBLE") = "True") Then
                                 dtRow("EXOCE_DEDUCTIBLE") = True
                             Else
                                 dtRow("EXOCE_DEDUCTIBLE") = False
                             End If
                             dtRow("EXOCE_NOTE") = rowx("EXOCE_NOTE")
                             dtRow("EXOCE_DETAIL") = rowx("EXOCE_DETAIL")
-                            If IsDBNull(rowx("EXOCE_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOCE_DEDUCTIBLE_ADD") = "Yes" Then
+                            If IsDBNull(rowx("EXOCE_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOCE_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOCE_DEDUCTIBLE_ADD") = "True") Then
                                 dtRow("EXOCE_DEDUCTIBLE_ADD") = True
                             Else
                                 dtRow("EXOCE_DEDUCTIBLE_ADD") = False
@@ -3867,14 +3866,14 @@ Module mdlPNL2
                                 dtRow("EXOCED_SOURCENO") = rowx("EXOCED_SOURCENO")
                                 dtRow("EXOCED_EXOCEDKEY") = rowx("EXOCED_EXOCEDKEY")
                                 dtRow("EXOCED_DESC") = rowx("EXOCED_DESC")
-                                If IsDBNull(rowx("EXOCED_DEDUCTIBLE")) = False AndAlso rowx("EXOCED_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowx("EXOCED_DEDUCTIBLE")) = False AndAlso (rowx("EXOCED_DEDUCTIBLE") = "Yes" OrElse rowx("EXOCED_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOCED_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOCED_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOCED_AMOUNT") = rowx("EXOCED_AMOUNT")
                                 dtRow("EXOCED_NOTE") = rowx("EXOCED_NOTE")
-                                If IsDBNull(rowx("EXOCED_DEDUCTIBLE_ADD")) = False AndAlso rowx("EXOCED_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowx("EXOCED_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOCED_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOCED_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOCED_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOCED_DEDUCTIBLE_ADD") = False
@@ -3908,12 +3907,12 @@ Module mdlPNL2
                             dtRow("EXO_AMOUNT") = rowx("EXO_AMOUNT")
 
                             If dtChild IsNot Nothing Then
-                                If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE")) = False AndAlso dtChild.Rows(0)("EXO_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE")) = False AndAlso (dtChild.Rows(0)("EXO_DEDUCTIBLE") = "Yes" OrElse dtChild.Rows(0)("EXO_DEDUCTIBLE") = "True") Then
                                     dtRow("EXO_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXO_DEDUCTIBLE") = False
                                 End If
-                                If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD")) = False AndAlso dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD")) = False AndAlso (dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "Yes" OrElse dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXO_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXO_DEDUCTIBLE_ADD") = False
@@ -3944,14 +3943,14 @@ Module mdlPNL2
                                 dtRow("EXOD_SOURCENO") = rowC("EXOD_SOURCENO")
                                 dtRow("EXOD_EXODKEY") = ds.Tables("OTHER_EXPENSES_DETAIL").Rows.Count + 1
                                 dtRow("EXOD_DESC") = rowC("EXOD_DESC")
-                                If IsDBNull(rowC("EXOD_DEDUCTIBLE")) = False AndAlso rowC("EXOD_DEDUCTIBLE") = "Yes" Then
+                                If IsDBNull(rowC("EXOD_DEDUCTIBLE")) = False AndAlso (rowC("EXOD_DEDUCTIBLE") = "Yes" OrElse rowC("EXOD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("EXOD_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXOD_AMOUNT") = rowC("EXOD_AMOUNT")
                                 dtRow("EXOD_NOTE") = rowC("EXOD_NOTE")
-                                If IsDBNull(rowC("EXOD_DEDUCTIBLE_ADD")) = False AndAlso rowC("EXOD_DEDUCTIBLE_ADD") = "Yes" Then
+                                If IsDBNull(rowC("EXOD_DEDUCTIBLE_ADD")) = False AndAlso (rowC("EXOD_DEDUCTIBLE_ADD") = "Yes" OrElse rowC("EXOD_DEDUCTIBLE_ADD") = "True") Then
                                     dtRow("EXOD_DEDUCTIBLE_ADD") = True
                                 Else
                                     dtRow("EXOD_DEDUCTIBLE_ADD") = False

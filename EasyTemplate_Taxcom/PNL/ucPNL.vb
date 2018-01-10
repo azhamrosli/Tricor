@@ -305,7 +305,7 @@ Public Class ucPNL
 
 
             If mdlPNL2.PNL_Report(RefNo, YA, rpt.DsPNL1, ErrorLog) Then
-                rpt.DataSource = dsDataSet
+                'rpt.DataSource = dsDataSet
                 '   rpt.DsPNL1 = dsDataSet
 
                 rpt.ShowPreview()

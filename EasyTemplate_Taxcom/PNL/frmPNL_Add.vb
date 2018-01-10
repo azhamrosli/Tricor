@@ -387,7 +387,7 @@ Public Class frmPNL_Add
                 'txt_p4ReaLossForeExNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT"))
                 'txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
                 'txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
-
+                txt_p4ExpectedExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
                 CurrentProgress += 5
                 Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
@@ -440,8 +440,6 @@ Public Class frmPNL_Add
             pnlProgress.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         End Try
     End Sub
-
-
     Private Sub DetailsClick(ByVal lbl As DevExpress.XtraEditors.LabelControl, Optional ByVal Type As mdlEnum.TaxComPNLEnuItem = TaxComPNLEnuItem.SALES)
         Try
             Dim doc As New DevExpress.XtraBars.Docking.DockPanel

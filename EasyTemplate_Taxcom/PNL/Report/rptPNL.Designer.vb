@@ -349,7 +349,6 @@ Partial Public Class rptPNL
         Me.OTHER_EXPENSES_TITLE = New DevExpress.XtraReports.UI.SubBand()
         Me.paramCompanyName = New DevExpress.XtraReports.Parameters.Parameter()
         Me.paramYA = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.DsPNL21 = New EasyTemplate_Taxcom.dsPNL2()
         Me.TopMargin = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
@@ -392,7 +391,9 @@ Partial Public Class rptPNL
         Me.Deduct_Details = New DevExpress.XtraReports.UI.CalculatedField()
         Me.AddBack = New DevExpress.XtraReports.UI.CalculatedField()
         Me.Deduct = New DevExpress.XtraReports.UI.CalculatedField()
-        CType(Me.DsPNL21, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.XrLabel207 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel208 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.GroupHeader1 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -435,7 +436,7 @@ Partial Public Class rptPNL
         '
         'XrLabel12
         '
-        Me.XrLabel12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_SALES")})
+        Me.XrLabel12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_SALES", "{0:#,#}")})
         Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(530.2876!, 0.0!)
         Me.XrLabel12.Name = "XrLabel12"
         Me.XrLabel12.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -461,7 +462,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel15.CanGrow = False
         Me.XrLabel15.CanShrink = True
-        Me.XrLabel15.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel15.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(9.999998!, 4.125023!)
         Me.XrLabel15.Name = "XrLabel15"
         Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -498,7 +499,7 @@ Partial Public Class rptPNL
         '
         'XrLabel17
         '
-        Me.XrLabel17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OP_STK")})
+        Me.XrLabel17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OP_STK", "{0:n0}")})
         Me.XrLabel17.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel17.Name = "XrLabel17"
         Me.XrLabel17.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -541,7 +542,7 @@ Partial Public Class rptPNL
         '
         'XrLabel4
         '
-        Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PURCHASES")})
+        Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PURCHASES", "{0:n0}")})
         Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel4.Name = "XrLabel4"
         Me.XrLabel4.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -584,7 +585,7 @@ Partial Public Class rptPNL
         '
         'XrLabel8
         '
-        Me.XrLabel8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST")})
+        Me.XrLabel8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST", "{0:n0}")})
         Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel8.Name = "XrLabel8"
         Me.XrLabel8.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -622,7 +623,7 @@ Partial Public Class rptPNL
         '
         'XrLabel19
         '
-        Me.XrLabel19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST_DPC")})
+        Me.XrLabel19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST_DPC", "{0:n0}")})
         Me.XrLabel19.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel19.Name = "XrLabel19"
         Me.XrLabel19.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -666,7 +667,7 @@ Partial Public Class rptPNL
         '
         'XrLabel23
         '
-        Me.XrLabel23.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST_OAE")})
+        Me.XrLabel23.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST_OAE", "{0:n0}")})
         Me.XrLabel23.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel23.Name = "XrLabel23"
         Me.XrLabel23.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -710,7 +711,7 @@ Partial Public Class rptPNL
         '
         'XrLabel27
         '
-        Me.XrLabel27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST_ONAE")})
+        Me.XrLabel27.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PRO_COST_ONAE", "{0:n0}")})
         Me.XrLabel27.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel27.Name = "XrLabel27"
         Me.XrLabel27.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -744,7 +745,7 @@ Partial Public Class rptPNL
         '
         'XrLabel30
         '
-        Me.XrLabel30.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel30.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel30.LocationFloat = New DevExpress.Utils.PointFloat(28.75002!, 0.0!)
         Me.XrLabel30.Name = "XrLabel30"
         Me.XrLabel30.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -757,7 +758,7 @@ Partial Public Class rptPNL
         'XrLabel31
         '
         Me.XrLabel31.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrLabel31.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PURCHASES_PRO_COST")})
+        Me.XrLabel31.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_PURCHASES_PRO_COST", "{0:n0}")})
         Me.XrLabel31.LocationFloat = New DevExpress.Utils.PointFloat(375.6249!, 0.0!)
         Me.XrLabel31.Name = "XrLabel31"
         Me.XrLabel31.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -782,7 +783,7 @@ Partial Public Class rptPNL
         'XrLabel44
         '
         Me.XrLabel44.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel44.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_COGS")})
+        Me.XrLabel44.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_COGS", "{0:n0}")})
         Me.XrLabel44.LocationFloat = New DevExpress.Utils.PointFloat(530.2874!, 0.0!)
         Me.XrLabel44.Name = "XrLabel44"
         Me.XrLabel44.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -810,7 +811,7 @@ Partial Public Class rptPNL
         '
         'XrLabel16
         '
-        Me.XrLabel16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_CLS_STK")})
+        Me.XrLabel16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_CLS_STK", "{0:n0}")})
         Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(530.2875!, 0.0!)
         Me.XrLabel16.Name = "XrLabel16"
         Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -844,7 +845,7 @@ Partial Public Class rptPNL
         'XrLabel28
         '
         Me.XrLabel28.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
-        Me.XrLabel28.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_GROSS_PROFIT")})
+        Me.XrLabel28.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_GROSS_PROFIT", "{0:n0}")})
         Me.XrLabel28.LocationFloat = New DevExpress.Utils.PointFloat(530.2875!, 0.0000009536743!)
         Me.XrLabel28.Name = "XrLabel28"
         Me.XrLabel28.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -855,7 +856,7 @@ Partial Public Class rptPNL
         '
         'XrLabel24
         '
-        Me.XrLabel24.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel24.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel24.LocationFloat = New DevExpress.Utils.PointFloat(10.00001!, 0.0!)
         Me.XrLabel24.Name = "XrLabel24"
         Me.XrLabel24.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -884,7 +885,7 @@ Partial Public Class rptPNL
         '
         'XrLabel11
         '
-        Me.XrLabel11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN")})
+        Me.XrLabel11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN", "{0:n0}")})
         Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(530.2875!, 0.0!)
         Me.XrLabel11.Name = "XrLabel11"
         Me.XrLabel11.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -929,7 +930,7 @@ Partial Public Class rptPNL
         '
         'XrLabel34
         '
-        Me.XrLabel34.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN_REALGT")})
+        Me.XrLabel34.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN_REALGT", "{0:n0}")})
         Me.XrLabel34.LocationFloat = New DevExpress.Utils.PointFloat(530.2874!, 0.0!)
         Me.XrLabel34.Name = "XrLabel34"
         Me.XrLabel34.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -965,7 +966,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel36.CanGrow = False
         Me.XrLabel36.CanShrink = True
-        Me.XrLabel36.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel36.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel36.LocationFloat = New DevExpress.Utils.PointFloat(9.999911!, 0.0!)
         Me.XrLabel36.Name = "XrLabel36"
         Me.XrLabel36.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -990,7 +991,7 @@ Partial Public Class rptPNL
         '
         'XrLabel55
         '
-        Me.XrLabel55.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_DIVIDEND")})
+        Me.XrLabel55.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_DIVIDEND", "{0:n0}")})
         Me.XrLabel55.LocationFloat = New DevExpress.Utils.PointFloat(375.6248!, 0.479167!)
         Me.XrLabel55.Name = "XrLabel55"
         Me.XrLabel55.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1035,7 +1036,7 @@ Partial Public Class rptPNL
         '
         'XrLabel56
         '
-        Me.XrLabel56.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_INTEREST")})
+        Me.XrLabel56.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_INTEREST", "{0:n0}")})
         Me.XrLabel56.LocationFloat = New DevExpress.Utils.PointFloat(375.6248!, 0.0!)
         Me.XrLabel56.Name = "XrLabel56"
         Me.XrLabel56.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1080,7 +1081,7 @@ Partial Public Class rptPNL
         '
         'XrLabel57
         '
-        Me.XrLabel57.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_RENTAL")})
+        Me.XrLabel57.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_RENTAL", "{0:n0}")})
         Me.XrLabel57.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0000009536743!)
         Me.XrLabel57.Name = "XrLabel57"
         Me.XrLabel57.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1124,8 +1125,8 @@ Partial Public Class rptPNL
         '
         'XrLabel58
         '
-        Me.XrLabel58.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_ROYALTY")})
-        Me.XrLabel58.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0000009536743!)
+        Me.XrLabel58.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_ROYALTY", "{0:n0}")})
+        Me.XrLabel58.LocationFloat = New DevExpress.Utils.PointFloat(376.1711!, 0.0!)
         Me.XrLabel58.Name = "XrLabel58"
         Me.XrLabel58.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel58.SizeF = New System.Drawing.SizeF(154.6626!, 23.0!)
@@ -1169,7 +1170,7 @@ Partial Public Class rptPNL
         '
         'XrLabel47
         '
-        Me.XrLabel47.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_OTHER")})
+        Me.XrLabel47.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN_OTHER", "{0:n0}")})
         Me.XrLabel47.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel47.Name = "XrLabel47"
         Me.XrLabel47.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1214,7 +1215,7 @@ Partial Public Class rptPNL
         'XrLabel38
         '
         Me.XrLabel38.Borders = DevExpress.XtraPrinting.BorderSide.Top
-        Me.XrLabel38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN")})
+        Me.XrLabel38.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_IN", "{0:n0}")})
         Me.XrLabel38.LocationFloat = New DevExpress.Utils.PointFloat(530.2874!, 0.0!)
         Me.XrLabel38.Name = "XrLabel38"
         Me.XrLabel38.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1240,7 +1241,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel41.CanGrow = False
         Me.XrLabel41.CanShrink = True
-        Me.XrLabel41.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel41.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel41.LocationFloat = New DevExpress.Utils.PointFloat(10.00015!, 0.0!)
         Me.XrLabel41.Name = "XrLabel41"
         Me.XrLabel41.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1275,7 +1276,7 @@ Partial Public Class rptPNL
         '
         'XrLabel59
         '
-        Me.XrLabel59.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_FA_DISP")})
+        Me.XrLabel59.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_FA_DISP", "{0:n0}")})
         Me.XrLabel59.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel59.Name = "XrLabel59"
         Me.XrLabel59.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1320,8 +1321,8 @@ Partial Public Class rptPNL
         '
         'XrLabel62
         '
-        Me.XrLabel62.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_INV_DISP")})
-        Me.XrLabel62.LocationFloat = New DevExpress.Utils.PointFloat(375.6248!, 0.0!)
+        Me.XrLabel62.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_INV_DISP", "{0:n0}")})
+        Me.XrLabel62.LocationFloat = New DevExpress.Utils.PointFloat(376.1711!, 0.0!)
         Me.XrLabel62.Name = "XrLabel62"
         Me.XrLabel62.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel62.SizeF = New System.Drawing.SizeF(154.6626!, 23.0!)
@@ -1365,7 +1366,7 @@ Partial Public Class rptPNL
         '
         'XrLabel65
         '
-        Me.XrLabel65.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_EXM_DIV")})
+        Me.XrLabel65.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_EXM_DIV", "{0:n0}")})
         Me.XrLabel65.LocationFloat = New DevExpress.Utils.PointFloat(375.6252!, 0.0!)
         Me.XrLabel65.Name = "XrLabel65"
         Me.XrLabel65.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1410,7 +1411,7 @@ Partial Public Class rptPNL
         '
         'XrLabel68
         '
-        Me.XrLabel68.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_FIR")})
+        Me.XrLabel68.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_FIR", "{0:n0}")})
         Me.XrLabel68.LocationFloat = New DevExpress.Utils.PointFloat(375.6249!, 0.0!)
         Me.XrLabel68.Name = "XrLabel68"
         Me.XrLabel68.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1454,7 +1455,7 @@ Partial Public Class rptPNL
         '
         'XrLabel52
         '
-        Me.XrLabel52.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_REALG")})
+        Me.XrLabel52.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_REALG", "{0:n0}")})
         Me.XrLabel52.LocationFloat = New DevExpress.Utils.PointFloat(375.6249!, 0.0!)
         Me.XrLabel52.Name = "XrLabel52"
         Me.XrLabel52.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1499,7 +1500,7 @@ Partial Public Class rptPNL
         '
         'XrLabel71
         '
-        Me.XrLabel71.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN_UNREALGT")})
+        Me.XrLabel71.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTH_BSIN_UNREALGT", "{0:n0}")})
         Me.XrLabel71.LocationFloat = New DevExpress.Utils.PointFloat(376.1711!, 0.0!)
         Me.XrLabel71.Name = "XrLabel71"
         Me.XrLabel71.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1545,7 +1546,7 @@ Partial Public Class rptPNL
         'XrLabel74
         '
         Me.XrLabel74.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO" & _
-                    "RT_SCH.PL_NONTAX_IN_UNREALG")})
+                    "RT_SCH.PL_NONTAX_IN_UNREALG", "{0:n0}")})
         Me.XrLabel74.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel74.Name = "XrLabel74"
         Me.XrLabel74.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1590,7 +1591,7 @@ Partial Public Class rptPNL
         '
         'XrLabel77
         '
-        Me.XrLabel77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_INSU_COMP")})
+        Me.XrLabel77.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN_INSU_COMP", "{0:n0}")})
         Me.XrLabel77.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel77.Name = "XrLabel77"
         Me.XrLabel77.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1626,7 +1627,7 @@ Partial Public Class rptPNL
         'XrLabel79
         '
         Me.XrLabel79.Borders = DevExpress.XtraPrinting.BorderSide.Top
-        Me.XrLabel79.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN")})
+        Me.XrLabel79.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NONTAX_IN", "{0:n0}")})
         Me.XrLabel79.LocationFloat = New DevExpress.Utils.PointFloat(530.2874!, 0.0!)
         Me.XrLabel79.Name = "XrLabel79"
         Me.XrLabel79.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1652,7 +1653,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel80.CanGrow = False
         Me.XrLabel80.CanShrink = True
-        Me.XrLabel80.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel80.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel80.LocationFloat = New DevExpress.Utils.PointFloat(9.999911!, 0.0!)
         Me.XrLabel80.Name = "XrLabel80"
         Me.XrLabel80.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1687,7 +1688,7 @@ Partial Public Class rptPNL
         '
         'XrLabel82
         '
-        Me.XrLabel82.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_INTRESTRICT")})
+        Me.XrLabel82.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_INTRESTRICT", "{0:n0}")})
         Me.XrLabel82.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel82.Name = "XrLabel82"
         Me.XrLabel82.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1732,7 +1733,7 @@ Partial Public Class rptPNL
         '
         'XrLabel85
         '
-        Me.XrLabel85.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_INT")})
+        Me.XrLabel85.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_INT", "{0:n0}")})
         Me.XrLabel85.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel85.Name = "XrLabel85"
         Me.XrLabel85.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1776,7 +1777,7 @@ Partial Public Class rptPNL
         '
         'XrLabel88
         '
-        Me.XrLabel88.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_LAWYER_COST")})
+        Me.XrLabel88.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_LAWYER_COST", "{0:n0}")})
         Me.XrLabel88.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel88.Name = "XrLabel88"
         Me.XrLabel88.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1820,7 +1821,7 @@ Partial Public Class rptPNL
         '
         'XrLabel91
         '
-        Me.XrLabel91.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TECH_FEE")})
+        Me.XrLabel91.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TECH_FEE", "{0:n0}")})
         Me.XrLabel91.LocationFloat = New DevExpress.Utils.PointFloat(375.6248!, 0.0!)
         Me.XrLabel91.Name = "XrLabel91"
         Me.XrLabel91.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1863,7 +1864,7 @@ Partial Public Class rptPNL
         '
         'XrLabel94
         '
-        Me.XrLabel94.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_CONTRACT_EXP")})
+        Me.XrLabel94.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_CONTRACT_EXP", "{0:n0}")})
         Me.XrLabel94.LocationFloat = New DevExpress.Utils.PointFloat(375.6252!, 0.0!)
         Me.XrLabel94.Name = "XrLabel94"
         Me.XrLabel94.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1907,7 +1908,7 @@ Partial Public Class rptPNL
         '
         'XrLabel97
         '
-        Me.XrLabel97.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_DIRECTORS_FEE")})
+        Me.XrLabel97.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_DIRECTORS_FEE", "{0:n0}")})
         Me.XrLabel97.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel97.Name = "XrLabel97"
         Me.XrLabel97.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1951,7 +1952,7 @@ Partial Public Class rptPNL
         '
         'XrLabel100
         '
-        Me.XrLabel100.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_SALARY")})
+        Me.XrLabel100.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_SALARY", "{0:n0}")})
         Me.XrLabel100.LocationFloat = New DevExpress.Utils.PointFloat(375.6251!, 0.0!)
         Me.XrLabel100.Name = "XrLabel100"
         Me.XrLabel100.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -1995,7 +1996,7 @@ Partial Public Class rptPNL
         '
         'XrLabel103
         '
-        Me.XrLabel103.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EMPL_STOCK")})
+        Me.XrLabel103.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EMPL_STOCK", "{0:n0}")})
         Me.XrLabel103.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel103.Name = "XrLabel103"
         Me.XrLabel103.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2039,7 +2040,7 @@ Partial Public Class rptPNL
         '
         'XrLabel106
         '
-        Me.XrLabel106.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_ROYALTY")})
+        Me.XrLabel106.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_ROYALTY", "{0:n0}")})
         Me.XrLabel106.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel106.Name = "XrLabel106"
         Me.XrLabel106.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2083,7 +2084,7 @@ Partial Public Class rptPNL
         '
         'XrLabel109
         '
-        Me.XrLabel109.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_RENT")})
+        Me.XrLabel109.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_RENT", "{0:n0}")})
         Me.XrLabel109.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel109.Name = "XrLabel109"
         Me.XrLabel109.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2127,7 +2128,7 @@ Partial Public Class rptPNL
         '
         'XrLabel112
         '
-        Me.XrLabel112.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_MAINTENANCE")})
+        Me.XrLabel112.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_MAINTENANCE", "{0:n0}")})
         Me.XrLabel112.LocationFloat = New DevExpress.Utils.PointFloat(375.6251!, 0.0!)
         Me.XrLabel112.Name = "XrLabel112"
         Me.XrLabel112.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2172,7 +2173,7 @@ Partial Public Class rptPNL
         '
         'XrLabel115
         '
-        Me.XrLabel115.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_RND")})
+        Me.XrLabel115.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_RND", "{0:n0}")})
         Me.XrLabel115.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
         Me.XrLabel115.Name = "XrLabel115"
         Me.XrLabel115.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2216,8 +2217,8 @@ Partial Public Class rptPNL
         '
         'XrLabel118
         '
-        Me.XrLabel118.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_ADVERT")})
-        Me.XrLabel118.LocationFloat = New DevExpress.Utils.PointFloat(375.6247!, 0.0!)
+        Me.XrLabel118.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_ADVERT", "{0:n0}")})
+        Me.XrLabel118.LocationFloat = New DevExpress.Utils.PointFloat(376.1711!, 0.0!)
         Me.XrLabel118.Name = "XrLabel118"
         Me.XrLabel118.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel118.SizeF = New System.Drawing.SizeF(154.6626!, 23.0!)
@@ -2260,7 +2261,7 @@ Partial Public Class rptPNL
         '
         'XrLabel121
         '
-        Me.XrLabel121.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TRAVEL")})
+        Me.XrLabel121.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TRAVEL", "{0:n0}")})
         Me.XrLabel121.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel121.Name = "XrLabel121"
         Me.XrLabel121.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2340,7 +2341,7 @@ Partial Public Class rptPNL
         '
         'XrLabel127
         '
-        Me.XrLabel127.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_JKDM")})
+        Me.XrLabel127.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_JKDM", "{0:n0}")})
         Me.XrLabel127.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel127.Name = "XrLabel127"
         Me.XrLabel127.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2376,7 +2377,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel129.CanGrow = False
         Me.XrLabel129.CanShrink = True
-        Me.XrLabel129.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel129.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel129.LocationFloat = New DevExpress.Utils.PointFloat(10.00023!, 0.0!)
         Me.XrLabel129.Name = "XrLabel129"
         Me.XrLabel129.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2411,7 +2412,7 @@ Partial Public Class rptPNL
         '
         'XrLabel131
         '
-        Me.XrLabel131.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DPC")})
+        Me.XrLabel131.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DPC", "{0:n0}")})
         Me.XrLabel131.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel131.Name = "XrLabel131"
         Me.XrLabel131.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2455,7 +2456,7 @@ Partial Public Class rptPNL
         '
         'XrLabel134
         '
-        Me.XrLabel134.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT_SCH.PL_OTHER_EXP_DNT_APP")})
+        Me.XrLabel134.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT_SCH.PL_OTHER_EXP_DNT_APP", "{0:n0}")})
         Me.XrLabel134.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel134.Name = "XrLabel134"
         Me.XrLabel134.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2500,7 +2501,7 @@ Partial Public Class rptPNL
         '
         'XrLabel137
         '
-        Me.XrLabel137.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DNT_NAPP")})
+        Me.XrLabel137.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DNT_NAPP", "{0:n0}")})
         Me.XrLabel137.LocationFloat = New DevExpress.Utils.PointFloat(376.1711!, 0.0!)
         Me.XrLabel137.Name = "XrLabel137"
         Me.XrLabel137.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2545,7 +2546,7 @@ Partial Public Class rptPNL
         '
         'XrLabel140
         '
-        Me.XrLabel140.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ZAKAT")})
+        Me.XrLabel140.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ZAKAT", "{0:n0}")})
         Me.XrLabel140.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel140.Name = "XrLabel140"
         Me.XrLabel140.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2590,7 +2591,7 @@ Partial Public Class rptPNL
         '
         'XrLabel143
         '
-        Me.XrLabel143.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_FA_DISP")})
+        Me.XrLabel143.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_FA_DISP", "{0:n0}")})
         Me.XrLabel143.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel143.Name = "XrLabel143"
         Me.XrLabel143.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2635,7 +2636,7 @@ Partial Public Class rptPNL
         '
         'XrLabel146
         '
-        Me.XrLabel146.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ENTM_CLNT")})
+        Me.XrLabel146.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ENTM_CLNT", "{0:n0}")})
         Me.XrLabel146.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel146.Name = "XrLabel146"
         Me.XrLabel146.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2680,7 +2681,7 @@ Partial Public Class rptPNL
         '
         'XrLabel149
         '
-        Me.XrLabel149.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ENTM_STFF")})
+        Me.XrLabel149.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ENTM_STFF", "{0:n0}")})
         Me.XrLabel149.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel149.Name = "XrLabel149"
         Me.XrLabel149.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2725,7 +2726,7 @@ Partial Public Class rptPNL
         '
         'XrLabel152
         '
-        Me.XrLabel152.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_PENALTY")})
+        Me.XrLabel152.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_PENALTY", "{0:n0}")})
         Me.XrLabel152.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel152.Name = "XrLabel152"
         Me.XrLabel152.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2770,7 +2771,7 @@ Partial Public Class rptPNL
         '
         'XrLabel155
         '
-        Me.XrLabel155.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_PROV_ACC")})
+        Me.XrLabel155.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_PROV_ACC", "{0:n0}")})
         Me.XrLabel155.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel155.Name = "XrLabel155"
         Me.XrLabel155.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2815,7 +2816,7 @@ Partial Public Class rptPNL
         '
         'XrLabel158
         '
-        Me.XrLabel158.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_LEAVE")})
+        Me.XrLabel158.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_LEAVE", "{0:n0}")})
         Me.XrLabel158.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel158.Name = "XrLabel158"
         Me.XrLabel158.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2860,7 +2861,7 @@ Partial Public Class rptPNL
         '
         'XrLabel161
         '
-        Me.XrLabel161.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_FA_WO")})
+        Me.XrLabel161.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_FA_WO", "{0:n0}")})
         Me.XrLabel161.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel161.Name = "XrLabel161"
         Me.XrLabel161.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2905,7 +2906,7 @@ Partial Public Class rptPNL
         '
         'XrLabel164
         '
-        Me.XrLabel164.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_UNREALOSS")})
+        Me.XrLabel164.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_UNREALOSS", "{0:n0}")})
         Me.XrLabel164.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel164.Name = "XrLabel164"
         Me.XrLabel164.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2950,7 +2951,7 @@ Partial Public Class rptPNL
         '
         'XrLabel167
         '
-        Me.XrLabel167.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_REALOSS")})
+        Me.XrLabel167.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_REALOSS", "{0:n0}")})
         Me.XrLabel167.LocationFloat = New DevExpress.Utils.PointFloat(375.6245!, 0.0!)
         Me.XrLabel167.Name = "XrLabel167"
         Me.XrLabel167.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -2995,7 +2996,7 @@ Partial Public Class rptPNL
         '
         'XrLabel170
         '
-        Me.XrLabel170.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXRLOSSFOREIGNT")})
+        Me.XrLabel170.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXRLOSSFOREIGNT", "{0:n0}")})
         Me.XrLabel170.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel170.Name = "XrLabel170"
         Me.XrLabel170.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3040,7 +3041,7 @@ Partial Public Class rptPNL
         '
         'XrLabel173
         '
-        Me.XrLabel173.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_INI_SUB")})
+        Me.XrLabel173.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_INI_SUB", "{0:n0}")})
         Me.XrLabel173.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel173.Name = "XrLabel173"
         Me.XrLabel173.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3085,7 +3086,7 @@ Partial Public Class rptPNL
         '
         'XrLabel176
         '
-        Me.XrLabel176.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_CAP_EXP")})
+        Me.XrLabel176.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_CAP_EXP", "{0:n0}")})
         Me.XrLabel176.LocationFloat = New DevExpress.Utils.PointFloat(375.6246!, 0.0!)
         Me.XrLabel176.Name = "XrLabel176"
         Me.XrLabel176.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3130,7 +3131,7 @@ Partial Public Class rptPNL
         '
         'XrLabel179
         '
-        Me.XrLabel179.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_OTHERS")})
+        Me.XrLabel179.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_OTHERS", "{0:n0}")})
         Me.XrLabel179.LocationFloat = New DevExpress.Utils.PointFloat(376.1711!, 0.0!)
         Me.XrLabel179.Name = "XrLabel179"
         Me.XrLabel179.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3164,7 +3165,7 @@ Partial Public Class rptPNL
         '
         'XrLabel181
         '
-        Me.XrLabel181.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel181.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel181.LocationFloat = New DevExpress.Utils.PointFloat(10.00023!, 0.0!)
         Me.XrLabel181.Name = "XrLabel181"
         Me.XrLabel181.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3177,7 +3178,7 @@ Partial Public Class rptPNL
         'XrLabel182
         '
         Me.XrLabel182.Borders = DevExpress.XtraPrinting.BorderSide.Top
-        Me.XrLabel182.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP")})
+        Me.XrLabel182.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP", "{0:n0}")})
         Me.XrLabel182.LocationFloat = New DevExpress.Utils.PointFloat(375.625!, 0.0!)
         Me.XrLabel182.Name = "XrLabel182"
         Me.XrLabel182.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3194,7 +3195,7 @@ Partial Public Class rptPNL
         '
         'XrLabel184
         '
-        Me.XrLabel184.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel184.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel184.LocationFloat = New DevExpress.Utils.PointFloat(10.00023!, 0.0!)
         Me.XrLabel184.Name = "XrLabel184"
         Me.XrLabel184.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3207,7 +3208,7 @@ Partial Public Class rptPNL
         'XrLabel185
         '
         Me.XrLabel185.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel185.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TOT_EXP")})
+        Me.XrLabel185.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TOT_EXP", "{0:n0}")})
         Me.XrLabel185.LocationFloat = New DevExpress.Utils.PointFloat(530.2876!, 0.0!)
         Me.XrLabel185.Name = "XrLabel185"
         Me.XrLabel185.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3224,7 +3225,7 @@ Partial Public Class rptPNL
         '
         'XrLabel187
         '
-        Me.XrLabel187.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel187.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel187.LocationFloat = New DevExpress.Utils.PointFloat(9.999752!, 0.0!)
         Me.XrLabel187.Name = "XrLabel187"
         Me.XrLabel187.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3238,7 +3239,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel188.Borders = CType((DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Bottom), DevExpress.XtraPrinting.BorderSide)
         Me.XrLabel188.BorderWidth = 2.0!
-        Me.XrLabel188.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NET_PROFIT_LOSS")})
+        Me.XrLabel188.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_NET_PROFIT_LOSS", "{0:n0}")})
         Me.XrLabel188.LocationFloat = New DevExpress.Utils.PointFloat(530.2871!, 0.0!)
         Me.XrLabel188.Name = "XrLabel188"
         Me.XrLabel188.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3256,7 +3257,7 @@ Partial Public Class rptPNL
         '
         'XrLabel190
         '
-        Me.XrLabel190.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel190.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel190.LocationFloat = New DevExpress.Utils.PointFloat(10.00023!, 0.0!)
         Me.XrLabel190.Name = "XrLabel190"
         Me.XrLabel190.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3296,11 +3297,6 @@ Partial Public Class rptPNL
         Me.paramYA.Type = GetType(Integer)
         Me.paramYA.ValueInfo = "0"
         '
-        'DsPNL21
-        '
-        Me.DsPNL21.DataSetName = "dsPNL2"
-        Me.DsPNL21.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
         'TopMargin
         '
         Me.TopMargin.HeightF = 20.0!
@@ -3317,14 +3313,13 @@ Partial Public Class rptPNL
         '
         'ReportHeader
         '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel195, Me.XrLabel193, Me.XrLabel194})
-        Me.ReportHeader.HeightF = 36.45833!
+        Me.ReportHeader.HeightF = 0.0!
         Me.ReportHeader.Name = "ReportHeader"
         '
         'XrLabel195
         '
-        Me.XrLabel195.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel195.LocationFloat = New DevExpress.Utils.PointFloat(683.8582!, 13.45833!)
+        Me.XrLabel195.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel195.LocationFloat = New DevExpress.Utils.PointFloat(683.8581!, 10.0!)
         Me.XrLabel195.Name = "XrLabel195"
         Me.XrLabel195.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel195.SizeF = New System.Drawing.SizeF(98.50403!, 23.0!)
@@ -3335,8 +3330,8 @@ Partial Public Class rptPNL
         '
         'XrLabel193
         '
-        Me.XrLabel193.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel193.LocationFloat = New DevExpress.Utils.PointFloat(374.5334!, 13.4583!)
+        Me.XrLabel193.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel193.LocationFloat = New DevExpress.Utils.PointFloat(374.5333!, 9.999974!)
         Me.XrLabel193.Name = "XrLabel193"
         Me.XrLabel193.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel193.SizeF = New System.Drawing.SizeF(154.6625!, 23.0!)
@@ -3347,8 +3342,8 @@ Partial Public Class rptPNL
         '
         'XrLabel194
         '
-        Me.XrLabel194.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel194.LocationFloat = New DevExpress.Utils.PointFloat(529.7417!, 13.45833!)
+        Me.XrLabel194.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel194.LocationFloat = New DevExpress.Utils.PointFloat(529.7417!, 10.0!)
         Me.XrLabel194.Name = "XrLabel194"
         Me.XrLabel194.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel194.SizeF = New System.Drawing.SizeF(154.1166!, 23.0!)
@@ -3359,7 +3354,8 @@ Partial Public Class rptPNL
         '
         'PageHeader
         '
-        Me.PageHeader.HeightF = 21.87503!
+        Me.PageHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel208, Me.XrLabel207})
+        Me.PageHeader.HeightF = 71.04169!
         Me.PageHeader.Name = "PageHeader"
         '
         'TOTALCOS
@@ -3416,7 +3412,6 @@ Partial Public Class rptPNL
         '
         Me.OTHER_EXPENSES_DETAILS.Condition = "[DataSource.RowCount] = 0"
         Me.OTHER_EXPENSES_DETAILS.DataMember = "OTHER_EXPENSES.FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
-        Me.OTHER_EXPENSES_DETAILS.DataSource = Me.DsPNL1
         Me.OTHER_EXPENSES_DETAILS.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.OTHER_EXPENSES_DETAILS.Name = "OTHER_EXPENSES_DETAILS"
         '
@@ -3437,14 +3432,13 @@ Partial Public Class rptPNL
         '
         Me.OTHER_EXPENSES_DETAILS_INVT.Condition = "[DataSource.RowCount] = 0"
         Me.OTHER_EXPENSES_DETAILS_INVT.DataMember = "OTHER_EXPENSES.FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
-        Me.OTHER_EXPENSES_DETAILS_INVT.DataSource = Me.DsPNL1
         Me.OTHER_EXPENSES_DETAILS_INVT.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[True]
         Me.OTHER_EXPENSES_DETAILS_INVT.Name = "OTHER_EXPENSES_DETAILS_INVT"
         '
         'XrLabel201
         '
-        Me.XrLabel201.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel201.LocationFloat = New DevExpress.Utils.PointFloat(507.4209!, 42.41664!)
+        Me.XrLabel201.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel201.LocationFloat = New DevExpress.Utils.PointFloat(508.5126!, 95.66671!)
         Me.XrLabel201.Name = "XrLabel201"
         Me.XrLabel201.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel201.SizeF = New System.Drawing.SizeF(89.03741!, 23.0!)
@@ -3455,8 +3449,8 @@ Partial Public Class rptPNL
         '
         'XrLabel202
         '
-        Me.XrLabel202.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel202.LocationFloat = New DevExpress.Utils.PointFloat(418.3835!, 42.41664!)
+        Me.XrLabel202.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel202.LocationFloat = New DevExpress.Utils.PointFloat(419.4752!, 95.66671!)
         Me.XrLabel202.Name = "XrLabel202"
         Me.XrLabel202.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel202.SizeF = New System.Drawing.SizeF(89.03741!, 23.0!)
@@ -3467,8 +3461,8 @@ Partial Public Class rptPNL
         '
         'XrLabel203
         '
-        Me.XrLabel203.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel203.LocationFloat = New DevExpress.Utils.PointFloat(596.4583!, 42.41664!)
+        Me.XrLabel203.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel203.LocationFloat = New DevExpress.Utils.PointFloat(597.55!, 95.66671!)
         Me.XrLabel203.Name = "XrLabel203"
         Me.XrLabel203.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel203.SizeF = New System.Drawing.SizeF(89.03741!, 23.0!)
@@ -3479,8 +3473,8 @@ Partial Public Class rptPNL
         '
         'XrLabel204
         '
-        Me.XrLabel204.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel204.LocationFloat = New DevExpress.Utils.PointFloat(685.4957!, 42.41664!)
+        Me.XrLabel204.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel204.LocationFloat = New DevExpress.Utils.PointFloat(686.5875!, 95.66671!)
         Me.XrLabel204.Name = "XrLabel204"
         Me.XrLabel204.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel204.SizeF = New System.Drawing.SizeF(89.03741!, 23.00008!)
@@ -3511,7 +3505,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel210.Borders = DevExpress.XtraPrinting.BorderSide.None
         Me.XrLabel210.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "OTHER_EXPENSES.EXO_SOURCENO", "Source {0}")})
-        Me.XrLabel210.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel210.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel210.LocationFloat = New DevExpress.Utils.PointFloat(10.00023!, 10.00001!)
         Me.XrLabel210.Name = "XrLabel210"
         Me.XrLabel210.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -3609,12 +3603,13 @@ Partial Public Class rptPNL
         'GroupFooter3
         '
         Me.GroupFooter3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel205})
-        Me.GroupFooter3.HeightF = 100.0!
+        Me.GroupFooter3.HeightF = 23.0!
         Me.GroupFooter3.Name = "GroupFooter3"
         '
         'DetailReport3
         '
         Me.DetailReport3.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail4, Me.GroupFooter4})
+        Me.DetailReport3.DataMember = "OTHER_EXPENSES.FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
         Me.DetailReport3.DataSource = Me.DsPNL1
         Me.DetailReport3.FormattingRules.Add(Me.OTHER_EXPENSES_DETAILS)
         Me.DetailReport3.Level = 0
@@ -3657,16 +3652,16 @@ Partial Public Class rptPNL
         'ReportHeader1
         '
         Me.ReportHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel202, Me.XrLabel186, Me.XrLabel203, Me.XrLabel201, Me.XrLabel204, Me.XrLabel196})
-        Me.ReportHeader1.HeightF = 65.41672!
+        Me.ReportHeader1.HeightF = 118.6668!
         Me.ReportHeader1.Name = "ReportHeader1"
         '
         'XrLabel186
         '
         Me.XrLabel186.Borders = DevExpress.XtraPrinting.BorderSide.None
-        Me.XrLabel186.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Me.DsPNL21, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO" & _
-                    "RT_SCH.PL_OTHER_EXP", "Schedule {0}")})
-        Me.XrLabel186.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel186.LocationFloat = New DevExpress.Utils.PointFloat(631.6951!, 0.0!)
+        Me.XrLabel186.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO" & _
+                    "RT_SCH.PL_OTHER_EXP_OTHERS", "Schedule {0}")})
+        Me.XrLabel186.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel186.LocationFloat = New DevExpress.Utils.PointFloat(632.7868!, 53.25012!)
         Me.XrLabel186.Name = "XrLabel186"
         Me.XrLabel186.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel186.SizeF = New System.Drawing.SizeF(127.2131!, 23.0!)
@@ -3677,23 +3672,21 @@ Partial Public Class rptPNL
         '
         'XrLabel196
         '
-        Me.XrLabel196.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "OTHER_EXPENSES.EXO_AMOUNT")})
-        Me.XrLabel196.Font = New System.Drawing.Font("Times New Roman", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel196.LocationFloat = New DevExpress.Utils.PointFloat(9.999752!, 0.0!)
+        Me.XrLabel196.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_OTHERS", "Other Expenses - RM{0:n}")})
+        Me.XrLabel196.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel196.LocationFloat = New DevExpress.Utils.PointFloat(11.09146!, 53.25012!)
         Me.XrLabel196.Name = "XrLabel196"
         Me.XrLabel196.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel196.SizeF = New System.Drawing.SizeF(519.1957!, 23.0!)
         Me.XrLabel196.StylePriority.UseFont = False
         Me.XrLabel196.StylePriority.UseTextAlignment = False
         XrSummary5.FormatString = "Other -RM{0}"
-        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrLabel196.Summary = XrSummary5
         Me.XrLabel196.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'AddBack_Details
         '
         Me.AddBack_Details.DataMember = "OTHER_EXPENSES.FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
-        Me.AddBack_Details.DataSource = Me.DsPNL1
         Me.AddBack_Details.DisplayName = "AddBack_Details"
         Me.AddBack_Details.Expression = "iif([EXOD_DEDUCTIBLE],'Yes','')"
         Me.AddBack_Details.FieldType = DevExpress.XtraReports.UI.FieldType.[String]
@@ -3702,7 +3695,6 @@ Partial Public Class rptPNL
         'Deduct_Details
         '
         Me.Deduct_Details.DataMember = "OTHER_EXPENSES.FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
-        Me.Deduct_Details.DataSource = Me.DsPNL1
         Me.Deduct_Details.DisplayName = "Deduct_Details"
         Me.Deduct_Details.Expression = "iif([EXOD_DEDUCTIBLE_ADD],'Yes','')"
         Me.Deduct_Details.FieldType = DevExpress.XtraReports.UI.FieldType.[String]
@@ -3711,7 +3703,6 @@ Partial Public Class rptPNL
         'AddBack
         '
         Me.AddBack.DataMember = "OTHER_EXPENSES"
-        Me.AddBack.DataSource = Me.DsPNL1
         Me.AddBack.Expression = "iif([EXO_DEDUCTIBLE],'Yes','')"
         Me.AddBack.FieldType = DevExpress.XtraReports.UI.FieldType.[String]
         Me.AddBack.Name = "AddBack"
@@ -3719,24 +3710,53 @@ Partial Public Class rptPNL
         'Deduct
         '
         Me.Deduct.DataMember = "OTHER_EXPENSES"
-        Me.Deduct.DataSource = Me.DsPNL1
         Me.Deduct.Expression = "iif([EXO_DEDUCTIBLE_ADD],'Yes','')"
         Me.Deduct.FieldType = DevExpress.XtraReports.UI.FieldType.[String]
         Me.Deduct.Name = "Deduct"
         '
+        'XrLabel207
+        '
+        Me.XrLabel207.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCompanyName, "Text", "")})
+        Me.XrLabel207.Font = New System.Drawing.Font("Segoe UI", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel207.LocationFloat = New DevExpress.Utils.PointFloat(46.45808!, 10.0!)
+        Me.XrLabel207.Name = "XrLabel207"
+        Me.XrLabel207.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
+        Me.XrLabel207.SizeF = New System.Drawing.SizeF(661.7086!, 23.0!)
+        Me.XrLabel207.StylePriority.UseFont = False
+        Me.XrLabel207.StylePriority.UseTextAlignment = False
+        Me.XrLabel207.Text = "XrLabel207"
+        Me.XrLabel207.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'XrLabel208
+        '
+        Me.XrLabel208.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramYA, "Text", "Tax Computation - Year of Assessment {0}")})
+        Me.XrLabel208.LocationFloat = New DevExpress.Utils.PointFloat(46.45808!, 33.0!)
+        Me.XrLabel208.Name = "XrLabel208"
+        Me.XrLabel208.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
+        Me.XrLabel208.SizeF = New System.Drawing.SizeF(661.7086!, 23.0!)
+        Me.XrLabel208.StylePriority.UseTextAlignment = False
+        Me.XrLabel208.Text = "XrLabel208"
+        Me.XrLabel208.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'GroupHeader1
+        '
+        Me.GroupHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel195, Me.XrLabel193, Me.XrLabel194})
+        Me.GroupHeader1.HeightF = 33.0!
+        Me.GroupHeader1.Name = "GroupHeader1"
+        '
         'rptPNL
         '
-        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.DetailReport2})
+        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.DetailReport2, Me.GroupHeader1})
         Me.CalculatedFields.AddRange(New DevExpress.XtraReports.UI.CalculatedField() {Me.AddBack_Details, Me.Deduct_Details, Me.AddBack, Me.Deduct})
         Me.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT"
-        Me.DataSource = Me.DsPNL21
+        Me.DataSource = Me.DsPNL1
+        Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SALES, Me.OPENSTOCK, Me.PURCHASE, Me.DEPRECIATION, Me.OTHERALLOWEXP, Me.OTHERNONALLOWEXP, Me.CLOSESTOCK, Me.OTHERBUSINC, Me.REALFETRADE, Me.DIVIDENDINC, Me.INTERESTINC, Me.RENTALINC, Me.ROYALTYINC, Me.OTHERINC, Me.PDFIXASSET, Me.PDINVEST, Me.EXEMDIV, Me.FORINCREMIT, Me.REALFE, Me.UNREALFENONTRADE, Me.UNREALFETRADE, Me.OTHERNONTAXINC, Me.INTERESTRESTRICT, Me.EXPOTHERINTEREST, Me.EXPLEGAL, Me.EXPTECHNICAL, Me.EXPCONTRACTPAY, Me.EXPDIRECTORFEE, Me.EXPSALARY, Me.EXPEMPLOYEESTOCK, Me.EXPROYALTY, Me.EXPRENTAL, Me.EXPREPAIRMAINTENANCE, Me.EXPRND, Me.EXPADVERTISEMENT, Me.EXPTRAVEL, Me.EXPDEPRECIATION, Me.EXPDONATIONAPPR, Me.EXPDONATIONNONAPPR, Me.EXPZAKAT, Me.EXPLOSSDISPFA, Me.EXPENTERTAINNONSTAFF, Me.EXPENTERTAINSTAFF, Me.EXPCOMPAUNDPENALTY, Me.EXPPROVISION, Me.EXPLEAVEPASSAGE, Me.EXPFAWRITTENOFF, Me.EXPUNREALLOSSFE, Me.EXPREALLOSSFETRADE, Me.EXPREALLOSSFENONTRADE, Me.EXPINITIALSUBSCRIPT, Me.EXPCAPITALEXPENDITURE, Me.EXPOTHERSEXPENSES, Me.EXPJKDM, Me.LESSCLOSINGSTOCK, Me.TOTALCOS, Me.OTHERINCOME, Me.NONTAXABLEINCOME, Me.TITLE_COS, Me.TITLE_NONBIZINCOME, Me.TITLE_NONTAXABLEINCOME, Me.TITLE_EXPENDITURE, Me.TITLE_OTHEREXPENDITURE, Me.OTHER_EXPENSES_DETAILS, Me.OTHER_EXPENSES_DETAILS_INVT})
         Me.Margins = New System.Drawing.Printing.Margins(31, 35, 20, 100)
         Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA})
         Me.RequestParameters = False
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "17.1"
-        CType(Me.DsPNL21, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
@@ -4010,7 +4030,6 @@ Partial Public Class rptPNL
     Friend WithEvents XrLabel194 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel195 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents PageHeader As DevExpress.XtraReports.UI.PageHeaderBand
-    Friend WithEvents DsPNL21 As EasyTemplate_Taxcom.dsPNL2
     Friend WithEvents SALES As DevExpress.XtraReports.UI.FormattingRule
     Friend WithEvents OPENSTOCK As DevExpress.XtraReports.UI.FormattingRule
     Friend WithEvents PURCHASE As DevExpress.XtraReports.UI.FormattingRule
@@ -4108,4 +4127,7 @@ Partial Public Class rptPNL
     Friend WithEvents AddBack As DevExpress.XtraReports.UI.CalculatedField
     Friend WithEvents Deduct As DevExpress.XtraReports.UI.CalculatedField
     Friend WithEvents ReportHeader1 As DevExpress.XtraReports.UI.ReportHeaderBand
+    Friend WithEvents XrLabel208 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel207 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents GroupHeader1 As DevExpress.XtraReports.UI.GroupHeaderBand
 End Class

@@ -4370,6 +4370,65 @@ Module mdlPNL
             Return True
         End Try
     End Function
+    Public Function CalcPercentageAmount(ByRef ds As DataSet, ByVal TableName As String, ByVal TableName_Details As String, _
+                                         ByVal ColumnName_Key As String, ByVal ColumnNameDetails_Key As String, _
+                                         ByVal ColumnAddBack As String, ByVal ColumnDeduct As String, _
+                                         ByVal ColumnAddBack_Details As String, ByVal ColumnDeduct_Details As String, _
+                                         ByVal ColumnAmount As String, ByVal ColumnAmount_Details As String, _
+                                         ByVal ColumnPecentage As String, ByVal ColumnPecentageAmount As String, _
+                                         Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+
+            Dim tmpTotal As Decimal = 0
+            Dim percentage As Decimal = 0
+            Dim amount As Decimal = 0
+            For i As Integer = 0 To ds.Tables(TableName).Rows.Count - 1
+
+                percentage = IIf(IsDBNull(ds.Tables(TableName).Rows(i)(ColumnPecentage)), 0, ds.Tables(TableName).Rows(i)(ColumnPecentage))
+                amount = IIf(IsDBNull(ds.Tables(TableName).Rows(i)(ColumnAmount)), 0, ds.Tables(TableName).Rows(i)(ColumnAmount))
+                tmpTotal = (amount / 100) * percentage
+
+                If IsDBNull(ds.Tables(TableName).Rows(i)(ColumnAddBack)) = False AndAlso CBool(ds.Tables(TableName).Rows(i)(ColumnAddBack)) Then
+                    ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
+                ElseIf IsDBNull(ds.Tables(TableName).Rows(i)(ColumnDeduct)) = False AndAlso CBool(ds.Tables(TableName).Rows(i)(ColumnDeduct)) Then
+                    ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                End If
+
+                For x As Integer = 0 To ds.Tables(TableName_Details).Rows.Count - 1
+
+                    If ds.Tables(TableName_Details).Rows(x)(ColumnNameDetails_Key) = ds.Tables(TableName).Rows(i)(ColumnName_Key) Then
+                        percentage = IIf(IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnPecentage)), 0, ds.Tables(TableName_Details).Rows(x)(ColumnPecentage))
+                        amount = IIf(IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnAmount_Details)), 0, ds.Tables(TableName_Details).Rows(x)(ColumnAmount_Details))
+                        tmpTotal = (amount / 100) * percentage
+
+                        If IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnAddBack_Details)) = False AndAlso CBool(ds.Tables(TableName_Details).Rows(x)(ColumnAddBack_Details)) Then
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
+                        ElseIf IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnDeduct_Details)) = False AndAlso CBool(ds.Tables(TableName_Details).Rows(x)(ColumnDeduct_Details)) Then
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                        End If
+
+                    End If
+
+                Next
+
+            Next
+
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return True
+        End Try
+    End Function
     Public Function MappingSourceNo(ByVal TableName As String, ByVal TableName_Details As String, ByVal ColumnName_Key As String, _
                                         ByVal ColumnNameDetails_Key As String, ByVal Column_SourceNo As String, ByVal ColumnDetails_SourceNo As String, _
                                         ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean

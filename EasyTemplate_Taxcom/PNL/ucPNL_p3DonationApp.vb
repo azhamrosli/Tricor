@@ -24,6 +24,10 @@ Public Class ucPNL_p3DonationApp
     Public Const Main_Desc As String = "EXOAD_DESC"  'PLFSD_DESC
     Public Const Main_Addback As String = "EXOAD_DEDUCTIBLE"  'PLFSD_DESC
     Public Const MainDetails_Addback As String = "EXOADD_DEDUCTIBLE"  'PLFSD_DESC
+    Public Const Main_Deduct As String = "EXOAD_DEDUCTIBLE_ADD"  'PLFSD_DESC
+    Public Const MainDetails_Deduct As String = "EXOADD_DEDUCTIBLE_ADD"  'PLFSD_DESC
+    Public Const MainColumn_Percentage As String = "Pecentage"  'PLFSD_DESC
+    Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
@@ -136,6 +140,8 @@ Public Class ucPNL_p3DonationApp
                 MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                CalcPercentageAmount(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                                   MainAmount_Details, MainColumn_Percentage, MainColumn_PercentageAmount, ErrorLog)
             End If
 
 
@@ -181,6 +187,7 @@ Public Class ucPNL_p3DonationApp
                 MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+
             End If
 
 
@@ -196,6 +203,7 @@ Public Class ucPNL_p3DonationApp
                 MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+
             End If
 
 
@@ -216,6 +224,8 @@ Public Class ucPNL_p3DonationApp
                     MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Else
                     CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                    CalcPercentageAmount(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                                   MainAmount_Details, MainColumn_Percentage, MainColumn_PercentageAmount, ErrorLog)
                 End If
             End If
         Catch ex As Exception
