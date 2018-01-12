@@ -397,6 +397,18 @@
     <Compile Include="frmLogin_Administrator.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="PNL B+\frmPNL_B_Add.Designer.vb">
+      <DependentUpon>frmPNL_B_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL B+\frmPNL_B_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Migration.Designer.vb">
+      <DependentUpon>frmPNL_Migration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Migration.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmUserNote.Designer.vb">
       <DependentUpon>frmUserNote.vb</DependentUpon>
     </Compile>
@@ -1070,8 +1082,14 @@
     <EmbeddedResource Include="Movement\ucMovementComplex.resx">
       <DependentUpon>ucMovementComplex.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PNL B+\frmPNL_B_Add.resx">
+      <DependentUpon>frmPNL_B_Add.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PNL\frmPNL_Add.resx">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\frmPNL_Migration.resx">
+      <DependentUpon>frmPNL_Migration.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PNL\PNL Import\frmPNL_Import.resx">
       <DependentUpon>frmPNL_Import.vb</DependentUpon>

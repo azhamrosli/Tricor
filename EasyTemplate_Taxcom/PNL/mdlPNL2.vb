@@ -1358,7 +1358,7 @@ Module mdlPNL2
                                 dtRow("PLFPURD_KEY") = rowx("PLFPURD_KEY")
                                 dtRow("PLFPURD_PLFPURKEY") = rowx("PLFPURD_PLFPURKEY")
                                 dtRow("PLFPURD_SOURCENO") = rowx("PLFPURD_SOURCENO")
-                                dtRow("PLFPURD_PLFPURDKEY") = rowx("PLFPURD_PLFPURDKEY")
+                                dtRow("PLFPURD_PLFPURDKEY") = ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Count + 1
                                 dtRow("PLFPURD_DESC") = rowx("PLFPURD_DESC")
                                 dtRow("PLFPURD_AMOUNT") = rowx("PLFPURD_AMOUNT")
                                 dtRow("PLFPURD_NOTE") = rowx("PLFPURD_NOTE")
@@ -1412,7 +1412,7 @@ Module mdlPNL2
                                 dtRow("EXDEPD_KEY") = rowx("EXDEPD_KEY")
                                 dtRow("EXDEPD_EXDEPKEY") = rowx("EXDEPD_EXDEPKEY")
                                 dtRow("EXDEPD_SOURCENO") = rowx("EXDEPD_SOURCENO")
-                                dtRow("EXDEPD_EXDEPDKEY") = rowx("EXDEPD_EXDEPDKEY")
+                                dtRow("EXDEPD_EXDEPDKEY") = ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Count + 1
                                 dtRow("EXDEPD_DESC") = rowx("EXDEPD_DESC")
                                 dtRow("EXDEPD_AMOUNT") = rowx("EXDEPD_AMOUNT")
 
@@ -1421,7 +1421,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("EXDEPD_DEDUCTIBLE") = False
                                 End If
-                                dtRow("EXDEPD_DEDUCTIBLE") = rowx("EXDEPD_DEDUCTIBLE")
+
                                 dtRow("EXDEPD_NOTE") = rowx("EXDEPD_NOTE")
                                 ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
@@ -1471,7 +1471,7 @@ Module mdlPNL2
                                 dtRow("EXAD_KEY") = rowx("EXAD_KEY")
                                 dtRow("EXAD_EXAKEY") = rowx("EXAD_EXAKEY")
                                 dtRow("EXAD_SOURCENO") = rowx("EXAD_SOURCENO")
-                                dtRow("EXAD_EXADKEY") = rowx("EXAD_EXADKEY")
+                                dtRow("EXAD_EXADKEY") = ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Count + 1
                                 dtRow("EXAD_DESC") = rowx("EXAD_DESC")
                                 dtRow("EXAD_AMOUNT") = rowx("EXAD_AMOUNT")
                                 If IsDBNull(rowx("EXAD_DEDUCTIBLE")) = False AndAlso (rowx("EXAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXAD_DEDUCTIBLE") = "True") Then
@@ -1526,7 +1526,7 @@ Module mdlPNL2
                                 dtRow("EXNAD_KEY") = rowx("EXNAD_KEY")
                                 dtRow("EXNAD_EXNAKEY") = rowx("EXNAD_EXNAKEY")
                                 dtRow("EXNAD_SOURCENO") = rowx("EXNAD_SOURCENO")
-                                dtRow("EXNAD_EXNADKEY") = rowx("EXNAD_EXNADKEY")
+                                dtRow("EXNAD_EXNADKEY") = ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Count + 1
                                 dtRow("EXNAD_DESC") = rowx("EXNAD_DESC")
                                 If IsDBNull(rowx("EXNAD_DEDUCTIBLE")) = False AndAlso (rowx("EXNAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXNAD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXNAD_DEDUCTIBLE") = True
@@ -3926,6 +3926,7 @@ Module mdlPNL2
                             dtRow("EXO_DETAIL") = rowx("EXO_DETAIL")
                             dtRow("RowIndex") = rowx("RowIndex")
                             dtRow("Pecentage") = rowx("Pecentage")
+                            dtRow("PecentageAmount") = rowx("PecentageAmount")
                             ds.Tables("other_expenses").Rows.Add(dtRow)
 
                         Next
@@ -3957,6 +3958,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowC("RowIndex")
                                 dtRow("Pecentage") = rowC("Pecentage")
+                                dtRow("PecentageAmount") = rowC("PecentageAmount")
                                 ds.Tables("OTHER_EXPENSES_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -5247,8 +5249,6 @@ Module mdlPNL2
             Return True
         End Try
     End Function
-
-
 
     Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try

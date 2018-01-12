@@ -238,6 +238,7 @@ Module mdlPNL
             Return Nothing
         End Try
     End Function
+
     Public Function DestroyPNL(ByVal Type As String, ByRef DockingManager As DockManager, _
                             ByRef DockDocument As DevExpress.XtraBars.Docking2010.DocumentManager, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
@@ -4380,6 +4381,8 @@ Module mdlPNL
         Try
 
             Dim tmpTotal As Decimal = 0
+            Dim MainTotal As Decimal = 0
+            Dim RunningTotal As Decimal = 0
             Dim percentage As Decimal = 0
             Dim amount As Decimal = 0
             For i As Integer = 0 To ds.Tables(TableName).Rows.Count - 1
@@ -4402,11 +4405,17 @@ Module mdlPNL
                         tmpTotal = (amount / 100) * percentage
 
                         If IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnAddBack_Details)) = False AndAlso CBool(ds.Tables(TableName_Details).Rows(x)(ColumnAddBack_Details)) Then
-                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
+                            MainTotal = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
+                            RunningTotal += MainTotal
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = MainTotal
                         ElseIf IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnDeduct_Details)) = False AndAlso CBool(ds.Tables(TableName_Details).Rows(x)(ColumnDeduct_Details)) Then
-                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                            MainTotal = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                            RunningTotal += MainTotal
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = MainTotal
                         End If
 
+
+                        ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = RunningTotal
                     End If
 
                 Next

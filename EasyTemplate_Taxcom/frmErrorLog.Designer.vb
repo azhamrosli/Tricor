@@ -60,7 +60,7 @@ Partial Class frmErrorLog
         Me.ContMenu_ErrorLog.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContMenu_ErrorLog.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExportToExcelToolStripMenuItem, Me.PrintToolStripMenuItem, Me.ClearAllToolStripMenuItem})
         Me.ContMenu_ErrorLog.Name = "ContMenu_ErrorLog"
-        Me.ContMenu_ErrorLog.Size = New System.Drawing.Size(153, 92)
+        Me.ContMenu_ErrorLog.Size = New System.Drawing.Size(153, 70)
         '
         'ExportToExcelToolStripMenuItem
         '
@@ -97,7 +97,7 @@ Partial Class frmErrorLog
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
         Me.GridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[False]
-        Me.GridView1.OptionsBehavior.Editable = False
+        Me.GridView1.OptionsBehavior.ReadOnly = True
         Me.GridView1.OptionsView.RowAutoHeight = True
         Me.GridView1.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.[True]
         '

@@ -4,7 +4,7 @@ Imports DevExpress.Spreadsheet.Export
 Imports DevExpress.XtraGrid
 Imports System.Data.OleDb
 
-Public Class frmPNL_Add
+Public Class frmPNL_B_Add
     Public isEdit As Boolean = True
     Public ID As Decimal = 1269
     Dim ErrorLog As clsError = Nothing

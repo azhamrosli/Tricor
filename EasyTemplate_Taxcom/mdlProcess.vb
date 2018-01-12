@@ -14,7 +14,7 @@ Module mdlProcess
     Public V2 As Integer = 0
     Public V3 As Integer = 7
     Public V4 As Integer = 0
-    Public R1 As Integer = 4 'After Add Percentage amount
+    Public R1 As Integer = 5 'After Add Percentage amount
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
@@ -2988,7 +2988,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_SALES WHERE PLFS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT PLFS_KEY,PLFS_PLFSKEY,SUM(PLFS_AMOUNT) AS PLFS_AMOUNT,PLFS_DESC,PLFS_NOTE,PLFS_SOURCENO,PLFS_DETAIL,RowIndex FROM PLFST_SALES where PLFS_KEY =@PL_KEY GROUP BY PLFS_PLFSKEY,PLFS_DESC,PLFS_NOTE,PLFS_SOURCENO,PLFS_KEY,PLFS_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3019,7 +3019,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_SALES_DETAIL WHERE PLFSD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM PLFST_SALES_DETAIL WHERE PLFSD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3050,7 +3050,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_OPENSTOCK WHERE PLFOS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT PLFOS_KEY,PLFOS_PLFOSKEY,SUM(PLFOS_AMOUNT) AS PLFOS_AMOUNT,PLFOS_DESC,PLFOS_NOTE,PLFOS_SOURCENO,PLFOS_DETAIL,RowIndex FROM PLFST_OPENSTOCK where PLFOS_KEY =@PL_KEY GROUP BY PLFOS_PLFOSKEY,PLFOS_DESC,PLFOS_NOTE,PLFOS_SOURCENO,PLFOS_KEY,PLFOS_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3081,7 +3081,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_OPENSTOCK_DETAIL WHERE PLFOSD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM PLFST_OPENSTOCK_DETAIL WHERE PLFOSD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3112,7 +3112,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_PURCHASE WHERE PLFPUR_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT PLFPUR_KEY,PLFPUR_PLFPURKEY,SUM(PLFPUR_AMOUNT) AS PLFPUR_AMOUNT,PLFPUR_DESC,PLFPUR_NOTE,PLFPUR_SOURCENO,PLFPUR_DETAIL,RowIndex,PLFPUR_DEDUCTIBLE FROM PLFST_PURCHASE where PLFPUR_KEY =@PL_KEY GROUP BY PLFPUR_PLFPURKEY,PLFPUR_DESC,PLFPUR_NOTE,PLFPUR_SOURCENO,PLFPUR_KEY,PLFPUR_DETAIL,RowIndex,PLFPUR_DEDUCTIBLE ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3143,7 +3143,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_PURCHASE_DETAIL WHERE PLFPURD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM PLFST_PURCHASE_DETAIL WHERE PLFPURD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3174,7 +3174,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_DEPRECIATION WHERE EXDEP_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXDEP_KEY,EXDEP_EXDEPKEY,SUM(EXDEP_AMOUNT) AS EXDEP_AMOUNT,EXDEP_DESC,EXDEP_NOTE,EXDEP_SOURCENO,EXDEP_DETAIL,RowIndex,EXDEP_DEDUCTIBLE FROM EXPENSES_DEPRECIATION where EXDEP_KEY =@PL_KEY GROUP BY EXDEP_EXDEPKEY,EXDEP_DESC,EXDEP_NOTE,EXDEP_SOURCENO,EXDEP_KEY,EXDEP_DETAIL,RowIndex,EXDEP_DEDUCTIBLE ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3205,7 +3205,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_DEPRECIATION_DETAIL WHERE EXDEPD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_DEPRECIATION_DETAIL WHERE EXDEPD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3236,7 +3236,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_ALLOW WHERE EXA_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXA_KEY,EXA_EXAKEY,SUM(EXA_AMOUNT) AS EXA_AMOUNT,EXA_DESC,EXA_NOTE,EXA_SOURCENO,EXA_DETAIL,RowIndex,EXA_DEDUCTIBLE FROM EXPENSES_ALLOW where EXA_KEY =@PL_KEY GROUP BY EXA_EXAKEY,EXA_DESC,EXA_NOTE,EXA_SOURCENO,EXA_KEY,EXA_DETAIL,RowIndex,EXA_DEDUCTIBLE ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3267,7 +3267,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_ALLOW_DETAIL WHERE EXAD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_ALLOW_DETAIL WHERE EXAD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3298,7 +3298,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_NONALLOW WHERE EXNA_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXNA_KEY,EXNA_EXNAKEY,SUM(EXNA_AMOUNT) AS EXNA_AMOUNT,EXNA_DESC,EXNA_NOTE,EXNA_SOURCENO,EXNA_DETAIL,RowIndex,EXNA_DEDUCTIBLE FROM EXPENSES_NONALLOW where EXNA_KEY =@PL_KEY GROUP BY EXNA_EXNAKEY,EXNA_DESC,EXNA_NOTE,EXNA_SOURCENO,EXNA_KEY,EXNA_DETAIL,RowIndex,EXNA_DEDUCTIBLE ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3329,7 +3329,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_NONALLOW_DETAIL WHERE EXNAD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_NONALLOW_DETAIL WHERE EXNAD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3360,7 +3360,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_CLOSESTOCK WHERE PLFCS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT PLFCS_KEY,PLFCS_PLFCSKEY,SUM(PLFCS_AMOUNT) AS PLFCS_AMOUNT,PLFCS_DESC,PLFCS_NOTE,PLFCS_SOURCENO,PLFCS_DETAIL,RowIndex FROM PLFST_CLOSESTOCK where PLFCS_KEY =@PL_KEY GROUP BY PLFCS_PLFCSKEY,PLFCS_DESC,PLFCS_NOTE,PLFCS_SOURCENO,PLFCS_KEY,PLFCS_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3391,7 +3391,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM PLFST_CLOSESTOCK_DETAIL WHERE PLFCSD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM PLFST_CLOSESTOCK_DETAIL WHERE PLFCSD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3422,7 +3422,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NSBI_KEY,NSBI_NSBIKEY,SUM(NSBI_AMOUNT) AS NSBI_AMOUNT,NSBI_DESC,NSBI_NOTE,NSBI_SOURCENO,NSBI_DETAIL,RowIndex FROM NONSOURCE_BUSINESSINCOME where NSBI_KEY =@PL_KEY GROUP BY NSBI_NSBIKEY,NSBI_DESC,NSBI_NOTE,NSBI_SOURCENO,NSBI_KEY,NSBI_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3453,7 +3453,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM NONSOURCE_BUSINESSINCOME_DETAIL WHERE NSBID_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM NONSOURCE_BUSINESSINCOME_DETAIL WHERE NSBID_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3484,7 +3484,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_REALFET WHERE IRFET_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT IRFET_KEY,IRFET_IRFETKEY,SUM(IRFET_AMOUNT) AS IRFET_AMOUNT,IRFET_DESC,IRFET_NOTE,IRFET_SOURCENO,IRFET_DETAIL,RowIndex FROM INCOME_REALFET where IRFET_KEY =@PL_KEY GROUP BY IRFET_IRFETKEY,IRFET_DESC,IRFET_NOTE,IRFET_SOURCENO,IRFET_KEY,IRFET_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3515,7 +3515,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_REALFET_DETAIL WHERE IRFETD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_REALFET_DETAIL WHERE IRFETD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3577,7 +3577,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NBINTEREST WHERE NOBII_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NOBII_KEY,NOBII_NOBIIKEY,SUM(NOBII_AMOUNT) AS NOBII_AMOUNT,NOBII_DESC,NOBII_NOTE,NOBII_SOURCENO,NOBII_DETAIL,RowIndex FROM INCOME_NBINTEREST where NOBII_KEY =@PL_KEY GROUP BY NOBII_NOBIIKEY,NOBII_DESC,NOBII_NOTE,NOBII_SOURCENO,NOBII_KEY,NOBII_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3608,7 +3608,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NBINTEREST_DETAIL WHERE NOBIID_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NBINTEREST_DETAIL WHERE NOBIID_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3639,7 +3639,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM rental_income WHERE RI_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM rental_income WHERE RI_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3670,7 +3670,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NBROYALTY WHERE NOBRI_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NOBRI_KEY,NOBRI_NOBRIKEY,SUM(NOBRI_AMOUNT) AS NOBRI_AMOUNT,NOBRI_DESC,NOBRI_NOTE,NOBRI_SOURCENO,NOBRI_DETAIL,RowIndex FROM INCOME_NBROYALTY where NOBRI_KEY =@PL_KEY GROUP BY NOBRI_NOBRIKEY,NOBRI_DESC,NOBRI_NOTE,NOBRI_SOURCENO,NOBRI_KEY,NOBRI_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3701,7 +3701,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NBROYALTY_DETAIL WHERE NOBRID_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NBROYALTY_DETAIL WHERE NOBRID_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3732,7 +3732,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_INCOME WHERE OI_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT OI_KEY,OI_OIKEY,SUM(OI_AMOUNT) AS OI_AMOUNT,OI_DESC,OI_NOTE,OI_SOURCENO,OI_DETAIL,RowIndex FROM OTHER_INCOME where OI_KEY =@PL_KEY GROUP BY OI_OIKEY,OI_DESC,OI_NOTE,OI_SOURCENO,OI_KEY,OI_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3763,7 +3763,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_INCOME_DETAIL WHERE OID_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_INCOME_DETAIL WHERE OID_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3794,7 +3794,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALFA WHERE NTIDFA_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NTIDFA_KEY,NTIDFA_NTIDFAKEY,SUM(NTIDFA_AMOUNT) AS NTIDFA_AMOUNT,NTIDFA_DESC,NTIDFA_NOTE,NTIDFA_SOURCENO,NTIDFA_DETAIL,RowIndex FROM INCOME_NTDISPOSALFA where NTIDFA_KEY =@PL_KEY GROUP BY NTIDFA_NTIDFAKEY,NTIDFA_DESC,NTIDFA_NOTE,NTIDFA_SOURCENO,NTIDFA_KEY,NTIDFA_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3825,7 +3825,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALFA_DETAIL WHERE NTIDFAD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALFA_DETAIL WHERE NTIDFAD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3856,7 +3856,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NTIDI_KEY,NTIDI_NTIDIKEY,SUM(NTIDI_AMOUNT) AS NTIDI_AMOUNT,NTIDI_DESC,NTIDI_NOTE,NTIDI_SOURCENO,NTIDI_DETAIL,RowIndex FROM INCOME_NTDISPOSALINVEST where NTIDI_KEY =@PL_KEY GROUP BY NTIDI_NTIDIKEY,NTIDI_DESC,NTIDI_NOTE,NTIDI_SOURCENO,NTIDI_KEY,NTIDI_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3887,7 +3887,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALINVEST_DETAIL WHERE NTIDID_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTDISPOSALINVEST_DETAIL WHERE NTIDID_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3918,7 +3918,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM exempt_dividend WHERE ED_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM exempt_dividend WHERE ED_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3949,7 +3949,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NTIFIR_KEY,NTIFIR_NTIFIRKEY,SUM(NTIFIR_AMOUNT) AS NTIFIR_AMOUNT,NTIFIR_DESC,NTIFIR_NOTE,NTIFIR_SOURCENO,NTIFIR_DETAIL,RowIndex FROM INCOME_NTFOREIGNINCREM where NTIFIR_KEY =@PL_KEY GROUP BY NTIFIR_NTIFIRKEY,NTIFIR_DESC,NTIFIR_NOTE,NTIFIR_SOURCENO,NTIFIR_KEY,NTIFIR_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -3980,7 +3980,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTFOREIGNINCREM_DETAIL WHERE NTIFIRD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTFOREIGNINCREM_DETAIL WHERE NTIFIRD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4011,7 +4011,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFET WHERE NTIUT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NTIUT_KEY,NTIUT_NTIUTKEY,SUM(NTIUT_AMOUNT) AS NTIUT_AMOUNT,NTIUT_DESC,NTIUT_NOTE,NTIUT_SOURCENO,NTIUT_DETAIL,RowIndex FROM INCOME_NTUREALFET where NTIUT_KEY =@PL_KEY GROUP BY NTIUT_NTIUTKEY,NTIUT_DESC,NTIUT_NOTE,NTIUT_SOURCENO,NTIUT_KEY,NTIUT_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4042,7 +4042,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFET_DETAIL WHERE NTIUTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFET_DETAIL WHERE NTIUTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4073,7 +4073,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTREALFE WHERE NTIRFECT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NTIRFECT_KEY,NTIRFECT_NTIRFECTKEY,SUM(NTIRFECT_AMOUNT) AS NTIRFECT_AMOUNT,NTIRFECT_DESC,NTIRFECT_NOTE,NTIRFECT_SOURCENO,NTIRFECT_DETAIL,RowIndex FROM INCOME_NTREALFE where NTIRFECT_KEY =@PL_KEY GROUP BY NTIRFECT_NTIRFECTKEY,NTIRFECT_DESC,NTIRFECT_NOTE,NTIRFECT_SOURCENO,NTIRFECT_KEY,NTIRFECT_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4104,7 +4104,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTREALFE_DETAIL WHERE NTIRFECTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTREALFE_DETAIL WHERE NTIRFECTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4135,7 +4135,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFENT WHERE NTIUNT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT NTIUNT_KEY,NTIUNT_NTIUNTKEY,SUM(NTIUNT_AMOUNT) AS NTIUNT_AMOUNT,NTIUNT_DESC,NTIUNT_NOTE,NTIUNT_SOURCENO,NTIUNT_DETAIL,RowIndex FROM INCOME_NTUREALFENT where NTIUNT_KEY =@PL_KEY GROUP BY NTIUNT_NTIUNTKEY,NTIUNT_DESC,NTIUNT_NOTE,NTIUNT_SOURCENO,NTIUNT_KEY,NTIUNT_DETAIL,RowIndex ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4166,7 +4166,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFENT_DETAIL WHERE NTIUNTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM INCOME_NTUREALFENT_DETAIL WHERE NTIUNTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4197,7 +4197,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM non_taxable_income WHERE NT_REF_NO=@NT_REF_NO AND NT_YA=@NT_YA AND NT_CATEGORIZED='Other'"
+            Dim StrSQL As String = "SELECT NT_KEY,NT_REF_NO,NT_YA,NT_CATEGORIZED,NT_NTKEY,SUM(NT_AMOUNT) AS NT_AMOUNT,NT_DESC,NT_NOTE,NT_SOURCENO,NT_DETAIL,RowIndex,NT_NTKEY,ID FROM non_taxable_income WHERE NT_REF_NO=@NT_REF_NO AND NT_YA=@NT_YA AND NT_CATEGORIZED='Other' GROUP BY NT_NTKEY,NT_DESC,NT_NOTE,NT_SOURCENO,NT_KEY,NT_DETAIL,RowIndex,NT_REF_NO,NT_YA,NT_CATEGORIZED,NT_NTKEY,ID ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@NT_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
@@ -4230,7 +4230,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM NON_TAXABLE_INCOME_DETAIL WHERE NTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM NON_TAXABLE_INCOME_DETAIL WHERE NTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4261,7 +4261,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_interestrestrict WHERE EXIR_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXIR_KEY,EXIR_EXIRKEY,SUM(EXIR_AMOUNT) AS EXIR_AMOUNT,EXIR_DESC,EXIR_NOTE,EXIR_SOURCENO,EXIR_DETAIL,RowIndex,EXIR_DEDUCTIBLE,EXIR_DEDUCTIBLE_ADD,EXIR_YEAREND FROM expenses_interestrestrict where EXIR_KEY =@PL_KEY GROUP BY EXIR_EXIRKEY,EXIR_DESC,EXIR_NOTE,EXIR_SOURCENO,EXIR_KEY,EXIR_DETAIL,RowIndex,EXIR_DEDUCTIBLE,EXIR_DEDUCTIBLE_ADD,EXIR_YEAREND ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4292,7 +4292,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4323,7 +4323,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_interest WHERE EXI_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXI_KEY,EXI_EXIKEY,SUM(EXI_AMOUNT) AS EXI_AMOUNT,EXI_DESC,EXI_NOTE,EXI_SOURCENO,EXI_DETAIL,RowIndex,EXI_DEDUCTIBLE,EXI_DEDUCTIBLE_ADD FROM expenses_interest where EXI_KEY =@PL_KEY GROUP BY EXI_EXIKEY,EXI_DESC,EXI_NOTE,EXI_SOURCENO,EXI_KEY,EXI_DETAIL,RowIndex,EXI_DEDUCTIBLE,EXI_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4354,7 +4354,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_INTEREST_DETAIL WHERE EXID_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_INTEREST_DETAIL WHERE EXID_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4385,7 +4385,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_legal WHERE EXL_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXL_KEY,EXL_EXLKEY,SUM(EXL_AMOUNT) AS EXL_AMOUNT,EXL_DESC,EXL_NOTE,EXL_SOURCENO,EXL_DETAIL,RowIndex,EXL_DEDUCTIBLE,EXL_DEDUCTIBLE_ADD FROM expenses_legal where EXL_KEY =@PL_KEY GROUP BY EXL_EXLKEY,EXL_DESC,EXL_NOTE,EXL_SOURCENO,EXL_KEY,EXL_DETAIL,RowIndex,EXL_DEDUCTIBLE,EXL_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4416,7 +4416,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_LEGAL_DETAIL WHERE EXLD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_LEGAL_DETAIL WHERE EXLD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4447,7 +4447,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_tech_fee WHERE EXTF_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXTF_KEY,EXTF_EXTFKEY,SUM(EXTF_AMOUNT) AS EXTF_AMOUNT,EXTF_DESC,EXTF_NOTE,EXTF_SOURCENO,EXTF_DETAIL,RowIndex,EXTF_DEDUCTIBLE,EXTF_DEDUCTIBLE_ADD FROM expenses_tech_fee where EXTF_KEY =@PL_KEY GROUP BY EXTF_EXTFKEY,EXTF_DESC,EXTF_NOTE,EXTF_SOURCENO,EXTF_KEY,EXTF_DETAIL,RowIndex,EXTF_DEDUCTIBLE,EXTF_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4478,7 +4478,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_TECH_FEE_DETAIL WHERE EXTFD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_TECH_FEE_DETAIL WHERE EXTFD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4509,7 +4509,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_contract WHERE EXC_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXC_KEY,EXC_EXCKEY,SUM(EXC_AMOUNT) AS EXC_AMOUNT,EXC_DESC,EXC_NOTE,EXC_SOURCENO,EXC_DETAIL,RowIndex,EXC_DEDUCTIBLE,EXC_DEDUCTIBLE_ADD FROM expenses_contract where EXC_KEY =@PL_KEY GROUP BY EXC_EXCKEY,EXC_DESC,EXC_NOTE,EXC_SOURCENO,EXC_KEY,EXC_DETAIL,RowIndex,EXC_DEDUCTIBLE,EXC_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4540,7 +4540,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_CONTRACT_DETAIL WHERE EXCD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_CONTRACT_DETAIL WHERE EXCD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4571,7 +4571,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_directors_fee WHERE EXDF_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXDF_KEY,EXDF_EXDFKEY,SUM(EXDF_AMOUNT) AS EXDF_AMOUNT,EXDF_DESC,EXDF_NOTE,EXDF_SOURCENO,EXDF_DETAIL,RowIndex,EXDF_DEDUCTIBLE,EXDF_DEDUCTIBLE_ADD FROM expenses_directors_fee where EXDF_KEY =@PL_KEY GROUP BY EXDF_EXDFKEY,EXDF_DESC,EXDF_NOTE,EXDF_SOURCENO,EXDF_KEY,EXDF_DETAIL,RowIndex,EXDF_DEDUCTIBLE,EXDF_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4602,7 +4602,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_DIRECTORS_FEE_DETAIL WHERE EXDFD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_DIRECTORS_FEE_DETAIL WHERE EXDFD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4633,7 +4633,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_salary WHERE EXS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXS_KEY,EXS_EXSKEY,SUM(EXS_AMOUNT) AS EXS_AMOUNT,EXS_DESC,EXS_NOTE,EXS_SOURCENO,EXS_DETAIL,RowIndex,EXS_DEDUCTIBLE,EXS_DEDUCTIBLE_ADD FROM expenses_salary where EXS_KEY =@PL_KEY GROUP BY EXS_EXSKEY,EXS_DESC,EXS_NOTE,EXS_SOURCENO,EXS_KEY,EXS_DETAIL,RowIndex,EXS_DEDUCTIBLE,EXS_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4664,7 +4664,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_SALARY_DETAIL WHERE EXSD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_SALARY_DETAIL WHERE EXSD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4695,7 +4695,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_empl_stock WHERE EXES_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXES_KEY,EXES_EXESKEY,SUM(EXES_AMOUNT) AS EXES_AMOUNT,EXES_DESC,EXES_NOTE,EXES_SOURCENO,EXES_DETAIL,RowIndex,EXES_DEDUCTIBLE,EXES_DEDUCTIBLE_ADD FROM expenses_empl_stock where EXES_KEY =@PL_KEY GROUP BY EXES_EXESKEY,EXES_DESC,EXES_NOTE,EXES_SOURCENO,EXES_KEY,EXES_DETAIL,RowIndex,EXES_DEDUCTIBLE,EXES_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4726,7 +4726,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_EMPLSTOCK_DETAIL WHERE EXESD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_EMPLSTOCK_DETAIL WHERE EXESD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4757,7 +4757,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_royalty WHERE EXRO_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXRO_KEY,EXRO_EXROKEY,SUM(EXRO_AMOUNT) AS EXRO_AMOUNT,EXRO_DESC,EXRO_NOTE,EXRO_SOURCENO,EXRO_DETAIL,RowIndex,EXRO_DEDUCTIBLE,EXRO_DEDUCTIBLE_ADD FROM expenses_royalty where EXRO_KEY =@PL_KEY GROUP BY EXRO_EXROKEY,EXRO_DESC,EXRO_NOTE,EXRO_SOURCENO,EXRO_KEY,EXRO_DETAIL,RowIndex,EXRO_DEDUCTIBLE,EXRO_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4788,7 +4788,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_ROYALTY_DETAIL WHERE EXROD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_ROYALTY_DETAIL WHERE EXROD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4819,7 +4819,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_rental WHERE EXRENT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXRENT_KEY,EXRENT_EXRENTKEY,SUM(EXRENT_AMOUNT) AS EXRENT_AMOUNT,EXRENT_DESC,EXRENT_NOTE,EXRENT_SOURCENO,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE,EXRENT_DEDUCTIBLE_ADD FROM expenses_rental where EXRENT_KEY =@PL_KEY GROUP BY EXRENT_EXRENTKEY,EXRENT_DESC,EXRENT_NOTE,EXRENT_SOURCENO,EXRENT_KEY,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE,EXRENT_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4850,7 +4850,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_RENTAL_DETAIL WHERE EXRENTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_RENTAL_DETAIL WHERE EXRENTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4881,7 +4881,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_repair WHERE EXREP_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXREP_KEY,EXREP_EXREPKEY,SUM(EXREP_AMOUNT) AS EXREP_AMOUNT,EXREP_DESC,EXREP_NOTE,EXREP_SOURCENO,EXREP_DETAIL,RowIndex,EXREP_DEDUCTIBLE,EXREP_DEDUCTIBLE_ADD FROM expenses_repair where EXREP_KEY =@PL_KEY GROUP BY EXREP_EXREPKEY,EXREP_DESC,EXREP_NOTE,EXREP_SOURCENO,EXREP_KEY,EXREP_DETAIL,RowIndex,EXREP_DEDUCTIBLE,EXREP_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4912,7 +4912,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_REPAIR_DETAIL WHERE EXREPD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_REPAIR_DETAIL WHERE EXREPD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4943,7 +4943,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_research WHERE EXRES_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXRES_KEY,EXRES_EXRESKEY,SUM(EXRES_AMOUNT) AS EXRES_AMOUNT,EXRES_DESC,EXRES_NOTE,EXRES_SOURCENO,EXRES_DETAIL,RowIndex,EXRES_DEDUCTIBLE,EXRES_DEDUCTIBLE_ADD FROM expenses_research where EXRES_KEY =@PL_KEY GROUP BY EXRES_EXRESKEY,EXRES_DESC,EXRES_NOTE,EXRES_SOURCENO,EXRES_KEY,EXRES_DETAIL,RowIndex,EXRES_DEDUCTIBLE,EXRES_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -4974,7 +4974,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_RESEARCH_DETAIL WHERE EXRESD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_RESEARCH_DETAIL WHERE EXRESD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5005,7 +5005,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_promote WHERE EXP_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXP_KEY,EXP_EXPKEY,SUM(EXP_AMOUNT) AS EXP_AMOUNT,EXP_DESC,EXP_NOTE,EXP_SOURCENO,EXP_DETAIL,RowIndex,EXP_DEDUCTIBLE,EXP_DEDUCTIBLE_ADD FROM expenses_promote where EXP_KEY =@PL_KEY GROUP BY EXP_EXPKEY,EXP_DESC,EXP_NOTE,EXP_SOURCENO,EXP_KEY,EXP_DETAIL,RowIndex,EXP_DEDUCTIBLE,EXP_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5036,7 +5036,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_PROMOTE_DETAIL WHERE EXPD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_PROMOTE_DETAIL WHERE EXPD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5067,7 +5067,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_travel WHERE EXT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXT_KEY,EXT_EXTKEY,SUM(EXT_AMOUNT) AS EXT_AMOUNT,EXT_DESC,EXT_NOTE,EXT_SOURCENO,EXT_DETAIL,RowIndex,EXT_DEDUCTIBLE,EXT_DEDUCTIBLE_ADD FROM expenses_travel where EXT_KEY =@PL_KEY GROUP BY EXT_EXTKEY,EXT_DESC,EXT_NOTE,EXT_SOURCENO,EXT_KEY,EXT_DETAIL,RowIndex,EXT_DEDUCTIBLE,EXT_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5098,7 +5098,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_TRAVEL_DETAIL WHERE EXTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_TRAVEL_DETAIL WHERE EXTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5129,7 +5129,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM expenses_jkdm WHERE EXJK_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXJK_KEY,EXJK_EXJKKEY,SUM(EXJK_AMOUNT) AS EXJK_AMOUNT,EXJK_DESC,EXJK_NOTE,EXJK_SOURCENO,EXJK_DETAIL,RowIndex,EXJK_DEDUCTIBLE,EXJK_DEDUCTIBLE_ADD FROM expenses_jkdm where EXJK_KEY =@PL_KEY GROUP BY EXJK_EXJKKEY,EXJK_DESC,EXJK_NOTE,EXJK_SOURCENO,EXJK_KEY,EXJK_DETAIL,RowIndex,EXJK_DEDUCTIBLE,EXJK_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5160,7 +5160,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM EXPENSES_JKDM_DETAIL WHERE EXJKD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM EXPENSES_JKDM_DETAIL WHERE EXJKD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5191,7 +5191,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exdepreciation WHERE EXODEP_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXODEP_KEY,EXODEP_EXODEPKEY,SUM(EXODEP_AMOUNT) AS EXODEP_AMOUNT,EXODEP_DESC,EXODEP_NOTE,EXODEP_SOURCENO,EXODEP_DETAIL,RowIndex,Pecentage,PecentageAmount,EXODEP_DEDUCTIBLE,EXODEP_DEDUCTIBLE_ADD FROM other_exdepreciation where EXODEP_KEY =@PL_KEY GROUP BY EXODEP_EXODEPKEY,EXODEP_DESC,EXODEP_NOTE,EXODEP_SOURCENO,EXODEP_KEY,EXODEP_DETAIL,RowIndex,Pecentage,PecentageAmount,EXODEP_DEDUCTIBLE,EXODEP_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5222,7 +5222,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXDEPRECIATION_DETAIL WHERE EXODEPD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXDEPRECIATION_DETAIL WHERE EXODEPD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5253,7 +5253,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exapprdonation WHERE EXOAD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOAD_KEY,EXOAD_EXOADKEY,SUM(EXOAD_AMOUNT) AS EXOAD_AMOUNT,EXOAD_DESC,EXOAD_NOTE,EXOAD_SOURCENO,EXOAD_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOAD_DEDUCTIBLE,EXOAD_DEDUCTIBLE_ADD FROM other_exapprdonation where EXOAD_KEY =@PL_KEY GROUP BY EXOAD_EXOADKEY,EXOAD_DESC,EXOAD_NOTE,EXOAD_SOURCENO,EXOAD_KEY,EXOAD_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOAD_DEDUCTIBLE,EXOAD_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5284,7 +5284,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXAPPRDONATION_DETAIL WHERE EXOADD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXAPPRDONATION_DETAIL WHERE EXOADD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5315,7 +5315,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exnapprdonation WHERE EXONAD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXONAD_KEY,EXONAD_EXONADKEY,SUM(EXONAD_AMOUNT) AS EXONAD_AMOUNT,EXONAD_DESC,EXONAD_NOTE,EXONAD_SOURCENO,EXONAD_DETAIL,RowIndex,Pecentage,PecentageAmount,EXONAD_DEDUCTIBLE,EXONAD_DEDUCTIBLE_ADD FROM other_exnapprdonation where EXONAD_KEY =@PL_KEY GROUP BY EXONAD_EXONADKEY,EXONAD_DESC,EXONAD_NOTE,EXONAD_SOURCENO,EXONAD_KEY,EXONAD_DETAIL,RowIndex,Pecentage,PecentageAmount,EXONAD_DEDUCTIBLE,EXONAD_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5346,7 +5346,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXNAPPRDONATION_DETAIL WHERE EXONADD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXNAPPRDONATION_DETAIL WHERE EXONADD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5377,7 +5377,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exzakat WHERE EXOZ_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOZ_KEY,EXOZ_EXOZKEY,SUM(EXOZ_AMOUNT) AS EXOZ_AMOUNT,EXOZ_DESC,EXOZ_NOTE,EXOZ_SOURCENO,EXOZ_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOZ_DEDUCTIBLE,EXOZ_DEDUCTIBLE_ADD FROM other_exzakat where EXOZ_KEY =@PL_KEY GROUP BY EXOZ_EXOZKEY,EXOZ_DESC,EXOZ_NOTE,EXOZ_SOURCENO,EXOZ_KEY,EXOZ_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOZ_DEDUCTIBLE,EXOZ_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5408,7 +5408,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXZAKAT_DETAIL WHERE EXOZD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXZAKAT_DETAIL WHERE EXOZD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5439,7 +5439,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exlossdisposalfa WHERE EXOLD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOLD_KEY,EXOLD_EXOLDKEY,SUM(EXOLD_AMOUNT) AS EXOLD_AMOUNT,EXOLD_DESC,EXOLD_NOTE,EXOLD_SOURCENO,EXOLD_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOLD_DEDUCTIBLE,EXOLD_DEDUCTIBLE_ADD FROM other_exlossdisposalfa where EXOLD_KEY =@PL_KEY GROUP BY EXOLD_EXOLDKEY,EXOLD_DESC,EXOLD_NOTE,EXOLD_SOURCENO,EXOLD_KEY,EXOLD_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOLD_DEDUCTIBLE,EXOLD_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5470,7 +5470,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXLOSSDISPOSALFA_DETAIL WHERE EXOLDD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXLOSSDISPOSALFA_DETAIL WHERE EXOLDD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5501,7 +5501,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_entertainnstaff WHERE EXOENS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOENS_KEY,EXOENS_EXOENSKEY,SUM(EXOENS_AMOUNT) AS EXOENS_AMOUNT,EXOENS_DESC,EXOENS_NOTE,EXOENS_SOURCENO,EXOENS_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOENS_DEDUCTIBLE,EXOENS_DEDUCTIBLE_ADD FROM other_entertainnstaff where EXOENS_KEY =@PL_KEY GROUP BY EXOENS_EXOENSKEY,EXOENS_DESC,EXOENS_NOTE,EXOENS_SOURCENO,EXOENS_KEY,EXOENS_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOENS_DEDUCTIBLE,EXOENS_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5532,7 +5532,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENSD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENSD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5563,7 +5563,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINSTAFF WHERE EXOES_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOES_KEY,EXOES_EXOESKEY,SUM(EXOES_AMOUNT) AS EXOES_AMOUNT,EXOES_DESC,EXOES_NOTE,EXOES_SOURCENO,EXOES_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOES_DEDUCTIBLE,EXOES_DEDUCTIBLE_ADD FROM OTHER_ENTERTAINSTAFF where EXOES_KEY =@PL_KEY GROUP BY EXOES_EXOESKEY,EXOES_DESC,EXOES_NOTE,EXOES_SOURCENO,EXOES_KEY,EXOES_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOES_DEDUCTIBLE,EXOES_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5594,7 +5594,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINSTAFF_DETAIL WHERE EXOESD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_ENTERTAINSTAFF_DETAIL WHERE EXOESD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5625,7 +5625,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_expenalty WHERE EXOP_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOP_KEY,EXOP_EXOPKEY,SUM(EXOP_AMOUNT) AS EXOP_AMOUNT,EXOP_DESC,EXOP_NOTE,EXOP_SOURCENO,EXOP_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOP_DEDUCTIBLE,EXOP_DEDUCTIBLE_ADD FROM other_expenalty where EXOP_KEY =@PL_KEY GROUP BY EXOP_EXOPKEY,EXOP_DESC,EXOP_NOTE,EXOP_SOURCENO,EXOP_KEY,EXOP_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOP_DEDUCTIBLE,EXOP_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5656,7 +5656,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXPENALTY_DETAIL WHERE EXOPD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXPENALTY_DETAIL WHERE EXOPD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5687,7 +5687,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exprovisionacc WHERE EXOPA_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOPA_KEY,EXOPA_EXOPAKEY,SUM(EXOPA_AMOUNT) AS EXOPA_AMOUNT,EXOPA_DESC,EXOPA_NOTE,EXOPA_SOURCENO,EXOPA_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOPA_DEDUCTIBLE,EXOPA_DEDUCTIBLE_ADD FROM other_exprovisionacc where EXOPA_KEY =@PL_KEY GROUP BY EXOPA_EXOPAKEY,EXOPA_DESC,EXOPA_NOTE,EXOPA_SOURCENO,EXOPA_KEY,EXOPA_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOPA_DEDUCTIBLE,EXOPA_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5718,7 +5718,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXPROVISIONACC_DETAIL WHERE EXOPAD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXPROVISIONACC_DETAIL WHERE EXOPAD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5749,7 +5749,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exleavepassage WHERE EXOLP_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOLP_KEY,EXOLP_EXOLPKEY,SUM(EXOLP_AMOUNT) AS EXOLP_AMOUNT,EXOLP_DESC,EXOLP_NOTE,EXOLP_SOURCENO,EXOLP_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOLP_DEDUCTIBLE,EXOLP_DEDUCTIBLE_ADD FROM other_exleavepassage where EXOLP_KEY =@PL_KEY GROUP BY EXOLP_EXOLPKEY,EXOLP_DESC,EXOLP_NOTE,EXOLP_SOURCENO,EXOLP_KEY,EXOLP_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOLP_DEDUCTIBLE,EXOLP_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5780,7 +5780,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXLEAVEPASSAGE_DETAIL WHERE EXOLPD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXLEAVEPASSAGE_DETAIL WHERE EXOLPD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5811,7 +5811,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exfawrittenoff WHERE EXOWO_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOWO_KEY,EXOWO_EXOWOKEY,SUM(EXOWO_AMOUNT) AS EXOWO_AMOUNT,EXOWO_DESC,EXOWO_NOTE,EXOWO_SOURCENO,EXOWO_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOWO_DEDUCTIBLE,EXOWO_DEDUCTIBLE_ADD FROM other_exfawrittenoff where EXOWO_KEY =@PL_KEY GROUP BY EXOWO_EXOWOKEY,EXOWO_DESC,EXOWO_NOTE,EXOWO_SOURCENO,EXOWO_KEY,EXOWO_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOWO_DEDUCTIBLE,EXOWO_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5842,7 +5842,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXFAWRITTENOFF_DETAIL WHERE EXOWOD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXFAWRITTENOFF_DETAIL WHERE EXOWOD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5873,7 +5873,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exurlossforeign WHERE EXOUR_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOUR_KEY,EXOUR_EXOURKEY,SUM(EXOUR_AMOUNT) AS EXOUR_AMOUNT,EXOUR_DESC,EXOUR_NOTE,EXOUR_SOURCENO,EXOUR_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOUR_DEDUCTIBLE,EXOUR_DEDUCTIBLE_ADD FROM other_exurlossforeign where EXOUR_KEY =@PL_KEY GROUP BY EXOUR_EXOURKEY,EXOUR_DESC,EXOUR_NOTE,EXOUR_SOURCENO,EXOUR_KEY,EXOUR_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOUR_DEDUCTIBLE,EXOUR_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5904,7 +5904,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXURLOSSFOREIGN_DETAIL WHERE EXOURD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXURLOSSFOREIGN_DETAIL WHERE EXOURD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5935,7 +5935,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exrlossforeignt WHERE EXORT_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXORT_KEY,EXORT_EXORTKEY,SUM(EXORT_AMOUNT) AS EXORT_AMOUNT,EXORT_DESC,EXORT_NOTE,EXORT_SOURCENO,EXORT_DETAIL,RowIndex,Pecentage,PecentageAmount,EXORT_DEDUCTIBLE,EXORT_DEDUCTIBLE_ADD FROM other_exrlossforeignt where EXORT_KEY =@PL_KEY GROUP BY EXORT_EXORTKEY,EXORT_DESC,EXORT_NOTE,EXORT_SOURCENO,EXORT_KEY,EXORT_DETAIL,RowIndex,Pecentage,PecentageAmount,EXORT_DEDUCTIBLE,EXORT_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5966,7 +5966,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXRLOSSFOREIGNT_DETAIL WHERE EXORTD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXRLOSSFOREIGNT_DETAIL WHERE EXORTD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -5997,7 +5997,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exrlossforeign WHERE EXOR_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOR_KEY,EXOR_EXORKEY,SUM(EXOR_AMOUNT) AS EXOR_AMOUNT,EXOR_DESC,EXOR_NOTE,EXOR_SOURCENO,EXOR_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOR_DEDUCTIBLE,EXOR_DEDUCTIBLE_ADD FROM other_exrlossforeign where EXOR_KEY =@PL_KEY GROUP BY EXOR_EXORKEY,EXOR_DESC,EXOR_NOTE,EXOR_SOURCENO,EXOR_KEY,EXOR_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOR_DEDUCTIBLE,EXOR_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6028,7 +6028,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXRLOSSFOREIGN_DETAIL WHERE EXORD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXRLOSSFOREIGN_DETAIL WHERE EXORD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6059,7 +6059,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_exinitialsub WHERE EXOIS_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT EXOIS_KEY,EXOIS_EXOISKEY,SUM(EXOIS_AMOUNT) AS EXOIS_AMOUNT,EXOIS_DESC,EXOIS_NOTE,EXOIS_SOURCENO,EXOIS_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOIS_DEDUCTIBLE,EXOIS_DEDUCTIBLE_ADD FROM OTHER_EXINITIALSUB where EXOIS_KEY =@PL_KEY GROUP BY EXOIS_EXOISKEY,EXOIS_DESC,EXOIS_NOTE,EXOIS_SOURCENO,EXOIS_KEY,EXOIS_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOIS_DEDUCTIBLE,EXOIS_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6090,7 +6090,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXINITIALSUB_DETAIL WHERE EXOISD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXINITIALSUB_DETAIL WHERE EXOISD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6121,7 +6121,8 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM other_excapitalexp WHERE EXOCE_KEY=@PL_KEY"
+            'Dim StrSQL As String = "SELECT * FROM other_excapitalexp WHERE EXOCE_KEY=@PL_KEY ORDER BY RowIndex"
+            Dim StrSQL As String = "SELECT EXOCE_KEY,EXOCE_EXOCEKEY,SUM(EXOCE_AMOUNT) AS EXOCE_AMOUNT,EXOCE_DESC,EXOCE_NOTE,EXOCE_SOURCENO,EXOCE_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOCE_DEDUCTIBLE,EXOCE_DEDUCTIBLE_ADD FROM other_excapitalexp where EXOCE_KEY =@PL_KEY GROUP BY EXOCE_EXOCEKEY,EXOCE_DESC,EXOCE_NOTE,EXOCE_SOURCENO,EXOCE_KEY,EXOCE_DETAIL,RowIndex,Pecentage,PecentageAmount,EXOCE_DEDUCTIBLE,EXOCE_DEDUCTIBLE_ADD ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6152,7 +6153,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXCAPITALEXP_DETAIL WHERE EXOCED_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXCAPITALEXP_DETAIL WHERE EXOCED_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6183,8 +6184,10 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            'Dim StrSQL As String = "SELECT * FROM other_expenses WHERE EXO_KEY=@PL_KEY"
-            Dim StrSQL As String = "SELECT EXO_KEY,EXO_EXOKEY,SUM(EXO_AMOUNT) AS EXO_AMOUNT,EXO_DESC,EXO_NOTE,EXO_SOURCENO,EXO_DETAIL,RowIndex,Pecentage FROM OTHER_EXPENSES where EXO_KEY =@PL_KEY GROUP BY EXO_EXOKEY,EXO_DESC,EXO_NOTE,EXO_SOURCENO,EXO_KEY,EXO_DETAIL,RowIndex,Pecentage"
+            'Dim StrSQL As String = "SELECT * FROM other_expenses WHERE EXO_KEY=@PL_KEY ORDER BY RowIndex"
+            Dim StrSQL As String = "SELECT EXO_KEY,EXO_EXOKEY,SUM(EXO_AMOUNT) AS EXO_AMOUNT,EXO_DESC,EXO_NOTE,EXO_SOURCENO,EXO_DETAIL,RowIndex,Pecentage,PecentageAmount,EXO_DEDUCTIBLE,EXO_DEDUCTIBLE_ADD FROM OTHER_EXPENSES where EXO_KEY =@PL_KEY GROUP BY EXO_EXOKEY,EXO_DESC,EXO_NOTE,EXO_SOURCENO,EXO_KEY,EXO_DETAIL,RowIndex,Pecentage,PecentageAmount,EXO_DEDUCTIBLE,EXO_DEDUCTIBLE_ADD ORDER BY RowIndex"
+
+            ' Dim StrSQL As String = "SELECT * FROM OTHER_EXPENSES where EXO_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6215,7 +6218,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM OTHER_EXPENSES_DETAIL WHERE EXOD_KEY=@PL_KEY"
+            Dim StrSQL As String = "SELECT * FROM OTHER_EXPENSES_DETAIL WHERE EXOD_KEY=@PL_KEY ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6236,7 +6239,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function Load_PNL_ByKey(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -6299,7 +6301,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function VerifyInvestmentHolding(ByVal RefNo As String, ByVal YA As String, _
                                             Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -6447,7 +6448,6 @@ tryagain:
             Return False
         End Try
     End Function
-
     Public Function Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal KeyID As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -6516,7 +6516,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function Load_PNL_NonAllowDetails(ByVal DetailsName As String, ByVal PL_KEY As Integer, ByVal BC_SOURCENO As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -7022,6 +7021,36 @@ tryagain:
 
             AddListOfError(ErrorLog)
             Return "0"
+        End Try
+    End Function
+    Public Function Load_PNL_GETTableList(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PNL_TABLE_INFO"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
         End Try
     End Function
 #End Region
@@ -9619,7 +9648,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_PNLExecute(ByVal ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -9761,7 +9789,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal dt As DataTable, ByVal RefNo As String, ByVal YA As String, ByVal KeyID As Integer, ByRef Amount As Decimal, Optional ByRef ErrorLog As clsError = Nothing, Optional IsMonthly As Boolean = False) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -10158,7 +10185,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_EMPL_STOCK(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10318,7 +10344,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_INTERESTRESTRICT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10404,7 +10429,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_JKDM(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10489,7 +10513,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_LEGAL(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10573,7 +10596,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_NONALLOW(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10658,7 +10680,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_PROMOTE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10743,7 +10764,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_RENTAL(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -10827,7 +10847,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_EXPENSES_REPAIR(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12058,7 +12077,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_NON_TAXABLE_INCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12148,7 +12166,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_NONSOURCE_BUSINESSINCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12231,7 +12248,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_ENTERTAINNSTAFF(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12314,7 +12330,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_ENTERTAINSTAFF(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12398,7 +12413,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXAPPRDONATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12484,7 +12498,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXCAPITALEXP(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12567,7 +12580,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXDEPRECIATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12587,7 +12599,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXDEPRECIATION(EXODEP_KEY,EXODEP_EXODEPKEY,EXODEP_SOURCENO,EXODEP_DESC,EXODEP_AMOUNT,EXODEP_DEDUCTIBLE,EXODEP_NOTE,EXODEP_DETAIL,RowIndex) VALUES (@EXODEP_KEY,@EXODEP_EXODEPKEY,@EXODEP_SOURCENO,@EXODEP_DESC,@EXODEP_AMOUNT,@EXODEP_DEDUCTIBLE,@EXODEP_NOTE,@EXODEP_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXDEPRECIATION(EXODEP_KEY,EXODEP_EXODEPKEY,EXODEP_SOURCENO,EXODEP_DESC,EXODEP_AMOUNT,EXODEP_DEDUCTIBLE,EXODEP_NOTE,EXODEP_DETAIL,RowIndex,EXODEP_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXODEP_KEY,@EXODEP_EXODEPKEY,@EXODEP_SOURCENO,@EXODEP_DESC,@EXODEP_AMOUNT,@EXODEP_DEDUCTIBLE,@EXODEP_NOTE,@EXODEP_DETAIL,@RowIndex,@EXODEP_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXODEP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12595,9 +12607,22 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXODEP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXODEP_SOURCENO")
                 SQLcmd.Parameters.Add("@EXODEP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXODEP_DESC")
                 SQLcmd.Parameters.Add("@EXODEP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXODEP_AMOUNT")
-                SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXODEP_DEDUCTIBLE")
+
+                If IsDBNull(dt.Rows(i)("EXODEP_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXODEP_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXODEP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXODEP_NOTE")
                 SQLcmd.Parameters.Add("@EXODEP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXODEP_DETAIL")
+
+                If IsDBNull(dt.Rows(i)("EXODEP_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXODEP_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXODEP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -12616,7 +12641,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXDEPRECIATION_DETAIL(EXODEPD_KEY,EXODEPD_EXODEPKEY,EXODEPD_SOURCENO,EXODEPD_EXODEPDKEY,EXODEPD_DESC,EXODEPD_DEDUCTIBLE,EXODEPD_AMOUNT,EXODEPD_NOTE,RowIndex) VALUES (@EXODEPD_KEY,@EXODEPD_EXODEPKEY,@EXODEPD_SOURCENO,@EXODEPD_EXODEPDKEY,@EXODEPD_DESC,@EXODEPD_DEDUCTIBLE,@EXODEPD_AMOUNT,@EXODEPD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXDEPRECIATION_DETAIL(EXODEPD_KEY,EXODEPD_EXODEPKEY,EXODEPD_SOURCENO,EXODEPD_EXODEPDKEY,EXODEPD_DESC,EXODEPD_DEDUCTIBLE,EXODEPD_AMOUNT,EXODEPD_NOTE,RowIndex,EXODEPD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXODEPD_KEY,@EXODEPD_EXODEPKEY,@EXODEPD_SOURCENO,@EXODEPD_EXODEPDKEY,@EXODEPD_DESC,@EXODEPD_DEDUCTIBLE,@EXODEPD_AMOUNT,@EXODEPD_NOTE,@RowIndex,@EXODEPD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12625,10 +12650,25 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXODEPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXODEPD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXODEPD_EXODEPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXODEPD_EXODEPDKEY")
                     SQLcmd.Parameters.Add("@EXODEPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXODEPD_DESC")
-                    SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXODEPD_DEDUCTIBLE")
+
+                    If IsDBNull(dt_child.Rows(x)("EXODEPD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXODEPD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+
                     SQLcmd.Parameters.Add("@EXODEPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXODEPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXODEPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXODEPD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+
+                    If IsDBNull(dt_child.Rows(x)("EXODEPD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXODEPD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXODEPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
+
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -12651,7 +12691,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXFAWRITTENOFF(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12734,7 +12773,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXINITIALSUB(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12817,7 +12855,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXLEAVEPASSAGE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12901,7 +12938,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXLOSSDISPOSALFA(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -12984,7 +13020,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXNAPPRDONATION(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13068,7 +13103,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXPENALTY(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13152,7 +13186,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXPENSES(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13172,7 +13205,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXPENSES(EXO_KEY,EXO_EXOKEY,EXO_SOURCENO,EXO_DESC,EXO_AMOUNT,EXO_DEDUCTIBLE,EXO_NOTE,EXO_DETAIL,RowIndex) VALUES (@EXO_KEY,@EXO_EXOKEY,@EXO_SOURCENO,@EXO_DESC,@EXO_AMOUNT,@EXO_DEDUCTIBLE,@EXO_NOTE,@EXO_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXPENSES(EXO_KEY,EXO_EXOKEY,EXO_SOURCENO,EXO_DESC,EXO_AMOUNT,EXO_DEDUCTIBLE,EXO_NOTE,EXO_DETAIL,RowIndex,EXO_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXO_KEY,@EXO_EXOKEY,@EXO_SOURCENO,@EXO_DESC,@EXO_AMOUNT,@EXO_DEDUCTIBLE,@EXO_NOTE,@EXO_DETAIL,@RowIndex,@EXO_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXO_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13180,10 +13213,22 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXO_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXO_SOURCENO")
                 SQLcmd.Parameters.Add("@EXO_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXO_DESC")
                 SQLcmd.Parameters.Add("@EXO_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXO_AMOUNT")
-                SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXO_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXO_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXO_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXO_NOTE")
                 SQLcmd.Parameters.Add("@EXO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXO_DETAIL")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
+                If IsDBNull(dt.Rows(i)("EXO_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXO_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXO_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
+
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -13200,7 +13245,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXPENSES_DETAIL(EXOD_KEY,EXOD_EXOKEY,EXOD_SOURCENO,EXOD_EXODKEY,EXOD_DESC,EXOD_DEDUCTIBLE,EXOD_AMOUNT,EXOD_NOTE,RowIndex) VALUES (@EXOD_KEY,@EXOD_EXOKEY,@EXOD_SOURCENO,@EXOD_EXODKEY,@EXOD_DESC,@EXOD_DEDUCTIBLE,@EXOD_AMOUNT,@EXOD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXPENSES_DETAIL(EXOD_KEY,EXOD_EXOKEY,EXOD_SOURCENO,EXOD_EXODKEY,EXOD_DESC,EXOD_DEDUCTIBLE,EXOD_AMOUNT,EXOD_NOTE,RowIndex,EXOD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOD_KEY,@EXOD_EXOKEY,@EXOD_SOURCENO,@EXOD_EXODKEY,@EXOD_DESC,@EXOD_DEDUCTIBLE,@EXOD_AMOUNT,@EXOD_NOTE,@RowIndex,@EXOD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13209,10 +13254,22 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOD_EXODKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOD_EXODKEY")
                     SQLcmd.Parameters.Add("@EXOD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOD_DESC")
-                    SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+
                     SQLcmd.Parameters.Add("@EXOD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -13235,7 +13292,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXPROVISIONACC(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13319,7 +13375,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXRLOSSFOREIGN(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13403,7 +13458,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXRLOSSFOREIGNT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13486,7 +13540,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXURLOSSFOREIGN(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13571,7 +13624,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_EXZAKAT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                             ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13655,7 +13707,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_OTHER_INCOME(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13738,7 +13789,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_PLFST_CLOSESTOCK(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13821,7 +13871,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_PLFST_OPENSTOCK(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13904,7 +13953,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_PLFST_PURCHASE(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -13987,7 +14035,6 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-
     Public Function Save_PLFST_SALES(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
                                         ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
