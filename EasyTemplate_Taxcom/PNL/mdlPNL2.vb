@@ -1331,21 +1331,24 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("PLFST_PURCHASE").NewRow
-                            dtRow("PLFPUR_KEY") = rowx("PLFPUR_KEY")
-                            dtRow("PLFPUR_PLFPURKEY") = rowx("PLFPUR_PLFPURKEY")
-                            dtRow("PLFPUR_SOURCENO") = rowx("PLFPUR_SOURCENO")
-                            dtRow("PLFPUR_DESC") = rowx("PLFPUR_DESC")
-                            dtRow("PLFPUR_AMOUNT") = rowx("PLFPUR_AMOUNT")
-                            dtRow("PLFPUR_NOTE") = rowx("PLFPUR_NOTE")
-                            dtRow("PLFPUR_DETAIL") = rowx("PLFPUR_DETAIL")
-                            If IsDBNull(rowx("PLFPUR_DEDUCTIBLE")) = False AndAlso (rowx("PLFPUR_DEDUCTIBLE") = "Yes" OrElse rowx("PLFPUR_DEDUCTIBLE") = "True") Then
-                                dtRow("PLFPUR_DEDUCTIBLE") = True
-                            Else
-                                dtRow("PLFPUR_DEDUCTIBLE") = False
-                            End If
+                            If mdlPNL2.CheckIDExistInTable(ds, "PLFST_PURCHASE", "PLFPUR_PLFPURKEY", rowx("PLFPUR_PLFPURKEY")) = False Then
+                                dtRow = ds.Tables("PLFST_PURCHASE").NewRow
+                                dtRow("PLFPUR_KEY") = rowx("PLFPUR_KEY")
+                                dtRow("PLFPUR_PLFPURKEY") = rowx("PLFPUR_PLFPURKEY")
+                                dtRow("PLFPUR_SOURCENO") = rowx("PLFPUR_SOURCENO")
+                                dtRow("PLFPUR_DESC") = rowx("PLFPUR_DESC")
+                                dtRow("PLFPUR_AMOUNT") = rowx("PLFPUR_AMOUNT")
+                                dtRow("PLFPUR_NOTE") = rowx("PLFPUR_NOTE")
+                                dtRow("PLFPUR_DETAIL") = rowx("PLFPUR_DETAIL")
+                                If IsDBNull(rowx("PLFPUR_DEDUCTIBLE")) = False AndAlso (rowx("PLFPUR_DEDUCTIBLE") = "Yes" OrElse rowx("PLFPUR_DEDUCTIBLE") = "True") Then
+                                    dtRow("PLFPUR_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("PLFPUR_DEDUCTIBLE") = False
+                                End If
 
-                            ds.Tables("PLFST_PURCHASE").Rows.Add(dtRow)
+                                ds.Tables("PLFST_PURCHASE").Rows.Add(dtRow)
+                            End If
+                         
                         Next
                         dt = Nothing
 
@@ -1384,22 +1387,25 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("EXPENSES_DEPRECIATION").NewRow
-                            dtRow("EXDEP_KEY") = rowx("EXDEP_KEY")
-                            dtRow("EXDEP_EXDEPKEY") = rowx("EXDEP_EXDEPKEY")
-                            dtRow("EXDEP_SOURCENO") = rowx("EXDEP_SOURCENO")
-                            dtRow("EXDEP_DESC") = rowx("EXDEP_DESC")
-                            dtRow("EXDEP_AMOUNT") = rowx("EXDEP_AMOUNT")
+                            If mdlPNL2.CheckIDExistInTable(ds, "EXPENSES_DEPRECIATION", "EXDEP_EXDEPKEY", rowx("EXDEP_EXDEPKEY")) = False Then
+                                dtRow = ds.Tables("EXPENSES_DEPRECIATION").NewRow
+                                dtRow("EXDEP_KEY") = rowx("EXDEP_KEY")
+                                dtRow("EXDEP_EXDEPKEY") = rowx("EXDEP_EXDEPKEY")
+                                dtRow("EXDEP_SOURCENO") = rowx("EXDEP_SOURCENO")
+                                dtRow("EXDEP_DESC") = rowx("EXDEP_DESC")
+                                dtRow("EXDEP_AMOUNT") = rowx("EXDEP_AMOUNT")
 
-                            If IsDBNull(rowx("EXDEP_DEDUCTIBLE")) = False AndAlso (rowx("EXDEP_DEDUCTIBLE") = "Yes" OrElse rowx("EXDEP_DEDUCTIBLE") = "True") Then
-                                dtRow("EXDEP_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXDEP_DEDUCTIBLE") = False
+                                If IsDBNull(rowx("EXDEP_DEDUCTIBLE")) = False AndAlso (rowx("EXDEP_DEDUCTIBLE") = "Yes" OrElse rowx("EXDEP_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXDEP_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXDEP_DEDUCTIBLE") = False
+                                End If
+
+                                dtRow("EXDEP_NOTE") = rowx("EXDEP_NOTE")
+                                dtRow("EXDEP_DETAIL") = rowx("EXDEP_DETAIL")
+                                ds.Tables("EXPENSES_DEPRECIATION").Rows.Add(dtRow)
                             End If
-
-                            dtRow("EXDEP_NOTE") = rowx("EXDEP_NOTE")
-                            dtRow("EXDEP_DETAIL") = rowx("EXDEP_DETAIL")
-                            ds.Tables("EXPENSES_DEPRECIATION").Rows.Add(dtRow)
+                          
                         Next
                         dt = Nothing
 
@@ -1408,6 +1414,7 @@ Module mdlPNL2
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
                                 dtRow = Nothing
+
                                 dtRow = ds.Tables("EXPENSES_DEPRECIATION_DETAIL").NewRow
                                 dtRow("EXDEPD_KEY") = rowx("EXDEPD_KEY")
                                 dtRow("EXDEPD_EXDEPKEY") = rowx("EXDEPD_EXDEPKEY")
@@ -1439,26 +1446,29 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("EXPENSES_ALLOW").NewRow
-                            dtRow("EXA_KEY") = rowx("EXA_KEY")
-                            dtRow("EXA_EXAKEY") = rowx("EXA_EXAKEY")
-                            dtRow("EXA_SOURCENO") = rowx("EXA_SOURCENO")
-                            dtRow("EXA_DESC") = rowx("EXA_DESC")
-                            dtRow("EXA_AMOUNT") = rowx("EXA_AMOUNT")
-                            If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso (rowx("EXA_DEDUCTIBLE") = "Yes" OrElse rowx("EXA_DEDUCTIBLE") = "True") Then
-                                dtRow("EXA_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXA_DEDUCTIBLE") = False
-                            End If
-                            If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso (rowx("EXA_DEDUCTIBLE") = "Yes" OrElse rowx("EXA_DEDUCTIBLE") = "True") Then
-                                dtRow("EXA_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXA_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXA_NOTE") = rowx("EXA_NOTE")
-                            dtRow("EXA_DETAIL") = rowx("EXA_DETAIL")
+                            If mdlPNL2.CheckIDExistInTable(ds, "EXPENSES_ALLOW", "EXA_EXAKEY", rowx("EXA_EXAKEY")) = False Then
+                                dtRow = ds.Tables("EXPENSES_ALLOW").NewRow
+                                dtRow("EXA_KEY") = rowx("EXA_KEY")
+                                dtRow("EXA_EXAKEY") = rowx("EXA_EXAKEY")
+                                dtRow("EXA_SOURCENO") = rowx("EXA_SOURCENO")
+                                dtRow("EXA_DESC") = rowx("EXA_DESC")
+                                dtRow("EXA_AMOUNT") = rowx("EXA_AMOUNT")
+                                If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso (rowx("EXA_DEDUCTIBLE") = "Yes" OrElse rowx("EXA_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXA_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXA_DEDUCTIBLE") = False
+                                End If
+                                If IsDBNull(rowx("EXA_DEDUCTIBLE")) = False AndAlso (rowx("EXA_DEDUCTIBLE") = "Yes" OrElse rowx("EXA_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXA_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXA_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXA_NOTE") = rowx("EXA_NOTE")
+                                dtRow("EXA_DETAIL") = rowx("EXA_DETAIL")
 
-                            ds.Tables("EXPENSES_ALLOW").Rows.Add(dtRow)
+                                ds.Tables("EXPENSES_ALLOW").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -1498,22 +1508,25 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("EXPENSES_NONALLOW").NewRow
-                            dtRow("EXNA_KEY") = rowx("EXNA_KEY")
-                            dtRow("EXNA_EXNAKEY") = rowx("EXNA_EXNAKEY")
-                            dtRow("EXNA_SOURCENO") = rowx("EXNA_SOURCENO")
-                            dtRow("EXNA_DESC") = rowx("EXNA_DESC")
-                            dtRow("EXNA_AMOUNT") = rowx("EXNA_AMOUNT")
-                            If IsDBNull(rowx("EXNA_DEDUCTIBLE")) = False AndAlso (rowx("EXNA_DEDUCTIBLE") = "Yes" OrElse rowx("EXNA_DEDUCTIBLE") = "True") Then
-                                dtRow("EXNA_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXNA_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXNA_DEDUCTIBLE") = rowx("EXNA_DEDUCTIBLE")
-                            dtRow("EXNA_NOTE") = rowx("EXNA_NOTE")
-                            dtRow("EXNA_DETAIL") = rowx("EXNA_DETAIL")
+                            If mdlPNL2.CheckIDExistInTable(ds, "EXPENSES_NONALLOW", "EXNA_EXNAKEY", rowx("EXNA_EXNAKEY")) = False Then
+                                dtRow = ds.Tables("EXPENSES_NONALLOW").NewRow
+                                dtRow("EXNA_KEY") = rowx("EXNA_KEY")
+                                dtRow("EXNA_EXNAKEY") = rowx("EXNA_EXNAKEY")
+                                dtRow("EXNA_SOURCENO") = rowx("EXNA_SOURCENO")
+                                dtRow("EXNA_DESC") = rowx("EXNA_DESC")
+                                dtRow("EXNA_AMOUNT") = rowx("EXNA_AMOUNT")
+                                If IsDBNull(rowx("EXNA_DEDUCTIBLE")) = False AndAlso (rowx("EXNA_DEDUCTIBLE") = "Yes" OrElse rowx("EXNA_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXNA_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXNA_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXNA_DEDUCTIBLE") = rowx("EXNA_DEDUCTIBLE")
+                                dtRow("EXNA_NOTE") = rowx("EXNA_NOTE")
+                                dtRow("EXNA_DETAIL") = rowx("EXNA_DETAIL")
 
-                            ds.Tables("EXPENSES_NONALLOW").Rows.Add(dtRow)
+                                ds.Tables("EXPENSES_NONALLOW").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -1890,29 +1903,32 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_interestrestrict").NewRow
-                            dtRow("EXIR_KEY") = rowx("EXIR_KEY")
-                            dtRow("EXIR_EXIRKEY") = rowx("EXIR_EXIRKEY")
-                            dtRow("EXIR_SOURCENO") = rowx("EXIR_SOURCENO")
-                            dtRow("EXIR_AMOUNT") = rowx("EXIR_AMOUNT")
-                            dtRow("EXIR_DESC") = rowx("EXIR_DESC")
-                            If IsDBNull(rowx("EXIR_DEDUCTIBLE")) = False AndAlso (rowx("EXIR_DEDUCTIBLE") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE") = "True") Then
-                                rowx("EXIR_DEDUCTIBLE") = True
-                            Else
-                                rowx("EXIR_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXIR_NOTE") = rowx("EXIR_NOTE")
-                            dtRow("EXIR_DETAIL") = rowx("EXIR_DETAIL")
-                            dtRow("EXIR_YEAREND") = rowx("EXIR_YEAREND")
-                            dtRow("EXIR_STATUS") = rowx("EXIR_STATUS")
-                            If IsDBNull(rowx("EXIR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXIR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXIR_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXIR_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_interestrestrict", "EXIR_EXIRKEY", rowx("EXIR_EXIRKEY")) = False Then
+                                dtRow = ds.Tables("expenses_interestrestrict").NewRow
+                                dtRow("EXIR_KEY") = rowx("EXIR_KEY")
+                                dtRow("EXIR_EXIRKEY") = rowx("EXIR_EXIRKEY")
+                                dtRow("EXIR_SOURCENO") = rowx("EXIR_SOURCENO")
+                                dtRow("EXIR_AMOUNT") = rowx("EXIR_AMOUNT")
+                                dtRow("EXIR_DESC") = rowx("EXIR_DESC")
+                                If IsDBNull(rowx("EXIR_DEDUCTIBLE")) = False AndAlso (rowx("EXIR_DEDUCTIBLE") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE") = "True") Then
+                                    rowx("EXIR_DEDUCTIBLE") = True
+                                Else
+                                    rowx("EXIR_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXIR_NOTE") = rowx("EXIR_NOTE")
+                                dtRow("EXIR_DETAIL") = rowx("EXIR_DETAIL")
+                                dtRow("EXIR_YEAREND") = rowx("EXIR_YEAREND")
+                                dtRow("EXIR_STATUS") = rowx("EXIR_STATUS")
+                                If IsDBNull(rowx("EXIR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXIR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXIR_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXIR_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
+                                ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
+                            End If
+                          
                         Next
                     Else
                         isHaveData = False
@@ -1927,27 +1943,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_interest").NewRow
-                            dtRow("EXI_KEY") = rowx("EXI_KEY")
-                            dtRow("EXI_EXIKEY") = rowx("EXI_EXIKEY")
-                            dtRow("EXI_SOURCENO") = rowx("EXI_SOURCENO")
-                            dtRow("EXI_DESC") = rowx("EXI_DESC")
-                            dtRow("EXI_AMOUNT") = rowx("EXI_AMOUNT")
-                            If IsDBNull(rowx("EXI_DEDUCTIBLE")) = False AndAlso (rowx("EXI_DEDUCTIBLE") = "Yes" OrElse rowx("EXI_DEDUCTIBLE") = "True") Then
-                                rowx("EXI_DEDUCTIBLE") = True
-                            Else
-                                rowx("EXI_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXI_NOTE") = rowx("EXI_NOTE")
-                            dtRow("EXI_DETAIL") = rowx("EXI_DETAIL")
-                            If IsDBNull(rowx("Exi_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXI_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXI_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXI_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXI_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_interest", "EXI_EXIKEY", rowx("EXI_EXIKEY")) = False Then
+                                dtRow = ds.Tables("expenses_interest").NewRow
+                                dtRow("EXI_KEY") = rowx("EXI_KEY")
+                                dtRow("EXI_EXIKEY") = rowx("EXI_EXIKEY")
+                                dtRow("EXI_SOURCENO") = rowx("EXI_SOURCENO")
+                                dtRow("EXI_DESC") = rowx("EXI_DESC")
+                                dtRow("EXI_AMOUNT") = rowx("EXI_AMOUNT")
+                                If IsDBNull(rowx("EXI_DEDUCTIBLE")) = False AndAlso (rowx("EXI_DEDUCTIBLE") = "Yes" OrElse rowx("EXI_DEDUCTIBLE") = "True") Then
+                                    rowx("EXI_DEDUCTIBLE") = True
+                                Else
+                                    rowx("EXI_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXI_NOTE") = rowx("EXI_NOTE")
+                                dtRow("EXI_DETAIL") = rowx("EXI_DETAIL")
+                                If IsDBNull(rowx("Exi_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXI_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXI_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXI_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXI_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_interest").Rows.Add(dtRow)
+                                ds.Tables("expenses_interest").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -1960,7 +1979,7 @@ Module mdlPNL2
                                 dtRow("EXID_KEY") = rowx("EXID_KEY")
                                 dtRow("EXID_EXIKEY") = rowx("EXID_EXIKEY")
                                 dtRow("EXID_SOURCENO") = rowx("EXID_SOURCENO")
-                                dtRow("EXID_EXIDKEY") = rowx("EXID_EXIDKEY")
+                                dtRow("EXID_EXIDKEY") = ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Count + 1
                                 dtRow("EXID_DESC") = rowx("EXID_DESC")
                                 If IsDBNull(rowx("EXID_DEDUCTIBLE")) = False AndAlso (rowx("EXID_DEDUCTIBLE") = "Yes" OrElse rowx("EXID_DEDUCTIBLE") = "True") Then
                                     rowx("EXID_DEDUCTIBLE") = True
@@ -1992,27 +2011,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_legal").NewRow
-                            dtRow("EXL_KEY") = rowx("EXL_KEY")
-                            dtRow("EXL_EXLKEY") = rowx("EXL_EXLKEY")
-                            dtRow("EXL_SOURCENO") = rowx("EXL_SOURCENO")
-                            dtRow("EXL_DESC") = rowx("EXL_DESC")
-                            dtRow("EXL_AMOUNT") = rowx("EXL_AMOUNT")
-                            If IsDBNull(rowx("EXL_DEDUCTIBLE")) = False AndAlso (rowx("EXL_DEDUCTIBLE") = "Yes" OrElse rowx("EXL_DEDUCTIBLE") = "True") Then
-                                rowx("EXL_DEDUCTIBLE") = True
-                            Else
-                                rowx("EXL_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXL_NOTE") = rowx("EXL_NOTE")
-                            dtRow("EXL_DETAIL") = rowx("EXL_DETAIL")
-                            If IsDBNull(rowx("EXL_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXL_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXL_DEDUCTIBLE_ADD") = "True") Then
-                                rowx("EXL_DEDUCTIBLE_ADD") = True
-                            Else
-                                rowx("EXL_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_legal", "EXL_EXLKEY", rowx("EXL_EXLKEY")) = False Then
+                                dtRow = ds.Tables("expenses_legal").NewRow
+                                dtRow("EXL_KEY") = rowx("EXL_KEY")
+                                dtRow("EXL_EXLKEY") = rowx("EXL_EXLKEY")
+                                dtRow("EXL_SOURCENO") = rowx("EXL_SOURCENO")
+                                dtRow("EXL_DESC") = rowx("EXL_DESC")
+                                dtRow("EXL_AMOUNT") = rowx("EXL_AMOUNT")
+                                If IsDBNull(rowx("EXL_DEDUCTIBLE")) = False AndAlso (rowx("EXL_DEDUCTIBLE") = "Yes" OrElse rowx("EXL_DEDUCTIBLE") = "True") Then
+                                    rowx("EXL_DEDUCTIBLE") = True
+                                Else
+                                    rowx("EXL_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXL_NOTE") = rowx("EXL_NOTE")
+                                dtRow("EXL_DETAIL") = rowx("EXL_DETAIL")
+                                If IsDBNull(rowx("EXL_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXL_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXL_DEDUCTIBLE_ADD") = "True") Then
+                                    rowx("EXL_DEDUCTIBLE_ADD") = True
+                                Else
+                                    rowx("EXL_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_legal").Rows.Add(dtRow)
+                                ds.Tables("expenses_legal").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -2025,7 +2047,7 @@ Module mdlPNL2
                                 dtRow("EXLD_KEY") = rowx("EXLD_KEY")
                                 dtRow("EXLD_EXLKEY") = rowx("EXLD_EXLKEY")
                                 dtRow("EXLD_SOURCENO") = rowx("EXLD_SOURCENO")
-                                dtRow("EXLD_EXLDKEY") = rowx("EXLD_EXLDKEY")
+                                dtRow("EXLD_EXLDKEY") = ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Count + 1
                                 dtRow("EXLD_DESC") = rowx("EXLD_DESC")
                                 If IsDBNull(rowx("EXLD_DEDUCTIBLE")) = False AndAlso (rowx("EXLD_DEDUCTIBLE") = "Yes" OrElse rowx("EXLD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXLD_DEDUCTIBLE") = True
@@ -2057,27 +2079,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_tech_fee").NewRow
-                            dtRow("EXTF_KEY") = rowx("EXTF_KEY")
-                            dtRow("EXTF_EXTFKEY") = rowx("EXTF_EXTFKEY")
-                            dtRow("EXTF_SOURCENO") = rowx("EXTF_SOURCENO")
-                            dtRow("EXTF_DESC") = rowx("EXTF_DESC")
-                            dtRow("EXTF_AMOUNT") = rowx("EXTF_AMOUNT")
-                            If IsDBNull(rowx("EXTF_DEDUCTIBLE")) = False AndAlso (rowx("EXTF_DEDUCTIBLE") = "Yes" OrElse rowx("EXTF_DEDUCTIBLE") = "True") Then
-                                dtRow("EXTF_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXTF_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXTF_NOTE") = rowx("EXTF_NOTE")
-                            dtRow("EXTF_DETAIL") = rowx("EXTF_DETAIL")
-                            If IsDBNull(rowx("EXTF_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXTF_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXTF_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXTF_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXTF_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_tech_fee", "EXTF_EXTFKEY", rowx("EXTF_EXTFKEY")) = False Then
+                                dtRow = ds.Tables("expenses_tech_fee").NewRow
+                                dtRow("EXTF_KEY") = rowx("EXTF_KEY")
+                                dtRow("EXTF_EXTFKEY") = rowx("EXTF_EXTFKEY")
+                                dtRow("EXTF_SOURCENO") = rowx("EXTF_SOURCENO")
+                                dtRow("EXTF_DESC") = rowx("EXTF_DESC")
+                                dtRow("EXTF_AMOUNT") = rowx("EXTF_AMOUNT")
+                                If IsDBNull(rowx("EXTF_DEDUCTIBLE")) = False AndAlso (rowx("EXTF_DEDUCTIBLE") = "Yes" OrElse rowx("EXTF_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXTF_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXTF_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXTF_NOTE") = rowx("EXTF_NOTE")
+                                dtRow("EXTF_DETAIL") = rowx("EXTF_DETAIL")
+                                If IsDBNull(rowx("EXTF_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXTF_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXTF_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXTF_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXTF_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_tech_fee").Rows.Add(dtRow)
+                                ds.Tables("expenses_tech_fee").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -2090,7 +2115,7 @@ Module mdlPNL2
                                 dtRow("EXTFD_KEY") = rowx("EXTFD_KEY")
                                 dtRow("EXTFD_EXTFKEY") = rowx("EXTFD_EXTFKEY")
                                 dtRow("EXTFD_SOURCENO") = rowx("EXTFD_SOURCENO")
-                                dtRow("EXTFD_EXTFDKEY") = rowx("EXTFD_EXTFDKEY")
+                                dtRow("EXTFD_EXTFDKEY") = ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Count + 1
                                 dtRow("EXTFD_DESC") = rowx("EXTFD_DESC")
                                 If IsDBNull(rowx("EXTFD_DEDUCTIBLE")) = False AndAlso (rowx("EXTFD_DEDUCTIBLE") = "Yes" OrElse rowx("EXTFD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXTFD_DEDUCTIBLE") = True
@@ -2122,27 +2147,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_contract").NewRow
-                            dtRow("EXC_KEY") = rowx("EXC_KEY")
-                            dtRow("EXC_EXCKEY") = rowx("EXC_EXCKEY")
-                            dtRow("EXC_SOURCENO") = rowx("EXC_SOURCENO")
-                            dtRow("EXC_DESC") = rowx("EXC_DESC")
-                            dtRow("EXC_AMOUNT") = rowx("EXC_AMOUNT")
-                            If IsDBNull(rowx("EXC_DEDUCTIBLE")) = False AndAlso (rowx("EXC_DEDUCTIBLE") = "Yes" OrElse rowx("EXC_DEDUCTIBLE") = "True") Then
-                                dtRow("EXC_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXC_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXC_NOTE") = rowx("EXC_NOTE")
-                            dtRow("EXC_DETAIL") = rowx("EXC_DETAIL")
-                            If IsDBNull(rowx("EXC_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXC_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXC_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXC_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXC_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_contract", "EXC_EXCKEY", rowx("EXC_EXCKEY")) = False Then
+                                dtRow = ds.Tables("expenses_contract").NewRow
+                                dtRow("EXC_KEY") = rowx("EXC_KEY")
+                                dtRow("EXC_EXCKEY") = rowx("EXC_EXCKEY")
+                                dtRow("EXC_SOURCENO") = rowx("EXC_SOURCENO")
+                                dtRow("EXC_DESC") = rowx("EXC_DESC")
+                                dtRow("EXC_AMOUNT") = rowx("EXC_AMOUNT")
+                                If IsDBNull(rowx("EXC_DEDUCTIBLE")) = False AndAlso (rowx("EXC_DEDUCTIBLE") = "Yes" OrElse rowx("EXC_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXC_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXC_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXC_NOTE") = rowx("EXC_NOTE")
+                                dtRow("EXC_DETAIL") = rowx("EXC_DETAIL")
+                                If IsDBNull(rowx("EXC_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXC_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXC_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXC_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXC_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_contract").Rows.Add(dtRow)
+                                ds.Tables("expenses_contract").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -2151,11 +2179,12 @@ Module mdlPNL2
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
                                 dtRow = Nothing
+
                                 dtRow = ds.Tables("EXPENSES_CONTRACT_DETAIL").NewRow
                                 dtRow("EXCD_KEY") = rowx("EXCD_KEY")
                                 dtRow("EXCD_EXCKEY") = rowx("EXCD_EXCKEY")
                                 dtRow("EXCD_SOURCENO") = rowx("EXCD_SOURCENO")
-                                dtRow("EXCD_EXCDKEY") = rowx("EXCD_EXCDKEY")
+                                dtRow("EXCD_EXCDKEY") = ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Count + 1
                                 dtRow("EXCD_DESC") = rowx("EXCD_DESC")
                                 If IsDBNull(rowx("EXCD_DEDUCTIBLE")) = False AndAlso (rowx("EXCD_DEDUCTIBLE") = "Yes" OrElse rowx("EXCD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXCD_DEDUCTIBLE") = True
@@ -2187,27 +2216,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_directors_fee").NewRow
-                            dtRow("EXDF_KEY") = rowx("EXDF_KEY")
-                            dtRow("EXDF_EXDFKEY") = rowx("EXDF_EXDFKEY")
-                            dtRow("EXDF_SOURCENO") = rowx("EXDF_SOURCENO")
-                            dtRow("EXDF_DESC") = rowx("EXDF_DESC")
-                            dtRow("EXDF_AMOUNT") = rowx("EXDF_AMOUNT")
-                            If IsDBNull(rowx("EXDF_DEDUCTIBLE")) = False AndAlso (rowx("EXDF_DEDUCTIBLE") = "Yes" OrElse rowx("EXDF_DEDUCTIBLE") = "True") Then
-                                dtRow("EXDF_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXDF_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXDF_NOTE") = rowx("EXDF_NOTE")
-                            dtRow("EXDF_DETAIL") = rowx("EXDF_DETAIL")
-                            If IsDBNull(rowx("EXDF_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXDF_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXDF_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXDF_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXDF_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_directors_fee", "EXDF_EXDFKEY", rowx("EXDF_EXDFKEY")) = False Then
+                                dtRow = ds.Tables("expenses_directors_fee").NewRow
+                                dtRow("EXDF_KEY") = rowx("EXDF_KEY")
+                                dtRow("EXDF_EXDFKEY") = rowx("EXDF_EXDFKEY")
+                                dtRow("EXDF_SOURCENO") = rowx("EXDF_SOURCENO")
+                                dtRow("EXDF_DESC") = rowx("EXDF_DESC")
+                                dtRow("EXDF_AMOUNT") = rowx("EXDF_AMOUNT")
+                                If IsDBNull(rowx("EXDF_DEDUCTIBLE")) = False AndAlso (rowx("EXDF_DEDUCTIBLE") = "Yes" OrElse rowx("EXDF_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXDF_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXDF_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXDF_NOTE") = rowx("EXDF_NOTE")
+                                dtRow("EXDF_DETAIL") = rowx("EXDF_DETAIL")
+                                If IsDBNull(rowx("EXDF_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXDF_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXDF_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXDF_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXDF_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_directors_fee").Rows.Add(dtRow)
+                                ds.Tables("expenses_directors_fee").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -2220,7 +2252,7 @@ Module mdlPNL2
                                 dtRow("EXDFD_KEY") = rowx("EXDFD_KEY")
                                 dtRow("EXDFD_EXDFKEY") = rowx("EXDFD_EXDFKEY")
                                 dtRow("EXDFD_SOURCENO") = rowx("EXDFD_SOURCENO")
-                                dtRow("EXDFD_EXDFDKEY") = rowx("EXDFD_EXDFDKEY")
+                                dtRow("EXDFD_EXDFDKEY") = ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Count + 1
                                 dtRow("EXDFD_DESC") = rowx("EXDFD_DESC")
                                 If IsDBNull(rowx("EXDFD_DEDUCTIBLE")) = False AndAlso (rowx("EXDFD_DEDUCTIBLE") = "Yes" OrElse rowx("EXDFD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXDFD_DEDUCTIBLE") = True
@@ -2252,27 +2284,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_salary").NewRow
-                            dtRow("EXS_KEY") = rowx("EXS_KEY")
-                            dtRow("EXS_EXSKEY") = rowx("EXS_EXSKEY")
-                            dtRow("EXS_SOURCENO") = rowx("EXS_SOURCENO")
-                            dtRow("EXS_DESC") = rowx("EXS_DESC")
-                            dtRow("EXS_AMOUNT") = rowx("EXS_AMOUNT")
-                            If IsDBNull(rowx("EXS_DEDUCTIBLE")) = False AndAlso (rowx("EXS_DEDUCTIBLE") = "Yes" OrElse rowx("EXS_DEDUCTIBLE") = "True") Then
-                                dtRow("EXS_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXS_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXS_NOTE") = rowx("EXS_NOTE")
-                            dtRow("EXS_DETAIL") = rowx("EXS_DETAIL")
-                            If IsDBNull(rowx("EXS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXS_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXS_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXS_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_salary", "EXS_EXSKEY", rowx("EXS_EXSKEY")) = False Then
+                                dtRow = ds.Tables("expenses_salary").NewRow
+                                dtRow("EXS_KEY") = rowx("EXS_KEY")
+                                dtRow("EXS_EXSKEY") = rowx("EXS_EXSKEY")
+                                dtRow("EXS_SOURCENO") = rowx("EXS_SOURCENO")
+                                dtRow("EXS_DESC") = rowx("EXS_DESC")
+                                dtRow("EXS_AMOUNT") = rowx("EXS_AMOUNT")
+                                If IsDBNull(rowx("EXS_DEDUCTIBLE")) = False AndAlso (rowx("EXS_DEDUCTIBLE") = "Yes" OrElse rowx("EXS_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXS_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXS_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXS_NOTE") = rowx("EXS_NOTE")
+                                dtRow("EXS_DETAIL") = rowx("EXS_DETAIL")
+                                If IsDBNull(rowx("EXS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXS_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXS_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXS_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_salary").Rows.Add(dtRow)
+                                ds.Tables("expenses_salary").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -2281,6 +2316,7 @@ Module mdlPNL2
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
                                 dtRow = Nothing
+
                                 dtRow = ds.Tables("EXPENSES_SALARY_DETAIL").NewRow
                                 dtRow("EXSD_KEY") = rowx("EXSD_KEY")
                                 dtRow("EXSD_EXSKEY") = rowx("EXSD_EXSKEY")
@@ -2317,26 +2353,29 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_empl_stock").NewRow
-                            dtRow("EXES_KEY") = rowx("EXES_KEY")
-                            dtRow("EXES_EXESKEY") = rowx("EXES_EXESKEY")
-                            dtRow("EXES_SOURCENO") = rowx("EXES_SOURCENO")
-                            dtRow("EXES_DESC") = rowx("EXES_DESC")
-                            If IsDBNull(rowx("EXES_DEDUCTIBLE")) = False AndAlso (rowx("EXES_DEDUCTIBLE") = "Yes" OrElse rowx("EXES_DEDUCTIBLE") = "True") Then
-                                dtRow("EXES_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXES_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXES_AMOUNT") = rowx("EXES_AMOUNT")
-                            dtRow("EXES_NOTE") = rowx("EXES_NOTE")
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            If IsDBNull(rowx("EXES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXES_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXES_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXES_DEDUCTIBLE_ADD") = False
-                            End If
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_empl_stock", "EXES_EXESKEY", rowx("EXES_EXESKEY")) = False Then
+                                dtRow = ds.Tables("expenses_empl_stock").NewRow
+                                dtRow("EXES_KEY") = rowx("EXES_KEY")
+                                dtRow("EXES_EXESKEY") = rowx("EXES_EXESKEY")
+                                dtRow("EXES_SOURCENO") = rowx("EXES_SOURCENO")
+                                dtRow("EXES_DESC") = rowx("EXES_DESC")
+                                If IsDBNull(rowx("EXES_DEDUCTIBLE")) = False AndAlso (rowx("EXES_DEDUCTIBLE") = "Yes" OrElse rowx("EXES_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXES_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXES_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXES_AMOUNT") = rowx("EXES_AMOUNT")
+                                dtRow("EXES_NOTE") = rowx("EXES_NOTE")
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                If IsDBNull(rowx("EXES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXES_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXES_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXES_DEDUCTIBLE_ADD") = False
+                                End If
 
-                            ds.Tables("expenses_empl_stock").Rows.Add(dtRow)
+                                ds.Tables("expenses_empl_stock").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -2382,27 +2421,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_royalty").NewRow
-                            dtRow("EXRO_KEY") = rowx("EXRO_KEY")
-                            dtRow("EXRO_EXROKEY") = rowx("EXRO_EXROKEY")
-                            dtRow("EXRO_SOURCENO") = rowx("EXRO_SOURCENO")
-                            dtRow("EXRO_DESC") = rowx("EXRO_DESC")
-                            dtRow("EXRO_AMOUNT") = rowx("EXRO_AMOUNT")
-                            If IsDBNull(rowx("EXRO_DEDUCTIBLE")) = False AndAlso (rowx("EXRO_DEDUCTIBLE") = "Yes" OrElse rowx("EXRO_DEDUCTIBLE") = "True") Then
-                                dtRow("EXRO_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXRO_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXRO_NOTE") = rowx("EXRO_NOTE")
-                            dtRow("EXRO_DETAIL") = rowx("EXRO_DETAIL")
-                            If IsDBNull(rowx("EXRO_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRO_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRO_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXRO_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXRO_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_royalty", "EXRO_EXROKEY", rowx("EXRO_EXROKEY")) = False Then
+                                dtRow = ds.Tables("expenses_royalty").NewRow
+                                dtRow("EXRO_KEY") = rowx("EXRO_KEY")
+                                dtRow("EXRO_EXROKEY") = rowx("EXRO_EXROKEY")
+                                dtRow("EXRO_SOURCENO") = rowx("EXRO_SOURCENO")
+                                dtRow("EXRO_DESC") = rowx("EXRO_DESC")
+                                dtRow("EXRO_AMOUNT") = rowx("EXRO_AMOUNT")
+                                If IsDBNull(rowx("EXRO_DEDUCTIBLE")) = False AndAlso (rowx("EXRO_DEDUCTIBLE") = "Yes" OrElse rowx("EXRO_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXRO_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXRO_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXRO_NOTE") = rowx("EXRO_NOTE")
+                                dtRow("EXRO_DETAIL") = rowx("EXRO_DETAIL")
+                                If IsDBNull(rowx("EXRO_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRO_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRO_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXRO_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXRO_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_royalty").Rows.Add(dtRow)
+                                ds.Tables("expenses_royalty").Rows.Add(dtRow)
+                            End If
+                       
                         Next
                         dt = Nothing
 
@@ -2415,7 +2457,7 @@ Module mdlPNL2
                                 dtRow("EXROD_KEY") = rowx("EXROD_KEY")
                                 dtRow("EXROD_EXROKEY") = rowx("EXROD_EXROKEY")
                                 dtRow("EXROD_SOURCENO") = rowx("EXROD_SOURCENO")
-                                dtRow("EXROD_EXRODKEY") = rowx("EXROD_EXRODKEY")
+                                dtRow("EXROD_EXRODKEY") = ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Count + 1
                                 dtRow("EXROD_DESC") = rowx("EXROD_DESC")
                                 If IsDBNull(rowx("EXROD_DEDUCTIBLE")) = False AndAlso (rowx("EXROD_DEDUCTIBLE") = "Yes" OrElse rowx("EXROD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXROD_DEDUCTIBLE") = True
@@ -2447,27 +2489,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_rental").NewRow
-                            dtRow("EXRENT_KEY") = rowx("EXRENT_KEY")
-                            dtRow("EXRENT_EXRENTKEY") = rowx("EXRENT_EXRENTKEY")
-                            dtRow("EXRENT_SOURCENO") = rowx("EXRENT_SOURCENO")
-                            dtRow("EXRENT_DESC") = rowx("EXRENT_DESC")
-                            dtRow("EXRENT_AMOUNT") = rowx("EXRENT_AMOUNT")
-                            If IsDBNull(rowx("EXRENT_DEDUCTIBLE")) = False AndAlso (rowx("EXRENT_DEDUCTIBLE") = "Yes" OrElse rowx("EXRENT_DEDUCTIBLE") = "True") Then
-                                dtRow("EXRENT_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXRENT_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXRENT_NOTE") = rowx("EXRENT_NOTE")
-                            dtRow("EXRENT_DETAIL") = rowx("EXRENT_DETAIL")
-                            If IsDBNull(rowx("EXRENT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRENT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRENT_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXRENT_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXRENT_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_rental", "EXRENT_EXRENTKEY", rowx("EXRENT_EXRENTKEY")) = False Then
+                                dtRow = ds.Tables("expenses_rental").NewRow
+                                dtRow("EXRENT_KEY") = rowx("EXRENT_KEY")
+                                dtRow("EXRENT_EXRENTKEY") = rowx("EXRENT_EXRENTKEY")
+                                dtRow("EXRENT_SOURCENO") = rowx("EXRENT_SOURCENO")
+                                dtRow("EXRENT_DESC") = rowx("EXRENT_DESC")
+                                dtRow("EXRENT_AMOUNT") = rowx("EXRENT_AMOUNT")
+                                If IsDBNull(rowx("EXRENT_DEDUCTIBLE")) = False AndAlso (rowx("EXRENT_DEDUCTIBLE") = "Yes" OrElse rowx("EXRENT_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXRENT_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXRENT_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXRENT_NOTE") = rowx("EXRENT_NOTE")
+                                dtRow("EXRENT_DETAIL") = rowx("EXRENT_DETAIL")
+                                If IsDBNull(rowx("EXRENT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRENT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRENT_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXRENT_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXRENT_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_rental").Rows.Add(dtRow)
+                                ds.Tables("expenses_rental").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -2480,7 +2525,7 @@ Module mdlPNL2
                                 dtRow("EXRENTD_KEY") = rowx("EXRENTD_KEY")
                                 dtRow("EXRENTD_EXRENTKEY") = rowx("EXRENTD_EXRENTKEY")
                                 dtRow("EXRENTD_SOURCENO") = rowx("EXRENTD_SOURCENO")
-                                dtRow("EXRENTD_EXRENTDKEY") = rowx("EXRENTD_EXRENTDKEY")
+                                dtRow("EXRENTD_EXRENTDKEY") = ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Count + 1
                                 dtRow("EXRENTD_DESC") = rowx("EXRENTD_DESC")
                                 If IsDBNull(rowx("EXRENTD_DEDUCTIBLE")) = False AndAlso (rowx("EXRENTD_DEDUCTIBLE") = "Yes" OrElse rowx("EXRENTD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXRENTD_DEDUCTIBLE") = True
@@ -2512,27 +2557,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_repair").NewRow
-                            dtRow("EXREP_KEY") = rowx("EXREP_KEY")
-                            dtRow("EXREP_EXREPKEY") = rowx("EXREP_EXREPKEY")
-                            dtRow("EXREP_SOURCENO") = rowx("EXREP_SOURCENO")
-                            dtRow("EXREP_DESC") = rowx("EXREP_DESC")
-                            dtRow("EXREP_AMOUNT") = rowx("EXREP_AMOUNT")
-                            If IsDBNull(rowx("EXREP_DEDUCTIBLE")) = False AndAlso (rowx("EXREP_DEDUCTIBLE") = "Yes" OrElse rowx("EXREP_DEDUCTIBLE") = "True") Then
-                                dtRow("EXREP_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXREP_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXREP_NOTE") = rowx("EXREP_NOTE")
-                            dtRow("EXREP_DETAIL") = rowx("EXREP_DETAIL")
-                            If IsDBNull(rowx("EXREP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXREP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXREP_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXREP_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXREP_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_repair", "EXREP_EXREPKEY", rowx("EXREP_EXREPKEY")) = False Then
+                                dtRow = ds.Tables("expenses_repair").NewRow
+                                dtRow("EXREP_KEY") = rowx("EXREP_KEY")
+                                dtRow("EXREP_EXREPKEY") = rowx("EXREP_EXREPKEY")
+                                dtRow("EXREP_SOURCENO") = rowx("EXREP_SOURCENO")
+                                dtRow("EXREP_DESC") = rowx("EXREP_DESC")
+                                dtRow("EXREP_AMOUNT") = rowx("EXREP_AMOUNT")
+                                If IsDBNull(rowx("EXREP_DEDUCTIBLE")) = False AndAlso (rowx("EXREP_DEDUCTIBLE") = "Yes" OrElse rowx("EXREP_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXREP_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXREP_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXREP_NOTE") = rowx("EXREP_NOTE")
+                                dtRow("EXREP_DETAIL") = rowx("EXREP_DETAIL")
+                                If IsDBNull(rowx("EXREP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXREP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXREP_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXREP_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXREP_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_repair").Rows.Add(dtRow)
+                                ds.Tables("expenses_repair").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -2545,7 +2593,7 @@ Module mdlPNL2
                                 dtRow("EXREPD_KEY") = rowx("EXREPD_KEY")
                                 dtRow("EXREPD_EXREPKEY") = rowx("EXREPD_EXREPKEY")
                                 dtRow("EXREPD_SOURCENO") = rowx("EXREPD_SOURCENO")
-                                dtRow("EXREPD_EXREPDKEY") = rowx("EXREPD_EXREPDKEY")
+                                dtRow("EXREPD_EXREPDKEY") = ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Count + 1
                                 dtRow("EXREPD_DESC") = rowx("EXREPD_DESC")
                                 If IsDBNull(rowx("EXREPD_DEDUCTIBLE")) = False AndAlso (rowx("EXREPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXREPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXREPD_DEDUCTIBLE") = True
@@ -2577,27 +2625,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_research").NewRow
-                            dtRow("EXRES_KEY") = rowx("EXRES_KEY")
-                            dtRow("EXRES_EXRESKEY") = rowx("EXRES_EXRESKEY")
-                            dtRow("EXRES_SOURCENO") = rowx("EXRES_SOURCENO")
-                            dtRow("EXRES_DESC") = rowx("EXRES_DESC")
-                            dtRow("EXRES_AMOUNT") = rowx("EXRES_AMOUNT")
-                            If IsDBNull(rowx("EXRES_DEDUCTIBLE")) = False AndAlso (rowx("EXRES_DEDUCTIBLE") = "Yes" OrElse rowx("EXRES_DEDUCTIBLE") = "True") Then
-                                dtRow("EXRES_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXRES_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXRES_NOTE") = rowx("EXRES_NOTE")
-                            dtRow("EXRES_DETAIL") = rowx("EXRES_DETAIL")
-                            If IsDBNull(rowx("EXRES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRES_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXRES_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXRES_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_research", "EXRES_EXRESKEY", rowx("EXRES_EXRESKEY")) = False Then
+                                dtRow = ds.Tables("expenses_research").NewRow
+                                dtRow("EXRES_KEY") = rowx("EXRES_KEY")
+                                dtRow("EXRES_EXRESKEY") = rowx("EXRES_EXRESKEY")
+                                dtRow("EXRES_SOURCENO") = rowx("EXRES_SOURCENO")
+                                dtRow("EXRES_DESC") = rowx("EXRES_DESC")
+                                dtRow("EXRES_AMOUNT") = rowx("EXRES_AMOUNT")
+                                If IsDBNull(rowx("EXRES_DEDUCTIBLE")) = False AndAlso (rowx("EXRES_DEDUCTIBLE") = "Yes" OrElse rowx("EXRES_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXRES_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXRES_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXRES_NOTE") = rowx("EXRES_NOTE")
+                                dtRow("EXRES_DETAIL") = rowx("EXRES_DETAIL")
+                                If IsDBNull(rowx("EXRES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXRES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXRES_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXRES_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXRES_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
-                            ds.Tables("expenses_research").Rows.Add(dtRow)
+                                ds.Tables("expenses_research").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -2610,7 +2661,7 @@ Module mdlPNL2
                                 dtRow("EXRESD_KEY") = rowx("EXRESD_KEY")
                                 dtRow("EXRESD_EXRESKEY") = rowx("EXRESD_EXRESKEY")
                                 dtRow("EXRESD_SOURCENO") = rowx("EXRESD_SOURCENO")
-                                dtRow("EXRESD_EXRESDKEY") = rowx("EXRESD_EXRESDKEY")
+                                dtRow("EXRESD_EXRESDKEY") = ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Count + 1
                                 dtRow("EXRESD_DESC") = rowx("EXRESD_DESC")
                                 If IsDBNull(rowx("EXRESD_DEDUCTIBLE")) = False AndAlso (rowx("EXRESD_DEDUCTIBLE") = "Yes" OrElse rowx("EXRESD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXRESD_DEDUCTIBLE") = True
@@ -2642,26 +2693,29 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_promote").NewRow
-                            dtRow("EXP_KEY") = rowx("EXP_KEY")
-                            dtRow("EXP_EXPKEY") = rowx("EXP_EXPKEY")
-                            dtRow("EXP_SOURCENO") = rowx("EXP_SOURCENO")
-                            dtRow("EXP_DESC") = rowx("EXP_DESC")
-                            dtRow("EXP_AMOUNT") = rowx("EXP_AMOUNT")
-                            If IsDBNull(rowx("EXP_DEDUCTIBLE")) = False AndAlso (rowx("EXP_DEDUCTIBLE") = "Yes" OrElse rowx("EXP_DEDUCTIBLE") = "True") Then
-                                dtRow("EXP_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXP_DEDUCTIBLE") = False
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_promote", "EXP_EXPKEY", rowx("EXP_EXPKEY")) = False Then
+                                dtRow = ds.Tables("expenses_promote").NewRow
+                                dtRow("EXP_KEY") = rowx("EXP_KEY")
+                                dtRow("EXP_EXPKEY") = rowx("EXP_EXPKEY")
+                                dtRow("EXP_SOURCENO") = rowx("EXP_SOURCENO")
+                                dtRow("EXP_DESC") = rowx("EXP_DESC")
+                                dtRow("EXP_AMOUNT") = rowx("EXP_AMOUNT")
+                                If IsDBNull(rowx("EXP_DEDUCTIBLE")) = False AndAlso (rowx("EXP_DEDUCTIBLE") = "Yes" OrElse rowx("EXP_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXP_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXP_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXP_NOTE") = rowx("EXP_NOTE")
+                                dtRow("EXP_DETAIL") = rowx("EXP_DETAIL")
+                                If IsDBNull(rowx("EXP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXP_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXP_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXP_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                ds.Tables("expenses_promote").Rows.Add(dtRow)
                             End If
-                            dtRow("EXP_NOTE") = rowx("EXP_NOTE")
-                            dtRow("EXP_DETAIL") = rowx("EXP_DETAIL")
-                            If IsDBNull(rowx("EXP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXP_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXP_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXP_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            ds.Tables("expenses_promote").Rows.Add(dtRow)
+                            
                         Next
                         dt = Nothing
 
@@ -2674,7 +2728,7 @@ Module mdlPNL2
                                 dtRow("EXPD_KEY") = rowx("EXPD_KEY")
                                 dtRow("EXPD_EXPKEY") = rowx("EXPD_EXPKEY")
                                 dtRow("EXPD_SOURCENO") = rowx("EXPD_SOURCENO")
-                                dtRow("EXPD_EXPDKEY") = rowx("EXPD_EXPDKEY")
+                                dtRow("EXPD_EXPDKEY") = ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Count + 1
                                 dtRow("EXPD_DESC") = rowx("EXPD_DESC")
                                 If IsDBNull(rowx("EXPD_DEDUCTIBLE")) = False AndAlso (rowx("EXPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXPD_DEDUCTIBLE") = True
@@ -2706,26 +2760,29 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_travel").NewRow
-                            dtRow("EXT_KEY") = rowx("EXT_KEY")
-                            dtRow("EXT_EXTKEY") = rowx("EXT_EXTKEY")
-                            dtRow("EXT_SOURCENO") = rowx("EXT_SOURCENO")
-                            dtRow("EXT_DESC") = rowx("EXT_DESC")
-                            dtRow("EXT_AMOUNT") = rowx("EXT_AMOUNT")
-                            If IsDBNull(rowx("EXT_DEDUCTIBLE")) = False AndAlso (rowx("EXT_DEDUCTIBLE") = "Yes" OrElse rowx("EXT_DEDUCTIBLE") = "True") Then
-                                dtRow("EXT_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXT_DEDUCTIBLE") = False
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_travel", "EXT_EXTKEY", rowx("EXT_EXTKEY")) = False Then
+                                dtRow = ds.Tables("expenses_travel").NewRow
+                                dtRow("EXT_KEY") = rowx("EXT_KEY")
+                                dtRow("EXT_EXTKEY") = rowx("EXT_EXTKEY")
+                                dtRow("EXT_SOURCENO") = rowx("EXT_SOURCENO")
+                                dtRow("EXT_DESC") = rowx("EXT_DESC")
+                                dtRow("EXT_AMOUNT") = rowx("EXT_AMOUNT")
+                                If IsDBNull(rowx("EXT_DEDUCTIBLE")) = False AndAlso (rowx("EXT_DEDUCTIBLE") = "Yes" OrElse rowx("EXT_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXT_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXT_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXT_NOTE") = rowx("EXT_NOTE")
+                                dtRow("EXT_DETAIL") = rowx("EXT_DETAIL")
+                                If IsDBNull(rowx("EXT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXT_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXT_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXT_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                ds.Tables("expenses_travel").Rows.Add(dtRow)
                             End If
-                            dtRow("EXT_NOTE") = rowx("EXT_NOTE")
-                            dtRow("EXT_DETAIL") = rowx("EXT_DETAIL")
-                            If IsDBNull(rowx("EXT_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXT_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXT_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXT_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXT_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            ds.Tables("expenses_travel").Rows.Add(dtRow)
+                           
                         Next
                         dt = Nothing
 
@@ -2738,7 +2795,7 @@ Module mdlPNL2
                                 dtRow("EXTD_KEY") = rowx("EXTD_KEY")
                                 dtRow("EXTD_EXTKEY") = rowx("EXTD_EXTKEY")
                                 dtRow("EXTD_SOURCENO") = rowx("EXTD_SOURCENO")
-                                dtRow("EXTD_EXTDKEY") = rowx("EXTD_EXTDKEY")
+                                dtRow("EXTD_EXTDKEY") = ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Count + 1
                                 dtRow("EXTD_DESC") = rowx("EXTD_DESC")
                                 If IsDBNull(rowx("EXTD_DEDUCTIBLE")) = False AndAlso (rowx("EXTD_DEDUCTIBLE") = "Yes" OrElse rowx("EXTD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXTD_DEDUCTIBLE") = True
@@ -2769,28 +2826,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("expenses_jkdm").NewRow
-                            dtRow("EXJK_KEY") = rowx("EXJK_KEY")
-                            dtRow("EXJK_EXJKKEY") = rowx("EXJK_EXJKKEY")
-                            dtRow("EXJK_SOURCENO") = rowx("EXJK_SOURCENO")
-                            dtRow("EXJK_DESC") = rowx("EXJK_DESC")
-                            dtRow("EXJK_AMOUNT") = rowx("EXJK_AMOUNT")
-                            If IsDBNull(rowx("EXJK_DEDUCTIBLE")) = False AndAlso (rowx("EXJK_DEDUCTIBLE") = "Yes" OrElse rowx("EXJK_DEDUCTIBLE") = "True") Then
-                                dtRow("EXJK_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXJK_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXJK_NOTE") = rowx("EXJK_NOTE")
-                            dtRow("EXJK_DETAIL") = rowx("EXJK_DETAIL")
-                            If IsDBNull(rowx("EXJK_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXJK_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXJK_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXJK_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXJK_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
+                            If mdlPNL2.CheckIDExistInTable(ds, "expenses_jkdm", "EXJK_EXJKKEY", rowx("EXJK_EXJKKEY")) = False Then
+                                dtRow = ds.Tables("expenses_jkdm").NewRow
+                                dtRow("EXJK_KEY") = rowx("EXJK_KEY")
+                                dtRow("EXJK_EXJKKEY") = rowx("EXJK_EXJKKEY")
+                                dtRow("EXJK_SOURCENO") = rowx("EXJK_SOURCENO")
+                                dtRow("EXJK_DESC") = rowx("EXJK_DESC")
+                                dtRow("EXJK_AMOUNT") = rowx("EXJK_AMOUNT")
+                                If IsDBNull(rowx("EXJK_DEDUCTIBLE")) = False AndAlso (rowx("EXJK_DEDUCTIBLE") = "Yes" OrElse rowx("EXJK_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXJK_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXJK_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXJK_NOTE") = rowx("EXJK_NOTE")
+                                dtRow("EXJK_DETAIL") = rowx("EXJK_DETAIL")
+                                If IsDBNull(rowx("EXJK_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXJK_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXJK_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXJK_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXJK_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
 
 
-                            ds.Tables("expenses_jkdm").Rows.Add(dtRow)
+                                ds.Tables("expenses_jkdm").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -2803,7 +2863,7 @@ Module mdlPNL2
                                 dtRow("EXJKD_KEY") = rowx("EXJKD_KEY")
                                 dtRow("EXJKD_EXJKKEY") = rowx("EXJKD_EXJKKEY")
                                 dtRow("EXJKD_SOURCENO") = rowx("EXJKD_SOURCENO")
-                                dtRow("EXJKD_EXJKDKEY") = rowx("EXJKD_EXJKDKEY")
+                                dtRow("EXJKD_EXJKDKEY") = ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Count + 1
                                 dtRow("EXJKD_DESC") = rowx("EXJKD_DESC")
                                 If IsDBNull(rowx("EXJKD_DEDUCTIBLE")) = False AndAlso (rowx("EXJKD_DEDUCTIBLE") = "Yes" OrElse rowx("EXJKD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXJKD_DEDUCTIBLE") = True
@@ -2835,28 +2895,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exdepreciation").NewRow
-                            dtRow("EXODEP_KEY") = rowx("EXODEP_KEY")
-                            dtRow("EXODEP_EXODEPKEY") = rowx("EXODEP_EXODEPKEY")
-                            dtRow("EXODEP_SOURCENO") = rowx("EXODEP_SOURCENO")
-                            dtRow("EXODEP_DESC") = rowx("EXODEP_DESC")
-                            dtRow("EXODEP_AMOUNT") = rowx("EXODEP_AMOUNT")
-                            If IsDBNull(rowx("EXODEP_DEDUCTIBLE")) = False AndAlso (rowx("EXODEP_DEDUCTIBLE") = "Yes" OrElse rowx("EXODEP_DEDUCTIBLE") = "True") Then
-                                dtRow("EXODEP_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXODEP_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXODEP_NOTE") = rowx("EXODEP_NOTE")
-                            dtRow("EXODEP_DETAIL") = rowx("EXODEP_DETAIL")
-                            If IsDBNull(rowx("EXODEP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXODEP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXODEP_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXODEP_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXODEP_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exdepreciation", "EXODEP_EXODEPKEY", rowx("EXODEP_EXODEPKEY")) = False Then
+                                dtRow = ds.Tables("other_exdepreciation").NewRow
+                                dtRow("EXODEP_KEY") = rowx("EXODEP_KEY")
+                                dtRow("EXODEP_EXODEPKEY") = rowx("EXODEP_EXODEPKEY")
+                                dtRow("EXODEP_SOURCENO") = rowx("EXODEP_SOURCENO")
+                                dtRow("EXODEP_DESC") = rowx("EXODEP_DESC")
+                                dtRow("EXODEP_AMOUNT") = rowx("EXODEP_AMOUNT")
+                                If IsDBNull(rowx("EXODEP_DEDUCTIBLE")) = False AndAlso (rowx("EXODEP_DEDUCTIBLE") = "Yes" OrElse rowx("EXODEP_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXODEP_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXODEP_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXODEP_NOTE") = rowx("EXODEP_NOTE")
+                                dtRow("EXODEP_DETAIL") = rowx("EXODEP_DETAIL")
+                                If IsDBNull(rowx("EXODEP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXODEP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXODEP_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXODEP_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXODEP_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exdepreciation").Rows.Add(dtRow)
+                                ds.Tables("other_exdepreciation").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -2869,7 +2932,7 @@ Module mdlPNL2
                                 dtRow("EXODEPD_KEY") = rowx("EXODEPD_KEY")
                                 dtRow("EXODEPD_EXODEPKEY") = rowx("EXODEPD_EXODEPKEY")
                                 dtRow("EXODEPD_SOURCENO") = rowx("EXODEPD_SOURCENO")
-                                dtRow("EXODEPD_EXODEPDKEY") = rowx("EXODEPD_EXODEPDKEY")
+                                dtRow("EXODEPD_EXODEPDKEY") = ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Count + 1
                                 dtRow("EXODEPD_DESC") = rowx("EXODEPD_DESC")
                                 If IsDBNull(rowx("EXODEPD_DEDUCTIBLE")) = False AndAlso (rowx("EXODEPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXODEPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXODEPD_DEDUCTIBLE") = True
@@ -2902,29 +2965,32 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exapprdonation").NewRow
-                            dtRow("EXOAD_KEY") = rowx("EXOAD_KEY")
-                            dtRow("EXOAD_EXOADKEY") = rowx("EXOAD_EXOADKEY")
-                            dtRow("EXOAD_SOURCENO") = rowx("EXOAD_SOURCENO")
-                            dtRow("EXOAD_DESC") = rowx("EXOAD_DESC")
-                            dtRow("EXOAD_AMOUNT") = rowx("EXOAD_AMOUNT")
-                            If IsDBNull(rowx("EXOAD_DEDUCTIBLE")) = False AndAlso (rowx("EXOAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOAD_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOAD_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOAD_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOAD_NOTE") = rowx("EXOAD_NOTE")
-                            dtRow("EXOAD_DETAIL") = rowx("EXOAD_DETAIL")
-                            dtRow("EXOAD_TYPE") = rowx("EXOAD_TYPE")
-                            If IsDBNull(rowx("EXOAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOAD_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOAD_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOAD_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exapprdonation", "EXOAD_EXOADKEY", rowx("EXOAD_EXOADKEY")) = False Then
+                                dtRow = ds.Tables("other_exapprdonation").NewRow
+                                dtRow("EXOAD_KEY") = rowx("EXOAD_KEY")
+                                dtRow("EXOAD_EXOADKEY") = rowx("EXOAD_EXOADKEY")
+                                dtRow("EXOAD_SOURCENO") = rowx("EXOAD_SOURCENO")
+                                dtRow("EXOAD_DESC") = rowx("EXOAD_DESC")
+                                dtRow("EXOAD_AMOUNT") = rowx("EXOAD_AMOUNT")
+                                If IsDBNull(rowx("EXOAD_DEDUCTIBLE")) = False AndAlso (rowx("EXOAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOAD_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOAD_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOAD_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOAD_NOTE") = rowx("EXOAD_NOTE")
+                                dtRow("EXOAD_DETAIL") = rowx("EXOAD_DETAIL")
+                                dtRow("EXOAD_TYPE") = rowx("EXOAD_TYPE")
+                                If IsDBNull(rowx("EXOAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOAD_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOAD_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOAD_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exapprdonation").Rows.Add(dtRow)
+                                ds.Tables("other_exapprdonation").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -2937,7 +3003,7 @@ Module mdlPNL2
                                 dtRow("EXOADD_KEY") = rowx("EXOADD_KEY")
                                 dtRow("EXOADD_EXOADKEY") = rowx("EXOADD_EXOADKEY")
                                 dtRow("EXOADD_SOURCENO") = rowx("EXOADD_SOURCENO")
-                                dtRow("EXOADD_EXOADDKEY") = rowx("EXOADD_EXOADDKEY")
+                                dtRow("EXOADD_EXOADDKEY") = ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Count + 1
                                 dtRow("EXOADD_DESC") = rowx("EXOADD_DESC")
                                 If IsDBNull(rowx("EXOADD_DEDUCTIBLE")) = False AndAlso (rowx("EXOADD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOADD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOADD_DEDUCTIBLE") = True
@@ -2969,28 +3035,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exnapprdonation").NewRow
-                            dtRow("EXONAD_KEY") = rowx("EXONAD_KEY")
-                            dtRow("EXONAD_EXONADKEY") = rowx("EXONAD_EXONADKEY")
-                            dtRow("EXONAD_SOURCENO") = rowx("EXONAD_SOURCENO")
-                            dtRow("EXONAD_DESC") = rowx("EXONAD_DESC")
-                            dtRow("EXONAD_AMOUNT") = rowx("EXONAD_AMOUNT")
-                            If IsDBNull(rowx("EXONAD_DEDUCTIBLE")) = False AndAlso (rowx("EXONAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXONAD_DEDUCTIBLE") = "True") Then
-                                dtRow("EXONAD_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXONAD_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXONAD_NOTE") = rowx("EXONAD_NOTE")
-                            dtRow("EXONAD_DETAIL") = rowx("EXONAD_DETAIL")
-                            If IsDBNull(rowx("EXONAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXONAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXONAD_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXONAD_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXONAD_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exnapprdonation", "EXONAD_EXONADKEY", rowx("EXONAD_EXONADKEY")) = False Then
+                                dtRow = ds.Tables("other_exnapprdonation").NewRow
+                                dtRow("EXONAD_KEY") = rowx("EXONAD_KEY")
+                                dtRow("EXONAD_EXONADKEY") = rowx("EXONAD_EXONADKEY")
+                                dtRow("EXONAD_SOURCENO") = rowx("EXONAD_SOURCENO")
+                                dtRow("EXONAD_DESC") = rowx("EXONAD_DESC")
+                                dtRow("EXONAD_AMOUNT") = rowx("EXONAD_AMOUNT")
+                                If IsDBNull(rowx("EXONAD_DEDUCTIBLE")) = False AndAlso (rowx("EXONAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXONAD_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXONAD_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXONAD_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXONAD_NOTE") = rowx("EXONAD_NOTE")
+                                dtRow("EXONAD_DETAIL") = rowx("EXONAD_DETAIL")
+                                If IsDBNull(rowx("EXONAD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXONAD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXONAD_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXONAD_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXONAD_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exnapprdonation").Rows.Add(dtRow)
+                                ds.Tables("other_exnapprdonation").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -3003,7 +3072,7 @@ Module mdlPNL2
                                 dtRow("EXONADD_KEY") = rowx("EXONADD_KEY")
                                 dtRow("EXONADD_EXONADKEY") = rowx("EXONADD_EXONADKEY")
                                 dtRow("EXONADD_SOURCENO") = rowx("EXONADD_SOURCENO")
-                                dtRow("EXONADD_EXONADDKEY") = rowx("EXONADD_EXONADDKEY")
+                                dtRow("EXONADD_EXONADDKEY") = ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Count + 1
                                 dtRow("EXONADD_DESC") = rowx("EXONADD_DESC")
                                 If IsDBNull(rowx("EXONADD_DEDUCTIBLE")) = False AndAlso (rowx("EXONADD_DEDUCTIBLE") = "Yes" OrElse rowx("EXONADD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXONADD_DEDUCTIBLE") = True
@@ -3036,28 +3105,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exzakat").NewRow
-                            dtRow("EXOZ_KEY") = rowx("EXOZ_KEY")
-                            dtRow("EXOZ_EXOZKEY") = rowx("EXOZ_EXOZKEY")
-                            dtRow("EXOZ_SOURCENO") = rowx("EXOZ_SOURCENO")
-                            dtRow("EXOZ_DESC") = rowx("EXOZ_DESC")
-                            dtRow("EXOZ_AMOUNT") = rowx("EXOZ_AMOUNT")
-                            If IsDBNull(rowx("EXOZ_DEDUCTIBLE")) = False AndAlso (rowx("EXOZ_DEDUCTIBLE") = "Yes" OrElse rowx("EXOZ_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOZ_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOZ_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOZ_NOTE") = rowx("EXOZ_NOTE")
-                            dtRow("EXOZ_DETAIL") = rowx("EXOZ_DETAIL")
-                            If IsDBNull(rowx("EXOZ_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOZ_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOZ_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOZ_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOZ_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exzakat", "EXOZ_EXOZKEY", rowx("EXOZ_EXOZKEY")) = False Then
+                                dtRow = ds.Tables("other_exzakat").NewRow
+                                dtRow("EXOZ_KEY") = rowx("EXOZ_KEY")
+                                dtRow("EXOZ_EXOZKEY") = rowx("EXOZ_EXOZKEY")
+                                dtRow("EXOZ_SOURCENO") = rowx("EXOZ_SOURCENO")
+                                dtRow("EXOZ_DESC") = rowx("EXOZ_DESC")
+                                dtRow("EXOZ_AMOUNT") = rowx("EXOZ_AMOUNT")
+                                If IsDBNull(rowx("EXOZ_DEDUCTIBLE")) = False AndAlso (rowx("EXOZ_DEDUCTIBLE") = "Yes" OrElse rowx("EXOZ_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOZ_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOZ_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOZ_NOTE") = rowx("EXOZ_NOTE")
+                                dtRow("EXOZ_DETAIL") = rowx("EXOZ_DETAIL")
+                                If IsDBNull(rowx("EXOZ_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOZ_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOZ_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOZ_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOZ_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exzakat").Rows.Add(dtRow)
+                                ds.Tables("other_exzakat").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -3070,7 +3142,7 @@ Module mdlPNL2
                                 dtRow("EXOZD_KEY") = rowx("EXOZD_KEY")
                                 dtRow("EXOZD_EXOZKEY") = rowx("EXOZD_EXOZKEY")
                                 dtRow("EXOZD_SOURCENO") = rowx("EXOZD_SOURCENO")
-                                dtRow("EXOZD_EXOZDKEY") = rowx("EXOZD_EXOZDKEY")
+                                dtRow("EXOZD_EXOZDKEY") = ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Count + 1
                                 dtRow("EXOZD_DESC") = rowx("EXOZD_DESC")
                                 If IsDBNull(rowx("EXOZD_DEDUCTIBLE")) = False AndAlso (rowx("EXOZD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOZD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOZD_DEDUCTIBLE") = True
@@ -3103,28 +3175,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exlossdisposalfa").NewRow
-                            dtRow("EXOLD_KEY") = rowx("EXOLD_KEY")
-                            dtRow("EXOLD_EXOLDKEY") = rowx("EXOLD_EXOLDKEY")
-                            dtRow("EXOLD_SOURCENO") = rowx("EXOLD_SOURCENO")
-                            dtRow("EXOLD_DESC") = rowx("EXOLD_DESC")
-                            dtRow("EXOLD_AMOUNT") = rowx("EXOLD_AMOUNT")
-                            If IsDBNull(rowx("EXOLD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLD_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOLD_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOLD_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOLD_NOTE") = rowx("EXOLD_NOTE")
-                            dtRow("EXOLD_DETAIL") = rowx("EXOLD_DETAIL")
-                            If IsDBNull(rowx("EXOLD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLD_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOLD_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOLD_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exlossdisposalfa", "EXOLD_EXOLDKEY", rowx("EXOLD_EXOLDKEY")) = False Then
+                                dtRow = ds.Tables("other_exlossdisposalfa").NewRow
+                                dtRow("EXOLD_KEY") = rowx("EXOLD_KEY")
+                                dtRow("EXOLD_EXOLDKEY") = rowx("EXOLD_EXOLDKEY")
+                                dtRow("EXOLD_SOURCENO") = rowx("EXOLD_SOURCENO")
+                                dtRow("EXOLD_DESC") = rowx("EXOLD_DESC")
+                                dtRow("EXOLD_AMOUNT") = rowx("EXOLD_AMOUNT")
+                                If IsDBNull(rowx("EXOLD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLD_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOLD_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOLD_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOLD_NOTE") = rowx("EXOLD_NOTE")
+                                dtRow("EXOLD_DETAIL") = rowx("EXOLD_DETAIL")
+                                If IsDBNull(rowx("EXOLD_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLD_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLD_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOLD_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOLD_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exlossdisposalfa").Rows.Add(dtRow)
+                                ds.Tables("other_exlossdisposalfa").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -3137,7 +3212,7 @@ Module mdlPNL2
                                 dtRow("EXOLDD_KEY") = rowx("EXOLDD_KEY")
                                 dtRow("EXOLDD_EXOLDKEY") = rowx("EXOLDD_EXOLDKEY")
                                 dtRow("EXOLDD_SOURCENO") = rowx("EXOLDD_SOURCENO")
-                                dtRow("EXOLDD_EXOLDDKEY") = rowx("EXOLDD_EXOLDDKEY")
+                                dtRow("EXOLDD_EXOLDDKEY") = ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Count + 1
                                 dtRow("EXOLDD_DESC") = rowx("EXOLDD_DESC")
                                 If IsDBNull(rowx("EXOLDD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLDD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLDD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOLDD_DEDUCTIBLE") = True
@@ -3170,28 +3245,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_entertainnstaff").NewRow
-                            dtRow("EXOENS_KEY") = rowx("EXOENS_KEY")
-                            dtRow("EXOENS_EXOENSKEY") = rowx("EXOENS_EXOENSKEY")
-                            dtRow("EXOENS_SOURCENO") = rowx("EXOENS_SOURCENO")
-                            dtRow("EXOENS_DESC") = rowx("EXOENS_DESC")
-                            dtRow("EXOENS_AMOUNT") = rowx("EXOENS_AMOUNT")
-                            If IsDBNull(rowx("EXOENS_DEDUCTIBLE")) = False AndAlso (rowx("EXOENS_DEDUCTIBLE") = "Yes" OrElse rowx("EXOENS_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOENS_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOENS_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOENS_NOTE") = rowx("EXOENS_NOTE")
-                            dtRow("EXOENS_DETAIL") = rowx("EXOENS_DETAIL")
-                            If IsDBNull(rowx("EXOENS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOENS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOENS_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOENS_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOENS_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_entertainnstaff", "EXOENS_EXOENSKEY", rowx("EXOENS_EXOENSKEY")) = False Then
+                                dtRow = ds.Tables("other_entertainnstaff").NewRow
+                                dtRow("EXOENS_KEY") = rowx("EXOENS_KEY")
+                                dtRow("EXOENS_EXOENSKEY") = rowx("EXOENS_EXOENSKEY")
+                                dtRow("EXOENS_SOURCENO") = rowx("EXOENS_SOURCENO")
+                                dtRow("EXOENS_DESC") = rowx("EXOENS_DESC")
+                                dtRow("EXOENS_AMOUNT") = rowx("EXOENS_AMOUNT")
+                                If IsDBNull(rowx("EXOENS_DEDUCTIBLE")) = False AndAlso (rowx("EXOENS_DEDUCTIBLE") = "Yes" OrElse rowx("EXOENS_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOENS_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOENS_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOENS_NOTE") = rowx("EXOENS_NOTE")
+                                dtRow("EXOENS_DETAIL") = rowx("EXOENS_DETAIL")
+                                If IsDBNull(rowx("EXOENS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOENS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOENS_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOENS_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOENS_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_entertainnstaff").Rows.Add(dtRow)
+                                ds.Tables("other_entertainnstaff").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -3204,7 +3282,7 @@ Module mdlPNL2
                                 dtRow("EXOENSD_KEY") = rowx("EXOENSD_KEY")
                                 dtRow("EXOENSD_EXOENSKEY") = rowx("EXOENSD_EXOENSKEY")
                                 dtRow("EXOENSD_SOURCENO") = rowx("EXOENSD_SOURCENO")
-                                dtRow("EXOENSD_EXOENSDKEY") = rowx("EXOENSD_EXOENSDKEY")
+                                dtRow("EXOENSD_EXOENSDKEY") = ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Count + 1
                                 dtRow("EXOENSD_DESC") = rowx("EXOENSD_DESC")
                                 If IsDBNull(rowx("EXOENSD_DEDUCTIBLE")) = False AndAlso (rowx("EXOENSD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOENSD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOENSD_DEDUCTIBLE") = True
@@ -3237,28 +3315,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("OTHER_ENTERTAINSTAFF").NewRow
-                            dtRow("EXOES_KEY") = rowx("EXOES_KEY")
-                            dtRow("EXOES_EXOESKEY") = rowx("EXOES_EXOESKEY")
-                            dtRow("EXOES_SOURCENO") = rowx("EXOES_SOURCENO")
-                            dtRow("EXOES_DESC") = rowx("EXOES_DESC")
-                            dtRow("EXOES_AMOUNT") = rowx("EXOES_AMOUNT")
-                            If IsDBNull(rowx("EXOES_DEDUCTIBLE")) = False AndAlso (rowx("EXOES_DEDUCTIBLE") = "Yes" OrElse rowx("EXOES_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOES_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOES_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOES_NOTE") = rowx("EXOES_NOTE")
-                            dtRow("EXOES_DETAIL") = rowx("EXOES_DETAIL")
-                            If IsDBNull(rowx("EXOES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOES_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOES_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOES_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "OTHER_ENTERTAINSTAFF", "EXOES_EXOESKEY", rowx("EXOES_EXOESKEY")) = False Then
+                                dtRow = ds.Tables("OTHER_ENTERTAINSTAFF").NewRow
+                                dtRow("EXOES_KEY") = rowx("EXOES_KEY")
+                                dtRow("EXOES_EXOESKEY") = rowx("EXOES_EXOESKEY")
+                                dtRow("EXOES_SOURCENO") = rowx("EXOES_SOURCENO")
+                                dtRow("EXOES_DESC") = rowx("EXOES_DESC")
+                                dtRow("EXOES_AMOUNT") = rowx("EXOES_AMOUNT")
+                                If IsDBNull(rowx("EXOES_DEDUCTIBLE")) = False AndAlso (rowx("EXOES_DEDUCTIBLE") = "Yes" OrElse rowx("EXOES_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOES_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOES_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOES_NOTE") = rowx("EXOES_NOTE")
+                                dtRow("EXOES_DETAIL") = rowx("EXOES_DETAIL")
+                                If IsDBNull(rowx("EXOES_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOES_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOES_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOES_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOES_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Add(dtRow)
+                                ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -3271,7 +3352,7 @@ Module mdlPNL2
                                 dtRow("EXOESD_KEY") = rowx("EXOESD_KEY")
                                 dtRow("EXOESD_EXOESKEY") = rowx("EXOESD_EXOESKEY")
                                 dtRow("EXOESD_SOURCENO") = rowx("EXOESD_SOURCENO")
-                                dtRow("EXOESD_EXOESDKEY") = rowx("EXOESD_EXOESDKEY")
+                                dtRow("EXOESD_EXOESDKEY") = ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Count + 1
                                 dtRow("EXOESD_DESC") = rowx("EXOESD_DESC")
                                 If IsDBNull(rowx("EXOESD_DEDUCTIBLE")) = False AndAlso (rowx("EXOESD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOESD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOESD_DEDUCTIBLE") = True
@@ -3303,28 +3384,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_expenalty").NewRow
-                            dtRow("EXOP_KEY") = rowx("EXOP_KEY")
-                            dtRow("EXOP_EXOPKEY") = rowx("EXOP_EXOPKEY")
-                            dtRow("EXOP_SOURCENO") = rowx("EXOP_SOURCENO")
-                            dtRow("EXOP_DESC") = rowx("EXOP_DESC")
-                            dtRow("EXOP_AMOUNT") = rowx("EXOP_AMOUNT")
-                            If IsDBNull(rowx("EXOP_DEDUCTIBLE")) = False AndAlso (rowx("EXOP_DEDUCTIBLE") = "Yes" OrElse rowx("EXOP_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOP_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOP_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOP_NOTE") = rowx("EXOP_NOTE")
-                            dtRow("EXOP_DETAIL") = rowx("EXOP_DETAIL")
-                            If IsDBNull(rowx("EXOP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOP_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOP_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOP_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_expenalty", "EXOP_EXOPKEY", rowx("EXOP_EXOPKEY")) = False Then
+                                dtRow = ds.Tables("other_expenalty").NewRow
+                                dtRow("EXOP_KEY") = rowx("EXOP_KEY")
+                                dtRow("EXOP_EXOPKEY") = rowx("EXOP_EXOPKEY")
+                                dtRow("EXOP_SOURCENO") = rowx("EXOP_SOURCENO")
+                                dtRow("EXOP_DESC") = rowx("EXOP_DESC")
+                                dtRow("EXOP_AMOUNT") = rowx("EXOP_AMOUNT")
+                                If IsDBNull(rowx("EXOP_DEDUCTIBLE")) = False AndAlso (rowx("EXOP_DEDUCTIBLE") = "Yes" OrElse rowx("EXOP_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOP_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOP_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOP_NOTE") = rowx("EXOP_NOTE")
+                                dtRow("EXOP_DETAIL") = rowx("EXOP_DETAIL")
+                                If IsDBNull(rowx("EXOP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOP_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOP_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOP_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_expenalty").Rows.Add(dtRow)
+                                ds.Tables("other_expenalty").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -3337,7 +3421,7 @@ Module mdlPNL2
                                 dtRow("EXOPD_KEY") = rowx("EXOPD_KEY")
                                 dtRow("EXOPD_EXOPKEY") = rowx("EXOPD_EXOPKEY")
                                 dtRow("EXOPD_SOURCENO") = rowx("EXOPD_SOURCENO")
-                                dtRow("EXOPD_EXOPDKEY") = rowx("EXOPD_EXOPDKEY")
+                                dtRow("EXOPD_EXOPDKEY") = ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Count + 1
                                 dtRow("EXOPD_DESC") = rowx("EXOPD_DESC")
                                 If IsDBNull(rowx("EXOPD_DEDUCTIBLE")) = False AndAlso (rowx("EXOPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOPD_DEDUCTIBLE") = True
@@ -3370,28 +3454,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exprovisionacc").NewRow
-                            dtRow("EXOPA_KEY") = rowx("EXOPA_KEY")
-                            dtRow("EXOPA_EXOPAKEY") = rowx("EXOPA_EXOPAKEY")
-                            dtRow("EXOPA_SOURCENO") = rowx("EXOPA_SOURCENO")
-                            dtRow("EXOPA_DESC") = rowx("EXOPA_DESC")
-                            dtRow("EXOPA_AMOUNT") = rowx("EXOPA_AMOUNT")
-                            If IsDBNull(rowx("EXOPA_DEDUCTIBLE")) = False AndAlso (rowx("EXOPA_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPA_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOPA_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOPA_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOPA_NOTE") = rowx("EXOPA_NOTE")
-                            dtRow("EXOPA_DETAIL") = rowx("EXOPA_DETAIL")
-                            If IsDBNull(rowx("EXOPA_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOPA_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOPA_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOPA_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOPA_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exprovisionacc", "EXOPA_EXOPAKEY", rowx("EXOPA_EXOPAKEY")) = False Then
+                                dtRow = ds.Tables("other_exprovisionacc").NewRow
+                                dtRow("EXOPA_KEY") = rowx("EXOPA_KEY")
+                                dtRow("EXOPA_EXOPAKEY") = rowx("EXOPA_EXOPAKEY")
+                                dtRow("EXOPA_SOURCENO") = rowx("EXOPA_SOURCENO")
+                                dtRow("EXOPA_DESC") = rowx("EXOPA_DESC")
+                                dtRow("EXOPA_AMOUNT") = rowx("EXOPA_AMOUNT")
+                                If IsDBNull(rowx("EXOPA_DEDUCTIBLE")) = False AndAlso (rowx("EXOPA_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPA_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOPA_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOPA_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOPA_NOTE") = rowx("EXOPA_NOTE")
+                                dtRow("EXOPA_DETAIL") = rowx("EXOPA_DETAIL")
+                                If IsDBNull(rowx("EXOPA_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOPA_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOPA_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOPA_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOPA_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exprovisionacc").Rows.Add(dtRow)
+                                ds.Tables("other_exprovisionacc").Rows.Add(dtRow)
+                            End If
+                          
                         Next
                         dt = Nothing
 
@@ -3404,7 +3491,7 @@ Module mdlPNL2
                                 dtRow("EXOPAD_KEY") = rowx("EXOPAD_KEY")
                                 dtRow("EXOPAD_EXOPAKEY") = rowx("EXOPAD_EXOPAKEY")
                                 dtRow("EXOPAD_SOURCENO") = rowx("EXOPAD_SOURCENO")
-                                dtRow("EXOPAD_EXOPADKEY") = rowx("EXOPAD_EXOPADKEY")
+                                dtRow("EXOPAD_EXOPADKEY") = ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Count + 1
                                 dtRow("EXOPAD_DESC") = rowx("EXOPAD_DESC")
                                 If IsDBNull(rowx("EXOPAD_DEDUCTIBLE")) = False AndAlso (rowx("EXOPAD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOPAD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOPAD_DEDUCTIBLE") = True
@@ -3436,28 +3523,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exleavepassage").NewRow
-                            dtRow("EXOLP_KEY") = rowx("EXOLP_KEY")
-                            dtRow("EXOLP_EXOLPKEY") = rowx("EXOLP_EXOLPKEY")
-                            dtRow("EXOLP_SOURCENO") = rowx("EXOLP_SOURCENO")
-                            dtRow("EXOLP_DESC") = rowx("EXOLP_DESC")
-                            dtRow("EXOLP_AMOUNT") = rowx("EXOLP_AMOUNT")
-                            If IsDBNull(rowx("EXOLP_DEDUCTIBLE")) = False AndAlso (rowx("EXOLP_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLP_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOLP_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOLP_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOLP_NOTE") = rowx("EXOLP_NOTE")
-                            dtRow("EXOLP_DETAIL") = rowx("EXOLP_DETAIL")
-                            If IsDBNull(rowx("EXOLP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLP_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOLP_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOLP_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exleavepassage", "EXOLP_EXOLPKEY", rowx("EXOLP_EXOLPKEY")) = False Then
+                                dtRow = ds.Tables("other_exleavepassage").NewRow
+                                dtRow("EXOLP_KEY") = rowx("EXOLP_KEY")
+                                dtRow("EXOLP_EXOLPKEY") = rowx("EXOLP_EXOLPKEY")
+                                dtRow("EXOLP_SOURCENO") = rowx("EXOLP_SOURCENO")
+                                dtRow("EXOLP_DESC") = rowx("EXOLP_DESC")
+                                dtRow("EXOLP_AMOUNT") = rowx("EXOLP_AMOUNT")
+                                If IsDBNull(rowx("EXOLP_DEDUCTIBLE")) = False AndAlso (rowx("EXOLP_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLP_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOLP_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOLP_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOLP_NOTE") = rowx("EXOLP_NOTE")
+                                dtRow("EXOLP_DETAIL") = rowx("EXOLP_DETAIL")
+                                If IsDBNull(rowx("EXOLP_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOLP_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOLP_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOLP_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOLP_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exleavepassage").Rows.Add(dtRow)
+                                ds.Tables("other_exleavepassage").Rows.Add(dtRow)
+                            End If
+                           
                         Next
                         dt = Nothing
 
@@ -3470,7 +3560,7 @@ Module mdlPNL2
                                 dtRow("EXOLPD_KEY") = rowx("EXOLPD_KEY")
                                 dtRow("EXOLPD_EXOLPKEY") = rowx("EXOLPD_EXOLPKEY")
                                 dtRow("EXOLPD_SOURCENO") = rowx("EXOLPD_SOURCENO")
-                                dtRow("EXOLPD_EXOLPDKEY") = rowx("EXOLPD_EXOLPDKEY")
+                                dtRow("EXOLPD_EXOLPDKEY") = ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Count + 1
                                 dtRow("EXOLPD_DESC") = rowx("EXOLPD_DESC")
                                 If IsDBNull(rowx("EXOLPD_DEDUCTIBLE")) = False AndAlso (rowx("EXOLPD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOLPD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOLPD_DEDUCTIBLE") = True
@@ -3503,27 +3593,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exfawrittenoff").NewRow
-                            dtRow("EXOWO_KEY") = rowx("EXOWO_KEY")
-                            dtRow("EXOWO_EXOWOKEY") = rowx("EXOWO_EXOWOKEY")
-                            dtRow("EXOWO_SOURCENO") = rowx("EXOWO_SOURCENO")
-                            dtRow("EXOWO_DESC") = rowx("EXOWO_DESC")
-                            dtRow("EXOWO_AMOUNT") = rowx("EXOWO_AMOUNT")
-                            If IsDBNull(rowx("EXOWO_DEDUCTIBLE")) = False AndAlso (rowx("EXOWO_DEDUCTIBLE") = "Yes" OrElse rowx("EXOWO_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOWO_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOWO_DEDUCTIBLE") = False
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exfawrittenoff", "EXOWO_EXOWOKEY", rowx("EXOWO_EXOWOKEY")) = False Then
+                                dtRow = ds.Tables("other_exfawrittenoff").NewRow
+                                dtRow("EXOWO_KEY") = rowx("EXOWO_KEY")
+                                dtRow("EXOWO_EXOWOKEY") = rowx("EXOWO_EXOWOKEY")
+                                dtRow("EXOWO_SOURCENO") = rowx("EXOWO_SOURCENO")
+                                dtRow("EXOWO_DESC") = rowx("EXOWO_DESC")
+                                dtRow("EXOWO_AMOUNT") = rowx("EXOWO_AMOUNT")
+                                If IsDBNull(rowx("EXOWO_DEDUCTIBLE")) = False AndAlso (rowx("EXOWO_DEDUCTIBLE") = "Yes" OrElse rowx("EXOWO_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOWO_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOWO_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOWO_NOTE") = rowx("EXOWO_NOTE")
+                                dtRow("EXOWO_DETAIL") = rowx("EXOWO_DETAIL")
+                                If IsDBNull(rowx("EXOWO_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOWO_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOWO_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOWO_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOWO_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
+                                ds.Tables("other_exfawrittenoff").Rows.Add(dtRow)
                             End If
-                            dtRow("EXOWO_NOTE") = rowx("EXOWO_NOTE")
-                            dtRow("EXOWO_DETAIL") = rowx("EXOWO_DETAIL")
-                            If IsDBNull(rowx("EXOWO_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOWO_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOWO_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOWO_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOWO_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
-                            ds.Tables("other_exfawrittenoff").Rows.Add(dtRow)
+                           
                         Next
                         dt = Nothing
 
@@ -3536,7 +3629,7 @@ Module mdlPNL2
                                 dtRow("EXOWOD_KEY") = rowx("EXOWOD_KEY")
                                 dtRow("EXOWOD_EXOWOKEY") = rowx("EXOWOD_EXOWOKEY")
                                 dtRow("EXOWOD_SOURCENO") = rowx("EXOWOD_SOURCENO")
-                                dtRow("EXOWOD_EXOWODKEY") = rowx("EXOWOD_EXOWODKEY")
+                                dtRow("EXOWOD_EXOWODKEY") = ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Count + 1
                                 dtRow("EXOWOD_DESC") = rowx("EXOWOD_DESC")
                                 If IsDBNull(rowx("EXOWOD_DEDUCTIBLE")) = False AndAlso (rowx("EXOWOD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOWOD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOWOD_DEDUCTIBLE") = True
@@ -3569,28 +3662,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exurlossforeign").NewRow
-                            dtRow("EXOUR_KEY") = rowx("EXOUR_KEY")
-                            dtRow("EXOUR_EXOURKEY") = rowx("EXOUR_EXOURKEY")
-                            dtRow("EXOUR_SOURCENO") = rowx("EXOUR_SOURCENO")
-                            dtRow("EXOUR_DESC") = rowx("EXOUR_DESC")
-                            dtRow("EXOUR_AMOUNT") = rowx("EXOUR_AMOUNT")
-                            If IsDBNull(rowx("EXOUR_DEDUCTIBLE")) = False AndAlso (rowx("EXOUR_DEDUCTIBLE") = "Yes" OrElse rowx("EXOUR_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOUR_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOUR_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOUR_NOTE") = rowx("EXOUR_NOTE")
-                            dtRow("EXOUR_DETAIL") = rowx("EXOUR_DETAIL")
-                            If IsDBNull(rowx("EXOUR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOUR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOUR_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOUR_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOUR_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exurlossforeign", "EXOUR_EXOURKEY", rowx("EXOUR_EXOURKEY")) = False Then
+                                dtRow = ds.Tables("other_exurlossforeign").NewRow
+                                dtRow("EXOUR_KEY") = rowx("EXOUR_KEY")
+                                dtRow("EXOUR_EXOURKEY") = rowx("EXOUR_EXOURKEY")
+                                dtRow("EXOUR_SOURCENO") = rowx("EXOUR_SOURCENO")
+                                dtRow("EXOUR_DESC") = rowx("EXOUR_DESC")
+                                dtRow("EXOUR_AMOUNT") = rowx("EXOUR_AMOUNT")
+                                If IsDBNull(rowx("EXOUR_DEDUCTIBLE")) = False AndAlso (rowx("EXOUR_DEDUCTIBLE") = "Yes" OrElse rowx("EXOUR_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOUR_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOUR_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOUR_NOTE") = rowx("EXOUR_NOTE")
+                                dtRow("EXOUR_DETAIL") = rowx("EXOUR_DETAIL")
+                                If IsDBNull(rowx("EXOUR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOUR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOUR_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOUR_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOUR_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exurlossforeign").Rows.Add(dtRow)
+                                ds.Tables("other_exurlossforeign").Rows.Add(dtRow)
+                            End If
+                            
                         Next
                         dt = Nothing
 
@@ -3599,11 +3695,12 @@ Module mdlPNL2
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
                                 dtRow = Nothing
+
                                 dtRow = ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").NewRow
                                 dtRow("EXOURD_KEY") = rowx("EXOURD_KEY")
                                 dtRow("EXOURD_EXOURKEY") = rowx("EXOURD_EXOURKEY")
                                 dtRow("EXOURD_SOURCENO") = rowx("EXOURD_SOURCENO")
-                                dtRow("EXOURD_EXOURDKEY") = rowx("EXOURD_EXOURDKEY")
+                                dtRow("EXOURD_EXOURDKEY") = ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Count + 1
                                 dtRow("EXOURD_DESC") = rowx("EXOURD_DESC")
                                 If IsDBNull(rowx("EXOURD_DEDUCTIBLE")) = False AndAlso (rowx("EXOURD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOURD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOURD_DEDUCTIBLE") = True
@@ -3668,7 +3765,7 @@ Module mdlPNL2
                                 dtRow("EXORTD_KEY") = rowx("EXORTD_KEY")
                                 dtRow("EXORTD_EXORTKEY") = rowx("EXORTD_EXORTKEY")
                                 dtRow("EXORTD_SOURCENO") = rowx("EXORTD_SOURCENO")
-                                dtRow("EXORTD_EXORTDKEY") = rowx("EXORTD_EXORTDKEY")
+                                dtRow("EXORTD_EXORTDKEY") = ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Count + 1
                                 dtRow("EXORTD_DESC") = rowx("EXORTD_DESC")
                                 If IsDBNull(rowx("EXORTD_DEDUCTIBLE")) = False AndAlso (rowx("EXORTD_DEDUCTIBLE") = "Yes" OrElse rowx("EXORTD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXORTD_DEDUCTIBLE") = True
@@ -3700,27 +3797,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exrlossforeign").NewRow
-                            dtRow("EXOR_KEY") = rowx("EXOR_KEY")
-                            dtRow("EXOR_EXORKEY") = rowx("EXOR_EXORKEY")
-                            dtRow("EXOR_SOURCENO") = rowx("EXOR_SOURCENO")
-                            dtRow("EXOR_DESC") = rowx("EXOR_DESC")
-                            dtRow("EXOR_AMOUNT") = rowx("EXOR_AMOUNT")
-                            If IsDBNull(rowx("EXOR_DEDUCTIBLE")) = False AndAlso (rowx("EXOR_DEDUCTIBLE") = "Yes" OrElse rowx("EXOR_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOR_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOR_DEDUCTIBLE") = False
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exrlossforeign", "EXOR_EXORKEY", rowx("EXOR_EXORKEY")) = False Then
+                                dtRow = ds.Tables("other_exrlossforeign").NewRow
+                                dtRow("EXOR_KEY") = rowx("EXOR_KEY")
+                                dtRow("EXOR_EXORKEY") = rowx("EXOR_EXORKEY")
+                                dtRow("EXOR_SOURCENO") = rowx("EXOR_SOURCENO")
+                                dtRow("EXOR_DESC") = rowx("EXOR_DESC")
+                                dtRow("EXOR_AMOUNT") = rowx("EXOR_AMOUNT")
+                                If IsDBNull(rowx("EXOR_DEDUCTIBLE")) = False AndAlso (rowx("EXOR_DEDUCTIBLE") = "Yes" OrElse rowx("EXOR_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOR_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOR_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOR_NOTE") = rowx("EXOR_NOTE")
+                                dtRow("EXOR_DETAIL") = rowx("EXOR_DETAIL")
+                                If IsDBNull(rowx("EXOR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOR_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOR_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOR_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
+                                ds.Tables("other_exrlossforeign").Rows.Add(dtRow)
                             End If
-                            dtRow("EXOR_NOTE") = rowx("EXOR_NOTE")
-                            dtRow("EXOR_DETAIL") = rowx("EXOR_DETAIL")
-                            If IsDBNull(rowx("EXOR_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOR_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOR_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOR_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOR_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
-                            ds.Tables("other_exrlossforeign").Rows.Add(dtRow)
+                        
                         Next
                         dt = Nothing
 
@@ -3733,7 +3833,7 @@ Module mdlPNL2
                                 dtRow("EXORD_KEY") = rowx("EXORD_KEY")
                                 dtRow("EXORD_EXORKEY") = rowx("EXORD_EXORKEY")
                                 dtRow("EXORD_SOURCENO") = rowx("EXORD_SOURCENO")
-                                dtRow("EXORD_EXORDKEY") = rowx("EXORD_EXORDKEY")
+                                dtRow("EXORD_EXORDKEY") = ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Count + 1
                                 dtRow("EXORD_DESC") = rowx("EXORD_DESC")
                                 If IsDBNull(rowx("EXORD_DEDUCTIBLE")) = False AndAlso (rowx("EXORD_DEDUCTIBLE") = "Yes" OrElse rowx("EXORD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXORD_DEDUCTIBLE") = True
@@ -3765,28 +3865,31 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_exinitialsub").NewRow
-                            dtRow("EXOIS_KEY") = rowx("EXOIS_KEY")
-                            dtRow("EXOIS_EXOISKEY") = rowx("EXOIS_EXOISKEY")
-                            dtRow("EXOIS_SOURCENO") = rowx("EXOIS_SOURCENO")
-                            dtRow("EXOIS_DESC") = rowx("EXOIS_DESC")
-                            dtRow("EXOIS_AMOUNT") = rowx("EXOIS_AMOUNT")
-                            If IsDBNull(rowx("EXOIS_DEDUCTIBLE")) = False AndAlso (rowx("EXOIS_DEDUCTIBLE") = "Yes" OrElse rowx("EXOIS_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOIS_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOIS_DEDUCTIBLE") = False
-                            End If
-                            dtRow("EXOIS_NOTE") = rowx("EXOIS_NOTE")
-                            dtRow("EXOIS_DETAIL") = rowx("EXOIS_DETAIL")
-                            If IsDBNull(rowx("EXOIS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOIS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOIS_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOIS_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOIS_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_exinitialsub", "EXOIS_EXOISKEY", rowx("EXOIS_EXOISKEY")) = False Then
+                                dtRow = ds.Tables("other_exinitialsub").NewRow
+                                dtRow("EXOIS_KEY") = rowx("EXOIS_KEY")
+                                dtRow("EXOIS_EXOISKEY") = rowx("EXOIS_EXOISKEY")
+                                dtRow("EXOIS_SOURCENO") = rowx("EXOIS_SOURCENO")
+                                dtRow("EXOIS_DESC") = rowx("EXOIS_DESC")
+                                dtRow("EXOIS_AMOUNT") = rowx("EXOIS_AMOUNT")
+                                If IsDBNull(rowx("EXOIS_DEDUCTIBLE")) = False AndAlso (rowx("EXOIS_DEDUCTIBLE") = "Yes" OrElse rowx("EXOIS_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOIS_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOIS_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOIS_NOTE") = rowx("EXOIS_NOTE")
+                                dtRow("EXOIS_DETAIL") = rowx("EXOIS_DETAIL")
+                                If IsDBNull(rowx("EXOIS_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOIS_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOIS_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOIS_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOIS_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
 
-                            ds.Tables("other_exinitialsub").Rows.Add(dtRow)
+                                ds.Tables("other_exinitialsub").Rows.Add(dtRow)
+                            End If
+                          
                         Next
                         dt = Nothing
 
@@ -3799,7 +3902,7 @@ Module mdlPNL2
                                 dtRow("EXOISD_KEY") = rowx("EXOISD_KEY")
                                 dtRow("EXOISD_EXOISKEY") = rowx("EXOISD_EXOISKEY")
                                 dtRow("EXOISD_SOURCENO") = rowx("EXOISD_SOURCENO")
-                                dtRow("EXOISD_EXOISDKEY") = rowx("EXOISD_EXOISDKEY")
+                                dtRow("EXOISD_EXOISDKEY") = ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Count + 1
                                 dtRow("EXOISD_DESC") = rowx("EXOISD_DESC")
                                 If IsDBNull(rowx("EXOISD_DEDUCTIBLE")) = False AndAlso (rowx("EXOISD_DEDUCTIBLE") = "Yes" OrElse rowx("EXOISD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOISD_DEDUCTIBLE") = True
@@ -3831,27 +3934,30 @@ Module mdlPNL2
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
-                            dtRow = ds.Tables("other_excapitalexp").NewRow
-                            dtRow("EXOCE_KEY") = rowx("EXOCE_KEY")
-                            dtRow("EXOCE_EXOCEKEY") = rowx("EXOCE_EXOCEKEY")
-                            dtRow("EXOCE_SOURCENO") = rowx("EXOCE_SOURCENO")
-                            dtRow("EXOCE_DESC") = rowx("EXOCE_DESC")
-                            dtRow("EXOCE_AMOUNT") = rowx("EXOCE_AMOUNT")
-                            If IsDBNull(rowx("EXOCE_DEDUCTIBLE")) = False AndAlso (rowx("EXOCE_DEDUCTIBLE") = "Yes" OrElse rowx("EXOCE_DEDUCTIBLE") = "True") Then
-                                dtRow("EXOCE_DEDUCTIBLE") = True
-                            Else
-                                dtRow("EXOCE_DEDUCTIBLE") = False
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_excapitalexp", "EXOCE_EXOCEKEY", rowx("EXOCE_EXOCEKEY")) = False Then
+                                dtRow = ds.Tables("other_excapitalexp").NewRow
+                                dtRow("EXOCE_KEY") = rowx("EXOCE_KEY")
+                                dtRow("EXOCE_EXOCEKEY") = rowx("EXOCE_EXOCEKEY")
+                                dtRow("EXOCE_SOURCENO") = rowx("EXOCE_SOURCENO")
+                                dtRow("EXOCE_DESC") = rowx("EXOCE_DESC")
+                                dtRow("EXOCE_AMOUNT") = rowx("EXOCE_AMOUNT")
+                                If IsDBNull(rowx("EXOCE_DEDUCTIBLE")) = False AndAlso (rowx("EXOCE_DEDUCTIBLE") = "Yes" OrElse rowx("EXOCE_DEDUCTIBLE") = "True") Then
+                                    dtRow("EXOCE_DEDUCTIBLE") = True
+                                Else
+                                    dtRow("EXOCE_DEDUCTIBLE") = False
+                                End If
+                                dtRow("EXOCE_NOTE") = rowx("EXOCE_NOTE")
+                                dtRow("EXOCE_DETAIL") = rowx("EXOCE_DETAIL")
+                                If IsDBNull(rowx("EXOCE_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOCE_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOCE_DEDUCTIBLE_ADD") = "True") Then
+                                    dtRow("EXOCE_DEDUCTIBLE_ADD") = True
+                                Else
+                                    dtRow("EXOCE_DEDUCTIBLE_ADD") = False
+                                End If
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
+                                ds.Tables("other_excapitalexp").Rows.Add(dtRow)
                             End If
-                            dtRow("EXOCE_NOTE") = rowx("EXOCE_NOTE")
-                            dtRow("EXOCE_DETAIL") = rowx("EXOCE_DETAIL")
-                            If IsDBNull(rowx("EXOCE_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXOCE_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXOCE_DEDUCTIBLE_ADD") = "True") Then
-                                dtRow("EXOCE_DEDUCTIBLE_ADD") = True
-                            Else
-                                dtRow("EXOCE_DEDUCTIBLE_ADD") = False
-                            End If
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
-                            ds.Tables("other_excapitalexp").Rows.Add(dtRow)
+                           
                         Next
                         dt = Nothing
 
@@ -3860,11 +3966,12 @@ Module mdlPNL2
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
                                 dtRow = Nothing
+
                                 dtRow = ds.Tables("OTHER_EXCAPITALEXP_DETAIL").NewRow
                                 dtRow("EXOCED_KEY") = rowx("EXOCED_KEY")
                                 dtRow("EXOCED_EXOCEKEY") = rowx("EXOCED_EXOCEKEY")
                                 dtRow("EXOCED_SOURCENO") = rowx("EXOCED_SOURCENO")
-                                dtRow("EXOCED_EXOCEDKEY") = rowx("EXOCED_EXOCEDKEY")
+                                dtRow("EXOCED_EXOCEDKEY") = ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Count + 1
                                 dtRow("EXOCED_DESC") = rowx("EXOCED_DESC")
                                 If IsDBNull(rowx("EXOCED_DEDUCTIBLE")) = False AndAlso (rowx("EXOCED_DEDUCTIBLE") = "Yes" OrElse rowx("EXOCED_DEDUCTIBLE") = "True") Then
                                     dtRow("EXOCED_DEDUCTIBLE") = True
@@ -3898,36 +4005,41 @@ Module mdlPNL2
                         For Each rowx As DataRow In dt.Rows
                             dtRow = Nothing
                             dtChild = Nothing
-                            dtChild = mdlPNL2.Load_DT_Deduct(rowx("EXO_KEY"), rowx("EXO_EXOKEY"), Type, Errorlog)
+                            If mdlPNL2.CheckIDExistInTable(ds, "other_expenses", "EXO_EXOKEY", rowx("EXO_EXOKEY")) = False Then
+                                dtChild = mdlPNL2.Load_DT_Deduct(rowx("EXO_KEY"), rowx("EXO_EXOKEY"), Type, Errorlog)
 
-                            dtRow = ds.Tables("other_expenses").NewRow
-                            dtRow("EXO_KEY") = rowx("EXO_KEY")
-                            dtRow("EXO_EXOKEY") = rowx("EXO_EXOKEY")
-                            dtRow("EXO_DESC") = rowx("EXO_DESC")
-                            dtRow("EXO_AMOUNT") = rowx("EXO_AMOUNT")
+                                dtRow = ds.Tables("other_expenses").NewRow
+                                dtRow("EXO_KEY") = rowx("EXO_KEY")
+                                dtRow("EXO_EXOKEY") = rowx("EXO_EXOKEY")
+                                dtRow("EXO_DESC") = rowx("EXO_DESC")
+                                dtRow("EXO_AMOUNT") = rowx("EXO_AMOUNT")
 
-                            If dtChild IsNot Nothing Then
-                                If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE")) = False AndAlso (dtChild.Rows(0)("EXO_DEDUCTIBLE") = "Yes" OrElse dtChild.Rows(0)("EXO_DEDUCTIBLE") = "True") Then
-                                    dtRow("EXO_DEDUCTIBLE") = True
+                                If dtChild IsNot Nothing Then
+                                    If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE")) = False AndAlso (dtChild.Rows(0)("EXO_DEDUCTIBLE") = "Yes" OrElse dtChild.Rows(0)("EXO_DEDUCTIBLE") = "True") Then
+                                        dtRow("EXO_DEDUCTIBLE") = True
+                                    Else
+                                        dtRow("EXO_DEDUCTIBLE") = False
+                                    End If
+                                    If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD")) = False AndAlso (dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "Yes" OrElse dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "True") Then
+                                        dtRow("EXO_DEDUCTIBLE_ADD") = True
+                                    Else
+                                        dtRow("EXO_DEDUCTIBLE_ADD") = False
+                                    End If
                                 Else
                                     dtRow("EXO_DEDUCTIBLE") = False
-                                End If
-                                If IsDBNull(dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD")) = False AndAlso (dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "Yes" OrElse dtChild.Rows(0)("EXO_DEDUCTIBLE_ADD") = "True") Then
-                                    dtRow("EXO_DEDUCTIBLE_ADD") = True
-                                Else
                                     dtRow("EXO_DEDUCTIBLE_ADD") = False
                                 End If
-                            Else
-                                dtRow("EXO_DEDUCTIBLE") = False
-                                dtRow("EXO_DEDUCTIBLE_ADD") = False
+                                dtRow("EXO_NOTE") = rowx("EXO_NOTE")
+                                dtRow("EXO_SOURCENO") = rowx("EXO_SOURCENO")
+                                dtRow("EXO_DETAIL") = rowx("EXO_DETAIL")
+                                dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                ds.Tables("other_expenses").Rows.Add(dtRow)
+
+
                             End If
-                            dtRow("EXO_NOTE") = rowx("EXO_NOTE")
-                            dtRow("EXO_SOURCENO") = rowx("EXO_SOURCENO")
-                            dtRow("EXO_DETAIL") = rowx("EXO_DETAIL")
-                            dtRow("RowIndex") = rowx("RowIndex")
-                            dtRow("Pecentage") = rowx("Pecentage")
-                            dtRow("PecentageAmount") = rowx("PecentageAmount")
-                            ds.Tables("other_expenses").Rows.Add(dtRow)
+                            
 
                         Next
 
@@ -5495,7 +5607,20 @@ Module mdlPNL2
         End Try
     End Function
 
+    Public Function CheckIDExistInTable(ByVal ds As DataSet, ByVal TableName As String, ByVal ColumnName As String, ByVal Value As Integer) As Boolean
+        Try
 
+            Dim obj As Object = ds.Tables(TableName).Compute("Count(" & ColumnName & ")", ColumnName & "=" & Value)
+
+            If obj IsNot Nothing AndAlso IsNumeric(obj) = True AndAlso CInt(obj) > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
 
 
 

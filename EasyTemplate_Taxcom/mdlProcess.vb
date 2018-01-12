@@ -14,7 +14,7 @@ Module mdlProcess
     Public V2 As Integer = 0
     Public V3 As Integer = 7
     Public V4 As Integer = 0
-    Public R1 As Integer = 5 'After Add Percentage amount
+    Public R1 As Integer = 6 'After Add Percentage amount
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
@@ -4261,7 +4261,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT EXIR_KEY,EXIR_EXIRKEY,SUM(EXIR_AMOUNT) AS EXIR_AMOUNT,EXIR_DESC,EXIR_NOTE,EXIR_SOURCENO,EXIR_DETAIL,RowIndex,EXIR_DEDUCTIBLE,EXIR_DEDUCTIBLE_ADD,EXIR_YEAREND FROM expenses_interestrestrict where EXIR_KEY =@PL_KEY GROUP BY EXIR_EXIRKEY,EXIR_DESC,EXIR_NOTE,EXIR_SOURCENO,EXIR_KEY,EXIR_DETAIL,RowIndex,EXIR_DEDUCTIBLE,EXIR_DEDUCTIBLE_ADD,EXIR_YEAREND ORDER BY RowIndex"
+            Dim StrSQL As String = "SELECT EXIR_KEY,EXIR_EXIRKEY,SUM(EXIR_AMOUNT) AS EXIR_AMOUNT,EXIR_DESC,EXIR_NOTE,EXIR_SOURCENO,EXIR_DETAIL,RowIndex,EXIR_DEDUCTIBLE,EXIR_DEDUCTIBLE_ADD,EXIR_YEAREND,EXIR_STATUS FROM expenses_interestrestrict where EXIR_KEY =@PL_KEY GROUP BY EXIR_EXIRKEY,EXIR_DESC,EXIR_NOTE,EXIR_SOURCENO,EXIR_KEY,EXIR_DETAIL,RowIndex,EXIR_DEDUCTIBLE,EXIR_DEDUCTIBLE_ADD,EXIR_YEAREND,EXIR_STATUS ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -9955,7 +9955,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_CONTRACT(EXC_KEY,EXC_EXCKEY,EXC_SOURCENO,EXC_DESC,EXC_AMOUNT,EXC_DEDUCTIBLE,EXC_NOTE,EXC_DETAIL) VALUES (@EXC_KEY,@EXC_EXCKEY,@EXC_SOURCENO,@EXC_DESC,@EXC_AMOUNT,@EXC_DEDUCTIBLE,@EXC_NOTE,@EXC_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_CONTRACT(EXC_KEY,EXC_EXCKEY,EXC_SOURCENO,EXC_DESC,EXC_AMOUNT,EXC_DEDUCTIBLE,EXC_NOTE,EXC_DETAIL,RowIndex,EXC_DEDUCTIBLE_ADD) VALUES (@EXC_KEY,@EXC_EXCKEY,@EXC_SOURCENO,@EXC_DESC,@EXC_AMOUNT,@EXC_DEDUCTIBLE,@EXC_NOTE,@EXC_DETAIL,@RowIndex,@EXC_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXC_KEY", SqlDbType.Int).Value = PNL_Key
@@ -9963,9 +9963,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXC_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXC_SOURCENO")
                 SQLcmd.Parameters.Add("@EXC_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXC_DESC")
                 SQLcmd.Parameters.Add("@EXC_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXC_AMOUNT")
-                SQLcmd.Parameters.Add("@EXC_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXC_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXC_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXC_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXC_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXC_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXC_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXC_NOTE")
                 SQLcmd.Parameters.Add("@EXC_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXC_DETAIL")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
+                If IsDBNull(dt.Rows(i)("EXC_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXC_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXC_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXC_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -9983,7 +9994,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_CONTRACT_DETAIL(EXCD_KEY,EXCD_EXCKEY,EXCD_SOURCENO,EXCD_EXCDKEY,EXCD_DESC,EXCD_AMOUNT,EXCD_DEDUCTIBLE,EXCD_NOTE) VALUES (@EXCD_KEY,@EXCD_EXCKEY,@EXCD_SOURCENO,@EXCD_EXCDKEY,@EXCD_DESC,@EXCD_AMOUNT,@EXCD_DEDUCTIBLE,@EXCD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_CONTRACT_DETAIL(EXCD_KEY,EXCD_EXCKEY,EXCD_SOURCENO,EXCD_EXCDKEY,EXCD_DESC,EXCD_AMOUNT,EXCD_DEDUCTIBLE,EXCD_NOTE,RowIndex,EXCD_DEDUCTIBLE_ADD) VALUES (@EXCD_KEY,@EXCD_EXCKEY,@EXCD_SOURCENO,@EXCD_EXCDKEY,@EXCD_DESC,@EXCD_AMOUNT,@EXCD_DEDUCTIBLE,@EXCD_NOTE,@RowIndex,@EXCD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -9993,8 +10004,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXCD_EXCDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXCD_EXCDKEY")
                     SQLcmd.Parameters.Add("@EXCD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXCD_DESC")
                     SQLcmd.Parameters.Add("@EXCD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXCD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXCD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXCD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXCD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXCD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXCD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXCD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXCD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXCD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXCD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXCD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXCD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXCD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10121,7 +10142,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE(EXDF_KEY,EXDF_EXDFKEY,EXDF_SOURCENO,EXDF_DESC,EXDF_AMOUNT,EXDF_DEDUCTIBLE,EXDF_NOTE,EXDF_DETAIL,RowIndex) VALUES (@EXDF_KEY,@EXDF_EXDFKEY,@EXDF_SOURCENO,@EXDF_DESC,@EXDF_AMOUNT,@EXDF_DEDUCTIBLE,@EXDF_NOTE,@EXDF_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE(EXDF_KEY,EXDF_EXDFKEY,EXDF_SOURCENO,EXDF_DESC,EXDF_AMOUNT,EXDF_DEDUCTIBLE,EXDF_NOTE,EXDF_DETAIL,RowIndex,EXDF_DEDUCTIBLE_ADD) VALUES (@EXDF_KEY,@EXDF_EXDFKEY,@EXDF_SOURCENO,@EXDF_DESC,@EXDF_AMOUNT,@EXDF_DEDUCTIBLE,@EXDF_NOTE,@EXDF_DETAIL,@RowIndex,@EXDF_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXDF_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10129,9 +10150,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXDF_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXDF_SOURCENO")
                 SQLcmd.Parameters.Add("@EXDF_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXDF_DESC")
                 SQLcmd.Parameters.Add("@EXDF_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXDF_AMOUNT")
-                SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDF_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXDF_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXDF_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXDF_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXDF_NOTE")
                 SQLcmd.Parameters.Add("@EXDF_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXDF_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXDF_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXDF_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXDF_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10150,7 +10180,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE_DETAIL(EXDFD_KEY,EXDFD_EXDFKEY,EXDFD_SOURCENO,EXDFD_EXDFDKEY,EXDFD_DESC,EXDFD_AMOUNT,EXDFD_DEDUCTIBLE,EXDFD_NOTE,RowIndex) VALUES (@EXDFD_KEY,@EXDFD_EXDFKEY,@EXDFD_SOURCENO,@EXDFD_EXDFDKEY,@EXDFD_DESC,@EXDFD_AMOUNT,@EXDFD_DEDUCTIBLE,@EXDFD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_DIRECTORS_FEE_DETAIL(EXDFD_KEY,EXDFD_EXDFKEY,EXDFD_SOURCENO,EXDFD_EXDFDKEY,EXDFD_DESC,EXDFD_AMOUNT,EXDFD_DEDUCTIBLE,EXDFD_NOTE,RowIndex,EXDFD_DEDUCTIBLE_ADD) VALUES (@EXDFD_KEY,@EXDFD_EXDFKEY,@EXDFD_SOURCENO,@EXDFD_EXDFDKEY,@EXDFD_DESC,@EXDFD_AMOUNT,@EXDFD_DEDUCTIBLE,@EXDFD_NOTE,@RowIndex,@EXDFD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10160,9 +10190,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXDFD_EXDFDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXDFD_EXDFDKEY")
                     SQLcmd.Parameters.Add("@EXDFD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXDFD_DESC")
                     SQLcmd.Parameters.Add("@EXDFD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXDFD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXDFD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXDFD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXDFD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXDFD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXDFD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXDFD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXDFD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXDFD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10204,7 +10243,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK(EXES_KEY,EXES_EXESKEY,EXES_SOURCENO,EXES_DESC,EXES_AMOUNT,EXES_DEDUCTIBLE,EXES_NOTE,EXES_DETAIL,RowIndex) VALUES (@EXES_KEY,@EXES_EXESKEY,@EXES_SOURCENO,@EXES_DESC,@EXES_AMOUNT,@EXES_DEDUCTIBLE,@EXES_NOTE,@EXES_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK(EXES_KEY,EXES_EXESKEY,EXES_SOURCENO,EXES_DESC,EXES_AMOUNT,EXES_DEDUCTIBLE,EXES_NOTE,EXES_DETAIL,RowIndex,EXES_DEDUCTIBLE_ADD) VALUES (@EXES_KEY,@EXES_EXESKEY,@EXES_SOURCENO,@EXES_DESC,@EXES_AMOUNT,@EXES_DEDUCTIBLE,@EXES_NOTE,@EXES_DETAIL,@RowIndex,@EXES_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXES_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10212,9 +10251,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXES_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXES_SOURCENO")
                 SQLcmd.Parameters.Add("@EXES_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXES_DESC")
                 SQLcmd.Parameters.Add("@EXES_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXES_AMOUNT")
-                SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXES_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXES_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXES_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXES_NOTE")
                 SQLcmd.Parameters.Add("@EXES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXES_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXES_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXES_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXES_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -10226,7 +10274,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK_DETAIL(EXESD_KEY,EXESD_EXESKEY,EXESD_SOURCENO,EXESD_EXESDKEY,EXESD_DESC,EXESD_AMOUNT,EXESD_DEDUCTIBLE,EXESD_NOTE,RowIndex) VALUES (@EXESD_KEY,@EXESD_EXESKEY,@EXESD_SOURCENO,@EXESD_EXESDKEY,@EXESD_DESC,@EXESD_AMOUNT,@EXESD_DEDUCTIBLE,@EXESD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_EMPL_STOCK_DETAIL(EXESD_KEY,EXESD_EXESKEY,EXESD_SOURCENO,EXESD_EXESDKEY,EXESD_DESC,EXESD_AMOUNT,EXESD_DEDUCTIBLE,EXESD_NOTE,RowIndex,EXESD_DEDUCTIBLE_ADD) VALUES (@EXESD_KEY,@EXESD_EXESKEY,@EXESD_SOURCENO,@EXESD_EXESDKEY,@EXESD_DESC,@EXESD_AMOUNT,@EXESD_DEDUCTIBLE,@EXESD_NOTE,@RowIndex,@EXESD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10236,9 +10284,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXESD_EXESDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXESD_EXESDKEY")
                     SQLcmd.Parameters.Add("@EXESD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXESD_DESC")
                     SQLcmd.Parameters.Add("@EXESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXESD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXESD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXESD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXESD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXESD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXESD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXESD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXESD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10280,7 +10337,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_INTEREST(EXI_KEY,EXI_EXIKEY,EXI_SOURCENO,EXI_DESC,EXI_AMOUNT,EXI_DEDUCTIBLE,EXI_NOTE,EXI_DETAIL,RowIndex) VALUES (@EXI_KEY,@EXI_EXIKEY,@EXI_SOURCENO,@EXI_DESC,@EXI_AMOUNT,@EXI_DEDUCTIBLE,@EXI_NOTE,@EXI_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_INTEREST(EXI_KEY,EXI_EXIKEY,EXI_SOURCENO,EXI_DESC,EXI_AMOUNT,EXI_DEDUCTIBLE,EXI_NOTE,EXI_DETAIL,RowIndex,EXI_DEDUCTIBLE_ADD) VALUES (@EXI_KEY,@EXI_EXIKEY,@EXI_SOURCENO,@EXI_DESC,@EXI_AMOUNT,@EXI_DEDUCTIBLE,@EXI_NOTE,@EXI_DETAIL,@RowIndex,@EXI_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10288,9 +10345,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXI_SOURCENO")
                 SQLcmd.Parameters.Add("@EXI_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXI_DESC")
                 SQLcmd.Parameters.Add("@EXI_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXI_AMOUNT")
-                SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXI_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXI_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXI_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXI_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXI_NOTE")
                 SQLcmd.Parameters.Add("@EXI_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXI_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXI_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXI_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXI_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10309,7 +10375,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_INTEREST_DETAIL(EXID_KEY,EXID_EXIKEY,EXID_SOURCENO,EXID_EXIDKEY,EXID_DESC,EXID_AMOUNT,EXID_DEDUCTIBLE,EXID_NOTE,RowIndex) VALUES (@EXID_KEY,@EXID_EXIKEY,@EXID_SOURCENO,@EXID_EXIDKEY,@EXID_DESC,@EXID_AMOUNT,@EXID_DEDUCTIBLE,@EXID_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_INTEREST_DETAIL(EXID_KEY,EXID_EXIKEY,EXID_SOURCENO,EXID_EXIDKEY,EXID_DESC,EXID_AMOUNT,EXID_DEDUCTIBLE,EXID_NOTE,RowIndex,EXID_DEDUCTIBLE_ADD) VALUES (@EXID_KEY,@EXID_EXIKEY,@EXID_SOURCENO,@EXID_EXIDKEY,@EXID_DESC,@EXID_AMOUNT,@EXID_DEDUCTIBLE,@EXID_NOTE,@RowIndex,@EXID_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10319,9 +10385,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXID_EXIDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXID_EXIDKEY")
                     SQLcmd.Parameters.Add("@EXID_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXID_DESC")
                     SQLcmd.Parameters.Add("@EXID_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXID_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXID_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXID_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXID_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXID_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXID_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXID_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXID_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXID_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10448,7 +10523,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_JKDM(EXJK_KEY,EXJK_EXJKKEY,EXJK_SOURCENO,EXJK_DESC,EXJK_AMOUNT,EXJK_DEDUCTIBLE,EXJK_NOTE,EXJK_DETAIL,RowIndex) VALUES (@EXJK_KEY,@EXJK_EXJKKEY,@EXJK_SOURCENO,@EXJK_DESC,@EXJK_AMOUNT,@EXJK_DEDUCTIBLE,@EXJK_NOTE,@EXJK_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_JKDM(EXJK_KEY,EXJK_EXJKKEY,EXJK_SOURCENO,EXJK_DESC,EXJK_AMOUNT,EXJK_DEDUCTIBLE,EXJK_NOTE,EXJK_DETAIL,RowIndex,EXJK_DEDUCTIBLE_ADD) VALUES (@EXJK_KEY,@EXJK_EXJKKEY,@EXJK_SOURCENO,@EXJK_DESC,@EXJK_AMOUNT,@EXJK_DEDUCTIBLE,@EXJK_NOTE,@EXJK_DETAIL,@RowIndex,@EXJK_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXJK_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10456,9 +10531,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXJK_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXJK_SOURCENO")
                 SQLcmd.Parameters.Add("@EXJK_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXJK_DESC")
                 SQLcmd.Parameters.Add("@EXJK_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXJK_AMOUNT")
-                SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXJK_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXJK_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXJK_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXJK_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXJK_NOTE")
                 SQLcmd.Parameters.Add("@EXJK_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXJK_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXJK_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXJK_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXJK_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10477,7 +10561,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_JKDM_DETAIL(EXJKD_KEY,EXJKD_EXJKKEY,EXJKD_SOURCENO,EXJKD_EXJKDKEY,EXJKD_DESC,EXJKD_AMOUNT,EXJKD_DEDUCTIBLE,EXJKD_NOTE,RowIndex) VALUES (@EXJKD_KEY,@EXJKD_EXJKKEY,@EXJKD_SOURCENO,@EXJKD_EXJKDKEY,@EXJKD_DESC,@EXJKD_AMOUNT,@EXJKD_DEDUCTIBLE,@EXJKD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_JKDM_DETAIL(EXJKD_KEY,EXJKD_EXJKKEY,EXJKD_SOURCENO,EXJKD_EXJKDKEY,EXJKD_DESC,EXJKD_AMOUNT,EXJKD_DEDUCTIBLE,EXJKD_NOTE,RowIndex,EXJKD_DEDUCTIBLE_ADD) VALUES (@EXJKD_KEY,@EXJKD_EXJKKEY,@EXJKD_SOURCENO,@EXJKD_EXJKDKEY,@EXJKD_DESC,@EXJKD_AMOUNT,@EXJKD_DEDUCTIBLE,@EXJKD_NOTE,@RowIndex,@EXJKD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10487,9 +10571,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXJKD_EXJKDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXJKD_EXJKDKEY")
                     SQLcmd.Parameters.Add("@EXJKD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXJKD_DESC")
                     SQLcmd.Parameters.Add("@EXJKD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXJKD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXJKD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXJKD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXJKD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXJKD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXJKD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXJKD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXJKD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXJKD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10532,7 +10625,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_LEGAL(EXL_KEY,EXL_EXLKEY,EXL_SOURCENO,EXL_DESC,EXL_AMOUNT,EXL_DEDUCTIBLE,EXL_NOTE,EXL_DETAIL,RowIndex) VALUES (@EXL_KEY,@EXL_EXLKEY,@EXL_SOURCENO,@EXL_DESC,@EXL_AMOUNT,@EXL_DEDUCTIBLE,@EXL_NOTE,@EXL_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_LEGAL(EXL_KEY,EXL_EXLKEY,EXL_SOURCENO,EXL_DESC,EXL_AMOUNT,EXL_DEDUCTIBLE,EXL_NOTE,EXL_DETAIL,RowIndex,EXL_DEDUCTIBLE_ADD) VALUES (@EXL_KEY,@EXL_EXLKEY,@EXL_SOURCENO,@EXL_DESC,@EXL_AMOUNT,@EXL_DEDUCTIBLE,@EXL_NOTE,@EXL_DETAIL,@RowIndex,@EXL_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXL_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10540,9 +10633,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXL_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXL_SOURCENO")
                 SQLcmd.Parameters.Add("@EXL_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXL_DESC")
                 SQLcmd.Parameters.Add("@EXL_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXL_AMOUNT")
-                SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXL_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXL_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXL_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXL_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXL_NOTE")
                 SQLcmd.Parameters.Add("@EXL_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXL_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXL_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXL_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXL_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10561,7 +10663,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_LEGAL_DETAIL(EXLD_KEY,EXLD_EXLKEY,EXLD_SOURCENO,EXLD_EXLDKEY,EXLD_DESC,EXLD_AMOUNT,EXLD_DEDUCTIBLE,EXLD_NOTE,RowIndex) VALUES (@EXLD_KEY,@EXLD_EXLKEY,@EXLD_SOURCENO,@EXLD_EXLDKEY,@EXLD_DESC,@EXLD_AMOUNT,@EXLD_DEDUCTIBLE,@EXLD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_LEGAL_DETAIL(EXLD_KEY,EXLD_EXLKEY,EXLD_SOURCENO,EXLD_EXLDKEY,EXLD_DESC,EXLD_AMOUNT,EXLD_DEDUCTIBLE,EXLD_NOTE,RowIndex,EXLD_DEDUCTIBLE_ADD) VALUES (@EXLD_KEY,@EXLD_EXLKEY,@EXLD_SOURCENO,@EXLD_EXLDKEY,@EXLD_DESC,@EXLD_AMOUNT,@EXLD_DEDUCTIBLE,@EXLD_NOTE,@RowIndex,@EXLD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10571,9 +10673,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXLD_EXLDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXLD_EXLDKEY")
                     SQLcmd.Parameters.Add("@EXLD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXLD_DESC")
                     SQLcmd.Parameters.Add("@EXLD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXLD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXLD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXLD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXLD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXLD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXLD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXLD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXLD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXLD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10699,7 +10810,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_PROMOTE(EXP_KEY,EXP_EXPKEY,EXP_SOURCENO,EXP_DESC,EXP_AMOUNT,EXP_DEDUCTIBLE,EXP_NOTE,EXP_DETAIL,RowIndex) VALUES (@EXP_KEY,@EXP_EXPKEY,@EXP_SOURCENO,@EXP_DESC,@EXP_AMOUNT,@EXP_DEDUCTIBLE,@EXP_NOTE,@EXP_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_PROMOTE(EXP_KEY,EXP_EXPKEY,EXP_SOURCENO,EXP_DESC,EXP_AMOUNT,EXP_DEDUCTIBLE,EXP_NOTE,EXP_DETAIL,RowIndex,EXP_DEDUCTIBLE_ADD) VALUES (@EXP_KEY,@EXP_EXPKEY,@EXP_SOURCENO,@EXP_DESC,@EXP_AMOUNT,@EXP_DEDUCTIBLE,@EXP_NOTE,@EXP_DETAIL,@RowIndex,@EXP_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10707,9 +10818,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXP_SOURCENO")
                 SQLcmd.Parameters.Add("@EXP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXP_DESC")
                 SQLcmd.Parameters.Add("@EXP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXP_AMOUNT")
-                SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXP_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXP_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXP_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXP_NOTE")
                 SQLcmd.Parameters.Add("@EXP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXP_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXP_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXP_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10728,7 +10848,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_PROMOTE_DETAIL(EXPD_KEY,EXPD_EXPKEY,EXPD_SOURCENO,EXPD_EXPDKEY,EXPD_DESC,EXPD_AMOUNT,EXPD_DEDUCTIBLE,EXPD_NOTE,RowIndex) VALUES (@EXPD_KEY,@EXPD_EXPKEY,@EXPD_SOURCENO,@EXPD_EXPDKEY,@EXPD_DESC,@EXPD_AMOUNT,@EXPD_DEDUCTIBLE,@EXPD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_PROMOTE_DETAIL(EXPD_KEY,EXPD_EXPKEY,EXPD_SOURCENO,EXPD_EXPDKEY,EXPD_DESC,EXPD_AMOUNT,EXPD_DEDUCTIBLE,EXPD_NOTE,RowIndex,EXPD_DEDUCTIBLE_ADD) VALUES (@EXPD_KEY,@EXPD_EXPKEY,@EXPD_SOURCENO,@EXPD_EXPDKEY,@EXPD_DESC,@EXPD_AMOUNT,@EXPD_DEDUCTIBLE,@EXPD_NOTE,@RowIndex,@EXPD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10738,9 +10858,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXPD_EXPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXPD_EXPDKEY")
                     SQLcmd.Parameters.Add("@EXPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXPD_DESC")
                     SQLcmd.Parameters.Add("@EXPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXPD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXPD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXPD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXPD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXPD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXPD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXPD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10783,7 +10912,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL,RowIndex) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE_ADD) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL,@RowIndex,@EXRENT_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRENT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10791,10 +10920,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXRENT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXRENT_SOURCENO")
                 SQLcmd.Parameters.Add("@EXRENT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXRENT_DESC")
                 SQLcmd.Parameters.Add("@EXRENT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXRENT_AMOUNT")
-                SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRENT_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXRENT_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXRENT_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXRENT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRENT_NOTE")
                 SQLcmd.Parameters.Add("@EXRENT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRENT_DETAIL")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
+                If IsDBNull(dt.Rows(i)("EXRENT_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXRENT_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+
 
                 ListofCmd.Add(SQLcmd)
 
@@ -10812,7 +10951,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE,RowIndex) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE,RowIndex,EXRENTD_DEDUCTIBLE_ADD) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE,@RowIndex,@EXRENTD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10822,9 +10961,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXRENTD_EXRENTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXRENTD_EXRENTDKEY")
                     SQLcmd.Parameters.Add("@EXRENTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXRENTD_DESC")
                     SQLcmd.Parameters.Add("@EXRENTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXRENTD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXRENTD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXRENTD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXRENTD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXRENTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXRENTD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXRENTD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXRENTD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -10866,7 +11014,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_REPAIR(EXREP_KEY,EXREP_EXREPKEY,EXREP_SOURCENO,EXREP_DESC,EXREP_AMOUNT,EXREP_DEDUCTIBLE,EXREP_NOTE,EXREP_DETAIL,RowIndex) VALUES (@EXREP_KEY,@EXREP_EXREPKEY,@EXREP_SOURCENO,@EXREP_DESC,@EXREP_AMOUNT,@EXREP_DEDUCTIBLE,@EXREP_NOTE,@EXREP_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_REPAIR(EXREP_KEY,EXREP_EXREPKEY,EXREP_SOURCENO,EXREP_DESC,EXREP_AMOUNT,EXREP_DEDUCTIBLE,EXREP_NOTE,EXREP_DETAIL,RowIndex,EXREP_DEDUCTIBLE_ADD) VALUES (@EXREP_KEY,@EXREP_EXREPKEY,@EXREP_SOURCENO,@EXREP_DESC,@EXREP_AMOUNT,@EXREP_DEDUCTIBLE,@EXREP_NOTE,@EXREP_DETAIL,@RowIndex,@EXREP_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXREP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10874,9 +11022,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXREP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXREP_SOURCENO")
                 SQLcmd.Parameters.Add("@EXREP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXREP_DESC")
                 SQLcmd.Parameters.Add("@EXREP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXREP_AMOUNT")
-                SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXREP_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXREP_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXREP_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXREP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXREP_NOTE")
                 SQLcmd.Parameters.Add("@EXREP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXREP_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXREP_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXREP_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXREP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10895,7 +11052,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_REPAIR_DETAIL(EXREPD_KEY,EXREPD_EXREPKEY,EXREPD_SOURCENO,EXREPD_EXREPDKEY,EXREPD_DESC,EXREPD_AMOUNT,EXREPD_DEDUCTIBLE,EXREPD_NOTE,RowIndex) VALUES (@EXREPD_KEY,@EXREPD_EXREPKEY,@EXREPD_SOURCENO,@EXREPD_EXREPDKEY,@EXREPD_DESC,@EXREPD_AMOUNT,@EXREPD_DEDUCTIBLE,@EXREPD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_REPAIR_DETAIL(EXREPD_KEY,EXREPD_EXREPKEY,EXREPD_SOURCENO,EXREPD_EXREPDKEY,EXREPD_DESC,EXREPD_AMOUNT,EXREPD_DEDUCTIBLE,EXREPD_NOTE,RowIndex,EXREPD_DEDUCTIBLE_ADD) VALUES (@EXREPD_KEY,@EXREPD_EXREPKEY,@EXREPD_SOURCENO,@EXREPD_EXREPDKEY,@EXREPD_DESC,@EXREPD_AMOUNT,@EXREPD_DEDUCTIBLE,@EXREPD_NOTE,@RowIndex,@EXREPD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10905,9 +11062,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXREPD_EXREPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXREPD_EXREPDKEY")
                     SQLcmd.Parameters.Add("@EXREPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXREPD_DESC")
                     SQLcmd.Parameters.Add("@EXREPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXREPD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXREPD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXREPD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXREPD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXREPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXREPD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXREPD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXREPD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXREPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
 
                     ListofCmd.Add(SQLcmd)
 
@@ -10950,7 +11116,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_RESEARCH(EXRES_KEY,EXRES_EXRESKEY,EXRES_SOURCENO,EXRES_DESC,EXRES_AMOUNT,EXRES_DEDUCTIBLE,EXRES_NOTE,EXRES_DETAIL,RowIndex) VALUES (@EXRES_KEY,@EXRES_EXRESKEY,@EXRES_SOURCENO,@EXRES_DESC,@EXRES_AMOUNT,@EXRES_DEDUCTIBLE,@EXRES_NOTE,@EXRES_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_RESEARCH(EXRES_KEY,EXRES_EXRESKEY,EXRES_SOURCENO,EXRES_DESC,EXRES_AMOUNT,EXRES_DEDUCTIBLE,EXRES_NOTE,EXRES_DETAIL,RowIndex,EXRES_DEDUCTIBLE_ADD) VALUES (@EXRES_KEY,@EXRES_EXRESKEY,@EXRES_SOURCENO,@EXRES_DESC,@EXRES_AMOUNT,@EXRES_DEDUCTIBLE,@EXRES_NOTE,@EXRES_DETAIL,@RowIndex,@EXRES_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRES_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10958,9 +11124,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXRES_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXRES_SOURCENO")
                 SQLcmd.Parameters.Add("@EXRES_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXRES_DESC")
                 SQLcmd.Parameters.Add("@EXRES_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXRES_AMOUNT")
-                SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRES_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXRES_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXRES_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXRES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRES_NOTE")
                 SQLcmd.Parameters.Add("@EXRES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRES_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXRES_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXRES_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXRES_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -10979,7 +11154,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_RESEARCH_DETAIL(EXRESD_KEY,EXRESD_EXRESKEY,EXRESD_SOURCENO,EXRESD_EXRESDKEY,EXRESD_DESC,EXRESD_AMOUNT,EXRESD_DEDUCTIBLE,EXRESD_NOTE,RowIndex) VALUES (@EXRESD_KEY,@EXRESD_EXRESKEY,@EXRESD_SOURCENO,@EXRESD_EXRESDKEY,@EXRESD_DESC,@EXRESD_AMOUNT,@EXRESD_DEDUCTIBLE,@EXRESD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_RESEARCH_DETAIL(EXRESD_KEY,EXRESD_EXRESKEY,EXRESD_SOURCENO,EXRESD_EXRESDKEY,EXRESD_DESC,EXRESD_AMOUNT,EXRESD_DEDUCTIBLE,EXRESD_NOTE,RowIndex,EXRESD_DEDUCTIBLE_ADD) VALUES (@EXRESD_KEY,@EXRESD_EXRESKEY,@EXRESD_SOURCENO,@EXRESD_EXRESDKEY,@EXRESD_DESC,@EXRESD_AMOUNT,@EXRESD_DEDUCTIBLE,@EXRESD_NOTE,@RowIndex,@EXRESD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -10989,9 +11164,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXRESD_EXRESDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXRESD_EXRESDKEY")
                     SQLcmd.Parameters.Add("@EXRESD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXRESD_DESC")
                     SQLcmd.Parameters.Add("@EXRESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXRESD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXRESD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXRESD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXRESD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXRESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXRESD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXRESD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXRESD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXRESD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -11033,7 +11217,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_ROYALTY(EXRO_KEY,EXRO_EXROKEY,EXRO_SOURCENO,EXRO_DESC,EXRO_AMOUNT,EXRO_DEDUCTIBLE,EXRO_NOTE,EXRO_DETAIL,RowIndex) VALUES (@EXRO_KEY,@EXRO_EXROKEY,@EXRO_SOURCENO,@EXRO_DESC,@EXRO_AMOUNT,@EXRO_DEDUCTIBLE,@EXRO_NOTE,@EXRO_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_ROYALTY(EXRO_KEY,EXRO_EXROKEY,EXRO_SOURCENO,EXRO_DESC,EXRO_AMOUNT,EXRO_DEDUCTIBLE,EXRO_NOTE,EXRO_DETAIL,RowIndex,EXRO_DEDUCTIBLE_ADD) VALUES (@EXRO_KEY,@EXRO_EXROKEY,@EXRO_SOURCENO,@EXRO_DESC,@EXRO_AMOUNT,@EXRO_DEDUCTIBLE,@EXRO_NOTE,@EXRO_DETAIL,@RowIndex,@EXRO_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRO_KEY", SqlDbType.Int).Value = PNL_Key
@@ -11041,9 +11225,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXRO_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXRO_SOURCENO")
                 SQLcmd.Parameters.Add("@EXRO_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXRO_DESC")
                 SQLcmd.Parameters.Add("@EXRO_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXRO_AMOUNT")
-                SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRO_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXRO_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXRO_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXRO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXRO_NOTE")
                 SQLcmd.Parameters.Add("@EXRO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXRO_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXRO_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXRO_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXRO_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -11061,7 +11254,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_ROYALTY_DETAIL(EXROD_KEY,EXROD_EXROKEY,EXROD_SOURCENO,EXROD_EXRODKEY,EXROD_DESC,EXROD_AMOUNT,EXROD_DEDUCTIBLE,EXROD_NOTE,RowIndex) VALUES (@EXROD_KEY,@EXROD_EXROKEY,@EXROD_SOURCENO,@EXROD_EXRODKEY,@EXROD_DESC,@EXROD_AMOUNT,@EXROD_DEDUCTIBLE,@EXROD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_ROYALTY_DETAIL(EXROD_KEY,EXROD_EXROKEY,EXROD_SOURCENO,EXROD_EXRODKEY,EXROD_DESC,EXROD_AMOUNT,EXROD_DEDUCTIBLE,EXROD_NOTE,RowIndex,EXROD_DEDUCTIBLE_ADD) VALUES (@EXROD_KEY,@EXROD_EXROKEY,@EXROD_SOURCENO,@EXROD_EXRODKEY,@EXROD_DESC,@EXROD_AMOUNT,@EXROD_DEDUCTIBLE,@EXROD_NOTE,@RowIndex,@EXROD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -11071,9 +11264,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXROD_EXRODKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXROD_EXRODKEY")
                     SQLcmd.Parameters.Add("@EXROD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXROD_DESC")
                     SQLcmd.Parameters.Add("@EXROD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXROD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXROD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXROD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXROD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXROD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXROD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXROD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXROD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXROD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -11115,7 +11317,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_SALARY(EXS_KEY,EXS_EXSKEY,EXS_SOURCENO,EXS_DESC,EXS_AMOUNT,EXS_DEDUCTIBLE,EXS_NOTE,EXS_DETAIL,RowIndex) VALUES (@EXS_KEY,@EXS_EXSKEY,@EXS_SOURCENO,@EXS_DESC,@EXS_AMOUNT,@EXS_DEDUCTIBLE,@EXS_NOTE,@EXS_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_SALARY(EXS_KEY,EXS_EXSKEY,EXS_SOURCENO,EXS_DESC,EXS_AMOUNT,EXS_DEDUCTIBLE,EXS_NOTE,EXS_DETAIL,RowIndex,EXS_DEDUCTIBLE_ADD) VALUES (@EXS_KEY,@EXS_EXSKEY,@EXS_SOURCENO,@EXS_DESC,@EXS_AMOUNT,@EXS_DEDUCTIBLE,@EXS_NOTE,@EXS_DETAIL,@RowIndex,@EXS_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -11123,9 +11325,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXS_SOURCENO")
                 SQLcmd.Parameters.Add("@EXS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXS_DESC")
                 SQLcmd.Parameters.Add("@EXS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXS_AMOUNT")
-                SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXS_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXS_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXS_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXS_NOTE")
                 SQLcmd.Parameters.Add("@EXS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXS_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXS_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXS_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXS_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -11143,7 +11354,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE,RowIndex) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_SALARY_DETAIL(EXSD_KEY,EXSD_EXSKEY,EXSD_SOURCENO,EXSD_EXSDKEY,EXSD_DESC,EXSD_AMOUNT,EXSD_DEDUCTIBLE,EXSD_NOTE,RowIndex,EXSD_DEDUCTIBLE_ADD) VALUES (@EXSD_KEY,@EXSD_EXSKEY,@EXSD_SOURCENO,@EXSD_EXSDKEY,@EXSD_DESC,@EXSD_AMOUNT,@EXSD_DEDUCTIBLE,@EXSD_NOTE,@RowIndex,@EXSD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -11153,9 +11364,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXSD_EXSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXSD_EXSDKEY")
                     SQLcmd.Parameters.Add("@EXSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXSD_DESC")
                     SQLcmd.Parameters.Add("@EXSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXSD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXSD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXSD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXSD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXSD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXSD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXSD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXSD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
 
                     ListofCmd.Add(SQLcmd)
 
@@ -11198,7 +11418,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_TECH_FEE(EXTF_KEY,EXTF_EXTFKEY,EXTF_SOURCENO,EXTF_DESC,EXTF_AMOUNT,EXTF_DEDUCTIBLE,EXTF_NOTE,EXTF_DETAIL,RowIndex) VALUES (@EXTF_KEY,@EXTF_EXTFKEY,@EXTF_SOURCENO,@EXTF_DESC,@EXTF_AMOUNT,@EXTF_DEDUCTIBLE,@EXTF_NOTE,@EXTF_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO EXPENSES_TECH_FEE(EXTF_KEY,EXTF_EXTFKEY,EXTF_SOURCENO,EXTF_DESC,EXTF_AMOUNT,EXTF_DEDUCTIBLE,EXTF_NOTE,EXTF_DETAIL,RowIndex,EXTF_DEDUCTIBLE_ADD) VALUES (@EXTF_KEY,@EXTF_EXTFKEY,@EXTF_SOURCENO,@EXTF_DESC,@EXTF_AMOUNT,@EXTF_DEDUCTIBLE,@EXTF_NOTE,@EXTF_DETAIL,@RowIndex,@EXTF_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXTF_KEY", SqlDbType.Int).Value = PNL_Key
@@ -11206,9 +11426,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXTF_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXTF_SOURCENO")
                 SQLcmd.Parameters.Add("@EXTF_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXTF_DESC")
                 SQLcmd.Parameters.Add("@EXTF_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXTF_AMOUNT")
-                SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXTF_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXTF_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXTF_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXTF_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXTF_NOTE")
                 SQLcmd.Parameters.Add("@EXTF_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXTF_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXTF_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXTF_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXTF_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -11226,7 +11455,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_TECH_FEE_DETAIL(EXTFD_KEY,EXTFD_EXTFKEY,EXTFD_SOURCENO,EXTFD_EXTFDKEY,EXTFD_DESC,EXTFD_AMOUNT,EXTFD_DEDUCTIBLE,EXTFD_NOTE,RowIndex) VALUES (@EXTFD_KEY,@EXTFD_EXTFKEY,@EXTFD_SOURCENO,@EXTFD_EXTFDKEY,@EXTFD_DESC,@EXTFD_AMOUNT,@EXTFD_DEDUCTIBLE,@EXTFD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO EXPENSES_TECH_FEE_DETAIL(EXTFD_KEY,EXTFD_EXTFKEY,EXTFD_SOURCENO,EXTFD_EXTFDKEY,EXTFD_DESC,EXTFD_AMOUNT,EXTFD_DEDUCTIBLE,EXTFD_NOTE,RowIndex,EXTFD_DEDUCTIBLE_ADD) VALUES (@EXTFD_KEY,@EXTFD_EXTFKEY,@EXTFD_SOURCENO,@EXTFD_EXTFDKEY,@EXTFD_DESC,@EXTFD_AMOUNT,@EXTFD_DEDUCTIBLE,@EXTFD_NOTE,@RowIndex,@EXTFD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -11236,9 +11465,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXTFD_EXTFDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXTFD_EXTFDKEY")
                     SQLcmd.Parameters.Add("@EXTFD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXTFD_DESC")
                     SQLcmd.Parameters.Add("@EXTFD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXTFD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXTFD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXTFD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXTFD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXTFD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXTFD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXTFD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXTFD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXTFD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -11280,7 +11518,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_TRAVEL(EXT_KEY,EXT_EXTKEY,EXT_SOURCENO,EXT_DESC,EXT_AMOUNT,EXT_DEDUCTIBLE,EXT_NOTE,EXT_DETAIL) VALUES (@EXT_KEY,@EXT_EXTKEY,@EXT_SOURCENO,@EXT_DESC,@EXT_AMOUNT,@EXT_DEDUCTIBLE,@EXT_NOTE,@EXT_DETAIL)"
+                StrSQL = "INSERT INTO EXPENSES_TRAVEL(EXT_KEY,EXT_EXTKEY,EXT_SOURCENO,EXT_DESC,EXT_AMOUNT,EXT_DEDUCTIBLE,EXT_NOTE,EXT_DETAIL,RowIndex,EXT_DEDUCTIBLE_ADD) VALUES (@EXT_KEY,@EXT_EXTKEY,@EXT_SOURCENO,@EXT_DESC,@EXT_AMOUNT,@EXT_DEDUCTIBLE,@EXT_NOTE,@EXT_DETAIL,@RowIndex,@EXT_DEDUCTIBLE_ADD)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -11288,9 +11526,19 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXT_SOURCENO")
                 SQLcmd.Parameters.Add("@EXT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXT_DESC")
                 SQLcmd.Parameters.Add("@EXT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXT_AMOUNT")
-                SQLcmd.Parameters.Add("@EXT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXT_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXT_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXT_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXT_NOTE")
                 SQLcmd.Parameters.Add("@EXT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXT_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXT_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXT_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -11308,7 +11556,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_TRAVEL_DETAIL(EXTD_KEY,EXTD_EXTKEY,EXTD_SOURCENO,EXTD_EXTDKEY,EXTD_DESC,EXTD_AMOUNT,EXTD_DEDUCTIBLE,EXTD_NOTE) VALUES (@EXTD_KEY,@EXTD_EXTKEY,@EXTD_SOURCENO,@EXTD_EXTDKEY,@EXTD_DESC,@EXTD_AMOUNT,@EXTD_DEDUCTIBLE,@EXTD_NOTE)"
+                    StrSQL = "INSERT INTO EXPENSES_TRAVEL_DETAIL(EXTD_KEY,EXTD_EXTKEY,EXTD_SOURCENO,EXTD_EXTDKEY,EXTD_DESC,EXTD_AMOUNT,EXTD_DEDUCTIBLE,EXTD_NOTE,RowIndex,EXTD_DEDUCTIBLE_ADD) VALUES (@EXTD_KEY,@EXTD_EXTKEY,@EXTD_SOURCENO,@EXTD_EXTDKEY,@EXTD_DESC,@EXTD_AMOUNT,@EXTD_DEDUCTIBLE,@EXTD_NOTE,@RowIndex,@EXTD_DEDUCTIBLE_ADD)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -11318,8 +11566,18 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXTD_EXTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXTD_EXTDKEY")
                     SQLcmd.Parameters.Add("@EXTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXTD_DESC")
                     SQLcmd.Parameters.Add("@EXTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXTD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXTD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXTD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXTD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXTD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXTD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXTD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
 
                     ListofCmd.Add(SQLcmd)
 
@@ -12267,7 +12525,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF(EXOENS_KEY,EXOENS_EXOENSKEY,EXOENS_SOURCENO,EXOENS_DESC,EXOENS_AMOUNT,EXOENS_DEDUCTIBLE,EXOENS_NOTE,EXOENS_DETAIL,RowIndex) VALUES (@EXOENS_KEY,@EXOENS_EXOENSKEY,@EXOENS_SOURCENO,@EXOENS_DESC,@EXOENS_AMOUNT,@EXOENS_DEDUCTIBLE,@EXOENS_NOTE,@EXOENS_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF(EXOENS_KEY,EXOENS_EXOENSKEY,EXOENS_SOURCENO,EXOENS_DESC,EXOENS_AMOUNT,EXOENS_DEDUCTIBLE,EXOENS_NOTE,EXOENS_DETAIL,RowIndex,EXOENS_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOENS_KEY,@EXOENS_EXOENSKEY,@EXOENS_SOURCENO,@EXOENS_DESC,@EXOENS_AMOUNT,@EXOENS_DEDUCTIBLE,@EXOENS_NOTE,@EXOENS_DETAIL,@RowIndex,@EXOENS_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOENS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12275,9 +12533,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOENS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOENS_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOENS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOENS_DESC")
                 SQLcmd.Parameters.Add("@EXOENS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOENS_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOENS_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOENS_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOENS_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOENS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOENS_NOTE")
                 SQLcmd.Parameters.Add("@EXOENS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOENS_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOENS_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOENS_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOENS_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12295,7 +12564,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF_DETAIL(EXOENSD_KEY,EXOENSD_EXOENSKEY,EXOENSD_SOURCENO,EXOENSD_EXOENSDKEY,EXOENSD_DESC,EXOENSD_DEDUCTIBLE,EXOENSD_AMOUNT,EXOENSD_NOTE,RowIndex) VALUES (@EXOENSD_KEY,@EXOENSD_EXOENSKEY,@EXOENSD_SOURCENO,@EXOENSD_EXOENSDKEY,@EXOENSD_DESC,@EXOENSD_DEDUCTIBLE,@EXOENSD_AMOUNT,@EXOENSD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_ENTERTAINNSTAFF_DETAIL(EXOENSD_KEY,EXOENSD_EXOENSKEY,EXOENSD_SOURCENO,EXOENSD_EXOENSDKEY,EXOENSD_DESC,EXOENSD_DEDUCTIBLE,EXOENSD_AMOUNT,EXOENSD_NOTE,RowIndex,EXOENSD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOENSD_KEY,@EXOENSD_EXOENSKEY,@EXOENSD_SOURCENO,@EXOENSD_EXOENSDKEY,@EXOENSD_DESC,@EXOENSD_DEDUCTIBLE,@EXOENSD_AMOUNT,@EXOENSD_NOTE,@RowIndex,@EXOENSD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12304,10 +12573,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOENSD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOENSD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOENSD_EXOENSDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOENSD_EXOENSDKEY")
                     SQLcmd.Parameters.Add("@EXOENSD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOENSD_DESC")
-                    SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOENSD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOENSD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOENSD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOENSD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOENSD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOENSD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOENSD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOENSD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOENSD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOENSD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -12349,7 +12629,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF(EXOES_KEY,EXOES_EXOESKEY,EXOES_SOURCENO,EXOES_DESC,EXOES_AMOUNT,EXOES_DEDUCTIBLE,EXOES_NOTE,EXOES_DETAIL,RowIndex) VALUES (@EXOES_KEY,@EXOES_EXOESKEY,@EXOES_SOURCENO,@EXOES_DESC,@EXOES_AMOUNT,@EXOES_DEDUCTIBLE,@EXOES_NOTE,@EXOES_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF(EXOES_KEY,EXOES_EXOESKEY,EXOES_SOURCENO,EXOES_DESC,EXOES_AMOUNT,EXOES_DEDUCTIBLE,EXOES_NOTE,EXOES_DETAIL,RowIndex,EXOES_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOES_KEY,@EXOES_EXOESKEY,@EXOES_SOURCENO,@EXOES_DESC,@EXOES_AMOUNT,@EXOES_DEDUCTIBLE,@EXOES_NOTE,@EXOES_DETAIL,@RowIndex,@EXOES_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOES_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12357,9 +12637,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOES_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOES_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOES_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOES_DESC")
                 SQLcmd.Parameters.Add("@EXOES_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOES_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOES_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOES_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOES_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOES_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOES_NOTE")
                 SQLcmd.Parameters.Add("@EXOES_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOES_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOES_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOES_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOES_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12377,7 +12668,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF_DETAIL(EXOESD_KEY,EXOESD_EXOESKEY,EXOESD_SOURCENO,EXOESD_EXOESDKEY,EXOESD_DESC,EXOESD_DEDUCTIBLE,EXOESD_AMOUNT,EXOESD_NOTE,RowIndex) VALUES (@EXOESD_KEY,@EXOESD_EXOESKEY,@EXOESD_SOURCENO,@EXOESD_EXOESDKEY,@EXOESD_DESC,@EXOESD_DEDUCTIBLE,@EXOESD_AMOUNT,@EXOESD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_ENTERTAINSTAFF_DETAIL(EXOESD_KEY,EXOESD_EXOESKEY,EXOESD_SOURCENO,EXOESD_EXOESDKEY,EXOESD_DESC,EXOESD_DEDUCTIBLE,EXOESD_AMOUNT,EXOESD_NOTE,RowIndex,EXOESD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOESD_KEY,@EXOESD_EXOESKEY,@EXOESD_SOURCENO,@EXOESD_EXOESDKEY,@EXOESD_DESC,@EXOESD_DEDUCTIBLE,@EXOESD_AMOUNT,@EXOESD_NOTE,@RowIndex,@EXOESD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12386,10 +12677,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOESD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOESD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOESD_EXOESDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOESD_EXOESDKEY")
                     SQLcmd.Parameters.Add("@EXOESD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOESD_DESC")
-                    SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOESD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOESD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOESD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOESD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOESD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOESD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOESD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOESD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOESD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOESD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -12432,7 +12734,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE,RowIndex) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,@EXOAD_TYPE,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXAPPRDONATION(EXOAD_KEY,EXOAD_EXOADKEY,EXOAD_SOURCENO,EXOAD_DESC,EXOAD_AMOUNT,EXOAD_DEDUCTIBLE,EXOAD_NOTE,EXOAD_DETAIL,EXOAD_TYPE,RowIndex,EXOAD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOAD_KEY,@EXOAD_EXOADKEY,@EXOAD_SOURCENO,@EXOAD_DESC,@EXOAD_AMOUNT,@EXOAD_DEDUCTIBLE,@EXOAD_NOTE,@EXOAD_DETAIL,@EXOAD_TYPE,@RowIndex,@EXOAD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOAD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12440,10 +12742,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOAD_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOAD_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOAD_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOAD_DESC")
                 SQLcmd.Parameters.Add("@EXOAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOAD_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOAD_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOAD_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOAD_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOAD_NOTE")
                 SQLcmd.Parameters.Add("@EXOAD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOAD_DETAIL")
                 SQLcmd.Parameters.Add("@EXOAD_TYPE", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOAD_TYPE")
+                If IsDBNull(dt.Rows(i)("EXOAD_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOAD_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOAD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOAD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12461,7 +12774,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXAPPRDONATION_DETAIL(EXOADD_KEY,EXOADD_EXOADKEY,EXOADD_SOURCENO,EXOADD_EXOADDKEY,EXOADD_DESC,EXOADD_DEDUCTIBLE,EXOADD_AMOUNT,EXOADD_NOTE,EXOADD_TYPE,RowIndex) VALUES (@EXOADD_KEY,@EXOADD_EXOADKEY,@EXOADD_SOURCENO,@EXOADD_EXOADDKEY,@EXOADD_DESC,@EXOADD_DEDUCTIBLE,@EXOADD_AMOUNT,@EXOADD_NOTE,@EXOADD_TYPE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXAPPRDONATION_DETAIL(EXOADD_KEY,EXOADD_EXOADKEY,EXOADD_SOURCENO,EXOADD_EXOADDKEY,EXOADD_DESC,EXOADD_DEDUCTIBLE,EXOADD_AMOUNT,EXOADD_NOTE,EXOADD_TYPE,RowIndex,EXOADD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOADD_KEY,@EXOADD_EXOADKEY,@EXOADD_SOURCENO,@EXOADD_EXOADDKEY,@EXOADD_DESC,@EXOADD_DEDUCTIBLE,@EXOADD_AMOUNT,@EXOADD_NOTE,@EXOADD_TYPE,@RowIndex,@EXOADD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12470,11 +12783,22 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOADD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOADD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOADD_EXOADDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOADD_EXOADDKEY")
                     SQLcmd.Parameters.Add("@EXOADD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOADD_DESC")
-                    SQLcmd.Parameters.Add("@EXOADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOADD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOADD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOADD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOADD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOADD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOADD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOADD_NOTE")
                     SQLcmd.Parameters.Add("@EXOADD_TYPE", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOADD_TYPE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOADD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOADD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOADD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOADD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -12517,7 +12841,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXCAPITALEXP(EXOCE_KEY,EXOCE_EXOCEKEY,EXOCE_SOURCENO,EXOCE_DESC,EXOCE_AMOUNT,EXOCE_DEDUCTIBLE,EXOCE_NOTE,EXOCE_DETAIL,RowIndex) VALUES (@EXOCE_KEY,@EXOCE_EXOCEKEY,@EXOCE_SOURCENO,@EXOCE_DESC,@EXOCE_AMOUNT,@EXOCE_DEDUCTIBLE,@EXOCE_NOTE,@EXOCE_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXCAPITALEXP(EXOCE_KEY,EXOCE_EXOCEKEY,EXOCE_SOURCENO,EXOCE_DESC,EXOCE_AMOUNT,EXOCE_DEDUCTIBLE,EXOCE_NOTE,EXOCE_DETAIL,RowIndex,EXOCE_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOCE_KEY,@EXOCE_EXOCEKEY,@EXOCE_SOURCENO,@EXOCE_DESC,@EXOCE_AMOUNT,@EXOCE_DEDUCTIBLE,@EXOCE_NOTE,@EXOCE_DETAIL,@RowIndex,@EXOCE_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOCE_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12525,9 +12849,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOCE_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOCE_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOCE_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOCE_DESC")
                 SQLcmd.Parameters.Add("@EXOCE_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOCE_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOCE_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOCE_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOCE_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOCE_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOCE_NOTE")
                 SQLcmd.Parameters.Add("@EXOCE_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOCE_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOCE_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOCE_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOCE_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12545,7 +12880,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXCAPITALEXP_DETAIL(EXOCED_KEY,EXOCED_EXOCEKEY,EXOCED_SOURCENO,EXOCED_EXOCEDKEY,EXOCED_DESC,EXOCED_DEDUCTIBLE,EXOCED_AMOUNT,EXOCED_NOTE,RowIndex) VALUES (@EXOCED_KEY,@EXOCED_EXOCEKEY,@EXOCED_SOURCENO,@EXOCED_EXOCEDKEY,@EXOCED_DESC,@EXOCED_DEDUCTIBLE,@EXOCED_AMOUNT,@EXOCED_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXCAPITALEXP_DETAIL(EXOCED_KEY,EXOCED_EXOCEKEY,EXOCED_SOURCENO,EXOCED_EXOCEDKEY,EXOCED_DESC,EXOCED_DEDUCTIBLE,EXOCED_AMOUNT,EXOCED_NOTE,RowIndex,EXOCED_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOCED_KEY,@EXOCED_EXOCEKEY,@EXOCED_SOURCENO,@EXOCED_EXOCEDKEY,@EXOCED_DESC,@EXOCED_DEDUCTIBLE,@EXOCED_AMOUNT,@EXOCED_NOTE,@RowIndex,@EXOCED_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12554,10 +12889,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOCED_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOCED_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOCED_EXOCEDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOCED_EXOCEDKEY")
                     SQLcmd.Parameters.Add("@EXOCED_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOCED_DESC")
-                    SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOCED_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOCED_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOCED_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOCED_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOCED_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOCED_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOCED_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOCED_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOCED_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOCED_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -12710,7 +13056,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF(EXOWO_KEY,EXOWO_EXOWOKEY,EXOWO_SOURCENO,EXOWO_DESC,EXOWO_AMOUNT,EXOWO_DEDUCTIBLE,EXOWO_NOTE,EXOWO_DETAIL,RowIndex) VALUES (@EXOWO_KEY,@EXOWO_EXOWOKEY,@EXOWO_SOURCENO,@EXOWO_DESC,@EXOWO_AMOUNT,@EXOWO_DEDUCTIBLE,@EXOWO_NOTE,@EXOWO_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF(EXOWO_KEY,EXOWO_EXOWOKEY,EXOWO_SOURCENO,EXOWO_DESC,EXOWO_AMOUNT,EXOWO_DEDUCTIBLE,EXOWO_NOTE,EXOWO_DETAIL,RowIndex,EXOWO_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOWO_KEY,@EXOWO_EXOWOKEY,@EXOWO_SOURCENO,@EXOWO_DESC,@EXOWO_AMOUNT,@EXOWO_DEDUCTIBLE,@EXOWO_NOTE,@EXOWO_DETAIL,@RowIndex,@EXOWO_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOWO_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12718,9 +13064,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOWO_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOWO_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOWO_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOWO_DESC")
                 SQLcmd.Parameters.Add("@EXOWO_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOWO_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOWO_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOWO_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOWO_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOWO_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOWO_NOTE")
                 SQLcmd.Parameters.Add("@EXOWO_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOWO_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOWO_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOWO_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOWO_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12738,7 +13095,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF_DETAIL(EXOWOD_KEY,EXOWOD_EXOWOKEY,EXOWOD_SOURCENO,EXOWOD_EXOWODKEY,EXOWOD_DESC,EXOWOD_DEDUCTIBLE,EXOWOD_AMOUNT,EXOWOD_NOTE,RowIndex) VALUES (@EXOWOD_KEY,@EXOWOD_EXOWOKEY,@EXOWOD_SOURCENO,@EXOWOD_EXOWODKEY,@EXOWOD_DESC,@EXOWOD_DEDUCTIBLE,@EXOWOD_AMOUNT,@EXOWOD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXFAWRITTENOFF_DETAIL(EXOWOD_KEY,EXOWOD_EXOWOKEY,EXOWOD_SOURCENO,EXOWOD_EXOWODKEY,EXOWOD_DESC,EXOWOD_DEDUCTIBLE,EXOWOD_AMOUNT,EXOWOD_NOTE,RowIndex,EXOWOD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOWOD_KEY,@EXOWOD_EXOWOKEY,@EXOWOD_SOURCENO,@EXOWOD_EXOWODKEY,@EXOWOD_DESC,@EXOWOD_DEDUCTIBLE,@EXOWOD_AMOUNT,@EXOWOD_NOTE,@RowIndex,@EXOWOD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12747,10 +13104,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOWOD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOWOD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOWOD_EXOWODKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOWOD_EXOWODKEY")
                     SQLcmd.Parameters.Add("@EXOWOD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOWOD_DESC")
-                    SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOWOD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOWOD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOWOD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOWOD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOWOD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOWOD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOWOD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOWOD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOWOD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOWOD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -12792,7 +13160,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXINITIALSUB(EXOIS_KEY,EXOIS_EXOISKEY,EXOIS_SOURCENO,EXOIS_DESC,EXOIS_AMOUNT,EXOIS_DEDUCTIBLE,EXOIS_NOTE,EXOIS_DETAIL) VALUES (@EXOIS_KEY,@EXOIS_EXOISKEY,@EXOIS_SOURCENO,@EXOIS_DESC,@EXOIS_AMOUNT,@EXOIS_DEDUCTIBLE,@EXOIS_NOTE,@EXOIS_DETAIL)"
+                StrSQL = "INSERT INTO OTHER_EXINITIALSUB(EXOIS_KEY,EXOIS_EXOISKEY,EXOIS_SOURCENO,EXOIS_DESC,EXOIS_AMOUNT,EXOIS_DEDUCTIBLE,EXOIS_NOTE,EXOIS_DETAIL,RowIndex,EXOIS_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOIS_KEY,@EXOIS_EXOISKEY,@EXOIS_SOURCENO,@EXOIS_DESC,@EXOIS_AMOUNT,@EXOIS_DEDUCTIBLE,@EXOIS_NOTE,@EXOIS_DETAIL,@RowIndex,@EXOIS_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOIS_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12800,9 +13168,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOIS_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOIS_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOIS_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOIS_DESC")
                 SQLcmd.Parameters.Add("@EXOIS_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOIS_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOIS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOIS_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOIS_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOIS_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOIS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOIS_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOIS_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOIS_NOTE")
                 SQLcmd.Parameters.Add("@EXOIS_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOIS_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOIS_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOIS_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOIS_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOIS_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
+                SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
 
@@ -12820,7 +13200,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXINITIALSUB_DETAIL(EXOISD_KEY,EXOISD_EXOISKEY,EXOISD_SOURCENO,EXOISD_EXOISDKEY,EXOISD_DESC,EXOISD_DEDUCTIBLE,EXOISD_AMOUNT,EXOISD_NOTE) VALUES (@EXOISD_KEY,@EXOISD_EXOISKEY,@EXOISD_SOURCENO,@EXOISD_EXOISDKEY,@EXOISD_DESC,@EXOISD_DEDUCTIBLE,@EXOISD_AMOUNT,@EXOISD_NOTE)"
+                    StrSQL = "INSERT INTO OTHER_EXINITIALSUB_DETAIL(EXOISD_KEY,EXOISD_EXOISKEY,EXOISD_SOURCENO,EXOISD_EXOISDKEY,EXOISD_DESC,EXOISD_DEDUCTIBLE,EXOISD_AMOUNT,EXOISD_NOTE,RowIndex,EXOISD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOISD_KEY,@EXOISD_EXOISKEY,@EXOISD_SOURCENO,@EXOISD_EXOISDKEY,@EXOISD_DESC,@EXOISD_DEDUCTIBLE,@EXOISD_AMOUNT,@EXOISD_NOTE,@RowIndex,@EXOISD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12829,9 +13209,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOISD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOISD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOISD_EXOISDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOISD_EXOISDKEY")
                     SQLcmd.Parameters.Add("@EXOISD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOISD_DESC")
-                    SQLcmd.Parameters.Add("@EXOISD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOISD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOISD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOISD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOISD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOISD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOISD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOISD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOISD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOISD_NOTE")
+                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOISD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOISD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOISD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOISD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -12874,7 +13266,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE(EXOLP_KEY,EXOLP_EXOLPKEY,EXOLP_SOURCENO,EXOLP_DESC,EXOLP_AMOUNT,EXOLP_DEDUCTIBLE,EXOLP_NOTE,EXOLP_DETAIL,RowIndex) VALUES (@EXOLP_KEY,@EXOLP_EXOLPKEY,@EXOLP_SOURCENO,@EXOLP_DESC,@EXOLP_AMOUNT,@EXOLP_DEDUCTIBLE,@EXOLP_NOTE,@EXOLP_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE(EXOLP_KEY,EXOLP_EXOLPKEY,EXOLP_SOURCENO,EXOLP_DESC,EXOLP_AMOUNT,EXOLP_DEDUCTIBLE,EXOLP_NOTE,EXOLP_DETAIL,RowIndex,EXOLP_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOLP_KEY,@EXOLP_EXOLPKEY,@EXOLP_SOURCENO,@EXOLP_DESC,@EXOLP_AMOUNT,@EXOLP_DEDUCTIBLE,@EXOLP_NOTE,@EXOLP_DETAIL,@RowIndex,@EXOLP_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOLP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12882,9 +13274,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOLP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOLP_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOLP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOLP_DESC")
                 SQLcmd.Parameters.Add("@EXOLP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOLP_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLP_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOLP_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOLP_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOLP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOLP_NOTE")
                 SQLcmd.Parameters.Add("@EXOLP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLP_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOLP_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOLP_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOLP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12902,7 +13305,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE_DETAIL(EXOLPD_KEY,EXOLPD_EXOLPKEY,EXOLPD_SOURCENO,EXOLPD_EXOLPDKEY,EXOLPD_DESC,EXOLPD_DEDUCTIBLE,EXOLPD_AMOUNT,EXOLPD_NOTE,RowIndex) VALUES (@EXOLPD_KEY,@EXOLPD_EXOLPKEY,@EXOLPD_SOURCENO,@EXOLPD_EXOLPDKEY,@EXOLPD_DESC,@EXOLPD_DEDUCTIBLE,@EXOLPD_AMOUNT,@EXOLPD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXLEAVEPASSAGE_DETAIL(EXOLPD_KEY,EXOLPD_EXOLPKEY,EXOLPD_SOURCENO,EXOLPD_EXOLPDKEY,EXOLPD_DESC,EXOLPD_DEDUCTIBLE,EXOLPD_AMOUNT,EXOLPD_NOTE,RowIndex,EXOLPD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOLPD_KEY,@EXOLPD_EXOLPKEY,@EXOLPD_SOURCENO,@EXOLPD_EXOLPDKEY,@EXOLPD_DESC,@EXOLPD_DEDUCTIBLE,@EXOLPD_AMOUNT,@EXOLPD_NOTE,@RowIndex,@EXOLPD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12911,10 +13314,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOLPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLPD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOLPD_EXOLPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLPD_EXOLPDKEY")
                     SQLcmd.Parameters.Add("@EXOLPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOLPD_DESC")
-                    SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOLPD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOLPD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOLPD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOLPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOLPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOLPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOLPD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOLPD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOLPD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOLPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -12957,7 +13371,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA(EXOLD_KEY,EXOLD_EXOLDKEY,EXOLD_SOURCENO,EXOLD_DESC,EXOLD_AMOUNT,EXOLD_DEDUCTIBLE,EXOLD_NOTE,EXOLD_DETAIL,RowIndex) VALUES (@EXOLD_KEY,@EXOLD_EXOLDKEY,@EXOLD_SOURCENO,@EXOLD_DESC,@EXOLD_AMOUNT,@EXOLD_DEDUCTIBLE,@EXOLD_NOTE,@EXOLD_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA(EXOLD_KEY,EXOLD_EXOLDKEY,EXOLD_SOURCENO,EXOLD_DESC,EXOLD_AMOUNT,EXOLD_DEDUCTIBLE,EXOLD_NOTE,EXOLD_DETAIL,RowIndex,EXOLD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOLD_KEY,@EXOLD_EXOLDKEY,@EXOLD_SOURCENO,@EXOLD_DESC,@EXOLD_AMOUNT,@EXOLD_DEDUCTIBLE,@EXOLD_NOTE,@EXOLD_DETAIL,@RowIndex,@EXOLD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOLD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -12965,9 +13379,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOLD_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOLD_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOLD_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOLD_DESC")
                 SQLcmd.Parameters.Add("@EXOLD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOLD_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLD_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOLD_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOLD_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOLD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOLD_NOTE")
                 SQLcmd.Parameters.Add("@EXOLD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOLD_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOLD_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOLD_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOLD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -12985,7 +13410,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA_DETAIL(EXOLDD_KEY,EXOLDD_EXOLDKEY,EXOLDD_SOURCENO,EXOLDD_EXOLDDKEY,EXOLDD_DESC,EXOLDD_DEDUCTIBLE,EXOLDD_AMOUNT,EXOLDD_NOTE,RowIndex) VALUES (@EXOLDD_KEY,@EXOLDD_EXOLDKEY,@EXOLDD_SOURCENO,@EXOLDD_EXOLDDKEY,@EXOLDD_DESC,@EXOLDD_DEDUCTIBLE,@EXOLDD_AMOUNT,@EXOLDD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXLOSSDISPOSALFA_DETAIL(EXOLDD_KEY,EXOLDD_EXOLDKEY,EXOLDD_SOURCENO,EXOLDD_EXOLDDKEY,EXOLDD_DESC,EXOLDD_DEDUCTIBLE,EXOLDD_AMOUNT,EXOLDD_NOTE,RowIndex,EXOLDD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOLDD_KEY,@EXOLDD_EXOLDKEY,@EXOLDD_SOURCENO,@EXOLDD_EXOLDDKEY,@EXOLDD_DESC,@EXOLDD_DEDUCTIBLE,@EXOLDD_AMOUNT,@EXOLDD_NOTE,@RowIndex,@EXOLDD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -12994,10 +13419,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOLDD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLDD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOLDD_EXOLDDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOLDD_EXOLDDKEY")
                     SQLcmd.Parameters.Add("@EXOLDD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOLDD_DESC")
-                    SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOLDD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOLDD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOLDD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOLDD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOLDD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOLDD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOLDD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOLDD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOLDD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOLDD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -13039,7 +13475,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION(EXONAD_KEY,EXONAD_EXONADKEY,EXONAD_SOURCENO,EXONAD_DESC,EXONAD_AMOUNT,EXONAD_DEDUCTIBLE,EXONAD_NOTE,EXONAD_DETAIL,RowIndex) VALUES (@EXONAD_KEY,@EXONAD_EXONADKEY,@EXONAD_SOURCENO,@EXONAD_DESC,@EXONAD_AMOUNT,@EXONAD_DEDUCTIBLE,@EXONAD_NOTE,@EXONAD_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION(EXONAD_KEY,EXONAD_EXONADKEY,EXONAD_SOURCENO,EXONAD_DESC,EXONAD_AMOUNT,EXONAD_DEDUCTIBLE,EXONAD_NOTE,EXONAD_DETAIL,RowIndex,EXONAD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXONAD_KEY,@EXONAD_EXONADKEY,@EXONAD_SOURCENO,@EXONAD_DESC,@EXONAD_AMOUNT,@EXONAD_DEDUCTIBLE,@EXONAD_NOTE,@EXONAD_DETAIL,@RowIndex,@EXONAD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXONAD_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13047,9 +13483,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXONAD_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXONAD_SOURCENO")
                 SQLcmd.Parameters.Add("@EXONAD_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXONAD_DESC")
                 SQLcmd.Parameters.Add("@EXONAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXONAD_AMOUNT")
-                SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXONAD_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXONAD_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXONAD_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXONAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXONAD_NOTE")
                 SQLcmd.Parameters.Add("@EXONAD_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXONAD_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXONAD_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXONAD_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXONAD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -13067,7 +13514,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION_DETAIL(EXONADD_KEY,EXONADD_EXONADKEY,EXONADD_SOURCENO,EXONADD_EXONADDKEY,EXONADD_DESC,EXONADD_DEDUCTIBLE,EXONADD_AMOUNT,EXONADD_NOTE,RowIndex) VALUES (@EXONADD_KEY,@EXONADD_EXONADKEY,@EXONADD_SOURCENO,@EXONADD_EXONADDKEY,@EXONADD_DESC,@EXONADD_DEDUCTIBLE,@EXONADD_AMOUNT,@EXONADD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXNAPPRDONATION_DETAIL(EXONADD_KEY,EXONADD_EXONADKEY,EXONADD_SOURCENO,EXONADD_EXONADDKEY,EXONADD_DESC,EXONADD_DEDUCTIBLE,EXONADD_AMOUNT,EXONADD_NOTE,RowIndex,EXONADD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXONADD_KEY,@EXONADD_EXONADKEY,@EXONADD_SOURCENO,@EXONADD_EXONADDKEY,@EXONADD_DESC,@EXONADD_DEDUCTIBLE,@EXONADD_AMOUNT,@EXONADD_NOTE,@RowIndex,@EXONADD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13076,10 +13523,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXONADD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXONADD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXONADD_EXONADDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXONADD_EXONADDKEY")
                     SQLcmd.Parameters.Add("@EXONADD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXONADD_DESC")
-                    SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXONADD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXONADD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXONADD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXONADD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXONADD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXONADD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXONADD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXONADD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXONADD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXONADD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -13122,7 +13580,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXPENALTY(EXOP_KEY,EXOP_EXOPKEY,EXOP_SOURCENO,EXOP_DESC,EXOP_AMOUNT,EXOP_DEDUCTIBLE,EXOP_NOTE,EXOP_DETAIL,RowIndex) VALUES (@EXOP_KEY,@EXOP_EXOPKEY,@EXOP_SOURCENO,@EXOP_DESC,@EXOP_AMOUNT,@EXOP_DEDUCTIBLE,@EXOP_NOTE,@EXOP_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXPENALTY(EXOP_KEY,EXOP_EXOPKEY,EXOP_SOURCENO,EXOP_DESC,EXOP_AMOUNT,EXOP_DEDUCTIBLE,EXOP_NOTE,EXOP_DETAIL,RowIndex,EXOP_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOP_KEY,@EXOP_EXOPKEY,@EXOP_SOURCENO,@EXOP_DESC,@EXOP_AMOUNT,@EXOP_DEDUCTIBLE,@EXOP_NOTE,@EXOP_DETAIL,@RowIndex,@EXOP_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOP_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13130,9 +13588,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOP_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOP_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOP_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOP_DESC")
                 SQLcmd.Parameters.Add("@EXOP_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOP_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOP_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOP_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOP_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOP_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOP_NOTE")
                 SQLcmd.Parameters.Add("@EXOP_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOP_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOP_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOP_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOP_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -13150,7 +13619,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXPENALTY_DETAIL(EXOPD_KEY,EXOPD_EXOPKEY,EXOPD_SOURCENO,EXOPD_EXOPDKEY,EXOPD_DESC,EXOPD_DEDUCTIBLE,EXOPD_AMOUNT,EXOPD_NOTE,RowIndex) VALUES (@EXOPD_KEY,@EXOPD_EXOPKEY,@EXOPD_SOURCENO,@EXOPD_EXOPDKEY,@EXOPD_DESC,@EXOPD_DEDUCTIBLE,@EXOPD_AMOUNT,@EXOPD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXPENALTY_DETAIL(EXOPD_KEY,EXOPD_EXOPKEY,EXOPD_SOURCENO,EXOPD_EXOPDKEY,EXOPD_DESC,EXOPD_DEDUCTIBLE,EXOPD_AMOUNT,EXOPD_NOTE,RowIndex,EXOPD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOPD_KEY,@EXOPD_EXOPKEY,@EXOPD_SOURCENO,@EXOPD_EXOPDKEY,@EXOPD_DESC,@EXOPD_DEDUCTIBLE,@EXOPD_AMOUNT,@EXOPD_NOTE,@RowIndex,@EXOPD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13159,10 +13628,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOPD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOPD_EXOPDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPD_EXOPDKEY")
                     SQLcmd.Parameters.Add("@EXOPD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOPD_DESC")
-                    SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOPD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOPD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOPD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOPD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOPD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOPD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOPD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOPD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOPD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOPD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -13311,7 +13791,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXPROVISIONACC(EXOPA_KEY,EXOPA_EXOPAKEY,EXOPA_SOURCENO,EXOPA_DESC,EXOPA_AMOUNT,EXOPA_DEDUCTIBLE,EXOPA_NOTE,EXOPA_DETAIL,RowIndex) VALUES (@EXOPA_KEY,@EXOPA_EXOPAKEY,@EXOPA_SOURCENO,@EXOPA_DESC,@EXOPA_AMOUNT,@EXOPA_DEDUCTIBLE,@EXOPA_NOTE,@EXOPA_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXPROVISIONACC(EXOPA_KEY,EXOPA_EXOPAKEY,EXOPA_SOURCENO,EXOPA_DESC,EXOPA_AMOUNT,EXOPA_DEDUCTIBLE,EXOPA_NOTE,EXOPA_DETAIL,RowIndex,EXOPA_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOPA_KEY,@EXOPA_EXOPAKEY,@EXOPA_SOURCENO,@EXOPA_DESC,@EXOPA_AMOUNT,@EXOPA_DEDUCTIBLE,@EXOPA_NOTE,@EXOPA_DETAIL,@RowIndex,@EXOPA_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOPA_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13319,9 +13799,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOPA_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOPA_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOPA_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOPA_DESC")
                 SQLcmd.Parameters.Add("@EXOPA_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOPA_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOPA_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOPA_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOPA_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOPA_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOPA_NOTE")
                 SQLcmd.Parameters.Add("@EXOPA_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOPA_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOPA_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOPA_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOPA_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -13340,7 +13831,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXPROVISIONACC_DETAIL(EXOPAD_KEY,EXOPAD_EXOPAKEY,EXOPAD_SOURCENO,EXOPAD_EXOPADKEY,EXOPAD_DESC,EXOPAD_DEDUCTIBLE,EXOPAD_AMOUNT,EXOPAD_NOTE,RowIndex) VALUES (@EXOPAD_KEY,@EXOPAD_EXOPAKEY,@EXOPAD_SOURCENO,@EXOPAD_EXOPADKEY,@EXOPAD_DESC,@EXOPAD_DEDUCTIBLE,@EXOPAD_AMOUNT,@EXOPAD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXPROVISIONACC_DETAIL(EXOPAD_KEY,EXOPAD_EXOPAKEY,EXOPAD_SOURCENO,EXOPAD_EXOPADKEY,EXOPAD_DESC,EXOPAD_DEDUCTIBLE,EXOPAD_AMOUNT,EXOPAD_NOTE,RowIndex,EXOPAD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOPAD_KEY,@EXOPAD_EXOPAKEY,@EXOPAD_SOURCENO,@EXOPAD_EXOPADKEY,@EXOPAD_DESC,@EXOPAD_DEDUCTIBLE,@EXOPAD_AMOUNT,@EXOPAD_NOTE,@RowIndex,@EXOPAD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13349,10 +13840,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOPAD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPAD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOPAD_EXOPADKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOPAD_EXOPADKEY")
                     SQLcmd.Parameters.Add("@EXOPAD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOPAD_DESC")
-                    SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOPAD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOPAD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOPAD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOPAD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOPAD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOPAD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOPAD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOPAD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOPAD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOPAD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -13394,7 +13896,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN(EXOR_KEY,EXOR_EXORKEY,EXOR_SOURCENO,EXOR_DESC,EXOR_AMOUNT,EXOR_DEDUCTIBLE,EXOR_NOTE,EXOR_DETAIL,RowIndex) VALUES (@EXOR_KEY,@EXOR_EXORKEY,@EXOR_SOURCENO,@EXOR_DESC,@EXOR_AMOUNT,@EXOR_DEDUCTIBLE,@EXOR_NOTE,@EXOR_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN(EXOR_KEY,EXOR_EXORKEY,EXOR_SOURCENO,EXOR_DESC,EXOR_AMOUNT,EXOR_DEDUCTIBLE,EXOR_NOTE,EXOR_DETAIL,RowIndex,EXOR_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOR_KEY,@EXOR_EXORKEY,@EXOR_SOURCENO,@EXOR_DESC,@EXOR_AMOUNT,@EXOR_DEDUCTIBLE,@EXOR_NOTE,@EXOR_DETAIL,@RowIndex,@EXOR_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13402,9 +13904,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOR_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOR_DESC")
                 SQLcmd.Parameters.Add("@EXOR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOR_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOR_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOR_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOR_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOR_NOTE")
                 SQLcmd.Parameters.Add("@EXOR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOR_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOR_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOR_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOR_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -13423,7 +13936,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN_DETAIL(EXORD_KEY,EXORD_EXORKEY,EXORD_SOURCENO,EXORD_EXORDKEY,EXORD_DESC,EXORD_DEDUCTIBLE,EXORD_AMOUNT,EXORD_NOTE,RowIndex) VALUES (@EXORD_KEY,@EXORD_EXORKEY,@EXORD_SOURCENO,@EXORD_EXORDKEY,@EXORD_DESC,@EXORD_DEDUCTIBLE,@EXORD_AMOUNT,@EXORD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGN_DETAIL(EXORD_KEY,EXORD_EXORKEY,EXORD_SOURCENO,EXORD_EXORDKEY,EXORD_DESC,EXORD_DEDUCTIBLE,EXORD_AMOUNT,EXORD_NOTE,RowIndex,EXORD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXORD_KEY,@EXORD_EXORKEY,@EXORD_SOURCENO,@EXORD_EXORDKEY,@EXORD_DESC,@EXORD_DEDUCTIBLE,@EXORD_AMOUNT,@EXORD_NOTE,@RowIndex,@EXORD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13432,10 +13945,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXORD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXORD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXORD_EXORDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXORD_EXORDKEY")
                     SQLcmd.Parameters.Add("@EXORD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXORD_DESC")
-                    SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXORD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXORD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXORD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXORD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXORD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXORD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXORD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXORD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXORD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXORD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -13477,7 +14001,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT(EXORT_KEY,EXORT_EXORTKEY,EXORT_SOURCENO,EXORT_DESC,EXORT_AMOUNT,EXORT_DEDUCTIBLE,EXORT_NOTE,EXORT_DETAIL,RowIndex) VALUES (@EXORT_KEY,@EXORT_EXORTKEY,@EXORT_SOURCENO,@EXORT_DESC,@EXORT_AMOUNT,@EXORT_DEDUCTIBLE,@EXORT_NOTE,@EXORT_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT(EXORT_KEY,EXORT_EXORTKEY,EXORT_SOURCENO,EXORT_DESC,EXORT_AMOUNT,EXORT_DEDUCTIBLE,EXORT_NOTE,EXORT_DETAIL,RowIndex,EXORT_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXORT_KEY,@EXORT_EXORTKEY,@EXORT_SOURCENO,@EXORT_DESC,@EXORT_AMOUNT,@EXORT_DEDUCTIBLE,@EXORT_NOTE,@EXORT_DETAIL,@RowIndex,@EXORT_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXORT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13485,9 +14009,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXORT_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXORT_SOURCENO")
                 SQLcmd.Parameters.Add("@EXORT_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXORT_DESC")
                 SQLcmd.Parameters.Add("@EXORT_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXORT_AMOUNT")
-                SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXORT_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXORT_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXORT_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXORT_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXORT_NOTE")
                 SQLcmd.Parameters.Add("@EXORT_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXORT_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXORT_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXORT_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXORT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -13505,7 +14040,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT_DETAIL(EXORTD_KEY,EXORTD_EXORTKEY,EXORTD_SOURCENO,EXORTD_EXORTDKEY,EXORTD_DESC,EXORTD_DEDUCTIBLE,EXORTD_AMOUNT,EXORTD_NOTE,RowIndex) VALUES (@EXORTD_KEY,@EXORTD_EXORTKEY,@EXORTD_SOURCENO,@EXORTD_EXORTDKEY,@EXORTD_DESC,@EXORTD_DEDUCTIBLE,@EXORTD_AMOUNT,@EXORTD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXRLOSSFOREIGNT_DETAIL(EXORTD_KEY,EXORTD_EXORTKEY,EXORTD_SOURCENO,EXORTD_EXORTDKEY,EXORTD_DESC,EXORTD_DEDUCTIBLE,EXORTD_AMOUNT,EXORTD_NOTE,RowIndex,EXORTD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXORTD_KEY,@EXORTD_EXORTKEY,@EXORTD_SOURCENO,@EXORTD_EXORTDKEY,@EXORTD_DESC,@EXORTD_DEDUCTIBLE,@EXORTD_AMOUNT,@EXORTD_NOTE,@RowIndex,@EXORTD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13514,10 +14049,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXORTD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXORTD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXORTD_EXORTDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXORTD_EXORTDKEY")
                     SQLcmd.Parameters.Add("@EXORTD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXORTD_DESC")
-                    SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXORTD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXORTD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXORTD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXORTD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXORTD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXORTD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXORTD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXORTD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXORTD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXORTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
                     ListofCmd.Add(SQLcmd)
 
                 Next
@@ -13559,7 +14105,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN(EXOUR_KEY,EXOUR_EXOURKEY,EXOUR_SOURCENO,EXOUR_DESC,EXOUR_AMOUNT,EXOUR_DEDUCTIBLE,EXOUR_NOTE,EXOUR_DETAIL,RowIndex) VALUES (@EXOUR_KEY,@EXOUR_EXOURKEY,@EXOUR_SOURCENO,@EXOUR_DESC,@EXOUR_AMOUNT,@EXOUR_DEDUCTIBLE,@EXOUR_NOTE,@EXOUR_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN(EXOUR_KEY,EXOUR_EXOURKEY,EXOUR_SOURCENO,EXOUR_DESC,EXOUR_AMOUNT,EXOUR_DEDUCTIBLE,EXOUR_NOTE,EXOUR_DETAIL,RowIndex,EXOUR_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOUR_KEY,@EXOUR_EXOURKEY,@EXOUR_SOURCENO,@EXOUR_DESC,@EXOUR_AMOUNT,@EXOUR_DEDUCTIBLE,@EXOUR_NOTE,@EXOUR_DETAIL,@RowIndex,@EXOUR_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOUR_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13567,9 +14113,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOUR_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOUR_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOUR_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOUR_DESC")
                 SQLcmd.Parameters.Add("@EXOUR_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOUR_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOUR_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOUR_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOUR_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOUR_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOUR_NOTE")
                 SQLcmd.Parameters.Add("@EXOUR_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOUR_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOUR_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOUR_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOUR_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
 
                 ListofCmd.Add(SQLcmd)
@@ -13588,7 +14145,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN_DETAIL(EXOURD_KEY,EXOURD_EXOURKEY,EXOURD_SOURCENO,EXOURD_EXOURDKEY,EXOURD_DESC,EXOURD_DEDUCTIBLE,EXOURD_AMOUNT,EXOURD_NOTE,RowIndex) VALUES (@EXOURD_KEY,@EXOURD_EXOURKEY,@EXOURD_SOURCENO,@EXOURD_EXOURDKEY,@EXOURD_DESC,@EXOURD_DEDUCTIBLE,@EXOURD_AMOUNT,@EXOURD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXURLOSSFOREIGN_DETAIL(EXOURD_KEY,EXOURD_EXOURKEY,EXOURD_SOURCENO,EXOURD_EXOURDKEY,EXOURD_DESC,EXOURD_DEDUCTIBLE,EXOURD_AMOUNT,EXOURD_NOTE,RowIndex,EXOURD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOURD_KEY,@EXOURD_EXOURKEY,@EXOURD_SOURCENO,@EXOURD_EXOURDKEY,@EXOURD_DESC,@EXOURD_DEDUCTIBLE,@EXOURD_AMOUNT,@EXOURD_NOTE,@RowIndex,@EXOURD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13597,10 +14154,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOURD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOURD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOURD_EXOURDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOURD_EXOURDKEY")
                     SQLcmd.Parameters.Add("@EXOURD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOURD_DESC")
-                    SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOURD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOURD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOURD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOURD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOURD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOURD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOURD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOURD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOURD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOURD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 
@@ -13643,7 +14211,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO OTHER_EXZAKAT(EXOZ_KEY,EXOZ_EXOZKEY,EXOZ_SOURCENO,EXOZ_DESC,EXOZ_AMOUNT,EXOZ_DEDUCTIBLE,EXOZ_NOTE,EXOZ_DETAIL,RowIndex) VALUES (@EXOZ_KEY,@EXOZ_EXOZKEY,@EXOZ_SOURCENO,@EXOZ_DESC,@EXOZ_AMOUNT,@EXOZ_DEDUCTIBLE,@EXOZ_NOTE,@EXOZ_DETAIL,@RowIndex)"
+                StrSQL = "INSERT INTO OTHER_EXZAKAT(EXOZ_KEY,EXOZ_EXOZKEY,EXOZ_SOURCENO,EXOZ_DESC,EXOZ_AMOUNT,EXOZ_DEDUCTIBLE,EXOZ_NOTE,EXOZ_DETAIL,RowIndex,EXOZ_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOZ_KEY,@EXOZ_EXOZKEY,@EXOZ_SOURCENO,@EXOZ_DESC,@EXOZ_AMOUNT,@EXOZ_DEDUCTIBLE,@EXOZ_NOTE,@EXOZ_DETAIL,@RowIndex,@EXOZ_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXOZ_KEY", SqlDbType.Int).Value = PNL_Key
@@ -13651,9 +14219,20 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 SQLcmd.Parameters.Add("@EXOZ_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("EXOZ_SOURCENO")
                 SQLcmd.Parameters.Add("@EXOZ_DESC", SqlDbType.NVarChar, 255).Value = dt.Rows(i)("EXOZ_DESC")
                 SQLcmd.Parameters.Add("@EXOZ_AMOUNT", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("EXOZ_AMOUNT")
-                SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOZ_DEDUCTIBLE")
+                If IsDBNull(dt.Rows(i)("EXOZ_DEDUCTIBLE")) = False AndAlso dt.Rows(i)("EXOZ_DEDUCTIBLE") = True Then
+                    SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                End If
                 SQLcmd.Parameters.Add("@EXOZ_NOTE", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("EXOZ_NOTE")
                 SQLcmd.Parameters.Add("@EXOZ_DETAIL", SqlDbType.NVarChar, 30).Value = dt.Rows(i)("EXOZ_DETAIL")
+                If IsDBNull(dt.Rows(i)("EXOZ_DEDUCTIBLE_ADD")) = False AndAlso dt.Rows(i)("EXOZ_DEDUCTIBLE_ADD") = True Then
+                    SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                Else
+                    SQLcmd.Parameters.Add("@EXOZ_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                End If
+                SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt.Rows(i)("Pecentage")
+                SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
                 SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = i
                 ListofCmd.Add(SQLcmd)
 
@@ -13671,7 +14250,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO OTHER_EXZAKAT_DETAIL(EXOZD_KEY,EXOZD_EXOZKEY,EXOZD_SOURCENO,EXOZD_EXOZDKEY,EXOZD_DESC,EXOZD_DEDUCTIBLE,EXOZD_AMOUNT,EXOZD_NOTE,RowIndex) VALUES (@EXOZD_KEY,@EXOZD_EXOZKEY,@EXOZD_SOURCENO,@EXOZD_EXOZDKEY,@EXOZD_DESC,@EXOZD_DEDUCTIBLE,@EXOZD_AMOUNT,@EXOZD_NOTE,@RowIndex)"
+                    StrSQL = "INSERT INTO OTHER_EXZAKAT_DETAIL(EXOZD_KEY,EXOZD_EXOZKEY,EXOZD_SOURCENO,EXOZD_EXOZDKEY,EXOZD_DESC,EXOZD_DEDUCTIBLE,EXOZD_AMOUNT,EXOZD_NOTE,RowIndex,EXOZD_DEDUCTIBLE_ADD,Pecentage,PecentageAmount) VALUES (@EXOZD_KEY,@EXOZD_EXOZKEY,@EXOZD_SOURCENO,@EXOZD_EXOZDKEY,@EXOZD_DESC,@EXOZD_DEDUCTIBLE,@EXOZD_AMOUNT,@EXOZD_NOTE,@RowIndex,@EXOZD_DEDUCTIBLE_ADD,@Pecentage,@PecentageAmount)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -13680,10 +14259,21 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXOZD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXOZD_SOURCENO")
                     SQLcmd.Parameters.Add("@EXOZD_EXOZDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXOZD_EXOZDKEY")
                     SQLcmd.Parameters.Add("@EXOZD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXOZD_DESC")
-                    SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXOZD_DEDUCTIBLE")
+                    If IsDBNull(dt_child.Rows(x)("EXOZD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXOZD_DEDUCTIBLE") = True Then
+                        SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
                     SQLcmd.Parameters.Add("@EXOZD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXOZD_AMOUNT")
                     SQLcmd.Parameters.Add("@EXOZD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXOZD_NOTE")
                     SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
+                    If IsDBNull(dt_child.Rows(x)("EXOZD_DEDUCTIBLE_ADD")) = False AndAlso dt_child.Rows(x)("EXOZD_DEDUCTIBLE_ADD") = True Then
+                        SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "Yes"
+                    Else
+                        SQLcmd.Parameters.Add("@EXOZD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
+                    End If
+                    SQLcmd.Parameters.Add("@Pecentage", SqlDbType.Int).Value = dt_child.Rows(x)("Pecentage")
+                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
 
                     ListofCmd.Add(SQLcmd)
 

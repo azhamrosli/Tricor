@@ -901,3 +901,4 @@ C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.e
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\ET_Taxcom.pdb
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.vbprojResolveAssemblyReference.cache
 C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmPNL_Migration.resources
+C:\Users\Azham\Documents\GitHub\Tricor\EasyTemplate_Taxcom\obj\Debug\EasyTemplate_Taxcom.frmPNL_B_Add.resources
