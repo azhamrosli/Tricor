@@ -1093,7 +1093,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
         Me.XtraTabPage2.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage2.Size = New System.Drawing.Size(606, 628)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(609, 528)
         Me.XtraTabPage2.Text = "Page 2"
         '
         'lbl_p2UnreaGainForeExNon
@@ -1419,6 +1419,7 @@ Partial Class frmPNL_Add
         Me.lbl_p2ReaForeExGainNonTrade.Name = "lbl_p2ReaForeExGainNonTrade"
         Me.lbl_p2ReaForeExGainNonTrade.Size = New System.Drawing.Size(207, 13)
         Me.lbl_p2ReaForeExGainNonTrade.TabIndex = 16
+        Me.lbl_p2ReaForeExGainNonTrade.Tag = "REALFE"
         Me.lbl_p2ReaForeExGainNonTrade.Text = "Realised foreign exchange gain - non trade"
         '
         'lbl_p2ForeIncomeRemmit
@@ -1632,7 +1633,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
         Me.XtraTabPage3.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage3.Size = New System.Drawing.Size(606, 628)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(609, 528)
         Me.XtraTabPage3.Tag = ""
         Me.XtraTabPage3.Text = "Page 3"
         '
@@ -2280,7 +2281,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage4.Name = "XtraTabPage4"
         Me.XtraTabPage4.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage4.Size = New System.Drawing.Size(606, 628)
+        Me.XtraTabPage4.Size = New System.Drawing.Size(609, 528)
         Me.XtraTabPage4.Text = "Page 4"
         '
         'txt_p4ExpectedExpenses

@@ -49,6 +49,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.colEXNAD_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
+        Me.EXPENSESNONALLOWBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colEXNA_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -77,11 +78,13 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.EXPENSESNONALLOWBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.colPecentageAmount = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colPecentageAmount1 = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EXPENSESNONALLOWBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -90,12 +93,11 @@ Partial Class ucPNL_p1NonAllowableExpenses
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.EXPENSESNONALLOWBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GridView2
         '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colEXNAD_KEY, Me.colEXNAD_EXNAKEY, Me.colEXNAD_SOURCENO, Me.colEXNAD_EXNADKEY, Me.colEXNAD_DESC, Me.colEXNAD_DEDUCTIBLE, Me.colEXNAD_AMOUNT, Me.colEXNAD_NOTE})
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colEXNAD_KEY, Me.colEXNAD_EXNAKEY, Me.colEXNAD_SOURCENO, Me.colEXNAD_EXNADKEY, Me.colEXNAD_DESC, Me.colEXNAD_DEDUCTIBLE, Me.colEXNAD_AMOUNT, Me.colEXNAD_NOTE, Me.colPecentageAmount1})
         Me.GridView2.GridControl = Me.GridControl1
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -198,6 +200,11 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
         '
+        'EXPENSESNONALLOWBindingSource
+        '
+        Me.EXPENSESNONALLOWBindingSource.DataMember = "EXPENSES_NONALLOW"
+        Me.EXPENSESNONALLOWBindingSource.DataSource = Me.DsPNL1
+        '
         'DsPNL1
         '
         Me.DsPNL1.DataSetName = "dsPNL"
@@ -205,7 +212,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colEXNA_KEY, Me.colEXNA_EXNAKEY, Me.colEXNA_SOURCENO, Me.colEXNA_DESC, Me.colEXNA_AMOUNT, Me.colEXNA_DEDUCTIBLE, Me.colEXNA_NOTE, Me.colEXNA_DETAIL})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colEXNA_KEY, Me.colEXNA_EXNAKEY, Me.colEXNA_SOURCENO, Me.colEXNA_DESC, Me.colEXNA_AMOUNT, Me.colEXNA_DEDUCTIBLE, Me.colEXNA_NOTE, Me.colEXNA_DETAIL, Me.colPecentageAmount})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -342,10 +349,10 @@ Partial Class ucPNL_p1NonAllowableExpenses
         'btnAdd
         '
         Me.btnAdd.Caption = "Add Data"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -358,10 +365,10 @@ Partial Class ucPNL_p1NonAllowableExpenses
         'btnAddChild
         '
         Me.btnAddChild.Caption = "Add Child Data"
-        Me.btnAddChild.Glyph = CType(resources.GetObject("btnAddChild.Glyph"), System.Drawing.Image)
         Me.btnAddChild.Id = 1
+        Me.btnAddChild.ImageOptions.Image = CType(resources.GetObject("btnAddChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddChild.ImageOptions.LargeImage = CType(resources.GetObject("btnAddChild.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
-        Me.btnAddChild.LargeGlyph = CType(resources.GetObject("btnAddChild.LargeGlyph"), System.Drawing.Image)
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Add new record"
@@ -374,10 +381,10 @@ Partial Class ucPNL_p1NonAllowableExpenses
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem3.Text = "Delete record"
@@ -390,10 +397,10 @@ Partial Class ucPNL_p1NonAllowableExpenses
         'btnDeleteChild
         '
         Me.btnDeleteChild.Caption = "Delete Child"
-        Me.btnDeleteChild.Glyph = CType(resources.GetObject("btnDeleteChild.Glyph"), System.Drawing.Image)
         Me.btnDeleteChild.Id = 5
+        Me.btnDeleteChild.ImageOptions.Image = CType(resources.GetObject("btnDeleteChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDeleteChild.ImageOptions.LargeImage = CType(resources.GetObject("btnDeleteChild.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDeleteChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.U))
-        Me.btnDeleteChild.LargeGlyph = CType(resources.GetObject("btnDeleteChild.LargeGlyph"), System.Drawing.Image)
         Me.btnDeleteChild.Name = "btnDeleteChild"
         Me.btnDeleteChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem4.Text = "Delete record"
@@ -407,10 +414,10 @@ Partial Class ucPNL_p1NonAllowableExpenses
         'btnExpand
         '
         Me.btnExpand.Caption = "Expand Child"
-        Me.btnExpand.Glyph = CType(resources.GetObject("btnExpand.Glyph"), System.Drawing.Image)
         Me.btnExpand.Id = 8
+        Me.btnExpand.ImageOptions.Image = CType(resources.GetObject("btnExpand.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExpand.ImageOptions.LargeImage = CType(resources.GetObject("btnExpand.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnExpand.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E))
-        Me.btnExpand.LargeGlyph = CType(resources.GetObject("btnExpand.LargeGlyph"), System.Drawing.Image)
         Me.btnExpand.Name = "btnExpand"
         Me.btnExpand.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem5.Text = "Expand child"
@@ -423,18 +430,18 @@ Partial Class ucPNL_p1NonAllowableExpenses
         'btnMoveUp
         '
         Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
         Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.Image = CType(resources.GetObject("btnMoveUp.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveUp.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveUp.Name = "btnMoveUp"
         Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnMoveDown
         '
         Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
         Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.Image = CType(resources.GetObject("btnMoveDown.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -443,6 +450,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(758, 31)
         '
         'barDockControlBottom
@@ -450,6 +458,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(758, 0)
         '
         'barDockControlLeft
@@ -457,6 +466,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
         '
         'barDockControlRight
@@ -464,6 +474,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(758, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
         '
         'RepositoryItemTextEdit1
@@ -479,10 +490,19 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.ReadOnly = True
         '
-        'EXPENSESNONALLOWBindingSource
+        'colPecentageAmount
         '
-        Me.EXPENSESNONALLOWBindingSource.DataMember = "EXPENSES_NONALLOW"
-        Me.EXPENSESNONALLOWBindingSource.DataSource = Me.DsPNL1
+        Me.colPecentageAmount.FieldName = "PecentageAmount"
+        Me.colPecentageAmount.Name = "colPecentageAmount"
+        Me.colPecentageAmount.Visible = True
+        Me.colPecentageAmount.VisibleIndex = 6
+        '
+        'colPecentageAmount1
+        '
+        Me.colPecentageAmount1.FieldName = "PecentageAmount"
+        Me.colPecentageAmount1.Name = "colPecentageAmount1"
+        Me.colPecentageAmount1.Visible = True
+        Me.colPecentageAmount1.VisibleIndex = 4
         '
         'ucPNL_p1NonAllowableExpenses
         '
@@ -499,6 +519,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EXPENSESNONALLOWBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
@@ -507,8 +528,8 @@ Partial Class ucPNL_p1NonAllowableExpenses
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.EXPENSESNONALLOWBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
@@ -553,5 +574,7 @@ Partial Class ucPNL_p1NonAllowableExpenses
     Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents EXPENSESNONALLOWBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents colPecentageAmount1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPecentageAmount As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

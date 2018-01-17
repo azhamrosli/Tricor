@@ -1156,12 +1156,15 @@ Module mdlPNL2
                     CalcTotalofView(txtAmount, ds, ucPNL_p2ExemptDividend.MainTable, ucPNL_p2ExemptDividend.MainAmount, 0, Errorlog)
                 Case TaxComPNLEnuItem.FORINCREMIT
                     CalcTotalofView(txtAmount, ds, ucPNL_p2ForeIncomeRemmit.MainTable, ucPNL_p2ForeIncomeRemmit.MainAmount, 0, Errorlog)
+
+
                 Case TaxComPNLEnuItem.REALFE
-                    CalcTotalofView(txtAmount, ds, ucPNL_p2UnreaGainForeEx.MainTable, ucPNL_p2UnreaGainForeEx.MainAmount, 0, Errorlog)
-                Case TaxComPNLEnuItem.UNREALFENONTRADE
                     CalcTotalofView(txtAmount, ds, ucPNL_p2ReaForeExGainNonTrade.MainTable, ucPNL_p2ReaForeExGainNonTrade.MainAmount, 0, Errorlog)
-                Case TaxComPNLEnuItem.UNREALFETRADE
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
                     CalcTotalofView(txtAmount, ds, ucPNL_p2UnreaGainForeExNon.MainTable, ucPNL_p2UnreaGainForeExNon.MainAmount, 0, Errorlog)
+                Case TaxComPNLEnuItem.UNREALFETRADE
+                    CalcTotalofView(txtAmount, ds, ucPNL_p2UnreaGainForeEx.MainTable, ucPNL_p2UnreaGainForeEx.MainAmount, 0, Errorlog)
+
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
                     CalcTotalofView(txtAmount, ds, ucPNL_p2Other.MainTable, ucPNL_p2Other.MainAmount, 0, Errorlog)
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
@@ -1403,6 +1406,7 @@ Module mdlPNL2
 
                                 dtRow("EXDEP_NOTE") = rowx("EXDEP_NOTE")
                                 dtRow("EXDEP_DETAIL") = rowx("EXDEP_DETAIL")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_DEPRECIATION").Rows.Add(dtRow)
                             End If
                           
@@ -1430,6 +1434,7 @@ Module mdlPNL2
                                 End If
 
                                 dtRow("EXDEPD_NOTE") = rowx("EXDEPD_NOTE")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1465,7 +1470,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("EXA_NOTE") = rowx("EXA_NOTE")
                                 dtRow("EXA_DETAIL") = rowx("EXA_DETAIL")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_ALLOW").Rows.Add(dtRow)
                             End If
                            
@@ -1491,7 +1496,7 @@ Module mdlPNL2
                                 End If
                                 '  dtRow("EXAD_DEDUCTIBLE") = rowx("EXAD_DEDUCTIBLE")
                                 dtRow("EXAD_NOTE") = rowx("EXAD_NOTE")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1523,7 +1528,7 @@ Module mdlPNL2
                                 dtRow("EXNA_DEDUCTIBLE") = rowx("EXNA_DEDUCTIBLE")
                                 dtRow("EXNA_NOTE") = rowx("EXNA_NOTE")
                                 dtRow("EXNA_DETAIL") = rowx("EXNA_DETAIL")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_NONALLOW").Rows.Add(dtRow)
                             End If
                            
@@ -1550,7 +1555,7 @@ Module mdlPNL2
                                 dtRow("EXNAD_DEDUCTIBLE") = rowx("EXNAD_DEDUCTIBLE")
                                 dtRow("EXNAD_AMOUNT") = rowx("EXNAD_AMOUNT")
                                 dtRow("EXNAD_NOTE") = rowx("EXNAD_NOTE")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1911,9 +1916,9 @@ Module mdlPNL2
                                 dtRow("EXIR_AMOUNT") = rowx("EXIR_AMOUNT")
                                 dtRow("EXIR_DESC") = rowx("EXIR_DESC")
                                 If IsDBNull(rowx("EXIR_DEDUCTIBLE")) = False AndAlso (rowx("EXIR_DEDUCTIBLE") = "Yes" OrElse rowx("EXIR_DEDUCTIBLE") = "True") Then
-                                    rowx("EXIR_DEDUCTIBLE") = True
+                                    dtRow("EXIR_DEDUCTIBLE") = True
                                 Else
-                                    rowx("EXIR_DEDUCTIBLE") = False
+                                    dtRow("EXIR_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXIR_NOTE") = rowx("EXIR_NOTE")
                                 dtRow("EXIR_DETAIL") = rowx("EXIR_DETAIL")
@@ -1925,7 +1930,7 @@ Module mdlPNL2
                                     dtRow("EXIR_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
                             End If
                           
@@ -1951,9 +1956,9 @@ Module mdlPNL2
                                 dtRow("EXI_DESC") = rowx("EXI_DESC")
                                 dtRow("EXI_AMOUNT") = rowx("EXI_AMOUNT")
                                 If IsDBNull(rowx("EXI_DEDUCTIBLE")) = False AndAlso (rowx("EXI_DEDUCTIBLE") = "Yes" OrElse rowx("EXI_DEDUCTIBLE") = "True") Then
-                                    rowx("EXI_DEDUCTIBLE") = True
+                                    dtRow("EXI_DEDUCTIBLE") = True
                                 Else
-                                    rowx("EXI_DEDUCTIBLE") = False
+                                    dtRow("EXI_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXI_NOTE") = rowx("EXI_NOTE")
                                 dtRow("EXI_DETAIL") = rowx("EXI_DETAIL")
@@ -1963,7 +1968,7 @@ Module mdlPNL2
                                     dtRow("EXI_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_interest").Rows.Add(dtRow)
                             End If
                             
@@ -1982,9 +1987,9 @@ Module mdlPNL2
                                 dtRow("EXID_EXIDKEY") = ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Count + 1
                                 dtRow("EXID_DESC") = rowx("EXID_DESC")
                                 If IsDBNull(rowx("EXID_DEDUCTIBLE")) = False AndAlso (rowx("EXID_DEDUCTIBLE") = "Yes" OrElse rowx("EXID_DEDUCTIBLE") = "True") Then
-                                    rowx("EXID_DEDUCTIBLE") = True
+                                    dtRow("EXID_DEDUCTIBLE") = True
                                 Else
-                                    rowx("EXID_DEDUCTIBLE") = False
+                                    dtRow("EXID_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXID_AMOUNT") = rowx("EXID_AMOUNT")
                                 dtRow("EXID_NOTE") = rowx("EXID_NOTE")
@@ -1994,7 +1999,7 @@ Module mdlPNL2
                                     dtRow("EXID_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2019,19 +2024,19 @@ Module mdlPNL2
                                 dtRow("EXL_DESC") = rowx("EXL_DESC")
                                 dtRow("EXL_AMOUNT") = rowx("EXL_AMOUNT")
                                 If IsDBNull(rowx("EXL_DEDUCTIBLE")) = False AndAlso (rowx("EXL_DEDUCTIBLE") = "Yes" OrElse rowx("EXL_DEDUCTIBLE") = "True") Then
-                                    rowx("EXL_DEDUCTIBLE") = True
+                                    dtRow("EXL_DEDUCTIBLE") = True
                                 Else
-                                    rowx("EXL_DEDUCTIBLE") = False
+                                    dtRow("EXL_DEDUCTIBLE") = False
                                 End If
                                 dtRow("EXL_NOTE") = rowx("EXL_NOTE")
                                 dtRow("EXL_DETAIL") = rowx("EXL_DETAIL")
                                 If IsDBNull(rowx("EXL_DEDUCTIBLE_ADD")) = False AndAlso (rowx("EXL_DEDUCTIBLE_ADD") = "Yes" OrElse rowx("EXL_DEDUCTIBLE_ADD") = "True") Then
-                                    rowx("EXL_DEDUCTIBLE_ADD") = True
+                                    dtRow("EXL_DEDUCTIBLE_ADD") = True
                                 Else
-                                    rowx("EXL_DEDUCTIBLE_ADD") = False
+                                    dtRow("EXL_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_legal").Rows.Add(dtRow)
                             End If
                            
@@ -2062,7 +2067,7 @@ Module mdlPNL2
                                     dtRow("EXLD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2099,7 +2104,7 @@ Module mdlPNL2
                                     dtRow("EXTF_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_tech_fee").Rows.Add(dtRow)
                             End If
                            
@@ -2130,7 +2135,7 @@ Module mdlPNL2
                                     dtRow("EXTFD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2167,7 +2172,7 @@ Module mdlPNL2
                                     dtRow("EXC_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_contract").Rows.Add(dtRow)
                             End If
                            
@@ -2199,7 +2204,7 @@ Module mdlPNL2
                                     dtRow("EXCD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2236,7 +2241,7 @@ Module mdlPNL2
                                     dtRow("EXDF_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_directors_fee").Rows.Add(dtRow)
                             End If
                             
@@ -2267,7 +2272,7 @@ Module mdlPNL2
                                     dtRow("EXDFD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2304,7 +2309,7 @@ Module mdlPNL2
                                     dtRow("EXS_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_salary").Rows.Add(dtRow)
                             End If
                             
@@ -2336,7 +2341,7 @@ Module mdlPNL2
                                     dtRow("EXSD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2372,7 +2377,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("EXES_DEDUCTIBLE_ADD") = False
                                 End If
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_empl_stock").Rows.Add(dtRow)
                             End If
                            
@@ -2404,7 +2409,7 @@ Module mdlPNL2
                                 End If
 
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2441,7 +2446,7 @@ Module mdlPNL2
                                     dtRow("EXRO_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_royalty").Rows.Add(dtRow)
                             End If
                        
@@ -2472,7 +2477,7 @@ Module mdlPNL2
                                     dtRow("EXROD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2509,7 +2514,7 @@ Module mdlPNL2
                                     dtRow("EXRENT_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_rental").Rows.Add(dtRow)
                             End If
                             
@@ -2540,7 +2545,7 @@ Module mdlPNL2
                                     dtRow("EXRENTD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2577,7 +2582,7 @@ Module mdlPNL2
                                     dtRow("EXREP_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_repair").Rows.Add(dtRow)
                             End If
                             
@@ -2608,7 +2613,7 @@ Module mdlPNL2
                                     dtRow("EXREPD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2645,7 +2650,7 @@ Module mdlPNL2
                                     dtRow("EXRES_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_research").Rows.Add(dtRow)
                             End If
                             
@@ -2676,7 +2681,7 @@ Module mdlPNL2
                                     dtRow("EXRESD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2713,6 +2718,7 @@ Module mdlPNL2
                                     dtRow("EXP_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_promote").Rows.Add(dtRow)
                             End If
                             
@@ -2743,7 +2749,7 @@ Module mdlPNL2
                                     dtRow("EXPD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2780,6 +2786,7 @@ Module mdlPNL2
                                     dtRow("EXT_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_travel").Rows.Add(dtRow)
                             End If
                            
@@ -2810,6 +2817,7 @@ Module mdlPNL2
                                     dtRow("EXTD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2845,6 +2853,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("EXJK_DEDUCTIBLE_ADD") = False
                                 End If
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 dtRow("RowIndex") = rowx("RowIndex")
 
 
@@ -2878,6 +2887,7 @@ Module mdlPNL2
                                     dtRow("EXJKD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
 
                                 ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Add(dtRow)
                             Next

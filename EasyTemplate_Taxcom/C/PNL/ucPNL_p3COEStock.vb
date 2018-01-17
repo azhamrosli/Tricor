@@ -24,7 +24,9 @@ Public Class ucPNL_p3COEStock
     Public Const Main_Desc As String = "EXES_DESC"  'PLFSD_DESC
     Public Const Main_Addback As String = "EXES_DEDUCTIBLE"  'PLFSD_DESC
     Public Const MainDetails_Addback As String = "EXESD_DEDUCTIBLE"  'PLFSD_DESC
-
+    Public Const Main_Deduct As String = "EXES_DEDUCTIBLE_ADD"  'PLFSD_DESC
+    Public Const MainDetails_Deduct As String = "EXESD_DEDUCTIBLE_ADD"  'PLFSD_DESC
+    Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
@@ -137,6 +139,8 @@ Public Class ucPNL_p3COEStock
                 MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                                  MainAmount_Details, MainColumn_PercentageAmount, ErrorLog)
             End If
 
 
@@ -217,6 +221,8 @@ Public Class ucPNL_p3COEStock
                     MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Else
                     CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                    CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                                  MainAmount_Details, MainColumn_PercentageAmount, ErrorLog)
                 End If
             End If
         Catch ex As Exception

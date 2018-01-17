@@ -94,9 +94,14 @@ Module mdlPNL
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2ProDisInvestment", "Profit on Disposal of Investment", "Profit on disposal of investment", TaxComPNLEnuItem.PDINVEST, PNL_TypeReport.Non_Taxable_Income))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2ExemptDividend", "Exempt Dividend", "Exempt dividend", TaxComPNLEnuItem.EXEMDIV, PNL_TypeReport.Non_Taxable_Income))
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2ForeIncomeRemmit", "Foreign Income Remittance", "Foreign income remittance", TaxComPNLEnuItem.FORINCREMIT, PNL_TypeReport.Non_Taxable_Income))
+
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2ReaForeExGainNonTrade", "Realised Foreign Exchange Gain Arising from Capital Transaction", "", TaxComPNLEnuItem.REALFE, PNL_TypeReport.Non_Taxable_Income))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeEx", "Unrealised Gain on Foreign Exchange - Trade", "Realised foreign exchange gain - non trade", TaxComPNLEnuItem.UNREALFETRADE, PNL_TypeReport.Non_Taxable_Income))
-            ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeExNon", "Unrealised Gain on Foregin Exchange - Non-Trade", "Unrealised gain on foreign exchange", TaxComPNLEnuItem.UNREALFENONTRADE, PNL_TypeReport.Non_Taxable_Income))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeEx", "Unrealised Gain on Foreign Exchange - Trade", "Unrealised gain on foreign exchange", TaxComPNLEnuItem.UNREALFETRADE, PNL_TypeReport.Non_Taxable_Income))
+            ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeExNon", "Unrealised Gain on Foregin Exchange - Non-Trade", "Realised foreign exchange gain - non trade", TaxComPNLEnuItem.UNREALFENONTRADE, PNL_TypeReport.Non_Taxable_Income))
+
+
+
+
             ListofLabel.Add(New clsPNL_LabelName("lbl_p2Other", "Other", "Other", TaxComPNLEnuItem.OTHERNONTAXINC, PNL_TypeReport.Non_Taxable_Income))
 
 
@@ -4371,6 +4376,79 @@ Module mdlPNL
             Return True
         End Try
     End Function
+    Public Function CalcPercentageAmount_Expenses(ByRef ds As DataSet, ByVal TableName As String, ByVal TableName_Details As String, _
+                                         ByVal ColumnName_Key As String, ByVal ColumnNameDetails_Key As String, _
+                                         ByVal ColumnAddBack As String, ByVal ColumnDeduct As String, _
+                                         ByVal ColumnAddBack_Details As String, ByVal ColumnDeduct_Details As String, _
+                                         ByVal ColumnAmount As String, ByVal ColumnAmount_Details As String, _
+                                         ByVal ColumnPecentageAmount As String, _
+                                         Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+
+            Dim tmpTotal As Decimal = 0
+            Dim MainTotal As Decimal = 0
+            Dim RunningTotal As Decimal = 0
+            Dim amount As Decimal = 0
+
+            For i As Integer = 0 To ds.Tables(TableName).Rows.Count - 1
+
+
+                amount = IIf(IsDBNull(ds.Tables(TableName).Rows(i)(ColumnAmount)), 0, ds.Tables(TableName).Rows(i)(ColumnAmount))
+                tmpTotal = amount
+
+                If ColumnAddBack <> "" AndAlso IsDBNull(ds.Tables(TableName).Rows(i)(ColumnAddBack)) = False AndAlso CBool(ds.Tables(TableName).Rows(i)(ColumnAddBack)) Then
+                    ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
+                ElseIf ColumnDeduct <> "" AndAlso IsDBNull(ds.Tables(TableName).Rows(i)(ColumnDeduct)) = False AndAlso CBool(ds.Tables(TableName).Rows(i)(ColumnDeduct)) Then
+                    ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                Else
+                    ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = 0
+                End If
+                RunningTotal = 0
+                For x As Integer = 0 To ds.Tables(TableName_Details).Rows.Count - 1
+
+                    If ds.Tables(TableName_Details).Rows(x)(ColumnNameDetails_Key) = ds.Tables(TableName).Rows(i)(ColumnName_Key) Then
+
+                        amount = IIf(IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnAmount_Details)), 0, ds.Tables(TableName_Details).Rows(x)(ColumnAmount_Details))
+                        tmpTotal = amount
+
+                        If ColumnAddBack_Details <> "" AndAlso IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnAddBack_Details)) = False AndAlso CBool(ds.Tables(TableName_Details).Rows(x)(ColumnAddBack_Details)) Then
+                            MainTotal = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
+                            RunningTotal += MainTotal
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = MainTotal
+                        ElseIf ColumnDeduct_Details <> "" AndAlso IsDBNull(ds.Tables(TableName_Details).Rows(x)(ColumnDeduct_Details)) = False AndAlso CBool(ds.Tables(TableName_Details).Rows(x)(ColumnDeduct_Details)) Then
+                            MainTotal = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                            RunningTotal += MainTotal
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = MainTotal
+                        Else
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = 0
+                        End If
+
+
+                        ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = RunningTotal
+                    End If
+
+                Next
+
+            Next
+            Application.DoEvents()
+
+
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return True
+        End Try
+    End Function
     Public Function CalcPercentageAmount(ByRef ds As DataSet, ByVal TableName As String, ByVal TableName_Details As String, _
                                          ByVal ColumnName_Key As String, ByVal ColumnNameDetails_Key As String, _
                                          ByVal ColumnAddBack As String, ByVal ColumnDeduct As String, _
@@ -4396,6 +4474,8 @@ Module mdlPNL
                     ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal), System.MidpointRounding.ToEven)
                 ElseIf IsDBNull(ds.Tables(TableName).Rows(i)(ColumnDeduct)) = False AndAlso CBool(ds.Tables(TableName).Rows(i)(ColumnDeduct)) Then
                     ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
+                Else
+                    ds.Tables(TableName).Rows(i)(ColumnPecentageAmount) = 0
                 End If
                 RunningTotal = 0
                 For x As Integer = 0 To ds.Tables(TableName_Details).Rows.Count - 1
@@ -4413,6 +4493,8 @@ Module mdlPNL
                             MainTotal = Math.Round(CDec(tmpTotal / -1), System.MidpointRounding.ToEven)
                             RunningTotal += MainTotal
                             ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = MainTotal
+                        Else
+                            ds.Tables(TableName_Details).Rows(x)(ColumnPecentageAmount) = 0
                         End If
 
 

@@ -100,12 +100,14 @@ Public Class frmPNL_Add
                             lbl = lbl_p2ProDisInvestment
                         Case TaxComPNLEnuItem.FORINCREMIT
                             lbl = lbl_p2ForeIncomeRemmit
+
                         Case TaxComPNLEnuItem.REALFE
                             lbl = lbl_p2ReaForeExGainNonTrade
                         Case TaxComPNLEnuItem.UNREALFETRADE
                             lbl = lbl_p2UnreaGainForeEx
                         Case TaxComPNLEnuItem.UNREALFENONTRADE
                             lbl = lbl_p2UnreaGainForeExNon
+
                         Case TaxComPNLEnuItem.EXPOTHERINTEREST
                             lbl = lbl_p3OtherInterestExHirePur
                         Case TaxComPNLEnuItem.EXPLEGAL
@@ -494,12 +496,15 @@ Public Class frmPNL_Add
                     txtAmount = txt_p2ProDisInvestment
                 Case TaxComPNLEnuItem.FORINCREMIT
                     txtAmount = txt_p2ForeIncomeRemmit
+
+
                 Case TaxComPNLEnuItem.REALFE
                     txtAmount = txt_p2ReaForeExGainNonTrade
                 Case TaxComPNLEnuItem.UNREALFETRADE
                     txtAmount = txt_p2UnreaGainForeEx
-                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                Case TaxComPNLEnuItem.UNREALFENONTRADE 'azham ====================
                     txtAmount = txt_p2UnreaGainForeExNon
+
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     txtAmount = txt_p3OtherInterestExHirePur
                 Case TaxComPNLEnuItem.EXPLEGAL
@@ -701,8 +706,10 @@ Public Class frmPNL_Add
                 dtrow("PL_COGS") = IIf(IsDBNull(txt_p1COS.EditValue), 0, txt_p1COS.EditValue)
                 dtrow("PL_GROSS_PROFIT") = IIf(IsDBNull(txt_p1GrossProfitLoss.EditValue), 0, txt_p1GrossProfitLoss.EditValue)
                 dtrow("PL_OTH_BSIN") = IIf(IsDBNull(txt_p2OtherBizIncome.EditValue), 0, txt_p2OtherBizIncome.EditValue)
-                dtrow("PL_OTH_BSIN_UNREALGT") = IIf(IsDBNull(txt_p2UnreaGainForeEx.EditValue), 0, txt_p2UnreaGainForeEx.EditValue)
+
+                '   dtrow("PL_OTH_BSIN_UNREALGT") = IIf(IsDBNull(txt_p2UnreaGainForeEx.EditValue), 0, txt_p2UnreaGainForeEx.EditValue)
                 dtrow("PL_OTH_BSIN_REALGT") = IIf(IsDBNull(txt_p2ForeignCurrExGain.EditValue), 0, txt_p2ForeignCurrExGain.EditValue)
+
                 dtrow("PL_OTH_BSIN_RENTAL") = "0"
                 dtrow("PL_OTH_BSIN_OTHER") = "0"
                 dtrow("PL_OTH_IN") = IIf(IsDBNull(txt_p2NonBizIncome.EditValue), 0, txt_p2NonBizIncome.EditValue)
@@ -715,9 +722,15 @@ Public Class frmPNL_Add
                 dtrow("PL_NONTAX_IN_FA_DISP") = IIf(IsDBNull(txt_p2ProDispPlantEq.EditValue), 0, txt_p2ProDispPlantEq.EditValue)
                 dtrow("PL_NONTAX_IN_INV_DISP") = IIf(IsDBNull(txt_p2ProDisInvestment.EditValue), 0, txt_p2ProDisInvestment.EditValue)
                 dtrow("PL_NONTAX_IN_EXM_DIV") = IIf(IsDBNull(txt_p2ExemptDividend.EditValue), 0, txt_p2ExemptDividend.EditValue)
+
                 dtrow("PL_NONTAX_IN_FIR") = IIf(IsDBNull(txt_p2ForeIncomeRemmit.EditValue), 0, txt_p2ForeIncomeRemmit.EditValue)
+                ' dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
+
                 dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
+                dtrow("PL_OTH_BSIN_UNREALGT") = IIf(IsDBNull(txt_p2UnreaGainForeEx.EditValue), 0, txt_p2UnreaGainForeEx.EditValue)
                 dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
+
+                ' dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
                 dtrow("PL_NONTAX_IN_INSU_COMP") = IIf(IsDBNull(txt_p2Other.EditValue), 0, txt_p2Other.EditValue)
                 dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3OtherInterestExHirePur.EditValue), 0, txt_p3OtherInterestExHirePur.EditValue)
                 dtrow("PL_LAWYER_COST") = IIf(IsDBNull(txt_p3ProTechManLeganFees.EditValue), 0, txt_p3ProTechManLeganFees.EditValue)
@@ -808,8 +821,8 @@ Public Class frmPNL_Add
                 dtrow("PL_COGS") = IIf(IsDBNull(txt_p1COS.EditValue), 0, txt_p1COS.EditValue)
                 dtrow("PL_GROSS_PROFIT") = IIf(IsDBNull(txt_p1GrossProfitLoss.EditValue), 0, txt_p1GrossProfitLoss.EditValue)
                 dtrow("PL_OTH_BSIN") = IIf(IsDBNull(txt_p2OtherBizIncome.EditValue), 0, txt_p2OtherBizIncome.EditValue)
-                dtrow("PL_OTH_BSIN_UNREALGT") = IIf(IsDBNull(txt_p2UnreaGainForeEx.EditValue), 0, txt_p2UnreaGainForeEx.EditValue)
                 dtrow("PL_OTH_BSIN_REALGT") = IIf(IsDBNull(txt_p2ForeignCurrExGain.EditValue), 0, txt_p2ForeignCurrExGain.EditValue)
+
                 dtrow("PL_OTH_BSIN_RENTAL") = "0"
                 dtrow("PL_OTH_BSIN_OTHER") = "0"
                 dtrow("PL_OTH_IN") = IIf(IsDBNull(txt_p2NonBizIncome.EditValue), 0, txt_p2NonBizIncome.EditValue)
@@ -823,8 +836,11 @@ Public Class frmPNL_Add
                 dtrow("PL_NONTAX_IN_INV_DISP") = IIf(IsDBNull(txt_p2ProDisInvestment.EditValue), 0, txt_p2ProDisInvestment.EditValue)
                 dtrow("PL_NONTAX_IN_EXM_DIV") = IIf(IsDBNull(txt_p2ExemptDividend.EditValue), 0, txt_p2ExemptDividend.EditValue)
                 dtrow("PL_NONTAX_IN_FIR") = IIf(IsDBNull(txt_p2ForeIncomeRemmit.EditValue), 0, txt_p2ForeIncomeRemmit.EditValue)
-                dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
-                dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
+
+                dtrow("PL_NONTAX_IN_REALG") = IIf(IsDBNull(txt_p2ReaForeExGainNonTrade.EditValue), 0, txt_p2UnreaGainForeExNon.EditValue)
+                dtrow("PL_OTH_BSIN_UNREALGT") = IIf(IsDBNull(txt_p2UnreaGainForeEx.EditValue), 0, txt_p2UnreaGainForeEx.EditValue)
+                dtrow("PL_NONTAX_IN_UNREALG") = IIf(IsDBNull(txt_p2UnreaGainForeExNon.EditValue), 0, txt_p2ReaForeExGainNonTrade.EditValue)
+
                 dtrow("PL_NONTAX_IN_INSU_COMP") = IIf(IsDBNull(txt_p2Other.EditValue), 0, txt_p2Other.EditValue)
                 dtrow("PL_EXP_INT") = IIf(IsDBNull(txt_p3OtherInterestExHirePur.EditValue), 0, txt_p3OtherInterestExHirePur.EditValue)
                 dtrow("PL_LAWYER_COST") = IIf(IsDBNull(txt_p3ProTechManLeganFees.EditValue), 0, txt_p3ProTechManLeganFees.EditValue)

@@ -99,7 +99,7 @@ Public Class ucPNL_p2Other
             If rslt = DialogResult.Yes Then
 
                 GridView1.DeleteSelectedRows()
-
+                dsDataSet.Tables(MainTable).AcceptChanges()
             End If
         Catch ex As Exception
 
@@ -118,6 +118,7 @@ Public Class ucPNL_p2Other
 
                     If dgv IsNot Nothing AndAlso i = GridView1.FocusedRowHandle Then
                         dgv.DeleteSelectedRows()
+                        dsDataSet.Tables(MainTable_Details).AcceptChanges()
                     End If
                 Next
             End If
