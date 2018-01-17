@@ -55,7 +55,14 @@ Public Class ucPNL_p3InterestResPurS33_Yearly
 
             mdlProcess.CreateLookUpSourceNO(DsPNL1, RefNo, YA, "BUSINESS_SOURCE", Errorlog)
 
-            Dim dt As DataTable = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(KeyID, RefNo, YA, Errorlog)
+            Dim dt As DataTable = Nothing
+
+            dt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(SourceNo, RefNo, YA, Errorlog)
+            If dt Is Nothing Then
+                dt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(SourceNo, RefNo, YA, Errorlog)
+            End If
+
+
             DsPNL1.Tables(MainTable_Details).Rows.Clear()
             If dt IsNot Nothing Then
 
@@ -65,6 +72,7 @@ Public Class ucPNL_p3InterestResPurS33_Yearly
 
             End If
 
+            REFINTERESTRESTRICDETAILBindingSource.DataSource = DsPNL1.Tables(MainTable_Details)
         Catch ex As Exception
             If Errorlog Is Nothing Then
                 Errorlog = New clsError
@@ -81,7 +89,7 @@ Public Class ucPNL_p3InterestResPurS33_Yearly
         Try
             If DsPNL1.Tables(MainTable_Details).Rows.Count > 0 Then
                 Dim Amount_tmp As Decimal = 0
-                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, KeyID, _
+                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, SourceNo, KeyID, _
                                                                     Amount_tmp, ErrorLog) = False Then
                     MsgBox("Unsuccessfully save your data.", MsgBoxStyle.Critical)
                 Else

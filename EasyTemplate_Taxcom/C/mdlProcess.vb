@@ -14,7 +14,7 @@ Module mdlProcess
     Public V2 As Integer = 0
     Public V3 As Integer = 7
     Public V4 As Integer = 0
-    Public R1 As Integer = 8 'Report Details PNL Full Basic
+    Public R1 As Integer = 9 'After fix Interest Restricted
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
@@ -4819,7 +4819,7 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT EXRENT_KEY,EXRENT_EXRENTKEY,SUM(EXRENT_AMOUNT) AS EXRENT_AMOUNT,EXRENT_DESC,EXRENT_NOTE,EXRENT_SOURCENO,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE,EXRENT_DEDUCTIBLE_ADD,PecentageAmount FROM expenses_rental where EXRENT_KEY =@PL_KEY GROUP BY EXRENT_EXRENTKEY,EXRENT_DESC,EXRENT_NOTE,EXRENT_SOURCENO,EXRENT_KEY,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE,EXRENT_DEDUCTIBLE_ADD,PecentageAmount ORDER BY RowIndex"
+            Dim StrSQL As String = "SELECT EXRENT_KEY,EXRENT_EXRENTKEY,SUM(EXRENT_AMOUNT) AS EXRENT_AMOUNT,EXRENT_DESC,EXRENT_NOTE,EXRENT_SOURCENO,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE,EXRENT_DEDUCTIBLE_ADD,PecentageAmount,Address FROM expenses_rental where EXRENT_KEY =@PL_KEY GROUP BY EXRENT_EXRENTKEY,EXRENT_DESC,EXRENT_NOTE,EXRENT_SOURCENO,EXRENT_KEY,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE,EXRENT_DEDUCTIBLE_ADD,PecentageAmount,Address ORDER BY RowIndex"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
@@ -6448,7 +6448,7 @@ tryagain:
             Return False
         End Try
     End Function
-    Public Function Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal KeyID As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(ByVal SourceNo As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -6458,10 +6458,10 @@ tryagain:
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT * FROM REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIRD_KEY=@RIRD_KEY AND RIR_REF_NO=@RIR_REF_NO AND RIR_YA=@RIR_YA"
+            Dim StrSQL As String = "SELECT * FROM REF_INTEREST_RESTRIC_DETAIL WHERE  RIRD_SOURCENO=@RIRD_SOURCENO AND RIR_REF_NO=@RIR_REF_NO AND RIR_YA=@RIR_YA AND RIRD_MONTH IS NOT NULL AND ISNUMERIC(RIRD_MONTH)<> 0 ORDER BY RIRD_MONTH"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = KeyID
+            SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = RefNo
             SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = YA
 
@@ -6481,6 +6481,73 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(ByVal SourceNo As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM REF_INTEREST_RESTRIC_DETAIL WHERE RIRD_SOURCENO=@RIRD_SOURCENO AND RIR_REF_NO=@RIR_REF_NO AND RIR_YA=@RIR_YA AND RIRD_MONTH IS NULL AND ISNUMERIC(RIRD_MONTH)<> 1 ORDER BY RIRD_MONTH"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = SourceNo
+            SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = RefNo
+            SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = YA
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal SourceNo As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIRD_SOURCENO=@RIRD_SOURCENO AND RIR_REF_NO=@RIR_REF_NO AND RIR_YA=@RIR_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = SourceNo
+            SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = RefNo
+            SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = YA
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
     Public Function Load_interestRestricSchedule(ByVal RefNo As String, ByVal YA As String, _
                                                  ByVal SourceNo As Integer, ByVal Type As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -9789,7 +9856,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
-    Public Function Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal dt As DataTable, ByVal RefNo As String, ByVal YA As String, ByVal KeyID As Integer, ByRef Amount As Decimal, Optional ByRef ErrorLog As clsError = Nothing, Optional IsMonthly As Boolean = False) As Boolean
+    Public Function Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ByVal dt As DataTable, ByVal RefNo As String, ByVal YA As String, ByVal SourceNo As Integer, ByVal KeyID As Integer, ByRef Amount As Decimal, Optional ByRef ErrorLog As clsError = Nothing, Optional IsMonthly As Boolean = False) As Boolean
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -9800,26 +9867,28 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             Dim ListofCmd As New List(Of SqlCommand)
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "DELETE FROM REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIRD_KEY=@RIRD_KEY"
+            Dim StrSQL As String = "DELETE FROM REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIRD_SOURCENO=@RIRD_SOURCENO AND RIR_REF_NO=@RIR_REF_NO AND RIR_YA=@RIR_YA"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = KeyID
+            SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = SourceNo
+            SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = RefNo
+            SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = YA
             ListofCmd.Add(SQLcmd)
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO REF_INTEREST_RESTRIC_DETAIL_TEMP(RIRD_KEY,RIR_REF_NUM,RIR_REF_NO,RIR_YA,RIRD_MONTH,RIRD_TYPE,RIRD_DESC,RIRD_AMOUNT,RIRD_NOTE,RIRD_SOURCENO,RIRD_TYPE_INCOME) VALUES (@RIRD_KEY,RIR_REF_NUM,@RIR_REF_NO,@RIR_YA,RIR_REF_NO,@RIR_REF_NUM,@RIRD_MONTH,@RIRD_TYPE,@RIRD_DESC,@RIRD_AMOUNT,@RIRD_NOTE,@RIRD_SOURCENO,@RIRD_TYPE_INCOME)"
+                StrSQL = "INSERT INTO REF_INTEREST_RESTRIC_DETAIL_TEMP(RIRD_KEY,RIR_REF_NUM,RIR_REF_NO,RIR_YA,RIRD_MONTH,RIRD_TYPE,RIRD_DESC,RIRD_AMOUNT,RIRD_NOTE,RIRD_SOURCENO,RIRD_TYPE_INCOME) VALUES (@RIRD_KEY,@RIR_REF_NUM,@RIR_REF_NO,@RIR_YA,@RIRD_MONTH,@RIRD_TYPE,@RIRD_DESC,@RIRD_AMOUNT,@RIRD_NOTE,@RIRD_SOURCENO,@RIRD_TYPE_INCOME)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = KeyID
                 SQLcmd.Parameters.Add("@RIR_REF_NUM", SqlDbType.Int).Value = i
-                SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.Int).Value = RefNo
-                SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.Int).Value = YA
+                SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = RefNo
+                SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = YA
                 If IsMonthly Then
                     SQLcmd.Parameters.Add("@RIRD_MONTH", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_MONTH")), "0", dt.Rows(i)("RIRD_MONTH"))
                 Else
-                    SQLcmd.Parameters.Add("@RIRD_MONTH", SqlDbType.NVarChar, 50).Value = CStr(i + 1)
+                    SQLcmd.Parameters.Add("@RIRD_MONTH", SqlDbType.NVarChar, 50).Value = DBNull.Value
                 End If
 
                 SQLcmd.Parameters.Add("@RIRD_TYPE", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_TYPE")), "", dt.Rows(i)("RIRD_TYPE"))
@@ -9828,7 +9897,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 Amount += CDec(IIf(IsDBNull(dt.Rows(i)("RIRD_AMOUNT")), 0, dt.Rows(i)("RIRD_AMOUNT")))
                 SQLcmd.Parameters.Add("@RIRD_AMOUNT", SqlDbType.NVarChar, 255).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_AMOUNT")), "", dt.Rows(i)("RIRD_AMOUNT"))
                 SQLcmd.Parameters.Add("@RIRD_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_NOTE")), "", dt.Rows(i)("RIRD_NOTE"))
-                SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_SOURCENO")), 0, dt.Rows(i)("RIRD_SOURCENO"))
+                SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = SourceNo
                 SQLcmd.Parameters.Add("@RIRD_TYPE_INCOME", SqlDbType.NVarChar, 255).Value = IIf(IsDBNull(dt.Rows(i)("RIRD_TYPE_INCOME")), "", dt.Rows(i)("RIRD_TYPE_INCOME"))
 
                 ListofCmd.Add(SQLcmd)
@@ -10451,7 +10520,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
         End Try
     End Function
     Public Function Save_EXPENSES_INTERESTRESTRICT(ByVal PNL_Key As Integer, ByVal dt As DataTable, ByVal dt_child As DataTable, ByVal oConn As SqlConnection, _
-                                            ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                            ByVal RefNo As String, ByVal YA As String, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             If ListofCmd Is Nothing Then
                 ListofCmd = New List(Of SqlCommand)
@@ -10459,12 +10528,26 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             Dim StrSQL As String
             Dim SQLcmd As SqlCommand
-
+            Dim tmpdt As DataTable = Nothing
             StrSQL = "DELETE EXPENSES_INTERESTRESTRICT WHERE EXIR_KEY=@EXIR_KEY"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@EXIR_KEY", SqlDbType.Int).Value = PNL_Key
 
+            ListofCmd.Add(SQLcmd)
+
+
+            StrSQL = "DELETE REF_INTEREST_RESTRIC_DETAIL WHERE RIRD_KEY=@RIRD_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = PNL_Key
+            ListofCmd.Add(SQLcmd)
+
+            StrSQL = "DELETE REF_INTEREST_RESTRIC_DETAIL_TEMP WHERE RIR_REF_NO=@RIR_REF_NO AND RIR_YA=@RIR_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = RefNo
+            SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = YA
             ListofCmd.Add(SQLcmd)
 
             For i As Integer = 0 To dt.Rows.Count - 1
@@ -10492,44 +10575,32 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
                 ListofCmd.Add(SQLcmd)
 
+                tmpdt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(dt.Rows(i)("EXIR_SOURCENO"), RefNo, YA)
+
+                If tmpdt IsNot Nothing Then
+                    For x As Integer = 0 To tmpdt.Rows.Count - 1
+
+                        SQLcmd = Nothing
+                        'StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT_DETAIL(EXIRD_KEY,EXIRD_EXIRKEY,EXIRD_SOURCENO,EXIRD_EXIRDKEY,EXIRD_DESC,EXIRD_AMOUNT,EXIRD_DEDUCTIBLE,EXIRD_NOTE,RowIndex,PecentageAmount) VALUES (@EXIRD_KEY,@EXIRD_EXIRKEY,@EXIRD_SOURCENO,@EXIRD_EXIRDKEY,@EXIRD_DESC,@EXIRD_AMOUNT,@EXIRD_DEDUCTIBLE,@EXIRD_NOTE,@RowIndex,@PecentageAmount)"
+                        StrSQL = "INSERT INTO REF_INTEREST_RESTRIC_DETAIL(RIRD_KEY,RIR_REF_NUM,RIR_REF_NO,RIR_YA,RIRD_MONTH,RIRD_TYPE,RIRD_DESC,RIRD_AMOUNT,RIRD_NOTE,RIRD_SOURCENO,RIRD_TYPE_INCOME) VALUES (@RIRD_KEY,@RIR_REF_NUM,@RIR_REF_NO,@RIR_YA,@RIRD_MONTH,@RIRD_TYPE,@RIRD_DESC,@RIRD_AMOUNT,@RIRD_NOTE,@RIRD_SOURCENO,@RIRD_TYPE_INCOME)"
+                        SQLcmd = New SqlCommand
+                        SQLcmd.CommandText = StrSQL
+                        SQLcmd.Parameters.Add("@RIRD_KEY", SqlDbType.Int).Value = PNL_Key
+                        SQLcmd.Parameters.Add("@RIR_REF_NUM", SqlDbType.Int).Value = tmpdt.Rows(x)("RIR_REF_NUM")
+                        SQLcmd.Parameters.Add("@RIR_REF_NO", SqlDbType.NVarChar, 30).Value = tmpdt.Rows(x)("RIR_REF_NO")
+                        SQLcmd.Parameters.Add("@RIR_YA", SqlDbType.NVarChar, 10).Value = tmpdt.Rows(x)("RIR_YA")
+                        SQLcmd.Parameters.Add("@RIRD_MONTH", SqlDbType.NVarChar, 50).Value = tmpdt.Rows(x)("RIRD_MONTH")
+                        SQLcmd.Parameters.Add("@RIRD_TYPE", SqlDbType.NVarChar, 50).Value = tmpdt.Rows(x)("RIRD_TYPE")
+                        SQLcmd.Parameters.Add("@RIRD_DESC", SqlDbType.NVarChar, 50).Value = tmpdt.Rows(x)("RIRD_DESC")
+                        SQLcmd.Parameters.Add("@RIRD_AMOUNT", SqlDbType.NVarChar, 225).Value = tmpdt.Rows(x)("RIRD_AMOUNT")
+                        SQLcmd.Parameters.Add("@RIRD_NOTE", SqlDbType.NVarChar, 3000).Value = tmpdt.Rows(x)("RIRD_NOTE")
+                        SQLcmd.Parameters.Add("@RIRD_SOURCENO", SqlDbType.Int).Value = tmpdt.Rows(x)("RIRD_SOURCENO")
+                        SQLcmd.Parameters.Add("@RIRD_TYPE_INCOME", SqlDbType.NVarChar, 255).Value = tmpdt.Rows(x)("RIRD_TYPE_INCOME")
+                        ListofCmd.Add(SQLcmd)
+
+                    Next
+                End If
             Next
-
-            If dt_child.Rows.Count > 0 Then
-                'THIS IS CHILD
-
-                StrSQL = "DELETE EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY=@EXIRD_KEY"
-                SQLcmd = New SqlCommand
-                SQLcmd.CommandText = StrSQL
-                SQLcmd.Parameters.Add("@EXIRD_KEY", SqlDbType.Int).Value = PNL_Key
-                ListofCmd.Add(SQLcmd)
-
-                For x As Integer = 0 To dt_child.Rows.Count - 1
-
-                    SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_INTERESTRESTRICT_DETAIL(EXIRD_KEY,EXIRD_EXIRKEY,EXIRD_SOURCENO,EXIRD_EXIRDKEY,EXIRD_DESC,EXIRD_AMOUNT,EXIRD_DEDUCTIBLE,EXIRD_NOTE,RowIndex,PecentageAmount) VALUES (@EXIRD_KEY,@EXIRD_EXIRKEY,@EXIRD_SOURCENO,@EXIRD_EXIRDKEY,@EXIRD_DESC,@EXIRD_AMOUNT,@EXIRD_DEDUCTIBLE,@EXIRD_NOTE,@RowIndex,@PecentageAmount)"
-
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = StrSQL
-                    SQLcmd.Parameters.Add("@EXIRD_KEY", SqlDbType.Int).Value = PNL_Key
-                    SQLcmd.Parameters.Add("@EXIRD_EXIRKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXIRD_EXIRKEY")
-                    SQLcmd.Parameters.Add("@EXIRD_SOURCENO", SqlDbType.Int).Value = dt_child.Rows(x)("EXIRD_SOURCENO")
-                    SQLcmd.Parameters.Add("@EXIRD_EXIRDKEY", SqlDbType.Int).Value = dt_child.Rows(x)("EXIRD_EXIRDKEY")
-                    SQLcmd.Parameters.Add("@EXIRD_DESC", SqlDbType.NVarChar, 255).Value = dt_child.Rows(x)("EXIRD_DESC")
-                    SQLcmd.Parameters.Add("@EXIRD_AMOUNT", SqlDbType.NVarChar, 25).Value = dt_child.Rows(x)("EXIRD_AMOUNT")
-                    SQLcmd.Parameters.Add("@EXIRD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = dt_child.Rows(x)("EXIRD_DEDUCTIBLE")
-                    If IsDBNull(dt_child.Rows(x)("EXIRD_DEDUCTIBLE")) = False AndAlso dt_child.Rows(x)("EXIRD_DEDUCTIBLE") = True Then
-                        SQLcmd.Parameters.Add("@EXIRD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "Yes"
-                    Else
-                        SQLcmd.Parameters.Add("@EXIRD_DEDUCTIBLE", SqlDbType.NVarChar, 30).Value = "No"
-                    End If
-                    SQLcmd.Parameters.Add("@EXIRD_NOTE", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("EXIRD_NOTE")
-                    SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
-                    SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
-                    ListofCmd.Add(SQLcmd)
-
-                Next
-
-            End If
 
             Return True
         Catch ex As Exception
@@ -10972,7 +11043,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE_ADD,PecentageAmount) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL,@RowIndex,@EXRENT_DEDUCTIBLE_ADD,@PecentageAmount)"
+                StrSQL = "INSERT INTO EXPENSES_RENTAL(EXRENT_KEY,EXRENT_EXRENTKEY,EXRENT_SOURCENO,EXRENT_DESC,EXRENT_AMOUNT,EXRENT_DEDUCTIBLE,EXRENT_NOTE,EXRENT_DETAIL,RowIndex,EXRENT_DEDUCTIBLE_ADD,PecentageAmount,Address) VALUES (@EXRENT_KEY,@EXRENT_EXRENTKEY,@EXRENT_SOURCENO,@EXRENT_DESC,@EXRENT_AMOUNT,@EXRENT_DEDUCTIBLE,@EXRENT_NOTE,@EXRENT_DETAIL,@RowIndex,@EXRENT_DEDUCTIBLE_ADD,@PecentageAmount,@Address)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@EXRENT_KEY", SqlDbType.Int).Value = PNL_Key
@@ -10994,7 +11065,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                     SQLcmd.Parameters.Add("@EXRENT_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
                 End If
                 SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt.Rows(i)("PecentageAmount")
-
+                SQLcmd.Parameters.Add("@Address", SqlDbType.NVarChar, 3000).Value = dt.Rows(i)("Address")
                 ListofCmd.Add(SQLcmd)
 
             Next
@@ -11011,7 +11082,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                 For x As Integer = 0 To dt_child.Rows.Count - 1
 
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE,RowIndex,EXRENTD_DEDUCTIBLE_ADD,PecentageAmount) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE,@RowIndex,@EXRENTD_DEDUCTIBLE_ADD,@PecentageAmount)"
+                    StrSQL = "INSERT INTO EXPENSES_RENTAL_DETAIL(EXRENTD_KEY,EXRENTD_EXRENTKEY,EXRENTD_SOURCENO,EXRENTD_EXRENTDKEY,EXRENTD_DESC,EXRENTD_AMOUNT,EXRENTD_DEDUCTIBLE,EXRENTD_NOTE,RowIndex,EXRENTD_DEDUCTIBLE_ADD,PecentageAmount,Address) VALUES (@EXRENTD_KEY,@EXRENTD_EXRENTKEY,@EXRENTD_SOURCENO,@EXRENTD_EXRENTDKEY,@EXRENTD_DESC,@EXRENTD_AMOUNT,@EXRENTD_DEDUCTIBLE,@EXRENTD_NOTE,@RowIndex,@EXRENTD_DEDUCTIBLE_ADD,@PecentageAmount,@Address)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
@@ -11034,6 +11105,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                         SQLcmd.Parameters.Add("@EXRENTD_DEDUCTIBLE_ADD", SqlDbType.NVarChar, 30).Value = "No"
                     End If
                     SQLcmd.Parameters.Add("@PecentageAmount", SqlDbType.Decimal).Value = dt_child.Rows(x)("PecentageAmount")
+                    SQLcmd.Parameters.Add("@Address", SqlDbType.NVarChar, 3000).Value = dt_child.Rows(x)("Address")
                     ListofCmd.Add(SQLcmd)
 
                 Next

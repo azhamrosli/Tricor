@@ -120,7 +120,8 @@ Module mdlPNL2
         End Try
     End Sub
     Public Function PNL_GetSaveData(ByVal PNL_Key As Decimal, ByVal Type As TaxComPNLEnuItem, _
-                                    ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), _
+                                    ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Dim contrl As Control = Nothing
             Dim ds As DataSet = Nothing
@@ -509,7 +510,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_INTERESTRESTRICT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        mdlProcess.Save_EXPENSES_INTERESTRESTRICT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details_temp), oConn, RefNo, YA, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
@@ -1902,8 +1903,12 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_interestrestrict(PNL_KEY, Errorlog)
+                    Dim tmpDt As DataTable = Nothing
 
+                    ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Clear()
+                    ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Clear()
                     ds.Tables("expenses_interestrestrict").Rows.Clear()
+
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
@@ -1932,6 +1937,48 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
+
+                                tmpDt = Nothing
+
+                                tmpDt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
+
+                                For x As Integer = 0 To tmpDt.Rows.Count - 1
+
+                                    dtRow = Nothing
+                                    dtRow = ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").NewRow
+                                    dtRow("RIRD_KEY") = tmpDt.Rows(x)("RIRD_KEY")
+                                    dtRow("RIR_REF_NUM") = tmpDt.Rows(x)("RIR_REF_NUM")
+                                    dtRow("RIRD_MONTH") = tmpDt.Rows(x)("RIRD_MONTH")
+                                    dtRow("RIRD_TYPE") = tmpDt.Rows(x)("RIRD_TYPE")
+                                    dtRow("RIRD_DESC") = tmpDt.Rows(x)("RIRD_DESC")
+                                    dtRow("RIRD_AMOUNT") = tmpDt.Rows(x)("RIRD_AMOUNT")
+                                    dtRow("RIRD_NOTE") = tmpDt.Rows(x)("RIRD_NOTE")
+                                    dtRow("RIRD_SOURCENO") = tmpDt.Rows(x)("RIRD_SOURCENO")
+                                    dtRow("RIRD_TYPE_INCOME") = tmpDt.Rows(x)("RIRD_TYPE_INCOME")
+
+                                    ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Add(dtRow)
+                                Next
+
+                                tmpDt = Nothing
+
+                                tmpDt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
+
+                                For x As Integer = 0 To tmpDt.Rows.Count - 1
+
+                                    dtRow = Nothing
+                                    dtRow = ds.Tables("REF_INTEREST_RESTRIC_DETAIL").NewRow
+                                    dtRow("RIRD_KEY") = tmpDt.Rows(x)("RIRD_KEY")
+                                    dtRow("RIR_REF_NUM") = tmpDt.Rows(x)("RIR_REF_NUM")
+                                    dtRow("RIRD_MONTH") = tmpDt.Rows(x)("RIRD_MONTH")
+                                    dtRow("RIRD_TYPE") = tmpDt.Rows(x)("RIRD_TYPE")
+                                    dtRow("RIRD_DESC") = tmpDt.Rows(x)("RIRD_DESC")
+                                    dtRow("RIRD_AMOUNT") = tmpDt.Rows(x)("RIRD_AMOUNT")
+                                    dtRow("RIRD_NOTE") = tmpDt.Rows(x)("RIRD_NOTE")
+                                    dtRow("RIRD_SOURCENO") = tmpDt.Rows(x)("RIRD_SOURCENO")
+                                    dtRow("RIRD_TYPE_INCOME") = tmpDt.Rows(x)("RIRD_TYPE_INCOME")
+
+                                    ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Add(dtRow)
+                                Next
                             End If
                           
                         Next
@@ -2515,6 +2562,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("Address") = rowx("Address")
                                 ds.Tables("expenses_rental").Rows.Add(dtRow)
                             End If
                             
@@ -2546,6 +2594,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("Address") = rowx("Address")
                                 ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -5399,6 +5448,7 @@ Module mdlPNL2
                 Return False
             End If
 
+            Dim tmpDt As DataTable = Nothing
             Dim dtRow As DataRow = Nothing
             Dim PNL_KEY As Integer = 0
             Dim ScheduleInt As Integer = 0
@@ -5451,6 +5501,9 @@ Module mdlPNL2
 
                             Case TaxComPNLEnuItem.INTERESTINC
                                 ColumnName = "PL_OTH_IN_INTEREST"
+
+
+                                tmpDt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(0, RefNo, YA, Errorlog)
 
                             Case TaxComPNLEnuItem.ROYALTYINC
                                 ColumnName = "PL_OTH_IN_ROYALTY"

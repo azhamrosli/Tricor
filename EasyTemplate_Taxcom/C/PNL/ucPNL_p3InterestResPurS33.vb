@@ -12,6 +12,7 @@ Public Class ucPNL_p3InterestResPurS33
 
     Public Const MainTable As String = "EXPENSES_INTERESTRESTRICT" 'PLFST_SALES
     Public Const MainTable_Details As String = "REF_INTEREST_RESTRIC_DETAIL" 'PLFST_SALES_DETAIL
+    Public Const MainTable_Details_temp As String = "REF_INTEREST_RESTRIC_DETAIL_TEMP" 'PLFST_SALES_DETAIL
     Public Const MainKey As String = "EXIR_EXIRKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "RIRD_KEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "EXIR_YEAREND" 'PLFS_AMOUNT
@@ -66,25 +67,29 @@ Public Class ucPNL_p3InterestResPurS33
     End Sub
 
     Private Sub BarButtonItem1_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
-        
+        Try
+            DoubleClickType()
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub btnAddMonthly_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddMonthly.ItemClick
         Try
-            Dim frm As New frmPNL_InterestResPurS33_Monthly
-            frm.RefNo = RefNo
-            frm.YA = YA
-            frm.SourceNo = 1
-            frm.txtAmount = txtAmount
-            frm.DataView_Main = DsPNL1
-            frm.isEdit = True
-            frm.ShowDialog()
+            DoubleClickType()
         Catch ex As Exception
 
         End Try
     End Sub
 
     Private Sub GridView1_DoubleClick(sender As Object, e As EventArgs) Handles GridView1.DoubleClick
+        Try
+            DoubleClickType()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub DoubleClickType()
         Try
             Dim row As DataRow = GridView1.GetDataRow(GridView1.FocusedRowHandle)
 
@@ -93,6 +98,7 @@ Public Class ucPNL_p3InterestResPurS33
                     Dim uc As New ucPNL_p3InterestResPurS33_Yearly
                     uc.DataView_Main = DsPNL1
                     uc.Dock = DockStyle.Fill
+                    uc.txtAmount = txtAmount
                     uc.KeyID = row(MainKey)
                     uc.RefNo = RefNo
                     uc.YA = YA
@@ -103,6 +109,7 @@ Public Class ucPNL_p3InterestResPurS33
                     Dim uc As New ucPNL_p3InterestResPurS33_Monthly
                     uc.DataView_Main = DsPNL1
                     uc.Dock = DockStyle.Fill
+                    uc.txtAmount = txtAmount
                     uc.KeyID = row(MainKey)
                     uc.RefNo = RefNo
                     uc.YA = YA
@@ -110,14 +117,13 @@ Public Class ucPNL_p3InterestResPurS33
                     SplitContainerControl1.Panel2.Controls.Clear()
                     SplitContainerControl1.Panel2.Controls.Add(uc)
                 End If
-              
+
 
             End If
         Catch ex As Exception
 
         End Try
     End Sub
-
     Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
 

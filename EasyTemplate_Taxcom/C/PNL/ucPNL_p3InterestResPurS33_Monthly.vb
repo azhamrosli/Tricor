@@ -14,7 +14,8 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
     Public isEdit As Boolean = False
 
     Public Const MainTable As String = "EXPENSES_INTERESTRESTRICT" 'PLFST_SALES
-    Public Const MainTable_Details As String = "REF_INTEREST_RESTRIC_DETAIL" 'PLFST_SALES_DETAIL
+    Public Const MainTable_Details As String = "REF_INTEREST_RESTRIC_DETAIL_MONTHLY" 'PLFST_SALES_DETAIL
+    Public Const MainTable_Details_temp As String = "REF_INTEREST_RESTRIC_DETAIL_TEMP" 'PLFST_SALES_DETAIL
     Public Const MainKey As String = "EXIR_EXIRKEY" ' PLFS_KEY
     Public Const MainKey_Details As String = "RIRD_KEY" 'PLFSD_PLFSKEY
     Public Const MainAmount As String = "EXIR_YEAREND" 'PLFS_AMOUNT
@@ -27,7 +28,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
     Public Const Main_Type As String = "RIRD_TYPE"  'PLFSD_DESC
     Public Const Main_TypeofIncome As String = "RIRD_TYPE_INCOME"  'PLFSD_DESC
 
-    Dim MainDataset As DataSet = Nothing
+    ' Dim MainDataset As DataSet = Nothing
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
@@ -60,7 +61,14 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
             REFINTERESTRESTRICTMPBindingSource.DataSource = DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP")
 
-            Dim dt As DataTable = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(KeyID, RefNo, YA, Errorlog)
+            Dim dt As DataTable = Nothing
+
+            dt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(SourceNo, RefNo, YA, Errorlog)
+
+            If dt Is Nothing Then
+                mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(SourceNo, RefNo, YA, Errorlog)
+            End If
+
 
             DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Clear()
 
@@ -165,12 +173,13 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                     End If
                 Next
 
-                For Each row As DataRow In MainDataset.Tables(MainTable).Rows
+                For Each row As DataRow In DsPNL1.Tables(MainTable).Rows
                     If IsDBNull(row(MainKey)) = False AndAlso row(MainKey) = KeyID Then
-                        row(MainAmount) = TotalRestrict
+                        row(MainAmount) = Math.Round(TotalRestrict, MidpointRounding.ToEven)
                     End If
                 Next
 
+                CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, Errorlog)
             End If
 
 
@@ -185,9 +194,13 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
     Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
+        SaveData()
+    End Sub
+    Private Sub SaveData(Optional ByVal isNotify As Boolean = True)
         Try
             If DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Rows.Count > 0 Then
                 Dim Amount_tmp As Decimal = 0
@@ -214,17 +227,23 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                                 dtRow("RIRD_TYPE_INCOME") = ""
                                 DsPNL1.Tables(MainTable_Details).Rows.Add(dtRow)
                         End Select
-                       
+
                     Next
 
                 Next
 
 
-                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, KeyID, _
+                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, SourceNo, KeyID, _
                                                                     Amount_tmp, ErrorLog, True) = False Then
+
                     MsgBox("Unsuccessfully save your data.", MsgBoxStyle.Critical)
+
+
                 Else
-                    MsgBox("Successfully saved your data.", MsgBoxStyle.Information)
+                    If isNotify Then
+                        MsgBox("Successfully saved your data.", MsgBoxStyle.Information)
+                    End If
+
                 End If
 
             End If
@@ -232,8 +251,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
         End Try
     End Sub
-
-    Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs)
+    Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView1.InitNewRow
         Try
             GridView1.GetDataRow(e.RowHandle)(Main_Type) = "Investment"
             GridView1.GetDataRow(e.RowHandle)(Main_TypeofIncome) = "INTEREST INCOME"
@@ -242,7 +260,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
         End Try
     End Sub
 
-    Private Sub GridView1_ValidateRow(sender As Object, e As ValidateRowEventArgs)
+    Private Sub GridView1_ValidateRow(sender As Object, e As ValidateRowEventArgs) Handles GridView1.ValidateRow
         Try
             If TypeOf sender Is GridView Then
                 Dim view As GridView = CType(sender, GridView)
@@ -260,7 +278,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
         End Try
     End Sub
-    Private Sub GridView1_RowUpdated(sender As Object, e As RowObjectEventArgs)
+    Private Sub GridView1_RowUpdated(sender As Object, e As RowObjectEventArgs) Handles GridView1.RowUpdated
         Try
 
             If DsPNL1 Is Nothing OrElse DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP") Is Nothing Then
@@ -310,12 +328,16 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 End If
             Next
 
-            For Each row As DataRow In MainDataset.Tables(MainTable).Rows
+            For Each row As DataRow In DsPNL1.Tables(MainTable).Rows
                 If IsDBNull(row(MainKey)) = False AndAlso row(MainKey) = KeyID Then
-                    row(MainAmount) = TotalRestrict
+                    row(MainAmount) = Math.Round(TotalRestrict, MidpointRounding.ToEven)
                 End If
             Next
 
+            CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+            Application.DoEvents()
+
+            SaveData(False)
         Catch ex As Exception
 
         End Try

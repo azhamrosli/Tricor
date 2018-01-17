@@ -342,6 +342,11 @@
     <Compile Include="C\DeemedInterest\ucDeemedInterest.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="C\PNL\dsPNL1.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </Compile>
     <Compile Include="EnumModule.vb" />
     <Compile Include="C\CA\frmCA_Add3.Designer.vb">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
@@ -1397,7 +1402,7 @@
     <None Include="C\PNL\dsPNL.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsPNL1.Designer.vb</LastGenOutput>
     </None>
     <None Include="C\PNL\dsPNL.xss">
       <DependentUpon>dsPNL.xsd</DependentUpon>

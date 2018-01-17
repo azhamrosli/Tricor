@@ -927,7 +927,7 @@ Public Class frmPNL_Add
                         Dim x As Integer = 0
                     End If
 
-                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd, ErrorLog)
+                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd, txtRefNo.EditValue, cboYA.EditValue, ErrorLog)
                 Next
             End If
             CurrentProgress += 1
@@ -1168,7 +1168,7 @@ Public Class frmPNL_Add
             Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, BalacingFigure, NonAllowableExpenses, ErrorLog)
 
             txt_p4NonAllowableExpenses.EditValue = NonAllowableExpenses
-            txt_p4TotalExpenses.EditValue = TotalExpenses
+            txt_p4TotalExpenses.EditValue = CDec(TotalExpenses)
             Application.DoEvents()
             Dim p4ExpectedExpenses As Decimal = IIf(IsNumeric(txt_p4ExpectedExpenses.EditValue) = False, 0, txt_p4ExpectedExpenses.EditValue)
 
