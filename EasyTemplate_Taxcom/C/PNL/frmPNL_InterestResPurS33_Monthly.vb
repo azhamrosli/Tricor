@@ -1,6 +1,11 @@
 ﻿Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraGrid.Views.Grid
 Imports DevExpress.XtraEditors.Repository
+Imports DevExpress.XtraGrid.Columns
+Imports DevExpress.XtraGrid
+Imports DevExpress.XtraReports.UI
+Imports DevExpress.Spreadsheet
+Imports System.IO
 
 Public Class frmPNL_InterestResPurS33_Monthly
     Public ID_PNL As Decimal = 0
@@ -40,209 +45,48 @@ Public Class frmPNL_InterestResPurS33_Monthly
     End Sub
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
+            LoadTable_InterestRestricted(DsPNL)
+            Application.DoEvents()
+            INTERESTRESTRICMONTLYREPORTBindingSource.DataSource = DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT")
 
-            ' mdlPNL.GetColumn_InterestRestrictMonthly(RefNo, YA, SourceNo, DsPNL, GridView1)
+            Application.DoEvents()
+            GridView1.BeginSort()
+            GridView1.ClearGrouping()
+            Dim col1 As GridColumn = GridView1.Columns("TypeName")
 
-            Dim clm As System.Data.DataColumn
-            Dim col As DevExpress.XtraGrid.Columns.GridColumn
-            Dim txt As RepositoryItemTextEdit
-            Dim Memo As RepositoryItemMemoEdit
-            Dim cbo As RepositoryItemComboBox
-            Dim infx As Integer = 0
-            GridView1.Columns.Clear()
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Clear()
+            col1.GroupIndex = 0
 
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_KEY"
-            clm.Caption = "KEY"
-            clm.DataType = Type.GetType("System.Int32")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "KEY"
-            col.Name = "RIRD_KEY"
-            col.VisibleIndex = infx
-            col.Visible = False
-            col.Width = 0
-            col.FieldName = "RIRD_KEY"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIR_REF_NUM"
-            clm.Caption = "RefNo"
-            clm.DataType = Type.GetType("System.String")
-            clm.MaxLength = 30
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "RefNo"
-            col.Name = "RIR_REF_NUM"
-            col.VisibleIndex = infx
-            col.Visible = False
-            col.Width = 0
-            col.FieldName = "RIR_REF_NUM"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_MONTH"
-            clm.Caption = "RefNo"
-            clm.DataType = Type.GetType("System.String")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "RefNo"
-            col.Name = "RIRD_MONTH"
-            col.VisibleIndex = infx
-            col.Visible = False
-            col.Width = 0
-            col.FieldName = "RIRD_MONTH"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_SOURCENO"
-            clm.Caption = "Source No"
-            clm.DataType = Type.GetType("System.Int32")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Source No"
-            col.Name = "RIRD_SOURCENO"
-            col.VisibleIndex = infx
-            col.Visible = False
-            col.Width = 0
-            col.FieldName = "RIRD_SOURCENO"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_DESC"
-            clm.Caption = "Description"
-            clm.DataType = Type.GetType("System.String")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Description"
-            col.Name = "RIRD_DESC"
-            col.VisibleIndex = infx
-            col.Visible = True
-            col.Width = 300
-            col.FieldName = "RIRD_DESC"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_TYPE"
-            clm.Caption = "Type"
-            clm.DataType = Type.GetType("System.String")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Type"
-            col.Name = "RIRD_TYPE"
-            col.VisibleIndex = infx
-            cbo = Nothing
-            cbo = New RepositoryItemComboBox
-            cbo.Items.Add("Investment")
-            cbo.Items.Add("Borrowing")
-            cbo.Items.Add("Interest")
-            col.ColumnEdit = cbo
-            col.Visible = True
-            col.Width = 200
-            col.FieldName = "RIRD_TYPE"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_AMOUNT"
-            clm.Caption = "Amount"
-            clm.DataType = Type.GetType("System.String")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Amount"
-            col.Name = "RIRD_AMOUNT"
-            col.VisibleIndex = infx
-            txt = New RepositoryItemTextEdit
-            txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-            txt.Mask.EditMask = "c"
-            txt.Mask.UseMaskAsDisplayFormat = True
-            col.ColumnEdit = txt
-            col.Visible = True
-            col.Width = 120
-            col.FieldName = "RIRD_AMOUNT"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_TYPE_INCOME"
-            clm.Caption = "Type of Income"
-            clm.DataType = Type.GetType("System.String")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Type of Income"
-            col.Name = "RIRD_TYPE_INCOME"
-            col.VisibleIndex = infx
-            cbo = Nothing
-            cbo = New RepositoryItemComboBox
-            cbo.Items.Add("INTEREST INCOME")
-            cbo.Items.Add("DIVIDEND INCOME")
-            cbo.Items.Add("RENTAL INCOME")
-            cbo.Items.Add("NON-INCOME PRODUCING")
-
-            col.ColumnEdit = cbo
-            col.Visible = True
-            col.Width = 200
-            col.FieldName = "RIRD_TYPE_INCOME"
-            GridView1.Columns.Add(col)
-
-            '-==============================================
-
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "RIRD_NOTE"
-            clm.Caption = "Note"
-            clm.DataType = Type.GetType("System.String")
-            clm.AllowDBNull = True
-            DsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
-            infx += 1
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Remarks"
-            col.Name = "RIRD_NOTE"
-            col.VisibleIndex = infx
-            Memo = New RepositoryItemMemoEdit
-            Memo.MaxLength = 3000
-            col.ColumnEdit = Memo
-            col.Visible = True
-            col.Width = 300
-            col.FieldName = "RIRD_NOTE"
-            GridView1.Columns.Add(col)
+            GridView1.EndSort()
 
 
-            '' DsPNL = MainDs
-            'BUSINESSSOURCEBindingSource.DataSource = DsPNL.Tables("BUSINESS_SOURCE")
-            'EXPENSESINTERESTRESTRICTBindingSource.DataSource = DsPNL.Tables("EXPENSES_INTERESTRESTRICT")
+            GridView1.GroupFooterShowMode = GroupFooterShowMode.VisibleAlways
 
-            If isEdit Then
+            Dim item As GridGroupSummaryItem = Nothing ' New GridGroupSummaryItem()
 
-            End If
+            For Each colx As DataColumn In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
+                        Dim col As GridColumn = GridView1.Columns(colx.ColumnName)
+                        col.OptionsColumn.AllowEdit = False
+
+                        If colx.ColumnName = "Title" Then
+                            col.Width = 120
+                        ElseIf colx.ColumnName = "TypeIncome" Then
+                            col.Visible = False
+                        End If
+
+                    Case Else
+
+                        Dim item1 As GridGroupSummaryItem = New GridGroupSummaryItem()
+                        item1.FieldName = colx.ColumnName
+                        item1.SummaryType = DevExpress.Data.SummaryItemType.Sum
+                        item1.DisplayFormat = "{0:n2}"
+                        item1.ShowInGroupColumnFooter = GridView1.Columns(colx.ColumnName)
+                        GridView1.GroupSummary.Add(item1)
+                End Select
+
+            Next
 
         Catch ex As Exception
             If Errorlog Is Nothing Then
@@ -257,58 +101,237 @@ Public Class frmPNL_InterestResPurS33_Monthly
         End Try
     End Sub
 
-
-    Private Sub BarButtonItem1_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
+    Private Sub LoadTable_InterestRestricted(ByRef ds As DataSet)
         Try
-            GridView1.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
-            GridView1.FocusedColumn = GridView1.VisibleColumns(0)
-        Catch ex As Exception
 
-        End Try
-    End Sub
+            Dim dt As DataTable = mdlProcess.Load_interestRestricMonthNBasis(RefNo, YA, SourceNo, ErrorLog)
+            Dim MonthDuration As Integer = 0
+            Dim BasisPeriod As DateTime = Now
+            Dim CurrBasisPeriod As DateTime = Now
+            Dim dtRow As DataRow = Nothing
+            Dim LabelTag As String = Nothing
+            Dim dtTaxPayer As DataTable = mdlProcess.LoadTaxPayer_ByRefNO(RefNo)
 
-    Private Sub btnAddChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddChild.ItemClick
-        Try
-            GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Clear()
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Clear()
+
+
+            If dtTaxPayer Is Nothing Then
+                MsgBox("Tax payer not found.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            If dt Is Nothing Then
+                MsgBox("Failed to load interest restriction.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            MonthDuration = IIf(IsDBNull(dt.Rows(0)("DURATION")), 12, dt.Rows(0)("DURATION"))
+            BasisPeriod = IIf(IsDBNull(dt.Rows(0)("BASICPERIOD")), Now, dt.Rows(0)("BASICPERIOD"))
+            CurrBasisPeriod = BasisPeriod
+
+            Dim clm As System.Data.DataColumn
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "LabelTag"
+            clm.Caption = "Label Tag"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "Title"
+            clm.Caption = "Title"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TypeName"
+            clm.Caption = "Type Name"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TypeIncome"
+            clm.Caption = "Type Income"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            For i As Integer = 0 To MonthDuration - 1
+
+                CurrBasisPeriod = CurrBasisPeriod.AddMonths(+1)
+
+                clm = Nothing
+                clm = New System.Data.DataColumn
+                clm.ColumnName = Format(CurrBasisPeriod, "MMM") & "_" & CurrBasisPeriod.Year
+                clm.Caption = Format(CurrBasisPeriod, "MMM") & " " & CurrBasisPeriod.Year
+                clm.DataType = System.Type.GetType("System.Decimal")
+                clm.AllowDBNull = True
+                ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            Next
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalYear"
+            clm.Caption = "Total"
+            clm.DataType = System.Type.GetType("System.Decimal")
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
             Application.DoEvents()
+            Dim inxt As Integer = 0
+            Dim CurrInxt As Integer = 0
+            For i As Integer = 0 To 3
+                CurrInxt = i
+                LabelTag = GetLabelTag(CurrInxt)
+                Select Case i
+                    Case 0
 
-            Dim dgv As DevExpress.XtraGrid.Views.Grid.GridView = GridView1.GetDetailView(GridView1.FocusedRowHandle, 0)
-            dgv.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
-            dgv.FocusedColumn = dgv.VisibleColumns(0)
-        Catch ex As Exception
+                        dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Borr")
+                    Case 1
+                        dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "inv")
+                    Case 2
+                        dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "invNon")
+                    Case Else
+                        dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Interest")
+                End Select
 
-        End Try
-    End Sub
+                If dt IsNot Nothing Then
+                    inxt = 0
+                    For Each rowx As DataRow In dt.Rows
+                        inxt += 1
+                        dtRow = Nothing
+                        dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+                        dtRow("LabelTag") = LabelTag & inxt
+                        dtRow("Title") = IIf(IsDBNull(rowx("Item")), "", rowx("Item")).ToString.Remove(0, 1)
+                        Select Case i
+                            Case 0
+                                dtRow("TypeName") = "1 BORROWINGS"
+                            Case 1
+                                dtRow("TypeName") = "2 LOANS AND INVESTMENTS"
+                            Case 2
+                                dtRow("TypeName") = "3 LOANS AND INVESTMENTS NON"
+                            Case Else
+                                dtRow("TypeName") = "4 INTEREST"
+                        End Select
 
-    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
-        Try
-            Dim rslt As DialogResult = MessageBox.Show("Are sure want to remove this item?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                        dtRow("TypeIncome") = IIf(IsDBNull(rowx("Income Type")), "", rowx("Income Type"))
+                        For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                            Select Case colx.ColumnName
+                                Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
 
-            If rslt = DialogResult.Yes Then
+                                Case Else
+                                    dtRow(colx.ColumnName) = 0
+                            End Select
 
-                GridView1.DeleteSelectedRows()
+                        Next
 
-            End If
-        Catch ex As Exception
+                        dtRow("TotalYear") = 0
 
-        End Try
-    End Sub
+                        ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+                    Next
 
-    Private Sub btnDeleteChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDeleteChild.ItemClick
-        Try
-            Dim rslt As DialogResult = MessageBox.Show("Are sure want to remove this item?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                End If
+            Next
 
-            If rslt = DialogResult.Yes Then
-                Dim dgv As DevExpress.XtraGrid.Views.Grid.GridView
-                For i As Integer = 0 To GridView1.RowCount - 1
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Interest restricted"
+            dtRow("TypeName") = "5 INTEREST RESTIRCTED"
+            CurrInxt += 1
+            dtRow("LabelTag") = GetLabelTag(CurrInxt)
+            dtRow("TypeIncome") = ""
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
 
-                    dgv = GridView1.GetDetailView(i, 0)
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
 
-                    If dgv IsNot Nothing AndAlso i = GridView1.FocusedRowHandle Then
-                        dgv.DeleteSelectedRows()
-                    End If
-                Next
-            End If
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Interest Income"
+            CurrInxt += 1
+            dtRow("LabelTag") = GetLabelTag(CurrInxt) & "1"
+            dtRow("TypeName") = "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+
+            dtRow("TypeIncome") = "E1"
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Rental Income"
+            dtRow("LabelTag") = GetLabelTag(CurrInxt) & "2"
+            dtRow("TypeName") = "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+
+            dtRow("TypeIncome") = "E2"
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Dividend Income"
+            dtRow("LabelTag") = GetLabelTag(CurrInxt) & "3"
+            dtRow("TypeName") = "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+
+            dtRow("TypeIncome") = "E3"
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
         Catch ex As Exception
 
         End Try
@@ -316,167 +339,260 @@ Public Class frmPNL_InterestResPurS33_Monthly
 
     Private Sub GridView1_RowUpdated(sender As Object, e As RowObjectEventArgs) Handles GridView1.RowUpdated
         Try
-            If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
-                                          MainAmount, MainAmount_Details, DsPNL, ErrorLog) = False Then
+            Dim TotalCol As Decimal = 0
+            'Dim indexRow As Integer = e.RowHandle
+            'For Each colx As DataColumn In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+            '    Select Case colx.ColumnName
+            '        Case "Title", "TypeName", "TypeIncome", "TotalYear"
 
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-            Else
-                CalcTotalofView(txtAmount, DsPNL, MainTable, MainAmount, 0, ErrorLog)
-            End If
+            '        Case Else
+
+            '            TotalCol += DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows(indexRow)(colx.ColumnName)
+            '    End Select
+            'Next
+            'DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows(indexRow)("TotalYear") = TotalCol
 
 
+            Application.DoEvents()
+            Dim txtTotalInv As Decimal = 0
+            Dim txtTotalInvNon As Decimal = 0
+            Dim txtTotalInvBorr As Decimal = 0
+            Dim txtTotalInvInterest As Decimal = 0
+            Dim txtTotalInvSub As Decimal = 0
+            Dim TotalRestrict As Decimal = 0
+            Dim SubRental As Decimal = 0
+            Dim TotalRental As Decimal = 0
+            Dim SubInterest As Decimal = 0
+            Dim TotalInterest As Decimal = 0
+            Dim SubDividend As Decimal = 0
+            Dim TotalDividend As Decimal = 0
+            For Each colx As DataColumn In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                txtTotalInvBorr = 0
+                txtTotalInv = 0
+                txtTotalInvNon = 0
+                TotalRestrict = 0
+                SubRental = 0
+                TotalRental = 0
+                SubInterest = 0
+                TotalInterest = 0
+                SubDividend = 0
+                TotalDividend = 0
+
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
+
+                    Case Else
+                        For Each rowx As DataRow In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows
+
+                            Select Case rowx("TypeName")
+                                Case "1 BORROWINGS"
+                                    txtTotalInvBorr += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                Case "2 LOANS AND INVESTMENTS"
+                                    If rowx("TypeIncome") = "RENTAL INCOME" Then
+                                        SubRental += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                    ElseIf rowx("TypeIncome") = "INTEREST INCOME" Then
+                                        SubInterest += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                    ElseIf rowx("TypeIncome") = "DIVIDEND INCOME" Then
+                                        SubDividend += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                    End If
+                                    txtTotalInv += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                Case "3 LOANS AND INVESTMENTS NON"
+                                    If rowx("TypeIncome") = "RENTAL INCOME" Then
+                                        SubRental += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                    ElseIf rowx("TypeIncome") = "INTEREST INCOME" Then
+                                        SubInterest += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                    ElseIf rowx("TypeIncome") = "DIVIDEND INCOME" Then
+                                        SubDividend += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                    End If
+                                    txtTotalInvNon += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                Case "4 INTEREST"
+                                    txtTotalInvInterest += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+                                Case "5 INTEREST RESTIRCTED"
+                                    txtTotalInvSub = txtTotalInv + txtTotalInvNon
+                                    If (txtTotalInvBorr * txtTotalInvInterest) = 0 Then
+                                        TotalRestrict += 0
+                                    Else
+                                        TotalRestrict += txtTotalInvSub / (txtTotalInvBorr * txtTotalInvInterest)
+                                    End If
+
+                                    rowx(colx.ColumnName) = TotalRestrict.ToString("N2")
+
+                                Case "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+                                    If rowx("TypeIncome") = "E1" Then
+                                        If txtTotalInvSub = 0 Then
+                                            TotalInterest = 0
+                                        Else
+                                            TotalInterest = (TotalRestrict * SubInterest) / txtTotalInvSub
+                                        End If
+
+                                        rowx(colx.ColumnName) = TotalInterest.ToString("N2")
+                                    End If
+                                    If rowx("TypeIncome") = "E2" Then
+                                        If txtTotalInvSub = 0 Then
+                                            TotalRental = 0
+                                        Else
+                                            TotalRental = (TotalRestrict * SubRental) / txtTotalInvSub
+                                        End If
+
+                                        rowx(colx.ColumnName) = TotalRental.ToString("N2")
+                                    End If
+                                    If rowx("TypeIncome") = "E3" Then
+                                        If txtTotalInvSub = 0 Then
+                                            TotalDividend = 0
+                                        Else
+                                            TotalDividend = (TotalRestrict * SubDividend) / txtTotalInvSub
+                                        End If
+                                        rowx(colx.ColumnName) = TotalDividend.ToString("N2")
+                                    End If
+                            End Select
+
+
+                        Next
+                End Select
+
+            Next
+            Application.DoEvents()
+            For Each rowx As DataRow In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows
+                TotalCol = 0
+
+                For Each colx As DataColumn In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+
+                    Select Case colx.ColumnName
+                        Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag"
+
+                        Case Else
+                            TotalCol += IIf(IsDBNull(rowx(colx.ColumnName)), 0, rowx(colx.ColumnName))
+
+                    End Select
+                Next
+                rowx("TotalYear") = TotalCol
+            Next
         Catch ex As Exception
-
+            MsgBox(ex.Message)
         End Try
     End Sub
+
     Private Sub GridView1_ShowingEditor(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles GridView1.ShowingEditor
         Try
             If TypeOf sender Is GridView Then
                 Dim view As GridView = CType(sender, GridView)
-                e.Cancel = mdlPNL.DisableAmountIfGotChild(MainTable_Details, MainKey, MainKey_Details, MainDetail, view, DsPNL, ErrorLog)
+                Dim rowx As DataRow = view.GetFocusedDataRow
 
-
-            End If
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub GridView1_ValidateRow(sender As Object, e As ValidateRowEventArgs) Handles GridView1.ValidateRow
-        Try
-            If TypeOf sender Is GridView Then
-                Dim view As GridView = CType(sender, GridView)
-                Dim row As DataRow = view.GetDataRow(e.RowHandle)
-
-                If IsDBNull(row(MainSourceNo)) = True OrElse IsDBNull(row(MainAmount)) = True Then
-                    e.ErrorText = "Please put amount and source number."
-                    e.Valid = False
-                Else
-                    Dim TotalSourceNo As Integer = 0
-                    For i As Integer = 0 To DsPNL.Tables(MainTable).Rows.Count - 1
-                        If DsPNL.Tables(MainTable).Rows(i)(MainSourceNo) = e.Row(MainSourceNo) Then
-                            TotalSourceNo += 1
-                        End If
-                    Next
-
-                    If TotalSourceNo > 0 Then
-                        e.ErrorText = "Cannot have more than one source no in same time."
-                        e.Valid = False
-                    Else
-                        row("EXIR_STATUS") = "Yearly"
-                    End If
-
+                If IsDBNull(rowx("Title")) = False Then
+                    Select Case rowx("TypeName")
+                        Case "5 INTEREST RESTIRCTED", "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+                            e.Cancel = True
+                        Case Else
+                            e.Cancel = False
+                    End Select
                 End If
+                ' e.Cancel = mdlPNL.DisableAmountIfGotChild(MainTable_Details, MainKey, MainKey_Details, MainDetail, view, DsPNL1, ErrorLog)
             End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub GridView1_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView1.RowDeleted
-        Try
-            If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
-                                          MainAmount, MainAmount_Details, DsPNL, ErrorLog) = False Then
-
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-            Else
-                CalcTotalofView(txtAmount, DsPNL, MainTable, MainAmount, 0, ErrorLog)
-            End If
-
 
         Catch ex As Exception
 
         End Try
     End Sub
-
-    Private Sub GridView2_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView2.InitNewRow
+    Private Function GetLabelTag(ByVal Index As Integer) As String
         Try
-            If TypeOf sender Is DevExpress.XtraGrid.Views.Grid.GridView Then
-                Dim dgv As DevExpress.XtraGrid.Views.Grid.GridView = CType(sender, DevExpress.XtraGrid.Views.Grid.GridView)
-                dgv.GetDataRow(dgv.FocusedRowHandle)("RIRD_TYPE") = "Investment"
-                dgv.GetDataRow(dgv.FocusedRowHandle)("RIRD_TYPE_INCOME") = "INTEREST INCOME"
-            End If
-
-
+            Select Case Index
+                Case 0
+                    Return "A"
+                Case 1
+                    Return "B"
+                Case 2
+                    Return "C"
+                Case 3
+                    Return "D"
+                Case 4
+                    Return "E"
+                Case 5
+                    Return "F"
+                Case 6
+                    Return "G"
+                Case 7
+                    Return "H"
+            End Select
         Catch ex As Exception
-
+            Return "A"
         End Try
-    End Sub
-    Private Sub GridView2_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView2.RowDeleted
+    End Function
+
+    Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
-                                         MainAmount, MainAmount_Details, DsPNL, ErrorLog) = False Then
 
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-            Else
-                CalcTotalofView(txtAmount, DsPNL, MainTable, MainAmount, 0, ErrorLog)
-            End If
+            Dim Path As String = Nothing
+            Dim tmpPath As String = Nothing
+            SaveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx"
+            Dim rslt As DialogResult = SaveFileDialog1.ShowDialog
 
+            If rslt = Windows.Forms.DialogResult.OK Then
+                Path = SaveFileDialog1.FileName
 
-        Catch ex As Exception
-
-        End Try
-    End Sub
-
-    Private Sub GridView2_RowUpdated(sender As Object, e As RowObjectEventArgs) Handles GridView2.RowUpdated
-        Try
-            If mdlPNL.reCalc_SubTotalView(MainTable, MainTable_Details, MainKey, MainKey_Details, _
-                                          MainAmount, MainAmount_Details, DsPNL, ErrorLog) = False Then
-
-                MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-            Else
-                CalcTotalofView(txtAmount, DsPNL, MainTable, MainAmount, 0, ErrorLog)
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub GridView2_ValidateRow(sender As Object, e As ValidateRowEventArgs) Handles GridView2.ValidateRow
-        Dim x As String = Nothing
-        Try
-            If TypeOf sender Is GridView Then
-                Dim view As GridView = CType(sender, GridView)
-                Dim row As DataRow = view.GetDataRow(e.RowHandle)
-
-                If IsDBNull(row(MainDetails_Desc)) = True OrElse IsDBNull(row(MainAmount_Details)) = True Then
-                    e.ErrorText = "Please put amount and description."
-                    e.Valid = False
+                If System.IO.Directory.Exists(Application.StartupPath & "\ReportTemporary") = False Then
+                    System.IO.Directory.CreateDirectory(Application.StartupPath & "\ReportTemporary")
                 End If
 
+                tmpPath = Application.StartupPath & "\ReportTemporary\InterestRestricted.xlsx"
+
+                GridControl1.ExportToXlsx(tmpPath)
+                Application.DoEvents()
+
+                If System.IO.File.Exists(tmpPath) Then
+
+                    Dim workbook As New Workbook()
+
+                    ' Load a workbook from the stream. 
+                    Using stream As New FileStream(tmpPath, FileMode.Open)
+                        workbook.LoadDocument(stream, DocumentFormat.Xlsx)
+                        Dim worksheets As WorksheetCollection = workbook.Worksheets
+
+                        ' Access a worksheet by its index.
+                        Dim worksheet1 As Worksheet = workbook.Worksheets(0)
+
+                        worksheet1.Rows.Insert(1, 7)
+
+                        Application.DoEvents()
+                        worksheet1.Rows(0).Delete()
+
+                        worksheet1.Rows(1)(0).Value = "AR Software Malaysia"
+                        worksheet1.Rows(2)(0).Value = "Schedule of Section 33(2) Restriction of Interest Expense"
+                        worksheet1.Rows(3)(0).Value = "Basis Period : 01.01.2016 - 31.12.2016"
+                        worksheet1.Rows(4)(0).Value = "Year of Assessment : 2016"
+
+                        Application.DoEvents()
+                        Dim tmpCol As Integer = -1
+                        For Each colx As DataColumn In DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+
+                            Select Case colx.ColumnName
+                                Case "Title", "TotalYear", "LabelTag"
+                                    tmpCol += 1
+                                    worksheet1.Rows(6)(tmpCol).Value = ""
+                                Case "TypeName", "TypeIncome"
+                                Case Else
+                                    tmpCol += 1
+                                    worksheet1.Rows(6)(tmpCol).Value = colx.ColumnName
+
+                            End Select
+
+                        Next
+                        workbook.SaveDocument(stream, DocumentFormat.Xlsx)
+                    End Using
+
+                    Dim frm As New frmExcel
+                    frm.Path = tmpPath
+                    frm.isAutoOpen = True
+                    frm.Show()
+                End If
+                ' GridControl1.ExportToXlsx(Path)
+            Else
+                Exit Sub
             End If
+
         Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub btnExpand_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExpand.ItemClick
-        Try
-            GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub GridView1_InitNewRow(sender As Object, e As InitNewRowEventArgs) Handles GridView1.InitNewRow
-        Try
-
-            GridView1.GetDataRow(e.RowHandle)(Main_Desc) = Me.Parent.Text
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveUp.ItemClick
-        Try
-            mdlPNL.MoveItemsInListView(True, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL, ErrorLog)
-        Catch ex As Exception
-
+            MsgBox(ex.Message)
         End Try
     End Sub
 
-    Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveDown.ItemClick
-        Try
-            mdlPNL.MoveItemsInListView(False, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL, ErrorLog)
-        Catch ex As Exception
 
-        End Try
-    End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿Imports System.Data.SqlClient
-
+Imports System.Type
 Module mdlPNL2
 
     Public Sub ClearMemoryDataset(Optional ByRef ErrorLog As clsError = Nothing)
@@ -25,6 +25,8 @@ Module mdlPNL2
             dsDataSet.Tables("dividend_income").Rows.Clear()
             dsDataSet.Tables("INCOME_NBINTEREST_DETAIL").Rows.Clear()
             dsDataSet.Tables("INCOME_NBINTEREST").Rows.Clear()
+            dsDataSet.Tables("INCOME_NBROYALTY_DETAIL").Rows.Clear()
+            dsDataSet.Tables("INCOME_NBROYALTY").Rows.Clear()
             dsDataSet.Tables("rental_income").Rows.Clear()
             dsDataSet.Tables("OTHER_INCOME_DETAIL").Rows.Clear()
             dsDataSet.Tables("OTHER_INCOME").Rows.Clear()
@@ -43,6 +45,7 @@ Module mdlPNL2
             dsDataSet.Tables("INCOME_NTUREALFENT").Rows.Clear()
             dsDataSet.Tables("NON_TAXABLE_INCOME_DETAIL").Rows.Clear()
             dsDataSet.Tables("non_taxable_income").Rows.Clear()
+            dsDataSet.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Clear()
             dsDataSet.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Clear()
             dsDataSet.Tables("EXPENSES_INTERESTRESTRICT").Rows.Clear()
             dsDataSet.Tables("EXPENSES_INTEREST_DETAIL").Rows.Clear()
@@ -85,6 +88,8 @@ Module mdlPNL2
             dsDataSet.Tables("other_exlossdisposalfa").Rows.Clear()
             dsDataSet.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Clear()
             dsDataSet.Tables("other_entertainnstaff").Rows.Clear()
+            dsDataSet.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Clear()
+            dsDataSet.Tables("OTHER_ENTERTAINSTAFF").Rows.Clear()
             dsDataSet.Tables("OTHER_EXPENALTY_DETAIL").Rows.Clear()
             dsDataSet.Tables("other_expenalty").Rows.Clear()
             dsDataSet.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Clear()
@@ -510,7 +515,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_INTERESTRESTRICT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details_temp), oConn, RefNo, YA, ListofCmd, Errorlog)
+                        mdlProcess.Save_EXPENSES_INTERESTRESTRICT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Monthly), oConn, RefNo, YA, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
@@ -1903,9 +1908,10 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     dt = Nothing
                     dt = mdlProcess.Load_PNL_expenses_interestrestrict(PNL_KEY, Errorlog)
-                    Dim tmpDt As DataTable = Nothing
-
+                    Dim tmpDt_Data As DataTable = Nothing
+                    Dim tmpDt_Col As DataTable = Nothing
                     ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Clear()
+                    ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Clear()
                     ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Clear()
                     ds.Tables("expenses_interestrestrict").Rows.Clear()
 
@@ -1938,49 +1944,47 @@ Module mdlPNL2
                                 dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
 
-                                tmpDt = Nothing
+                                tmpDt_Data = Nothing
 
-                                tmpDt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
+                                tmpDt_Data = mdlProcess.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
 
-                                For x As Integer = 0 To tmpDt.Rows.Count - 1
+                                mdlPNL2.LoadTable_InterestRestricted(ds, RefNo, YA, rowx("EXIR_SOURCENO"), rowx("EXIR_EXIRKEY"), Errorlog)
 
-                                    dtRow = Nothing
-                                    dtRow = ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").NewRow
-                                    dtRow("RIRD_KEY") = tmpDt.Rows(x)("RIRD_KEY")
-                                    dtRow("RIR_REF_NUM") = tmpDt.Rows(x)("RIR_REF_NUM")
-                                    dtRow("RIRD_MONTH") = tmpDt.Rows(x)("RIRD_MONTH")
-                                    dtRow("RIRD_TYPE") = tmpDt.Rows(x)("RIRD_TYPE")
-                                    dtRow("RIRD_DESC") = tmpDt.Rows(x)("RIRD_DESC")
-                                    dtRow("RIRD_AMOUNT") = tmpDt.Rows(x)("RIRD_AMOUNT")
-                                    dtRow("RIRD_NOTE") = tmpDt.Rows(x)("RIRD_NOTE")
-                                    dtRow("RIRD_SOURCENO") = tmpDt.Rows(x)("RIRD_SOURCENO")
-                                    dtRow("RIRD_TYPE_INCOME") = tmpDt.Rows(x)("RIRD_TYPE_INCOME")
+                                mdlPNL2.AppenData_InterestRestricted(tmpDt_Data, ds, Errorlog)
+                                Application.DoEvents()
 
-                                    ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Add(dtRow)
-                                Next
+                                mdlProcess.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(PNL_KEY, ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT"), RefNo, _
+                                                                                      YA, rowx("EXIR_SOURCENO"), Errorlog)
 
-                                tmpDt = Nothing
+                                tmpDt_Data = Nothing
 
-                                tmpDt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
+                                tmpDt_Data = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
 
-                                For x As Integer = 0 To tmpDt.Rows.Count - 1
+                                If tmpDt_Data IsNot Nothing Then
+                                    For x As Integer = 0 To tmpDt_Data.Rows.Count - 1
 
-                                    dtRow = Nothing
-                                    dtRow = ds.Tables("REF_INTEREST_RESTRIC_DETAIL").NewRow
-                                    dtRow("RIRD_KEY") = tmpDt.Rows(x)("RIRD_KEY")
-                                    dtRow("RIR_REF_NUM") = tmpDt.Rows(x)("RIR_REF_NUM")
-                                    dtRow("RIRD_MONTH") = tmpDt.Rows(x)("RIRD_MONTH")
-                                    dtRow("RIRD_TYPE") = tmpDt.Rows(x)("RIRD_TYPE")
-                                    dtRow("RIRD_DESC") = tmpDt.Rows(x)("RIRD_DESC")
-                                    dtRow("RIRD_AMOUNT") = tmpDt.Rows(x)("RIRD_AMOUNT")
-                                    dtRow("RIRD_NOTE") = tmpDt.Rows(x)("RIRD_NOTE")
-                                    dtRow("RIRD_SOURCENO") = tmpDt.Rows(x)("RIRD_SOURCENO")
-                                    dtRow("RIRD_TYPE_INCOME") = tmpDt.Rows(x)("RIRD_TYPE_INCOME")
+                                        dtRow = Nothing
+                                        dtRow = ds.Tables("REF_INTEREST_RESTRIC_DETAIL").NewRow
+                                        dtRow("RIRD_KEY") = tmpDt_Data.Rows(x)("RIRD_KEY")
+                                        dtRow("RIR_REF_NUM") = tmpDt_Data.Rows(x)("RIR_REF_NUM")
+                                        dtRow("RIRD_MONTH") = tmpDt_Data.Rows(x)("RIRD_MONTH")
+                                        dtRow("RIRD_TYPE") = tmpDt_Data.Rows(x)("RIRD_TYPE")
+                                        dtRow("RIRD_DESC") = tmpDt_Data.Rows(x)("RIRD_DESC")
+                                        dtRow("RIRD_AMOUNT") = tmpDt_Data.Rows(x)("RIRD_AMOUNT")
+                                        dtRow("RIRD_NOTE") = tmpDt_Data.Rows(x)("RIRD_NOTE")
+                                        dtRow("RIRD_SOURCENO") = tmpDt_Data.Rows(x)("RIRD_SOURCENO")
+                                        dtRow("RIRD_TYPE_INCOME") = tmpDt_Data.Rows(x)("RIRD_TYPE_INCOME")
 
-                                    ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Add(dtRow)
-                                Next
+                                        ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Add(dtRow)
+                                    Next
+                                    If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ds.Tables("REF_INTEREST_RESTRIC_DETAIL"), RefNo, YA, rowx("EXIR_SOURCENO"), PNL_KEY, _
+                                                                  0, Errorlog, False) = False Then
+
+                                    End If
+                                End If
+
                             End If
-                          
+
                         Next
                     Else
                         isHaveData = False
@@ -5502,9 +5506,6 @@ Module mdlPNL2
                             Case TaxComPNLEnuItem.INTERESTINC
                                 ColumnName = "PL_OTH_IN_INTEREST"
 
-
-                                tmpDt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(0, RefNo, YA, Errorlog)
-
                             Case TaxComPNLEnuItem.ROYALTYINC
                                 ColumnName = "PL_OTH_IN_ROYALTY"
 
@@ -5686,5 +5687,325 @@ Module mdlPNL2
     End Function
 
 
+    Public Sub LoadTable_InterestRestricted(ByRef ds As DataSet, ByVal Refno As String, ByVal YA As String, ByVal SourceNo As Integer, _
+                                             ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing)
+        Try
+
+            Dim dt As DataTable = mdlProcess.Load_interestRestricMonthNBasis(Refno, YA, SourceNo, ErrorLog)
+            Dim MonthDuration As Integer = 0
+            Dim BasisPeriod As DateTime = Now
+            Dim CurrBasisPeriod As DateTime = Now
+            Dim dtRow As DataRow = Nothing
+            Dim LabelTag As String = Nothing
+            Dim dtTaxPayer As DataTable = mdlProcess.LoadTaxPayer_ByRefNO(Refno)
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Clear()
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Clear()
+
+
+            If dtTaxPayer Is Nothing Then
+                MsgBox("Tax payer not found.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            If dt Is Nothing Then
+                MsgBox("Failed to load interest restriction.", MsgBoxStyle.Critical)
+                Exit Sub
+            End If
+
+            MonthDuration = IIf(IsDBNull(dt.Rows(0)("DURATION")), 12, dt.Rows(0)("DURATION"))
+            BasisPeriod = IIf(IsDBNull(dt.Rows(0)("BASICPERIOD")), Now, dt.Rows(0)("BASICPERIOD"))
+            CurrBasisPeriod = BasisPeriod
+
+            Dim clm As System.Data.DataColumn
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "KeyID"
+            clm.Caption = "KeyID"
+            clm.DataType = System.Type.GetType("System.Int32")
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "LabelTag"
+            clm.Caption = "Label Tag"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "Title"
+            clm.Caption = "Title"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TypeName"
+            clm.Caption = "Type Name"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TypeIncome"
+            clm.Caption = "Type Income"
+            clm.DataType = System.Type.GetType("System.String")
+            clm.DefaultValue = ""
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            For i As Integer = 0 To MonthDuration - 1
+
+                CurrBasisPeriod = CurrBasisPeriod.AddMonths(+1)
+
+                clm = Nothing
+                clm = New System.Data.DataColumn
+                clm.ColumnName = Format(CurrBasisPeriod, "MMM") & "_" & CurrBasisPeriod.Year
+                clm.Caption = Format(CurrBasisPeriod, "MMM") & " " & CurrBasisPeriod.Year
+                clm.DataType = System.Type.GetType("System.Decimal")
+                clm.AllowDBNull = True
+                ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            Next
+
+            clm = Nothing
+            clm = New System.Data.DataColumn
+            clm.ColumnName = "TotalYear"
+            clm.Caption = "Total"
+            clm.DataType = System.Type.GetType("System.Decimal")
+            clm.AllowDBNull = True
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
+
+            Application.DoEvents()
+            Dim inxt As Integer = 0
+            Dim CurrInxt As Integer = 0
+            For i As Integer = 0 To 3
+                CurrInxt = i
+                LabelTag = GetLabelTag(CurrInxt)
+                Select Case i
+                    Case 0
+
+                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "Borr")
+                    Case 1
+                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "inv")
+                    Case 2
+                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "invNon")
+                    Case Else
+                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "Interest")
+                End Select
+
+                If dt IsNot Nothing Then
+                    inxt = 0
+                    For Each rowx As DataRow In dt.Rows
+                        inxt += 1
+                        dtRow = Nothing
+                        dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+                        dtRow("LabelTag") = LabelTag & inxt
+                        dtRow("KeyID") = KeyID
+                        dtRow("Title") = IIf(IsDBNull(rowx("Item")), "", rowx("Item")).ToString.Remove(0, 1)
+                        Select Case i
+                            Case 0
+                                dtRow("TypeName") = "1 BORROWINGS"
+                            Case 1
+                                dtRow("TypeName") = "2 LOANS AND INVESTMENTS"
+                            Case 2
+                                dtRow("TypeName") = "3 LOANS AND INVESTMENTS NON"
+                            Case Else
+                                dtRow("TypeName") = "4 INTEREST"
+                        End Select
+
+                        dtRow("TypeIncome") = IIf(IsDBNull(rowx("Income Type")), "", rowx("Income Type"))
+                        For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                            Select Case colx.ColumnName
+                                Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
+
+                                Case Else
+                                    dtRow(colx.ColumnName) = 0
+                            End Select
+
+                        Next
+
+                        dtRow("TotalYear") = 0
+
+                        ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+                    Next
+
+                End If
+            Next
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Interest restricted"
+            dtRow("TypeName") = "5 INTEREST RESTIRCTED"
+            CurrInxt += 1
+            dtRow("LabelTag") = GetLabelTag(CurrInxt)
+            dtRow("TypeIncome") = ""
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Interest Income"
+            CurrInxt += 1
+            dtRow("LabelTag") = GetLabelTag(CurrInxt) & "1"
+            dtRow("TypeName") = "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+
+            dtRow("TypeIncome") = "E1"
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Rental Income"
+            dtRow("LabelTag") = GetLabelTag(CurrInxt) & "2"
+            dtRow("TypeName") = "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+
+            dtRow("TypeIncome") = "E2"
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+            dtRow = Nothing
+            dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").NewRow
+            dtRow("Title") = "Dividend Income"
+            dtRow("LabelTag") = GetLabelTag(CurrInxt) & "3"
+            dtRow("TypeName") = "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
+
+            dtRow("TypeIncome") = "E3"
+            For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+                Select Case colx.ColumnName
+                    Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
+
+                    Case Else
+                        dtRow(colx.ColumnName) = 0
+                End Select
+
+            Next
+
+            dtRow("TotalYear") = 0
+
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Function GetLabelTag(ByVal Index As Integer) As String
+        Try
+            Select Case Index
+                Case 0
+                    Return "A"
+                Case 1
+                    Return "B"
+                Case 2
+                    Return "C"
+                Case 3
+                    Return "D"
+                Case 4
+                    Return "E"
+                Case 5
+                    Return "F"
+                Case 6
+                    Return "G"
+                Case 7
+                    Return "H"
+            End Select
+            Return "A"
+        Catch ex As Exception
+            Return "A"
+        End Try
+    End Function
+    Public Sub AppenData_InterestRestricted(ByVal tmpDt_Data As DataTable, ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+        Try
+            If tmpDt_Data Is Nothing Then
+                Exit Sub
+            End If
+
+            If ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT") Is Nothing Then
+                Exit Sub
+            End If
+
+            For Each datax As DataRow In tmpDt_Data.Rows
+
+                If IsDBNull(datax("colTitle")) = False AndAlso IsDBNull(datax("rowTitle")) = False AndAlso IsDBNull(datax("dataValue")) = False Then
+
+                    For Each rowxTEMP As DataRow In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows
+
+                        For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+
+                            If datax("colTitle") = colx.ColumnName AndAlso datax("rowTitle") = rowxTEMP("Title") Then
+
+                                Select Case colx.ColumnName
+                                    Case "Title", "TypeName", "TypeIncome", "LabelTag", "KeyID"
+
+                                    Case Else
+                                        rowxTEMP(colx.ColumnName) = datax("dataValue")
+                                End Select
+
+                            End If
+
+
+                        Next
+                    Next
+
+                End If
+
+            Next
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+        End Try
+    End Sub
 
 End Module

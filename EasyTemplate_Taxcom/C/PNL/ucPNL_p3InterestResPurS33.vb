@@ -22,7 +22,12 @@ Public Class ucPNL_p3InterestResPurS33
     Public Const MainDetails_Desc As String = "RIRD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "EXIR_DESC"  'PLFSD_DESC
     Public Const Main_Status As String = "EXIR_STATUS"
-
+    Public Const Main_Addback As String = "EXIR_DEDUCTIBLE"  'PLFSD_DESC
+    Public Const MainDetails_Addback As String = ""  'PLFSD_DESC
+    Public Const Main_Deduct As String = "EXIR_DEDUCTIBLE_ADD"  'PLFSD_DESC
+    Public Const MainDetails_Deduct As String = ""  'PLFSD_DESC
+    Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
+    Public Const MainTable_Monthly As String = "INTEREST_RESTRIC_MONTLY_REPORT"
 
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
@@ -52,7 +57,7 @@ Public Class ucPNL_p3InterestResPurS33
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             EXPENSESINTERESTRESTRICTBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
-
+            SplitContainerControl1.Panel2.Controls.Clear()
         Catch ex As Exception
             If Errorlog Is Nothing Then
                 Errorlog = New clsError
@@ -106,12 +111,12 @@ Public Class ucPNL_p3InterestResPurS33
                     SplitContainerControl1.Panel2.Controls.Clear()
                     SplitContainerControl1.Panel2.Controls.Add(uc)
                 Else
-                    Dim uc As New ucPNL_p3InterestResPurS33_Monthly
+                    Dim uc As New ucPNL_p3InterestResPurS33_Monthly_Tricor
                     uc.DataView_Main = DsPNL1
                     uc.Dock = DockStyle.Fill
                     uc.txtAmount = txtAmount
-                    uc.KeyID = row(MainKey)
                     uc.RefNo = RefNo
+                    uc.KeyID = row(MainKey)
                     uc.YA = YA
                     uc.SourceNo = CInt(row(MainSourceNo))
                     SplitContainerControl1.Panel2.Controls.Clear()
@@ -142,6 +147,8 @@ Public Class ucPNL_p3InterestResPurS33
                 MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                                  MainAmount_Details, MainColumn_PercentageAmount, ErrorLog)
             End If
 
 
@@ -225,6 +232,20 @@ Public Class ucPNL_p3InterestResPurS33
             If rslt = DialogResult.Yes Then
                 GridView1.DeleteSelectedRows()
             End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Try
+            Dim frm As New frmPNL_InterestResPurS33_Monthly
+            frm.DataView_Main = dsDataSet
+            frm.RefNo = RefNo
+            frm.SourceNo = SourceNo.EditValue
+            frm.YA = YA
+            frm.ShowDialog()
+
         Catch ex As Exception
 
         End Try

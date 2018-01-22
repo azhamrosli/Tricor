@@ -347,6 +347,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
+    <Compile Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.Designer.vb">
+      <DependentUpon>ucPNL_p3InterestResPurS33_Monthly_Tricor.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="EnumModule.vb" />
     <Compile Include="C\CA\frmCA_Add3.Designer.vb">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
@@ -572,11 +578,6 @@
       <DependentUpon>dsPNL.vb</DependentUpon>
     </Compile>
     <Compile Include="C\PNL\dsPNL.vb">
-      <DependentUpon>dsPNL.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="C\PNL\dsPNL2.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
     <Compile Include="C\PNL\dsPNL21.Designer.vb">
@@ -1047,6 +1048,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="C\DeemedInterest\ucDeemedInterest.resx">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.resx">
+      <DependentUpon>ucPNL_p3InterestResPurS33_Monthly_Tricor.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>

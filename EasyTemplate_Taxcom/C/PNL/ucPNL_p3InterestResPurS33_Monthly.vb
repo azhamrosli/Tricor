@@ -54,8 +54,9 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
 
-
-            mdlPNL.GetColumn_InterestRestrictMonthly(RefNo, YA, SourceNo, DsPNL1, GridView1)
+            Dim MonthDuration As Integer = 0
+            Dim DateBasisPeriod As DateTime = Now
+            mdlPNL.GetColumn_InterestRestrictMonthly(RefNo, YA, SourceNo, DsPNL1, GridView1, MonthDuration, DateBasisPeriod)
             Application.DoEvents()
 
 
@@ -74,15 +75,17 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
 
             Dim dtrow As DataRow = Nothing
+            ' Dim LoopDuration As Integer = 0
             If dt Is Nothing Then
-                For i As Integer = 0 To 11
+                For i As Integer = 0 To MonthDuration - 1
                     dtrow = Nothing
                     dtrow = DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").NewRow
                     For Each clm As DataColumn In DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Columns
                         Select Case clm.ColumnName
                             Case "Month"
-                                Dim yeardt As New DateTime(CInt(YA) - 1, i + 1, 1)
-                                dtrow(clm.ColumnName) = CDate(Format(yeardt, "dd-MMM-yyyy"))
+                                DateBasisPeriod = DateBasisPeriod.AddMonths(+1)
+                                '  Dim yeardt As New DateTime(CInt(YA) - 1, DateBasisPeriod.Month, DateBasisPeriod.Day)
+                                dtrow(clm.ColumnName) = CDate(Format(DateBasisPeriod, "dd-MMM-yyyy"))
                             Case Else
                                 dtrow(clm.ColumnName) = 0
                         End Select
@@ -93,14 +96,15 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
             Else
                 GridView1.BeginUpdate()
                 'Create the row first
-                For i As Integer = 0 To 11
+                For i As Integer = 0 To MonthDuration - 1
                     dtrow = Nothing
                     dtrow = DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").NewRow
                     For Each clm As DataColumn In DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Columns
                         Select Case clm.ColumnName
                             Case "Month"
-                                Dim yeardt As New DateTime(CInt(YA) - 1, i + 1, 1)
-                                dtrow(clm.ColumnName) = CDate(Format(yeardt, "dd-MMM-yyyy"))
+                                DateBasisPeriod = DateBasisPeriod.AddMonths(+1)
+                                ' Dim yeardt As New DateTime(CInt(YA) - 1, DateBasisPeriod.Month, DateBasisPeriod.Day)
+                                dtrow(clm.ColumnName) = CDate(Format(DateBasisPeriod, "dd-MMM-yyyy"))
                             Case Else
                                 dtrow(clm.ColumnName) = 0
                         End Select
@@ -114,6 +118,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 For Each clm As DataColumn In DsPNL1.Tables("REF_INTEREST_RESTRIC_TMP").Columns
                     Select Case clm.ColumnName
                         Case "Month", "TotalIncProInv", "TotalIncNonProInv", "TotalInv", "TotalBorr", "TotalInterest", "TotalRestrict"
+
                         Case Else
                             For x As Integer = 0 To dt.Rows.Count - 1
                                 If dt.Rows(x)("RIRD_TYPE") = clm.ColumnName Then

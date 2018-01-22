@@ -4825,6 +4825,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="INTEREST_RESTRIC_MONTLY_REPORT" msprop:Generator_TableClassName="INTEREST_RESTRIC_MONTLY_REPORTDataTable" msprop:Generator_TableVarName="tableINTEREST_RESTRIC_MONTLY_REPORT" msprop:Generator_TablePropName="INTEREST_RESTRIC_MONTLY_REPORT" msprop:Generator_RowDeletingName="INTEREST_RESTRIC_MONTLY_REPORTRowDeleting" msprop:Generator_RowChangingName="INTEREST_RESTRIC_MONTLY_REPORTRowChanging" msprop:Generator_RowEvHandlerName="INTEREST_RESTRIC_MONTLY_REPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="INTEREST_RESTRIC_MONTLY_REPORTRowDeleted" msprop:Generator_UserTableName="INTEREST_RESTRIC_MONTLY_REPORT" msprop:Generator_RowChangedName="INTEREST_RESTRIC_MONTLY_REPORTRowChanged" msprop:Generator_RowEvArgName="INTEREST_RESTRIC_MONTLY_REPORTRowChangeEvent" msprop:Generator_RowClassName="INTEREST_RESTRIC_MONTLY_REPORTRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">

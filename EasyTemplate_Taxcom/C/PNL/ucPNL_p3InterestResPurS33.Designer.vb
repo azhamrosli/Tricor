@@ -61,6 +61,7 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.colEXIR_DEDUCTIBLE_ADD = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colEXIR_DETAIL = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colRowIndex = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colPecentageAmount = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.cboTypeIncome = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colRIRD_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -72,6 +73,7 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.colRIRD_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colRIRD_TYPE_INCOME = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colRIRD_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -109,8 +111,8 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnDelete, Me.btnAddMonthly})
-        Me.BarManager1.MaxItemId = 10
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnDelete, Me.btnAddMonthly, Me.BarButtonItem1})
+        Me.BarManager1.MaxItemId = 11
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -120,7 +122,7 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(31, 109)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddMonthly), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddMonthly), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -130,10 +132,10 @@ Partial Class ucPNL_p3InterestResPurS33
         'btnAdd
         '
         Me.btnAdd.Caption = "Add Yearly"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -146,19 +148,19 @@ Partial Class ucPNL_p3InterestResPurS33
         'btnAddMonthly
         '
         Me.btnAddMonthly.Caption = "Add Monthly"
-        Me.btnAddMonthly.Glyph = CType(resources.GetObject("btnAddMonthly.Glyph"), System.Drawing.Image)
         Me.btnAddMonthly.Id = 9
-        Me.btnAddMonthly.LargeGlyph = CType(resources.GetObject("btnAddMonthly.LargeGlyph"), System.Drawing.Image)
+        Me.btnAddMonthly.ImageOptions.Image = CType(resources.GetObject("btnAddMonthly.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddMonthly.ImageOptions.LargeImage = CType(resources.GetObject("btnAddMonthly.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAddMonthly.Name = "btnAddMonthly"
         Me.btnAddMonthly.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Delete record"
@@ -173,28 +175,36 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(879, 31)
+        Me.barDockControlTop.Manager = Me.BarManager1
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1025, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 519)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(879, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 639)
+        Me.barDockControlBottom.Manager = Me.BarManager1
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1025, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 488)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Manager = Me.BarManager1
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 600)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(879, 31)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 488)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1025, 39)
+        Me.barDockControlRight.Manager = Me.BarManager1
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 600)
         '
         'RepositoryItemTextEdit1
         '
@@ -215,14 +225,15 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.SplitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainerControl1.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.None
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 31)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 39)
+        Me.SplitContainerControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Text = "Panel1"
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
         Me.SplitContainerControl1.ScrollBarSmallChange = 10
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(879, 488)
-        Me.SplitContainerControl1.SplitterPosition = 221
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(1025, 600)
+        Me.SplitContainerControl1.SplitterPosition = 272
         Me.SplitContainerControl1.TabIndex = 4
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
         '
@@ -230,11 +241,13 @@ Partial Class ucPNL_p3InterestResPurS33
         '
         Me.GridControl1.DataSource = Me.EXPENSESINTERESTRESTRICTBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Location = New System.Drawing.Point(0, 0)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.chkDeduct, Me.cboType, Me.cboTypeIncome})
-        Me.GridControl1.Size = New System.Drawing.Size(879, 221)
+        Me.GridControl1.Size = New System.Drawing.Size(1025, 272)
         Me.GridControl1.TabIndex = 15
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -246,7 +259,7 @@ Partial Class ucPNL_p3InterestResPurS33
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colEXIR_KEY, Me.colEXIR_EXIRKEY, Me.colEXIR_AMOUNT, Me.colEXIR_SOURCENO, Me.colEXIR_DESC, Me.colEXIR_YEAREND, Me.colEXIR_NOTE, Me.colEXIR_STATUS, Me.colEXIR_DEDUCTIBLE, Me.colEXIR_DEDUCTIBLE_ADD, Me.colEXIR_DETAIL, Me.colRowIndex})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colEXIR_KEY, Me.colEXIR_EXIRKEY, Me.colEXIR_AMOUNT, Me.colEXIR_SOURCENO, Me.colEXIR_DESC, Me.colEXIR_YEAREND, Me.colEXIR_NOTE, Me.colEXIR_STATUS, Me.colEXIR_DEDUCTIBLE, Me.colEXIR_DEDUCTIBLE_ADD, Me.colEXIR_DETAIL, Me.colRowIndex, Me.colPecentageAmount})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -398,6 +411,15 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.colRowIndex.FieldName = "RowIndex"
         Me.colRowIndex.Name = "colRowIndex"
         '
+        'colPecentageAmount
+        '
+        Me.colPecentageAmount.FieldName = "PecentageAmount"
+        Me.colPecentageAmount.Name = "colPecentageAmount"
+        Me.colPecentageAmount.OptionsColumn.AllowEdit = False
+        Me.colPecentageAmount.Visible = True
+        Me.colPecentageAmount.VisibleIndex = 8
+        Me.colPecentageAmount.Width = 100
+        '
         'cboTypeIncome
         '
         Me.cboTypeIncome.AutoHeight = False
@@ -491,17 +513,24 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.colRIRD_NOTE.VisibleIndex = 4
         Me.colRIRD_NOTE.Width = 300
         '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "Report"
+        Me.BarButtonItem1.Id = 10
+        Me.BarButtonItem1.Name = "BarButtonItem1"
+        '
         'ucPNL_p3InterestResPurS33
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.SplitContainerControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p3InterestResPurS33"
-        Me.Size = New System.Drawing.Size(879, 519)
+        Me.Size = New System.Drawing.Size(1025, 639)
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -520,6 +549,7 @@ Partial Class ucPNL_p3InterestResPurS33
         CType(Me.cboTypeIncome, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents DsPNL As EasyTemplate_Taxcom.dsPNL
@@ -568,5 +598,7 @@ Partial Class ucPNL_p3InterestResPurS33
     Friend WithEvents colEXIR_STATUS As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colEXIR_DEDUCTIBLE_ADD As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colRowIndex As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPecentageAmount As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
 
 End Class
