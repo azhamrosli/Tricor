@@ -229,4 +229,22 @@
         End Try
     End Sub
 
+    Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
+        Try
+            Dim frm As New frmCA_ReportMenu
+            frm.TypeReport = 11
+            frm.ShowDialog()
+            'Dim ID As String = Notrything
+            'If mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID, ErrorLog) = False Then
+            '    MsgBox("Failed to generate report", MsgBoxStyle.Critical)
+            'Else
+            '    Dim frm As New frmCA_ReportList
+            '    frm.ID = ID
+            '    frm.Show()
+            'End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

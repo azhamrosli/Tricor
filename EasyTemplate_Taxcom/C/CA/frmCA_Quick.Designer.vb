@@ -31,7 +31,6 @@ Partial Class frmCA_Quick
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.cboYA = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
-        Me.cboYE = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.cboSourceNo = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox2 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
@@ -95,6 +94,8 @@ Partial Class frmCA_Quick
         Me.swtMode = New DevExpress.XtraEditors.Repository.RepositoryItemToggleSwitch()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
+        Me.cboSourceNo_Resp = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.cboYE_Resp = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -115,6 +116,8 @@ Partial Class frmCA_Quick
         CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboAA, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.swtMode, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboSourceNo_Resp, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboYE_Resp, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -127,7 +130,7 @@ Partial Class frmCA_Quick
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.cboRefNo, Me.cboYA, Me.cboSourceNo, Me.cboYE, Me.btnImport, Me.btnExport, Me.btnLoad})
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.cboRefNo, Me.cboYA, Me.cboSourceNo, Me.btnImport, Me.btnExport, Me.btnLoad})
         Me.BarManager1.MaxItemId = 18
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemSpinEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit2, Me.RepositoryItemComboBox2, Me.RepositoryItemComboBox3})
         '
@@ -137,7 +140,7 @@ Partial Class frmCA_Quick
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.cboRefNo), New DevExpress.XtraBars.LinkPersistInfo(Me.cboYA), New DevExpress.XtraBars.LinkPersistInfo(Me.cboYE), New DevExpress.XtraBars.LinkPersistInfo(Me.cboSourceNo), New DevExpress.XtraBars.LinkPersistInfo(Me.btnImport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnLoad)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.cboRefNo), New DevExpress.XtraBars.LinkPersistInfo(Me.cboYA), New DevExpress.XtraBars.LinkPersistInfo(Me.cboSourceNo), New DevExpress.XtraBars.LinkPersistInfo(Me.btnImport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnLoad)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -149,18 +152,18 @@ Partial Class frmCA_Quick
         'btnSave
         '
         Me.btnSave.Caption = "Save"
-        Me.btnSave.Glyph = CType(resources.GetObject("btnSave.Glyph"), System.Drawing.Image)
         Me.btnSave.Id = 0
-        Me.btnSave.LargeGlyph = CType(resources.GetObject("btnSave.LargeGlyph"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnClose
         '
         Me.btnClose.Caption = "Close"
-        Me.btnClose.Glyph = CType(resources.GetObject("btnClose.Glyph"), System.Drawing.Image)
         Me.btnClose.Id = 2
-        Me.btnClose.LargeGlyph = CType(resources.GetObject("btnClose.LargeGlyph"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.Image = CType(resources.GetObject("btnClose.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.LargeImage = CType(resources.GetObject("btnClose.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -168,10 +171,10 @@ Partial Class frmCA_Quick
         '
         Me.cboRefNo.Caption = "Tax Payer :"
         Me.cboRefNo.Edit = Me.RepositoryItemLookUpEdit1
+        Me.cboRefNo.EditWidth = 170
         Me.cboRefNo.Id = 10
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.cboRefNo.Width = 170
         '
         'RepositoryItemLookUpEdit1
         '
@@ -199,25 +202,16 @@ Partial Class frmCA_Quick
         '
         Me.cboYA.Caption = "YA : "
         Me.cboYA.Edit = Me.RepositoryItemComboBox1
+        Me.cboYA.EditWidth = 120
         Me.cboYA.Id = 11
         Me.cboYA.Name = "cboYA"
         Me.cboYA.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.cboYA.Width = 120
         '
         'RepositoryItemComboBox1
         '
         Me.RepositoryItemComboBox1.AutoHeight = False
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
-        '
-        'cboYE
-        '
-        Me.cboYE.Caption = "Purchase YE :"
-        Me.cboYE.Edit = Me.RepositoryItemComboBox3
-        Me.cboYE.Id = 14
-        Me.cboYE.Name = "cboYE"
-        Me.cboYE.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.cboYE.Width = 120
         '
         'RepositoryItemComboBox3
         '
@@ -229,10 +223,10 @@ Partial Class frmCA_Quick
         '
         Me.cboSourceNo.Caption = "Source No"
         Me.cboSourceNo.Edit = Me.RepositoryItemComboBox2
+        Me.cboSourceNo.EditWidth = 120
         Me.cboSourceNo.Id = 13
         Me.cboSourceNo.Name = "cboSourceNo"
         Me.cboSourceNo.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        Me.cboSourceNo.Width = 120
         '
         'RepositoryItemComboBox2
         '
@@ -243,35 +237,37 @@ Partial Class frmCA_Quick
         'btnImport
         '
         Me.btnImport.Caption = "Import"
-        Me.btnImport.Glyph = CType(resources.GetObject("btnImport.Glyph"), System.Drawing.Image)
         Me.btnImport.Id = 15
-        Me.btnImport.LargeGlyph = CType(resources.GetObject("btnImport.LargeGlyph"), System.Drawing.Image)
+        Me.btnImport.ImageOptions.Image = CType(resources.GetObject("btnImport.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnImport.ImageOptions.LargeImage = CType(resources.GetObject("btnImport.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnExport
         '
         Me.btnExport.Caption = "Export"
-        Me.btnExport.Glyph = CType(resources.GetObject("btnExport.Glyph"), System.Drawing.Image)
         Me.btnExport.Id = 16
-        Me.btnExport.LargeGlyph = CType(resources.GetObject("btnExport.LargeGlyph"), System.Drawing.Image)
+        Me.btnExport.ImageOptions.Image = CType(resources.GetObject("btnExport.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExport.ImageOptions.LargeImage = CType(resources.GetObject("btnExport.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnLoad
         '
         Me.btnLoad.Caption = "Load Data Same Reference No"
-        Me.btnLoad.Glyph = CType(resources.GetObject("btnLoad.Glyph"), System.Drawing.Image)
         Me.btnLoad.Id = 17
-        Me.btnLoad.LargeGlyph = CType(resources.GetObject("btnLoad.LargeGlyph"), System.Drawing.Image)
+        Me.btnLoad.ImageOptions.Image = CType(resources.GetObject("btnLoad.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnLoad.ImageOptions.LargeImage = CType(resources.GetObject("btnLoad.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnLoad.Name = "btnLoad"
         Me.btnLoad.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        Me.btnLoad.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(988, 62)
         '
         'barDockControlBottom
@@ -279,6 +275,7 @@ Partial Class frmCA_Quick
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 451)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(988, 0)
         '
         'barDockControlLeft
@@ -286,6 +283,7 @@ Partial Class frmCA_Quick
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 62)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 389)
         '
         'barDockControlRight
@@ -293,6 +291,7 @@ Partial Class frmCA_Quick
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(988, 62)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 389)
         '
         'RepositoryItemTextEdit1
@@ -325,7 +324,7 @@ Partial Class frmCA_Quick
         Me.GridControl1.MainView = Me.GridView1
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.cboAA, Me.txtAmount, Me.cboMode, Me.cboCategory, Me.swtMode})
+        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.cboAA, Me.txtAmount, Me.cboMode, Me.cboCategory, Me.swtMode, Me.cboSourceNo_Resp, Me.cboYE_Resp})
         Me.GridControl1.Size = New System.Drawing.Size(988, 389)
         Me.GridControl1.TabIndex = 4
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
@@ -367,7 +366,7 @@ Partial Class frmCA_Quick
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCA_KEY, Me.colCA_MODE, Me.colCA_PREFIX, Me.colCA_REF_NO, Me.colCA_NAME, Me.colCA_FILENO, Me.colCA_YA, Me.colCA_COMPANY_CODE, Me.colCA_SOURCENO, Me.colCA_ASSET_CODE, Me.colCA_ASSET, Me.colCA_CATEGORY_CODE, Me.colCA_PURCHASE_DATE, Me.colCA_PURCHASE_YEAR, Me.colCA_PURCHASE_AMOUNT, Me.colCA_PAYMENT, Me.colCA_RESTRICTED_QC, Me.colCA_DESC, Me.colCA_RATE_IA, Me.colCA_RATE_AA, Me.colCA_QUALIFYING_COST, Me.colCA_REMAIN_QC, Me.colCA_TWDV, Me.colCA_INCENTIVE, Me.colCA_CTRL_TRANSFER, Me.colHP_CODE, Me.colCA_ACCELERATED, Me.colCA_CAEEO, Me.colCA_REC, Me.colCA_DEFERREDCLAIM, Me.colCA_DEDUCTADJ_INCOME, Me.colCA_TAX_FILE_NUMBER, Me.colCA_TRANSFERROR_NAME, Me.colCA_TRANSFER_VAL})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCA_KEY, Me.colCA_PURCHASE_YEAR, Me.colCA_SOURCENO, Me.colCA_MODE, Me.colCA_PREFIX, Me.colCA_REF_NO, Me.colCA_NAME, Me.colCA_FILENO, Me.colCA_YA, Me.colCA_COMPANY_CODE, Me.colCA_ASSET_CODE, Me.colCA_ASSET, Me.colCA_CATEGORY_CODE, Me.colCA_PURCHASE_DATE, Me.colCA_PURCHASE_AMOUNT, Me.colCA_PAYMENT, Me.colCA_RESTRICTED_QC, Me.colCA_DESC, Me.colCA_RATE_IA, Me.colCA_RATE_AA, Me.colCA_QUALIFYING_COST, Me.colCA_REMAIN_QC, Me.colCA_TWDV, Me.colCA_INCENTIVE, Me.colCA_CTRL_TRANSFER, Me.colHP_CODE, Me.colCA_ACCELERATED, Me.colCA_CAEEO, Me.colCA_REC, Me.colCA_DEFERREDCLAIM, Me.colCA_DEDUCTADJ_INCOME, Me.colCA_TAX_FILE_NUMBER, Me.colCA_TRANSFERROR_NAME, Me.colCA_TRANSFER_VAL})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -388,7 +387,7 @@ Partial Class frmCA_Quick
         Me.colCA_MODE.FieldName = "CA_MODE"
         Me.colCA_MODE.Name = "colCA_MODE"
         Me.colCA_MODE.Visible = True
-        Me.colCA_MODE.VisibleIndex = 0
+        Me.colCA_MODE.VisibleIndex = 2
         Me.colCA_MODE.Width = 80
         '
         'cboMode
@@ -431,8 +430,12 @@ Partial Class frmCA_Quick
         '
         'colCA_SOURCENO
         '
+        Me.colCA_SOURCENO.Caption = "Source No"
+        Me.colCA_SOURCENO.ColumnEdit = Me.cboSourceNo_Resp
         Me.colCA_SOURCENO.FieldName = "CA_SOURCENO"
         Me.colCA_SOURCENO.Name = "colCA_SOURCENO"
+        Me.colCA_SOURCENO.Visible = True
+        Me.colCA_SOURCENO.VisibleIndex = 1
         '
         'colCA_ASSET_CODE
         '
@@ -440,7 +443,7 @@ Partial Class frmCA_Quick
         Me.colCA_ASSET_CODE.FieldName = "CA_ASSET_CODE"
         Me.colCA_ASSET_CODE.Name = "colCA_ASSET_CODE"
         Me.colCA_ASSET_CODE.Visible = True
-        Me.colCA_ASSET_CODE.VisibleIndex = 1
+        Me.colCA_ASSET_CODE.VisibleIndex = 3
         Me.colCA_ASSET_CODE.Width = 150
         '
         'colCA_ASSET
@@ -449,7 +452,7 @@ Partial Class frmCA_Quick
         Me.colCA_ASSET.FieldName = "CA_ASSET"
         Me.colCA_ASSET.Name = "colCA_ASSET"
         Me.colCA_ASSET.Visible = True
-        Me.colCA_ASSET.VisibleIndex = 2
+        Me.colCA_ASSET.VisibleIndex = 4
         Me.colCA_ASSET.Width = 350
         '
         'colCA_CATEGORY_CODE
@@ -459,7 +462,7 @@ Partial Class frmCA_Quick
         Me.colCA_CATEGORY_CODE.FieldName = "CA_CATEGORY_CODE"
         Me.colCA_CATEGORY_CODE.Name = "colCA_CATEGORY_CODE"
         Me.colCA_CATEGORY_CODE.Visible = True
-        Me.colCA_CATEGORY_CODE.VisibleIndex = 3
+        Me.colCA_CATEGORY_CODE.VisibleIndex = 5
         Me.colCA_CATEGORY_CODE.Width = 150
         '
         'cboCategory
@@ -484,13 +487,17 @@ Partial Class frmCA_Quick
         Me.colCA_PURCHASE_DATE.FieldName = "CA_PURCHASE_DATE"
         Me.colCA_PURCHASE_DATE.Name = "colCA_PURCHASE_DATE"
         Me.colCA_PURCHASE_DATE.Visible = True
-        Me.colCA_PURCHASE_DATE.VisibleIndex = 4
+        Me.colCA_PURCHASE_DATE.VisibleIndex = 6
         Me.colCA_PURCHASE_DATE.Width = 150
         '
         'colCA_PURCHASE_YEAR
         '
+        Me.colCA_PURCHASE_YEAR.Caption = "Purchase YE"
+        Me.colCA_PURCHASE_YEAR.ColumnEdit = Me.cboYE_Resp
         Me.colCA_PURCHASE_YEAR.FieldName = "CA_PURCHASE_YEAR"
         Me.colCA_PURCHASE_YEAR.Name = "colCA_PURCHASE_YEAR"
+        Me.colCA_PURCHASE_YEAR.Visible = True
+        Me.colCA_PURCHASE_YEAR.VisibleIndex = 0
         Me.colCA_PURCHASE_YEAR.Width = 150
         '
         'colCA_PURCHASE_AMOUNT
@@ -500,7 +507,7 @@ Partial Class frmCA_Quick
         Me.colCA_PURCHASE_AMOUNT.FieldName = "CA_PURCHASE_AMOUNT"
         Me.colCA_PURCHASE_AMOUNT.Name = "colCA_PURCHASE_AMOUNT"
         Me.colCA_PURCHASE_AMOUNT.Visible = True
-        Me.colCA_PURCHASE_AMOUNT.VisibleIndex = 5
+        Me.colCA_PURCHASE_AMOUNT.VisibleIndex = 7
         Me.colCA_PURCHASE_AMOUNT.Width = 150
         '
         'txtAmount
@@ -519,7 +526,7 @@ Partial Class frmCA_Quick
         Me.colCA_PAYMENT.FieldName = "CA_PAYMENT"
         Me.colCA_PAYMENT.Name = "colCA_PAYMENT"
         Me.colCA_PAYMENT.Visible = True
-        Me.colCA_PAYMENT.VisibleIndex = 6
+        Me.colCA_PAYMENT.VisibleIndex = 8
         Me.colCA_PAYMENT.Width = 150
         '
         'colCA_RESTRICTED_QC
@@ -529,7 +536,7 @@ Partial Class frmCA_Quick
         Me.colCA_RESTRICTED_QC.FieldName = "CA_RESTRICTED_QC"
         Me.colCA_RESTRICTED_QC.Name = "colCA_RESTRICTED_QC"
         Me.colCA_RESTRICTED_QC.Visible = True
-        Me.colCA_RESTRICTED_QC.VisibleIndex = 7
+        Me.colCA_RESTRICTED_QC.VisibleIndex = 9
         Me.colCA_RESTRICTED_QC.Width = 150
         '
         'colCA_DESC
@@ -545,7 +552,7 @@ Partial Class frmCA_Quick
         Me.colCA_RATE_IA.FieldName = "CA_RATE_IA"
         Me.colCA_RATE_IA.Name = "colCA_RATE_IA"
         Me.colCA_RATE_IA.Visible = True
-        Me.colCA_RATE_IA.VisibleIndex = 8
+        Me.colCA_RATE_IA.VisibleIndex = 10
         Me.colCA_RATE_IA.Width = 150
         '
         'colCA_RATE_AA
@@ -555,7 +562,7 @@ Partial Class frmCA_Quick
         Me.colCA_RATE_AA.FieldName = "CA_RATE_AA"
         Me.colCA_RATE_AA.Name = "colCA_RATE_AA"
         Me.colCA_RATE_AA.Visible = True
-        Me.colCA_RATE_AA.VisibleIndex = 9
+        Me.colCA_RATE_AA.VisibleIndex = 11
         Me.colCA_RATE_AA.Width = 150
         '
         'cboAA
@@ -573,7 +580,7 @@ Partial Class frmCA_Quick
         Me.colCA_QUALIFYING_COST.FieldName = "CA_QUALIFYING_COST"
         Me.colCA_QUALIFYING_COST.Name = "colCA_QUALIFYING_COST"
         Me.colCA_QUALIFYING_COST.Visible = True
-        Me.colCA_QUALIFYING_COST.VisibleIndex = 10
+        Me.colCA_QUALIFYING_COST.VisibleIndex = 12
         Me.colCA_QUALIFYING_COST.Width = 150
         '
         'colCA_REMAIN_QC
@@ -591,7 +598,7 @@ Partial Class frmCA_Quick
         Me.colCA_TWDV.FieldName = "CA_TWDV"
         Me.colCA_TWDV.Name = "colCA_TWDV"
         Me.colCA_TWDV.Visible = True
-        Me.colCA_TWDV.VisibleIndex = 11
+        Me.colCA_TWDV.VisibleIndex = 13
         Me.colCA_TWDV.Width = 150
         '
         'colCA_INCENTIVE
@@ -661,6 +668,19 @@ Partial Class frmCA_Quick
         '
         Me.OpenFileDialog1.FileName = "OpenFileDialog1"
         '
+        'cboSourceNo_Resp
+        '
+        Me.cboSourceNo_Resp.AllowFocused = False
+        Me.cboSourceNo_Resp.AutoHeight = False
+        Me.cboSourceNo_Resp.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboSourceNo_Resp.Name = "cboSourceNo_Resp"
+        '
+        'cboYE_Resp
+        '
+        Me.cboYE_Resp.AutoHeight = False
+        Me.cboYE_Resp.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboYE_Resp.Name = "cboYE_Resp"
+        '
         'frmCA_Quick
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -695,7 +715,10 @@ Partial Class frmCA_Quick
         CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboAA, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.swtMode, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboSourceNo_Resp, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboYE_Resp, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
@@ -717,7 +740,6 @@ Partial Class frmCA_Quick
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsCA As EasyTemplate_Taxcom.dsCA
-    Friend WithEvents cboYE As DevExpress.XtraBars.BarEditItem
     Friend WithEvents RepositoryItemComboBox3 As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents CABindingSource As System.Windows.Forms.BindingSource
@@ -772,4 +794,6 @@ Partial Class frmCA_Quick
     Friend WithEvents FolderBrowserDialog1 As System.Windows.Forms.FolderBrowserDialog
     Friend WithEvents OpenFileDialog1 As System.Windows.Forms.OpenFileDialog
     Friend WithEvents btnLoad As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents cboSourceNo_Resp As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
+    Friend WithEvents cboYE_Resp As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
 End Class

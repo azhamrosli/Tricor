@@ -314,7 +314,7 @@ Partial Class frmCA_ReportMenu
         Me.cboType.Location = New System.Drawing.Point(106, 118)
         Me.cboType.Name = "cboType"
         Me.cboType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboType.Properties.Items.AddRange(New Object() {"1.   Capital Allowance Details By Rate", "2.   Capital Allowance Details By Category", "3.   Capital Allowance Details By Asset", "4.   Capital Allowance Summary By Rate", "5.   Capital Allowance Summary By Category", "6.   Capital Allowance Summary By Asset", "7.   Fixed Asset Reconciliation Report", "8.   Control Transfer In Report", "9.   Disposal Report", "10. Written-Off Report", "11. Control Transfer Out Report"})
+        Me.cboType.Properties.Items.AddRange(New Object() {"1.   Capital Allowance Details By Rate", "2.   Capital Allowance Details By Category", "3.   Capital Allowance Details By Asset", "4.   Capital Allowance Summary By Rate", "5.   Capital Allowance Summary By Category", "6.   Capital Allowance Summary By Asset", "7.   Fixed Asset Reconciliation Report", "8.   Control Transfer In Report", "9.   Disposal Report", "10. Written-Off Report", "11. Control Transfer Out Report", "12. Hire Purchase"})
         Me.cboType.Properties.PopupSizeable = True
         Me.cboType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         Me.cboType.Size = New System.Drawing.Size(268, 20)

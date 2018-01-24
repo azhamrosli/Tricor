@@ -146,6 +146,9 @@
                 Case 10
                     'Disposal Report Control Transfer Out
                     Status = mdlReport_CA.Report_DISPOSAL(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, 2, ErrorLog)
+                Case 11
+                    'Hire Purchase
+                    Status = mdlReport_CA.Report_HP(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
             End Select
 
             If Status = False Then
@@ -202,6 +205,16 @@
                         frm.YA = cboYA.EditValue
                         frm.ComName = cboRefNo.Text
                         frm.Show()
+                    Case 11
+                        'Hire Purchase
+
+                        Dim frm As New frmHP_Report
+                        frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
+
                 End Select
                 
             End If

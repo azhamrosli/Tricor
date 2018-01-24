@@ -218,10 +218,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="C\CA\dsCA1.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsCA.xsd</DependentUpon>
+    </Compile>
     <Compile Include="C\CA\frmCA_Quick.Designer.vb">
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
     </Compile>
     <Compile Include="C\CA\frmCA_Quick.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\CA\frmHP_Report.Designer.vb">
+      <DependentUpon>frmHP_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CA\frmHP_Report.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="C\CA\frmCA_Report_Disposal.Designer.vb">
@@ -276,6 +287,9 @@
     <Compile Include="C\CA\rpt_CAWrittenOff.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="C\CA\rpt_HP.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="C\CA\ucCA.Designer.vb">
       <DependentUpon>ucCA.vb</DependentUpon>
     </Compile>
@@ -311,11 +325,6 @@
     <Compile Include="C\CP204\frmCP204_PenaltyLate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="C\CA\dsCA.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsCA.xsd</DependentUpon>
-    </Compile>
     <Compile Include="C\CA\dsCA.vb">
       <DependentUpon>dsCA.xsd</DependentUpon>
     </Compile>
@@ -336,6 +345,15 @@
     <Compile Include="C\Dataset\dsDefault.vb">
       <DependentUpon>dsDefault.xsd</DependentUpon>
     </Compile>
+    <Compile Include="C\DeemedInterest\rpt_DeemedInterest.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\DeemedInterest\ucDeemedInterest_Report.Designer.vb">
+      <DependentUpon>ucDeemedInterest_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\DeemedInterest\ucDeemedInterest_Report.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="C\DeemedInterest\ucDeemedInterest.Designer.vb">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </Compile>
@@ -352,6 +370,22 @@
     </Compile>
     <Compile Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.vb">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Report\dsRA_ITA.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsRA_ITA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="C\Report\rpt_RA.Designer.vb">
+      <DependentUpon>rpt_RA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Report\rpt_RA.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\TaxCom\dsTaxcomputation.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsTaxcomputation.xsd</DependentUpon>
     </Compile>
     <Compile Include="EnumModule.vb" />
     <Compile Include="C\CA\frmCA_Add3.Designer.vb">
@@ -980,6 +1014,9 @@
     <EmbeddedResource Include="C\CA\frmCA_Quick.resx">
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\frmHP_Report.resx">
+      <DependentUpon>frmHP_Report.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CA\frmCA_Report_Disposal.resx">
       <DependentUpon>frmCA_Report_Disposal.vb</DependentUpon>
     </EmbeddedResource>
@@ -1025,6 +1062,9 @@
     <EmbeddedResource Include="C\CA\rpt_CAWrittenOff.resx">
       <DependentUpon>rpt_CAWrittenOff.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\rpt_HP.resx">
+      <DependentUpon>rpt_HP.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CA\ucCA.resx">
       <DependentUpon>ucCA.vb</DependentUpon>
     </EmbeddedResource>
@@ -1046,11 +1086,21 @@
     <EmbeddedResource Include="C\CP204\ucCP204.resx">
       <DependentUpon>ucCP204.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\DeemedInterest\rpt_DeemedInterest.resx">
+      <DependentUpon>rpt_DeemedInterest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\DeemedInterest\ucDeemedInterest_Report.resx">
+      <DependentUpon>ucDeemedInterest_Report.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\DeemedInterest\ucDeemedInterest.resx">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\PNL\Report\Report1.rdlc" />
     <EmbeddedResource Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.resx">
       <DependentUpon>ucPNL_p3InterestResPurS33_Monthly_Tricor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Report\rpt_RA.resx">
+      <DependentUpon>rpt_RA.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
@@ -1363,7 +1413,7 @@
     <None Include="C\CA\dsCA.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsCA.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsCA1.Designer.vb</LastGenOutput>
     </None>
     <None Include="C\CA\dsCA.xss">
       <DependentUpon>dsCA.xsd</DependentUpon>
@@ -1389,6 +1439,28 @@
     </None>
     <None Include="C\Movement\dsMovement.xss">
       <DependentUpon>dsMovement.xsd</DependentUpon>
+    </None>
+    <None Include="C\Report\dsRA_ITA.xsc">
+      <DependentUpon>dsRA_ITA.xsd</DependentUpon>
+    </None>
+    <None Include="C\Report\dsRA_ITA.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsRA_ITA.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="C\Report\dsRA_ITA.xss">
+      <DependentUpon>dsRA_ITA.xsd</DependentUpon>
+    </None>
+    <None Include="C\TaxCom\dsTaxcomputation.xsc">
+      <DependentUpon>dsTaxcomputation.xsd</DependentUpon>
+    </None>
+    <None Include="C\TaxCom\dsTaxcomputation.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsTaxcomputation.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="C\TaxCom\dsTaxcomputation.xss">
+      <DependentUpon>dsTaxcomputation.xsd</DependentUpon>
     </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
@@ -1462,6 +1534,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="C\CA\Report\" />
+    <Folder Include="C\DeemedInterest\Report\" />
     <Folder Include="C\Income Calculation\" />
     <Folder Include="C\MasterData\" />
     <Folder Include="C\Report\Reporting\" />

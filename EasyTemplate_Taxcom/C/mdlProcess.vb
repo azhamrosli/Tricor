@@ -14,12 +14,12 @@ Module mdlProcess
     Public V2 As Integer = 0
     Public V3 As Integer = 7
     Public V4 As Integer = 0
-    Public R1 As Integer = 10 'After fix Interest Restricted TO NEW VERSION TRICOR
+    Public R1 As Integer = 11 'Add RA Report
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "0388601701" '"1054242304" 'RefNo
-    Public ArgParam3 As String = "2017" 'YA"
+    Public ArgParam3 As String = "2016" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
     Public ListofClsError As List(Of clsError) = Nothing
     Public dsDataSetErrorlog As DataSet
@@ -648,6 +648,36 @@ Module mdlProcess
             Return False
         End Try
     End Function
+    Public Function CreateLookUpSourceNox(ByRef cboSourceNo As DevExpress.XtraEditors.Repository.RepositoryItemComboBox, _
+                                         ByVal RefNo As String, ByVal YA As String, Optional Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dt As DataTable = mdlProcess.LoadSourceNo(RefNo, YA, Errorlog)
+
+            cboSourceNo.Properties.Items.Clear()
+            If dt Is Nothing Then
+                Return False
+            End If
+
+            For i As Integer = 0 To dt.Rows.Count - 1
+                cboSourceNo.Properties.Items.Add(CInt(IIf(IsDBNull(dt.Rows(i)("BC_SOURCENO")), 0, dt.Rows(i)("BC_SOURCENO"))).ToString)
+            Next
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(Errorlog)
+            Return False
+        End Try
+    End Function
     Public Function CreateLookUpSourceNo(ByRef cboSourceNo As DevExpress.XtraEditors.ComboBoxEdit, _
                                          ByVal RefNo As String, ByVal YA As String, Optional Errorlog As clsError = Nothing) As Boolean
         Try
@@ -1271,6 +1301,41 @@ tryagain:
 
 #End Region
 #Region "VALIDATE"
+    Public Function Validate_HP_TEMP_REPORTID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM HP_REPORT_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("COUNTX")) = False AndAlso dt.Rows(0)("COUNTX") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Validate_CA_TEMP_REPORTID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()
@@ -2034,6 +2099,39 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_HP_YEARLY_ByYear(ByVal HPD_KEY As Integer, ByVal HPD_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM HP_YEARLY WHERE HPD_KEY=@HPD_KEY AND HPD_YA=@HPD_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@HPD_KEY", SqlDbType.Int).Value = HPD_KEY
+            SQLcmd.Parameters.Add("@HPD_YA", SqlDbType.NVarChar, 5).Value = HPD_YA
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_HP_YEARLY(ByVal HPD_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -2216,6 +2314,41 @@ tryagain:
             Return Nothing
         End Try
     End Function
+
+
+    Public Function LoadCA_ByRefNoYASourceNo(ByVal RefNo As String, ByVal YA As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA WHERE CA_REF_NO=@CA_REF_NO AND CA_YA=@CA_YA AND CA_SOURCENO=@CA_SOURCENO"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CA_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@CA_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@CA_SOURCENO", SqlDbType.Int).Value = SourceNo
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
     Public Function LoadCA_Search(ByVal RefNo As String, ByVal YA As String, ByVal FilterType As Integer, ByVal FilterValue As String, _
                                    Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -2700,6 +2833,36 @@ tryagain:
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_HPReport_Temp(ByVal ID As String, ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT a.* FROM HP_REPORT_TEMP a INNER JOIN (select ID_KEY,RefNo,CA_NAME,CA_ASSET from HP_REPORT_TEMP GROUP BY RefNo,CA_NAME,CA_ASSET,ID_KEY) b ON a.ID_key = b.ID_KEY WHERE a.ID=@ID AND YA=@YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
@@ -7423,6 +7586,101 @@ tryagain:
             Return Nothing
         End Try
     End Function
+    Public Function Load_DeemedInterest(ByVal DI_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM DEEMED_INTEREST WHERE DI_KEY=@DI_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@DI_KEY", SqlDbType.Int).Value = DI_KEY
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+
+    Public Function Load_Taxcom_RA_Adjustment(ByVal RAADJ_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TAX_RA_ADJUSTMENT WHERE RAADJ_KEY=@RAADJ_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RAADJ_KEY", SqlDbType.Int).Value = RAADJ_KEY
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_Taxcom_RA_Withdrawal(ByVal RAW_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TAX_RA_WITHDRAWAL WHERE RAW_KEY=@RAW_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RAW_KEY", SqlDbType.Int).Value = RAW_KEY
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+
+
 
 #End Region
 #Region "OTHER"
@@ -9377,6 +9635,94 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             Return False
         End Try
     End Function
+
+
+    Public Function Save_CA_Quick(ByVal dt As DataTable, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim ListofSQLcmd As New List(Of SqlCommand)
+
+
+            Dim StrSQL As String = Nothing
+
+            For Each rowx As DataRow In dt.Rows
+
+                StrSQL = "INSERT INTO CA (CA_MODE,CA_PREFIX,CA_REF_NO,CA_NAME,CA_FILENO,CA_YA,CA_COMPANY_CODE,CA_SOURCENO,"
+                StrSQL += "CA_ASSET_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_PURCHASE_DATE,CA_PURCHASE_YEAR,CA_PURCHASE_AMOUNT,CA_PAYMENT,CA_RESTRICTED_QC,"
+                StrSQL += "CA_DESC,CA_RATE_IA,CA_RATE_AA,CA_QUALIFYING_COST,CA_REMAIN_QC,CA_TWDV,CA_INCENTIVE,CA_CTRL_TRANSFER,HP_CODE,CA_ACCELERATED,"
+                StrSQL += "CA_CAEEO,CA_REC,CA_DEFERREDCLAIM,CA_DEDUCTADJ_INCOME,CA_TAX_FILE_NUMBER,CA_TRANSFERROR_NAME,CA_TRANSFER_VAL) VALUES ("
+
+                StrSQL += "@CA_MODE,@CA_PREFIX,@CA_REF_NO,@CA_NAME,@CA_FILENO,@CA_YA,@CA_COMPANY_CODE,@CA_SOURCENO,"
+                StrSQL += "@CA_ASSET_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_PURCHASE_DATE,@CA_PURCHASE_YEAR,@CA_PURCHASE_AMOUNT,@CA_PAYMENT,@CA_RESTRICTED_QC,"
+                StrSQL += "@CA_DESC,@CA_RATE_IA,@CA_RATE_AA,@CA_QUALIFYING_COST,@CA_REMAIN_QC,@CA_TWDV,@CA_INCENTIVE,@CA_CTRL_TRANSFER,@HP_CODE,@CA_ACCELERATED,"
+                StrSQL += "@CA_CAEEO,@CA_REC,@CA_DEFERREDCLAIM,@CA_DEDUCTADJ_INCOME,@CA_TAX_FILE_NUMBER,@CA_TRANSFERROR_NAME,@CA_TRANSFER_VAL)"
+
+                SQLcmd = New SqlCommand
+                SQLcmd.CommandText = StrSQL
+                SQLcmd.Parameters.Add("@CA_MODE", SqlDbType.NVarChar, 3).Value = rowx("CA_MODE")
+                SQLcmd.Parameters.Add("@CA_PREFIX", SqlDbType.NVarChar, 3).Value = "C"
+                SQLcmd.Parameters.Add("@CA_REF_NO", SqlDbType.NVarChar, 20).Value = rowx("CA_REF_NO")
+                SQLcmd.Parameters.Add("@CA_NAME", SqlDbType.NVarChar, 255).Value = rowx("CA_NAME")
+                SQLcmd.Parameters.Add("@CA_FILENO", SqlDbType.NVarChar, 20).Value = rowx("CA_FILENO")
+                SQLcmd.Parameters.Add("@CA_YA", SqlDbType.NVarChar, 5).Value = rowx("CA_YA")
+                SQLcmd.Parameters.Add("@CA_COMPANY_CODE", SqlDbType.NVarChar, 8).Value = rowx("CA_COMPANY_CODE")
+                SQLcmd.Parameters.Add("@CA_SOURCENO", SqlDbType.Decimal).Value = rowx("CA_SOURCENO")
+                SQLcmd.Parameters.Add("@CA_ASSET_CODE", SqlDbType.NVarChar, 20).Value = IIf(rowx("CA_ASSET_CODE") Is Nothing, "", rowx("CA_ASSET_CODE"))
+                SQLcmd.Parameters.Add("@CA_ASSET", SqlDbType.NVarChar, 255).Value = IIf(rowx("CA_ASSET") Is Nothing, "", rowx("CA_ASSET"))
+                SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = rowx("CA_CATEGORY_CODE")
+                SQLcmd.Parameters.Add("@CA_PURCHASE_DATE", SqlDbType.DateTime).Value = rowx("CA_PURCHASE_DATE")
+                SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.NVarChar, 5).Value = rowx("CA_PURCHASE_YEAR")
+                SQLcmd.Parameters.Add("@CA_PURCHASE_AMOUNT", SqlDbType.NVarChar, 25).Value = CStr(rowx("CA_PURCHASE_AMOUNT"))
+                SQLcmd.Parameters.Add("@CA_PAYMENT", SqlDbType.NVarChar, 25).Value = CStr(rowx("CA_PAYMENT"))
+                SQLcmd.Parameters.Add("@CA_RESTRICTED_QC", SqlDbType.NVarChar, 25).Value = CStr(rowx("CA_RESTRICTED_QC"))
+                SQLcmd.Parameters.Add("@CA_DESC", SqlDbType.NVarChar, 255).Value = IIf(rowx("CA_DESC") Is Nothing, "", rowx("CA_DESC"))
+                SQLcmd.Parameters.Add("@CA_RATE_IA", SqlDbType.Float).Value = rowx("CA_RATE_IA")
+                SQLcmd.Parameters.Add("@CA_RATE_AA", SqlDbType.Float).Value = rowx("CA_RATE_AA")
+                SQLcmd.Parameters.Add("@CA_QUALIFYING_COST", SqlDbType.NVarChar, 25).Value = CStr(rowx("CA_QUALIFYING_COST"))
+                SQLcmd.Parameters.Add("@CA_REMAIN_QC", SqlDbType.NVarChar, 25).Value = CStr(rowx("CA_REMAIN_QC"))
+                SQLcmd.Parameters.Add("@CA_TWDV", SqlDbType.NVarChar, 25).Value = CStr(rowx("CA_TWDV"))
+                SQLcmd.Parameters.Add("@CA_INCENTIVE", SqlDbType.NVarChar, 3).Value = IIf(rowx("CA_DESC") Is Nothing, "", rowx("CA_DESC"))
+                SQLcmd.Parameters.Add("@CA_CTRL_TRANSFER", SqlDbType.Int).Value = rowx("CA_CTRL_TRANSFER")
+                SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = IIf(rowx("HP_CODE") Is Nothing, "", rowx("HP_CODE"))
+                SQLcmd.Parameters.Add("@CA_ACCELERATED", SqlDbType.NVarChar, 20).Value = rowx("CA_ACCELERATED")
+                '//New Column Update
+                SQLcmd.Parameters.Add("@CA_CAEEO", SqlDbType.Bit).Value = rowx("CA_CAEEO")
+                SQLcmd.Parameters.Add("@CA_REC", SqlDbType.Bit).Value = rowx("CA_REC")
+                SQLcmd.Parameters.Add("@CA_DEFERREDCLAIM", SqlDbType.Bit).Value = rowx("CA_DEFERREDCLAIM")
+                SQLcmd.Parameters.Add("@CA_DEDUCTADJ_INCOME", SqlDbType.Bit).Value = rowx("CA_DEDUCTADJ_INCOME")
+                SQLcmd.Parameters.Add("@CA_TAX_FILE_NUMBER", SqlDbType.NVarChar, 255).Value = IIf(rowx("CA_TAX_FILE_NUMBER") Is Nothing, "", rowx("CA_TAX_FILE_NUMBER"))
+                SQLcmd.Parameters.Add("@CA_TRANSFERROR_NAME", SqlDbType.NVarChar, 255).Value = IIf(rowx("CA_TRANSFERROR_NAME") Is Nothing, "", rowx("CA_TRANSFERROR_NAME"))
+                SQLcmd.Parameters.Add("@CA_TRANSFER_VAL", SqlDbType.NVarChar, 25).Value = IIf(rowx("CA_TRANSFER_VAL") Is Nothing, "", rowx("CA_TRANSFER_VAL"))
+
+                ListofSQLcmd.Add(SQLcmd)
+            Next
+
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
+
     Public Function Save_CA(ByVal CA_REF_NO As String, ByVal CA_NAME As String, ByVal CA_FILENO As String, ByVal CA_YA As String, ByVal CA_COMPANY_CODE As String, ByVal CA_SOURCENO As Decimal, _
                          ByVal CA_MODE As String, ByVal CA_ASSET_CODE As String, ByVal CA_ASSET As String, ByVal CA_CATEGORY_CODE As String, _
                          ByVal CA_PURCHASE_DATE As DateTime, ByVal CA_PURCHASE_YEAR As String, ByVal CA_PURCHASE_AMOUNT As Decimal, _
@@ -9451,6 +9797,70 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function Save_HP_TEMP_REPORT(ByVal RefNo As String, ByVal YA As Integer, ByVal HP_KEY As Integer, ByVal CA_NAME As String, _
+                                        ByVal CA_SOURCENO As Integer, ByVal CA_YA As Integer, ByVal HP_CODE As String, _
+                                        ByVal CA_ASSET As String, ByVal CA_CATEGORY_CODE As String, _
+                                        ByVal CA_PURCHASE_YEAR As Integer, ByVal HP_PRINCIPAL As Decimal, _
+                                        ByVal HP_INTEREST_RATE As Decimal, ByVal HP_INTEREST As Decimal, _
+                                        ByVal HP_TOTAL As Decimal, ByVal BF_PRINCIPAL As Decimal, ByVal BF_INTEREST As Decimal, _
+                                        ByVal CURR_PRINCIPAL As Decimal, ByVal CURR_INTEREST As Decimal, _
+                                        ByVal CF_PRINCIPAL As Decimal, ByVal CF_INTEREST As Decimal, _
+                                        ByVal IndexNo As Integer, ByRef ID As String, _
+                                        Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = ""
+
+            StrSQL = "INSERT INTO HP_REPORT_TEMP (HP_KEY,ID,RefNo,YA,CA_NAME,CA_SOURCENO,CA_YA,HP_CODE,CA_ASSET,CA_CATEGORY_CODE,CA_PURCHASE_YEAR,HP_PRINCIPAL,HP_INTEREST_RATE,HP_INTEREST,HP_TOTAL,BF_PRINCIPAL,BF_INTEREST,CURR_PRINCIPAL,CURR_INTEREST,CF_PRINCIPAL,CF_INTEREST,IndexNo) VALUES (@HP_KEY,@ID,@RefNo,@YA,@CA_NAME,@CA_SOURCENO,@CA_YA,@HP_CODE,@CA_ASSET,@CA_CATEGORY_CODE,@CA_PURCHASE_YEAR,@HP_PRINCIPAL,@HP_INTEREST_RATE,@HP_INTEREST,@HP_TOTAL,@BF_PRINCIPAL,@BF_INTEREST,@CURR_PRINCIPAL,@CURR_INTEREST,@CF_PRINCIPAL,@CF_INTEREST,@IndexNo)"
+
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@HP_KEY", SqlDbType.Int).Value = HP_KEY
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@YA", SqlDbType.Int).Value = YA
+            SQLcmd.Parameters.Add("@CA_NAME", SqlDbType.NVarChar, 255).Value = CA_NAME
+            SQLcmd.Parameters.Add("@CA_SOURCENO", SqlDbType.Decimal).Value = CA_SOURCENO
+            SQLcmd.Parameters.Add("@CA_YA", SqlDbType.Int).Value = CA_YA
+            SQLcmd.Parameters.Add("@HP_CODE", SqlDbType.NVarChar, 255).Value = HP_CODE
+            SQLcmd.Parameters.Add("@CA_ASSET", SqlDbType.NVarChar, 255).Value = CA_ASSET
+            SQLcmd.Parameters.Add("@CA_CATEGORY_CODE", SqlDbType.NVarChar, 20).Value = CA_CATEGORY_CODE
+            SQLcmd.Parameters.Add("@CA_PURCHASE_YEAR", SqlDbType.Int).Value = CA_PURCHASE_YEAR
+            SQLcmd.Parameters.Add("@HP_PRINCIPAL", SqlDbType.Decimal).Value = HP_PRINCIPAL
+            SQLcmd.Parameters.Add("@HP_INTEREST_RATE", SqlDbType.Decimal).Value = HP_INTEREST_RATE
+            SQLcmd.Parameters.Add("@HP_INTEREST", SqlDbType.Decimal).Value = HP_INTEREST
+            SQLcmd.Parameters.Add("@HP_TOTAL", SqlDbType.Decimal).Value = HP_TOTAL
+            SQLcmd.Parameters.Add("@BF_PRINCIPAL", SqlDbType.Decimal).Value = BF_PRINCIPAL
+            SQLcmd.Parameters.Add("@BF_INTEREST", SqlDbType.Decimal).Value = BF_INTEREST
+            SQLcmd.Parameters.Add("@CURR_PRINCIPAL", SqlDbType.Decimal).Value = CURR_PRINCIPAL
+            SQLcmd.Parameters.Add("@CURR_INTEREST", SqlDbType.Decimal).Value = CURR_INTEREST
+            SQLcmd.Parameters.Add("@CF_PRINCIPAL", SqlDbType.Decimal).Value = CF_PRINCIPAL
+            SQLcmd.Parameters.Add("@CF_INTEREST", SqlDbType.Decimal).Value = CF_INTEREST
+            SQLcmd.Parameters.Add("@IndexNo", SqlDbType.Int).Value = IndexNo
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
@@ -17046,7 +17456,36 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 #End Region
 #Region "DELETE"
 #Region "CA"
+    Public Function Delete_HP_Report_TEMP(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofSQLCmd As New List(Of SqlCommand)
+            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
 
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM HP_REPORT_TEMP WHERE ID=@ID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@ID", SqlDbType.NVarChar, 50).Value = ID
+            ListofSQLCmd.Add(SQLcmd)
+
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return False
+        End Try
+    End Function
     Public Function Delete_CA_Report_TEMP(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             ADO = New SQLDataObject()

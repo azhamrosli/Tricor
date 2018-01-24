@@ -451,7 +451,7 @@ Partial Class ucMovement
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
         Me.pnlLoading.BarAnimationElementThickness = 2
-        Me.pnlLoading.Location = New System.Drawing.Point(364, 242)
+        Me.pnlLoading.Location = New System.Drawing.Point(387, 274)
         Me.pnlLoading.Name = "pnlLoading"
         Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
         Me.pnlLoading.TabIndex = 17
@@ -549,9 +549,9 @@ Partial Class ucMovement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.PanelControl1)
-        Me.Controls.Add(Me.pnlLoading)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)

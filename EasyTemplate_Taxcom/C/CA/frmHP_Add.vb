@@ -615,7 +615,7 @@ Public Class frmHP_Add
                 If isEdit Then
 
 
-                    If mdlProcess.Update_HP(ID, "C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboYA.EditValue, _
+                    If mdlProcess.Update_HP(ID, "C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboPurchaseYE.EditValue, _
                                           txtCompanyCode.EditValue, cboSourceCode.EditValue, txtAssetID.EditValue, txtAsset.EditValue, _
                                           cboCategory.EditValue, dtDateofPurchase.EditValue, txtPurchaseAmountFA.EditValue, txtDeposit.EditValue, _
                                           txtRestrictedQua.EditValue, txtDescription.EditValue, cboHP.EditValue, txtPrincipal.EditValue, _
@@ -628,7 +628,7 @@ Public Class frmHP_Add
                     End If
                 Else
                     Dim ReturnID As Integer = 0
-                    If mdlProcess.Save_HP("C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboYA.EditValue, _
+                    If mdlProcess.Save_HP("C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboPurchaseYE.EditValue, _
                                           txtCompanyCode.EditValue, cboSourceCode.EditValue, txtAssetID.EditValue, txtAsset.EditValue, _
                                           cboCategory.EditValue, dtDateofPurchase.EditValue, txtPurchaseAmountFA.EditValue, txtDeposit.EditValue, _
                                           txtRestrictedQua.EditValue, txtDescription.EditValue, cboHP.EditValue, txtPrincipal.EditValue, _

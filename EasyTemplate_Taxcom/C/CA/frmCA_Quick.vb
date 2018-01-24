@@ -22,11 +22,6 @@
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpYA(cboYE, ErrorLog) = False Then
-                MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
-                Exit Sub
-            End If
-
             If mdlProcess.CreateLookUpCategory(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive category.", MsgBoxStyle.Critical)
                 Exit Sub
@@ -40,14 +35,13 @@
 
             If mdlProcess.ArgParam3 <> "" Then
                 cboYA.EditValue = mdlProcess.ArgParam3
-                cboYE.EditValue = mdlProcess.ArgParam3
-
+             
             End If
         Catch ex As Exception
 
         End Try
     End Sub
-    Private Sub cboYE_EditValueChanged(sender As Object, e As EventArgs) Handles cboYE.EditValueChanged, cboYA.EditValueChanged, cboRefNo.EditValueChanged
+    Private Sub cboYE_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged, cboRefNo.EditValueChanged
         Try
             DefaultTaxPayer()
         Catch ex As Exception
@@ -61,9 +55,8 @@
                 'Dim editor As DevExpress.XtraEditors.LookUpEdit = CType(sender, DevExpress.XtraEditors.LookUpEdit)
                 'Dim row As DataRowView = CType(editor.Properties.GetDataSourceRowByKeyValue(editor.EditValue), DataRowView)
                 'Dim value As Object = row("CompanyName")
-
-
-                If mdlProcess.CreateLookUpSourceNO(cboSourceNo, cboRefNo.EditValue.ToString, cboYE.EditValue.ToString, ErrorLog) = False Then
+ 
+                If mdlProcess.CreateLookUpSourceNO(cboSourceNo, cboRefNo.EditValue.ToString, cboYA.EditValue.ToString, ErrorLog) = False Then
                     cboSourceNo.EditValue = ""
                     Exit Sub
                 End If
@@ -173,6 +166,8 @@
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
         Try
             GridView1.DeleteSelectedRows()
+            DsCA.Tables(MainTable).AcceptChanges()
+
         Catch ex As Exception
 
         End Try
@@ -184,7 +179,12 @@
 
     Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Try
-
+            If mdlProcess.Save_CA_Quick(DsCA.Tables(MainTable), ErrorLog) Then
+                MsgBox("Successfully saved capital allowance.", MsgBoxStyle.Information)
+                Me.Close()
+            Else
+                MsgBox("Unsuccessfully save capital allowance.", MsgBoxStyle.Critical)
+            End If
         Catch ex As Exception
 
         End Try

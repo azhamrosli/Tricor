@@ -1,13 +1,28 @@
 ﻿Imports DevExpress.Spreadsheet
 Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.Reporting.WinForms
+
 Public Class frmReport_Test
-    Dim ErrorLog As clsError = Nothing
-    Public ID As String = Nothing
+    Public rptURL As String = Nothing
+    Public ds As DataSet = Nothing
     Private Sub frmReport_Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
 
+        Me.ReportViewer1.RefreshReport()
     End Sub
     Private Sub LoadData()
+        Dim BindingSource1 As New BindingSource
+
+        BindingSource1.DataSource = ds
+        BindingSource1.DataMember = "REF_INTEREST_RESTRIC_DETAIL_TRICOR_TEMP"
+
+
+        ReportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Local
+        ReportViewer1.LocalReport.ReportPath = rptURL
+        ReportViewer1.LocalReport.DataSources.Clear()
+        ReportViewer1.LocalReport.DataSources.Add(New Microsoft.Reporting.WinForms.ReportDataSource("DataSet1", BindingSource1))
+        ReportViewer1.DocumentMapCollapsed = True
+        ReportViewer1.RefreshReport()
         'Try
 
         '    Dim dt As DataTable = mdlProcess.Load_CAReport_Temp(ID, ErrorLog)

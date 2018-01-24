@@ -40,6 +40,45 @@
             Return True
         End Try
     End Function
+    Public Function Report_HP(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
+                              ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
+                              Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dt As DataTable = mdlProcess.LoadHP_Search(RefNo, YA, -1, "", Errorlog)
+
+            If dt IsNot Nothing Then
+
+                ID = "HP_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+
+                While mdlProcess.Validate_HP_TEMP_REPORTID(ID)
+                    ID = "HP_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+                End While
+
+
+                For i As Integer = 0 To dt.Rows.Count - 1
+                    If IsDBNull(dt.Rows(i)("HP_KEY")) = False Then
+                        If mdlReport_CA.GenerateHP_Schudule(RefNo, YA, ID, CInt(dt.Rows(i)("HP_KEY")), Errorlog) = False Then
+                            Return False
+                        End If
+                    End If
+                Next
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            Return True
+        End Try
+    End Function
     Public Function Report_DISPOSAL(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               ByVal Type As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
@@ -468,6 +507,141 @@
                 .ErrorMessage = ex.Message
             End With
             Return True
+        End Try
+    End Function
+    Public Function GenerateHP_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal HP_KEY As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim BF_PRINCIPAL As Decimal = 0
+            Dim BF_INTEREST As Decimal = 0
+            Dim CURR_PRINCIPAL As Decimal = 0
+            Dim CURR_INTEREST As Decimal = 0
+            Dim CF_PRINCIPAL As Decimal = 0
+            Dim CF_INTEREST As Decimal = 0
+
+            Dim ClaimInUsePercent As Integer = 0
+            Dim CurrentYA As Integer = 0
+
+            Dim HP_PRINCIPAL As Decimal = 0
+            Dim HP_INTEREST_RATE As Integer = 0
+            Dim HP_INTEREST As Decimal = 0
+            Dim HP_TOTAL As Decimal = 0
+
+            Dim CA_YA As Integer = 0
+            Dim CA_SOURCENO As Integer = 0
+            Dim CA_PURCHASE_YEAR As Integer = 0
+            Dim CA_NAME As String = Nothing
+            Dim HP_CODE As String = Nothing
+            Dim CA_ASSET As String = Nothing
+            Dim CA_CATEGORY As String = Nothing
+            Dim dtDisposal As DataTable = Nothing
+            Dim DISP_AMOUNT As Decimal = 0
+            Dim IndexNo As Integer = 0
+            Dim dt As DataTable = mdlProcess.Load_HP(HP_KEY)
+
+            If dt Is Nothing Then
+                If Errorlog Is Nothing Then
+                    Errorlog = New clsError
+                End If
+                With Errorlog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = "P10001"
+                    .ErrorDateTime = Now
+                    .ErrorMessage = "No data found for CA = " & HP_KEY
+                End With
+                Return False
+            End If
+
+
+            With dt.Rows(0)
+
+                CA_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("HP_NAME")), "", dt.Rows(0)("HP_NAME")))
+                CA_SOURCENO = CInt(IIf(IsDBNull(dt.Rows(0)("HP_SOURCENO")), 0, dt.Rows(0)("HP_SOURCENO")))
+
+                HP_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CODE")), "", dt.Rows(0)("HP_CODE")))
+                CA_ASSET = CStr(IIf(IsDBNull(dt.Rows(0)("HP_ASSET")), "", dt.Rows(0)("HP_ASSET")))
+                CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CATEGORY_CODE")), "", dt.Rows(0)("HP_CATEGORY_CODE")))
+                CA_PURCHASE_YEAR = CInt(IIf(IsDBNull(dt.Rows(0)("HP_YA")), 0, dt.Rows(0)("HP_YA")))
+                HP_PRINCIPAL = CDec(IIf(IsDBNull(dt.Rows(0)("HP_PRINCIPAL")), 0, dt.Rows(0)("HP_PRINCIPAL")))
+                HP_INTEREST_RATE = CInt(IIf(IsDBNull(dt.Rows(0)("HP_INTEREST_RATE")), 0, dt.Rows(0)("HP_INTEREST_RATE")))
+                HP_INTEREST = CDec(IIf(IsDBNull(dt.Rows(0)("HP_INTEREST")), 0, dt.Rows(0)("HP_INTEREST")))
+                HP_TOTAL = CDec(IIf(IsDBNull(dt.Rows(0)("HP_TOTAL")), 0, dt.Rows(0)("HP_TOTAL")))
+
+                If IsDBNull(dt.Rows(0)("HP_YA")) = False AndAlso IsNumeric(dt.Rows(0)("HP_YA")) = True Then
+                    CA_YA = CInt(dt.Rows(0)("HP_YA"))
+                Else
+                    CA_YA = 0
+                End If
+
+            End With
+
+            Dim dtYear As DataTable = Nothing
+
+            CurrentYA = CA_YA
+
+            dtYear = mdlProcess.Load_HP_YEARLY_ByYear(HP_KEY, CStr(CurrentYA))
+
+            BF_PRINCIPAL = HP_PRINCIPAL
+            BF_INTEREST = HP_INTEREST
+
+            If dtYear IsNot Nothing Then
+                CURR_INTEREST = CDec(IIf(IsDBNull(dtYear.Rows(0)("HPD_PRINCIPA")), 0, dtYear.Rows(0)("HPD_PRINCIPA")))
+                CURR_PRINCIPAL = CDec(IIf(IsDBNull(dtYear.Rows(0)("HPD_INTEREST")), 0, dtYear.Rows(0)("HPD_INTEREST")))
+            Else
+                CURR_INTEREST = 0
+                CURR_PRINCIPAL = 0
+            End If
+          
+
+            CF_PRINCIPAL = BF_PRINCIPAL - CURR_PRINCIPAL
+            CF_INTEREST = BF_INTEREST - CURR_INTEREST
+            IndexNo = 0
+
+            If mdlProcess.Save_HP_TEMP_REPORT(RefNo, CurrentYA, HP_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY, CA_PURCHASE_YEAR, _
+                                              HP_PRINCIPAL, HP_INTEREST_RATE, HP_INTEREST, HP_TOTAL, BF_PRINCIPAL, BF_INTEREST, _
+                                              CURR_PRINCIPAL, CURR_INTEREST, CF_PRINCIPAL, CF_INTEREST, IndexNo, ID, Errorlog) = False Then
+                Return False
+            End If
+            '=========NEXT YEAR===================================
+            Dim CurrLoop As Integer = 0
+            While CF_PRINCIPAL > 0 And CurrLoop <= MaxYearForCA
+                IndexNo += 1
+                CurrentYA += 1
+
+                BF_PRINCIPAL = CF_PRINCIPAL
+                BF_INTEREST = CF_INTEREST
+
+                dtYear = mdlProcess.Load_HP_YEARLY_ByYear(HP_KEY, CStr(CurrentYA))
+
+                If dtYear IsNot Nothing Then
+                    CURR_INTEREST = CDec(IIf(IsDBNull(dtYear.Rows(0)("HPD_PRINCIPA")), 0, dtYear.Rows(0)("HPD_PRINCIPA")))
+                    CURR_PRINCIPAL = CDec(IIf(IsDBNull(dtYear.Rows(0)("HPD_INTEREST")), 0, dtYear.Rows(0)("HPD_INTEREST")))
+                Else
+                    Exit While
+                End If
+
+                CF_PRINCIPAL = BF_PRINCIPAL - CURR_PRINCIPAL
+                CF_INTEREST = BF_INTEREST - CURR_INTEREST
+
+                If mdlProcess.Save_HP_TEMP_REPORT(RefNo, CurrentYA, HP_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY, CA_PURCHASE_YEAR, _
+                                          HP_PRINCIPAL, HP_INTEREST_RATE, HP_INTEREST, HP_TOTAL, BF_PRINCIPAL, BF_INTEREST, _
+                                          CURR_PRINCIPAL, CURR_INTEREST, CF_PRINCIPAL, CF_INTEREST, IndexNo, ID, Errorlog) = False Then
+                    Return False
+                End If
+            End While
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return False
         End Try
     End Function
     Public Function GenerateCA_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal CA_KEY As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean

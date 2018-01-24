@@ -825,6 +825,71 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="HP_REPORT_TEMP" msprop:Generator_TableClassName="HP_REPORT_TEMPDataTable" msprop:Generator_TableVarName="tableHP_REPORT_TEMP" msprop:Generator_TablePropName="HP_REPORT_TEMP" msprop:Generator_RowDeletingName="HP_REPORT_TEMPRowDeleting" msprop:Generator_RowChangingName="HP_REPORT_TEMPRowChanging" msprop:Generator_RowEvHandlerName="HP_REPORT_TEMPRowChangeEventHandler" msprop:Generator_RowDeletedName="HP_REPORT_TEMPRowDeleted" msprop:Generator_UserTableName="HP_REPORT_TEMP" msprop:Generator_RowChangedName="HP_REPORT_TEMPRowChanged" msprop:Generator_RowEvArgName="HP_REPORT_TEMPRowChangeEvent" msprop:Generator_RowClassName="HP_REPORT_TEMPRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID_Key" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID_Key" msprop:Generator_ColumnPropNameInRow="ID_Key" msprop:Generator_ColumnPropNameInTable="ID_KeyColumn" msprop:Generator_UserColumnName="ID_Key" type="xs:decimal" />
+              <xs:element name="HP_KEY" msprop:Generator_ColumnVarNameInTable="columnHP_KEY" msprop:Generator_ColumnPropNameInRow="HP_KEY" msprop:Generator_ColumnPropNameInTable="HP_KEYColumn" msprop:Generator_UserColumnName="HP_KEY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RefNo" msprop:Generator_ColumnVarNameInTable="columnRefNo" msprop:Generator_ColumnPropNameInRow="RefNo" msprop:Generator_ColumnPropNameInTable="RefNoColumn" msprop:Generator_UserColumnName="RefNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YA" msprop:Generator_ColumnVarNameInTable="columnYA" msprop:Generator_ColumnPropNameInRow="YA" msprop:Generator_ColumnPropNameInTable="YAColumn" msprop:Generator_UserColumnName="YA" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_NAME" msprop:Generator_ColumnVarNameInTable="columnCA_NAME" msprop:Generator_ColumnPropNameInRow="CA_NAME" msprop:Generator_ColumnPropNameInTable="CA_NAMEColumn" msprop:Generator_UserColumnName="CA_NAME" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_SOURCENO" msprop:Generator_ColumnVarNameInTable="columnCA_SOURCENO" msprop:Generator_ColumnPropNameInRow="CA_SOURCENO" msprop:Generator_ColumnPropNameInTable="CA_SOURCENOColumn" msprop:Generator_UserColumnName="CA_SOURCENO" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_YA" msprop:Generator_ColumnVarNameInTable="columnCA_YA" msprop:Generator_ColumnPropNameInRow="CA_YA" msprop:Generator_ColumnPropNameInTable="CA_YAColumn" msprop:Generator_UserColumnName="CA_YA" type="xs:int" minOccurs="0" />
+              <xs:element name="HP_CODE" msprop:Generator_ColumnVarNameInTable="columnHP_CODE" msprop:Generator_ColumnPropNameInRow="HP_CODE" msprop:Generator_ColumnPropNameInTable="HP_CODEColumn" msprop:Generator_UserColumnName="HP_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_ASSET" msprop:Generator_ColumnVarNameInTable="columnCA_ASSET" msprop:Generator_ColumnPropNameInRow="CA_ASSET" msprop:Generator_ColumnPropNameInTable="CA_ASSETColumn" msprop:Generator_UserColumnName="CA_ASSET" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_CATEGORY_CODE" msprop:Generator_ColumnVarNameInTable="columnCA_CATEGORY_CODE" msprop:Generator_ColumnPropNameInRow="CA_CATEGORY_CODE" msprop:Generator_ColumnPropNameInTable="CA_CATEGORY_CODEColumn" msprop:Generator_UserColumnName="CA_CATEGORY_CODE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="CA_PURCHASE_YEAR" msprop:Generator_ColumnVarNameInTable="columnCA_PURCHASE_YEAR" msprop:Generator_ColumnPropNameInRow="CA_PURCHASE_YEAR" msprop:Generator_ColumnPropNameInTable="CA_PURCHASE_YEARColumn" msprop:Generator_UserColumnName="CA_PURCHASE_YEAR" type="xs:int" minOccurs="0" />
+              <xs:element name="HP_PRINCIPAL" msprop:Generator_ColumnVarNameInTable="columnHP_PRINCIPAL" msprop:Generator_ColumnPropNameInRow="HP_PRINCIPAL" msprop:Generator_ColumnPropNameInTable="HP_PRINCIPALColumn" msprop:Generator_UserColumnName="HP_PRINCIPAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HP_INTEREST_RATE" msprop:Generator_ColumnVarNameInTable="columnHP_INTEREST_RATE" msprop:Generator_ColumnPropNameInRow="HP_INTEREST_RATE" msprop:Generator_ColumnPropNameInTable="HP_INTEREST_RATEColumn" msprop:Generator_UserColumnName="HP_INTEREST_RATE" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HP_INTEREST" msprop:Generator_ColumnVarNameInTable="columnHP_INTEREST" msprop:Generator_ColumnPropNameInRow="HP_INTEREST" msprop:Generator_ColumnPropNameInTable="HP_INTERESTColumn" msprop:Generator_UserColumnName="HP_INTEREST" type="xs:decimal" minOccurs="0" />
+              <xs:element name="HP_TOTAL" msprop:Generator_ColumnVarNameInTable="columnHP_TOTAL" msprop:Generator_ColumnPropNameInRow="HP_TOTAL" msprop:Generator_ColumnPropNameInTable="HP_TOTALColumn" msprop:Generator_UserColumnName="HP_TOTAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BF_PRINCIPAL" msprop:Generator_ColumnVarNameInTable="columnBF_PRINCIPAL" msprop:Generator_ColumnPropNameInRow="BF_PRINCIPAL" msprop:Generator_ColumnPropNameInTable="BF_PRINCIPALColumn" msprop:Generator_UserColumnName="BF_PRINCIPAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BF_INTEREST" msprop:Generator_ColumnVarNameInTable="columnBF_INTEREST" msprop:Generator_ColumnPropNameInRow="BF_INTEREST" msprop:Generator_ColumnPropNameInTable="BF_INTERESTColumn" msprop:Generator_UserColumnName="BF_INTEREST" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CURR_PRINCIPAL" msprop:Generator_ColumnVarNameInTable="columnCURR_PRINCIPAL" msprop:Generator_ColumnPropNameInRow="CURR_PRINCIPAL" msprop:Generator_ColumnPropNameInTable="CURR_PRINCIPALColumn" msprop:Generator_UserColumnName="CURR_PRINCIPAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CURR_INTEREST" msprop:Generator_ColumnVarNameInTable="columnCURR_INTEREST" msprop:Generator_ColumnPropNameInRow="CURR_INTEREST" msprop:Generator_ColumnPropNameInTable="CURR_INTERESTColumn" msprop:Generator_UserColumnName="CURR_INTEREST" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CF_PRINCIPAL" msprop:Generator_ColumnVarNameInTable="columnCF_PRINCIPAL" msprop:Generator_ColumnPropNameInRow="CF_PRINCIPAL" msprop:Generator_ColumnPropNameInTable="CF_PRINCIPALColumn" msprop:Generator_UserColumnName="CF_PRINCIPAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CF_INTEREST" msprop:Generator_ColumnVarNameInTable="columnCF_INTEREST" msprop:Generator_ColumnPropNameInRow="CF_INTEREST" msprop:Generator_ColumnPropNameInTable="CF_INTERESTColumn" msprop:Generator_UserColumnName="CF_INTEREST" type="xs:decimal" minOccurs="0" />
+              <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1">
