@@ -69,122 +69,7 @@ Public Class frmPNL_Add
             If listoflabelname IsNot Nothing Then
                 Dim lbl As DevExpress.XtraEditors.LabelControl
                 For Each tmp As clsPNL_LabelName In listoflabelname
-                    Select Case tmp.Type
-                        Case TaxComPNLEnuItem.SALES
-                            lbl = lbl_p1Sales
-                        Case TaxComPNLEnuItem.OPENSTOCK
-                            lbl = lbl_p1OpenStock
-                        Case TaxComPNLEnuItem.PURCHASE
-                            lbl = lbl_p1Purchase
-                        Case TaxComPNLEnuItem.DEPRECIATION
-                            lbl = lbl_p1Depreciation
-                        Case TaxComPNLEnuItem.OTHERALLOWEXP
-                            lbl = lbl_p1AllowanceExpenses
-                        Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                            lbl = lbl_p1NonAllowableExpenses
-                        Case TaxComPNLEnuItem.CLOSESTOCK
-                            lbl = lbl_p1CloseStock
-                        Case TaxComPNLEnuItem.OTHERBUSINC
-                            lbl = lbl_p2OtherBizIncome
-                        Case TaxComPNLEnuItem.REALFETRADE
-                            lbl = lbl_p2ForeignCurrExGain
-                        Case TaxComPNLEnuItem.INTERESTINC
-                            lbl = lbl_p2InterestIncome
-                        Case TaxComPNLEnuItem.ROYALTYINC
-                            lbl = lbl_p2RoyaltyIncome
-                        Case TaxComPNLEnuItem.OTHERINC
-                            lbl = lbl_p2OtherIncome
-                        Case TaxComPNLEnuItem.PDFIXASSET
-                            lbl = lbl_p2ProDispPlantEq
-                        Case TaxComPNLEnuItem.PDINVEST
-                            lbl = lbl_p2ProDisInvestment
-                        Case TaxComPNLEnuItem.FORINCREMIT
-                            lbl = lbl_p2ForeIncomeRemmit
-
-                        Case TaxComPNLEnuItem.REALFE
-                            lbl = lbl_p2ReaForeExGainNonTrade
-                        Case TaxComPNLEnuItem.UNREALFETRADE
-                            lbl = lbl_p2UnreaGainForeEx
-                        Case TaxComPNLEnuItem.UNREALFENONTRADE
-                            lbl = lbl_p2UnreaGainForeExNon
-
-                        Case TaxComPNLEnuItem.EXPOTHERINTEREST
-                            lbl = lbl_p3OtherInterestExHirePur
-                        Case TaxComPNLEnuItem.EXPLEGAL
-                            lbl = lbl_p3ProTechManLeganFees
-                        Case TaxComPNLEnuItem.EXPTECHNICAL
-                            lbl = lbl_p3TechPayNonResis
-                        Case TaxComPNLEnuItem.EXPCONTRACTPAY
-                            lbl = lbl_p3ContractPay
-                        Case TaxComPNLEnuItem.EXPDIRECTORFEE
-                            lbl = lbl_p3DirectorFee
-                        Case TaxComPNLEnuItem.EXPSALARY
-                            lbl = lbl_p3Salary
-                        Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-                            lbl = lbl_p3COEStock
-                        Case TaxComPNLEnuItem.EXPROYALTY
-                            lbl = lbl_p3Royalty
-                        Case TaxComPNLEnuItem.EXPRENTAL
-                            lbl = lbl_p3Rental
-                        Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-                            lbl = lbl_p3RepairMain
-                        Case TaxComPNLEnuItem.EXPRND
-                            lbl = lbl_p3ResearchDev
-                        Case TaxComPNLEnuItem.EXPADVERTISEMENT
-                            lbl = lbl_p3PromotionAds
-                        Case TaxComPNLEnuItem.EXPTRAVEL
-                            lbl = lbl_p3Travelling
-                        Case TaxComPNLEnuItem.EXPJKDM
-                            lbl = lbl_p3JKDM
-                        Case TaxComPNLEnuItem.EXPDEPRECIATION
-                            lbl = lbl_p3Depreciation
-                        Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                            lbl = lbl_p3DonationApp
-                        Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                            lbl = lbl_p3DonationApp
-                        Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
-                            lbl = lbl_p3DonationNonApp
-                        Case TaxComPNLEnuItem.EXPZAKAT
-                            lbl = lbl_p3Zakat
-                        Case TaxComPNLEnuItem.EXPLOSSDISPFA
-                            lbl = lbl_p4LossDispFA
-                        Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-                            lbl = lbl_p4EntNonStaff
-                        Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-                            lbl = lbl_p4EntStaff
-                        Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-                            lbl = lbl_p4Compound
-                        Case TaxComPNLEnuItem.EXPPROVISION
-                            lbl = lbl_p4ProvisionAcc
-                        Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-                            lbl = lbl_p4LeavePass
-                        Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-                            lbl = lbl_p4FAWrittenOff
-                        Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                            lbl = lbl_p4UnreaLossForeEx
-                        Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-                            lbl = lbl_p4ReaLossForeExTrade
-                        Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-                            lbl = lbl_p4ReaLossForeExNonTrade
-                        Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-                            lbl = lbl_p4InitSub
-                        Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-                            lbl = lbl_p4CAExpenditure
-                        Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                            lbl = lbl_p4Other
-                        Case TaxComPNLEnuItem.RENTALINC
-                            lbl = lbl_p2RentalIncome
-                        Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
-                            lbl = lblP4NonAllowableExpenses
-                        Case TaxComPNLEnuItem.OTHERNONTAXINC
-                            lbl = lbl_p2Other
-                        Case TaxComPNLEnuItem.EXEMDIV
-                            lbl = lbl_p2ExemptDividend
-                        Case TaxComPNLEnuItem.INTERESTRESTRICT
-                            lbl = lbl_p3InterestResPurS33
-                        Case TaxComPNLEnuItem.DIVIDENDINC
-                            lbl = lbl_p2DivIncome
-                    End Select
+                    lbl = GetLabel(tmp.Type)
                     DetailsClick(lbl, tmp.Type)
                     CurrentProgress += 0.8
                     Progress(CurrentProgress, "Initialize " & tmp.LabelTricor & " data...")
@@ -198,6 +83,128 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
+    Private Function GetLabel(ByVal Typex As TaxComPNLEnuItem) As DevExpress.XtraEditors.LabelControl
+        Try
+            Select Case Typex
+                Case TaxComPNLEnuItem.SALES
+                    Return lbl_p1Sales
+                Case TaxComPNLEnuItem.OPENSTOCK
+                    Return lbl_p1OpenStock
+                Case TaxComPNLEnuItem.PURCHASE
+                    Return lbl_p1Purchase
+                Case TaxComPNLEnuItem.DEPRECIATION
+                    Return lbl_p1Depreciation
+                Case TaxComPNLEnuItem.OTHERALLOWEXP
+                    Return lbl_p1AllowanceExpenses
+                Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                    Return lbl_p1NonAllowableExpenses
+                Case TaxComPNLEnuItem.CLOSESTOCK
+                    Return lbl_p1CloseStock
+                Case TaxComPNLEnuItem.OTHERBUSINC
+                    Return lbl_p2OtherBizIncome
+                Case TaxComPNLEnuItem.REALFETRADE
+                    Return lbl_p2ForeignCurrExGain
+                Case TaxComPNLEnuItem.INTERESTINC
+                    Return lbl_p2InterestIncome
+                Case TaxComPNLEnuItem.ROYALTYINC
+                    Return lbl_p2RoyaltyIncome
+                Case TaxComPNLEnuItem.OTHERINC
+                    Return lbl_p2OtherIncome
+                Case TaxComPNLEnuItem.PDFIXASSET
+                    Return lbl_p2ProDispPlantEq
+                Case TaxComPNLEnuItem.PDINVEST
+                    Return lbl_p2ProDisInvestment
+                Case TaxComPNLEnuItem.FORINCREMIT
+                    Return lbl_p2ForeIncomeRemmit
+
+                Case TaxComPNLEnuItem.REALFE
+                    Return lbl_p2ReaForeExGainNonTrade
+                Case TaxComPNLEnuItem.UNREALFETRADE
+                    Return lbl_p2UnreaGainForeEx
+                Case TaxComPNLEnuItem.UNREALFENONTRADE
+                    Return lbl_p2UnreaGainForeExNon
+
+                Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                    Return lbl_p3OtherInterestExHirePur
+                Case TaxComPNLEnuItem.EXPLEGAL
+                    Return lbl_p3ProTechManLeganFees
+                Case TaxComPNLEnuItem.EXPTECHNICAL
+                    Return lbl_p3TechPayNonResis
+                Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                    Return lbl_p3ContractPay
+                Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                    Return lbl_p3DirectorFee
+                Case TaxComPNLEnuItem.EXPSALARY
+                    Return lbl_p3Salary
+                Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                    Return lbl_p3COEStock
+                Case TaxComPNLEnuItem.EXPROYALTY
+                    Return lbl_p3Royalty
+                Case TaxComPNLEnuItem.EXPRENTAL
+                    Return lbl_p3Rental
+                Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                    Return lbl_p3RepairMain
+                Case TaxComPNLEnuItem.EXPRND
+                    Return lbl_p3ResearchDev
+                Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                    Return lbl_p3PromotionAds
+                Case TaxComPNLEnuItem.EXPTRAVEL
+                    Return lbl_p3Travelling
+                Case TaxComPNLEnuItem.EXPJKDM
+                    Return lbl_p3JKDM
+                Case TaxComPNLEnuItem.EXPDEPRECIATION
+                    Return lbl_p3Depreciation
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    Return lbl_p3DonationApp
+                Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                    Return lbl_p3DonationApp
+                Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
+                    Return lbl_p3DonationNonApp
+                Case TaxComPNLEnuItem.EXPZAKAT
+                    Return lbl_p3Zakat
+                Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                    Return lbl_p4LossDispFA
+                Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                    Return lbl_p4EntNonStaff
+                Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                    Return lbl_p4EntStaff
+                Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                    Return lbl_p4Compound
+                Case TaxComPNLEnuItem.EXPPROVISION
+                    Return lbl_p4ProvisionAcc
+                Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                    Return lbl_p4LeavePass
+                Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                    Return lbl_p4FAWrittenOff
+                Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                    Return lbl_p4UnreaLossForeEx
+                Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                    Return lbl_p4ReaLossForeExTrade
+                Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                    Return lbl_p4ReaLossForeExNonTrade
+                Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                    Return lbl_p4InitSub
+                Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                    Return lbl_p4CAExpenditure
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    Return lbl_p4Other
+                Case TaxComPNLEnuItem.RENTALINC
+                    Return lbl_p2RentalIncome
+                Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
+                    Return lblP4NonAllowableExpenses
+                Case TaxComPNLEnuItem.OTHERNONTAXINC
+                    Return lbl_p2Other
+                Case TaxComPNLEnuItem.EXEMDIV
+                    Return lbl_p2ExemptDividend
+                Case TaxComPNLEnuItem.INTERESTRESTRICT
+                    Return lbl_p3InterestResPurS33
+                Case TaxComPNLEnuItem.DIVIDENDINC
+                    Return lbl_p2DivIncome
+            End Select
+        Catch ex As Exception
+            Return lbl_p1Sales
+        End Try
+    End Function
     Private Sub LoadData()
         Try
             ProgressPanel1.Visible = True
@@ -4350,4 +4357,2038 @@ Public Class frmPNL_Add
         End Try
     End Sub
 
+    Private Sub SimpleButton1_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        Try
+            dsDataSet.Tables("DataSearch").Rows.Clear()
+
+            If txtSearch.EditValue Is Nothing OrElse txtSearch.EditValue = "" Then
+                Exit Sub
+            End If
+            Dim Listoflabel As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
+
+            If Listoflabel IsNot Nothing Then
+                Dim dtRow As DataRow = Nothing
+                For i As Integer = 0 To Listoflabel.Count - 1
+
+                    Select Case Listoflabel(i).Type
+                        Case TaxComPNLEnuItem.SALES
+
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Sales.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Sales.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1Sales.Main_Desc Or colx.ColumnName = ucPNL_p1Sales.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1Sales.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Sales.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Sales.MainTable_Details).Columns
+
+                                    If colx.ColumnName = ucPNL_p1Sales.MainDetails_Desc Or colx.ColumnName = ucPNL_p1Sales.MainAmount_Details Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1Sales.MainKey_Details)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+
+                        Case TaxComPNLEnuItem.OPENSTOCK
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1OpeningStock.Main_Desc Or colx.ColumnName = ucPNL_p1OpeningStock.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1OpeningStock.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p1OpeningStock.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p1OpeningStock.MainDetails_Desc Or colx.ColumnName = ucPNL_p1OpeningStock.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p1OpeningStock.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.PURCHASE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Purchase.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Purchase.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1Purchase.Main_Desc Or colx.ColumnName = ucPNL_p1Purchase.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1Purchase.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Purchase.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Purchase.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p1Purchase.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p1Purchase.MainDetails_Desc Or colx.ColumnName = ucPNL_p1Purchase.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p1Purchase.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.DEPRECIATION
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1Depreciation.Main_Desc Or colx.ColumnName = ucPNL_p1Depreciation.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1Depreciation.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p1Depreciation.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p1Depreciation.MainDetails_Desc Or colx.ColumnName = ucPNL_p1Depreciation.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p1Depreciation.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.OTHERALLOWEXP
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1AllowanceExpenses.Main_Desc Or colx.ColumnName = ucPNL_p1AllowanceExpenses.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1AllowanceExpenses.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p1AllowanceExpenses.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p1AllowanceExpenses.MainDetails_Desc Or colx.ColumnName = ucPNL_p1AllowanceExpenses.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p1AllowanceExpenses.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.OTHERNONALLOWEXP
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1NonAllowableExpenses.Main_Desc Or colx.ColumnName = ucPNL_p1NonAllowableExpenses.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1NonAllowableExpenses.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p1NonAllowableExpenses.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p1NonAllowableExpenses.MainDetails_Desc Or colx.ColumnName = ucPNL_p1NonAllowableExpenses.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p1NonAllowableExpenses.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.CLOSESTOCK
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p1CloseStock.Main_Desc Or colx.ColumnName = ucPNL_p1CloseStock.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p1CloseStock.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p1CloseStock.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p1CloseStock.MainDetails_Desc Or colx.ColumnName = ucPNL_p1CloseStock.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p1CloseStock.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.OTHERBUSINC
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2OtherBizIncome.Main_Desc Or colx.ColumnName = ucPNL_p2OtherBizIncome.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2OtherBizIncome.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2OtherBizIncome.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2OtherBizIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2OtherBizIncome.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2OtherBizIncome.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.REALFETRADE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2ForeignCurrExGain.Main_Desc Or colx.ColumnName = ucPNL_p2ForeignCurrExGain.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2ForeignCurrExGain.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2ForeignCurrExGain.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2ForeignCurrExGain.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ForeignCurrExGain.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2ForeignCurrExGain.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.DIVIDENDINC
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2DivIncome.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2DivIncome.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2DivIncome.Main_Desc Or colx.ColumnName = ucPNL_p2DivIncome.MainAmount_DI_GROSS Or colx.ColumnName = ucPNL_p2DivIncome.MainAmount_DI_NET Or colx.ColumnName = ucPNL_p2DivIncome.MainAmount_DI_TAX Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2DivIncome.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.INTERESTINC
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2InterestIncome.Main_Desc Or colx.ColumnName = ucPNL_p2InterestIncome.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2InterestIncome.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2InterestIncome.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2InterestIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2InterestIncome.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2InterestIncome.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.RENTALINC
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2RentalIncome.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2RentalIncome.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2RentalIncome.Main_Desc Or colx.ColumnName = ucPNL_p2RentalIncome.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2RentalIncome.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.ROYALTYINC
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2RoyaltyIncome.Main_Desc Or colx.ColumnName = ucPNL_p2RoyaltyIncome.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2RoyaltyIncome.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2RoyaltyIncome.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2RoyaltyIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2RoyaltyIncome.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2RoyaltyIncome.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.OTHERINC
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2OtherIncome.Main_Desc Or colx.ColumnName = ucPNL_p2OtherIncome.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2OtherIncome.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2OtherIncome.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2OtherIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2OtherIncome.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2OtherIncome.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.PDFIXASSET
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2ProDispPlantEq.Main_Desc Or colx.ColumnName = ucPNL_p2ProDispPlantEq.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2ProDispPlantEq.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2ProDispPlantEq.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2ProDispPlantEq.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ProDispPlantEq.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2ProDispPlantEq.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.PDINVEST
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2ProDisInvestment.Main_Desc Or colx.ColumnName = ucPNL_p2ProDisInvestment.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2ProDisInvestment.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2ProDisInvestment.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2ProDisInvestment.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ProDisInvestment.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2ProDisInvestment.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXEMDIV
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ExemptDividend.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ExemptDividend.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2ExemptDividend.Main_Desc Or colx.ColumnName = ucPNL_p2ExemptDividend.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2ExemptDividend.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.FORINCREMIT
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2ForeIncomeRemmit.Main_Desc Or colx.ColumnName = ucPNL_p2ForeIncomeRemmit.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2ForeIncomeRemmit.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2ForeIncomeRemmit.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2ForeIncomeRemmit.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ForeIncomeRemmit.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2ForeIncomeRemmit.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.REALFE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.Main_Desc Or colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2ReaForeExGainNonTrade.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2ReaForeExGainNonTrade.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2ReaForeExGainNonTrade.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.UNREALFETRADE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p2UnreaGainForeEx.Main_Desc Or colx.ColumnName = ucPNL_p2UnreaGainForeEx.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p2UnreaGainForeEx.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p2UnreaGainForeEx.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p2UnreaGainForeEx.MainDetails_Desc Or colx.ColumnName = ucPNL_p2UnreaGainForeEx.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p2UnreaGainForeEx.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.INTERESTRESTRICT
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3InterestResPurS33.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3InterestResPurS33.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3InterestResPurS33.Main_Desc Or colx.ColumnName = ucPNL_p3InterestResPurS33.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3InterestResPurS33.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPOTHERINTEREST
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3OtherInterestExHirePur.Main_Desc Or colx.ColumnName = ucPNL_p3OtherInterestExHirePur.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3OtherInterestExHirePur.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3OtherInterestExHirePur.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3OtherInterestExHirePur.MainDetails_Desc Or colx.ColumnName = ucPNL_p3OtherInterestExHirePur.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3OtherInterestExHirePur.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPLEGAL
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3ProTechManLeganFees.Main_Desc Or colx.ColumnName = ucPNL_p3ProTechManLeganFees.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3ProTechManLeganFees.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3ProTechManLeganFees.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3ProTechManLeganFees.MainDetails_Desc Or colx.ColumnName = ucPNL_p3ProTechManLeganFees.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3ProTechManLeganFees.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPTECHNICAL
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3TechPayNonResis.Main_Desc Or colx.ColumnName = ucPNL_p3TechPayNonResis.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3TechPayNonResis.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3TechPayNonResis.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3TechPayNonResis.MainDetails_Desc Or colx.ColumnName = ucPNL_p3TechPayNonResis.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3TechPayNonResis.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPCONTRACTPAY
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3ContractPay.Main_Desc Or colx.ColumnName = ucPNL_p3ContractPay.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3ContractPay.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3ContractPay.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3ContractPay.MainDetails_Desc Or colx.ColumnName = ucPNL_p3ContractPay.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3ContractPay.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPDIRECTORFEE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3DirectorFee.Main_Desc Or colx.ColumnName = ucPNL_p3DirectorFee.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3DirectorFee.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3DirectorFee.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3DirectorFee.MainDetails_Desc Or colx.ColumnName = ucPNL_p3DirectorFee.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3DirectorFee.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPSALARY
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Salary.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Salary.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3Salary.Main_Desc Or colx.ColumnName = ucPNL_p3Salary.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3Salary.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Salary.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Salary.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3Salary.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3Salary.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Salary.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3Salary.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3COEStock.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3COEStock.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3COEStock.Main_Desc Or colx.ColumnName = ucPNL_p3COEStock.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3COEStock.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3COEStock.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3COEStock.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3COEStock.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3COEStock.MainDetails_Desc Or colx.ColumnName = ucPNL_p3COEStock.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3COEStock.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPROYALTY
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Royalty.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Royalty.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3Royalty.Main_Desc Or colx.ColumnName = ucPNL_p3Royalty.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3Royalty.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Royalty.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Royalty.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3Royalty.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3Royalty.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Royalty.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3Royalty.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPRENTAL
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Rental.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Rental.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3Rental.Main_Desc Or colx.ColumnName = ucPNL_p3Rental.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3Rental.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Rental.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Rental.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3Rental.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3Rental.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Rental.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3Rental.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3RepairMain.Main_Desc Or colx.ColumnName = ucPNL_p3RepairMain.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3RepairMain.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3RepairMain.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3RepairMain.MainDetails_Desc Or colx.ColumnName = ucPNL_p3RepairMain.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3RepairMain.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPRND
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3ResearchDev.Main_Desc Or colx.ColumnName = ucPNL_p3ResearchDev.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3ResearchDev.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3ResearchDev.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3ResearchDev.MainDetails_Desc Or colx.ColumnName = ucPNL_p3ResearchDev.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3ResearchDev.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPADVERTISEMENT
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3PromotionAds.Main_Desc Or colx.ColumnName = ucPNL_p3PromotionAds.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3PromotionAds.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3PromotionAds.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3PromotionAds.MainDetails_Desc Or colx.ColumnName = ucPNL_p3PromotionAds.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3PromotionAds.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPTRAVEL
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Travelling.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Travelling.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3Travelling.Main_Desc Or colx.ColumnName = ucPNL_p3Travelling.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3Travelling.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Travelling.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Travelling.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3Travelling.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3Travelling.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Travelling.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3Travelling.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPJKDM
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3JKDM.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3JKDM.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3JKDM.Main_Desc Or colx.ColumnName = ucPNL_p3JKDM.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3JKDM.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3JKDM.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3JKDM.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3JKDM.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3JKDM.MainDetails_Desc Or colx.ColumnName = ucPNL_p3JKDM.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3JKDM.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPDEPRECIATION
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3Depreciation.Main_Desc Or colx.ColumnName = ucPNL_p3Depreciation.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3Depreciation.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3Depreciation.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3Depreciation.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Depreciation.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3Depreciation.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPDONATIONAPPR
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3DonationApp.Main_Desc Or colx.ColumnName = ucPNL_p3DonationApp.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3DonationApp.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3DonationApp.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3DonationApp.MainDetails_Desc Or colx.ColumnName = ucPNL_p3DonationApp.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3DonationApp.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPZAKAT
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Zakat.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Zakat.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p3Zakat.Main_Desc Or colx.ColumnName = ucPNL_p3Zakat.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p3Zakat.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Zakat.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Zakat.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p3Zakat.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p3Zakat.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Zakat.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p3Zakat.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPLOSSDISPFA
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4LossDispFA.Main_Desc Or colx.ColumnName = ucPNL_p4LossDispFA.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4LossDispFA.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4LossDispFA.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4LossDispFA.MainDetails_Desc Or colx.ColumnName = ucPNL_p4LossDispFA.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4LossDispFA.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4EntNonStaff.Main_Desc Or colx.ColumnName = ucPNL_p4EntNonStaff.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4EntNonStaff.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4EntNonStaff.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4EntNonStaff.MainDetails_Desc Or colx.ColumnName = ucPNL_p4EntNonStaff.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4EntNonStaff.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4EntStaff.Main_Desc Or colx.ColumnName = ucPNL_p4EntStaff.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4EntStaff.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4EntStaff.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4EntStaff.MainDetails_Desc Or colx.ColumnName = ucPNL_p4EntStaff.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4EntStaff.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Compound.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Compound.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4Compound.Main_Desc Or colx.ColumnName = ucPNL_p4Compound.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4Compound.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Compound.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Compound.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4Compound.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4Compound.MainDetails_Desc Or colx.ColumnName = ucPNL_p4Compound.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4Compound.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPPROVISION
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4ProvisionAcc.Main_Desc Or colx.ColumnName = ucPNL_p4ProvisionAcc.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4ProvisionAcc.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4ProvisionAcc.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4ProvisionAcc.MainDetails_Desc Or colx.ColumnName = ucPNL_p4ProvisionAcc.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4ProvisionAcc.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4LeavePass.Main_Desc Or colx.ColumnName = ucPNL_p4LeavePass.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4LeavePass.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4LeavePass.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4LeavePass.MainDetails_Desc Or colx.ColumnName = ucPNL_p4LeavePass.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4LeavePass.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPFAWRITTENOFF
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4FAWrittenOff.Main_Desc Or colx.ColumnName = ucPNL_p4FAWrittenOff.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4FAWrittenOff.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4FAWrittenOff.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4FAWrittenOff.MainDetails_Desc Or colx.ColumnName = ucPNL_p4FAWrittenOff.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4FAWrittenOff.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPUNREALLOSSFE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4UnreaLossForeEx.Main_Desc Or colx.ColumnName = ucPNL_p4UnreaLossForeEx.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4UnreaLossForeEx.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4UnreaLossForeEx.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4UnreaLossForeEx.MainDetails_Desc Or colx.ColumnName = ucPNL_p4UnreaLossForeEx.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4UnreaLossForeEx.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4ReaLossForeExTrade.Main_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExTrade.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExTrade.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4ReaLossForeExTrade.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4ReaLossForeExTrade.MainDetails_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExTrade.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExTrade.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.Main_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExNonTrade.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4ReaLossForeExNonTrade.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.MainDetails_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExNonTrade.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4InitSub.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4InitSub.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4InitSub.Main_Desc Or colx.ColumnName = ucPNL_p4InitSub.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4InitSub.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4InitSub.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4InitSub.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4InitSub.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4InitSub.MainDetails_Desc Or colx.ColumnName = ucPNL_p4InitSub.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4InitSub.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4CAExpenditure.Main_Desc Or colx.ColumnName = ucPNL_p4CAExpenditure.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4CAExpenditure.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4CAExpenditure.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4CAExpenditure.MainDetails_Desc Or colx.ColumnName = ucPNL_p4CAExpenditure.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4CAExpenditure.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                        Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Other.MainTable).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Other.MainTable).Columns
+
+                                    If colx.ColumnName = ucPNL_p4Other.Main_Desc Or colx.ColumnName = ucPNL_p4Other.MainAmount Then
+
+                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                            dtRow("ColumnName") = colx.ColumnName
+                                            dtRow("ParentID") = rowx(ucPNL_p4Other.MainKey)
+                                            dtRow("Value") = rowx(colx.ColumnName).ToString
+                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Other.MainTable_Details).Rows
+                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Other.MainTable_Details).Columns
+
+                                    If colx.ColumnName <> ucPNL_p4Other.MainKey_Details Then
+
+                                        If colx.ColumnName = ucPNL_p4Other.MainDetails_Desc Or colx.ColumnName = ucPNL_p4Other.MainAmount_Details Then
+                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+
+                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
+                                                dtRow("ColumnName") = colx.ColumnName
+                                                dtRow("ParentID") = rowx(ucPNL_p4Other.MainKey_Details)
+                                                dtRow("Value") = rowx(colx.ColumnName).ToString
+                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
+                                            End If
+                                        End If
+
+                                    End If
+
+                                Next
+                            Next
+                    End Select
+
+                Next
+
+                DataSearchBindingSource.DataSource = dsDataSet.Tables("DataSearch")
+            End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+        End Try
+    End Sub
+
+    Private Sub GridView2_DoubleClick(sender As Object, e As EventArgs) Handles GridView2.DoubleClick
+        Try
+            Dim row As DataRow = GridView2.GetDataRow(GridView2.FocusedRowHandle)
+
+            If row IsNot Nothing Then
+
+                Dim KeyName As String = IIf(IsDBNull(row("KeyName")), "", row("KeyName"))
+
+                If KeyName = "" Then
+                    Exit Sub
+                End If
+                Dim val As mdlEnum.TaxComPNLEnuItem = DirectCast([Enum].Parse(GetType(mdlEnum.TaxComPNLEnuItem), KeyName), mdlEnum.TaxComPNLEnuItem)
+                Dim lbl As DevExpress.XtraEditors.LabelControl
+
+                lbl = GetLabel(val)
+
+                DetailsClick(lbl, val)
+
+            End If
+
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+        End Try
+    End Sub
+
+    Private Sub txtSearch_KeyUp(sender As Object, e As KeyEventArgs) Handles txtSearch.KeyUp
+        Try
+            If e.KeyCode = Keys.Enter Then
+                btnSearch.PerformClick()
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

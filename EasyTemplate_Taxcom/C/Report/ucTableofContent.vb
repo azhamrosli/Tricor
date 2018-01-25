@@ -387,4 +387,75 @@ Public Class ucTableofContent
 
         End Try
     End Sub
+
+    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
+        Try
+
+            Dim dtTaxCOM As DataTable = mdlProcess.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue)
+
+            Dim ds As New dsRA_ITA
+
+
+            ds.Tables("CA").Rows.Clear()
+            ds.Tables("TAX_ITA_WITHDRAWAL").Rows.Clear()
+            ds.Tables("TAX_ITA_ADJUSTMENT").Rows.Clear()
+            ds.Tables("TAX_COMPUTATION").Rows.Clear()
+            If dtTaxCOM IsNot Nothing Then
+
+                Dim TC_KEY As Integer = 0
+                Dim TC_SOURCENO As Integer = 0
+                Dim dtAdjustment As DataTable = Nothing
+                Dim dtWithDrawal As DataTable = Nothing
+                Dim dtCA As DataTable = Nothing
+                For i As Integer = 0 To dtTaxCOM.Rows.Count - 1
+                    TC_KEY = IIf(IsDBNull(dtTaxCOM.Rows(i)("TC_KEY")), 0, dtTaxCOM.Rows(i)("TC_KEY"))
+                    TC_SOURCENO = IIf(IsDBNull(dtTaxCOM.Rows(i)("TC_BUSINESS")), 0, dtTaxCOM.Rows(i)("TC_BUSINESS"))
+                    ds.Tables("TAX_COMPUTATION").ImportRow(dtTaxCOM.Rows(i))
+                    Application.DoEvents()
+
+                    dtCA = mdlProcess.LoadCA_ByRefNoYASourceNo(cboRefNo.EditValue, cboYA.EditValue, TC_SOURCENO)
+                    If dtCA IsNot Nothing Then
+                        For Each rowx As DataRow In dtCA.Rows
+                            ds.Tables("CA").ImportRow(rowx)
+                        Next
+                    End If
+
+                    dtWithDrawal = mdlProcess.Load_Taxcom_RA_Withdrawal(TC_KEY, ErrorLog)
+                    If dtWithDrawal IsNot Nothing Then
+                        For Each rowx As DataRow In dtWithDrawal.Rows
+                            ds.Tables("TAX_ITA_WITHDRAWAL").ImportRow(rowx)
+                        Next
+                    End If
+
+                    dtAdjustment = mdlProcess.Load_Taxcom_RA_Adjustment(TC_KEY, ErrorLog)
+                    If dtAdjustment IsNot Nothing Then
+                        For Each rowx As DataRow In dtAdjustment.Rows
+                            ds.Tables("TAX_ITA_ADJUSTMENT").ImportRow(rowx)
+                        Next
+                    End If
+
+
+                Next
+
+                Dim rpt As New rpt_ITA
+                rpt.DataSource = ds
+
+                rpt.ShowPreview()
+            End If
+
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+
+        End Try
+    End Sub
 End Class

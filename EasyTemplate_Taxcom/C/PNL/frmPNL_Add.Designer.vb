@@ -199,6 +199,21 @@ Partial Class frmPNL_Add
         Me.lbl_p4EntNonStaff = New DevExpress.XtraEditors.LabelControl()
         Me.txt_p4LossDispFA = New DevExpress.XtraEditors.TextEdit()
         Me.lbl_p4LossDispFA = New DevExpress.XtraEditors.LabelControl()
+        Me.pnlDocAdvanceSearch = New DevExpress.XtraBars.Docking.DockPanel()
+        Me.ControlContainer2 = New DevExpress.XtraBars.Docking.ControlContainer()
+        Me.GCSearch = New DevExpress.XtraGrid.GridControl()
+        Me.DataSearchBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
+        Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colColumnName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colParentID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colValue = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtSearch = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.DocumentManager1 = New DevExpress.XtraBars.Docking2010.DocumentManager(Me.components)
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
         Me.RibbonControl1 = New DevExpress.XtraBars.Ribbon.RibbonControl()
@@ -222,7 +237,6 @@ Partial Class frmPNL_Add
         Me.cboMainSource = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemLookUpEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.BUSINESSSOURCEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
         Me.cboS60F = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox3 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
         Me.cboS60FA = New DevExpress.XtraBars.BarEditItem()
@@ -356,6 +370,15 @@ Partial Class frmPNL_Add
         CType(Me.txt_p4EntStaff.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txt_p4EntNonStaff.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txt_p4LossDispFA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlDocAdvanceSearch.SuspendLayout()
+        Me.ControlContainer2.SuspendLayout()
+        CType(Me.GCSearch, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataSearchBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl1.SuspendLayout()
+        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RibbonControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -367,7 +390,6 @@ Partial Class frmPNL_Add
         CType(Me.RepositoryItemTextEdit4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemLookUpEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -394,6 +416,7 @@ Partial Class frmPNL_Add
         Me.hideContainerRight.BackColor = System.Drawing.Color.FromArgb(CType(CType(235, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(239, Byte), Integer))
         Me.hideContainerRight.Controls.Add(Me.pnlDocImport)
         Me.hideContainerRight.Controls.Add(Me.pnlDocExport)
+        Me.hideContainerRight.Controls.Add(Me.pnlDocAdvanceSearch)
         Me.hideContainerRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.hideContainerRight.Location = New System.Drawing.Point(1296, 141)
         Me.hideContainerRight.Name = "hideContainerRight"
@@ -406,19 +429,19 @@ Partial Class frmPNL_Add
         Me.pnlDocImport.ID = New System.Guid("be65f503-51a1-4e68-b6dd-9904920f171e")
         Me.pnlDocImport.Location = New System.Drawing.Point(0, 0)
         Me.pnlDocImport.Name = "pnlDocImport"
-        Me.pnlDocImport.OriginalSize = New System.Drawing.Size(584, 198)
+        Me.pnlDocImport.OriginalSize = New System.Drawing.Size(476, 198)
         Me.pnlDocImport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocImport.SavedIndex = 0
-        Me.pnlDocImport.Size = New System.Drawing.Size(584, 583)
+        Me.pnlDocImport.Size = New System.Drawing.Size(476, 583)
         Me.pnlDocImport.Text = "Import Data List"
         Me.pnlDocImport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide
         '
         'DockPanel2_Container
         '
         Me.DockPanel2_Container.Controls.Add(Me.UcPNL_Import1)
-        Me.DockPanel2_Container.Location = New System.Drawing.Point(4, 23)
+        Me.DockPanel2_Container.Location = New System.Drawing.Point(5, 23)
         Me.DockPanel2_Container.Name = "DockPanel2_Container"
-        Me.DockPanel2_Container.Size = New System.Drawing.Size(576, 556)
+        Me.DockPanel2_Container.Size = New System.Drawing.Size(467, 556)
         Me.DockPanel2_Container.TabIndex = 0
         '
         'UcPNL_Import1
@@ -428,7 +451,7 @@ Partial Class frmPNL_Add
         Me.UcPNL_Import1.MainData = Nothing
         Me.UcPNL_Import1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.UcPNL_Import1.Name = "UcPNL_Import1"
-        Me.UcPNL_Import1.Size = New System.Drawing.Size(576, 556)
+        Me.UcPNL_Import1.Size = New System.Drawing.Size(467, 556)
         Me.UcPNL_Import1.TabIndex = 0
         '
         'pnlDocExport
@@ -438,10 +461,10 @@ Partial Class frmPNL_Add
         Me.pnlDocExport.ID = New System.Guid("745323fa-419a-4730-bb91-2039d9d9de58")
         Me.pnlDocExport.Location = New System.Drawing.Point(0, 0)
         Me.pnlDocExport.Name = "pnlDocExport"
-        Me.pnlDocExport.OriginalSize = New System.Drawing.Size(352, 200)
+        Me.pnlDocExport.OriginalSize = New System.Drawing.Size(259, 200)
         Me.pnlDocExport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocExport.SavedIndex = 1
-        Me.pnlDocExport.Size = New System.Drawing.Size(352, 583)
+        Me.pnlDocExport.Size = New System.Drawing.Size(259, 583)
         Me.pnlDocExport.Tag = "Export Data List"
         Me.pnlDocExport.Text = "Export Data List"
         Me.pnlDocExport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide
@@ -449,9 +472,9 @@ Partial Class frmPNL_Add
         'ControlContainer1
         '
         Me.ControlContainer1.Controls.Add(Me.dgvExport)
-        Me.ControlContainer1.Location = New System.Drawing.Point(4, 23)
+        Me.ControlContainer1.Location = New System.Drawing.Point(5, 23)
         Me.ControlContainer1.Name = "ControlContainer1"
-        Me.ControlContainer1.Size = New System.Drawing.Size(344, 556)
+        Me.ControlContainer1.Size = New System.Drawing.Size(250, 556)
         Me.ControlContainer1.TabIndex = 0
         '
         'dgvExport
@@ -464,7 +487,7 @@ Partial Class frmPNL_Add
         Me.dgvExport.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvExport.MenuManager = Me.BarManager1
         Me.dgvExport.Name = "dgvExport"
-        Me.dgvExport.Size = New System.Drawing.Size(344, 556)
+        Me.dgvExport.Size = New System.Drawing.Size(250, 556)
         Me.dgvExport.TabIndex = 61
         Me.dgvExport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -2827,6 +2850,130 @@ Partial Class frmPNL_Add
         Me.lbl_p4LossDispFA.Tag = "EXPLOSSDISPFA"
         Me.lbl_p4LossDispFA.Text = "Loss on Disposal of Fixed Assets"
         '
+        'pnlDocAdvanceSearch
+        '
+        Me.pnlDocAdvanceSearch.Controls.Add(Me.ControlContainer2)
+        Me.pnlDocAdvanceSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
+        Me.pnlDocAdvanceSearch.ID = New System.Guid("2e49734a-7050-4a84-9e9a-349ee37f771d")
+        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDocAdvanceSearch.Name = "pnlDocAdvanceSearch"
+        Me.pnlDocAdvanceSearch.Options.ShowCloseButton = False
+        Me.pnlDocAdvanceSearch.OriginalSize = New System.Drawing.Size(417, 200)
+        Me.pnlDocAdvanceSearch.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
+        Me.pnlDocAdvanceSearch.SavedIndex = 1
+        Me.pnlDocAdvanceSearch.Size = New System.Drawing.Size(417, 583)
+        Me.pnlDocAdvanceSearch.Text = "Advance Search"
+        Me.pnlDocAdvanceSearch.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide
+        '
+        'ControlContainer2
+        '
+        Me.ControlContainer2.Controls.Add(Me.GCSearch)
+        Me.ControlContainer2.Controls.Add(Me.PanelControl1)
+        Me.ControlContainer2.Location = New System.Drawing.Point(5, 23)
+        Me.ControlContainer2.Name = "ControlContainer2"
+        Me.ControlContainer2.Size = New System.Drawing.Size(408, 556)
+        Me.ControlContainer2.TabIndex = 0
+        '
+        'GCSearch
+        '
+        Me.GCSearch.DataSource = Me.DataSearchBindingSource
+        Me.GCSearch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GCSearch.Location = New System.Drawing.Point(0, 57)
+        Me.GCSearch.MainView = Me.GridView2
+        Me.GCSearch.MenuManager = Me.BarManager1
+        Me.GCSearch.Name = "GCSearch"
+        Me.GCSearch.Size = New System.Drawing.Size(408, 499)
+        Me.GCSearch.TabIndex = 1
+        Me.GCSearch.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
+        '
+        'DataSearchBindingSource
+        '
+        Me.DataSearchBindingSource.DataMember = "DataSearch"
+        Me.DataSearchBindingSource.DataSource = Me.DsPNL
+        '
+        'DsPNL
+        '
+        Me.DsPNL.DataSetName = "dsPNL"
+        Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'GridView2
+        '
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colKeyName, Me.colColumnName, Me.colParentID, Me.colValue})
+        Me.GridView2.GridControl = Me.GCSearch
+        Me.GridView2.Name = "GridView2"
+        Me.GridView2.OptionsBehavior.Editable = False
+        Me.GridView2.OptionsView.ColumnAutoWidth = False
+        '
+        'colID
+        '
+        Me.colID.FieldName = "ID"
+        Me.colID.Name = "colID"
+        '
+        'colKeyName
+        '
+        Me.colKeyName.FieldName = "KeyName"
+        Me.colKeyName.Name = "colKeyName"
+        Me.colKeyName.Visible = True
+        Me.colKeyName.VisibleIndex = 0
+        '
+        'colColumnName
+        '
+        Me.colColumnName.FieldName = "ColumnName"
+        Me.colColumnName.Name = "colColumnName"
+        Me.colColumnName.Visible = True
+        Me.colColumnName.VisibleIndex = 1
+        '
+        'colParentID
+        '
+        Me.colParentID.FieldName = "ParentID"
+        Me.colParentID.Name = "colParentID"
+        '
+        'colValue
+        '
+        Me.colValue.FieldName = "Value"
+        Me.colValue.Name = "colValue"
+        Me.colValue.Visible = True
+        Me.colValue.VisibleIndex = 2
+        Me.colValue.Width = 300
+        '
+        'PanelControl1
+        '
+        Me.PanelControl1.Controls.Add(Me.btnSearch)
+        Me.PanelControl1.Controls.Add(Me.txtSearch)
+        Me.PanelControl1.Controls.Add(Me.LabelControl3)
+        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl1.Name = "PanelControl1"
+        Me.PanelControl1.Size = New System.Drawing.Size(408, 57)
+        Me.PanelControl1.TabIndex = 0
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSearch.Location = New System.Drawing.Point(255, 29)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(132, 23)
+        Me.btnSearch.TabIndex = 2
+        Me.btnSearch.Text = "Search"
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtSearch.Location = New System.Drawing.Point(55, 3)
+        Me.txtSearch.MenuManager = Me.BarManager1
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(332, 20)
+        Me.txtSearch.TabIndex = 1
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Location = New System.Drawing.Point(6, 6)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(43, 13)
+        Me.LabelControl3.TabIndex = 0
+        Me.LabelControl3.Text = "Search : "
+        '
         'DocumentManager1
         '
         Me.DocumentManager1.ContainerControl = Me
@@ -3026,11 +3173,6 @@ Partial Class frmPNL_Add
         '
         Me.BUSINESSSOURCEBindingSource.DataMember = "BUSINESS_SOURCE"
         Me.BUSINESSSOURCEBindingSource.DataSource = Me.DsPNL
-        '
-        'DsPNL
-        '
-        Me.DsPNL.DataSetName = "dsPNL"
-        Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'cboS60F
         '
@@ -3473,6 +3615,16 @@ Partial Class frmPNL_Add
         CType(Me.txt_p4EntStaff.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txt_p4EntNonStaff.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txt_p4LossDispFA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlDocAdvanceSearch.ResumeLayout(False)
+        Me.ControlContainer2.ResumeLayout(False)
+        CType(Me.GCSearch, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataSearchBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl1.ResumeLayout(False)
+        Me.PanelControl1.PerformLayout()
+        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RibbonControl1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3484,7 +3636,6 @@ Partial Class frmPNL_Add
         CType(Me.RepositoryItemTextEdit4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemLookUpEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemComboBox4, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit7, System.ComponentModel.ISupportInitialize).EndInit()
@@ -3741,4 +3892,18 @@ Partial Class frmPNL_Add
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents pnlDocAdvanceSearch As DevExpress.XtraBars.Docking.DockPanel
+    Friend WithEvents ControlContainer2 As DevExpress.XtraBars.Docking.ControlContainer
+    Friend WithEvents GCSearch As DevExpress.XtraGrid.GridControl
+    Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents btnSearch As DevExpress.XtraEditors.SimpleButton
+    Friend WithEvents txtSearch As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents LabelControl3 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents DataSearchBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents colID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colKeyName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colValue As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colColumnName As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colParentID As DevExpress.XtraGrid.Columns.GridColumn
 End Class

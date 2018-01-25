@@ -49,6 +49,7 @@ Partial Class ucTableofContent
         Me.btnEdit = New DevExpress.XtraBars.BarButtonItem()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.Bar1 = New DevExpress.XtraBars.Bar()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
@@ -76,7 +77,7 @@ Partial Class ucTableofContent
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
-        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TABLECONTENTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -307,13 +308,19 @@ Partial Class ucTableofContent
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnEdit), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem2)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
         Me.Bar1.OptionsBar.UseWholeRow = True
         Me.Bar1.Text = "Tools"
+        '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "RA Report"
+        Me.BarButtonItem1.Id = 8
+        Me.BarButtonItem1.Name = "BarButtonItem1"
         '
         'BarManager1
         '
@@ -325,8 +332,8 @@ Partial Class ucTableofContent
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.BarButtonItem1})
-        Me.BarManager1.MaxItemId = 9
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnEdit, Me.btnDelete, Me.btnPrint, Me.BarButtonItem1, Me.BarButtonItem2})
+        Me.BarManager1.MaxItemId = 10
         '
         'barDockControlTop
         '
@@ -562,11 +569,11 @@ Partial Class ucTableofContent
         Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 0
         '
-        'BarButtonItem1
+        'BarButtonItem2
         '
-        Me.BarButtonItem1.Caption = "BarButtonItem1"
-        Me.BarButtonItem1.Id = 8
-        Me.BarButtonItem1.Name = "BarButtonItem1"
+        Me.BarButtonItem2.Caption = "ITA Report"
+        Me.BarButtonItem2.Id = 9
+        Me.BarButtonItem2.Name = "BarButtonItem2"
         '
         'ucTableofContent
         '
@@ -656,5 +663,6 @@ Partial Class ucTableofContent
     Friend WithEvents colModifiedBy As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colModifiedDateTime As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents BarButtonItem2 As DevExpress.XtraBars.BarButtonItem
 
 End Class

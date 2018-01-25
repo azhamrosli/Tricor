@@ -1816,12 +1816,68 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="TAX_ITA_WITHDRAWAL" msprop:Generator_TableClassName="TAX_ITA_WITHDRAWALDataTable" msprop:Generator_TableVarName="tableTAX_ITA_WITHDRAWAL" msprop:Generator_TablePropName="TAX_ITA_WITHDRAWAL" msprop:Generator_RowDeletingName="TAX_ITA_WITHDRAWALRowDeleting" msprop:Generator_RowChangingName="TAX_ITA_WITHDRAWALRowChanging" msprop:Generator_RowEvHandlerName="TAX_ITA_WITHDRAWALRowChangeEventHandler" msprop:Generator_RowDeletedName="TAX_ITA_WITHDRAWALRowDeleted" msprop:Generator_UserTableName="TAX_ITA_WITHDRAWAL" msprop:Generator_RowChangedName="TAX_ITA_WITHDRAWALRowChanged" msprop:Generator_RowEvArgName="TAX_ITA_WITHDRAWALRowChangeEvent" msprop:Generator_RowClassName="TAX_ITA_WITHDRAWALRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ITAW_KEY" msprop:Generator_ColumnVarNameInTable="columnITAW_KEY" msprop:Generator_ColumnPropNameInRow="ITAW_KEY" msprop:Generator_ColumnPropNameInTable="ITAW_KEYColumn" msprop:Generator_UserColumnName="ITAW_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="ITAW_BUSINESS" msprop:Generator_ColumnVarNameInTable="columnITAW_BUSINESS" msprop:Generator_ColumnPropNameInRow="ITAW_BUSINESS" msprop:Generator_ColumnPropNameInTable="ITAW_BUSINESSColumn" msprop:Generator_UserColumnName="ITAW_BUSINESS" type="xs:int" minOccurs="0" />
+              <xs:element name="ITAW_ID" msprop:Generator_ColumnVarNameInTable="columnITAW_ID" msprop:Generator_ColumnPropNameInRow="ITAW_ID" msprop:Generator_ColumnPropNameInTable="ITAW_IDColumn" msprop:Generator_UserColumnName="ITAW_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ITAW_ITEM" msprop:Generator_ColumnVarNameInTable="columnITAW_ITEM" msprop:Generator_ColumnPropNameInRow="ITAW_ITEM" msprop:Generator_ColumnPropNameInTable="ITAW_ITEMColumn" msprop:Generator_UserColumnName="ITAW_ITEM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ITAW_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnITAW_AMOUNT" msprop:Generator_ColumnPropNameInRow="ITAW_AMOUNT" msprop:Generator_ColumnPropNameInTable="ITAW_AMOUNTColumn" msprop:Generator_UserColumnName="ITAW_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ITAW_NOTE" msprop:Generator_ColumnVarNameInTable="columnITAW_NOTE" msprop:Generator_ColumnPropNameInRow="ITAW_NOTE" msprop:Generator_ColumnPropNameInTable="ITAW_NOTEColumn" msprop:Generator_UserColumnName="ITAW_NOTE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TAX_ITA_ADJUSTMENT" msprop:Generator_TableClassName="TAX_ITA_ADJUSTMENTDataTable" msprop:Generator_TableVarName="tableTAX_ITA_ADJUSTMENT" msprop:Generator_TablePropName="TAX_ITA_ADJUSTMENT" msprop:Generator_RowDeletingName="TAX_ITA_ADJUSTMENTRowDeleting" msprop:Generator_RowChangingName="TAX_ITA_ADJUSTMENTRowChanging" msprop:Generator_RowEvHandlerName="TAX_ITA_ADJUSTMENTRowChangeEventHandler" msprop:Generator_RowDeletedName="TAX_ITA_ADJUSTMENTRowDeleted" msprop:Generator_UserTableName="TAX_ITA_ADJUSTMENT" msprop:Generator_RowChangedName="TAX_ITA_ADJUSTMENTRowChanged" msprop:Generator_RowEvArgName="TAX_ITA_ADJUSTMENTRowChangeEvent" msprop:Generator_RowClassName="TAX_ITA_ADJUSTMENTRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ITAADJ_KEY" msprop:Generator_ColumnVarNameInTable="columnITAADJ_KEY" msprop:Generator_ColumnPropNameInRow="ITAADJ_KEY" msprop:Generator_ColumnPropNameInTable="ITAADJ_KEYColumn" msprop:Generator_UserColumnName="ITAADJ_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="ITAADJ_BUSINESS" msprop:Generator_ColumnVarNameInTable="columnITAADJ_BUSINESS" msprop:Generator_ColumnPropNameInRow="ITAADJ_BUSINESS" msprop:Generator_ColumnPropNameInTable="ITAADJ_BUSINESSColumn" msprop:Generator_UserColumnName="ITAADJ_BUSINESS" type="xs:int" minOccurs="0" />
+              <xs:element name="ITAADJ_ID" msprop:Generator_ColumnVarNameInTable="columnITAADJ_ID" msprop:Generator_ColumnPropNameInRow="ITAADJ_ID" msprop:Generator_ColumnPropNameInTable="ITAADJ_IDColumn" msprop:Generator_UserColumnName="ITAADJ_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ITAADJ_ITEM" msprop:Generator_ColumnVarNameInTable="columnITAADJ_ITEM" msprop:Generator_ColumnPropNameInRow="ITAADJ_ITEM" msprop:Generator_ColumnPropNameInTable="ITAADJ_ITEMColumn" msprop:Generator_UserColumnName="ITAADJ_ITEM" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ITAADJ_AMOUNT" msprop:Generator_ColumnVarNameInTable="columnITAADJ_AMOUNT" msprop:Generator_ColumnPropNameInRow="ITAADJ_AMOUNT" msprop:Generator_ColumnPropNameInTable="ITAADJ_AMOUNTColumn" msprop:Generator_UserColumnName="ITAADJ_AMOUNT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="ITAADJ_NOTE" msprop:Generator_ColumnVarNameInTable="columnITAADJ_NOTE" msprop:Generator_ColumnPropNameInRow="ITAADJ_NOTE" msprop:Generator_ColumnPropNameInTable="ITAADJ_NOTEColumn" msprop:Generator_UserColumnName="ITAADJ_NOTE" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:TAX_COMPUTATION" />
       <xs:field xpath="mstns:TC_KEY" />
     </xs:unique>
+    <xs:keyref name="FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT" refer="Constraint1" msprop:rel_Generator_UserChildTable="TAX_ITA_ADJUSTMENT" msprop:rel_Generator_ChildPropName="GetTAX_ITA_ADJUSTMENTRows" msprop:rel_Generator_UserRelationName="FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT" msprop:rel_Generator_ParentPropName="TAX_COMPUTATIONRow" msprop:rel_Generator_RelationVarName="relationFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT" msprop:rel_Generator_UserParentTable="TAX_COMPUTATION">
+      <xs:selector xpath=".//mstns:TAX_ITA_ADJUSTMENT" />
+      <xs:field xpath="mstns:ITAADJ_KEY" />
+    </xs:keyref>
+    <xs:keyref name="FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL" refer="Constraint1" msprop:rel_Generator_UserChildTable="TAX_ITA_WITHDRAWAL" msprop:rel_Generator_ChildPropName="GetTAX_ITA_WITHDRAWALRows" msprop:rel_Generator_UserRelationName="FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL" msprop:rel_Generator_ParentPropName="TAX_COMPUTATIONRow" msprop:rel_Generator_RelationVarName="relationFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL" msprop:rel_Generator_UserParentTable="TAX_COMPUTATION">
+      <xs:selector xpath=".//mstns:TAX_ITA_WITHDRAWAL" />
+      <xs:field xpath="mstns:ITAW_KEY" />
+    </xs:keyref>
     <xs:keyref name="FK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL" refer="Constraint1" msprop:rel_Generator_UserChildTable="TAX_RA_WITHDRAWAL" msprop:rel_Generator_ChildPropName="GetTAX_RA_WITHDRAWALRows" msprop:rel_Generator_UserRelationName="FK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL" msprop:rel_Generator_ParentPropName="TAX_COMPUTATIONRow" msprop:rel_Generator_RelationVarName="relationFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL" msprop:rel_Generator_UserParentTable="TAX_COMPUTATION">
       <xs:selector xpath=".//mstns:TAX_RA_WITHDRAWAL" />
       <xs:field xpath="mstns:RAW_KEY" />

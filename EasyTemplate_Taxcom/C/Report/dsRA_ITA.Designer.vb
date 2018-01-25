@@ -37,9 +37,17 @@ Partial Public Class dsRA_ITA
     
     Private tableTAX_RA_WITHDRAWAL As TAX_RA_WITHDRAWALDataTable
     
+    Private tableTAX_ITA_WITHDRAWAL As TAX_ITA_WITHDRAWALDataTable
+    
+    Private tableTAX_ITA_ADJUSTMENT As TAX_ITA_ADJUSTMENTDataTable
+    
     Private relationFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT As Global.System.Data.DataRelation
     
     Private relationFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL As Global.System.Data.DataRelation
+    
+    Private relationFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL As Global.System.Data.DataRelation
+    
+    Private relationFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT As Global.System.Data.DataRelation
     
     Private relationTAX_COMPUTATION_CA As Global.System.Data.DataRelation
     
@@ -89,6 +97,12 @@ Partial Public Class dsRA_ITA
             End If
             If (Not (ds.Tables("TAX_RA_WITHDRAWAL")) Is Nothing) Then
                 MyBase.Tables.Add(New TAX_RA_WITHDRAWALDataTable(ds.Tables("TAX_RA_WITHDRAWAL")))
+            End If
+            If (Not (ds.Tables("TAX_ITA_WITHDRAWAL")) Is Nothing) Then
+                MyBase.Tables.Add(New TAX_ITA_WITHDRAWALDataTable(ds.Tables("TAX_ITA_WITHDRAWAL")))
+            End If
+            If (Not (ds.Tables("TAX_ITA_ADJUSTMENT")) Is Nothing) Then
+                MyBase.Tables.Add(New TAX_ITA_ADJUSTMENTDataTable(ds.Tables("TAX_ITA_ADJUSTMENT")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -164,6 +178,26 @@ Partial Public Class dsRA_ITA
     Public ReadOnly Property TAX_RA_WITHDRAWAL() As TAX_RA_WITHDRAWALDataTable
         Get
             Return Me.tableTAX_RA_WITHDRAWAL
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property TAX_ITA_WITHDRAWAL() As TAX_ITA_WITHDRAWALDataTable
+        Get
+            Return Me.tableTAX_ITA_WITHDRAWAL
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property TAX_ITA_ADJUSTMENT() As TAX_ITA_ADJUSTMENTDataTable
+        Get
+            Return Me.tableTAX_ITA_ADJUSTMENT
         End Get
     End Property
     
@@ -252,6 +286,12 @@ Partial Public Class dsRA_ITA
             If (Not (ds.Tables("TAX_RA_WITHDRAWAL")) Is Nothing) Then
                 MyBase.Tables.Add(New TAX_RA_WITHDRAWALDataTable(ds.Tables("TAX_RA_WITHDRAWAL")))
             End If
+            If (Not (ds.Tables("TAX_ITA_WITHDRAWAL")) Is Nothing) Then
+                MyBase.Tables.Add(New TAX_ITA_WITHDRAWALDataTable(ds.Tables("TAX_ITA_WITHDRAWAL")))
+            End If
+            If (Not (ds.Tables("TAX_ITA_ADJUSTMENT")) Is Nothing) Then
+                MyBase.Tables.Add(New TAX_ITA_ADJUSTMENTDataTable(ds.Tables("TAX_ITA_ADJUSTMENT")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
@@ -320,8 +360,22 @@ Partial Public Class dsRA_ITA
                 Me.tableTAX_RA_WITHDRAWAL.InitVars
             End If
         End If
+        Me.tableTAX_ITA_WITHDRAWAL = CType(MyBase.Tables("TAX_ITA_WITHDRAWAL"),TAX_ITA_WITHDRAWALDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tableTAX_ITA_WITHDRAWAL) Is Nothing) Then
+                Me.tableTAX_ITA_WITHDRAWAL.InitVars
+            End If
+        End If
+        Me.tableTAX_ITA_ADJUSTMENT = CType(MyBase.Tables("TAX_ITA_ADJUSTMENT"),TAX_ITA_ADJUSTMENTDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tableTAX_ITA_ADJUSTMENT) Is Nothing) Then
+                Me.tableTAX_ITA_ADJUSTMENT.InitVars
+            End If
+        End If
         Me.relationFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT = Me.Relations("FK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT")
         Me.relationFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL = Me.Relations("FK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL")
+        Me.relationFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL = Me.Relations("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL")
+        Me.relationFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT = Me.Relations("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT")
         Me.relationTAX_COMPUTATION_CA = Me.Relations("TAX_COMPUTATION_CA")
     End Sub
     
@@ -345,6 +399,10 @@ Partial Public Class dsRA_ITA
         MyBase.Tables.Add(Me.tableTAX_RA_ADJUSTMENT)
         Me.tableTAX_RA_WITHDRAWAL = New TAX_RA_WITHDRAWALDataTable()
         MyBase.Tables.Add(Me.tableTAX_RA_WITHDRAWAL)
+        Me.tableTAX_ITA_WITHDRAWAL = New TAX_ITA_WITHDRAWALDataTable()
+        MyBase.Tables.Add(Me.tableTAX_ITA_WITHDRAWAL)
+        Me.tableTAX_ITA_ADJUSTMENT = New TAX_ITA_ADJUSTMENTDataTable()
+        MyBase.Tables.Add(Me.tableTAX_ITA_ADJUSTMENT)
         Dim fkc As Global.System.Data.ForeignKeyConstraint
         fkc = New Global.System.Data.ForeignKeyConstraint("FK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_RA_ADJUSTMENT.RAADJ_KEYColumn})
         Me.tableTAX_RA_ADJUSTMENT.Constraints.Add(fkc)
@@ -356,10 +414,24 @@ Partial Public Class dsRA_ITA
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_ITA_WITHDRAWAL.ITAW_KEYColumn})
+        Me.tableTAX_ITA_WITHDRAWAL.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_KEYColumn})
+        Me.tableTAX_ITA_ADJUSTMENT.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
         Me.relationFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT = New Global.System.Data.DataRelation("FK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_RA_ADJUSTMENT.RAADJ_KEYColumn}, false)
         Me.Relations.Add(Me.relationFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT)
         Me.relationFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL = New Global.System.Data.DataRelation("FK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_RA_WITHDRAWAL.RAW_KEYColumn}, false)
         Me.Relations.Add(Me.relationFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL)
+        Me.relationFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL = New Global.System.Data.DataRelation("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_ITA_WITHDRAWAL.ITAW_KEYColumn}, false)
+        Me.Relations.Add(Me.relationFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL)
+        Me.relationFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT = New Global.System.Data.DataRelation("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_KEYColumn}, New Global.System.Data.DataColumn() {Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_KEYColumn}, false)
+        Me.Relations.Add(Me.relationFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT)
         Me.relationTAX_COMPUTATION_CA = New Global.System.Data.DataRelation("TAX_COMPUTATION_CA", New Global.System.Data.DataColumn() {Me.tableTAX_COMPUTATION.TC_REF_NOColumn, Me.tableTAX_COMPUTATION.TC_YAColumn}, New Global.System.Data.DataColumn() {Me.tableCA.CA_REF_NOColumn, Me.tableCA.CA_YAColumn}, false)
         Me.Relations.Add(Me.relationTAX_COMPUTATION_CA)
     End Sub
@@ -397,6 +469,18 @@ Partial Public Class dsRA_ITA
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializeTAX_RA_WITHDRAWAL() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializeTAX_ITA_WITHDRAWAL() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializeTAX_ITA_ADJUSTMENT() As Boolean
         Return false
     End Function
     
@@ -475,6 +559,12 @@ Partial Public Class dsRA_ITA
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub TAX_RA_WITHDRAWALRowChangeEventHandler(ByVal sender As Object, ByVal e As TAX_RA_WITHDRAWALRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub TAX_ITA_WITHDRAWALRowChangeEventHandler(ByVal sender As Object, ByVal e As TAX_ITA_WITHDRAWALRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub TAX_ITA_ADJUSTMENTRowChangeEventHandler(ByVal sender As Object, ByVal e As TAX_ITA_ADJUSTMENTRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -2864,269 +2954,269 @@ Partial Public Class dsRA_ITA
             Me.Rows.Add(row)
         End Sub
         
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function AddTAX_COMPUTATIONRow( _
-                    ByVal TC_KEY As Integer, _
-                    ByVal TC_REF_NO As String, _
-                    ByVal TC_YA As String, _
-                    ByVal TC_CO_NAME As String, _
-                    ByVal TC_ROC As String, _
-                    ByVal TC_BUSINESS As Integer, _
-                    ByVal TC_AI_PNL_BAL As String, _
-                    ByVal TC_AI_DIVIDEND As String, _
-                    ByVal TC_AI_RENTAL As String, _
-                    ByVal TC_AI_ROYALTY As String, _
-                    ByVal TC_AI_INTEREST As String, _
-                    ByVal TC_AI_SEC4A As String, _
-                    ByVal TC_AI_TOT_NONBS_IN As String, _
-                    ByVal TC_AI_TOT_BS_IN As String, _
-                    ByVal TC_AI_ADJ_BS_IN_NA_LOS As String, _
-                    ByVal TC_AI_ADJ_BS_IN_NT_IN As String, _
-                    ByVal TC_AI_ADJ_BS_IN_TAX_IN As String, _
-                    ByVal TC_AI_TOT_ADJ_BS_IN As String, _
-                    ByVal TC_AI_ADJ_BS_EXP_INT As String, _
-                    ByVal TC_AI_ADJ_BS_EXP_NA_EXP As String, _
-                    ByVal TC_AI_ADJ_BS_EXP_RV_EXP As String, _
-                    ByVal TC_AI_ADJ_BS_EXP_CLAIM As String, _
-                    ByVal TC_AI_TOT_ADJ_BS_EXP As String, _
-                    ByVal TC_AI_ADJ_IN_LOSS As String, _
-                    ByVal TC_SI_ADJ_BS_IN As String, _
-                    ByVal TC_SI_CA As String, _
-                    ByVal TC_SI_STAT_BS_IN As String, _
-                    ByVal TC_SI_INVEST_ALLOW As String, _
-                    ByVal TC_SI_NET_STAT_IN As String, _
-                    ByVal TC_SI_SS_RENTAL As String, _
-                    ByVal TC_SI_SS_DIR_EXP As String, _
-                    ByVal TC_SI_SS_DIR_EXP_QUIT As String, _
-                    ByVal TC_SI_SS_DIR_EXP_MAIN As String, _
-                    ByVal TC_SI_SS_ADJ_IN As String, _
-                    ByVal TC_SI_SS_CA As String, _
-                    ByVal TC_SI_SS_STAT_BS_IN As String, _
-                    ByVal TC_SI_OTH_SOURCE As String, _
-                    ByVal TC_SI_MAIN_BS As String, _
-                    ByVal TC_SI_SEC_BS As String, _
-                    ByVal TC_SI_OTH_BS As String, _
-                    ByVal TC_SI_TOT As String, _
-                    ByVal TC_SI_BS_LOSS_BF As String, _
-                    ByVal TC_SI_AGGREGATE As String, _
-                    ByVal TC_NB_DIV As String, _
-                    ByVal TC_NB_DIV_ATT_INT As String, _
-                    ByVal TC_NB_DIV_NET As String, _
-                    ByVal TC_NB_INT As String, _
-                    ByVal TC_NB_INT_ATT_INT As String, _
-                    ByVal TC_NB_INT_NET As String, _
-                    ByVal TC_NB_RENT As String, _
-                    ByVal TC_NB_RENT_ATT_INT As String, _
-                    ByVal TC_NB_RENT_ASSESS As String, _
-                    ByVal TC_NB_RENT_QUIT As String, _
-                    ByVal TC_NB_RENT_INSUR As String, _
-                    ByVal TC_NB_RENT_OTH As String, _
-                    ByVal TC_NB_RENT_MAIN As String, _
-                    ByVal TC_NB_RENT_AGREE As String, _
-                    ByVal TC_NB_RENT_NET As String, _
-                    ByVal TC_NB_SUNDRY As String, _
-                    ByVal TC_NB_OTH_AGGR_STAT As String, _
-                    ByVal TC_TP_AGGR_IN As String, _
-                    ByVal TC_TP_CURR_LOSS As String, _
-                    ByVal TC_TP_AGGR_IN_LOSS As String, _
-                    ByVal TC_TP_APRV_DONATION As String, _
-                    ByVal TC_TP_CHARGEABLE As String, _
-                    ByVal TC_TP_28_CHARGEABLE As String, _
-                    ByVal TC_TP_SEC110 As String, _
-                    ByVal TC_TP_SEC132 As String, _
-                    ByVal TC_TP_SEC133 As String, _
-                    ByVal TC_TP_TOT_SETOFF As String, _
-                    ByVal TC_TP_PAYABLE As String, _
-                    ByVal TC_TP_INSTALL As String, _
-                    ByVal TC_TP_PAYABLE_BAL As String, _
-                    ByVal TC_CB_CA_BAL_BF As String, _
-                    ByVal TC_CB_CA_CURR As String, _
-                    ByVal TC_CB_CA_AA As String, _
-                    ByVal TC_CB_CA_IA As String, _
-                    ByVal TC_CB_CA_BA As String, _
-                    ByVal TC_CB_CA_UTIL As String, _
-                    ByVal TC_CB_CA_BAL_CF As String, _
-                    ByVal TC_CB_LS_BAL_BF As String, _
-                    ByVal TC_CB_LS_UTIL As String, _
-                    ByVal TC_CB_LS_BAL_UTIL As String, _
-                    ByVal TC_CB_LS_UNABSORBED As String, _
-                    ByVal TC_CB_LS_BAL_CF As String, _
-                    ByVal TC_CB_ITA_BAL_BF As String, _
-                    ByVal TC_CB_ITA_CURR As String, _
-                    ByVal TC_CB_ITA_BAL_BF_CURR As String, _
-                    ByVal TC_CB_ITA_UTIL As String, _
-                    ByVal TC_CB_ITA_BAL_CF As String, _
-                    ByVal TC_AI_OTH_BS_IN As String, _
-                    ByVal TC_TP_RATE1 As Integer, _
-                    ByVal TC_TP_RATE2 As Integer, _
-                    ByVal TC_TP_RATE3 As Integer, _
-                    ByVal TC_TP_RATE4 As Integer, _
-                    ByVal TC_TP_RATE5 As Integer, _
-                    ByVal TC_TP_RATE6 As Integer, _
-                    ByVal TC_TP_APP_CHARGEABLE1 As String, _
-                    ByVal TC_TP_APP_CHARGEABLE2 As String, _
-                    ByVal TC_TP_APP_CHARGEABLE3 As String, _
-                    ByVal TC_TP_APP_CHARGEABLE4 As String, _
-                    ByVal TC_TP_APP_CHARGEABLE5 As String, _
-                    ByVal TC_TP_APP_CHARGEABLE6 As String, _
-                    ByVal TC_TP_RATE1_CHARGEABLE As String, _
-                    ByVal TC_TP_RATE2_CHARGEABLE As String, _
-                    ByVal TC_TP_RATE3_CHARGEABLE As String, _
-                    ByVal TC_TP_RATE4_CHARGEABLE As String, _
-                    ByVal TC_TP_RATE5_CHARGEABLE As String, _
-                    ByVal TC_TP_TOT_TAX_CHARGED As String, _
-                    ByVal TC_TP_SEC6B_REBATE As String, _
-                    ByVal TC_TP_SEC110_OTHERS As String, _
-                    ByVal TC_TP_PROSPECTING As String, _
-                    ByVal TC_TP_QUALIFY_AGRICULTURE As String, _
-                    ByVal TC_TP_PREOP_BS As String, _
-                    ByVal TC_TP_FOOD_PRODUCTION As String, _
-                    ByVal TC_TP_EXP_ALLOWED As String, _
-                    ByVal TC_TP_TOTAL_OTH_EXP As String, _
-                    ByVal TC_TP_TOTAL_INCOME As String, _
-                    ByVal TC_TP_PIONEER_CHARGE As String, _
-                    ByVal TC_TP_OPERATIONALHQ_CHARGE As String, _
-                    ByVal TC_TP_FOREIGN_CHARGE As String, _
-                    ByVal TC_TP_BS_LOSS As String, _
-                    ByVal TC_NB_ROYALTY As String, _
-                    ByVal TC_NB_ADDITION As String, _
-                    ByVal TC_CB_LS_ADJUST_LOSS As String, _
-                    ByVal TC_CB_LS_UTIL_CURR As String, _
-                    ByVal TC_SI_RA As String, _
-                    ByVal TC_CB_RA_BAL_BF As Decimal, _
-                    ByVal TC_CB_RA_CURR As Decimal, _
-                    ByVal TC_CB_RA_BAL_BF_CURR As String, _
-                    ByVal TC_CB_RA_UTIL As String, _
-                    ByVal TC_CB_RA_BAL_CF As String, _
-                    ByVal TC_SI_BC As String, _
-                    ByVal TC_SI_ADJ_BS_IN_BC As String, _
-                    ByVal TC_CB_CA_CURR_BA As String, _
-                    ByVal TC_TP_RATE4A As Integer, _
-                    ByVal TC_TP_APP_CHARGEABLE4A As String, _
-                    ByVal TC_TP_RATE4A_CHARGEABLE As String, _
-                    ByVal TC_CB_CA_NA As String, _
-                    ByVal TC_TP_ZAKAT As String, _
-                    ByVal TC_OTHERDEDUCTION As String, _
-                    ByVal TC_CB_CA_DISALLOW As String, _
-                    ByVal TC_CB_CA_ABAL_CF As String, _
-                    ByVal TC_CB_CHECK As Double, _
-                    ByVal TC_TP_CLAIM As String, _
-                    ByVal TC_CB_LS_SAMOUNT As String, _
-                    ByVal TC_CB_LS_BALS_CF As String, _
-                    ByVal TC_CB_LS_D_BL As String, _
-                    ByVal TC_CB_LS_SRDAMT2 As String, _
-                    ByVal TC_CB_LS_BLNBF As String, _
-                    ByVal TC_CB_LS_AMTTUT As String, _
-                    ByVal TC_CB_LS_BLNCF As String, _
-                    ByVal TC_COMPANY As String, _
-                    ByVal TC_PIONEERDESC As String, _
-                    ByVal TC_PIO As String, _
-                    ByVal TC_PIONEER As String, _
-                    ByVal TC_RA_RATE1 As String, _
-                    ByVal TC_RA_QUALIFYINGCAPITALEXP As Decimal, _
-                    ByVal TC_RA_QUALIFYINGCAPITALEXP_AMOUNT As Decimal, _
-                    ByVal TC_RA_BALANCINGALLOWANCE As Decimal, _
-                    ByVal TC_RA_TOTAL1 As String, _
-                    ByVal TC_RA_RESTRICTRATE As String, _
-                    ByVal TC_RA_RESTRICTAMOUNT As String, _
-                    ByVal TC_ITA_RATE1 As String, _
-                    ByVal TC_ITA_QUALIFYINGCAPITALEXP As Decimal, _
-                    ByVal TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT As Decimal, _
-                    ByVal TC_ITA_BALANCINGALLOWANCE As String, _
-                    ByVal TC_ITA_TOTAL1 As String, _
-                    ByVal TC_ITA_RESTRICTRATE As String, _
-                    ByVal TC_ITA_RESTRICTAMOUNT As String, _
-                    ByVal TC_DISALLOW_NOTE As String, _
-                    ByVal TC_DISALLOWBUSINESS_NOTE As String, _
-                    ByVal TC_SURPLUSRECOVERED As String, _
-                    ByVal TC_MININGALLOWNANCE As String, _
-                    ByVal TC_MININGEXPENSES As String, _
-                    ByVal TC_STAT_DIVIDEND As String, _
-                    ByVal TC_TP_SEC110B As String, _
-                    ByVal TC_NB_RENT_OTH2 As String, _
-                    ByVal TC_NB_CARRYBCKLOSS As String, _
-                    ByVal TC_NB_AMTNOTCARRYBCK As String, _
-                    ByVal TC_NB_CHKCB As String, _
-                    ByVal TC_TP_INCOME_TP2 As String, _
-                    ByVal TC_TP_ESTIMATED_TP As String, _
-                    ByVal TC_TP_INCOME_TP3 As String, _
-                    ByVal TC_TP_ALL_DIFF As String, _
-                    ByVal TC_TP_EX_DIFF As String, _
-                    ByVal TC_TP_PEN_DIFF As String, _
-                    ByVal TC_WITHRAITA As String, _
-                    ByVal TC_RA_WITHDRAWAL As String, _
-                    ByVal TC_RA_ADJUSTMENT As String, _
-                    ByVal TC_ITA_WITHDRAWAL As String, _
-                    ByVal TC_ITA_ADJUSTMENT As String, _
-                    ByVal TC_NB_DIV_OTH As String, _
-                    ByVal TC_NB_INT_OTH As String, _
-                    ByVal TC_SUNDRY_EXP As String, _
-                    ByVal TC_CHK_EXEMP As String, _
-                    ByVal TC_SI_TOT_PARTNERSHIP As String, _
-                    ByVal TC_CB_CA_ACA As String, _
-                    ByVal TC_NB_RENTIBA As String, _
-                    ByVal TC_NB_RENTIBA_ATT_IN As String, _
-                    ByVal TC_NB_RENTIBA_ASSESS As String, _
-                    ByVal TC_NB_RENTIBA_QUIT As String, _
-                    ByVal TC_NB_RENTIBA_INSUR As String, _
-                    ByVal TC_NB_RENTIBA_OTH As String, _
-                    ByVal TC_NB_RENTIBA_MAIN As String, _
-                    ByVal TC_NB_RENTIBA_AGREE As String, _
-                    ByVal TC_NB_RENTIBA_IBA As String, _
-                    ByVal TC_NB_DIV_DIS_ATT_INT As String, _
-                    ByVal TC_NB_DIV_TOT_ATT_INT As String, _
-                    ByVal TC_EA_UTL As String, _
-                    ByVal TC_EA_TYPE As String, _
-                    ByVal TC_EA_CURR_COMPANY As String, _
-                    ByVal TC_EA_CURR_AGRICULTURE As String, _
-                    ByVal TC_EA_CURR_SIGNIFICANT As String, _
-                    ByVal TC_EA_CURR_MARKET As String, _
-                    ByVal TC_EA_CURR_MSB As String, _
-                    ByVal TC_EA_TOTAL As String, _
-                    ByVal TC_EA_RESTRICTRATE As String, _
-                    ByVal TC_EA_BF As String, _
-                    ByVal TC_EA_CF As String, _
-                    ByVal TC_TP_ESTIMATED_SME As String, _
-                    ByVal TC_NB_DCA_INT As String, _
-                    ByVal TC_NB_DEEMED_INT As String, _
-                    ByVal TC_EXEMPTIONCAL As String, _
-                    ByVal TC_EXEMPTIONLESS As String, _
-                    ByVal TC_TP_INSTALL_107C As String, _
-                    ByVal TC_TP_INSTALL_107A As String, _
-                    ByVal TC_TP_RATE7 As Integer, _
-                    ByVal TC_TP_APP_CHARGEABLE7 As String, _
-                    ByVal TC_TP_RATE6_CHARGEABLE As String, _
+                    ByVal TC_KEY As Integer,  _
+                    ByVal TC_REF_NO As String,  _
+                    ByVal TC_YA As String,  _
+                    ByVal TC_CO_NAME As String,  _
+                    ByVal TC_ROC As String,  _
+                    ByVal TC_BUSINESS As Integer,  _
+                    ByVal TC_AI_PNL_BAL As String,  _
+                    ByVal TC_AI_DIVIDEND As String,  _
+                    ByVal TC_AI_RENTAL As String,  _
+                    ByVal TC_AI_ROYALTY As String,  _
+                    ByVal TC_AI_INTEREST As String,  _
+                    ByVal TC_AI_SEC4A As String,  _
+                    ByVal TC_AI_TOT_NONBS_IN As String,  _
+                    ByVal TC_AI_TOT_BS_IN As String,  _
+                    ByVal TC_AI_ADJ_BS_IN_NA_LOS As String,  _
+                    ByVal TC_AI_ADJ_BS_IN_NT_IN As String,  _
+                    ByVal TC_AI_ADJ_BS_IN_TAX_IN As String,  _
+                    ByVal TC_AI_TOT_ADJ_BS_IN As String,  _
+                    ByVal TC_AI_ADJ_BS_EXP_INT As String,  _
+                    ByVal TC_AI_ADJ_BS_EXP_NA_EXP As String,  _
+                    ByVal TC_AI_ADJ_BS_EXP_RV_EXP As String,  _
+                    ByVal TC_AI_ADJ_BS_EXP_CLAIM As String,  _
+                    ByVal TC_AI_TOT_ADJ_BS_EXP As String,  _
+                    ByVal TC_AI_ADJ_IN_LOSS As String,  _
+                    ByVal TC_SI_ADJ_BS_IN As String,  _
+                    ByVal TC_SI_CA As String,  _
+                    ByVal TC_SI_STAT_BS_IN As String,  _
+                    ByVal TC_SI_INVEST_ALLOW As String,  _
+                    ByVal TC_SI_NET_STAT_IN As String,  _
+                    ByVal TC_SI_SS_RENTAL As String,  _
+                    ByVal TC_SI_SS_DIR_EXP As String,  _
+                    ByVal TC_SI_SS_DIR_EXP_QUIT As String,  _
+                    ByVal TC_SI_SS_DIR_EXP_MAIN As String,  _
+                    ByVal TC_SI_SS_ADJ_IN As String,  _
+                    ByVal TC_SI_SS_CA As String,  _
+                    ByVal TC_SI_SS_STAT_BS_IN As String,  _
+                    ByVal TC_SI_OTH_SOURCE As String,  _
+                    ByVal TC_SI_MAIN_BS As String,  _
+                    ByVal TC_SI_SEC_BS As String,  _
+                    ByVal TC_SI_OTH_BS As String,  _
+                    ByVal TC_SI_TOT As String,  _
+                    ByVal TC_SI_BS_LOSS_BF As String,  _
+                    ByVal TC_SI_AGGREGATE As String,  _
+                    ByVal TC_NB_DIV As String,  _
+                    ByVal TC_NB_DIV_ATT_INT As String,  _
+                    ByVal TC_NB_DIV_NET As String,  _
+                    ByVal TC_NB_INT As String,  _
+                    ByVal TC_NB_INT_ATT_INT As String,  _
+                    ByVal TC_NB_INT_NET As String,  _
+                    ByVal TC_NB_RENT As String,  _
+                    ByVal TC_NB_RENT_ATT_INT As String,  _
+                    ByVal TC_NB_RENT_ASSESS As String,  _
+                    ByVal TC_NB_RENT_QUIT As String,  _
+                    ByVal TC_NB_RENT_INSUR As String,  _
+                    ByVal TC_NB_RENT_OTH As String,  _
+                    ByVal TC_NB_RENT_MAIN As String,  _
+                    ByVal TC_NB_RENT_AGREE As String,  _
+                    ByVal TC_NB_RENT_NET As String,  _
+                    ByVal TC_NB_SUNDRY As String,  _
+                    ByVal TC_NB_OTH_AGGR_STAT As String,  _
+                    ByVal TC_TP_AGGR_IN As String,  _
+                    ByVal TC_TP_CURR_LOSS As String,  _
+                    ByVal TC_TP_AGGR_IN_LOSS As String,  _
+                    ByVal TC_TP_APRV_DONATION As String,  _
+                    ByVal TC_TP_CHARGEABLE As String,  _
+                    ByVal TC_TP_28_CHARGEABLE As String,  _
+                    ByVal TC_TP_SEC110 As String,  _
+                    ByVal TC_TP_SEC132 As String,  _
+                    ByVal TC_TP_SEC133 As String,  _
+                    ByVal TC_TP_TOT_SETOFF As String,  _
+                    ByVal TC_TP_PAYABLE As String,  _
+                    ByVal TC_TP_INSTALL As String,  _
+                    ByVal TC_TP_PAYABLE_BAL As String,  _
+                    ByVal TC_CB_CA_BAL_BF As String,  _
+                    ByVal TC_CB_CA_CURR As String,  _
+                    ByVal TC_CB_CA_AA As String,  _
+                    ByVal TC_CB_CA_IA As String,  _
+                    ByVal TC_CB_CA_BA As String,  _
+                    ByVal TC_CB_CA_UTIL As String,  _
+                    ByVal TC_CB_CA_BAL_CF As String,  _
+                    ByVal TC_CB_LS_BAL_BF As String,  _
+                    ByVal TC_CB_LS_UTIL As String,  _
+                    ByVal TC_CB_LS_BAL_UTIL As String,  _
+                    ByVal TC_CB_LS_UNABSORBED As String,  _
+                    ByVal TC_CB_LS_BAL_CF As String,  _
+                    ByVal TC_CB_ITA_BAL_BF As String,  _
+                    ByVal TC_CB_ITA_CURR As String,  _
+                    ByVal TC_CB_ITA_BAL_BF_CURR As String,  _
+                    ByVal TC_CB_ITA_UTIL As String,  _
+                    ByVal TC_CB_ITA_BAL_CF As String,  _
+                    ByVal TC_AI_OTH_BS_IN As String,  _
+                    ByVal TC_TP_RATE1 As Integer,  _
+                    ByVal TC_TP_RATE2 As Integer,  _
+                    ByVal TC_TP_RATE3 As Integer,  _
+                    ByVal TC_TP_RATE4 As Integer,  _
+                    ByVal TC_TP_RATE5 As Integer,  _
+                    ByVal TC_TP_RATE6 As Integer,  _
+                    ByVal TC_TP_APP_CHARGEABLE1 As String,  _
+                    ByVal TC_TP_APP_CHARGEABLE2 As String,  _
+                    ByVal TC_TP_APP_CHARGEABLE3 As String,  _
+                    ByVal TC_TP_APP_CHARGEABLE4 As String,  _
+                    ByVal TC_TP_APP_CHARGEABLE5 As String,  _
+                    ByVal TC_TP_APP_CHARGEABLE6 As String,  _
+                    ByVal TC_TP_RATE1_CHARGEABLE As String,  _
+                    ByVal TC_TP_RATE2_CHARGEABLE As String,  _
+                    ByVal TC_TP_RATE3_CHARGEABLE As String,  _
+                    ByVal TC_TP_RATE4_CHARGEABLE As String,  _
+                    ByVal TC_TP_RATE5_CHARGEABLE As String,  _
+                    ByVal TC_TP_TOT_TAX_CHARGED As String,  _
+                    ByVal TC_TP_SEC6B_REBATE As String,  _
+                    ByVal TC_TP_SEC110_OTHERS As String,  _
+                    ByVal TC_TP_PROSPECTING As String,  _
+                    ByVal TC_TP_QUALIFY_AGRICULTURE As String,  _
+                    ByVal TC_TP_PREOP_BS As String,  _
+                    ByVal TC_TP_FOOD_PRODUCTION As String,  _
+                    ByVal TC_TP_EXP_ALLOWED As String,  _
+                    ByVal TC_TP_TOTAL_OTH_EXP As String,  _
+                    ByVal TC_TP_TOTAL_INCOME As String,  _
+                    ByVal TC_TP_PIONEER_CHARGE As String,  _
+                    ByVal TC_TP_OPERATIONALHQ_CHARGE As String,  _
+                    ByVal TC_TP_FOREIGN_CHARGE As String,  _
+                    ByVal TC_TP_BS_LOSS As String,  _
+                    ByVal TC_NB_ROYALTY As String,  _
+                    ByVal TC_NB_ADDITION As String,  _
+                    ByVal TC_CB_LS_ADJUST_LOSS As String,  _
+                    ByVal TC_CB_LS_UTIL_CURR As String,  _
+                    ByVal TC_SI_RA As String,  _
+                    ByVal TC_CB_RA_BAL_BF As Decimal,  _
+                    ByVal TC_CB_RA_CURR As Decimal,  _
+                    ByVal TC_CB_RA_BAL_BF_CURR As String,  _
+                    ByVal TC_CB_RA_UTIL As String,  _
+                    ByVal TC_CB_RA_BAL_CF As String,  _
+                    ByVal TC_SI_BC As String,  _
+                    ByVal TC_SI_ADJ_BS_IN_BC As String,  _
+                    ByVal TC_CB_CA_CURR_BA As String,  _
+                    ByVal TC_TP_RATE4A As Integer,  _
+                    ByVal TC_TP_APP_CHARGEABLE4A As String,  _
+                    ByVal TC_TP_RATE4A_CHARGEABLE As String,  _
+                    ByVal TC_CB_CA_NA As String,  _
+                    ByVal TC_TP_ZAKAT As String,  _
+                    ByVal TC_OTHERDEDUCTION As String,  _
+                    ByVal TC_CB_CA_DISALLOW As String,  _
+                    ByVal TC_CB_CA_ABAL_CF As String,  _
+                    ByVal TC_CB_CHECK As Double,  _
+                    ByVal TC_TP_CLAIM As String,  _
+                    ByVal TC_CB_LS_SAMOUNT As String,  _
+                    ByVal TC_CB_LS_BALS_CF As String,  _
+                    ByVal TC_CB_LS_D_BL As String,  _
+                    ByVal TC_CB_LS_SRDAMT2 As String,  _
+                    ByVal TC_CB_LS_BLNBF As String,  _
+                    ByVal TC_CB_LS_AMTTUT As String,  _
+                    ByVal TC_CB_LS_BLNCF As String,  _
+                    ByVal TC_COMPANY As String,  _
+                    ByVal TC_PIONEERDESC As String,  _
+                    ByVal TC_PIO As String,  _
+                    ByVal TC_PIONEER As String,  _
+                    ByVal TC_RA_RATE1 As String,  _
+                    ByVal TC_RA_QUALIFYINGCAPITALEXP As Decimal,  _
+                    ByVal TC_RA_QUALIFYINGCAPITALEXP_AMOUNT As Decimal,  _
+                    ByVal TC_RA_BALANCINGALLOWANCE As Decimal,  _
+                    ByVal TC_RA_TOTAL1 As String,  _
+                    ByVal TC_RA_RESTRICTRATE As String,  _
+                    ByVal TC_RA_RESTRICTAMOUNT As String,  _
+                    ByVal TC_ITA_RATE1 As String,  _
+                    ByVal TC_ITA_QUALIFYINGCAPITALEXP As Decimal,  _
+                    ByVal TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT As Decimal,  _
+                    ByVal TC_ITA_BALANCINGALLOWANCE As String,  _
+                    ByVal TC_ITA_TOTAL1 As String,  _
+                    ByVal TC_ITA_RESTRICTRATE As String,  _
+                    ByVal TC_ITA_RESTRICTAMOUNT As String,  _
+                    ByVal TC_DISALLOW_NOTE As String,  _
+                    ByVal TC_DISALLOWBUSINESS_NOTE As String,  _
+                    ByVal TC_SURPLUSRECOVERED As String,  _
+                    ByVal TC_MININGALLOWNANCE As String,  _
+                    ByVal TC_MININGEXPENSES As String,  _
+                    ByVal TC_STAT_DIVIDEND As String,  _
+                    ByVal TC_TP_SEC110B As String,  _
+                    ByVal TC_NB_RENT_OTH2 As String,  _
+                    ByVal TC_NB_CARRYBCKLOSS As String,  _
+                    ByVal TC_NB_AMTNOTCARRYBCK As String,  _
+                    ByVal TC_NB_CHKCB As String,  _
+                    ByVal TC_TP_INCOME_TP2 As String,  _
+                    ByVal TC_TP_ESTIMATED_TP As String,  _
+                    ByVal TC_TP_INCOME_TP3 As String,  _
+                    ByVal TC_TP_ALL_DIFF As String,  _
+                    ByVal TC_TP_EX_DIFF As String,  _
+                    ByVal TC_TP_PEN_DIFF As String,  _
+                    ByVal TC_WITHRAITA As String,  _
+                    ByVal TC_RA_WITHDRAWAL As String,  _
+                    ByVal TC_RA_ADJUSTMENT As String,  _
+                    ByVal TC_ITA_WITHDRAWAL As String,  _
+                    ByVal TC_ITA_ADJUSTMENT As String,  _
+                    ByVal TC_NB_DIV_OTH As String,  _
+                    ByVal TC_NB_INT_OTH As String,  _
+                    ByVal TC_SUNDRY_EXP As String,  _
+                    ByVal TC_CHK_EXEMP As String,  _
+                    ByVal TC_SI_TOT_PARTNERSHIP As String,  _
+                    ByVal TC_CB_CA_ACA As String,  _
+                    ByVal TC_NB_RENTIBA As String,  _
+                    ByVal TC_NB_RENTIBA_ATT_IN As String,  _
+                    ByVal TC_NB_RENTIBA_ASSESS As String,  _
+                    ByVal TC_NB_RENTIBA_QUIT As String,  _
+                    ByVal TC_NB_RENTIBA_INSUR As String,  _
+                    ByVal TC_NB_RENTIBA_OTH As String,  _
+                    ByVal TC_NB_RENTIBA_MAIN As String,  _
+                    ByVal TC_NB_RENTIBA_AGREE As String,  _
+                    ByVal TC_NB_RENTIBA_IBA As String,  _
+                    ByVal TC_NB_DIV_DIS_ATT_INT As String,  _
+                    ByVal TC_NB_DIV_TOT_ATT_INT As String,  _
+                    ByVal TC_EA_UTL As String,  _
+                    ByVal TC_EA_TYPE As String,  _
+                    ByVal TC_EA_CURR_COMPANY As String,  _
+                    ByVal TC_EA_CURR_AGRICULTURE As String,  _
+                    ByVal TC_EA_CURR_SIGNIFICANT As String,  _
+                    ByVal TC_EA_CURR_MARKET As String,  _
+                    ByVal TC_EA_CURR_MSB As String,  _
+                    ByVal TC_EA_TOTAL As String,  _
+                    ByVal TC_EA_RESTRICTRATE As String,  _
+                    ByVal TC_EA_BF As String,  _
+                    ByVal TC_EA_CF As String,  _
+                    ByVal TC_TP_ESTIMATED_SME As String,  _
+                    ByVal TC_NB_DCA_INT As String,  _
+                    ByVal TC_NB_DEEMED_INT As String,  _
+                    ByVal TC_EXEMPTIONCAL As String,  _
+                    ByVal TC_EXEMPTIONLESS As String,  _
+                    ByVal TC_TP_INSTALL_107C As String,  _
+                    ByVal TC_TP_INSTALL_107A As String,  _
+                    ByVal TC_TP_RATE7 As Integer,  _
+                    ByVal TC_TP_APP_CHARGEABLE7 As String,  _
+                    ByVal TC_TP_RATE6_CHARGEABLE As String,  _
                     ByVal TC_TP_RATE7_CHARGEABLE As String) As TAX_COMPUTATIONRow
-            Dim rowTAX_COMPUTATIONRow As TAX_COMPUTATIONRow = CType(Me.NewRow, TAX_COMPUTATIONRow)
+            Dim rowTAX_COMPUTATIONRow As TAX_COMPUTATIONRow = CType(Me.NewRow,TAX_COMPUTATIONRow)
             Dim columnValuesArray() As Object = New Object() {TC_KEY, TC_REF_NO, TC_YA, TC_CO_NAME, TC_ROC, TC_BUSINESS, TC_AI_PNL_BAL, TC_AI_DIVIDEND, TC_AI_RENTAL, TC_AI_ROYALTY, TC_AI_INTEREST, TC_AI_SEC4A, TC_AI_TOT_NONBS_IN, TC_AI_TOT_BS_IN, TC_AI_ADJ_BS_IN_NA_LOS, TC_AI_ADJ_BS_IN_NT_IN, TC_AI_ADJ_BS_IN_TAX_IN, TC_AI_TOT_ADJ_BS_IN, TC_AI_ADJ_BS_EXP_INT, TC_AI_ADJ_BS_EXP_NA_EXP, TC_AI_ADJ_BS_EXP_RV_EXP, TC_AI_ADJ_BS_EXP_CLAIM, TC_AI_TOT_ADJ_BS_EXP, TC_AI_ADJ_IN_LOSS, TC_SI_ADJ_BS_IN, TC_SI_CA, TC_SI_STAT_BS_IN, TC_SI_INVEST_ALLOW, TC_SI_NET_STAT_IN, TC_SI_SS_RENTAL, TC_SI_SS_DIR_EXP, TC_SI_SS_DIR_EXP_QUIT, TC_SI_SS_DIR_EXP_MAIN, TC_SI_SS_ADJ_IN, TC_SI_SS_CA, TC_SI_SS_STAT_BS_IN, TC_SI_OTH_SOURCE, TC_SI_MAIN_BS, TC_SI_SEC_BS, TC_SI_OTH_BS, TC_SI_TOT, TC_SI_BS_LOSS_BF, TC_SI_AGGREGATE, TC_NB_DIV, TC_NB_DIV_ATT_INT, TC_NB_DIV_NET, TC_NB_INT, TC_NB_INT_ATT_INT, TC_NB_INT_NET, TC_NB_RENT, TC_NB_RENT_ATT_INT, TC_NB_RENT_ASSESS, TC_NB_RENT_QUIT, TC_NB_RENT_INSUR, TC_NB_RENT_OTH, TC_NB_RENT_MAIN, TC_NB_RENT_AGREE, TC_NB_RENT_NET, TC_NB_SUNDRY, TC_NB_OTH_AGGR_STAT, TC_TP_AGGR_IN, TC_TP_CURR_LOSS, TC_TP_AGGR_IN_LOSS, TC_TP_APRV_DONATION, TC_TP_CHARGEABLE, TC_TP_28_CHARGEABLE, TC_TP_SEC110, TC_TP_SEC132, TC_TP_SEC133, TC_TP_TOT_SETOFF, TC_TP_PAYABLE, TC_TP_INSTALL, TC_TP_PAYABLE_BAL, TC_CB_CA_BAL_BF, TC_CB_CA_CURR, TC_CB_CA_AA, TC_CB_CA_IA, TC_CB_CA_BA, TC_CB_CA_UTIL, TC_CB_CA_BAL_CF, TC_CB_LS_BAL_BF, TC_CB_LS_UTIL, TC_CB_LS_BAL_UTIL, TC_CB_LS_UNABSORBED, TC_CB_LS_BAL_CF, TC_CB_ITA_BAL_BF, TC_CB_ITA_CURR, TC_CB_ITA_BAL_BF_CURR, TC_CB_ITA_UTIL, TC_CB_ITA_BAL_CF, TC_AI_OTH_BS_IN, TC_TP_RATE1, TC_TP_RATE2, TC_TP_RATE3, TC_TP_RATE4, TC_TP_RATE5, TC_TP_RATE6, TC_TP_APP_CHARGEABLE1, TC_TP_APP_CHARGEABLE2, TC_TP_APP_CHARGEABLE3, TC_TP_APP_CHARGEABLE4, TC_TP_APP_CHARGEABLE5, TC_TP_APP_CHARGEABLE6, TC_TP_RATE1_CHARGEABLE, TC_TP_RATE2_CHARGEABLE, TC_TP_RATE3_CHARGEABLE, TC_TP_RATE4_CHARGEABLE, TC_TP_RATE5_CHARGEABLE, TC_TP_TOT_TAX_CHARGED, TC_TP_SEC6B_REBATE, TC_TP_SEC110_OTHERS, TC_TP_PROSPECTING, TC_TP_QUALIFY_AGRICULTURE, TC_TP_PREOP_BS, TC_TP_FOOD_PRODUCTION, TC_TP_EXP_ALLOWED, TC_TP_TOTAL_OTH_EXP, TC_TP_TOTAL_INCOME, TC_TP_PIONEER_CHARGE, TC_TP_OPERATIONALHQ_CHARGE, TC_TP_FOREIGN_CHARGE, TC_TP_BS_LOSS, TC_NB_ROYALTY, TC_NB_ADDITION, TC_CB_LS_ADJUST_LOSS, TC_CB_LS_UTIL_CURR, TC_SI_RA, TC_CB_RA_BAL_BF, TC_CB_RA_CURR, TC_CB_RA_BAL_BF_CURR, TC_CB_RA_UTIL, TC_CB_RA_BAL_CF, TC_SI_BC, TC_SI_ADJ_BS_IN_BC, TC_CB_CA_CURR_BA, TC_TP_RATE4A, TC_TP_APP_CHARGEABLE4A, TC_TP_RATE4A_CHARGEABLE, TC_CB_CA_NA, TC_TP_ZAKAT, TC_OTHERDEDUCTION, TC_CB_CA_DISALLOW, TC_CB_CA_ABAL_CF, TC_CB_CHECK, TC_TP_CLAIM, TC_CB_LS_SAMOUNT, TC_CB_LS_BALS_CF, TC_CB_LS_D_BL, TC_CB_LS_SRDAMT2, TC_CB_LS_BLNBF, TC_CB_LS_AMTTUT, TC_CB_LS_BLNCF, TC_COMPANY, TC_PIONEERDESC, TC_PIO, TC_PIONEER, TC_RA_RATE1, TC_RA_QUALIFYINGCAPITALEXP, TC_RA_QUALIFYINGCAPITALEXP_AMOUNT, TC_RA_BALANCINGALLOWANCE, TC_RA_TOTAL1, TC_RA_RESTRICTRATE, TC_RA_RESTRICTAMOUNT, TC_ITA_RATE1, TC_ITA_QUALIFYINGCAPITALEXP, TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT, TC_ITA_BALANCINGALLOWANCE, TC_ITA_TOTAL1, TC_ITA_RESTRICTRATE, TC_ITA_RESTRICTAMOUNT, TC_DISALLOW_NOTE, TC_DISALLOWBUSINESS_NOTE, TC_SURPLUSRECOVERED, TC_MININGALLOWNANCE, TC_MININGEXPENSES, TC_STAT_DIVIDEND, TC_TP_SEC110B, TC_NB_RENT_OTH2, TC_NB_CARRYBCKLOSS, TC_NB_AMTNOTCARRYBCK, TC_NB_CHKCB, TC_TP_INCOME_TP2, TC_TP_ESTIMATED_TP, TC_TP_INCOME_TP3, TC_TP_ALL_DIFF, TC_TP_EX_DIFF, TC_TP_PEN_DIFF, TC_WITHRAITA, TC_RA_WITHDRAWAL, TC_RA_ADJUSTMENT, TC_ITA_WITHDRAWAL, TC_ITA_ADJUSTMENT, TC_NB_DIV_OTH, TC_NB_INT_OTH, TC_SUNDRY_EXP, TC_CHK_EXEMP, TC_SI_TOT_PARTNERSHIP, TC_CB_CA_ACA, TC_NB_RENTIBA, TC_NB_RENTIBA_ATT_IN, TC_NB_RENTIBA_ASSESS, TC_NB_RENTIBA_QUIT, TC_NB_RENTIBA_INSUR, TC_NB_RENTIBA_OTH, TC_NB_RENTIBA_MAIN, TC_NB_RENTIBA_AGREE, TC_NB_RENTIBA_IBA, TC_NB_DIV_DIS_ATT_INT, TC_NB_DIV_TOT_ATT_INT, TC_EA_UTL, TC_EA_TYPE, TC_EA_CURR_COMPANY, TC_EA_CURR_AGRICULTURE, TC_EA_CURR_SIGNIFICANT, TC_EA_CURR_MARKET, TC_EA_CURR_MSB, TC_EA_TOTAL, TC_EA_RESTRICTRATE, TC_EA_BF, TC_EA_CF, TC_TP_ESTIMATED_SME, TC_NB_DCA_INT, TC_NB_DEEMED_INT, TC_EXEMPTIONCAL, TC_EXEMPTIONLESS, TC_TP_INSTALL_107C, TC_TP_INSTALL_107A, TC_TP_RATE7, TC_TP_APP_CHARGEABLE7, TC_TP_RATE6_CHARGEABLE, TC_TP_RATE7_CHARGEABLE}
             rowTAX_COMPUTATIONRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowTAX_COMPUTATIONRow)
             Return rowTAX_COMPUTATIONRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function FindByTC_KEY(ByVal TC_KEY As Integer) As TAX_COMPUTATIONRow
-            Return CType(Me.Rows.Find(New Object() {TC_KEY}), TAX_COMPUTATIONRow)
+            Return CType(Me.Rows.Find(New Object() {TC_KEY}),TAX_COMPUTATIONRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As TAX_COMPUTATIONDataTable = CType(MyBase.Clone, TAX_COMPUTATIONDataTable)
-            cln.InitVars()
+            Dim cln As TAX_COMPUTATIONDataTable = CType(MyBase.Clone,TAX_COMPUTATIONDataTable)
+            cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New TAX_COMPUTATIONDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnTC_KEY = MyBase.Columns("TC_KEY")
             Me.columnTC_REF_NO = MyBase.Columns("TC_REF_NO")
@@ -3360,9 +3450,9 @@ Partial Public Class dsRA_ITA
             Me.columnTC_TP_RATE6_CHARGEABLE = MyBase.Columns("TC_TP_RATE6_CHARGEABLE")
             Me.columnTC_TP_RATE7_CHARGEABLE = MyBase.Columns("TC_TP_RATE7_CHARGEABLE")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
             Me.columnTC_KEY = New Global.System.Data.DataColumn("TC_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTC_KEY)
@@ -3826,9 +3916,9 @@ Partial Public Class dsRA_ITA
             MyBase.Columns.Add(Me.columnTC_TP_RATE6_CHARGEABLE)
             Me.columnTC_TP_RATE7_CHARGEABLE = New Global.System.Data.DataColumn("TC_TP_RATE7_CHARGEABLE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTC_TP_RATE7_CHARGEABLE)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnTC_KEY}, True))
-            Me.columnTC_KEY.AllowDBNull = False
-            Me.columnTC_KEY.Unique = True
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnTC_KEY}, true))
+            Me.columnTC_KEY.AllowDBNull = false
+            Me.columnTC_KEY.Unique = true
             Me.columnTC_REF_NO.MaxLength = 20
             Me.columnTC_YA.MaxLength = 5
             Me.columnTC_CO_NAME.MaxLength = 255
@@ -4043,69 +4133,69 @@ Partial Public Class dsRA_ITA
             Me.columnTC_TP_RATE6_CHARGEABLE.MaxLength = 25
             Me.columnTC_TP_RATE7_CHARGEABLE.MaxLength = 25
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function NewTAX_COMPUTATIONRow() As TAX_COMPUTATIONRow
-            Return CType(Me.NewRow, TAX_COMPUTATIONRow)
+            Return CType(Me.NewRow,TAX_COMPUTATIONRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New TAX_COMPUTATIONRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(TAX_COMPUTATIONRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.TAX_COMPUTATIONRowChangedEvent) Is Nothing) Then
-                RaiseEvent TAX_COMPUTATIONRowChanged(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row, TAX_COMPUTATIONRow), e.Action))
+                RaiseEvent TAX_COMPUTATIONRowChanged(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row,TAX_COMPUTATIONRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.TAX_COMPUTATIONRowChangingEvent) Is Nothing) Then
-                RaiseEvent TAX_COMPUTATIONRowChanging(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row, TAX_COMPUTATIONRow), e.Action))
+                RaiseEvent TAX_COMPUTATIONRowChanging(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row,TAX_COMPUTATIONRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.TAX_COMPUTATIONRowDeletedEvent) Is Nothing) Then
-                RaiseEvent TAX_COMPUTATIONRowDeleted(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row, TAX_COMPUTATIONRow), e.Action))
+                RaiseEvent TAX_COMPUTATIONRowDeleted(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row,TAX_COMPUTATIONRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.TAX_COMPUTATIONRowDeletingEvent) Is Nothing) Then
-                RaiseEvent TAX_COMPUTATIONRowDeleting(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row, TAX_COMPUTATIONRow), e.Action))
+                RaiseEvent TAX_COMPUTATIONRowDeleting(Me, New TAX_COMPUTATIONRowChangeEvent(CType(e.Row,TAX_COMPUTATIONRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub RemoveTAX_COMPUTATIONRow(ByVal row As TAX_COMPUTATIONRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -4134,35 +4224,35 @@ Partial Public Class dsRA_ITA
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close()
+                        s1.Close
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close()
+                        s2.Close
                     End If
                 End Try
             End If
@@ -4170,97 +4260,97 @@ Partial Public Class dsRA_ITA
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class CADataTable
         Inherits Global.System.Data.TypedTableBase(Of CARow)
-
+        
         Private columnCA_KEY As Global.System.Data.DataColumn
-
+        
         Private columnCA_MODE As Global.System.Data.DataColumn
-
+        
         Private columnCA_PREFIX As Global.System.Data.DataColumn
-
+        
         Private columnCA_REF_NO As Global.System.Data.DataColumn
-
+        
         Private columnCA_NAME As Global.System.Data.DataColumn
-
+        
         Private columnCA_FILENO As Global.System.Data.DataColumn
-
+        
         Private columnCA_YA As Global.System.Data.DataColumn
-
+        
         Private columnCA_COMPANY_CODE As Global.System.Data.DataColumn
-
+        
         Private columnCA_SOURCENO As Global.System.Data.DataColumn
-
+        
         Private columnCA_ASSET_CODE As Global.System.Data.DataColumn
-
+        
         Private columnCA_ASSET As Global.System.Data.DataColumn
-
+        
         Private columnCA_CATEGORY_CODE As Global.System.Data.DataColumn
-
+        
         Private columnCA_PURCHASE_DATE As Global.System.Data.DataColumn
-
+        
         Private columnCA_PURCHASE_YEAR As Global.System.Data.DataColumn
-
+        
         Private columnCA_PURCHASE_AMOUNT As Global.System.Data.DataColumn
-
+        
         Private columnCA_PAYMENT As Global.System.Data.DataColumn
-
+        
         Private columnCA_RESTRICTED_QC As Global.System.Data.DataColumn
-
+        
         Private columnCA_DESC As Global.System.Data.DataColumn
-
+        
         Private columnCA_RATE_IA As Global.System.Data.DataColumn
-
+        
         Private columnCA_RATE_AA As Global.System.Data.DataColumn
-
+        
         Private columnCA_QUALIFYING_COST As Global.System.Data.DataColumn
-
+        
         Private columnCA_REMAIN_QC As Global.System.Data.DataColumn
-
+        
         Private columnCA_TWDV As Global.System.Data.DataColumn
-
+        
         Private columnCA_INCENTIVE As Global.System.Data.DataColumn
-
+        
         Private columnCA_CTRL_TRANSFER As Global.System.Data.DataColumn
-
+        
         Private columnHP_CODE As Global.System.Data.DataColumn
-
+        
         Private columnCA_ACCELERATED As Global.System.Data.DataColumn
-
+        
         Private columnCA_CAEEO As Global.System.Data.DataColumn
-
+        
         Private columnCA_REC As Global.System.Data.DataColumn
-
+        
         Private columnCA_DEFERREDCLAIM As Global.System.Data.DataColumn
-
+        
         Private columnCA_DEDUCTADJ_INCOME As Global.System.Data.DataColumn
-
+        
         Private columnCA_TAX_FILE_NUMBER As Global.System.Data.DataColumn
-
+        
         Private columnCA_TRANSFERROR_NAME As Global.System.Data.DataColumn
-
+        
         Private columnCA_TRANSFER_VAL As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
-            MyBase.New()
+            MyBase.New
             Me.TableName = "CA"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
+            MyBase.New
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -4274,380 +4364,380 @@ Partial Public Class dsRA_ITA
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
-            Me.InitVars()
+            Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_KEYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_KEY
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_MODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_MODE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_PREFIXColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_PREFIX
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_REF_NOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_REF_NO
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_NAMEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_NAME
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_FILENOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_FILENO
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_YAColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_YA
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_COMPANY_CODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_COMPANY_CODE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_SOURCENOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_SOURCENO
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_ASSET_CODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_ASSET_CODE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_ASSETColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_ASSET
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_CATEGORY_CODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_CATEGORY_CODE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_PURCHASE_DATEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_PURCHASE_DATE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_PURCHASE_YEARColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_PURCHASE_YEAR
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_PURCHASE_AMOUNTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_PURCHASE_AMOUNT
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_PAYMENTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_PAYMENT
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_RESTRICTED_QCColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_RESTRICTED_QC
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_DESCColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_DESC
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_RATE_IAColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_RATE_IA
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_RATE_AAColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_RATE_AA
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_QUALIFYING_COSTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_QUALIFYING_COST
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_REMAIN_QCColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_REMAIN_QC
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_TWDVColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_TWDV
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_INCENTIVEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_INCENTIVE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_CTRL_TRANSFERColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_CTRL_TRANSFER
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property HP_CODEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnHP_CODE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_ACCELERATEDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_ACCELERATED
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_CAEEOColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_CAEEO
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_RECColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_REC
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_DEFERREDCLAIMColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_DEFERREDCLAIM
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_DEDUCTADJ_INCOMEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_DEDUCTADJ_INCOME
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_TAX_FILE_NUMBERColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_TAX_FILE_NUMBER
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_TRANSFERROR_NAMEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_TRANSFERROR_NAME
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property CA_TRANSFER_VALColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnCA_TRANSFER_VAL
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As CARow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As CARow
             Get
-                Return CType(Me.Rows(index), CARow)
+                Return CType(Me.Rows(index),CARow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event CARowChanging As CARowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event CARowChanged As CARowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event CARowDeleting As CARowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event CARowDeleted As CARowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Sub AddCARow(ByVal row As CARow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function AddCARow( _
-                    ByVal CA_MODE As String, _
-                    ByVal CA_PREFIX As String, _
-                    ByVal CA_REF_NO As String, _
-                    ByVal CA_NAME As String, _
-                    ByVal CA_FILENO As String, _
-                    ByVal CA_YA As String, _
-                    ByVal CA_COMPANY_CODE As String, _
-                    ByVal CA_SOURCENO As Decimal, _
-                    ByVal CA_ASSET_CODE As String, _
-                    ByVal CA_ASSET As String, _
-                    ByVal CA_CATEGORY_CODE As String, _
-                    ByVal CA_PURCHASE_DATE As Date, _
-                    ByVal CA_PURCHASE_YEAR As String, _
-                    ByVal CA_PURCHASE_AMOUNT As String, _
-                    ByVal CA_PAYMENT As String, _
-                    ByVal CA_RESTRICTED_QC As String, _
-                    ByVal CA_DESC As String, _
-                    ByVal CA_RATE_IA As Double, _
-                    ByVal CA_RATE_AA As Double, _
-                    ByVal CA_QUALIFYING_COST As Decimal, _
-                    ByVal CA_REMAIN_QC As String, _
-                    ByVal CA_TWDV As String, _
-                    ByVal CA_INCENTIVE As String, _
-                    ByVal CA_CTRL_TRANSFER As Integer, _
-                    ByVal HP_CODE As String, _
-                    ByVal CA_ACCELERATED As String, _
-                    ByVal CA_CAEEO As Boolean, _
-                    ByVal CA_REC As Boolean, _
-                    ByVal CA_DEFERREDCLAIM As Boolean, _
-                    ByVal CA_DEDUCTADJ_INCOME As Boolean, _
-                    ByVal CA_TAX_FILE_NUMBER As String, _
-                    ByVal CA_TRANSFERROR_NAME As String, _
+                    ByVal CA_MODE As String,  _
+                    ByVal CA_PREFIX As String,  _
+                    ByVal CA_REF_NO As String,  _
+                    ByVal CA_NAME As String,  _
+                    ByVal CA_FILENO As String,  _
+                    ByVal CA_YA As String,  _
+                    ByVal CA_COMPANY_CODE As String,  _
+                    ByVal CA_SOURCENO As Decimal,  _
+                    ByVal CA_ASSET_CODE As String,  _
+                    ByVal CA_ASSET As String,  _
+                    ByVal CA_CATEGORY_CODE As String,  _
+                    ByVal CA_PURCHASE_DATE As Date,  _
+                    ByVal CA_PURCHASE_YEAR As String,  _
+                    ByVal CA_PURCHASE_AMOUNT As String,  _
+                    ByVal CA_PAYMENT As String,  _
+                    ByVal CA_RESTRICTED_QC As String,  _
+                    ByVal CA_DESC As String,  _
+                    ByVal CA_RATE_IA As Double,  _
+                    ByVal CA_RATE_AA As Double,  _
+                    ByVal CA_QUALIFYING_COST As Decimal,  _
+                    ByVal CA_REMAIN_QC As String,  _
+                    ByVal CA_TWDV As String,  _
+                    ByVal CA_INCENTIVE As String,  _
+                    ByVal CA_CTRL_TRANSFER As Integer,  _
+                    ByVal HP_CODE As String,  _
+                    ByVal CA_ACCELERATED As String,  _
+                    ByVal CA_CAEEO As Boolean,  _
+                    ByVal CA_REC As Boolean,  _
+                    ByVal CA_DEFERREDCLAIM As Boolean,  _
+                    ByVal CA_DEDUCTADJ_INCOME As Boolean,  _
+                    ByVal CA_TAX_FILE_NUMBER As String,  _
+                    ByVal CA_TRANSFERROR_NAME As String,  _
                     ByVal CA_TRANSFER_VAL As String) As CARow
-            Dim rowCARow As CARow = CType(Me.NewRow, CARow)
+            Dim rowCARow As CARow = CType(Me.NewRow,CARow)
             Dim columnValuesArray() As Object = New Object() {Nothing, CA_MODE, CA_PREFIX, CA_REF_NO, CA_NAME, CA_FILENO, CA_YA, CA_COMPANY_CODE, CA_SOURCENO, CA_ASSET_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_PURCHASE_DATE, CA_PURCHASE_YEAR, CA_PURCHASE_AMOUNT, CA_PAYMENT, CA_RESTRICTED_QC, CA_DESC, CA_RATE_IA, CA_RATE_AA, CA_QUALIFYING_COST, CA_REMAIN_QC, CA_TWDV, CA_INCENTIVE, CA_CTRL_TRANSFER, HP_CODE, CA_ACCELERATED, CA_CAEEO, CA_REC, CA_DEFERREDCLAIM, CA_DEDUCTADJ_INCOME, CA_TAX_FILE_NUMBER, CA_TRANSFERROR_NAME, CA_TRANSFER_VAL}
             rowCARow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCARow)
             Return rowCARow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As CADataTable = CType(MyBase.Clone, CADataTable)
-            cln.InitVars()
+            Dim cln As CADataTable = CType(MyBase.Clone,CADataTable)
+            cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New CADataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnCA_KEY = MyBase.Columns("CA_KEY")
             Me.columnCA_MODE = MyBase.Columns("CA_MODE")
@@ -4684,9 +4774,9 @@ Partial Public Class dsRA_ITA
             Me.columnCA_TRANSFERROR_NAME = MyBase.Columns("CA_TRANSFERROR_NAME")
             Me.columnCA_TRANSFER_VAL = MyBase.Columns("CA_TRANSFER_VAL")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
             Me.columnCA_KEY = New Global.System.Data.DataColumn("CA_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnCA_KEY)
@@ -4756,11 +4846,11 @@ Partial Public Class dsRA_ITA
             MyBase.Columns.Add(Me.columnCA_TRANSFERROR_NAME)
             Me.columnCA_TRANSFER_VAL = New Global.System.Data.DataColumn("CA_TRANSFER_VAL", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnCA_TRANSFER_VAL)
-            Me.columnCA_KEY.AutoIncrement = True
+            Me.columnCA_KEY.AutoIncrement = true
             Me.columnCA_KEY.AutoIncrementSeed = -1
             Me.columnCA_KEY.AutoIncrementStep = -1
-            Me.columnCA_KEY.AllowDBNull = False
-            Me.columnCA_KEY.ReadOnly = True
+            Me.columnCA_KEY.AllowDBNull = false
+            Me.columnCA_KEY.ReadOnly = true
             Me.columnCA_MODE.MaxLength = 3
             Me.columnCA_PREFIX.MaxLength = 3
             Me.columnCA_REF_NO.MaxLength = 20
@@ -4779,76 +4869,76 @@ Partial Public Class dsRA_ITA
             Me.columnCA_REMAIN_QC.MaxLength = 25
             Me.columnCA_TWDV.MaxLength = 25
             Me.columnCA_INCENTIVE.MaxLength = 3
-            Me.columnCA_CTRL_TRANSFER.AllowDBNull = False
+            Me.columnCA_CTRL_TRANSFER.AllowDBNull = false
             Me.columnHP_CODE.MaxLength = 255
             Me.columnCA_ACCELERATED.MaxLength = 20
             Me.columnCA_TAX_FILE_NUMBER.MaxLength = 255
             Me.columnCA_TRANSFERROR_NAME.MaxLength = 255
             Me.columnCA_TRANSFER_VAL.MaxLength = 25
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function NewCARow() As CARow
-            Return CType(Me.NewRow, CARow)
+            Return CType(Me.NewRow,CARow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New CARow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(CARow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.CARowChangedEvent) Is Nothing) Then
-                RaiseEvent CARowChanged(Me, New CARowChangeEvent(CType(e.Row, CARow), e.Action))
+                RaiseEvent CARowChanged(Me, New CARowChangeEvent(CType(e.Row,CARow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.CARowChangingEvent) Is Nothing) Then
-                RaiseEvent CARowChanging(Me, New CARowChangeEvent(CType(e.Row, CARow), e.Action))
+                RaiseEvent CARowChanging(Me, New CARowChangeEvent(CType(e.Row,CARow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.CARowDeletedEvent) Is Nothing) Then
-                RaiseEvent CARowDeleted(Me, New CARowChangeEvent(CType(e.Row, CARow), e.Action))
+                RaiseEvent CARowDeleted(Me, New CARowChangeEvent(CType(e.Row,CARow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.CARowDeletingEvent) Is Nothing) Then
-                RaiseEvent CARowDeleting(Me, New CARowChangeEvent(CType(e.Row, CARow), e.Action))
+                RaiseEvent CARowDeleting(Me, New CARowChangeEvent(CType(e.Row,CARow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub RemoveCARow(ByVal row As CARow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -4877,35 +4967,35 @@ Partial Public Class dsRA_ITA
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close()
+                        s1.Close
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close()
+                        s2.Close
                     End If
                 End Try
             End If
@@ -4913,41 +5003,41 @@ Partial Public Class dsRA_ITA
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class TAX_RAP_ADJUSTMENTDataTable
         Inherits Global.System.Data.TypedTableBase(Of TAX_RAP_ADJUSTMENTRow)
-
+        
         Private columnRAPADJ_KEY As Global.System.Data.DataColumn
-
+        
         Private columnRAPADJ_BUSINESS As Global.System.Data.DataColumn
-
+        
         Private columnRAPADJ_ID As Global.System.Data.DataColumn
-
+        
         Private columnRAPADJ_ITEM As Global.System.Data.DataColumn
-
+        
         Private columnRAPADJ_AMOUNT As Global.System.Data.DataColumn
-
+        
         Private columnRAPADJ_NOTE As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
-            MyBase.New()
+            MyBase.New
             Me.TableName = "TAX_RAP_ADJUSTMENT"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
+            MyBase.New
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -4961,123 +5051,123 @@ Partial Public Class dsRA_ITA
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
-            Me.InitVars()
+            Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPADJ_KEYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPADJ_KEY
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPADJ_BUSINESSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPADJ_BUSINESS
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPADJ_IDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPADJ_ID
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPADJ_ITEMColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPADJ_ITEM
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPADJ_AMOUNTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPADJ_AMOUNT
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPADJ_NOTEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPADJ_NOTE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As TAX_RAP_ADJUSTMENTRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As TAX_RAP_ADJUSTMENTRow
             Get
-                Return CType(Me.Rows(index), TAX_RAP_ADJUSTMENTRow)
+                Return CType(Me.Rows(index),TAX_RAP_ADJUSTMENTRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_ADJUSTMENTRowChanging As TAX_RAP_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_ADJUSTMENTRowChanged As TAX_RAP_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_ADJUSTMENTRowDeleting As TAX_RAP_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_ADJUSTMENTRowDeleted As TAX_RAP_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Sub AddTAX_RAP_ADJUSTMENTRow(ByVal row As TAX_RAP_ADJUSTMENTRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function AddTAX_RAP_ADJUSTMENTRow(ByVal RAPADJ_KEY As Integer, ByVal RAPADJ_BUSINESS As Integer, ByVal RAPADJ_ID As Integer, ByVal RAPADJ_ITEM As String, ByVal RAPADJ_AMOUNT As String, ByVal RAPADJ_NOTE As String) As TAX_RAP_ADJUSTMENTRow
-            Dim rowTAX_RAP_ADJUSTMENTRow As TAX_RAP_ADJUSTMENTRow = CType(Me.NewRow, TAX_RAP_ADJUSTMENTRow)
+            Dim rowTAX_RAP_ADJUSTMENTRow As TAX_RAP_ADJUSTMENTRow = CType(Me.NewRow,TAX_RAP_ADJUSTMENTRow)
             Dim columnValuesArray() As Object = New Object() {RAPADJ_KEY, RAPADJ_BUSINESS, RAPADJ_ID, RAPADJ_ITEM, RAPADJ_AMOUNT, RAPADJ_NOTE}
             rowTAX_RAP_ADJUSTMENTRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowTAX_RAP_ADJUSTMENTRow)
             Return rowTAX_RAP_ADJUSTMENTRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As TAX_RAP_ADJUSTMENTDataTable = CType(MyBase.Clone, TAX_RAP_ADJUSTMENTDataTable)
-            cln.InitVars()
+            Dim cln As TAX_RAP_ADJUSTMENTDataTable = CType(MyBase.Clone,TAX_RAP_ADJUSTMENTDataTable)
+            cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New TAX_RAP_ADJUSTMENTDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnRAPADJ_KEY = MyBase.Columns("RAPADJ_KEY")
             Me.columnRAPADJ_BUSINESS = MyBase.Columns("RAPADJ_BUSINESS")
@@ -5086,9 +5176,9 @@ Partial Public Class dsRA_ITA
             Me.columnRAPADJ_AMOUNT = MyBase.Columns("RAPADJ_AMOUNT")
             Me.columnRAPADJ_NOTE = MyBase.Columns("RAPADJ_NOTE")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
             Me.columnRAPADJ_KEY = New Global.System.Data.DataColumn("RAPADJ_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRAPADJ_KEY)
@@ -5106,69 +5196,69 @@ Partial Public Class dsRA_ITA
             Me.columnRAPADJ_AMOUNT.MaxLength = 25
             Me.columnRAPADJ_NOTE.MaxLength = 2147483647
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function NewTAX_RAP_ADJUSTMENTRow() As TAX_RAP_ADJUSTMENTRow
-            Return CType(Me.NewRow, TAX_RAP_ADJUSTMENTRow)
+            Return CType(Me.NewRow,TAX_RAP_ADJUSTMENTRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New TAX_RAP_ADJUSTMENTRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(TAX_RAP_ADJUSTMENTRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.TAX_RAP_ADJUSTMENTRowChangedEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_ADJUSTMENTRowChanged(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RAP_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RAP_ADJUSTMENTRowChanged(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RAP_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.TAX_RAP_ADJUSTMENTRowChangingEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_ADJUSTMENTRowChanging(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RAP_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RAP_ADJUSTMENTRowChanging(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RAP_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.TAX_RAP_ADJUSTMENTRowDeletedEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_ADJUSTMENTRowDeleted(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RAP_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RAP_ADJUSTMENTRowDeleted(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RAP_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.TAX_RAP_ADJUSTMENTRowDeletingEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_ADJUSTMENTRowDeleting(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RAP_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RAP_ADJUSTMENTRowDeleting(Me, New TAX_RAP_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RAP_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub RemoveTAX_RAP_ADJUSTMENTRow(ByVal row As TAX_RAP_ADJUSTMENTRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -5197,35 +5287,35 @@ Partial Public Class dsRA_ITA
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close()
+                        s1.Close
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close()
+                        s2.Close
                     End If
                 End Try
             End If
@@ -5233,41 +5323,41 @@ Partial Public Class dsRA_ITA
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class TAX_RAP_WITHDRAWALDataTable
         Inherits Global.System.Data.TypedTableBase(Of TAX_RAP_WITHDRAWALRow)
-
+        
         Private columnRAPW_KEY As Global.System.Data.DataColumn
-
+        
         Private columnRAPW_BUSINESS As Global.System.Data.DataColumn
-
+        
         Private columnRAPW_ID As Global.System.Data.DataColumn
-
+        
         Private columnRAPW_ITEM As Global.System.Data.DataColumn
-
+        
         Private columnRAPW_AMOUNT As Global.System.Data.DataColumn
-
+        
         Private columnRAPW_NOTE As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
-            MyBase.New()
+            MyBase.New
             Me.TableName = "TAX_RAP_WITHDRAWAL"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
+            MyBase.New
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -5281,123 +5371,123 @@ Partial Public Class dsRA_ITA
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
-            Me.InitVars()
+            Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPW_KEYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPW_KEY
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPW_BUSINESSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPW_BUSINESS
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPW_IDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPW_ID
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPW_ITEMColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPW_ITEM
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPW_AMOUNTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPW_AMOUNT
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAPW_NOTEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAPW_NOTE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As TAX_RAP_WITHDRAWALRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As TAX_RAP_WITHDRAWALRow
             Get
-                Return CType(Me.Rows(index), TAX_RAP_WITHDRAWALRow)
+                Return CType(Me.Rows(index),TAX_RAP_WITHDRAWALRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_WITHDRAWALRowChanging As TAX_RAP_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_WITHDRAWALRowChanged As TAX_RAP_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_WITHDRAWALRowDeleting As TAX_RAP_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RAP_WITHDRAWALRowDeleted As TAX_RAP_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Sub AddTAX_RAP_WITHDRAWALRow(ByVal row As TAX_RAP_WITHDRAWALRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function AddTAX_RAP_WITHDRAWALRow(ByVal RAPW_KEY As Integer, ByVal RAPW_BUSINESS As Integer, ByVal RAPW_ID As Integer, ByVal RAPW_ITEM As String, ByVal RAPW_AMOUNT As String, ByVal RAPW_NOTE As String) As TAX_RAP_WITHDRAWALRow
-            Dim rowTAX_RAP_WITHDRAWALRow As TAX_RAP_WITHDRAWALRow = CType(Me.NewRow, TAX_RAP_WITHDRAWALRow)
+            Dim rowTAX_RAP_WITHDRAWALRow As TAX_RAP_WITHDRAWALRow = CType(Me.NewRow,TAX_RAP_WITHDRAWALRow)
             Dim columnValuesArray() As Object = New Object() {RAPW_KEY, RAPW_BUSINESS, RAPW_ID, RAPW_ITEM, RAPW_AMOUNT, RAPW_NOTE}
             rowTAX_RAP_WITHDRAWALRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowTAX_RAP_WITHDRAWALRow)
             Return rowTAX_RAP_WITHDRAWALRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As TAX_RAP_WITHDRAWALDataTable = CType(MyBase.Clone, TAX_RAP_WITHDRAWALDataTable)
-            cln.InitVars()
+            Dim cln As TAX_RAP_WITHDRAWALDataTable = CType(MyBase.Clone,TAX_RAP_WITHDRAWALDataTable)
+            cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New TAX_RAP_WITHDRAWALDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnRAPW_KEY = MyBase.Columns("RAPW_KEY")
             Me.columnRAPW_BUSINESS = MyBase.Columns("RAPW_BUSINESS")
@@ -5406,9 +5496,9 @@ Partial Public Class dsRA_ITA
             Me.columnRAPW_AMOUNT = MyBase.Columns("RAPW_AMOUNT")
             Me.columnRAPW_NOTE = MyBase.Columns("RAPW_NOTE")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
             Me.columnRAPW_KEY = New Global.System.Data.DataColumn("RAPW_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRAPW_KEY)
@@ -5426,69 +5516,69 @@ Partial Public Class dsRA_ITA
             Me.columnRAPW_AMOUNT.MaxLength = 25
             Me.columnRAPW_NOTE.MaxLength = 2147483647
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function NewTAX_RAP_WITHDRAWALRow() As TAX_RAP_WITHDRAWALRow
-            Return CType(Me.NewRow, TAX_RAP_WITHDRAWALRow)
+            Return CType(Me.NewRow,TAX_RAP_WITHDRAWALRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New TAX_RAP_WITHDRAWALRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(TAX_RAP_WITHDRAWALRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.TAX_RAP_WITHDRAWALRowChangedEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_WITHDRAWALRowChanged(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RAP_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RAP_WITHDRAWALRowChanged(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RAP_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.TAX_RAP_WITHDRAWALRowChangingEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_WITHDRAWALRowChanging(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RAP_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RAP_WITHDRAWALRowChanging(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RAP_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.TAX_RAP_WITHDRAWALRowDeletedEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_WITHDRAWALRowDeleted(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RAP_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RAP_WITHDRAWALRowDeleted(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RAP_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.TAX_RAP_WITHDRAWALRowDeletingEvent) Is Nothing) Then
-                RaiseEvent TAX_RAP_WITHDRAWALRowDeleting(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RAP_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RAP_WITHDRAWALRowDeleting(Me, New TAX_RAP_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RAP_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub RemoveTAX_RAP_WITHDRAWALRow(ByVal row As TAX_RAP_WITHDRAWALRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -5517,35 +5607,35 @@ Partial Public Class dsRA_ITA
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close()
+                        s1.Close
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close()
+                        s2.Close
                     End If
                 End Try
             End If
@@ -5553,41 +5643,41 @@ Partial Public Class dsRA_ITA
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class TAX_RA_ADJUSTMENTDataTable
         Inherits Global.System.Data.TypedTableBase(Of TAX_RA_ADJUSTMENTRow)
-
+        
         Private columnRAADJ_KEY As Global.System.Data.DataColumn
-
+        
         Private columnRAADJ_BUSINESS As Global.System.Data.DataColumn
-
+        
         Private columnRAADJ_ID As Global.System.Data.DataColumn
-
+        
         Private columnRAADJ_ITEM As Global.System.Data.DataColumn
-
+        
         Private columnRAADJ_AMOUNT As Global.System.Data.DataColumn
-
+        
         Private columnRAADJ_NOTE As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
-            MyBase.New()
+            MyBase.New
             Me.TableName = "TAX_RA_ADJUSTMENT"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
+            MyBase.New
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -5601,101 +5691,101 @@ Partial Public Class dsRA_ITA
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
-            Me.InitVars()
+            Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAADJ_KEYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAADJ_KEY
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAADJ_BUSINESSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAADJ_BUSINESS
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAADJ_IDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAADJ_ID
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAADJ_ITEMColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAADJ_ITEM
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAADJ_AMOUNTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAADJ_AMOUNT
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAADJ_NOTEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAADJ_NOTE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As TAX_RA_ADJUSTMENTRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As TAX_RA_ADJUSTMENTRow
             Get
-                Return CType(Me.Rows(index), TAX_RA_ADJUSTMENTRow)
+                Return CType(Me.Rows(index),TAX_RA_ADJUSTMENTRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_ADJUSTMENTRowChanging As TAX_RA_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_ADJUSTMENTRowChanged As TAX_RA_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_ADJUSTMENTRowDeleting As TAX_RA_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_ADJUSTMENTRowDeleted As TAX_RA_ADJUSTMENTRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Sub AddTAX_RA_ADJUSTMENTRow(ByVal row As TAX_RA_ADJUSTMENTRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function AddTAX_RA_ADJUSTMENTRow(ByVal parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT As TAX_COMPUTATIONRow, ByVal RAADJ_BUSINESS As Integer, ByVal RAADJ_ID As Integer, ByVal RAADJ_ITEM As String, ByVal RAADJ_AMOUNT As Decimal, ByVal RAADJ_NOTE As String) As TAX_RA_ADJUSTMENTRow
-            Dim rowTAX_RA_ADJUSTMENTRow As TAX_RA_ADJUSTMENTRow = CType(Me.NewRow, TAX_RA_ADJUSTMENTRow)
+            Dim rowTAX_RA_ADJUSTMENTRow As TAX_RA_ADJUSTMENTRow = CType(Me.NewRow,TAX_RA_ADJUSTMENTRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, RAADJ_BUSINESS, RAADJ_ID, RAADJ_ITEM, RAADJ_AMOUNT, RAADJ_NOTE}
             If (Not (parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT) Is Nothing) Then
                 columnValuesArray(0) = parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_RA_ADJUSTMENT(0)
@@ -5704,23 +5794,23 @@ Partial Public Class dsRA_ITA
             Me.Rows.Add(rowTAX_RA_ADJUSTMENTRow)
             Return rowTAX_RA_ADJUSTMENTRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As TAX_RA_ADJUSTMENTDataTable = CType(MyBase.Clone, TAX_RA_ADJUSTMENTDataTable)
-            cln.InitVars()
+            Dim cln As TAX_RA_ADJUSTMENTDataTable = CType(MyBase.Clone,TAX_RA_ADJUSTMENTDataTable)
+            cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New TAX_RA_ADJUSTMENTDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnRAADJ_KEY = MyBase.Columns("RAADJ_KEY")
             Me.columnRAADJ_BUSINESS = MyBase.Columns("RAADJ_BUSINESS")
@@ -5729,9 +5819,9 @@ Partial Public Class dsRA_ITA
             Me.columnRAADJ_AMOUNT = MyBase.Columns("RAADJ_AMOUNT")
             Me.columnRAADJ_NOTE = MyBase.Columns("RAADJ_NOTE")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
             Me.columnRAADJ_KEY = New Global.System.Data.DataColumn("RAADJ_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRAADJ_KEY)
@@ -5748,69 +5838,69 @@ Partial Public Class dsRA_ITA
             Me.columnRAADJ_ITEM.MaxLength = 50
             Me.columnRAADJ_NOTE.MaxLength = 2147483647
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function NewTAX_RA_ADJUSTMENTRow() As TAX_RA_ADJUSTMENTRow
-            Return CType(Me.NewRow, TAX_RA_ADJUSTMENTRow)
+            Return CType(Me.NewRow,TAX_RA_ADJUSTMENTRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New TAX_RA_ADJUSTMENTRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(TAX_RA_ADJUSTMENTRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.TAX_RA_ADJUSTMENTRowChangedEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_ADJUSTMENTRowChanged(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RA_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RA_ADJUSTMENTRowChanged(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RA_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.TAX_RA_ADJUSTMENTRowChangingEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_ADJUSTMENTRowChanging(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RA_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RA_ADJUSTMENTRowChanging(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RA_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.TAX_RA_ADJUSTMENTRowDeletedEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_ADJUSTMENTRowDeleted(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RA_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RA_ADJUSTMENTRowDeleted(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RA_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.TAX_RA_ADJUSTMENTRowDeletingEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_ADJUSTMENTRowDeleting(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row, TAX_RA_ADJUSTMENTRow), e.Action))
+                RaiseEvent TAX_RA_ADJUSTMENTRowDeleting(Me, New TAX_RA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_RA_ADJUSTMENTRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub RemoveTAX_RA_ADJUSTMENTRow(ByVal row As TAX_RA_ADJUSTMENTRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -5839,35 +5929,35 @@ Partial Public Class dsRA_ITA
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close()
+                        s1.Close
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close()
+                        s2.Close
                     End If
                 End Try
             End If
@@ -5875,41 +5965,41 @@ Partial Public Class dsRA_ITA
             Return type
         End Function
     End Class
-
+    
     '''<summary>
     '''Represents the strongly named DataTable class.
     '''</summary>
-    <Global.System.Serializable(), _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")> _
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class TAX_RA_WITHDRAWALDataTable
         Inherits Global.System.Data.TypedTableBase(Of TAX_RA_WITHDRAWALRow)
-
+        
         Private columnRAW_KEY As Global.System.Data.DataColumn
-
+        
         Private columnRAW_BUSINESS As Global.System.Data.DataColumn
-
+        
         Private columnRAW_ID As Global.System.Data.DataColumn
-
+        
         Private columnRAW_ITEM As Global.System.Data.DataColumn
-
+        
         Private columnRAW_AMOUNT As Global.System.Data.DataColumn
-
+        
         Private columnRAW_NOTE As Global.System.Data.DataColumn
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
-            MyBase.New()
+            MyBase.New
             Me.TableName = "TAX_RA_WITHDRAWAL"
-            Me.BeginInit()
-            Me.InitClass()
-            Me.EndInit()
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New()
+            MyBase.New
             Me.TableName = table.TableName
             If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
                 Me.CaseSensitive = table.CaseSensitive
@@ -5923,101 +6013,101 @@ Partial Public Class dsRA_ITA
             Me.Prefix = table.Prefix
             Me.MinimumCapacity = table.MinimumCapacity
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
             MyBase.New(info, context)
-            Me.InitVars()
+            Me.InitVars
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAW_KEYColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAW_KEY
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAW_BUSINESSColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAW_BUSINESS
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAW_IDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAW_ID
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAW_ITEMColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAW_ITEM
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAW_AMOUNTColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAW_AMOUNT
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property RAW_NOTEColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnRAW_NOTE
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
-         Global.System.ComponentModel.Browsable(False)> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
             Get
                 Return Me.Rows.Count
             End Get
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Default Public ReadOnly Property Item(ByVal index As Integer) As TAX_RA_WITHDRAWALRow
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As TAX_RA_WITHDRAWALRow
             Get
-                Return CType(Me.Rows(index), TAX_RA_WITHDRAWALRow)
+                Return CType(Me.Rows(index),TAX_RA_WITHDRAWALRow)
             End Get
         End Property
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_WITHDRAWALRowChanging As TAX_RA_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_WITHDRAWALRowChanged As TAX_RA_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_WITHDRAWALRowDeleting As TAX_RA_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Event TAX_RA_WITHDRAWALRowDeleted As TAX_RA_WITHDRAWALRowChangeEventHandler
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Sub AddTAX_RA_WITHDRAWALRow(ByVal row As TAX_RA_WITHDRAWALRow)
             Me.Rows.Add(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function AddTAX_RA_WITHDRAWALRow(ByVal parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL As TAX_COMPUTATIONRow, ByVal RAW_BUSINESS As Integer, ByVal RAW_ID As Integer, ByVal RAW_ITEM As String, ByVal RAW_AMOUNT As Decimal, ByVal RAW_NOTE As String) As TAX_RA_WITHDRAWALRow
-            Dim rowTAX_RA_WITHDRAWALRow As TAX_RA_WITHDRAWALRow = CType(Me.NewRow, TAX_RA_WITHDRAWALRow)
+            Dim rowTAX_RA_WITHDRAWALRow As TAX_RA_WITHDRAWALRow = CType(Me.NewRow,TAX_RA_WITHDRAWALRow)
             Dim columnValuesArray() As Object = New Object() {Nothing, RAW_BUSINESS, RAW_ID, RAW_ITEM, RAW_AMOUNT, RAW_NOTE}
             If (Not (parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL) Is Nothing) Then
                 columnValuesArray(0) = parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL(0)
@@ -6026,23 +6116,23 @@ Partial Public Class dsRA_ITA
             Me.Rows.Add(rowTAX_RA_WITHDRAWALRow)
             Return rowTAX_RA_WITHDRAWALRow
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As TAX_RA_WITHDRAWALDataTable = CType(MyBase.Clone, TAX_RA_WITHDRAWALDataTable)
-            cln.InitVars()
+            Dim cln As TAX_RA_WITHDRAWALDataTable = CType(MyBase.Clone,TAX_RA_WITHDRAWALDataTable)
+            cln.InitVars
             Return cln
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
             Return New TAX_RA_WITHDRAWALDataTable()
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnRAW_KEY = MyBase.Columns("RAW_KEY")
             Me.columnRAW_BUSINESS = MyBase.Columns("RAW_BUSINESS")
@@ -6051,9 +6141,9 @@ Partial Public Class dsRA_ITA
             Me.columnRAW_AMOUNT = MyBase.Columns("RAW_AMOUNT")
             Me.columnRAW_NOTE = MyBase.Columns("RAW_NOTE")
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitClass()
             Me.columnRAW_KEY = New Global.System.Data.DataColumn("RAW_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnRAW_KEY)
@@ -6070,69 +6160,69 @@ Partial Public Class dsRA_ITA
             Me.columnRAW_ITEM.MaxLength = 50
             Me.columnRAW_NOTE.MaxLength = 2147483647
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function NewTAX_RA_WITHDRAWALRow() As TAX_RA_WITHDRAWALRow
-            Return CType(Me.NewRow, TAX_RA_WITHDRAWALRow)
+            Return CType(Me.NewRow,TAX_RA_WITHDRAWALRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
             Return New TAX_RA_WITHDRAWALRow(builder)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Function GetRowType() As Global.System.Type
             Return GetType(TAX_RA_WITHDRAWALRow)
         End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanged(e)
             If (Not (Me.TAX_RA_WITHDRAWALRowChangedEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_WITHDRAWALRowChanged(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RA_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RA_WITHDRAWALRowChanged(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RA_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowChanging(e)
             If (Not (Me.TAX_RA_WITHDRAWALRowChangingEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_WITHDRAWALRowChanging(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RA_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RA_WITHDRAWALRowChanging(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RA_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleted(e)
             If (Not (Me.TAX_RA_WITHDRAWALRowDeletedEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_WITHDRAWALRowDeleted(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RA_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RA_WITHDRAWALRowDeleted(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RA_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
             MyBase.OnRowDeleting(e)
             If (Not (Me.TAX_RA_WITHDRAWALRowDeletingEvent) Is Nothing) Then
-                RaiseEvent TAX_RA_WITHDRAWALRowDeleting(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row, TAX_RA_WITHDRAWALRow), e.Action))
+                RaiseEvent TAX_RA_WITHDRAWALRowDeleting(Me, New TAX_RA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_RA_WITHDRAWALRow), e.Action))
             End If
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub RemoveTAX_RA_WITHDRAWALRow(ByVal row As TAX_RA_WITHDRAWALRow)
             Me.Rows.Remove(row)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
             Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
             Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
@@ -6161,35 +6251,35 @@ Partial Public Class dsRA_ITA
             If xs.Contains(dsSchema.TargetNamespace) Then
                 Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
                 Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try
+                Try 
                     Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
                     dsSchema.Write(s1)
                     Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
                     Do While schemas.MoveNext
-                        schema = CType(schemas.Current, Global.System.Xml.Schema.XmlSchema)
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
                         s2.SetLength(0)
                         schema.Write(s2)
                         If (s1.Length = s2.Length) Then
                             s1.Position = 0
                             s2.Position = 0
-
-                            Do While ((s1.Position <> s1.Length) _
+                            
+                            Do While ((s1.Position <> s1.Length)  _
                                         AndAlso (s1.ReadByte = s2.ReadByte))
-
-
+                                
+                                
                             Loop
                             If (s1.Position = s1.Length) Then
                                 Return type
                             End If
                         End If
-
+                        
                     Loop
                 Finally
                     If (Not (s1) Is Nothing) Then
-                        s1.Close()
+                        s1.Close
                     End If
                     If (Not (s2) Is Nothing) Then
-                        s2.Close()
+                        s2.Close
                     End If
                 End Try
             End If
@@ -6197,2443 +6287,3087 @@ Partial Public Class dsRA_ITA
             Return type
         End Function
     End Class
-
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class TAX_ITA_WITHDRAWALDataTable
+        Inherits Global.System.Data.TypedTableBase(Of TAX_ITA_WITHDRAWALRow)
+        
+        Private columnITAW_KEY As Global.System.Data.DataColumn
+        
+        Private columnITAW_BUSINESS As Global.System.Data.DataColumn
+        
+        Private columnITAW_ID As Global.System.Data.DataColumn
+        
+        Private columnITAW_ITEM As Global.System.Data.DataColumn
+        
+        Private columnITAW_AMOUNT As Global.System.Data.DataColumn
+        
+        Private columnITAW_NOTE As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "TAX_ITA_WITHDRAWAL"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAW_KEYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAW_KEY
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAW_BUSINESSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAW_BUSINESS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAW_IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAW_ID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAW_ITEMColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAW_ITEM
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAW_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAW_AMOUNT
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAW_NOTEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAW_NOTE
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As TAX_ITA_WITHDRAWALRow
+            Get
+                Return CType(Me.Rows(index),TAX_ITA_WITHDRAWALRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_WITHDRAWALRowChanging As TAX_ITA_WITHDRAWALRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_WITHDRAWALRowChanged As TAX_ITA_WITHDRAWALRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_WITHDRAWALRowDeleting As TAX_ITA_WITHDRAWALRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_WITHDRAWALRowDeleted As TAX_ITA_WITHDRAWALRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub AddTAX_ITA_WITHDRAWALRow(ByVal row As TAX_ITA_WITHDRAWALRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function AddTAX_ITA_WITHDRAWALRow(ByVal parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL As TAX_COMPUTATIONRow, ByVal ITAW_BUSINESS As Integer, ByVal ITAW_ID As Integer, ByVal ITAW_ITEM As String, ByVal ITAW_AMOUNT As Decimal, ByVal ITAW_NOTE As String) As TAX_ITA_WITHDRAWALRow
+            Dim rowTAX_ITA_WITHDRAWALRow As TAX_ITA_WITHDRAWALRow = CType(Me.NewRow,TAX_ITA_WITHDRAWALRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, ITAW_BUSINESS, ITAW_ID, ITAW_ITEM, ITAW_AMOUNT, ITAW_NOTE}
+            If (Not (parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL) Is Nothing) Then
+                columnValuesArray(0) = parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL(0)
+            End If
+            rowTAX_ITA_WITHDRAWALRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowTAX_ITA_WITHDRAWALRow)
+            Return rowTAX_ITA_WITHDRAWALRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As TAX_ITA_WITHDRAWALDataTable = CType(MyBase.Clone,TAX_ITA_WITHDRAWALDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New TAX_ITA_WITHDRAWALDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnITAW_KEY = MyBase.Columns("ITAW_KEY")
+            Me.columnITAW_BUSINESS = MyBase.Columns("ITAW_BUSINESS")
+            Me.columnITAW_ID = MyBase.Columns("ITAW_ID")
+            Me.columnITAW_ITEM = MyBase.Columns("ITAW_ITEM")
+            Me.columnITAW_AMOUNT = MyBase.Columns("ITAW_AMOUNT")
+            Me.columnITAW_NOTE = MyBase.Columns("ITAW_NOTE")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnITAW_KEY = New Global.System.Data.DataColumn("ITAW_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAW_KEY)
+            Me.columnITAW_BUSINESS = New Global.System.Data.DataColumn("ITAW_BUSINESS", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAW_BUSINESS)
+            Me.columnITAW_ID = New Global.System.Data.DataColumn("ITAW_ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAW_ID)
+            Me.columnITAW_ITEM = New Global.System.Data.DataColumn("ITAW_ITEM", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAW_ITEM)
+            Me.columnITAW_AMOUNT = New Global.System.Data.DataColumn("ITAW_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAW_AMOUNT)
+            Me.columnITAW_NOTE = New Global.System.Data.DataColumn("ITAW_NOTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAW_NOTE)
+            Me.columnITAW_ITEM.MaxLength = 50
+            Me.columnITAW_NOTE.MaxLength = 2147483647
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function NewTAX_ITA_WITHDRAWALRow() As TAX_ITA_WITHDRAWALRow
+            Return CType(Me.NewRow,TAX_ITA_WITHDRAWALRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New TAX_ITA_WITHDRAWALRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(TAX_ITA_WITHDRAWALRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.TAX_ITA_WITHDRAWALRowChangedEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_WITHDRAWALRowChanged(Me, New TAX_ITA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_ITA_WITHDRAWALRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.TAX_ITA_WITHDRAWALRowChangingEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_WITHDRAWALRowChanging(Me, New TAX_ITA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_ITA_WITHDRAWALRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.TAX_ITA_WITHDRAWALRowDeletedEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_WITHDRAWALRowDeleted(Me, New TAX_ITA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_ITA_WITHDRAWALRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.TAX_ITA_WITHDRAWALRowDeletingEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_WITHDRAWALRowDeleting(Me, New TAX_ITA_WITHDRAWALRowChangeEvent(CType(e.Row,TAX_ITA_WITHDRAWALRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub RemoveTAX_ITA_WITHDRAWALRow(ByVal row As TAX_ITA_WITHDRAWALRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsRA_ITA = New dsRA_ITA()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "TAX_ITA_WITHDRAWALDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class TAX_ITA_ADJUSTMENTDataTable
+        Inherits Global.System.Data.TypedTableBase(Of TAX_ITA_ADJUSTMENTRow)
+        
+        Private columnITAADJ_KEY As Global.System.Data.DataColumn
+        
+        Private columnITAADJ_BUSINESS As Global.System.Data.DataColumn
+        
+        Private columnITAADJ_ID As Global.System.Data.DataColumn
+        
+        Private columnITAADJ_ITEM As Global.System.Data.DataColumn
+        
+        Private columnITAADJ_AMOUNT As Global.System.Data.DataColumn
+        
+        Private columnITAADJ_NOTE As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "TAX_ITA_ADJUSTMENT"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAADJ_KEYColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAADJ_KEY
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAADJ_BUSINESSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAADJ_BUSINESS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAADJ_IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAADJ_ID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAADJ_ITEMColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAADJ_ITEM
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAADJ_AMOUNTColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAADJ_AMOUNT
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ITAADJ_NOTEColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnITAADJ_NOTE
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As TAX_ITA_ADJUSTMENTRow
+            Get
+                Return CType(Me.Rows(index),TAX_ITA_ADJUSTMENTRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_ADJUSTMENTRowChanging As TAX_ITA_ADJUSTMENTRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_ADJUSTMENTRowChanged As TAX_ITA_ADJUSTMENTRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_ADJUSTMENTRowDeleting As TAX_ITA_ADJUSTMENTRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event TAX_ITA_ADJUSTMENTRowDeleted As TAX_ITA_ADJUSTMENTRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub AddTAX_ITA_ADJUSTMENTRow(ByVal row As TAX_ITA_ADJUSTMENTRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function AddTAX_ITA_ADJUSTMENTRow(ByVal parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT As TAX_COMPUTATIONRow, ByVal ITAADJ_BUSINESS As Integer, ByVal ITAADJ_ID As Integer, ByVal ITAADJ_ITEM As String, ByVal ITAADJ_AMOUNT As Decimal, ByVal ITAADJ_NOTE As String) As TAX_ITA_ADJUSTMENTRow
+            Dim rowTAX_ITA_ADJUSTMENTRow As TAX_ITA_ADJUSTMENTRow = CType(Me.NewRow,TAX_ITA_ADJUSTMENTRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, ITAADJ_BUSINESS, ITAADJ_ID, ITAADJ_ITEM, ITAADJ_AMOUNT, ITAADJ_NOTE}
+            If (Not (parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT) Is Nothing) Then
+                columnValuesArray(0) = parentTAX_COMPUTATIONRowByFK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT(0)
+            End If
+            rowTAX_ITA_ADJUSTMENTRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowTAX_ITA_ADJUSTMENTRow)
+            Return rowTAX_ITA_ADJUSTMENTRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As TAX_ITA_ADJUSTMENTDataTable = CType(MyBase.Clone,TAX_ITA_ADJUSTMENTDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New TAX_ITA_ADJUSTMENTDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnITAADJ_KEY = MyBase.Columns("ITAADJ_KEY")
+            Me.columnITAADJ_BUSINESS = MyBase.Columns("ITAADJ_BUSINESS")
+            Me.columnITAADJ_ID = MyBase.Columns("ITAADJ_ID")
+            Me.columnITAADJ_ITEM = MyBase.Columns("ITAADJ_ITEM")
+            Me.columnITAADJ_AMOUNT = MyBase.Columns("ITAADJ_AMOUNT")
+            Me.columnITAADJ_NOTE = MyBase.Columns("ITAADJ_NOTE")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnITAADJ_KEY = New Global.System.Data.DataColumn("ITAADJ_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAADJ_KEY)
+            Me.columnITAADJ_BUSINESS = New Global.System.Data.DataColumn("ITAADJ_BUSINESS", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAADJ_BUSINESS)
+            Me.columnITAADJ_ID = New Global.System.Data.DataColumn("ITAADJ_ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAADJ_ID)
+            Me.columnITAADJ_ITEM = New Global.System.Data.DataColumn("ITAADJ_ITEM", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAADJ_ITEM)
+            Me.columnITAADJ_AMOUNT = New Global.System.Data.DataColumn("ITAADJ_AMOUNT", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAADJ_AMOUNT)
+            Me.columnITAADJ_NOTE = New Global.System.Data.DataColumn("ITAADJ_NOTE", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnITAADJ_NOTE)
+            Me.columnITAADJ_ITEM.MaxLength = 50
+            Me.columnITAADJ_NOTE.MaxLength = 2147483647
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function NewTAX_ITA_ADJUSTMENTRow() As TAX_ITA_ADJUSTMENTRow
+            Return CType(Me.NewRow,TAX_ITA_ADJUSTMENTRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New TAX_ITA_ADJUSTMENTRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(TAX_ITA_ADJUSTMENTRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.TAX_ITA_ADJUSTMENTRowChangedEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_ADJUSTMENTRowChanged(Me, New TAX_ITA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_ITA_ADJUSTMENTRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.TAX_ITA_ADJUSTMENTRowChangingEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_ADJUSTMENTRowChanging(Me, New TAX_ITA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_ITA_ADJUSTMENTRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.TAX_ITA_ADJUSTMENTRowDeletedEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_ADJUSTMENTRowDeleted(Me, New TAX_ITA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_ITA_ADJUSTMENTRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.TAX_ITA_ADJUSTMENTRowDeletingEvent) Is Nothing) Then
+                RaiseEvent TAX_ITA_ADJUSTMENTRowDeleting(Me, New TAX_ITA_ADJUSTMENTRowChangeEvent(CType(e.Row,TAX_ITA_ADJUSTMENTRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub RemoveTAX_ITA_ADJUSTMENTRow(ByVal row As TAX_ITA_ADJUSTMENTRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dsRA_ITA = New dsRA_ITA()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "TAX_ITA_ADJUSTMENTDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class TAX_COMPUTATIONRow
         Inherits Global.System.Data.DataRow
-
+        
         Private tableTAX_COMPUTATION As TAX_COMPUTATIONDataTable
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
             MyBase.New(rb)
-            Me.tableTAX_COMPUTATION = CType(Me.Table, TAX_COMPUTATIONDataTable)
+            Me.tableTAX_COMPUTATION = CType(Me.Table,TAX_COMPUTATIONDataTable)
         End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_KEY() As Integer
             Get
-                Return CType(Me(Me.tableTAX_COMPUTATION.TC_KEYColumn), Integer)
+                Return CType(Me(Me.tableTAX_COMPUTATION.TC_KEYColumn),Integer)
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_KEYColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_REF_NO() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_REF_NOColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_REF_NOColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_REF_NO' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_REF_NOColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_YA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_YAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_YAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_YA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_YAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CO_NAME() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CO_NAMEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CO_NAMEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CO_NAME' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CO_NAMEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_ROC() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_ROCColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_ROCColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_ROC' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_ROCColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_BUSINESS() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_BUSINESSColumn), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_BUSINESSColumn),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_BUSINESS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_BUSINESSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_PNL_BAL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_PNL_BALColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_PNL_BALColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_PNL_BAL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_PNL_BALColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_DIVIDEND() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_DIVIDENDColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_DIVIDENDColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_DIVIDEND' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_DIVIDENDColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_RENTAL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_RENTALColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_RENTALColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_RENTAL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_RENTALColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ROYALTY() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ROYALTYColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ROYALTYColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ROYALTY' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ROYALTYColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_INTEREST() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_INTERESTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_INTERESTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_INTEREST' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_INTERESTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_SEC4A() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_SEC4AColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_SEC4AColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_SEC4A' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_SEC4AColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_TOT_NONBS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_NONBS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_NONBS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_TOT_NONBS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_NONBS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_TOT_BS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_BS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_BS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_TOT_BS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_BS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_IN_NA_LOS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_NA_LOSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_NA_LOSColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_IN_NA_LOS' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_IN_NA_LOS' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_NA_LOSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_IN_NT_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_NT_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_NT_INColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_IN_NT_IN' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_IN_NT_IN' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_NT_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_IN_TAX_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_TAX_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_TAX_INColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_IN_TAX_IN' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_IN_TAX_IN' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_IN_TAX_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_TOT_ADJ_BS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_ADJ_BS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_ADJ_BS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_TOT_ADJ_BS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_ADJ_BS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_EXP_INT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_INTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_INTColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_INT' in table 'TAX_COMPUTATION' is DBNull." & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_INT' in table 'TAX_COMPUTATION' is DBNull."& _ 
                             "", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_INTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_EXP_NA_EXP() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_NA_EXPColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_NA_EXPColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_NA_EXP' in table 'TAX_COMPUTATION' is DBNu" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_NA_EXP' in table 'TAX_COMPUTATION' is DBNu"& _ 
                             "ll.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_NA_EXPColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_EXP_RV_EXP() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_RV_EXPColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_RV_EXPColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_RV_EXP' in table 'TAX_COMPUTATION' is DBNu" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_RV_EXP' in table 'TAX_COMPUTATION' is DBNu"& _ 
                             "ll.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_RV_EXPColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_BS_EXP_CLAIM() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_CLAIMColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_CLAIMColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_CLAIM' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_BS_EXP_CLAIM' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_BS_EXP_CLAIMColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_TOT_ADJ_BS_EXP() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_ADJ_BS_EXPColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_ADJ_BS_EXPColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_TOT_ADJ_BS_EXP' in table 'TAX_COMPUTATION' is DBNull." & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_TOT_ADJ_BS_EXP' in table 'TAX_COMPUTATION' is DBNull."& _ 
                             "", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_TOT_ADJ_BS_EXPColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_ADJ_IN_LOSS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_IN_LOSSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_IN_LOSSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_ADJ_IN_LOSS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_ADJ_IN_LOSSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_ADJ_BS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_ADJ_BS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_ADJ_BS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_ADJ_BS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_ADJ_BS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_CA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_CAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_CAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_CA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_CAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_STAT_BS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_STAT_BS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_STAT_BS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_STAT_BS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_STAT_BS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_INVEST_ALLOW() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_INVEST_ALLOWColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_INVEST_ALLOWColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_INVEST_ALLOW' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_INVEST_ALLOWColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_NET_STAT_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_NET_STAT_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_NET_STAT_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_NET_STAT_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_NET_STAT_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_RENTAL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_RENTALColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_RENTALColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_RENTAL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_RENTALColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_DIR_EXP() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXPColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXPColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_DIR_EXP' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXPColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_DIR_EXP_QUIT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXP_QUITColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXP_QUITColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_DIR_EXP_QUIT' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_DIR_EXP_QUIT' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXP_QUITColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_DIR_EXP_MAIN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXP_MAINColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXP_MAINColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_DIR_EXP_MAIN' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_DIR_EXP_MAIN' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_DIR_EXP_MAINColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_ADJ_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_ADJ_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_ADJ_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_ADJ_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_ADJ_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_CA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_CAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_CAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_CA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_CAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SS_STAT_BS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_STAT_BS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SS_STAT_BS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SS_STAT_BS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SS_STAT_BS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_OTH_SOURCE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_OTH_SOURCEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_OTH_SOURCEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_OTH_SOURCE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_OTH_SOURCEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_MAIN_BS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_MAIN_BSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_MAIN_BSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_MAIN_BS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_MAIN_BSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_SEC_BS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SEC_BSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_SEC_BSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_SEC_BS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_SEC_BSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_OTH_BS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_OTH_BSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_OTH_BSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_OTH_BS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_OTH_BSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_TOT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_TOTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_TOTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_TOT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_TOTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_BS_LOSS_BF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_BS_LOSS_BFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_BS_LOSS_BFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_BS_LOSS_BF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_BS_LOSS_BFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_AGGREGATE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_AGGREGATEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_AGGREGATEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_AGGREGATE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_AGGREGATEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_DIV() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_DIVColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_DIVColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_DIV' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_DIVColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_DIV_ATT_INT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_DIV_ATT_INTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_DIV_ATT_INTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_DIV_ATT_INT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_DIV_ATT_INTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_DIV_NET() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_DIV_NETColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_DIV_NETColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_DIV_NET' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_DIV_NETColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_INT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_INTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_INTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_INT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_INTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_INT_ATT_INT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_INT_ATT_INTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_INT_ATT_INTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_INT_ATT_INT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_INT_ATT_INTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_INT_NET() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_INT_NETColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_INT_NETColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_INT_NET' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_INT_NETColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_ATT_INT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_ATT_INTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_ATT_INTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_ATT_INT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_ATT_INTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_ASSESS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_ASSESSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_ASSESSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_ASSESS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_ASSESSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_QUIT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_QUITColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_QUITColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_QUIT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_QUITColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_INSUR() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_INSURColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_INSURColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_INSUR' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_INSURColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_OTH() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_OTHColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_OTHColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_OTH' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_OTHColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_MAIN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_MAINColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_MAINColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_MAIN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_MAINColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_AGREE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_AGREEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_AGREEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_AGREE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_AGREEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_RENT_NET() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_NETColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_NETColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_RENT_NET' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_RENT_NETColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_SUNDRY() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_SUNDRYColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_SUNDRYColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_SUNDRY' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_SUNDRYColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_OTH_AGGR_STAT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_OTH_AGGR_STATColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_OTH_AGGR_STATColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_OTH_AGGR_STAT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_OTH_AGGR_STATColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_AGGR_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_AGGR_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_AGGR_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_AGGR_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_AGGR_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_CURR_LOSS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_CURR_LOSSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_CURR_LOSSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_CURR_LOSS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_CURR_LOSSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_AGGR_IN_LOSS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_AGGR_IN_LOSSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_AGGR_IN_LOSSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_AGGR_IN_LOSS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_AGGR_IN_LOSSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APRV_DONATION() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APRV_DONATIONColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APRV_DONATIONColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APRV_DONATION' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APRV_DONATIONColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_28_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_28_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_28_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_28_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_28_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_SEC110() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC110Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC110Column),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_SEC110' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_SEC110Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_SEC132() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC132Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC132Column),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_SEC132' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_SEC132Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_SEC133() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC133Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC133Column),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_SEC133' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_SEC133Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_TOT_SETOFF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOT_SETOFFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOT_SETOFFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_TOT_SETOFF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_TOT_SETOFFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_PAYABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PAYABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PAYABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_PAYABLE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_PAYABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_INSTALL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_INSTALLColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_INSTALLColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_INSTALL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_INSTALLColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_PAYABLE_BAL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PAYABLE_BALColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PAYABLE_BALColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_PAYABLE_BAL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_PAYABLE_BALColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_BAL_BF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAL_BFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAL_BFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_BAL_BF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAL_BFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_CURR() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_CURRColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_CURRColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_CURR' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_CURRColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_AA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_AAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_AAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_AA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_AAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_IA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_IAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_IAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_IA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_IAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_BA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_BA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_UTIL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_UTILColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_UTILColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_UTIL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_UTILColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_BAL_CF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAL_CFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAL_CFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_BAL_CF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_BAL_CFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_BAL_BF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_BFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_BFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_BAL_BF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_BFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_UTIL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UTILColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UTILColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_UTIL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UTILColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_BAL_UTIL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_UTILColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_UTILColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_BAL_UTIL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_UTILColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_UNABSORBED() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UNABSORBEDColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UNABSORBEDColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_UNABSORBED' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UNABSORBEDColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_BAL_CF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_CFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_CFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_BAL_CF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BAL_CFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_ITA_BAL_BF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_BFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_BFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_ITA_BAL_BF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_BFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_ITA_CURR() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_CURRColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_CURRColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_ITA_CURR' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_CURRColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_ITA_BAL_BF_CURR() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_BF_CURRColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_BF_CURRColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_ITA_BAL_BF_CURR' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_ITA_BAL_BF_CURR' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_BF_CURRColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_ITA_UTIL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_UTILColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_UTILColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_ITA_UTIL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_UTILColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_ITA_BAL_CF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_CFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_CFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_ITA_BAL_CF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_ITA_BAL_CFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_AI_OTH_BS_IN() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_OTH_BS_INColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_AI_OTH_BS_INColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_AI_OTH_BS_IN' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_AI_OTH_BS_INColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE1() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE1Column), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE1Column),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE1' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE1Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE2() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE2Column), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE2Column),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE2' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE2Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE3() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE3Column), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE3Column),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE3' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE3Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE4() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4Column), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4Column),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE4' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE5() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE5Column), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE5Column),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE5' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE5Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE6() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE6Column), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE6Column),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE6' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE6Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE1() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE1Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE1Column),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE1' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE1' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE1Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE2() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE2Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE2Column),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE2' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE2' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE2Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE3() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE3Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE3Column),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE3' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE3' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE3Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE4() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE4Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE4Column),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE4' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE4' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE4Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE5() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE5Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE5Column),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE5' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE5' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE5Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE6() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE6Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE6Column),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE6' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE6' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE6Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE1_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE1_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE1_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE1_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE1_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE1_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE2_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE2_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE2_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE2_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE2_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE2_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE3_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE3_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE3_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE3_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE3_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE3_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE4_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE4_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE4_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE5_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE5_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE5_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE5_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE5_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE5_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_TOT_TAX_CHARGED() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOT_TAX_CHARGEDColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOT_TAX_CHARGEDColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_TOT_TAX_CHARGED' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_TOT_TAX_CHARGED' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_TOT_TAX_CHARGEDColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_SEC6B_REBATE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC6B_REBATEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC6B_REBATEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_SEC6B_REBATE' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_SEC6B_REBATEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_SEC110_OTHERS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC110_OTHERSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_SEC110_OTHERSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_SEC110_OTHERS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_SEC110_OTHERSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_PROSPECTING() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PROSPECTINGColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PROSPECTINGColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_PROSPECTING' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_PROSPECTINGColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_QUALIFY_AGRICULTURE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_QUALIFY_AGRICULTUREColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_QUALIFY_AGRICULTUREColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_QUALIFY_AGRICULTURE' in table 'TAX_COMPUTATION' is DB" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_QUALIFY_AGRICULTURE' in table 'TAX_COMPUTATION' is DB"& _ 
                             "Null.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_QUALIFY_AGRICULTUREColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_PREOP_BS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PREOP_BSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PREOP_BSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_PREOP_BS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_PREOP_BSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_FOOD_PRODUCTION() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_FOOD_PRODUCTIONColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_FOOD_PRODUCTIONColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_FOOD_PRODUCTION' in table 'TAX_COMPUTATION' is DBNull" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_FOOD_PRODUCTION' in table 'TAX_COMPUTATION' is DBNull"& _ 
                             ".", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_FOOD_PRODUCTIONColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_EXP_ALLOWED() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_EXP_ALLOWEDColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_EXP_ALLOWEDColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_EXP_ALLOWED' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_EXP_ALLOWEDColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_TOTAL_OTH_EXP() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOTAL_OTH_EXPColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOTAL_OTH_EXPColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_TOTAL_OTH_EXP' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_TOTAL_OTH_EXPColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_TOTAL_INCOME() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOTAL_INCOMEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_TOTAL_INCOMEColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_TOTAL_INCOME' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_TOTAL_INCOMEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_PIONEER_CHARGE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PIONEER_CHARGEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_PIONEER_CHARGEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_PIONEER_CHARGE' in table 'TAX_COMPUTATION' is DBNull." & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_PIONEER_CHARGE' in table 'TAX_COMPUTATION' is DBNull."& _ 
                             "", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_PIONEER_CHARGEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_OPERATIONALHQ_CHARGE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_OPERATIONALHQ_CHARGEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_OPERATIONALHQ_CHARGEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_OPERATIONALHQ_CHARGE' in table 'TAX_COMPUTATION' is D" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_OPERATIONALHQ_CHARGE' in table 'TAX_COMPUTATION' is D"& _ 
                             "BNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_OPERATIONALHQ_CHARGEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_FOREIGN_CHARGE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_FOREIGN_CHARGEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_FOREIGN_CHARGEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_FOREIGN_CHARGE' in table 'TAX_COMPUTATION' is DBNull." & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_FOREIGN_CHARGE' in table 'TAX_COMPUTATION' is DBNull."& _ 
                             "", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_FOREIGN_CHARGEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_BS_LOSS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_BS_LOSSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_BS_LOSSColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_BS_LOSS' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_BS_LOSSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_ROYALTY() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_ROYALTYColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_ROYALTYColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_ROYALTY' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_ROYALTYColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_NB_ADDITION() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_ADDITIONColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_NB_ADDITIONColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_NB_ADDITION' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_NB_ADDITIONColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_ADJUST_LOSS() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_ADJUST_LOSSColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_ADJUST_LOSSColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_ADJUST_LOSS' in table 'TAX_COMPUTATION' is DBNull." & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_ADJUST_LOSS' in table 'TAX_COMPUTATION' is DBNull."& _ 
                             "", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_ADJUST_LOSSColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_UTIL_CURR() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UTIL_CURRColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UTIL_CURRColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_UTIL_CURR' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_UTIL_CURRColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_RA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_RAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_RAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_RA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_RAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_RA_BAL_BF() As Decimal
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_BFColumn), Decimal)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_BFColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_RA_BAL_BF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Decimal)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_BFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_RA_CURR() As Decimal
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_CURRColumn), Decimal)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_CURRColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_RA_CURR' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Decimal)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_RA_CURRColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_RA_BAL_BF_CURR() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_BF_CURRColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_BF_CURRColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_RA_BAL_BF_CURR' in table 'TAX_COMPUTATION' is DBNull." & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_RA_BAL_BF_CURR' in table 'TAX_COMPUTATION' is DBNull."& _ 
                             "", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_BF_CURRColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_RA_UTIL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_UTILColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_UTILColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_RA_UTIL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_RA_UTILColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_RA_BAL_CF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_CFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_CFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_RA_BAL_CF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_RA_BAL_CFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_BC() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_BCColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_BCColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_BC' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_BCColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_SI_ADJ_BS_IN_BC() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_ADJ_BS_IN_BCColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_SI_ADJ_BS_IN_BCColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_SI_ADJ_BS_IN_BC' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_SI_ADJ_BS_IN_BCColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_CURR_BA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_CURR_BAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_CURR_BAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_CURR_BA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_CURR_BAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE4A() As Integer
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4AColumn), Integer)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4AColumn),Integer)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE4A' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Integer)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4AColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_APP_CHARGEABLE4A() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE4AColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE4AColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE4A' in table 'TAX_COMPUTATION' is DBNul" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_APP_CHARGEABLE4A' in table 'TAX_COMPUTATION' is DBNul"& _ 
                             "l.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_APP_CHARGEABLE4AColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_RATE4A_CHARGEABLE() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4A_CHARGEABLEColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4A_CHARGEABLEColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE4A_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNu" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_RATE4A_CHARGEABLE' in table 'TAX_COMPUTATION' is DBNu"& _ 
                             "ll.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_RATE4A_CHARGEABLEColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_NA() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_NAColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_NAColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_NA' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_NAColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_ZAKAT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_ZAKATColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_ZAKATColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_ZAKAT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_ZAKATColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_OTHERDEDUCTION() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_OTHERDEDUCTIONColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_OTHERDEDUCTIONColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_OTHERDEDUCTION' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_OTHERDEDUCTIONColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_DISALLOW() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_DISALLOWColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_DISALLOWColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_DISALLOW' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_DISALLOWColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CA_ABAL_CF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_ABAL_CFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CA_ABAL_CFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CA_ABAL_CF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CA_ABAL_CFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_CHECK() As Double
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CHECKColumn), Double)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_CHECKColumn),Double)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_CHECK' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Double)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_CHECKColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_TP_CLAIM() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_CLAIMColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_TP_CLAIMColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_TP_CLAIM' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_TP_CLAIMColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_SAMOUNT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_SAMOUNTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_SAMOUNTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_SAMOUNT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_SAMOUNTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_BALS_CF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BALS_CFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BALS_CFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_BALS_CF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BALS_CFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_D_BL() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_D_BLColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_D_BLColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_D_BL' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_D_BLColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_SRDAMT2() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_SRDAMT2Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_SRDAMT2Column),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_SRDAMT2' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_SRDAMT2Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_BLNBF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BLNBFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BLNBFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_BLNBF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BLNBFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_AMTTUT() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_AMTTUTColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_AMTTUTColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_AMTTUT' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_AMTTUTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_CB_LS_BLNCF() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BLNCFColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BLNCFColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_CB_LS_BLNCF' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_CB_LS_BLNCFColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_COMPANY() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_COMPANYColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_COMPANYColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_COMPANY' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_COMPANYColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_PIONEERDESC() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_PIONEERDESCColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_PIONEERDESCColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_PIONEERDESC' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_PIONEERDESCColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_PIO() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_PIOColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_PIOColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_PIO' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_PIOColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_PIONEER() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_PIONEERColumn), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_PIONEERColumn),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_PIONEER' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_PIONEERColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_RA_RATE1() As String
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_RATE1Column), String)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_RATE1Column),String)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_RA_RATE1' in table 'TAX_COMPUTATION' is DBNull.", e)
                 End Try
             End Get
-            Set(value As String)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_RA_RATE1Column) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_RA_QUALIFYINGCAPITALEXP() As Decimal
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_QUALIFYINGCAPITALEXPColumn), Decimal)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_QUALIFYINGCAPITALEXPColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_RA_QUALIFYINGCAPITALEXP' in table 'TAX_COMPUTATION' is D" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_RA_QUALIFYINGCAPITALEXP' in table 'TAX_COMPUTATION' is D"& _ 
                             "BNull.", e)
                 End Try
             End Get
-            Set(value As Decimal)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_RA_QUALIFYINGCAPITALEXPColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_RA_QUALIFYINGCAPITALEXP_AMOUNT() As Decimal
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_QUALIFYINGCAPITALEXP_AMOUNTColumn), Decimal)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_QUALIFYINGCAPITALEXP_AMOUNTColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_RA_QUALIFYINGCAPITALEXP_AMOUNT' in table 'TAX_COMPUTATIO" & _
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TC_RA_QUALIFYINGCAPITALEXP_AMOUNT' in table 'TAX_COMPUTATIO"& _ 
                             "N' is DBNull.", e)
                 End Try
             End Get
-            Set(value As Decimal)
+            Set
                 Me(Me.tableTAX_COMPUTATION.TC_RA_QUALIFYINGCAPITALEXP_AMOUNTColumn) = value
             End Set
         End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property TC_RA_BALANCINGALLOWANCE() As Decimal
             Get
-                Try
-                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_BALANCINGALLOWANCEColumn), Decimal)
+                Try 
+                    Return CType(Me(Me.tableTAX_COMPUTATION.TC_RA_BALANCINGALLOWANCEColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'TC_RA_BALANCINGALLOWANCE' in table 'TAX_COMPUTATION' is DBN"& _ 
                             "ull.", e)
@@ -12488,6 +13222,26 @@ Partial Public Class dsRA_ITA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function GetTAX_ITA_ADJUSTMENTRows() As TAX_ITA_ADJUSTMENTRow()
+            If (Me.Table.ChildRelations("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT") Is Nothing) Then
+                Return New TAX_ITA_ADJUSTMENTRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT")),TAX_ITA_ADJUSTMENTRow())
+            End If
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function GetTAX_ITA_WITHDRAWALRows() As TAX_ITA_WITHDRAWALRow()
+            If (Me.Table.ChildRelations("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL") Is Nothing) Then
+                Return New TAX_ITA_WITHDRAWALRow(-1) {}
+            Else
+                Return CType(MyBase.GetChildRows(Me.Table.ChildRelations("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL")),TAX_ITA_WITHDRAWALRow())
+            End If
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function GetTAX_RA_WITHDRAWALRows() As TAX_RA_WITHDRAWALRow()
             If (Me.Table.ChildRelations("FK_TAX_COMPUTATION_TAX_RA_WITHDRAWAL") Is Nothing) Then
                 Return New TAX_RA_WITHDRAWALRow(-1) {}
@@ -14165,6 +14919,384 @@ Partial Public Class dsRA_ITA
     End Class
     
     '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class TAX_ITA_WITHDRAWALRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tableTAX_ITA_WITHDRAWAL As TAX_ITA_WITHDRAWALDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableTAX_ITA_WITHDRAWAL = CType(Me.Table,TAX_ITA_WITHDRAWALDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAW_KEY() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_KEYColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAW_KEY' in table 'TAX_ITA_WITHDRAWAL' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_KEYColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAW_BUSINESS() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_BUSINESSColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAW_BUSINESS' in table 'TAX_ITA_WITHDRAWAL' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_BUSINESSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAW_ID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_IDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAW_ID' in table 'TAX_ITA_WITHDRAWAL' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAW_ITEM() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_ITEMColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAW_ITEM' in table 'TAX_ITA_WITHDRAWAL' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_ITEMColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAW_AMOUNT() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_AMOUNTColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAW_AMOUNT' in table 'TAX_ITA_WITHDRAWAL' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_AMOUNTColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAW_NOTE() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_NOTEColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAW_NOTE' in table 'TAX_ITA_WITHDRAWAL' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_NOTEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property TAX_COMPUTATIONRow() As TAX_COMPUTATIONRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL")),TAX_COMPUTATIONRow)
+            End Get
+            Set
+                Me.SetParentRow(value, Me.Table.ParentRelations("FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL"))
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAW_KEYNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_WITHDRAWAL.ITAW_KEYColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAW_KEYNull()
+            Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_KEYColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAW_BUSINESSNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_WITHDRAWAL.ITAW_BUSINESSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAW_BUSINESSNull()
+            Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_BUSINESSColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAW_IDNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_WITHDRAWAL.ITAW_IDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAW_IDNull()
+            Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_IDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAW_ITEMNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_WITHDRAWAL.ITAW_ITEMColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAW_ITEMNull()
+            Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_ITEMColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAW_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_WITHDRAWAL.ITAW_AMOUNTColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAW_AMOUNTNull()
+            Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAW_NOTENull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_WITHDRAWAL.ITAW_NOTEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAW_NOTENull()
+            Me(Me.tableTAX_ITA_WITHDRAWAL.ITAW_NOTEColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class TAX_ITA_ADJUSTMENTRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tableTAX_ITA_ADJUSTMENT As TAX_ITA_ADJUSTMENTDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tableTAX_ITA_ADJUSTMENT = CType(Me.Table,TAX_ITA_ADJUSTMENTDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAADJ_KEY() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_KEYColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAADJ_KEY' in table 'TAX_ITA_ADJUSTMENT' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_KEYColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAADJ_BUSINESS() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_BUSINESSColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAADJ_BUSINESS' in table 'TAX_ITA_ADJUSTMENT' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_BUSINESSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAADJ_ID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_IDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAADJ_ID' in table 'TAX_ITA_ADJUSTMENT' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAADJ_ITEM() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_ITEMColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAADJ_ITEM' in table 'TAX_ITA_ADJUSTMENT' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_ITEMColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAADJ_AMOUNT() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_AMOUNTColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAADJ_AMOUNT' in table 'TAX_ITA_ADJUSTMENT' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_AMOUNTColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ITAADJ_NOTE() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_NOTEColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ITAADJ_NOTE' in table 'TAX_ITA_ADJUSTMENT' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_NOTEColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property TAX_COMPUTATIONRow() As TAX_COMPUTATIONRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT")),TAX_COMPUTATIONRow)
+            End Get
+            Set
+                Me.SetParentRow(value, Me.Table.ParentRelations("FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT"))
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAADJ_KEYNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_KEYColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAADJ_KEYNull()
+            Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_KEYColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAADJ_BUSINESSNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_BUSINESSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAADJ_BUSINESSNull()
+            Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_BUSINESSColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAADJ_IDNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_IDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAADJ_IDNull()
+            Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_IDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAADJ_ITEMNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_ITEMColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAADJ_ITEMNull()
+            Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_ITEMColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAADJ_AMOUNTNull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_AMOUNTColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAADJ_AMOUNTNull()
+            Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_AMOUNTColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsITAADJ_NOTENull() As Boolean
+            Return Me.IsNull(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_NOTEColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetITAADJ_NOTENull()
+            Me(Me.tableTAX_ITA_ADJUSTMENT.ITAADJ_NOTEColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -14366,6 +15498,78 @@ Partial Public Class dsRA_ITA
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As TAX_RA_WITHDRAWALRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class TAX_ITA_WITHDRAWALRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As TAX_ITA_WITHDRAWALRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As TAX_ITA_WITHDRAWALRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As TAX_ITA_WITHDRAWALRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class TAX_ITA_ADJUSTMENTRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As TAX_ITA_ADJUSTMENTRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As TAX_ITA_ADJUSTMENTRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As TAX_ITA_ADJUSTMENTRow
             Get
                 Return Me.eventRow
             End Get

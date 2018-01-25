@@ -218,6 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="C\BalanceSheet\frmBalanceSheet.Designer.vb">
+      <DependentUpon>frmBalanceSheet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\BalanceSheet\frmBalanceSheet.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="C\CA\dsCA1.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -375,6 +381,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsRA_ITA.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="C\Report\rpt_ITA.Designer.vb">
+      <DependentUpon>rpt_ITA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Report\rpt_ITA.vb">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="C\Report\rpt_RA.Designer.vb">
       <DependentUpon>rpt_RA.vb</DependentUpon>
@@ -1008,6 +1020,9 @@
     <Compile Include="ucSQLScript.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <EmbeddedResource Include="C\BalanceSheet\frmBalanceSheet.resx">
+      <DependentUpon>frmBalanceSheet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CA\frmCA_Add3.resx">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
     </EmbeddedResource>
@@ -1098,6 +1113,9 @@
     <EmbeddedResource Include="C\PNL\Report\Report1.rdlc" />
     <EmbeddedResource Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.resx">
       <DependentUpon>ucPNL_p3InterestResPurS33_Monthly_Tricor.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Report\rpt_ITA.resx">
+      <DependentUpon>rpt_ITA.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\Report\rpt_RA.resx">
       <DependentUpon>rpt_RA.vb</DependentUpon>

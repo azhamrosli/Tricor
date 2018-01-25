@@ -12,9 +12,9 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 7
+    Public V3 As Integer = 8
     Public V4 As Integer = 0
-    Public R1 As Integer = 11 'Add RA Report
+    Public R1 As Integer = 0 'Add PNL Search
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
