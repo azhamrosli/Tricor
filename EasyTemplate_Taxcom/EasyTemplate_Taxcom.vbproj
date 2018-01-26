@@ -218,11 +218,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="C\BalanceSheet\dsBalanceSheet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsBalanceSheet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="C\BalanceSheet\frmBalanceSheet.Designer.vb">
       <DependentUpon>frmBalanceSheet.vb</DependentUpon>
     </Compile>
     <Compile Include="C\BalanceSheet\frmBalanceSheet.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\BalanceSheet\ucBalanceSheet.Designer.vb">
+      <DependentUpon>ucBalanceSheet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\BalanceSheet\ucBalanceSheet.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="C\CA\dsCA1.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1023,6 +1034,9 @@
     <EmbeddedResource Include="C\BalanceSheet\frmBalanceSheet.resx">
       <DependentUpon>frmBalanceSheet.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\BalanceSheet\ucBalanceSheet.resx">
+      <DependentUpon>ucBalanceSheet.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CA\frmCA_Add3.resx">
       <DependentUpon>frmCA_Add3.vb</DependentUpon>
     </EmbeddedResource>
@@ -1414,6 +1428,17 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="ClassDiagram3.cd" />
+    <None Include="C\BalanceSheet\dsBalanceSheet.xsc">
+      <DependentUpon>dsBalanceSheet.xsd</DependentUpon>
+    </None>
+    <None Include="C\BalanceSheet\dsBalanceSheet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsBalanceSheet.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="C\BalanceSheet\dsBalanceSheet.xss">
+      <DependentUpon>dsBalanceSheet.xsd</DependentUpon>
+    </None>
     <None Include="C\CP204\dsCP204.xsc">
       <DependentUpon>dsCP204.xsd</DependentUpon>
     </None>

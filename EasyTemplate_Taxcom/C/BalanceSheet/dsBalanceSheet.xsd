@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsBalanceSheet" targetNamespace="http://tempuri.org/dsBalanceSheet.xsd" xmlns:mstns="http://tempuri.org/dsBalanceSheet.xsd" xmlns="http://tempuri.org/dsBalanceSheet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="TAXCOM_CConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="TAXCOM_CConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.EasyTemplate_Taxcom.Settings.GlobalReference.Default.TAXCOM_CConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsBalanceSheet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsBalanceSheet" msprop:Generator_UserDSName="dsBalanceSheet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BALANCE_SHEET" msprop:Generator_TableClassName="BALANCE_SHEETDataTable" msprop:Generator_TableVarName="tableBALANCE_SHEET" msprop:Generator_TablePropName="BALANCE_SHEET" msprop:Generator_RowDeletingName="BALANCE_SHEETRowDeleting" msprop:Generator_RowChangingName="BALANCE_SHEETRowChanging" msprop:Generator_RowEvHandlerName="BALANCE_SHEETRowChangeEventHandler" msprop:Generator_RowDeletedName="BALANCE_SHEETRowDeleted" msprop:Generator_UserTableName="BALANCE_SHEET" msprop:Generator_RowChangedName="BALANCE_SHEETRowChanged" msprop:Generator_RowEvArgName="BALANCE_SHEETRowChangeEvent" msprop:Generator_RowClassName="BALANCE_SHEETRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BS_KEY" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnBS_KEY" msprop:Generator_ColumnPropNameInRow="BS_KEY" msprop:Generator_ColumnPropNameInTable="BS_KEYColumn" msprop:Generator_UserColumnName="BS_KEY" type="xs:int" />
+              <xs:element name="BS_REF_NO" msprop:Generator_ColumnVarNameInTable="columnBS_REF_NO" msprop:Generator_ColumnPropNameInRow="BS_REF_NO" msprop:Generator_ColumnPropNameInTable="BS_REF_NOColumn" msprop:Generator_UserColumnName="BS_REF_NO" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BS_YA" msprop:Generator_ColumnVarNameInTable="columnBS_YA" msprop:Generator_ColumnPropNameInRow="BS_YA" msprop:Generator_ColumnPropNameInTable="BS_YAColumn" msprop:Generator_UserColumnName="BS_YA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BS_TRANSPORT" msprop:Generator_ColumnVarNameInTable="columnBS_TRANSPORT" msprop:Generator_ColumnPropNameInRow="BS_TRANSPORT" msprop:Generator_ColumnPropNameInTable="BS_TRANSPORTColumn" msprop:Generator_UserColumnName="BS_TRANSPORT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_MACHINERY" msprop:Generator_ColumnVarNameInTable="columnBS_MACHINERY" msprop:Generator_ColumnPropNameInRow="BS_MACHINERY" msprop:Generator_ColumnPropNameInTable="BS_MACHINERYColumn" msprop:Generator_UserColumnName="BS_MACHINERY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_LAND" msprop:Generator_ColumnVarNameInTable="columnBS_LAND" msprop:Generator_ColumnPropNameInRow="BS_LAND" msprop:Generator_ColumnPropNameInTable="BS_LANDColumn" msprop:Generator_UserColumnName="BS_LAND" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_OTH_FA" msprop:Generator_ColumnVarNameInTable="columnBS_OTH_FA" msprop:Generator_ColumnPropNameInRow="BS_OTH_FA" msprop:Generator_ColumnPropNameInTable="BS_OTH_FAColumn" msprop:Generator_UserColumnName="BS_OTH_FA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_FA" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_FA" msprop:Generator_ColumnPropNameInRow="BS_TOT_FA" msprop:Generator_ColumnPropNameInTable="BS_TOT_FAColumn" msprop:Generator_UserColumnName="BS_TOT_FA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_INVESTMENT" msprop:Generator_ColumnVarNameInTable="columnBS_INVESTMENT" msprop:Generator_ColumnPropNameInRow="BS_INVESTMENT" msprop:Generator_ColumnPropNameInTable="BS_INVESTMENTColumn" msprop:Generator_UserColumnName="BS_INVESTMENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TRADE_DEBTORS" msprop:Generator_ColumnVarNameInTable="columnBS_TRADE_DEBTORS" msprop:Generator_ColumnPropNameInRow="BS_TRADE_DEBTORS" msprop:Generator_ColumnPropNameInTable="BS_TRADE_DEBTORSColumn" msprop:Generator_UserColumnName="BS_TRADE_DEBTORS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_OTH_DEBTORS" msprop:Generator_ColumnVarNameInTable="columnBS_OTH_DEBTORS" msprop:Generator_ColumnPropNameInRow="BS_OTH_DEBTORS" msprop:Generator_ColumnPropNameInTable="BS_OTH_DEBTORSColumn" msprop:Generator_UserColumnName="BS_OTH_DEBTORS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_LOAN_DIRECTOR" msprop:Generator_ColumnVarNameInTable="columnBS_LOAN_DIRECTOR" msprop:Generator_ColumnPropNameInRow="BS_LOAN_DIRECTOR" msprop:Generator_ColumnPropNameInTable="BS_LOAN_DIRECTORColumn" msprop:Generator_UserColumnName="BS_LOAN_DIRECTOR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_CASH" msprop:Generator_ColumnVarNameInTable="columnBS_CASH" msprop:Generator_ColumnPropNameInRow="BS_CASH" msprop:Generator_ColumnPropNameInTable="BS_CASHColumn" msprop:Generator_UserColumnName="BS_CASH" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_OTH_CA" msprop:Generator_ColumnVarNameInTable="columnBS_OTH_CA" msprop:Generator_ColumnPropNameInRow="BS_OTH_CA" msprop:Generator_ColumnPropNameInTable="BS_OTH_CAColumn" msprop:Generator_UserColumnName="BS_OTH_CA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_CA" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_CA" msprop:Generator_ColumnPropNameInRow="BS_TOT_CA" msprop:Generator_ColumnPropNameInTable="BS_TOT_CAColumn" msprop:Generator_UserColumnName="BS_TOT_CA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_ASSETS" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_ASSETS" msprop:Generator_ColumnPropNameInRow="BS_TOT_ASSETS" msprop:Generator_ColumnPropNameInTable="BS_TOT_ASSETSColumn" msprop:Generator_UserColumnName="BS_TOT_ASSETS" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_LOAN" msprop:Generator_ColumnVarNameInTable="columnBS_LOAN" msprop:Generator_ColumnPropNameInRow="BS_LOAN" msprop:Generator_ColumnPropNameInTable="BS_LOANColumn" msprop:Generator_UserColumnName="BS_LOAN" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TRADE_CR" msprop:Generator_ColumnVarNameInTable="columnBS_TRADE_CR" msprop:Generator_ColumnPropNameInRow="BS_TRADE_CR" msprop:Generator_ColumnPropNameInTable="BS_TRADE_CRColumn" msprop:Generator_UserColumnName="BS_TRADE_CR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_OTHER_CR" msprop:Generator_ColumnVarNameInTable="columnBS_OTHER_CR" msprop:Generator_ColumnPropNameInRow="BS_OTHER_CR" msprop:Generator_ColumnPropNameInTable="BS_OTHER_CRColumn" msprop:Generator_UserColumnName="BS_OTHER_CR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_LOAN_FR_DIR" msprop:Generator_ColumnVarNameInTable="columnBS_LOAN_FR_DIR" msprop:Generator_ColumnPropNameInRow="BS_LOAN_FR_DIR" msprop:Generator_ColumnPropNameInTable="BS_LOAN_FR_DIRColumn" msprop:Generator_UserColumnName="BS_LOAN_FR_DIR" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_OTH_LIAB" msprop:Generator_ColumnVarNameInTable="columnBS_OTH_LIAB" msprop:Generator_ColumnPropNameInRow="BS_OTH_LIAB" msprop:Generator_ColumnPropNameInTable="BS_OTH_LIABColumn" msprop:Generator_UserColumnName="BS_OTH_LIAB" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_CUR_LIAB" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_CUR_LIAB" msprop:Generator_ColumnPropNameInRow="BS_TOT_CUR_LIAB" msprop:Generator_ColumnPropNameInTable="BS_TOT_CUR_LIABColumn" msprop:Generator_UserColumnName="BS_TOT_CUR_LIAB" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_LT_LIAB" msprop:Generator_ColumnVarNameInTable="columnBS_LT_LIAB" msprop:Generator_ColumnPropNameInRow="BS_LT_LIAB" msprop:Generator_ColumnPropNameInTable="BS_LT_LIABColumn" msprop:Generator_UserColumnName="BS_LT_LIAB" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_LIAB" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_LIAB" msprop:Generator_ColumnPropNameInRow="BS_TOT_LIAB" msprop:Generator_ColumnPropNameInTable="BS_TOT_LIABColumn" msprop:Generator_UserColumnName="BS_TOT_LIAB" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_CAPITAL" msprop:Generator_ColumnVarNameInTable="columnBS_CAPITAL" msprop:Generator_ColumnPropNameInRow="BS_CAPITAL" msprop:Generator_ColumnPropNameInTable="BS_CAPITALColumn" msprop:Generator_UserColumnName="BS_CAPITAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_PNL_APPR_ACC" msprop:Generator_ColumnVarNameInTable="columnBS_PNL_APPR_ACC" msprop:Generator_ColumnPropNameInRow="BS_PNL_APPR_ACC" msprop:Generator_ColumnPropNameInTable="BS_PNL_APPR_ACCColumn" msprop:Generator_UserColumnName="BS_PNL_APPR_ACC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_RESERVE_ACC" msprop:Generator_ColumnVarNameInTable="columnBS_RESERVE_ACC" msprop:Generator_ColumnPropNameInRow="BS_RESERVE_ACC" msprop:Generator_ColumnPropNameInTable="BS_RESERVE_ACCColumn" msprop:Generator_UserColumnName="BS_RESERVE_ACC" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_EQUITY" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_EQUITY" msprop:Generator_ColumnPropNameInRow="BS_TOT_EQUITY" msprop:Generator_ColumnPropNameInTable="BS_TOT_EQUITYColumn" msprop:Generator_UserColumnName="BS_TOT_EQUITY" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_TOT_LIAB_EQ" msprop:Generator_ColumnVarNameInTable="columnBS_TOT_LIAB_EQ" msprop:Generator_ColumnPropNameInRow="BS_TOT_LIAB_EQ" msprop:Generator_ColumnPropNameInTable="BS_TOT_LIAB_EQColumn" msprop:Generator_UserColumnName="BS_TOT_LIAB_EQ" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_STOCK" msprop:Generator_ColumnVarNameInTable="columnBS_STOCK" msprop:Generator_ColumnPropNameInRow="BS_STOCK" msprop:Generator_ColumnPropNameInTable="BS_STOCKColumn" msprop:Generator_UserColumnName="BS_STOCK" type="xs:decimal" minOccurs="0" />
+              <xs:element name="BS_COMPANY" msprop:Generator_ColumnVarNameInTable="columnBS_COMPANY" msprop:Generator_ColumnPropNameInRow="BS_COMPANY" msprop:Generator_ColumnPropNameInTable="BS_COMPANYColumn" msprop:Generator_UserColumnName="BS_COMPANY" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="8" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BS_CURYEARFA" msprop:Generator_ColumnVarNameInTable="columnBS_CURYEARFA" msprop:Generator_ColumnPropNameInRow="BS_CURYEARFA" msprop:Generator_ColumnPropNameInTable="BS_CURYEARFAColumn" msprop:Generator_UserColumnName="BS_CURYEARFA" type="xs:decimal" minOccurs="0" />
+              <xs:element name="SME" msprop:Generator_ColumnVarNameInTable="columnSME" msprop:Generator_ColumnPropNameInRow="SME" msprop:Generator_ColumnPropNameInTable="SMEColumn" msprop:Generator_UserColumnName="SME" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ModifiedBy" msprop:Generator_ColumnVarNameInTable="columnModifiedBy" msprop:Generator_ColumnPropNameInRow="ModifiedBy" msprop:Generator_ColumnPropNameInTable="ModifiedByColumn" msprop:Generator_UserColumnName="ModifiedBy" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="ModifiedDateTime" msprop:Generator_ColumnVarNameInTable="columnModifiedDateTime" msprop:Generator_ColumnPropNameInRow="ModifiedDateTime" msprop:Generator_ColumnPropNameInTable="ModifiedDateTimeColumn" msprop:Generator_UserColumnName="ModifiedDateTime" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="BS_STATUS" msprop:Generator_ColumnVarNameInTable="columnBS_STATUS" msprop:Generator_ColumnPropNameInRow="BS_STATUS" msprop:Generator_ColumnPropNameInTable="BS_STATUSColumn" msprop:Generator_UserColumnName="BS_STATUS" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BALANCE_SHEET" />
+      <xs:field xpath="mstns:BS_KEY" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

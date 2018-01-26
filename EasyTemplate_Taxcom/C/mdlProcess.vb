@@ -12,9 +12,9 @@ Module mdlProcess
     Public LicenseType As Integer = 0
     Public V1 As Integer = 1
     Public V2 As Integer = 0
-    Public V3 As Integer = 8
+    Public V3 As Integer = 9
     Public V4 As Integer = 0
-    Public R1 As Integer = 0 'Add PNL Search
+    Public R1 As Integer = 0 'Add Balance Sheet
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
@@ -1443,8 +1443,135 @@ tryagain:
     End Function
 #End Region
 #Region "LOAD"
-#Region "CA"
+#Region "BALANCESHEET"
 
+
+    Public Function Check_BalanceSheetExist(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return True
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) AS countx FROM BALANCE_SHEET WHERE BS_REF_NO=@BS_REF_NO AND BS_YA=@BS_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TC_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TC_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return True
+        End Try
+    End Function
+
+
+
+    Public Function Load_BalanceSheet_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim isWhere As Boolean = False
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BALANCE_SHEET"
+            SQLcmd = New SqlCommand
+
+
+            If RefNo IsNot Nothing AndAlso RefNo <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE BS_REF_NO=@BS_REF_NO"
+                Else
+                    StrSQL += " AND BS_REF_NO=@BS_REF_NO"
+                End If
+                SQLcmd.Parameters.Add("@BS_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            End If
+
+            If YA IsNot Nothing AndAlso YA <> "" Then
+                If isWhere = False Then
+                    isWhere = True
+                    StrSQL += " WHERE BS_YA=@BS_YA"
+                Else
+                    StrSQL += " AND BS_YA=@BS_YA"
+                End If
+                SQLcmd.Parameters.Add("@BS_YA", SqlDbType.NVarChar, 5).Value = YA
+            End If
+            SQLcmd.CommandText = StrSQL
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_BalanceSheet(ByVal BS_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM BALANCE_SHEET WHERE BS_KEY=@BS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BS_KEY", SqlDbType.Int).Value = BS_KEY
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+
+
+#End Region
+#Region "CA"
     Public Function LOAD_GetDTYA(ByVal TC_REF_NO As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -2314,8 +2441,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
-
     Public Function LoadCA_ByRefNoYASourceNo(ByVal RefNo As String, ByVal YA As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -2348,7 +2473,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
     Public Function LoadCA_Search(ByVal RefNo As String, ByVal YA As String, ByVal FilterType As Integer, ByVal FilterValue As String, _
                                    Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -7616,8 +7740,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
-
     Public Function Load_Taxcom_RA_Adjustment(ByVal RAADJ_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
@@ -7678,10 +7800,6 @@ tryagain:
             Return Nothing
         End Try
     End Function
-
-
-
-
 #End Region
 #Region "OTHER"
     Public Function CheckExist_DeemedInterest(ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
@@ -8154,9 +8272,9 @@ tryagain:
         Try
             ADO = New SQLDataObject()
 
-            SQLCmd.Connection = SqlCon
+            SQLCmd.Connection = SQLCon
 
-            Return ADO.GetSQLDataTable(SQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            Return ADO.GetSQLDataTable(SQLCmd, SQLCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
@@ -9129,8 +9247,8 @@ tryagain:
             Return Nothing
         End Try
     End Function
-Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByVal Month As Integer, _
-                                      Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByVal Month As Integer, _
+                                          Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
@@ -9380,6 +9498,89 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 #End Region
 #End Region
 #Region "SAVE"
+#Region "BALANCESHEET"
+
+
+    Public Function Save_BalanceSheet(ByVal BS_REF_NO As String, ByVal BS_YA As String, ByVal BS_TRANSPORT As Decimal, _
+                          ByVal BS_MACHINERY As Decimal, ByVal BS_LAND As Decimal, ByVal BS_OTH_FA As Decimal, _
+                          ByVal BS_TOT_FA As Decimal, ByVal BS_INVESTMENT As Decimal, ByVal BS_TRADE_DEBTORS As Decimal, _
+                          ByVal BS_OTH_DEBTORS As Decimal, ByVal BS_LOAN_DIRECTOR As Decimal, ByVal BS_CASH As Decimal, _
+                          ByVal BS_OTH_CA As Decimal, ByVal BS_TOT_CA As Decimal, ByVal BS_TOT_ASSETS As Decimal, _
+                          ByVal BS_LOAN As Decimal, ByVal BS_TRADE_CR As Decimal, ByVal BS_OTHER_CR As Decimal, _
+                          ByVal BS_LOAN_FR_DIR As Decimal, ByVal BS_OTH_LIAB As Decimal, ByVal BS_TOT_CUR_LIAB As Decimal, _
+                          ByVal BS_LT_LIAB As Decimal, ByVal BS_TOT_LIAB As Decimal, ByVal BS_CAPITAL As Decimal, _
+                          ByVal BS_PNL_APPR_ACC As Decimal, ByVal BS_RESERVE_ACC As Decimal, ByVal BS_TOT_EQUITY As Decimal, _
+                          ByVal BS_TOT_LIAB_EQ As Decimal, ByVal BS_STOCK As Decimal, ByVal BS_COMPANY As String, _
+                          ByVal BS_CURYEARFA As Decimal, ByVal SME As Boolean, ByVal BS_STATUS As String, _
+                           ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO BALANCE_SHEET (BS_REF_NO,BS_YA,BS_TRANSPORT,BS_MACHINERY,BS_LAND,BS_OTH_FA,BS_TOT_FA,BS_INVESTMENT,BS_TRADE_DEBTORS,BS_OTH_DEBTORS,BS_LOAN_DIRECTOR,BS_CASH,BS_OTH_CA,BS_TOT_CA,BS_TOT_ASSETS,BS_LOAN,BS_TRADE_CR,BS_OTHER_CR,BS_LOAN_FR_DIR,BS_OTH_LIAB,BS_TOT_CUR_LIAB,BS_LT_LIAB,BS_TOT_LIAB,BS_CAPITAL,BS_PNL_APPR_ACC,BS_RESERVE_ACC,BS_TOT_EQUITY,BS_TOT_LIAB_EQ,BS_STOCK,BS_COMPANY,BS_CURYEARFA,SME,ModifiedBy,ModifiedDateTime,BS_STATUS) VALUES (@BS_REF_NO,@BS_YA,@BS_TRANSPORT,@BS_MACHINERY,@BS_LAND,@BS_OTH_FA,@BS_TOT_FA,@BS_INVESTMENT,@BS_TRADE_DEBTORS,@BS_OTH_DEBTORS,@BS_LOAN_DIRECTOR,@BS_CASH,@BS_OTH_CA,@BS_TOT_CA,@BS_TOT_ASSETS,@BS_LOAN,@BS_TRADE_CR,@BS_OTHER_CR,@BS_LOAN_FR_DIR,@BS_OTH_LIAB,@BS_TOT_CUR_LIAB,@BS_LT_LIAB,@BS_TOT_LIAB,@BS_CAPITAL,@BS_PNL_APPR_ACC,@BS_RESERVE_ACC,@BS_TOT_EQUITY,@BS_TOT_LIAB_EQ,@BS_STOCK,@BS_COMPANY,@BS_CURYEARFA,@SME,@ModifiedBy,@ModifiedDateTime,@BS_STATUS)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BS_REF_NO", SqlDbType.NVarChar, 20).Value = BS_REF_NO
+            SQLcmd.Parameters.Add("@BS_YA", SqlDbType.NVarChar, 5).Value = BS_YA
+            SQLcmd.Parameters.Add("@BS_TRANSPORT", SqlDbType.Decimal).Value = BS_TRANSPORT
+            SQLcmd.Parameters.Add("@BS_MACHINERY", SqlDbType.Decimal).Value = BS_MACHINERY
+            SQLcmd.Parameters.Add("@BS_LAND", SqlDbType.Decimal).Value = BS_LAND
+            SQLcmd.Parameters.Add("@BS_OTH_FA", SqlDbType.Decimal).Value = BS_OTH_FA
+            SQLcmd.Parameters.Add("@BS_TOT_FA", SqlDbType.Decimal).Value = BS_TOT_FA
+            SQLcmd.Parameters.Add("@BS_INVESTMENT", SqlDbType.Decimal).Value = BS_INVESTMENT
+            SQLcmd.Parameters.Add("@BS_TRADE_DEBTORS", SqlDbType.Decimal).Value = BS_TRADE_DEBTORS
+            SQLcmd.Parameters.Add("@BS_OTH_DEBTORS", SqlDbType.Decimal).Value = BS_OTH_DEBTORS
+            SQLcmd.Parameters.Add("@BS_LOAN_DIRECTOR", SqlDbType.Decimal).Value = BS_LOAN_DIRECTOR
+            SQLcmd.Parameters.Add("@BS_CASH", SqlDbType.Decimal).Value = BS_CASH
+            SQLcmd.Parameters.Add("@BS_OTH_CA", SqlDbType.Decimal).Value = BS_OTH_CA
+            SQLcmd.Parameters.Add("@BS_TOT_CA", SqlDbType.Decimal).Value = BS_TOT_CA
+            SQLcmd.Parameters.Add("@BS_TOT_ASSETS", SqlDbType.Decimal).Value = BS_TOT_ASSETS
+            SQLcmd.Parameters.Add("@BS_LOAN", SqlDbType.Decimal).Value = BS_LOAN
+            SQLcmd.Parameters.Add("@BS_TRADE_CR", SqlDbType.Decimal).Value = BS_TRADE_CR
+            SQLcmd.Parameters.Add("@BS_OTHER_CR", SqlDbType.Decimal).Value = BS_OTHER_CR
+            SQLcmd.Parameters.Add("@BS_LOAN_FR_DIR", SqlDbType.Decimal).Value = BS_LOAN_FR_DIR
+            SQLcmd.Parameters.Add("@BS_OTH_LIAB", SqlDbType.Decimal).Value = BS_OTH_LIAB
+            SQLcmd.Parameters.Add("@BS_TOT_CUR_LIAB", SqlDbType.Decimal).Value = BS_TOT_CUR_LIAB
+            SQLcmd.Parameters.Add("@BS_LT_LIAB", SqlDbType.Decimal).Value = BS_LT_LIAB
+            SQLcmd.Parameters.Add("@BS_TOT_LIAB", SqlDbType.Decimal).Value = BS_TOT_LIAB
+            SQLcmd.Parameters.Add("@BS_CAPITAL", SqlDbType.Decimal).Value = BS_CAPITAL
+            SQLcmd.Parameters.Add("@BS_PNL_APPR_ACC", SqlDbType.Decimal).Value = BS_PNL_APPR_ACC
+            SQLcmd.Parameters.Add("@BS_RESERVE_ACC", SqlDbType.Decimal).Value = BS_RESERVE_ACC
+            SQLcmd.Parameters.Add("@BS_TOT_EQUITY", SqlDbType.Decimal).Value = BS_TOT_EQUITY
+            SQLcmd.Parameters.Add("@BS_TOT_LIAB_EQ", SqlDbType.Decimal).Value = BS_TOT_LIAB_EQ
+            SQLcmd.Parameters.Add("@BS_STOCK", SqlDbType.Decimal).Value = BS_STOCK
+            SQLcmd.Parameters.Add("@BS_COMPANY", SqlDbType.NVarChar, 8).Value = BS_COMPANY
+            SQLcmd.Parameters.Add("@BS_CURYEARFA", SqlDbType.Decimal).Value = BS_CURYEARFA
+            SQLcmd.Parameters.Add("@SME", SqlDbType.Bit).Value = SME
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@BS_STATUS", SqlDbType.NVarChar, 100).Value = BS_STATUS
+
+
+            Return ADO.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
+
+#End Region
 #Region "CA"
     Public Function Save_Disposal(ByVal CA_KEY As Integer, ByVal CA_DISP_KEY As Integer, ByVal CA_DISP_YA As Integer, _
                                   ByVal CA_DISP_DATE As DateTime, ByVal CA_DISP_WITHIN_2 As Boolean, _
@@ -11162,7 +11363,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
                 If dt_child IsNot Nothing Then
 
-                    
+
                     For x As Integer = 0 To dt_child.Rows.Count - 1
 
                         SQLcmd = Nothing
@@ -13161,7 +13362,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                             SQLcmd.Parameters.Add("@RowIndex", SqlDbType.Int).Value = x
                             ListofCmd.Add(SQLcmd)
                         End If
-                       
+
                     Next
 
                 End If
@@ -13169,7 +13370,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             Next
 
-          
+
 
             Return True
         Catch ex As Exception
@@ -16266,11 +16467,11 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
                         SQLcmd.Parameters.Add("@CP_NOTE", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(.Rows(0)("CP_NOTE")), DBNull.Value, .Rows(0)("CP_NOTE"))
 
                     End With
-                   
+
 
                     ListofSQLcmd.Add(SQLcmd)
                 Next
-                
+
             End If
 
             Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -17165,7 +17366,86 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
         End Try
     End Function
 #End Region
+#Region "BALANCESHEET"
+    Public Function Update_BalanceSheet(ByVal BS_KEY As Integer, ByVal BS_REF_NO As String, ByVal BS_YA As String, ByVal BS_TRANSPORT As Decimal, _
+                          ByVal BS_MACHINERY As Decimal, ByVal BS_LAND As Decimal, ByVal BS_OTH_FA As Decimal, _
+                          ByVal BS_TOT_FA As Decimal, ByVal BS_INVESTMENT As Decimal, ByVal BS_TRADE_DEBTORS As Decimal, _
+                          ByVal BS_OTH_DEBTORS As Decimal, ByVal BS_LOAN_DIRECTOR As Decimal, ByVal BS_CASH As Decimal, _
+                          ByVal BS_OTH_CA As Decimal, ByVal BS_TOT_CA As Decimal, ByVal BS_TOT_ASSETS As Decimal, _
+                          ByVal BS_LOAN As Decimal, ByVal BS_TRADE_CR As Decimal, ByVal BS_OTHER_CR As Decimal, _
+                          ByVal BS_LOAN_FR_DIR As Decimal, ByVal BS_OTH_LIAB As Decimal, ByVal BS_TOT_CUR_LIAB As Decimal, _
+                          ByVal BS_LT_LIAB As Decimal, ByVal BS_TOT_LIAB As Decimal, ByVal BS_CAPITAL As Decimal, _
+                          ByVal BS_PNL_APPR_ACC As Decimal, ByVal BS_RESERVE_ACC As Decimal, ByVal BS_TOT_EQUITY As Decimal, _
+                          ByVal BS_TOT_LIAB_EQ As Decimal, ByVal BS_STOCK As Decimal, ByVal BS_COMPANY As String, _
+                          ByVal BS_CURYEARFA As Decimal, ByVal SME As Boolean, ByVal BS_STATUS As String, _
+                          Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
 
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "UPDATE BALANCE_SHEET SET BS_REF_NO=@BS_REF_NO,BS_YA=@BS_YA,BS_TRANSPORT=@BS_TRANSPORT,BS_MACHINERY=@BS_MACHINERY,BS_LAND=@BS_LAND,BS_OTH_FA=@BS_OTH_FA,BS_TOT_FA=@BS_TOT_FA,BS_INVESTMENT=@BS_INVESTMENT,BS_TRADE_DEBTORS=@BS_TRADE_DEBTORS,BS_OTH_DEBTORS=@BS_OTH_DEBTORS,BS_LOAN_DIRECTOR=@BS_LOAN_DIRECTOR,BS_CASH=@BS_CASH,BS_OTH_CA=@BS_OTH_CA,BS_TOT_CA=@BS_TOT_CA,BS_TOT_ASSETS=@BS_TOT_ASSETS,BS_LOAN=@BS_LOAN,BS_TRADE_CR=@BS_TRADE_CR,BS_OTHER_CR=@BS_OTHER_CR,BS_LOAN_FR_DIR=@BS_LOAN_FR_DIR,BS_OTH_LIAB=@BS_OTH_LIAB,BS_TOT_CUR_LIAB=@BS_TOT_CUR_LIAB,BS_LT_LIAB=@BS_LT_LIAB,BS_TOT_LIAB=@BS_TOT_LIAB,BS_CAPITAL=@BS_CAPITAL,BS_PNL_APPR_ACC=@BS_PNL_APPR_ACC,BS_RESERVE_ACC=@BS_RESERVE_ACC,BS_TOT_EQUITY=@BS_TOT_EQUITY,BS_TOT_LIAB_EQ=@BS_TOT_LIAB_EQ,BS_STOCK=@BS_STOCK,BS_COMPANY=@BS_COMPANY,BS_CURYEARFA=@BS_CURYEARFA,SME=@SME,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,BS_STATUS=@BS_STATUS WHERE BS_KEY=@BS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BS_KEY", SqlDbType.Int).Value = BS_KEY
+            SQLcmd.Parameters.Add("@BS_REF_NO", SqlDbType.NVarChar, 20).Value = BS_REF_NO
+            SQLcmd.Parameters.Add("@BS_YA", SqlDbType.NVarChar, 5).Value = BS_YA
+            SQLcmd.Parameters.Add("@BS_TRANSPORT", SqlDbType.Decimal).Value = BS_TRANSPORT
+            SQLcmd.Parameters.Add("@BS_MACHINERY", SqlDbType.Decimal).Value = BS_MACHINERY
+            SQLcmd.Parameters.Add("@BS_LAND", SqlDbType.Decimal).Value = BS_LAND
+            SQLcmd.Parameters.Add("@BS_OTH_FA", SqlDbType.Decimal).Value = BS_OTH_FA
+            SQLcmd.Parameters.Add("@BS_TOT_FA", SqlDbType.Decimal).Value = BS_TOT_FA
+            SQLcmd.Parameters.Add("@BS_INVESTMENT", SqlDbType.Decimal).Value = BS_INVESTMENT
+            SQLcmd.Parameters.Add("@BS_TRADE_DEBTORS", SqlDbType.Decimal).Value = BS_TRADE_DEBTORS
+            SQLcmd.Parameters.Add("@BS_OTH_DEBTORS", SqlDbType.Decimal).Value = BS_OTH_DEBTORS
+            SQLcmd.Parameters.Add("@BS_LOAN_DIRECTOR", SqlDbType.Decimal).Value = BS_LOAN_DIRECTOR
+            SQLcmd.Parameters.Add("@BS_CASH", SqlDbType.Decimal).Value = BS_CASH
+            SQLcmd.Parameters.Add("@BS_OTH_CA", SqlDbType.Decimal).Value = BS_OTH_CA
+            SQLcmd.Parameters.Add("@BS_TOT_CA", SqlDbType.Decimal).Value = BS_TOT_CA
+            SQLcmd.Parameters.Add("@BS_TOT_ASSETS", SqlDbType.Decimal).Value = BS_TOT_ASSETS
+            SQLcmd.Parameters.Add("@BS_LOAN", SqlDbType.Decimal).Value = BS_LOAN
+            SQLcmd.Parameters.Add("@BS_TRADE_CR", SqlDbType.Decimal).Value = BS_TRADE_CR
+            SQLcmd.Parameters.Add("@BS_OTHER_CR", SqlDbType.Decimal).Value = BS_OTHER_CR
+            SQLcmd.Parameters.Add("@BS_LOAN_FR_DIR", SqlDbType.Decimal).Value = BS_LOAN_FR_DIR
+            SQLcmd.Parameters.Add("@BS_OTH_LIAB", SqlDbType.Decimal).Value = BS_OTH_LIAB
+            SQLcmd.Parameters.Add("@BS_TOT_CUR_LIAB", SqlDbType.Decimal).Value = BS_TOT_CUR_LIAB
+            SQLcmd.Parameters.Add("@BS_LT_LIAB", SqlDbType.Decimal).Value = BS_LT_LIAB
+            SQLcmd.Parameters.Add("@BS_TOT_LIAB", SqlDbType.Decimal).Value = BS_TOT_LIAB
+            SQLcmd.Parameters.Add("@BS_CAPITAL", SqlDbType.Decimal).Value = BS_CAPITAL
+            SQLcmd.Parameters.Add("@BS_PNL_APPR_ACC", SqlDbType.Decimal).Value = BS_PNL_APPR_ACC
+            SQLcmd.Parameters.Add("@BS_RESERVE_ACC", SqlDbType.Decimal).Value = BS_RESERVE_ACC
+            SQLcmd.Parameters.Add("@BS_TOT_EQUITY", SqlDbType.Decimal).Value = BS_TOT_EQUITY
+            SQLcmd.Parameters.Add("@BS_TOT_LIAB_EQ", SqlDbType.Decimal).Value = BS_TOT_LIAB_EQ
+            SQLcmd.Parameters.Add("@BS_STOCK", SqlDbType.Decimal).Value = BS_STOCK
+            SQLcmd.Parameters.Add("@BS_COMPANY", SqlDbType.NVarChar, 8).Value = BS_COMPANY
+            SQLcmd.Parameters.Add("@BS_CURYEARFA", SqlDbType.Decimal).Value = BS_CURYEARFA
+            SQLcmd.Parameters.Add("@SME", SqlDbType.Bit).Value = SME
+            SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
+            SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
+            SQLcmd.Parameters.Add("@BS_STATUS", SqlDbType.NVarChar, 100).Value = BS_STATUS
+
+
+            Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+#End Region
 #Region "CP204"
     Public Function Update_CP204(ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -18292,7 +18572,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
-            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
             ListofCmd = New List(Of SqlCommand)
@@ -18335,7 +18615,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
-            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
             ListofCmd = New List(Of SqlCommand)
@@ -18385,7 +18665,7 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
             ADO = New SQLDataObject()
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
-            If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
             End If
             ListofCmd = New List(Of SqlCommand)
@@ -18414,6 +18694,40 @@ Public Function Load_CP204_Search(ByVal RefNo As String, ByVal YA As String, ByV
 
             Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function Delete_BalanceSheet(ByVal BS_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+            Dim ListofCmd As List(Of SqlCommand)
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+            ListofCmd = New List(Of SqlCommand)
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM BALANCE_SHEET WHERE BS_KEY=@BS_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@BS_KEY", SqlDbType.Int).Value = BS_KEY
+
+            ListofCmd.Add(SQLcmd)
+          
+            Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
         Catch ex As Exception
             If ErrorLog Is Nothing Then
