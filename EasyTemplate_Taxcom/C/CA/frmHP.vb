@@ -62,7 +62,7 @@
             If cboFilterType.SelectedIndex <> cboFilterType.Properties.Items.Count - 1 Then
                 tmpType = cboFilterType.SelectedIndex
             End If
-            Dim dt As DataTable = mdlProcess.LoadHP_Search(txtRefNo.EditValue, txtYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadHP_Search(txtRefNo.EditValue, txtYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
 
             DsCA.Tables("HP").Rows.Clear()
             DsCA.Tables("HP_INSTALLMENT").Clear()
@@ -77,7 +77,7 @@
             For i As Integer = 0 To dt.Rows.Count - 1
                 DsCA.Tables("HP").ImportRow(dt.Rows(i))
 
-                dtHP_Install = mdlProcess.Load_HP_INSTALLMENT(dt.Rows(i)("HP_KEY"))
+                dtHP_Install = ADO.Load_HP_INSTALLMENT(dt.Rows(i)("HP_KEY"))
 
                 If dtHP_Install IsNot Nothing Then
                     For x As Integer = 0 To dtHP_Install.Rows.Count - 1
@@ -86,7 +86,7 @@
                 End If
 
 
-                dtHP_Year = mdlProcess.Load_HP_YEARLY(dt.Rows(i)("HP_KEY"))
+                dtHP_Year = ADO.Load_HP_YEARLY(dt.Rows(i)("HP_KEY"))
                 If dtHP_Year IsNot Nothing Then
                     For x As Integer = 0 To dtHP_Year.Rows.Count - 1
                         DsCA.Tables("HP_YEARLY").ImportRow(dtHP_Year.Rows(x))
@@ -176,7 +176,7 @@
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView2.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_HP(CInt(GridView2.GetDataRow(GridView2.GetSelectedRows(i))("HP_KEY")), ErrorLog) = False Then
+                    If ADO.Delete_HP(CInt(GridView2.GetDataRow(GridView2.GetSelectedRows(i))("HP_KEY")), ErrorLog) = False Then
                         tmpSts = False
                     End If
                     'MsgBox(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("CA_KEY"))

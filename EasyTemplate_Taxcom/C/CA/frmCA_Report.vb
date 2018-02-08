@@ -19,7 +19,7 @@ Public Class frmCA_Report
 
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
-            mdlProcess.Delete_CA_Report_TEMP(ID)
+            ADO.Delete_CA_Report_TEMP(ID)
         Catch ex As Exception
 
         End Try
@@ -38,9 +38,9 @@ Public Class frmCA_Report
 
             Select Case TypeReport
                 Case 0, 1, 2
-                    dt = mdlProcess.Load_CAReport_Temp(ID, CInt(YA))
+                    dt = ADO.Load_CAReport_Temp(ID, CInt(YA))
                 Case 3, 4, 5
-                    dt = mdlProcess.Load_CAReportSummary2_Temp(ID)
+                    dt = ADO.Load_CAReportSummary2_Temp(ID)
             End Select
 
 

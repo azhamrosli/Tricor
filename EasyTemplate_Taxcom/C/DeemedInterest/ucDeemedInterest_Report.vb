@@ -28,13 +28,13 @@ Public Class ucDeemedInterest_Report
 
             Dim tmpType As Integer = -1
 
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -54,7 +54,7 @@ Public Class ucDeemedInterest_Report
                 cboYA.EditValue = ""
             End If
 
-            Dim dtTaxcom As DataTable = mdlProcess.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dtTaxcom As DataTable = ADO.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
 
             DsTaxcomputation.Tables("DEEMED_INTEREST").Rows.Clear()
@@ -67,7 +67,7 @@ Public Class ucDeemedInterest_Report
 
                     TC_KEY = CInt(IIf(IsDBNull(dtTaxcom.Rows(i)("TC_KEY")), 0, dtTaxcom.Rows(i)("TC_KEY")))
 
-                    dtDeemedInterest = mdlProcess.Load_DeemedInterest(TC_KEY, ErrorLog)
+                    dtDeemedInterest = ADO.Load_DeemedInterest(TC_KEY, ErrorLog)
 
                     If dtDeemedInterest IsNot Nothing Then
 

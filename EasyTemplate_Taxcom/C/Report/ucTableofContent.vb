@@ -13,13 +13,13 @@ Public Class ucTableofContent
     End Sub
     Private Sub ucTableofContent_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -53,7 +53,7 @@ Public Class ucTableofContent
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_TableofContent_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.Load_TableofContent_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             DsReport_Templatexsd.Tables("TABLE_CONTENT").Rows.Clear()
             If dt IsNot Nothing Then
@@ -140,7 +140,7 @@ Public Class ucTableofContent
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To dgvCA.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_TableofContent(CInt(dgvCA.GetDataRow(dgvCA.GetSelectedRows(i))("TBL_ID")), ErrorLog) = False Then
+                    If ADO.Delete_TableofContent(CInt(dgvCA.GetDataRow(dgvCA.GetSelectedRows(i))("TBL_ID")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -169,7 +169,7 @@ Public Class ucTableofContent
             Dim RefNo As String = Nothing
             Dim dsMovement As New dsMovement
 
-            dt = mdlProcess.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            dt = ADO.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             dsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
             dsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
@@ -188,7 +188,7 @@ Public Class ucTableofContent
                 dsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
             Next
 
-            dt = mdlProcess.Load_MovementNormal_Add(ID, ErrorLog)
+            dt = ADO.Load_MovementNormal_Add(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -196,7 +196,7 @@ Public Class ucTableofContent
                 Next
             End If
             Application.DoEvents()
-            dt = mdlProcess.Load_MovementNormal_Deduct(ID, ErrorLog)
+            dt = ADO.Load_MovementNormal_Deduct(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -205,7 +205,7 @@ Public Class ucTableofContent
             End If
 
 
-            dt = mdlProcess.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            dt = ADO.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             dsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
             dsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
@@ -223,7 +223,7 @@ Public Class ucTableofContent
                 dsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
             Next
 
-            dt = mdlProcess.Load_MovementComplex_Add(ID, ErrorLog)
+            dt = ADO.Load_MovementComplex_Add(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -231,7 +231,7 @@ Public Class ucTableofContent
                 Next
             End If
             Application.DoEvents()
-            dt = mdlProcess.Load_MovementComplex_Deduct(ID, ErrorLog)
+            dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -244,7 +244,7 @@ Public Class ucTableofContent
             Dim dsCA As New dsCA
             mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, CAID, -1, -1, "", ErrorLog)
 
-            dt = mdlProcess.Load_CAReport_Temp(CAID, CInt(cboYA.EditValue))
+            dt = ADO.Load_CAReport_Temp(CAID, CInt(cboYA.EditValue))
 
             dsCA.Tables("CA_REPORT_TEMP").Rows.Clear()
 
@@ -320,7 +320,7 @@ Public Class ucTableofContent
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
         Try
 
-            Dim dtTaxCOM As DataTable = mdlProcess.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue)
+            Dim dtTaxCOM As DataTable = ADO.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue)
 
             Dim ds As New dsRA_ITA
 
@@ -342,27 +342,27 @@ Public Class ucTableofContent
                     ds.Tables("TAX_COMPUTATION").ImportRow(dtTaxCOM.Rows(i))
                     Application.DoEvents()
 
-                    dtCA = mdlProcess.LoadCA_ByRefNoYASourceNo(cboRefNo.EditValue, cboYA.EditValue, TC_SOURCENO)
+                    dtCA = ADO.LoadCA_ByRefNoYASourceNo(cboRefNo.EditValue, cboYA.EditValue, TC_SOURCENO)
                     If dtCA IsNot Nothing Then
                         For Each rowx As DataRow In dtCA.Rows
                             ds.Tables("CA").ImportRow(rowx)
                         Next
                     End If
 
-                    dtWithDrawal = mdlProcess.Load_Taxcom_RA_Withdrawal(TC_KEY, ErrorLog)
+                    dtWithDrawal = ADO.Load_Taxcom_RA_Withdrawal(TC_KEY, ErrorLog)
                     If dtWithDrawal IsNot Nothing Then
                         For Each rowx As DataRow In dtWithDrawal.Rows
                             ds.Tables("TAX_RA_WITHDRAWAL").ImportRow(rowx)
                         Next
                     End If
-                    
-                    dtAdjustment = mdlProcess.Load_Taxcom_RA_Adjustment(TC_KEY, ErrorLog)
+
+                    dtAdjustment = ADO.Load_Taxcom_RA_Adjustment(TC_KEY, ErrorLog)
                     If dtAdjustment IsNot Nothing Then
                         For Each rowx As DataRow In dtAdjustment.Rows
                             ds.Tables("TAX_RA_ADJUSTMENT").ImportRow(rowx)
                         Next
                     End If
-                  
+
 
                 Next
 
@@ -391,7 +391,7 @@ Public Class ucTableofContent
     Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
         Try
 
-            Dim dtTaxCOM As DataTable = mdlProcess.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue)
+            Dim dtTaxCOM As DataTable = ADO.Load_Tax_Computation(cboRefNo.EditValue, cboYA.EditValue)
 
             Dim ds As New dsRA_ITA
 
@@ -413,21 +413,21 @@ Public Class ucTableofContent
                     ds.Tables("TAX_COMPUTATION").ImportRow(dtTaxCOM.Rows(i))
                     Application.DoEvents()
 
-                    dtCA = mdlProcess.LoadCA_ByRefNoYASourceNo(cboRefNo.EditValue, cboYA.EditValue, TC_SOURCENO)
+                    dtCA = ADO.LoadCA_ByRefNoYASourceNo(cboRefNo.EditValue, cboYA.EditValue, TC_SOURCENO)
                     If dtCA IsNot Nothing Then
                         For Each rowx As DataRow In dtCA.Rows
                             ds.Tables("CA").ImportRow(rowx)
                         Next
                     End If
 
-                    dtWithDrawal = mdlProcess.Load_Taxcom_RA_Withdrawal(TC_KEY, ErrorLog)
+                    dtWithDrawal = ADO.Load_Taxcom_RA_Withdrawal(TC_KEY, ErrorLog)
                     If dtWithDrawal IsNot Nothing Then
                         For Each rowx As DataRow In dtWithDrawal.Rows
                             ds.Tables("TAX_ITA_WITHDRAWAL").ImportRow(rowx)
                         Next
                     End If
 
-                    dtAdjustment = mdlProcess.Load_Taxcom_RA_Adjustment(TC_KEY, ErrorLog)
+                    dtAdjustment = ADO.Load_Taxcom_RA_Adjustment(TC_KEY, ErrorLog)
                     If dtAdjustment IsNot Nothing Then
                         For Each rowx As DataRow In dtAdjustment.Rows
                             ds.Tables("TAX_ITA_ADJUSTMENT").ImportRow(rowx)

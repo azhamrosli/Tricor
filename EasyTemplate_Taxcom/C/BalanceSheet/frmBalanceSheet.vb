@@ -14,13 +14,13 @@
 
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, Errorlog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, Errorlog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -36,7 +36,7 @@
                 End If
 
             Else
-                Dim dt As DataTable = mdlProcess.Load_BalanceSheet(ID, Errorlog)
+                Dim dt As DataTable = ADO.Load_BalanceSheet(ID, Errorlog)
 
                 If dt IsNot Nothing Then
 
@@ -168,7 +168,7 @@
             If isValid() Then
 
                 If isEdit Then
-                    If mdlProcess.Update_BalanceSheet(ID, cboRefNo.EditValue, cboYA.EditValue, txtVehicle.EditValue, txtMachinery.EditValue, _
+                    If ADO.Update_BalanceSheet(ID, cboRefNo.EditValue, cboYA.EditValue, txtVehicle.EditValue, txtMachinery.EditValue, _
                                                    txtBuilding.EditValue, txtOtherFA.EditValue, txtTotalFA.EditValue, txtInvestment.EditValue, _
                                                    txtTradeDebtors.EditValue, txtOtherDebtors.EditValue, txtLoanTo.EditValue, txtCashBank.EditValue.ToString, _
                                                    txtOtherCA.EditValue, txtTotalCA.EditValue, txtTotalAssets.EditValue, txtBorrowing.EditValue, _
@@ -191,7 +191,7 @@
                     End If
                 Else
                     Dim ReturnID As Integer = 0
-                    If mdlProcess.Save_BalanceSheet(cboRefNo.EditValue, cboYA.EditValue, txtVehicle.EditValue, txtMachinery.EditValue, _
+                    If ADO.Save_BalanceSheet(cboRefNo.EditValue, cboYA.EditValue, txtVehicle.EditValue, txtMachinery.EditValue, _
                                                     txtBuilding.EditValue, txtOtherFA.EditValue, txtTotalFA.EditValue, txtInvestment.EditValue, _
                                                     txtTradeDebtors.EditValue, txtOtherDebtors.EditValue, txtLoanTo.EditValue, txtCashBank.EditValue, _
                                                     txtOtherCA.EditValue, txtTotalCA.EditValue, txtTotalAssets.EditValue, txtBorrowing.EditValue, _
@@ -232,7 +232,7 @@
             End If
 
             If isEdit = False Then
-                If mdlProcess.Check_BalanceSheetExist(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                If ADO.Check_BalanceSheetExist(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     MsgBox("Balance sheet already exist.", MsgBoxStyle.Exclamation)
                     Return False
                 End If

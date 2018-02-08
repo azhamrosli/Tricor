@@ -3,13 +3,13 @@ Public Class ucCP204
     Dim ErrorLog As clsError = Nothing
     Private Sub frmCP204_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -40,7 +40,7 @@ Public Class ucCP204
                 txtMonth.EditValue = -1
             End If
 
-            Dim dt As DataTable = mdlProcess.Load_CP204_Search(cboRefNo.EditValue, cboYA.EditValue, CInt(txtMonth.EditValue), ErrorLog)
+            Dim dt As DataTable = ADO.Load_CP204_Search(cboRefNo.EditValue, cboYA.EditValue, CInt(txtMonth.EditValue), ErrorLog)
 
             DsCP204.Tables("BORANG_CP204").Rows.Clear()
 
@@ -146,7 +146,7 @@ Public Class ucCP204
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_CP204(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("BCP_KEY")), ErrorLog) = False Then
+                    If ADO.Delete_CP204(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("BCP_KEY")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -189,7 +189,7 @@ Public Class ucCP204
 
             Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_KEY")
 
-            Dim dt As DataTable = mdlProcess.Load_CP204_BreakDown_ByParentID(ID)
+            Dim dt As DataTable = ADO.Load_CP204_BreakDown_ByParentID(ID)
 
             DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Clear()
             If dt Is Nothing Then

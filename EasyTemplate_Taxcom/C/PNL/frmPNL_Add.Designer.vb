@@ -53,6 +53,21 @@ Partial Class frmPNL_Add
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit5 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit6 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.pnlDocAdvanceSearch = New DevExpress.XtraBars.Docking.DockPanel()
+        Me.ControlContainer2 = New DevExpress.XtraBars.Docking.ControlContainer()
+        Me.GCSearch = New DevExpress.XtraGrid.GridControl()
+        Me.DataSearchBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
+        Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colColumnName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colParentID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colValue = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
+        Me.txtSearch = New DevExpress.XtraEditors.TextEdit()
+        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.pnlDocInformation = New DevExpress.XtraBars.Docking.DockPanel()
         Me.DockPanel1_Container = New DevExpress.XtraBars.Docking.ControlContainer()
         Me.XtraScrollableControl1 = New DevExpress.XtraEditors.XtraScrollableControl()
@@ -199,21 +214,6 @@ Partial Class frmPNL_Add
         Me.lbl_p4EntNonStaff = New DevExpress.XtraEditors.LabelControl()
         Me.txt_p4LossDispFA = New DevExpress.XtraEditors.TextEdit()
         Me.lbl_p4LossDispFA = New DevExpress.XtraEditors.LabelControl()
-        Me.pnlDocAdvanceSearch = New DevExpress.XtraBars.Docking.DockPanel()
-        Me.ControlContainer2 = New DevExpress.XtraBars.Docking.ControlContainer()
-        Me.GCSearch = New DevExpress.XtraGrid.GridControl()
-        Me.DataSearchBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsPNL = New EasyTemplate_Taxcom.dsPNL()
-        Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.colID = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colColumnName = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colParentID = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colValue = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
-        Me.btnSearch = New DevExpress.XtraEditors.SimpleButton()
-        Me.txtSearch = New DevExpress.XtraEditors.TextEdit()
-        Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.DocumentManager1 = New DevExpress.XtraBars.Docking2010.DocumentManager(Me.components)
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
         Me.RibbonControl1 = New DevExpress.XtraBars.Ribbon.RibbonControl()
@@ -294,6 +294,15 @@ Partial Class frmPNL_Add
         CType(Me.RepositoryItemProgressBar2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit6, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.pnlDocAdvanceSearch.SuspendLayout()
+        Me.ControlContainer2.SuspendLayout()
+        CType(Me.GCSearch, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DataSearchBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl1.SuspendLayout()
+        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlDocInformation.SuspendLayout()
         Me.DockPanel1_Container.SuspendLayout()
         Me.XtraScrollableControl1.SuspendLayout()
@@ -370,15 +379,6 @@ Partial Class frmPNL_Add
         CType(Me.txt_p4EntStaff.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txt_p4EntNonStaff.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txt_p4LossDispFA.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnlDocAdvanceSearch.SuspendLayout()
-        Me.ControlContainer2.SuspendLayout()
-        CType(Me.GCSearch, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataSearchBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.PanelControl1.SuspendLayout()
-        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RibbonControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -653,6 +653,130 @@ Partial Class frmPNL_Add
         Me.RepositoryItemTextEdit6.Name = "RepositoryItemTextEdit6"
         Me.RepositoryItemTextEdit6.ReadOnly = True
         '
+        'pnlDocAdvanceSearch
+        '
+        Me.pnlDocAdvanceSearch.Controls.Add(Me.ControlContainer2)
+        Me.pnlDocAdvanceSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
+        Me.pnlDocAdvanceSearch.ID = New System.Guid("2e49734a-7050-4a84-9e9a-349ee37f771d")
+        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDocAdvanceSearch.Name = "pnlDocAdvanceSearch"
+        Me.pnlDocAdvanceSearch.Options.ShowCloseButton = False
+        Me.pnlDocAdvanceSearch.OriginalSize = New System.Drawing.Size(417, 200)
+        Me.pnlDocAdvanceSearch.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
+        Me.pnlDocAdvanceSearch.SavedIndex = 1
+        Me.pnlDocAdvanceSearch.Size = New System.Drawing.Size(417, 583)
+        Me.pnlDocAdvanceSearch.Text = "Advance Search"
+        Me.pnlDocAdvanceSearch.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide
+        '
+        'ControlContainer2
+        '
+        Me.ControlContainer2.Controls.Add(Me.GCSearch)
+        Me.ControlContainer2.Controls.Add(Me.PanelControl1)
+        Me.ControlContainer2.Location = New System.Drawing.Point(5, 23)
+        Me.ControlContainer2.Name = "ControlContainer2"
+        Me.ControlContainer2.Size = New System.Drawing.Size(408, 556)
+        Me.ControlContainer2.TabIndex = 0
+        '
+        'GCSearch
+        '
+        Me.GCSearch.DataSource = Me.DataSearchBindingSource
+        Me.GCSearch.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GCSearch.Location = New System.Drawing.Point(0, 57)
+        Me.GCSearch.MainView = Me.GridView2
+        Me.GCSearch.MenuManager = Me.BarManager1
+        Me.GCSearch.Name = "GCSearch"
+        Me.GCSearch.Size = New System.Drawing.Size(408, 499)
+        Me.GCSearch.TabIndex = 1
+        Me.GCSearch.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
+        '
+        'DataSearchBindingSource
+        '
+        Me.DataSearchBindingSource.DataMember = "DataSearch"
+        Me.DataSearchBindingSource.DataSource = Me.DsPNL
+        '
+        'DsPNL
+        '
+        Me.DsPNL.DataSetName = "dsPNL"
+        Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'GridView2
+        '
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colKeyName, Me.colColumnName, Me.colParentID, Me.colValue})
+        Me.GridView2.GridControl = Me.GCSearch
+        Me.GridView2.Name = "GridView2"
+        Me.GridView2.OptionsBehavior.Editable = False
+        Me.GridView2.OptionsView.ColumnAutoWidth = False
+        '
+        'colID
+        '
+        Me.colID.FieldName = "ID"
+        Me.colID.Name = "colID"
+        '
+        'colKeyName
+        '
+        Me.colKeyName.FieldName = "KeyName"
+        Me.colKeyName.Name = "colKeyName"
+        Me.colKeyName.Visible = True
+        Me.colKeyName.VisibleIndex = 0
+        '
+        'colColumnName
+        '
+        Me.colColumnName.FieldName = "ColumnName"
+        Me.colColumnName.Name = "colColumnName"
+        Me.colColumnName.Visible = True
+        Me.colColumnName.VisibleIndex = 1
+        '
+        'colParentID
+        '
+        Me.colParentID.FieldName = "ParentID"
+        Me.colParentID.Name = "colParentID"
+        '
+        'colValue
+        '
+        Me.colValue.FieldName = "Value"
+        Me.colValue.Name = "colValue"
+        Me.colValue.Visible = True
+        Me.colValue.VisibleIndex = 2
+        Me.colValue.Width = 300
+        '
+        'PanelControl1
+        '
+        Me.PanelControl1.Controls.Add(Me.btnSearch)
+        Me.PanelControl1.Controls.Add(Me.txtSearch)
+        Me.PanelControl1.Controls.Add(Me.LabelControl3)
+        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl1.Name = "PanelControl1"
+        Me.PanelControl1.Size = New System.Drawing.Size(408, 57)
+        Me.PanelControl1.TabIndex = 0
+        '
+        'btnSearch
+        '
+        Me.btnSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSearch.Location = New System.Drawing.Point(255, 29)
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(132, 23)
+        Me.btnSearch.TabIndex = 2
+        Me.btnSearch.Text = "Search"
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtSearch.Location = New System.Drawing.Point(55, 3)
+        Me.txtSearch.MenuManager = Me.BarManager1
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(332, 20)
+        Me.txtSearch.TabIndex = 1
+        '
+        'LabelControl3
+        '
+        Me.LabelControl3.Location = New System.Drawing.Point(6, 6)
+        Me.LabelControl3.Name = "LabelControl3"
+        Me.LabelControl3.Size = New System.Drawing.Size(43, 13)
+        Me.LabelControl3.TabIndex = 0
+        Me.LabelControl3.Text = "Search : "
+        '
         'pnlDocInformation
         '
         Me.pnlDocInformation.Controls.Add(Me.DockPanel1_Container)
@@ -662,8 +786,8 @@ Partial Class frmPNL_Add
         Me.pnlDocInformation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.pnlDocInformation.Name = "pnlDocInformation"
         Me.pnlDocInformation.Options.ShowCloseButton = False
-        Me.pnlDocInformation.OriginalSize = New System.Drawing.Size(620, 200)
-        Me.pnlDocInformation.Size = New System.Drawing.Size(620, 583)
+        Me.pnlDocInformation.OriginalSize = New System.Drawing.Size(722, 200)
+        Me.pnlDocInformation.Size = New System.Drawing.Size(722, 583)
         Me.pnlDocInformation.Text = "Information"
         '
         'DockPanel1_Container
@@ -672,7 +796,7 @@ Partial Class frmPNL_Add
         Me.DockPanel1_Container.Location = New System.Drawing.Point(4, 23)
         Me.DockPanel1_Container.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DockPanel1_Container.Name = "DockPanel1_Container"
-        Me.DockPanel1_Container.Size = New System.Drawing.Size(611, 556)
+        Me.DockPanel1_Container.Size = New System.Drawing.Size(713, 556)
         Me.DockPanel1_Container.TabIndex = 0
         '
         'XtraScrollableControl1
@@ -684,7 +808,7 @@ Partial Class frmPNL_Add
         Me.XtraScrollableControl1.Location = New System.Drawing.Point(0, 0)
         Me.XtraScrollableControl1.MinimumSize = New System.Drawing.Size(612, 556)
         Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
-        Me.XtraScrollableControl1.Size = New System.Drawing.Size(615, 556)
+        Me.XtraScrollableControl1.Size = New System.Drawing.Size(702, 556)
         Me.XtraScrollableControl1.TabIndex = 1
         '
         'XtraTabControl1
@@ -700,7 +824,7 @@ Partial Class frmPNL_Add
         Me.XtraTabControl1.Name = "XtraTabControl1"
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
         Me.XtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.[True]
-        Me.XtraTabControl1.Size = New System.Drawing.Size(615, 556)
+        Me.XtraTabControl1.Size = New System.Drawing.Size(702, 556)
         Me.XtraTabControl1.TabIndex = 0
         Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2, Me.XtraTabPage3, Me.XtraTabPage4})
         '
@@ -733,7 +857,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage1.Name = "XtraTabPage1"
         Me.XtraTabPage1.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage1.Size = New System.Drawing.Size(609, 528)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(696, 528)
         Me.XtraTabPage1.Text = "Page 1"
         '
         'lbl_p1NonAllowableExpenses
@@ -759,7 +883,7 @@ Partial Class frmPNL_Add
         Me.ProgressPanel1.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.ProgressPanel1.AppearanceDescription.Options.UseFont = True
         Me.ProgressPanel1.BarAnimationElementThickness = 2
-        Me.ProgressPanel1.Location = New System.Drawing.Point(257, 121)
+        Me.ProgressPanel1.Location = New System.Drawing.Point(301, 121)
         Me.ProgressPanel1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ProgressPanel1.Name = "ProgressPanel1"
         Me.ProgressPanel1.Size = New System.Drawing.Size(218, 62)
@@ -1116,7 +1240,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
         Me.XtraTabPage2.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage2.Size = New System.Drawing.Size(609, 528)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(693, 628)
         Me.XtraTabPage2.Text = "Page 2"
         '
         'lbl_p2UnreaGainForeExNon
@@ -1656,7 +1780,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
         Me.XtraTabPage3.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage3.Size = New System.Drawing.Size(609, 528)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(693, 628)
         Me.XtraTabPage3.Tag = ""
         Me.XtraTabPage3.Text = "Page 3"
         '
@@ -2304,7 +2428,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage4.Name = "XtraTabPage4"
         Me.XtraTabPage4.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage4.Size = New System.Drawing.Size(609, 528)
+        Me.XtraTabPage4.Size = New System.Drawing.Size(693, 628)
         Me.XtraTabPage4.Text = "Page 4"
         '
         'txt_p4ExpectedExpenses
@@ -2849,130 +2973,6 @@ Partial Class frmPNL_Add
         Me.lbl_p4LossDispFA.TabIndex = 22
         Me.lbl_p4LossDispFA.Tag = "EXPLOSSDISPFA"
         Me.lbl_p4LossDispFA.Text = "Loss on Disposal of Fixed Assets"
-        '
-        'pnlDocAdvanceSearch
-        '
-        Me.pnlDocAdvanceSearch.Controls.Add(Me.ControlContainer2)
-        Me.pnlDocAdvanceSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
-        Me.pnlDocAdvanceSearch.ID = New System.Guid("2e49734a-7050-4a84-9e9a-349ee37f771d")
-        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(0, 0)
-        Me.pnlDocAdvanceSearch.Name = "pnlDocAdvanceSearch"
-        Me.pnlDocAdvanceSearch.Options.ShowCloseButton = False
-        Me.pnlDocAdvanceSearch.OriginalSize = New System.Drawing.Size(417, 200)
-        Me.pnlDocAdvanceSearch.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
-        Me.pnlDocAdvanceSearch.SavedIndex = 1
-        Me.pnlDocAdvanceSearch.Size = New System.Drawing.Size(417, 583)
-        Me.pnlDocAdvanceSearch.Text = "Advance Search"
-        Me.pnlDocAdvanceSearch.Visibility = DevExpress.XtraBars.Docking.DockVisibility.AutoHide
-        '
-        'ControlContainer2
-        '
-        Me.ControlContainer2.Controls.Add(Me.GCSearch)
-        Me.ControlContainer2.Controls.Add(Me.PanelControl1)
-        Me.ControlContainer2.Location = New System.Drawing.Point(5, 23)
-        Me.ControlContainer2.Name = "ControlContainer2"
-        Me.ControlContainer2.Size = New System.Drawing.Size(408, 556)
-        Me.ControlContainer2.TabIndex = 0
-        '
-        'GCSearch
-        '
-        Me.GCSearch.DataSource = Me.DataSearchBindingSource
-        Me.GCSearch.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GCSearch.Location = New System.Drawing.Point(0, 57)
-        Me.GCSearch.MainView = Me.GridView2
-        Me.GCSearch.MenuManager = Me.BarManager1
-        Me.GCSearch.Name = "GCSearch"
-        Me.GCSearch.Size = New System.Drawing.Size(408, 499)
-        Me.GCSearch.TabIndex = 1
-        Me.GCSearch.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
-        '
-        'DataSearchBindingSource
-        '
-        Me.DataSearchBindingSource.DataMember = "DataSearch"
-        Me.DataSearchBindingSource.DataSource = Me.DsPNL
-        '
-        'DsPNL
-        '
-        Me.DsPNL.DataSetName = "dsPNL"
-        Me.DsPNL.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'GridView2
-        '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colKeyName, Me.colColumnName, Me.colParentID, Me.colValue})
-        Me.GridView2.GridControl = Me.GCSearch
-        Me.GridView2.Name = "GridView2"
-        Me.GridView2.OptionsBehavior.Editable = False
-        Me.GridView2.OptionsView.ColumnAutoWidth = False
-        '
-        'colID
-        '
-        Me.colID.FieldName = "ID"
-        Me.colID.Name = "colID"
-        '
-        'colKeyName
-        '
-        Me.colKeyName.FieldName = "KeyName"
-        Me.colKeyName.Name = "colKeyName"
-        Me.colKeyName.Visible = True
-        Me.colKeyName.VisibleIndex = 0
-        '
-        'colColumnName
-        '
-        Me.colColumnName.FieldName = "ColumnName"
-        Me.colColumnName.Name = "colColumnName"
-        Me.colColumnName.Visible = True
-        Me.colColumnName.VisibleIndex = 1
-        '
-        'colParentID
-        '
-        Me.colParentID.FieldName = "ParentID"
-        Me.colParentID.Name = "colParentID"
-        '
-        'colValue
-        '
-        Me.colValue.FieldName = "Value"
-        Me.colValue.Name = "colValue"
-        Me.colValue.Visible = True
-        Me.colValue.VisibleIndex = 2
-        Me.colValue.Width = 300
-        '
-        'PanelControl1
-        '
-        Me.PanelControl1.Controls.Add(Me.btnSearch)
-        Me.PanelControl1.Controls.Add(Me.txtSearch)
-        Me.PanelControl1.Controls.Add(Me.LabelControl3)
-        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
-        Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(408, 57)
-        Me.PanelControl1.TabIndex = 0
-        '
-        'btnSearch
-        '
-        Me.btnSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSearch.Location = New System.Drawing.Point(255, 29)
-        Me.btnSearch.Name = "btnSearch"
-        Me.btnSearch.Size = New System.Drawing.Size(132, 23)
-        Me.btnSearch.TabIndex = 2
-        Me.btnSearch.Text = "Search"
-        '
-        'txtSearch
-        '
-        Me.txtSearch.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtSearch.Location = New System.Drawing.Point(55, 3)
-        Me.txtSearch.MenuManager = Me.BarManager1
-        Me.txtSearch.Name = "txtSearch"
-        Me.txtSearch.Size = New System.Drawing.Size(332, 20)
-        Me.txtSearch.TabIndex = 1
-        '
-        'LabelControl3
-        '
-        Me.LabelControl3.Location = New System.Drawing.Point(6, 6)
-        Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(43, 13)
-        Me.LabelControl3.TabIndex = 0
-        Me.LabelControl3.Text = "Search : "
         '
         'DocumentManager1
         '
@@ -3535,6 +3535,16 @@ Partial Class frmPNL_Add
         CType(Me.RepositoryItemProgressBar2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit5, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit6, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.pnlDocAdvanceSearch.ResumeLayout(False)
+        Me.ControlContainer2.ResumeLayout(False)
+        CType(Me.GCSearch, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DataSearchBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl1.ResumeLayout(False)
+        Me.PanelControl1.PerformLayout()
+        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlDocInformation.ResumeLayout(False)
         Me.DockPanel1_Container.ResumeLayout(False)
         Me.XtraScrollableControl1.ResumeLayout(False)
@@ -3615,16 +3625,6 @@ Partial Class frmPNL_Add
         CType(Me.txt_p4EntStaff.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txt_p4EntNonStaff.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txt_p4LossDispFA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnlDocAdvanceSearch.ResumeLayout(False)
-        Me.ControlContainer2.ResumeLayout(False)
-        CType(Me.GCSearch, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataSearchBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.PanelControl1.ResumeLayout(False)
-        Me.PanelControl1.PerformLayout()
-        CType(Me.txtSearch.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DocumentManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TabbedView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RibbonControl1, System.ComponentModel.ISupportInitialize).EndInit()

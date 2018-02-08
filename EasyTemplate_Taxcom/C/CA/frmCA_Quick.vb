@@ -11,18 +11,18 @@
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpCategory(DsCA, ErrorLog) = False Then
+            If CreateLookUpCategory(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive category.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -179,7 +179,7 @@
 
     Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Try
-            If mdlProcess.Save_CA_Quick(DsCA.Tables(MainTable), ErrorLog) Then
+            If ADO.Save_CA_Quick(DsCA.Tables(MainTable), ErrorLog) Then
                 MsgBox("Successfully saved capital allowance.", MsgBoxStyle.Information)
                 Me.Close()
             Else
@@ -227,7 +227,7 @@
                 Exit Sub
             End If
 
-            Dim dt As DataTable = mdlProcess.LoadCA_Search(cboRefNo.EditValue.ToString, "", -1, "")
+            Dim dt As DataTable = ADO.LoadCA_Search(cboRefNo.EditValue.ToString, "", -1, "")
 
             If dt IsNot Nothing Then
                 CABindingSource.DataSource = dt

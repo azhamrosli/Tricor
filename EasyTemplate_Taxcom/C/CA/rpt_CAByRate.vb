@@ -39,19 +39,6 @@ Public Class rpt_CAByRate
     Friend WithEvents tableRow7 As DevExpress.XtraReports.UI.XRTableRow
     Friend WithEvents table7 As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents groupFooterBand3 As DevExpress.XtraReports.UI.GroupFooterBand
-    Friend WithEvents tableCell51 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell50 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell49 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell48 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell47 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell46 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell45 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell44 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell43 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell42 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableCell41 As DevExpress.XtraReports.UI.XRTableCell
-    Friend WithEvents tableRow6 As DevExpress.XtraReports.UI.XRTableRow
-    Friend WithEvents table6 As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents groupFooterBand2 As DevExpress.XtraReports.UI.GroupFooterBand
     Friend WithEvents tableCell21 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell20 As DevExpress.XtraReports.UI.XRTableCell
@@ -105,15 +92,26 @@ Public Class rpt_CAByRate
     Friend WithEvents XrLine2 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLine1 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLine5 As DevExpress.XtraReports.UI.XRLine
-    Friend WithEvents XrLine3 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel3 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel2 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel6 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel5 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents paramCompanyName As DevExpress.XtraReports.Parameters.Parameter
-    Friend WithEvents XrLabel4 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents paramYA As DevExpress.XtraReports.Parameters.Parameter
+    Friend WithEvents XrLabel19 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel18 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel17 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel16 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel15 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel14 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel13 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel12 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel11 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel10 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel9 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel8 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel7 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents topMarginBand1 As DevExpress.XtraReports.UI.TopMarginBand
     Public Sub New()
         InitializeComponent()
@@ -142,19 +140,27 @@ Public Class rpt_CAByRate
         Dim XrSummary20 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary21 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary22 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary23 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary24 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary25 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary26 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary27 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary28 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary29 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary30 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary31 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary32 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
-        Dim XrSummary33 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.topMarginBand1 = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.pageHeaderBand1 = New DevExpress.XtraReports.UI.PageHeaderBand()
+        Me.XrLabel19 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel18 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel17 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel10 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel9 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramCompanyName = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramYA = New DevExpress.XtraReports.Parameters.Parameter()
         Me.label1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.label2 = New DevExpress.XtraReports.UI.XRLabel()
         Me.label4 = New DevExpress.XtraReports.UI.XRLabel()
@@ -175,6 +181,9 @@ Public Class rpt_CAByRate
         Me.label19 = New DevExpress.XtraReports.UI.XRLabel()
         Me.groupHeaderBand1 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.groupHeaderBand2 = New DevExpress.XtraReports.UI.GroupHeaderBand()
+        Me.table2 = New DevExpress.XtraReports.UI.XRTable()
+        Me.tableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
+        Me.tableCell4 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.groupHeaderBand3 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.table3 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow3 = New DevExpress.XtraReports.UI.XRTableRow()
@@ -198,20 +207,9 @@ Public Class rpt_CAByRate
         Me.tableCell20 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell21 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.groupFooterBand2 = New DevExpress.XtraReports.UI.GroupFooterBand()
-        Me.table6 = New DevExpress.XtraReports.UI.XRTable()
-        Me.tableRow6 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.tableCell41 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell42 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell43 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell44 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell45 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell46 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell47 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell48 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell49 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell50 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableCell51 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.groupFooterBand3 = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
+        Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
         Me.table7 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow7 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.tableCell56 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -226,6 +224,9 @@ Public Class rpt_CAByRate
         Me.tableCell65 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell66 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.reportFooterBand1 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLine5 = New DevExpress.XtraReports.UI.XRLine()
+        Me.XrLine4 = New DevExpress.XtraReports.UI.XRLine()
         Me.table8 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow8 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.tableCell71 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -249,32 +250,15 @@ Public Class rpt_CAByRate
         Me.ReportEvenStyle = New DevExpress.XtraReports.UI.XRControlStyle()
         Me.CAREPORTTEMPBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
-        Me.tableCell4 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.tableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
-        Me.table2 = New DevExpress.XtraReports.UI.XRTable()
         Me.PageFooter = New DevExpress.XtraReports.UI.PageFooterBand()
         Me.XrPageInfo1 = New DevExpress.XtraReports.UI.XRPageInfo()
-        Me.XrLine4 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine5 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine3 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.paramCompanyName = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.paramYA = New DevExpress.XtraReports.Parameters.Parameter()
-        Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
+        CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.table6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table7, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table8, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.CAREPORTTEMPBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'topMarginBand1
@@ -285,17 +269,260 @@ Public Class rpt_CAByRate
         '
         'pageHeaderBand1
         '
-        Me.pageHeaderBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel5, Me.XrLabel4, Me.XrLabel1, Me.XrLabel3, Me.XrLabel2, Me.label1, Me.label2, Me.label4, Me.label5, Me.label6, Me.label7, Me.label8, Me.label9, Me.label10, Me.label11, Me.label12, Me.label13, Me.label14, Me.label15, Me.label16, Me.label17, Me.label18, Me.label19})
+        Me.pageHeaderBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel19, Me.XrLabel18, Me.XrLabel17, Me.XrLabel16, Me.XrLabel15, Me.XrLabel14, Me.XrLabel13, Me.XrLabel12, Me.XrLabel11, Me.XrLabel10, Me.XrLabel9, Me.XrLabel8, Me.XrLabel7, Me.XrLabel5, Me.XrLabel1, Me.XrLabel3, Me.XrLabel2, Me.label1, Me.label2, Me.label4, Me.label5, Me.label6, Me.label7, Me.label8, Me.label9, Me.label10, Me.label11, Me.label12, Me.label13, Me.label14, Me.label15, Me.label16, Me.label17, Me.label18, Me.label19})
         Me.pageHeaderBand1.Dpi = 254.0!
-        Me.pageHeaderBand1.HeightF = 488.4758!
+        Me.pageHeaderBand1.HeightF = 551.4759!
         Me.pageHeaderBand1.Name = "pageHeaderBand1"
         Me.pageHeaderBand1.StyleName = "ReportHeaderBandStyle"
+        '
+        'XrLabel19
+        '
+        Me.XrLabel19.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel19.Dpi = 254.0!
+        Me.XrLabel19.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel19.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 488.4759!)
+        Me.XrLabel19.Name = "XrLabel19"
+        Me.XrLabel19.SizeF = New System.Drawing.SizeF(1136.42!, 63.0!)
+        Me.XrLabel19.StylePriority.UseBackColor = False
+        Me.XrLabel19.StylePriority.UseFont = False
+        '
+        'XrLabel18
+        '
+        Me.XrLabel18.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel18.Dpi = 254.0!
+        Me.XrLabel18.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel18.LocationFloat = New DevExpress.Utils.PointFloat(2321.48!, 288.3958!)
+        Me.XrLabel18.Name = "XrLabel18"
+        Me.XrLabel18.SizeF = New System.Drawing.SizeF(494.521!, 63.0!)
+        Me.XrLabel18.StylePriority.UseBackColor = False
+        Me.XrLabel18.StylePriority.UseFont = False
+        '
+        'XrLabel17
+        '
+        Me.XrLabel17.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel17.Dpi = 254.0!
+        Me.XrLabel17.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel17.LocationFloat = New DevExpress.Utils.PointFloat(1136.421!, 488.4759!)
+        Me.XrLabel17.Name = "XrLabel17"
+        Me.XrLabel17.SizeF = New System.Drawing.SizeF(153.619!, 60.88004!)
+        Me.XrLabel17.StylePriority.UseBackColor = False
+        Me.XrLabel17.StylePriority.UseFont = False
+        Me.XrLabel17.StylePriority.UseTextAlignment = False
+        Me.XrLabel17.Text = "RM"
+        Me.XrLabel17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel16
+        '
+        Me.XrLabel16.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel16.Dpi = 254.0!
+        Me.XrLabel16.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(2653.98!, 488.4759!)
+        Me.XrLabel16.Name = "XrLabel16"
+        Me.XrLabel16.SizeF = New System.Drawing.SizeF(162.0198!, 60.88004!)
+        Me.XrLabel16.StylePriority.UseBackColor = False
+        Me.XrLabel16.StylePriority.UseFont = False
+        Me.XrLabel16.StylePriority.UseTextAlignment = False
+        Me.XrLabel16.Text = "RM"
+        Me.XrLabel16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel15
+        '
+        Me.XrLabel15.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel15.Dpi = 254.0!
+        Me.XrLabel15.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(2485.61!, 488.4759!)
+        Me.XrLabel15.Name = "XrLabel15"
+        Me.XrLabel15.SizeF = New System.Drawing.SizeF(168.3701!, 60.88004!)
+        Me.XrLabel15.StylePriority.UseBackColor = False
+        Me.XrLabel15.StylePriority.UseFont = False
+        Me.XrLabel15.StylePriority.UseTextAlignment = False
+        Me.XrLabel15.Text = "RM"
+        Me.XrLabel15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel14
+        '
+        Me.XrLabel14.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel14.Dpi = 254.0!
+        Me.XrLabel14.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel14.LocationFloat = New DevExpress.Utils.PointFloat(2321.48!, 488.4759!)
+        Me.XrLabel14.Name = "XrLabel14"
+        Me.XrLabel14.SizeF = New System.Drawing.SizeF(164.1296!, 60.88004!)
+        Me.XrLabel14.StylePriority.UseBackColor = False
+        Me.XrLabel14.StylePriority.UseFont = False
+        Me.XrLabel14.StylePriority.UseTextAlignment = False
+        Me.XrLabel14.Text = "RM"
+        Me.XrLabel14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel13
+        '
+        Me.XrLabel13.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel13.Dpi = 254.0!
+        Me.XrLabel13.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel13.LocationFloat = New DevExpress.Utils.PointFloat(2173.941!, 488.4759!)
+        Me.XrLabel13.Name = "XrLabel13"
+        Me.XrLabel13.SizeF = New System.Drawing.SizeF(147.5393!, 60.88004!)
+        Me.XrLabel13.StylePriority.UseBackColor = False
+        Me.XrLabel13.StylePriority.UseFont = False
+        Me.XrLabel13.StylePriority.UseTextAlignment = False
+        Me.XrLabel13.Text = "RM"
+        Me.XrLabel13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel12
+        '
+        Me.XrLabel12.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel12.Dpi = 254.0!
+        Me.XrLabel12.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel12.LocationFloat = New DevExpress.Utils.PointFloat(2018.361!, 488.4759!)
+        Me.XrLabel12.Name = "XrLabel12"
+        Me.XrLabel12.SizeF = New System.Drawing.SizeF(155.5791!, 60.88004!)
+        Me.XrLabel12.StylePriority.UseBackColor = False
+        Me.XrLabel12.StylePriority.UseFont = False
+        Me.XrLabel12.StylePriority.UseTextAlignment = False
+        Me.XrLabel12.Text = "RM"
+        Me.XrLabel12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel11
+        '
+        Me.XrLabel11.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel11.Dpi = 254.0!
+        Me.XrLabel11.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel11.LocationFloat = New DevExpress.Utils.PointFloat(1870.37!, 488.4759!)
+        Me.XrLabel11.Name = "XrLabel11"
+        Me.XrLabel11.SizeF = New System.Drawing.SizeF(147.9907!, 60.88004!)
+        Me.XrLabel11.StylePriority.UseBackColor = False
+        Me.XrLabel11.StylePriority.UseFont = False
+        Me.XrLabel11.StylePriority.UseTextAlignment = False
+        Me.XrLabel11.Text = "RM"
+        Me.XrLabel11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel10
+        '
+        Me.XrLabel10.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel10.Dpi = 254.0!
+        Me.XrLabel10.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel10.LocationFloat = New DevExpress.Utils.PointFloat(1725.291!, 488.4759!)
+        Me.XrLabel10.Name = "XrLabel10"
+        Me.XrLabel10.SizeF = New System.Drawing.SizeF(145.079!, 60.88004!)
+        Me.XrLabel10.StylePriority.UseBackColor = False
+        Me.XrLabel10.StylePriority.UseFont = False
+        Me.XrLabel10.StylePriority.UseTextAlignment = False
+        Me.XrLabel10.Text = "RM"
+        Me.XrLabel10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel9
+        '
+        Me.XrLabel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel9.Dpi = 254.0!
+        Me.XrLabel9.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(1582.321!, 488.4759!)
+        Me.XrLabel9.Name = "XrLabel9"
+        Me.XrLabel9.SizeF = New System.Drawing.SizeF(142.9697!, 60.88004!)
+        Me.XrLabel9.StylePriority.UseBackColor = False
+        Me.XrLabel9.StylePriority.UseFont = False
+        Me.XrLabel9.StylePriority.UseTextAlignment = False
+        Me.XrLabel9.Text = "RM"
+        Me.XrLabel9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel8
+        '
+        Me.XrLabel8.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel8.Dpi = 254.0!
+        Me.XrLabel8.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel8.LocationFloat = New DevExpress.Utils.PointFloat(1437.241!, 488.4759!)
+        Me.XrLabel8.Name = "XrLabel8"
+        Me.XrLabel8.SizeF = New System.Drawing.SizeF(145.0798!, 60.88004!)
+        Me.XrLabel8.StylePriority.UseBackColor = False
+        Me.XrLabel8.StylePriority.UseFont = False
+        Me.XrLabel8.StylePriority.UseTextAlignment = False
+        Me.XrLabel8.Text = "RM"
+        Me.XrLabel8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel7
+        '
+        Me.XrLabel7.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.XrLabel7.Dpi = 254.0!
+        Me.XrLabel7.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel7.LocationFloat = New DevExpress.Utils.PointFloat(1290.041!, 488.4759!)
+        Me.XrLabel7.Name = "XrLabel7"
+        Me.XrLabel7.SizeF = New System.Drawing.SizeF(147.2001!, 60.88004!)
+        Me.XrLabel7.StylePriority.UseBackColor = False
+        Me.XrLabel7.StylePriority.UseFont = False
+        Me.XrLabel7.StylePriority.UseTextAlignment = False
+        Me.XrLabel7.Text = "RM"
+        Me.XrLabel7.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel5
+        '
+        Me.XrLabel5.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel5.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCompanyName, "Text", "")})
+        Me.XrLabel5.Dpi = 254.0!
+        Me.XrLabel5.Font = New System.Drawing.Font("Arial Narrow", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(898.298!, 25.00001!)
+        Me.XrLabel5.Name = "XrLabel5"
+        Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel5.SizeF = New System.Drawing.SizeF(1156.99!, 58.42!)
+        Me.XrLabel5.StylePriority.UseBackColor = False
+        Me.XrLabel5.StylePriority.UseFont = False
+        Me.XrLabel5.Text = "XrLabel5"
+        '
+        'paramCompanyName
+        '
+        Me.paramCompanyName.Description = "paramCompanyName"
+        Me.paramCompanyName.Name = "paramCompanyName"
+        '
+        'XrLabel1
+        '
+        Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel1.Dpi = 254.0!
+        Me.XrLabel1.Font = New System.Drawing.Font("Arial Narrow", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(760.7147!, 25.00001!)
+        Me.XrLabel1.Name = "XrLabel1"
+        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel1.SizeF = New System.Drawing.SizeF(137.5833!, 58.41999!)
+        Me.XrLabel1.StylePriority.UseBackColor = False
+        Me.XrLabel1.StylePriority.UseFont = False
+        Me.XrLabel1.Text = "NAME :"
+        '
+        'XrLabel3
+        '
+        Me.XrLabel3.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel3.Dpi = 254.0!
+        Me.XrLabel3.Font = New System.Drawing.Font("Arial Narrow", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(760.7119!, 181.8217!)
+        Me.XrLabel3.Name = "XrLabel3"
+        Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel3.SizeF = New System.Drawing.SizeF(1294.576!, 58.42001!)
+        Me.XrLabel3.StylePriority.UseBackColor = False
+        Me.XrLabel3.StylePriority.UseFont = False
+        Me.XrLabel3.StylePriority.UseTextAlignment = False
+        Me.XrLabel3.Text = "SCHEDULE OF CAPITAL ALLOWANCES"
+        Me.XrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
+        '
+        'XrLabel2
+        '
+        Me.XrLabel2.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramYA, "Text", "INCOME TAX COMPUTATION - YEAR OF ASSESSMENT  {0}")})
+        Me.XrLabel2.Dpi = 254.0!
+        Me.XrLabel2.Font = New System.Drawing.Font("Arial Narrow", 10.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(760.7147!, 102.235!)
+        Me.XrLabel2.Name = "XrLabel2"
+        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel2.SizeF = New System.Drawing.SizeF(939.2714!, 58.42!)
+        Me.XrLabel2.StylePriority.UseBackColor = False
+        Me.XrLabel2.StylePriority.UseFont = False
+        '
+        'paramYA
+        '
+        Me.paramYA.Description = "paramYA"
+        Me.paramYA.Name = "paramYA"
+        Me.paramYA.Type = GetType(Integer)
+        Me.paramYA.ValueInfo = "0"
         '
         'label1
         '
         Me.label1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label1.Dpi = 254.0!
-        Me.label1.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label1.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 288.3958!)
         Me.label1.Name = "label1"
         Me.label1.SizeF = New System.Drawing.SizeF(1136.42!, 63.0!)
@@ -306,47 +533,49 @@ Public Class rpt_CAByRate
         '
         Me.label2.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label2.Dpi = 254.0!
-        Me.label2.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label2.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 351.3958!)
         Me.label2.Name = "label2"
         Me.label2.SizeF = New System.Drawing.SizeF(644.0303!, 137.08!)
         Me.label2.StylePriority.UseBackColor = False
         Me.label2.StylePriority.UseFont = False
+        Me.label2.StylePriority.UseTextAlignment = False
         Me.label2.Text = "Asset"
+        Me.label2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomLeft
         '
         'label4
         '
         Me.label4.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label4.Dpi = 254.0!
-        Me.label4.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label4.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label4.LocationFloat = New DevExpress.Utils.PointFloat(644.0303!, 351.3958!)
         Me.label4.Name = "label4"
         Me.label4.SizeF = New System.Drawing.SizeF(164.13!, 137.08!)
         Me.label4.StylePriority.UseBackColor = False
         Me.label4.StylePriority.UseFont = False
         Me.label4.StylePriority.UseTextAlignment = False
-        Me.label4.Text = "Rate of IA %"
-        Me.label4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label4.Text = "Rate of IA"
+        Me.label4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label5
         '
         Me.label5.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label5.Dpi = 254.0!
-        Me.label5.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label5.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label5.LocationFloat = New DevExpress.Utils.PointFloat(808.1603!, 351.3958!)
         Me.label5.Name = "label5"
         Me.label5.SizeF = New System.Drawing.SizeF(164.13!, 137.08!)
         Me.label5.StylePriority.UseBackColor = False
         Me.label5.StylePriority.UseFont = False
         Me.label5.StylePriority.UseTextAlignment = False
-        Me.label5.Text = "Rate of AA %"
-        Me.label5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label5.Text = "Rate of AA"
+        Me.label5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label6
         '
         Me.label6.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label6.Dpi = 254.0!
-        Me.label6.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label6.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label6.LocationFloat = New DevExpress.Utils.PointFloat(972.2903!, 351.3958!)
         Me.label6.Name = "label6"
         Me.label6.SizeF = New System.Drawing.SizeF(164.13!, 137.08!)
@@ -354,13 +583,13 @@ Public Class rpt_CAByRate
         Me.label6.StylePriority.UseFont = False
         Me.label6.StylePriority.UseTextAlignment = False
         Me.label6.Text = "Year of Purchase"
-        Me.label6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label7
         '
         Me.label7.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label7.Dpi = 254.0!
-        Me.label7.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label7.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label7.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 288.3958!)
         Me.label7.Name = "label7"
         Me.label7.SizeF = New System.Drawing.SizeF(588.8699!, 63.0!)
@@ -374,66 +603,66 @@ Public Class rpt_CAByRate
         '
         Me.label8.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label8.Dpi = 254.0!
-        Me.label8.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label8.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label8.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 351.3958!)
         Me.label8.Name = "label8"
         Me.label8.SizeF = New System.Drawing.SizeF(153.62!, 137.08!)
         Me.label8.StylePriority.UseBackColor = False
         Me.label8.StylePriority.UseFont = False
         Me.label8.StylePriority.UseTextAlignment = False
-        Me.label8.Text = "Brought Forward RM"
-        Me.label8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label8.Text = "Brought Forward"
+        Me.label8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label9
         '
         Me.label9.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label9.Dpi = 254.0!
-        Me.label9.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label9.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label9.LocationFloat = New DevExpress.Utils.PointFloat(1290.04!, 351.3958!)
         Me.label9.Name = "label9"
         Me.label9.SizeF = New System.Drawing.SizeF(147.2!, 137.08!)
         Me.label9.StylePriority.UseBackColor = False
         Me.label9.StylePriority.UseFont = False
         Me.label9.StylePriority.UseTextAlignment = False
-        Me.label9.Text = "Additions RM"
-        Me.label9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label9.Text = "Additions"
+        Me.label9.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label10
         '
         Me.label10.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label10.Dpi = 254.0!
-        Me.label10.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label10.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label10.LocationFloat = New DevExpress.Utils.PointFloat(1437.24!, 351.3958!)
         Me.label10.Name = "label10"
         Me.label10.SizeF = New System.Drawing.SizeF(145.08!, 137.08!)
         Me.label10.StylePriority.UseBackColor = False
         Me.label10.StylePriority.UseFont = False
         Me.label10.StylePriority.UseTextAlignment = False
-        Me.label10.Text = "Disposal RM"
-        Me.label10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label10.Text = "Disposal"
+        Me.label10.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label11
         '
         Me.label11.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label11.Dpi = 254.0!
-        Me.label11.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label11.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label11.LocationFloat = New DevExpress.Utils.PointFloat(1582.32!, 351.3958!)
         Me.label11.Name = "label11"
         Me.label11.SizeF = New System.Drawing.SizeF(142.97!, 137.08!)
         Me.label11.StylePriority.UseBackColor = False
         Me.label11.StylePriority.UseFont = False
         Me.label11.StylePriority.UseTextAlignment = False
-        Me.label11.Text = "Carried Forward RM"
-        Me.label11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label11.Text = "Carried Forward"
+        Me.label11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label12
         '
         Me.label12.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label12.Dpi = 254.0!
-        Me.label12.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label12.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label12.LocationFloat = New DevExpress.Utils.PointFloat(1725.29!, 288.3958!)
         Me.label12.Name = "label12"
-        Me.label12.SizeF = New System.Drawing.SizeF(1090.71!, 63.0!)
+        Me.label12.SizeF = New System.Drawing.SizeF(596.1902!, 63.0!)
         Me.label12.StylePriority.UseBackColor = False
         Me.label12.StylePriority.UseFont = False
         Me.label12.StylePriority.UseTextAlignment = False
@@ -444,99 +673,99 @@ Public Class rpt_CAByRate
         '
         Me.label13.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label13.Dpi = 254.0!
-        Me.label13.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label13.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label13.LocationFloat = New DevExpress.Utils.PointFloat(1725.29!, 351.3958!)
         Me.label13.Name = "label13"
         Me.label13.SizeF = New System.Drawing.SizeF(145.08!, 137.08!)
         Me.label13.StylePriority.UseBackColor = False
         Me.label13.StylePriority.UseFont = False
         Me.label13.StylePriority.UseTextAlignment = False
-        Me.label13.Text = "Brought Forward RM"
-        Me.label13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label13.Text = "Brought Forward"
+        Me.label13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label14
         '
         Me.label14.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label14.Dpi = 254.0!
-        Me.label14.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label14.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label14.LocationFloat = New DevExpress.Utils.PointFloat(1870.37!, 351.3958!)
         Me.label14.Name = "label14"
         Me.label14.SizeF = New System.Drawing.SizeF(147.99!, 137.08!)
         Me.label14.StylePriority.UseBackColor = False
         Me.label14.StylePriority.UseFont = False
         Me.label14.StylePriority.UseTextAlignment = False
-        Me.label14.Text = "Additions RM"
-        Me.label14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label14.Text = "Additions"
+        Me.label14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label15
         '
         Me.label15.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label15.Dpi = 254.0!
-        Me.label15.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label15.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label15.LocationFloat = New DevExpress.Utils.PointFloat(2018.36!, 351.3958!)
         Me.label15.Name = "label15"
         Me.label15.SizeF = New System.Drawing.SizeF(155.58!, 137.08!)
         Me.label15.StylePriority.UseBackColor = False
         Me.label15.StylePriority.UseFont = False
         Me.label15.StylePriority.UseTextAlignment = False
-        Me.label15.Text = "Disposal RM"
-        Me.label15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label15.Text = "Disposal"
+        Me.label15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label16
         '
         Me.label16.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label16.Dpi = 254.0!
-        Me.label16.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label16.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label16.LocationFloat = New DevExpress.Utils.PointFloat(2173.94!, 351.3958!)
         Me.label16.Name = "label16"
         Me.label16.SizeF = New System.Drawing.SizeF(147.54!, 137.08!)
         Me.label16.StylePriority.UseBackColor = False
         Me.label16.StylePriority.UseFont = False
         Me.label16.StylePriority.UseTextAlignment = False
-        Me.label16.Text = "Total RM"
-        Me.label16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label16.Text = "Total"
+        Me.label16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label17
         '
         Me.label17.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label17.Dpi = 254.0!
-        Me.label17.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label17.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label17.LocationFloat = New DevExpress.Utils.PointFloat(2321.48!, 351.3958!)
         Me.label17.Name = "label17"
         Me.label17.SizeF = New System.Drawing.SizeF(164.13!, 137.08!)
         Me.label17.StylePriority.UseBackColor = False
         Me.label17.StylePriority.UseFont = False
         Me.label17.StylePriority.UseTextAlignment = False
-        Me.label17.Text = "Initial Allowances RM"
-        Me.label17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label17.Text = "Initial Allowances"
+        Me.label17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label18
         '
         Me.label18.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label18.Dpi = 254.0!
-        Me.label18.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label18.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label18.LocationFloat = New DevExpress.Utils.PointFloat(2485.61!, 351.3958!)
         Me.label18.Name = "label18"
         Me.label18.SizeF = New System.Drawing.SizeF(168.37!, 137.08!)
         Me.label18.StylePriority.UseBackColor = False
         Me.label18.StylePriority.UseFont = False
         Me.label18.StylePriority.UseTextAlignment = False
-        Me.label18.Text = "Annual Allowances RM"
-        Me.label18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label18.Text = "Annual Allowances"
+        Me.label18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'label19
         '
         Me.label19.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.label19.Dpi = 254.0!
-        Me.label19.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.label19.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.label19.LocationFloat = New DevExpress.Utils.PointFloat(2653.98!, 351.3958!)
         Me.label19.Name = "label19"
         Me.label19.SizeF = New System.Drawing.SizeF(162.02!, 137.08!)
         Me.label19.StylePriority.UseBackColor = False
         Me.label19.StylePriority.UseFont = False
         Me.label19.StylePriority.UseTextAlignment = False
-        Me.label19.Text = "Residual Exp C/F RM"
-        Me.label19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.label19.Text = "Residual Exp C/F"
+        Me.label19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'groupHeaderBand1
         '
@@ -557,6 +786,35 @@ Public Class rpt_CAByRate
         Me.groupHeaderBand2.Level = 1
         Me.groupHeaderBand2.Name = "groupHeaderBand2"
         Me.groupHeaderBand2.StyleName = "ReportGroupHeaderBandStyle"
+        '
+        'table2
+        '
+        Me.table2.Dpi = 254.0!
+        Me.table2.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.table2.Name = "table2"
+        Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow2})
+        Me.table2.SizeF = New System.Drawing.SizeF(2816.0!, 64.0!)
+        Me.table2.StylePriority.UseFont = False
+        '
+        'tableRow2
+        '
+        Me.tableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.tableCell4})
+        Me.tableRow2.Dpi = 254.0!
+        Me.tableRow2.Name = "tableRow2"
+        Me.tableRow2.Weight = 10.46953028649871R
+        '
+        'tableCell4
+        '
+        Me.tableCell4.BackColor = System.Drawing.Color.Transparent
+        Me.tableCell4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_PURCHASE_YEAR")})
+        Me.tableCell4.Dpi = 254.0!
+        Me.tableCell4.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tableCell4.Name = "tableCell4"
+        Me.tableCell4.StylePriority.UseBackColor = False
+        Me.tableCell4.StylePriority.UseFont = False
+        Me.tableCell4.Weight = 1.8949707245102714R
+        Me.tableCell4.WordWrap = False
         '
         'groupHeaderBand3
         '
@@ -591,7 +849,7 @@ Public Class rpt_CAByRate
         Me.tableCell6.BackColor = System.Drawing.Color.Transparent
         Me.tableCell6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_TRANSFERROR_NAME")})
         Me.tableCell6.Dpi = 254.0!
-        Me.tableCell6.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tableCell6.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tableCell6.Name = "tableCell6"
         Me.tableCell6.StylePriority.UseBackColor = False
         Me.tableCell6.StylePriority.UseFont = False
@@ -612,7 +870,7 @@ Public Class rpt_CAByRate
         'table4
         '
         Me.table4.Dpi = 254.0!
-        Me.table4.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table4.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.table4.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.table4.Name = "table4"
         Me.table4.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow4})
@@ -667,7 +925,7 @@ Public Class rpt_CAByRate
         '
         'tableCell11
         '
-        Me.tableCell11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_BF", "{0:n2}")})
+        Me.tableCell11.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_BF", "{0:#,# ;(#,#); }")})
         Me.tableCell11.Dpi = 254.0!
         Me.tableCell11.Name = "tableCell11"
         Me.tableCell11.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -676,7 +934,7 @@ Public Class rpt_CAByRate
         '
         'tableCell12
         '
-        Me.tableCell12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_ADD", "{0:n2}")})
+        Me.tableCell12.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_ADD", "{0:#,# ;(#,#); }")})
         Me.tableCell12.Dpi = 254.0!
         Me.tableCell12.Name = "tableCell12"
         Me.tableCell12.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -685,7 +943,7 @@ Public Class rpt_CAByRate
         '
         'tableCell13
         '
-        Me.tableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_DISP", "{0:n2}")})
+        Me.tableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_DISP", "{0:#,# ;(#,#); }")})
         Me.tableCell13.Dpi = 254.0!
         Me.tableCell13.Name = "tableCell13"
         Me.tableCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -694,7 +952,7 @@ Public Class rpt_CAByRate
         '
         'tableCell14
         '
-        Me.tableCell14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_CF", "{0:n2}")})
+        Me.tableCell14.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_CF", "{0:#,# ;(#,#); }")})
         Me.tableCell14.Dpi = 254.0!
         Me.tableCell14.Name = "tableCell14"
         Me.tableCell14.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -703,7 +961,7 @@ Public Class rpt_CAByRate
         '
         'tableCell15
         '
-        Me.tableCell15.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_BF", "{0:n2}")})
+        Me.tableCell15.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_BF", "{0:#,# ;(#,#); }")})
         Me.tableCell15.Dpi = 254.0!
         Me.tableCell15.Name = "tableCell15"
         Me.tableCell15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -712,7 +970,7 @@ Public Class rpt_CAByRate
         '
         'tableCell16
         '
-        Me.tableCell16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_ADD", "{0:n2}")})
+        Me.tableCell16.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_ADD", "{0:#,# ;(#,#); }")})
         Me.tableCell16.Dpi = 254.0!
         Me.tableCell16.Name = "tableCell16"
         Me.tableCell16.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -721,7 +979,7 @@ Public Class rpt_CAByRate
         '
         'tableCell17
         '
-        Me.tableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_DISP", "{0:n2}")})
+        Me.tableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_DISP", "{0:#,# ;(#,#); }")})
         Me.tableCell17.Dpi = 254.0!
         Me.tableCell17.Name = "tableCell17"
         Me.tableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -730,7 +988,7 @@ Public Class rpt_CAByRate
         '
         'tableCell18
         '
-        Me.tableCell18.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_TOTAL")})
+        Me.tableCell18.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_TOTAL", "{0:#,# ;(#,#); }")})
         Me.tableCell18.Dpi = 254.0!
         Me.tableCell18.Name = "tableCell18"
         Me.tableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -739,7 +997,7 @@ Public Class rpt_CAByRate
         '
         'tableCell19
         '
-        Me.tableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_AI", "{0:n2}")})
+        Me.tableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_AI", "{0:#,# ;(#,#); }")})
         Me.tableCell19.Dpi = 254.0!
         Me.tableCell19.Name = "tableCell19"
         Me.tableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -748,7 +1006,7 @@ Public Class rpt_CAByRate
         '
         'tableCell20
         '
-        Me.tableCell20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_AA", "{0:n2}")})
+        Me.tableCell20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_AA", "{0:#,# ;(#,#); }")})
         Me.tableCell20.Dpi = 254.0!
         Me.tableCell20.Name = "tableCell20"
         Me.tableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -757,7 +1015,7 @@ Public Class rpt_CAByRate
         '
         'tableCell21
         '
-        Me.tableCell21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_CF", "{0:n2}")})
+        Me.tableCell21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_CF", "{0:#,# ;(#,#); }")})
         Me.tableCell21.Dpi = 254.0!
         Me.tableCell21.Name = "tableCell21"
         Me.tableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -766,184 +1024,11 @@ Public Class rpt_CAByRate
         '
         'groupFooterBand2
         '
-        Me.groupFooterBand2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine3, Me.table6})
         Me.groupFooterBand2.Dpi = 254.0!
-        Me.groupFooterBand2.HeightF = 119.5625!
+        Me.groupFooterBand2.HeightF = 0.0!
         Me.groupFooterBand2.Level = 1
         Me.groupFooterBand2.Name = "groupFooterBand2"
         Me.groupFooterBand2.StyleName = "ReportGroupFooterBandStyle"
-        '
-        'table6
-        '
-        Me.table6.BackColor = System.Drawing.Color.Transparent
-        Me.table6.Dpi = 254.0!
-        Me.table6.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table6.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 27.91664!)
-        Me.table6.Name = "table6"
-        Me.table6.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow6})
-        Me.table6.SizeF = New System.Drawing.SizeF(1679.58!, 64.0!)
-        Me.table6.StylePriority.UseBackColor = False
-        Me.table6.StylePriority.UseFont = False
-        '
-        'tableRow6
-        '
-        Me.tableRow6.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.tableCell41, Me.tableCell42, Me.tableCell43, Me.tableCell44, Me.tableCell45, Me.tableCell46, Me.tableCell47, Me.tableCell48, Me.tableCell49, Me.tableCell50, Me.tableCell51})
-        Me.tableRow6.Dpi = 254.0!
-        Me.tableRow6.Name = "tableRow6"
-        Me.tableRow6.Weight = 10.46953028649871R
-        '
-        'tableCell41
-        '
-        Me.tableCell41.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_BF")})
-        Me.tableCell41.Dpi = 254.0!
-        Me.tableCell41.Name = "tableCell41"
-        Me.tableCell41.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary1.FormatString = "{0:n2}"
-        XrSummary1.IgnoreNullValues = True
-        XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell41.Summary = XrSummary1
-        Me.tableCell41.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell41.Weight = 0.12996210005782782R
-        Me.tableCell41.WordWrap = False
-        '
-        'tableCell42
-        '
-        Me.tableCell42.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_ADD")})
-        Me.tableCell42.Dpi = 254.0!
-        Me.tableCell42.Name = "tableCell42"
-        Me.tableCell42.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary2.FormatString = "{0:n2}"
-        XrSummary2.IgnoreNullValues = True
-        XrSummary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell42.Summary = XrSummary2
-        Me.tableCell42.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell42.Weight = 0.12453066058304185R
-        Me.tableCell42.WordWrap = False
-        '
-        'tableCell43
-        '
-        Me.tableCell43.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_DISP")})
-        Me.tableCell43.Dpi = 254.0!
-        Me.tableCell43.Name = "tableCell43"
-        Me.tableCell43.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary3.FormatString = "{0:n2}"
-        XrSummary3.IgnoreNullValues = True
-        XrSummary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell43.Summary = XrSummary3
-        Me.tableCell43.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell43.Weight = 0.12273704836875726R
-        Me.tableCell43.WordWrap = False
-        '
-        'tableCell44
-        '
-        Me.tableCell44.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "QC_CF")})
-        Me.tableCell44.Dpi = 254.0!
-        Me.tableCell44.Name = "tableCell44"
-        Me.tableCell44.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary4.FormatString = "{0:n2}"
-        XrSummary4.IgnoreNullValues = True
-        XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell44.Summary = XrSummary4
-        Me.tableCell44.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell44.Weight = 0.12095213674343247R
-        Me.tableCell44.WordWrap = False
-        '
-        'tableCell45
-        '
-        Me.tableCell45.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_BF")})
-        Me.tableCell45.Dpi = 254.0!
-        Me.tableCell45.Name = "tableCell45"
-        Me.tableCell45.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary5.FormatString = "{0:n2}"
-        XrSummary5.IgnoreNullValues = True
-        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell45.Summary = XrSummary5
-        Me.tableCell45.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell45.Weight = 0.12273717745761425R
-        Me.tableCell45.WordWrap = False
-        '
-        'tableCell46
-        '
-        Me.tableCell46.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_ADD")})
-        Me.tableCell46.Dpi = 254.0!
-        Me.tableCell46.Name = "tableCell46"
-        Me.tableCell46.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary6.FormatString = "{0:n2}"
-        XrSummary6.IgnoreNullValues = True
-        XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell46.Summary = XrSummary6
-        Me.tableCell46.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell46.Weight = 0.12519916013774696R
-        Me.tableCell46.WordWrap = False
-        '
-        'tableCell47
-        '
-        Me.tableCell47.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_DISP")})
-        Me.tableCell47.Dpi = 254.0!
-        Me.tableCell47.Name = "tableCell47"
-        Me.tableCell47.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary7.FormatString = "{0:n2}"
-        XrSummary7.IgnoreNullValues = True
-        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell47.Summary = XrSummary7
-        Me.tableCell47.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell47.Weight = 0.1316202464256081R
-        Me.tableCell47.WordWrap = False
-        '
-        'tableCell48
-        '
-        Me.tableCell48.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_TOTAL")})
-        Me.tableCell48.Dpi = 254.0!
-        Me.tableCell48.Name = "tableCell48"
-        Me.tableCell48.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary8.IgnoreNullValues = True
-        XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell48.Summary = XrSummary8
-        Me.tableCell48.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell48.Weight = 0.12481860618739923R
-        Me.tableCell48.WordWrap = False
-        '
-        'tableCell49
-        '
-        Me.tableCell49.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_AI")})
-        Me.tableCell49.Dpi = 254.0!
-        Me.tableCell49.Name = "tableCell49"
-        Me.tableCell49.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary9.FormatString = "{0:n2}"
-        XrSummary9.IgnoreNullValues = True
-        XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell49.Summary = XrSummary9
-        Me.tableCell49.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell49.Weight = 0.13885375343481027R
-        Me.tableCell49.WordWrap = False
-        '
-        'tableCell50
-        '
-        Me.tableCell50.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_AA")})
-        Me.tableCell50.Dpi = 254.0!
-        Me.tableCell50.Name = "tableCell50"
-        Me.tableCell50.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary10.FormatString = "{0:n2}"
-        XrSummary10.IgnoreNullValues = True
-        XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell50.Summary = XrSummary10
-        Me.tableCell50.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell50.Weight = 0.1424405647790371R
-        Me.tableCell50.WordWrap = False
-        '
-        'tableCell51
-        '
-        Me.tableCell51.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TWDV_CF")})
-        Me.tableCell51.Dpi = 254.0!
-        Me.tableCell51.Name = "tableCell51"
-        Me.tableCell51.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary11.FormatString = "{0:n2}"
-        XrSummary11.IgnoreNullValues = True
-        XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell51.Summary = XrSummary11
-        Me.tableCell51.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        Me.tableCell51.Weight = 0.13706761546534421R
-        Me.tableCell51.WordWrap = False
         '
         'groupFooterBand3
         '
@@ -954,11 +1039,31 @@ Public Class rpt_CAByRate
         Me.groupFooterBand3.Name = "groupFooterBand3"
         Me.groupFooterBand3.StyleName = "ReportGroupFooterBandStyle"
         '
+        'XrLine2
+        '
+        Me.XrLine2.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine2.Dpi = 254.0!
+        Me.XrLine2.LineWidth = 6
+        Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 91.91655!)
+        Me.XrLine2.Name = "XrLine2"
+        Me.XrLine2.SizeF = New System.Drawing.SizeF(1679.58!, 30.03333!)
+        Me.XrLine2.StylePriority.UseBackColor = False
+        '
+        'XrLine1
+        '
+        Me.XrLine1.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine1.Dpi = 254.0!
+        Me.XrLine1.LineWidth = 3
+        Me.XrLine1.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 0.0!)
+        Me.XrLine1.Name = "XrLine1"
+        Me.XrLine1.SizeF = New System.Drawing.SizeF(1679.58!, 27.91664!)
+        Me.XrLine1.StylePriority.UseBackColor = False
+        '
         'table7
         '
         Me.table7.BackColor = System.Drawing.Color.Transparent
         Me.table7.Dpi = 254.0!
-        Me.table7.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table7.Font = New System.Drawing.Font("Times New Roman", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.table7.LocationFloat = New DevExpress.Utils.PointFloat(1136.421!, 27.91658!)
         Me.table7.Name = "table7"
         Me.table7.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow7})
@@ -979,10 +1084,10 @@ Public Class rpt_CAByRate
         Me.tableCell56.Dpi = 254.0!
         Me.tableCell56.Name = "tableCell56"
         Me.tableCell56.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary12.FormatString = "{0:n2}"
-        XrSummary12.IgnoreNullValues = True
-        XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell56.Summary = XrSummary12
+        XrSummary1.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary1.IgnoreNullValues = True
+        XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell56.Summary = XrSummary1
         Me.tableCell56.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell56.Weight = 0.1249823964752102R
         Me.tableCell56.WordWrap = False
@@ -993,10 +1098,10 @@ Public Class rpt_CAByRate
         Me.tableCell57.Dpi = 254.0!
         Me.tableCell57.Name = "tableCell57"
         Me.tableCell57.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary13.FormatString = "{0:n2}"
-        XrSummary13.IgnoreNullValues = True
-        XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell57.Summary = XrSummary13
+        XrSummary2.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary2.IgnoreNullValues = True
+        XrSummary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell57.Summary = XrSummary2
         Me.tableCell57.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell57.Weight = 0.11975907120140522R
         Me.tableCell57.WordWrap = False
@@ -1007,10 +1112,10 @@ Public Class rpt_CAByRate
         Me.tableCell58.Dpi = 254.0!
         Me.tableCell58.Name = "tableCell58"
         Me.tableCell58.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary14.FormatString = "{0:n2}"
-        XrSummary14.IgnoreNullValues = True
-        XrSummary14.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell58.Summary = XrSummary14
+        XrSummary3.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary3.IgnoreNullValues = True
+        XrSummary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell58.Summary = XrSummary3
         Me.tableCell58.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell58.Weight = 0.11803418407824579R
         Me.tableCell58.WordWrap = False
@@ -1021,10 +1126,10 @@ Public Class rpt_CAByRate
         Me.tableCell59.Dpi = 254.0!
         Me.tableCell59.Name = "tableCell59"
         Me.tableCell59.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary15.FormatString = "{0:n2}"
-        XrSummary15.IgnoreNullValues = True
-        XrSummary15.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell59.Summary = XrSummary15
+        XrSummary4.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary4.IgnoreNullValues = True
+        XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell59.Summary = XrSummary4
         Me.tableCell59.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell59.Weight = 0.11631766416720801R
         Me.tableCell59.WordWrap = False
@@ -1035,10 +1140,10 @@ Public Class rpt_CAByRate
         Me.tableCell60.Dpi = 254.0!
         Me.tableCell60.Name = "tableCell60"
         Me.tableCell60.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary16.FormatString = "{0:n2}"
-        XrSummary16.IgnoreNullValues = True
-        XrSummary16.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell60.Summary = XrSummary16
+        XrSummary5.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary5.IgnoreNullValues = True
+        XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell60.Summary = XrSummary5
         Me.tableCell60.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell60.Weight = 0.11803440753494937R
         Me.tableCell60.WordWrap = False
@@ -1049,10 +1154,10 @@ Public Class rpt_CAByRate
         Me.tableCell61.Dpi = 254.0!
         Me.tableCell61.Name = "tableCell61"
         Me.tableCell61.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary17.FormatString = "{0:n2}"
-        XrSummary17.IgnoreNullValues = True
-        XrSummary17.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell61.Summary = XrSummary17
+        XrSummary6.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary6.IgnoreNullValues = True
+        XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell61.Summary = XrSummary6
         Me.tableCell61.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell61.Weight = 0.12040185682340365R
         Me.tableCell61.WordWrap = False
@@ -1063,10 +1168,10 @@ Public Class rpt_CAByRate
         Me.tableCell62.Dpi = 254.0!
         Me.tableCell62.Name = "tableCell62"
         Me.tableCell62.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary18.FormatString = "{0:n2}"
-        XrSummary18.IgnoreNullValues = True
-        XrSummary18.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell62.Summary = XrSummary18
+        XrSummary7.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary7.IgnoreNullValues = True
+        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell62.Summary = XrSummary7
         Me.tableCell62.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell62.Weight = 0.12657700834020477R
         Me.tableCell62.WordWrap = False
@@ -1077,9 +1182,10 @@ Public Class rpt_CAByRate
         Me.tableCell63.Dpi = 254.0!
         Me.tableCell63.Name = "tableCell63"
         Me.tableCell63.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary19.IgnoreNullValues = True
-        XrSummary19.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell63.Summary = XrSummary19
+        XrSummary8.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary8.IgnoreNullValues = True
+        XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell63.Summary = XrSummary8
         Me.tableCell63.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell63.Weight = 0.12003618234231928R
         Me.tableCell63.WordWrap = False
@@ -1090,10 +1196,10 @@ Public Class rpt_CAByRate
         Me.tableCell64.Dpi = 254.0!
         Me.tableCell64.Name = "tableCell64"
         Me.tableCell64.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary20.FormatString = "{0:n2}"
-        XrSummary20.IgnoreNullValues = True
-        XrSummary20.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell64.Summary = XrSummary20
+        XrSummary9.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary9.IgnoreNullValues = True
+        XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell64.Summary = XrSummary9
         Me.tableCell64.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell64.Weight = 0.13353335207832567R
         Me.tableCell64.WordWrap = False
@@ -1104,10 +1210,10 @@ Public Class rpt_CAByRate
         Me.tableCell65.Dpi = 254.0!
         Me.tableCell65.Name = "tableCell65"
         Me.tableCell65.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary21.FormatString = "{0:n2}"
-        XrSummary21.IgnoreNullValues = True
-        XrSummary21.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell65.Summary = XrSummary21
+        XrSummary10.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary10.IgnoreNullValues = True
+        XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell65.Summary = XrSummary10
         Me.tableCell65.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell65.Weight = 0.13698332495282534R
         Me.tableCell65.WordWrap = False
@@ -1118,10 +1224,10 @@ Public Class rpt_CAByRate
         Me.tableCell66.Dpi = 254.0!
         Me.tableCell66.Name = "tableCell66"
         Me.tableCell66.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary22.FormatString = "{0:n2}"
-        XrSummary22.IgnoreNullValues = True
-        XrSummary22.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.tableCell66.Summary = XrSummary22
+        XrSummary11.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary11.IgnoreNullValues = True
+        XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.tableCell66.Summary = XrSummary11
         Me.tableCell66.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell66.Weight = 0.13181485829973988R
         Me.tableCell66.WordWrap = False
@@ -1134,12 +1240,45 @@ Public Class rpt_CAByRate
         Me.reportFooterBand1.Name = "reportFooterBand1"
         Me.reportFooterBand1.StyleName = "ReportFooterBandStyle"
         '
+        'XrLabel6
+        '
+        Me.XrLabel6.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel6.Dpi = 254.0!
+        Me.XrLabel6.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(11.1125!, 52.91654!)
+        Me.XrLabel6.Name = "XrLabel6"
+        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel6.SizeF = New System.Drawing.SizeF(182.5625!, 63.99995!)
+        Me.XrLabel6.StylePriority.UseBackColor = False
+        Me.XrLabel6.StylePriority.UseFont = False
+        Me.XrLabel6.Text = "TOTAL"
+        '
+        'XrLine5
+        '
+        Me.XrLine5.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine5.Dpi = 254.0!
+        Me.XrLine5.LineWidth = 6
+        Me.XrLine5.LocationFloat = New DevExpress.Utils.PointFloat(1136.421!, 116.9166!)
+        Me.XrLine5.Name = "XrLine5"
+        Me.XrLine5.SizeF = New System.Drawing.SizeF(1679.58!, 30.03333!)
+        Me.XrLine5.StylePriority.UseBackColor = False
+        '
+        'XrLine4
+        '
+        Me.XrLine4.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine4.Dpi = 254.0!
+        Me.XrLine4.LineWidth = 3
+        Me.XrLine4.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 24.99993!)
+        Me.XrLine4.Name = "XrLine4"
+        Me.XrLine4.SizeF = New System.Drawing.SizeF(1679.58!, 27.91664!)
+        Me.XrLine4.StylePriority.UseBackColor = False
+        '
         'table8
         '
         Me.table8.BackColor = System.Drawing.Color.Transparent
         Me.table8.Dpi = 254.0!
-        Me.table8.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table8.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 66.14584!)
+        Me.table8.Font = New System.Drawing.Font("Times New Roman", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table8.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 52.91657!)
         Me.table8.Name = "table8"
         Me.table8.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow8})
         Me.table8.SizeF = New System.Drawing.SizeF(1679.58!, 64.0!)
@@ -1159,10 +1298,10 @@ Public Class rpt_CAByRate
         Me.tableCell71.Dpi = 254.0!
         Me.tableCell71.Name = "tableCell71"
         Me.tableCell71.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary23.FormatString = "{0:n2}"
-        XrSummary23.IgnoreNullValues = True
-        XrSummary23.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell71.Summary = XrSummary23
+        XrSummary12.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary12.IgnoreNullValues = True
+        XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell71.Summary = XrSummary12
         Me.tableCell71.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell71.Weight = 0.12398591317468616R
         Me.tableCell71.WordWrap = False
@@ -1173,10 +1312,10 @@ Public Class rpt_CAByRate
         Me.tableCell72.Dpi = 254.0!
         Me.tableCell72.Name = "tableCell72"
         Me.tableCell72.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary24.FormatString = "{0:n2}"
-        XrSummary24.IgnoreNullValues = True
-        XrSummary24.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell72.Summary = XrSummary24
+        XrSummary13.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary13.IgnoreNullValues = True
+        XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell72.Summary = XrSummary13
         Me.tableCell72.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell72.Weight = 0.11880413177490595R
         Me.tableCell72.WordWrap = False
@@ -1187,10 +1326,10 @@ Public Class rpt_CAByRate
         Me.tableCell73.Dpi = 254.0!
         Me.tableCell73.Name = "tableCell73"
         Me.tableCell73.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary25.FormatString = "{0:n2}"
-        XrSummary25.IgnoreNullValues = True
-        XrSummary25.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell73.Summary = XrSummary25
+        XrSummary14.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary14.IgnoreNullValues = True
+        XrSummary14.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell73.Summary = XrSummary14
         Me.tableCell73.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell73.Weight = 0.11709348873955303R
         Me.tableCell73.WordWrap = False
@@ -1201,10 +1340,10 @@ Public Class rpt_CAByRate
         Me.tableCell74.Dpi = 254.0!
         Me.tableCell74.Name = "tableCell74"
         Me.tableCell74.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary26.FormatString = "{0:n2}"
-        XrSummary26.IgnoreNullValues = True
-        XrSummary26.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell74.Summary = XrSummary26
+        XrSummary15.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary15.IgnoreNullValues = True
+        XrSummary15.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell74.Summary = XrSummary15
         Me.tableCell74.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell74.Weight = 0.11539023487817077R
         Me.tableCell74.WordWrap = False
@@ -1215,10 +1354,10 @@ Public Class rpt_CAByRate
         Me.tableCell75.Dpi = 254.0!
         Me.tableCell75.Name = "tableCell75"
         Me.tableCell75.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary27.FormatString = "{0:n2}"
-        XrSummary27.IgnoreNullValues = True
-        XrSummary27.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell75.Summary = XrSummary27
+        XrSummary16.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary16.IgnoreNullValues = True
+        XrSummary16.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell75.Summary = XrSummary16
         Me.tableCell75.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell75.Weight = 0.11709329169491386R
         Me.tableCell75.WordWrap = False
@@ -1229,10 +1368,10 @@ Public Class rpt_CAByRate
         Me.tableCell76.Dpi = 254.0!
         Me.tableCell76.Name = "tableCell76"
         Me.tableCell76.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary28.FormatString = "{0:n2}"
-        XrSummary28.IgnoreNullValues = True
-        XrSummary28.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell76.Summary = XrSummary28
+        XrSummary17.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary17.IgnoreNullValues = True
+        XrSummary17.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell76.Summary = XrSummary17
         Me.tableCell76.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell76.Weight = 0.11944196527204781R
         Me.tableCell76.WordWrap = False
@@ -1243,10 +1382,10 @@ Public Class rpt_CAByRate
         Me.tableCell77.Dpi = 254.0!
         Me.tableCell77.Name = "tableCell77"
         Me.tableCell77.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary29.FormatString = "{0:n2}"
-        XrSummary29.IgnoreNullValues = True
-        XrSummary29.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell77.Summary = XrSummary29
+        XrSummary18.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary18.IgnoreNullValues = True
+        XrSummary18.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell77.Summary = XrSummary18
         Me.tableCell77.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell77.Weight = 0.12556787374534115R
         Me.tableCell77.WordWrap = False
@@ -1257,9 +1396,10 @@ Public Class rpt_CAByRate
         Me.tableCell78.Dpi = 254.0!
         Me.tableCell78.Name = "tableCell78"
         Me.tableCell78.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary30.IgnoreNullValues = True
-        XrSummary30.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell78.Summary = XrSummary30
+        XrSummary19.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary19.IgnoreNullValues = True
+        XrSummary19.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell78.Summary = XrSummary19
         Me.tableCell78.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell78.Weight = 0.11907939082060061R
         Me.tableCell78.WordWrap = False
@@ -1270,10 +1410,10 @@ Public Class rpt_CAByRate
         Me.tableCell79.Dpi = 254.0!
         Me.tableCell79.Name = "tableCell79"
         Me.tableCell79.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary31.FormatString = "{0:n2}"
-        XrSummary31.IgnoreNullValues = True
-        XrSummary31.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell79.Summary = XrSummary31
+        XrSummary20.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary20.IgnoreNullValues = True
+        XrSummary20.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell79.Summary = XrSummary20
         Me.tableCell79.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell79.Weight = 0.13246857405532136R
         Me.tableCell79.WordWrap = False
@@ -1284,10 +1424,10 @@ Public Class rpt_CAByRate
         Me.tableCell80.Dpi = 254.0!
         Me.tableCell80.Name = "tableCell80"
         Me.tableCell80.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary32.FormatString = "{0:n2}"
-        XrSummary32.IgnoreNullValues = True
-        XrSummary32.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell80.Summary = XrSummary32
+        XrSummary21.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary21.IgnoreNullValues = True
+        XrSummary21.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell80.Summary = XrSummary21
         Me.tableCell80.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell80.Weight = 0.13589005717066638R
         Me.tableCell80.WordWrap = False
@@ -1298,10 +1438,10 @@ Public Class rpt_CAByRate
         Me.tableCell81.Dpi = 254.0!
         Me.tableCell81.Name = "tableCell81"
         Me.tableCell81.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary33.FormatString = "{0:n2}"
-        XrSummary33.IgnoreNullValues = True
-        XrSummary33.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell81.Summary = XrSummary33
+        XrSummary22.FormatString = "{0:#,# ;(#,#); }"
+        XrSummary22.IgnoreNullValues = True
+        XrSummary22.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell81.Summary = XrSummary22
         Me.tableCell81.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell81.Weight = 0.13076533250922906R
         Me.tableCell81.WordWrap = False
@@ -1371,35 +1511,6 @@ Public Class rpt_CAByRate
         Me.DsCA.DataSetName = "dsCA"
         Me.DsCA.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'tableCell4
-        '
-        Me.tableCell4.BackColor = System.Drawing.Color.Transparent
-        Me.tableCell4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_PURCHASE_YEAR")})
-        Me.tableCell4.Dpi = 254.0!
-        Me.tableCell4.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tableCell4.Name = "tableCell4"
-        Me.tableCell4.StylePriority.UseBackColor = False
-        Me.tableCell4.StylePriority.UseFont = False
-        Me.tableCell4.Weight = 1.8949707245102714R
-        Me.tableCell4.WordWrap = False
-        '
-        'tableRow2
-        '
-        Me.tableRow2.Cells.AddRange(New DevExpress.XtraReports.UI.XRTableCell() {Me.tableCell4})
-        Me.tableRow2.Dpi = 254.0!
-        Me.tableRow2.Name = "tableRow2"
-        Me.tableRow2.Weight = 10.46953028649871R
-        '
-        'table2
-        '
-        Me.table2.Dpi = 254.0!
-        Me.table2.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
-        Me.table2.Name = "table2"
-        Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow2})
-        Me.table2.SizeF = New System.Drawing.SizeF(2816.0!, 64.0!)
-        Me.table2.StylePriority.UseFont = False
-        '
         'PageFooter
         '
         Me.PageFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrPageInfo1})
@@ -1413,152 +1524,8 @@ Public Class rpt_CAByRate
         Me.XrPageInfo1.Format = "Page {0} / {1}"
         Me.XrPageInfo1.LocationFloat = New DevExpress.Utils.PointFloat(2562.0!, 24.99993!)
         Me.XrPageInfo1.Name = "XrPageInfo1"
-        Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
+        Me.XrPageInfo1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
         Me.XrPageInfo1.SizeF = New System.Drawing.SizeF(254.0!, 58.42!)
-        '
-        'XrLine4
-        '
-        Me.XrLine4.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine4.Dpi = 254.0!
-        Me.XrLine4.LineWidth = 3
-        Me.XrLine4.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 24.99993!)
-        Me.XrLine4.Name = "XrLine4"
-        Me.XrLine4.SizeF = New System.Drawing.SizeF(1679.58!, 27.91664!)
-        Me.XrLine4.StylePriority.UseBackColor = False
-        '
-        'XrLine5
-        '
-        Me.XrLine5.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine5.Dpi = 254.0!
-        Me.XrLine5.LineWidth = 6
-        Me.XrLine5.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 130.1458!)
-        Me.XrLine5.Name = "XrLine5"
-        Me.XrLine5.SizeF = New System.Drawing.SizeF(1679.58!, 30.03333!)
-        Me.XrLine5.StylePriority.UseBackColor = False
-        '
-        'XrLine1
-        '
-        Me.XrLine1.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine1.Dpi = 254.0!
-        Me.XrLine1.LineWidth = 3
-        Me.XrLine1.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 0.0!)
-        Me.XrLine1.Name = "XrLine1"
-        Me.XrLine1.SizeF = New System.Drawing.SizeF(1679.58!, 27.91664!)
-        Me.XrLine1.StylePriority.UseBackColor = False
-        '
-        'XrLine2
-        '
-        Me.XrLine2.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine2.Dpi = 254.0!
-        Me.XrLine2.LineWidth = 6
-        Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 91.91655!)
-        Me.XrLine2.Name = "XrLine2"
-        Me.XrLine2.SizeF = New System.Drawing.SizeF(1679.58!, 30.03333!)
-        Me.XrLine2.StylePriority.UseBackColor = False
-        '
-        'XrLine3
-        '
-        Me.XrLine3.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine3.Dpi = 254.0!
-        Me.XrLine3.LineWidth = 3
-        Me.XrLine3.LocationFloat = New DevExpress.Utils.PointFloat(1136.42!, 0.0!)
-        Me.XrLine3.Name = "XrLine3"
-        Me.XrLine3.SizeF = New System.Drawing.SizeF(1679.581!, 27.91664!)
-        Me.XrLine3.StylePriority.UseBackColor = False
-        '
-        'XrLabel1
-        '
-        Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel1.Dpi = 254.0!
-        Me.XrLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(760.7147!, 25.00001!)
-        Me.XrLabel1.Name = "XrLabel1"
-        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel1.SizeF = New System.Drawing.SizeF(137.5833!, 58.41999!)
-        Me.XrLabel1.StylePriority.UseBackColor = False
-        Me.XrLabel1.StylePriority.UseFont = False
-        Me.XrLabel1.Text = "NAME :"
-        '
-        'XrLabel3
-        '
-        Me.XrLabel3.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel3.Dpi = 254.0!
-        Me.XrLabel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(760.7119!, 181.8217!)
-        Me.XrLabel3.Name = "XrLabel3"
-        Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel3.SizeF = New System.Drawing.SizeF(1294.576!, 58.42001!)
-        Me.XrLabel3.StylePriority.UseBackColor = False
-        Me.XrLabel3.StylePriority.UseFont = False
-        Me.XrLabel3.StylePriority.UseTextAlignment = False
-        Me.XrLabel3.Text = "SCHEDULE OF CAPITAL ALLOWANCES"
-        Me.XrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
-        '
-        'XrLabel2
-        '
-        Me.XrLabel2.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel2.Dpi = 254.0!
-        Me.XrLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(760.7147!, 102.235!)
-        Me.XrLabel2.Name = "XrLabel2"
-        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel2.SizeF = New System.Drawing.SizeF(939.2714!, 58.42!)
-        Me.XrLabel2.StylePriority.UseBackColor = False
-        Me.XrLabel2.StylePriority.UseFont = False
-        Me.XrLabel2.Text = "INCOME TAX COMPUTATION - YEAR OF ASSESSMENT "
-        '
-        'XrLabel6
-        '
-        Me.XrLabel6.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel6.Dpi = 254.0!
-        Me.XrLabel6.Font = New System.Drawing.Font("Times New Roman", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(13.22917!, 66.14584!)
-        Me.XrLabel6.Name = "XrLabel6"
-        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel6.SizeF = New System.Drawing.SizeF(182.5625!, 63.99995!)
-        Me.XrLabel6.StylePriority.UseBackColor = False
-        Me.XrLabel6.StylePriority.UseFont = False
-        Me.XrLabel6.Text = "TOTAL"
-        '
-        'paramCompanyName
-        '
-        Me.paramCompanyName.Description = "paramCompanyName"
-        Me.paramCompanyName.Name = "paramCompanyName"
-        '
-        'paramYA
-        '
-        Me.paramYA.Description = "paramYA"
-        Me.paramYA.Name = "paramYA"
-        Me.paramYA.Type = GetType(Integer)
-        Me.paramYA.ValueInfo = "0"
-        '
-        'XrLabel4
-        '
-        Me.XrLabel4.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel4.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramYA, "Text", "")})
-        Me.XrLabel4.Dpi = 254.0!
-        Me.XrLabel4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(1699.986!, 102.235!)
-        Me.XrLabel4.Name = "XrLabel4"
-        Me.XrLabel4.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel4.SizeF = New System.Drawing.SizeF(254.0!, 58.42!)
-        Me.XrLabel4.StylePriority.UseBackColor = False
-        Me.XrLabel4.StylePriority.UseFont = False
-        Me.XrLabel4.Text = "XrLabel4"
-        '
-        'XrLabel5
-        '
-        Me.XrLabel5.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel5.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCompanyName, "Text", "")})
-        Me.XrLabel5.Dpi = 254.0!
-        Me.XrLabel5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(898.298!, 25.00001!)
-        Me.XrLabel5.Name = "XrLabel5"
-        Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel5.SizeF = New System.Drawing.SizeF(1156.99!, 58.42!)
-        Me.XrLabel5.StylePriority.UseBackColor = False
-        Me.XrLabel5.StylePriority.UseFont = False
-        Me.XrLabel5.Text = "XrLabel5"
         '
         'rpt_CAByRate
         '
@@ -1576,14 +1543,13 @@ Public Class rpt_CAByRate
         Me.SnapGridSize = 25.0!
         Me.StyleSheet.AddRange(New DevExpress.XtraReports.UI.XRControlStyle() {Me.ReportHeaderBandStyle, Me.ReportGroupHeaderBandStyle, Me.ReportDetailBandStyle, Me.ReportGroupFooterBandStyle, Me.ReportFooterBandStyle, Me.ReportOddStyle, Me.ReportEvenStyle})
         Me.Version = "17.1"
+        CType(Me.table2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.table6, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table7, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.table8, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.CAREPORTTEMPBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsCA, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.table2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub

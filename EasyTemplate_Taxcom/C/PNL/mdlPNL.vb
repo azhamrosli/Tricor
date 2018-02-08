@@ -3722,7 +3722,7 @@ Module mdlPNL
             col.OptionsColumn.TabStop = False
             GridView1.Columns.Add(col)
 
-            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "inv", Errorlog)
+            dt = ADO.Load_interestRestricSchedule(RefNo, YA, SourceNo, "inv", Errorlog)
 
             If dt IsNot Nothing Then
 
@@ -3785,7 +3785,7 @@ Module mdlPNL
             col.FieldName = "TotalIncProInv"
             GridView1.Columns.Add(col)
 
-            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "invNon", Errorlog)
+            dt = ADO.Load_interestRestricSchedule(RefNo, YA, SourceNo, "invNon", Errorlog)
 
             If dt IsNot Nothing Then
                 For Each row As DataRow In dt.Rows
@@ -3878,7 +3878,7 @@ Module mdlPNL
             GridView1.Columns.Add(col)
 
 
-            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Borr", Errorlog)
+            dt = ADO.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Borr", Errorlog)
 
             If dt IsNot Nothing Then
                 For Each row As DataRow In dt.Rows
@@ -3942,7 +3942,7 @@ Module mdlPNL
             col.FieldName = "TotalBorr"
             GridView1.Columns.Add(col)
 
-            dt = mdlProcess.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Interest", Errorlog)
+            dt = ADO.Load_interestRestricSchedule(RefNo, YA, SourceNo, "Interest", Errorlog)
 
             If dt IsNot Nothing Then
                 For Each row As DataRow In dt.Rows
@@ -4101,10 +4101,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4115,10 +4115,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4157,10 +4157,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4171,10 +4171,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4213,10 +4213,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4227,10 +4227,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4269,10 +4269,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4283,10 +4283,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4325,10 +4325,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4339,10 +4339,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4382,10 +4382,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4396,10 +4396,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4439,10 +4439,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4453,10 +4453,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4495,10 +4495,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4509,10 +4509,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4551,10 +4551,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4565,10 +4565,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4607,10 +4607,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4621,10 +4621,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4663,10 +4663,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4677,10 +4677,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4719,10 +4719,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4733,10 +4733,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4775,10 +4775,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4789,10 +4789,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4889,7 +4889,7 @@ Module mdlPNL
                                             dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4903,7 +4903,7 @@ Module mdlPNL
                                         dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4945,7 +4945,7 @@ Module mdlPNL
                                             dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -4959,7 +4959,7 @@ Module mdlPNL
                                         dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -4999,10 +4999,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5013,10 +5013,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5056,10 +5056,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5070,10 +5070,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5112,10 +5112,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5126,10 +5126,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5172,7 +5172,7 @@ Module mdlPNL
                                             dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5186,7 +5186,7 @@ Module mdlPNL
                                         dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5228,7 +5228,7 @@ Module mdlPNL
                                             dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5242,7 +5242,7 @@ Module mdlPNL
                                         dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5281,10 +5281,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5298,7 +5298,7 @@ Module mdlPNL
                                         dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5338,10 +5338,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5352,10 +5352,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5394,10 +5394,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5408,10 +5408,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5450,10 +5450,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5464,10 +5464,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5506,10 +5506,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5520,10 +5520,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5562,10 +5562,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5576,10 +5576,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5618,10 +5618,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5632,10 +5632,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5675,10 +5675,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5689,10 +5689,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5732,10 +5732,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5746,10 +5746,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5789,10 +5789,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5803,10 +5803,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 
@@ -5846,10 +5846,10 @@ Module mdlPNL
                                             dtRow("ID") = IIf(IsDBNull(detailsrows(uc.MainKey_Details)), 0, detailsrows(uc.MainKey_Details))
                                             dtRow("KeyName") = uc.Parent.Name
                                             dtRow("Description") = IIf(IsDBNull(detailsrows(uc.MainDetails_Desc)), "", detailsrows(uc.MainDetails_Desc))
-                                            dtRow("Amount") = IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                             dtRow("TitleKeyName") = uc.Parent.Text
                                             dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                            NonAllowableExpenses += IIf(IsDBNull(detailsrows(uc.MainAmount_Details)), 0, detailsrows(uc.MainAmount_Details))
+                                            NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         End If
 
                                     Next
@@ -5860,10 +5860,10 @@ Module mdlPNL
                                         dtRow("ID") = IIf(IsDBNull(rows(uc.MainKey)), 0, rows(uc.MainKey))
                                         dtRow("KeyName") = uc.Parent.Name
                                         dtRow("Description") = IIf(IsDBNull(rows(uc.Main_Desc)), "", rows(uc.Main_Desc))
-                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        dtRow("Amount") = IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                         dtRow("TitleKeyName") = uc.Parent.Text
                                         dsNonAllowableExpenses.Tables("NonAllowable_Expenses").Rows.Add(dtRow)
-                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainAmount)), 0, rows(uc.MainAmount))
+                                        NonAllowableExpenses += IIf(IsDBNull(rows(uc.MainColumn_PercentageAmount)), 0, rows(uc.MainColumn_PercentageAmount))
                                     End If
                                 End If
 

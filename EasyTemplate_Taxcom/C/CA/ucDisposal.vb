@@ -37,7 +37,7 @@
                 tmpType = cboFilterType.SelectedIndex
             End If
 
-            Dim dt As DataTable = mdlProcess.LoadCA_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadCA_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
 
             DsCA.Tables("CA_DISPOSAL").Rows.Clear()
             DsCA.Tables("CA").Rows.Clear()
@@ -49,7 +49,7 @@
 
             Dim dtDisposal As DataTable = Nothing
             For i As Integer = 0 To dt.Rows.Count - 1
-                dtDisposal = mdlProcess.Load_DISPOSAL_BY_CA_KEY(IIf(IsDBNull(dt.Rows(i)("CA_KEY")), 0, dt.Rows(i)("CA_KEY")))
+                dtDisposal = ADO.Load_DISPOSAL_BY_CA_KEY(IIf(IsDBNull(dt.Rows(i)("CA_KEY")), 0, dt.Rows(i)("CA_KEY")))
 
                 If dtDisposal IsNot Nothing Then
                     DsCA.Tables("CA").ImportRow(dt.Rows(i))
@@ -125,13 +125,13 @@
             cboFilterType.SelectedIndex = 0
             Application.DoEvents()
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If

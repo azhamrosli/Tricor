@@ -48,6 +48,7 @@ Public Class rpt_DeemedInterest
         Me.tableCell2 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell3 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell4 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
         Me.detailBand1 = New DevExpress.XtraReports.UI.DetailBand()
         Me.table2 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow2 = New DevExpress.XtraReports.UI.XRTableRow()
@@ -55,7 +56,10 @@ Public Class rpt_DeemedInterest
         Me.tableCell6 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell7 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell8 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
         Me.reportFooterBand1 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
+        Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
         Me.table3 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow3 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.tableCell12 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -69,10 +73,6 @@ Public Class rpt_DeemedInterest
         Me.ReportEvenStyle = New DevExpress.XtraReports.UI.XRControlStyle()
         Me.DEEMEDINTERESTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsTaxcomputation = New EasyTemplate_Taxcom.dsTaxcomputation()
-        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
         CType(Me.table1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -148,6 +148,19 @@ Public Class rpt_DeemedInterest
         Me.tableCell4.Text = "Amount" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RM"
         Me.tableCell4.Weight = 0.39132442770000775R
         '
+        'XrLabel1
+        '
+        Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel1.Dpi = 254.0!
+        Me.XrLabel1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 13.12335!)
+        Me.XrLabel1.Name = "XrLabel1"
+        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel1.SizeF = New System.Drawing.SizeF(1801.813!, 58.42!)
+        Me.XrLabel1.StylePriority.UseBackColor = False
+        Me.XrLabel1.StylePriority.UseFont = False
+        Me.XrLabel1.Text = "Computation of Deemed Interest Income from Advances to Director"
+        '
         'detailBand1
         '
         Me.detailBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table2, Me.XrLabel2})
@@ -212,6 +225,15 @@ Public Class rpt_DeemedInterest
         Me.tableCell8.Weight = 0.39132444280233747R
         Me.tableCell8.WordWrap = False
         '
+        'XrLabel2
+        '
+        Me.XrLabel2.Dpi = 254.0!
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(1857.375!, 0.0!)
+        Me.XrLabel2.Name = "XrLabel2"
+        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel2.SizeF = New System.Drawing.SizeF(866.625!, 58.42!)
+        Me.XrLabel2.Text = "[ie. 1/12 x RM[MONTHLY_BASIS] x [AVR_LEND_RATE]%]"
+        '
         'reportFooterBand1
         '
         Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine2, Me.XrLine1, Me.table3})
@@ -219,6 +241,26 @@ Public Class rpt_DeemedInterest
         Me.reportFooterBand1.HeightF = 119.5625!
         Me.reportFooterBand1.Name = "reportFooterBand1"
         Me.reportFooterBand1.StyleName = "ReportFooterBandStyle"
+        '
+        'XrLine2
+        '
+        Me.XrLine2.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine2.Dpi = 254.0!
+        Me.XrLine2.LineWidth = 5
+        Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(1553.929!, 82.52084!)
+        Me.XrLine2.Name = "XrLine2"
+        Me.XrLine2.SizeF = New System.Drawing.SizeF(303.446!, 13.22917!)
+        Me.XrLine2.StylePriority.UseBackColor = False
+        '
+        'XrLine1
+        '
+        Me.XrLine1.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine1.Dpi = 254.0!
+        Me.XrLine1.LineWidth = 3
+        Me.XrLine1.LocationFloat = New DevExpress.Utils.PointFloat(1553.929!, 5.291667!)
+        Me.XrLine1.Name = "XrLine1"
+        Me.XrLine1.SizeF = New System.Drawing.SizeF(303.446!, 13.22917!)
+        Me.XrLine1.StylePriority.UseBackColor = False
         '
         'table3
         '
@@ -317,48 +359,6 @@ Public Class rpt_DeemedInterest
         '
         Me.DsTaxcomputation.DataSetName = "dsTaxcomputation"
         Me.DsTaxcomputation.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'XrLabel1
-        '
-        Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel1.Dpi = 254.0!
-        Me.XrLabel1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 13.12335!)
-        Me.XrLabel1.Name = "XrLabel1"
-        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel1.SizeF = New System.Drawing.SizeF(1801.813!, 58.42!)
-        Me.XrLabel1.StylePriority.UseBackColor = False
-        Me.XrLabel1.StylePriority.UseFont = False
-        Me.XrLabel1.Text = "Computation of Deemed Interest Income form Advances to Director"
-        '
-        'XrLabel2
-        '
-        Me.XrLabel2.Dpi = 254.0!
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(1857.375!, 0.0!)
-        Me.XrLabel2.Name = "XrLabel2"
-        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel2.SizeF = New System.Drawing.SizeF(866.625!, 58.42!)
-        Me.XrLabel2.Text = "[ie. 1/2 x RM[MONTHLY_BASIS] x [AVR_LEND_RATE]%]"
-        '
-        'XrLine1
-        '
-        Me.XrLine1.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine1.Dpi = 254.0!
-        Me.XrLine1.LineWidth = 3
-        Me.XrLine1.LocationFloat = New DevExpress.Utils.PointFloat(1553.929!, 5.291667!)
-        Me.XrLine1.Name = "XrLine1"
-        Me.XrLine1.SizeF = New System.Drawing.SizeF(303.446!, 13.22917!)
-        Me.XrLine1.StylePriority.UseBackColor = False
-        '
-        'XrLine2
-        '
-        Me.XrLine2.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine2.Dpi = 254.0!
-        Me.XrLine2.LineWidth = 5
-        Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(1553.929!, 82.52084!)
-        Me.XrLine2.Name = "XrLine2"
-        Me.XrLine2.SizeF = New System.Drawing.SizeF(303.446!, 13.22917!)
-        Me.XrLine2.StylePriority.UseBackColor = False
         '
         'rpt_DeemedInterest
         '

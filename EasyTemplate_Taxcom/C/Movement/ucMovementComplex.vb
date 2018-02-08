@@ -16,13 +16,13 @@ Public Class ucMovementComplex
 
             Dim tmpType As Integer = -1
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -43,7 +43,7 @@ Public Class ucMovementComplex
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.Load_MovementComplex_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
             DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
@@ -153,7 +153,7 @@ Public Class ucMovementComplex
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_MovementComplex(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
+                    If ADO.Delete_MovementComplex(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -195,7 +195,7 @@ Public Class ucMovementComplex
                 Dim dtChild As DataTable = Nothing
                 Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
 
-                dt = mdlProcess.Load_MovementComplex(ID, ErrorLog)
+                dt = ADO.Load_MovementComplex(ID, ErrorLog)
 
                 DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
@@ -212,7 +212,7 @@ Public Class ucMovementComplex
                     DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
                 Next
 
-                dt = mdlProcess.Load_MovementComplex_Add(ID, ErrorLog)
+                dt = ADO.Load_MovementComplex_Add(ID, ErrorLog)
 
                 If dt IsNot Nothing Then
                     For i As Integer = 0 To dt.Rows.Count - 1
@@ -220,7 +220,7 @@ Public Class ucMovementComplex
                     Next
                 End If
                 Application.DoEvents()
-                dt = mdlProcess.Load_MovementComplex_Deduct(ID, ErrorLog)
+                dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
 
                 If dt IsNot Nothing Then
                     For i As Integer = 0 To dt.Rows.Count - 1
@@ -229,7 +229,7 @@ Public Class ucMovementComplex
                 End If
 
                 Dim rpt As New rptMovementComplex
-                rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
+                rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
                 rpt.DataSource = DsMovement.Tables("MOVEMENT_COMPLEX")
 
                 rpt.ShowPreview()

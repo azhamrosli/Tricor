@@ -17,13 +17,13 @@ Public Class frmCP204_PenaltyLate
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -72,7 +72,7 @@ Public Class frmCP204_PenaltyLate
                 Exit Sub
             End If
 
-            Dim dt As DataTable = mdlProcess.LoadTaxPayer_ByRefNO(cboRefNo.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadTaxPayer_ByRefNO(cboRefNo.EditValue, ErrorLog)
 
             If dt IsNot Nothing Then
 

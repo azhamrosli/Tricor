@@ -11,7 +11,7 @@
             txtPCName.EditValue = My.Computer.Name
 
 
-            Dim dt As DataTable = mdlProcess.Load_UserNote()
+            Dim dt As DataTable = ADO.Load_UserNote()
 
             If dt Is Nothing Then
                 isEdit = False
@@ -49,14 +49,14 @@
         Try
             Dim tmpID As Decimal = 0
             If isEdit = True Then
-                If mdlProcess.Update_UserNote(txtName.EditValue, txtNote.EditValue, ID, Errorlog) Then
+                If ADO.Update_UserNote(txtName.EditValue, txtNote.EditValue, ID, Errorlog) Then
                     MsgBox("Succesfully updated note.", MsgBoxStyle.Information)
                     Me.LoadData()
                 Else
                     MsgBox("Unsuccesfully update note.", MsgBoxStyle.Critical)
                 End If
             Else
-                If mdlProcess.Save_UserNote(txtName.EditValue, txtNote.EditValue, tmpID, Errorlog) Then
+                If ADO.Save_UserNote(txtName.EditValue, txtNote.EditValue, tmpID, Errorlog) Then
                     MsgBox("Succesfully saved note.", MsgBoxStyle.Information)
                     isEdit = True
                     ID = tmpID

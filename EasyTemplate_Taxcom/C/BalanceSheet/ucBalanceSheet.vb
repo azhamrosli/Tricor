@@ -28,13 +28,13 @@ Public Class ucBalanceSheet
 
             Dim tmpType As Integer = -1
 
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -55,7 +55,7 @@ Public Class ucBalanceSheet
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_BalanceSheet_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.Load_BalanceSheet_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             DsBalanceSheet.Tables("BALANCE_SHEET").Clear()
             If dt Is Nothing Then
@@ -162,7 +162,7 @@ Public Class ucBalanceSheet
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_BalanceSheet(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("BS_KEY")), ErrorLog) = False Then
+                    If ADO.Delete_BalanceSheet(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("BS_KEY")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If

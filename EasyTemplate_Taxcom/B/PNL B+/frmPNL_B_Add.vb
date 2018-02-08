@@ -44,12 +44,12 @@ Public Class frmPNL_B_Add
         Try
 
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Failed to load tax payer." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Me.Close()
             End If
             Application.DoEvents()
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog) = False Then
                 MsgBox("Failed to load ya." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Me.Close()
             End If

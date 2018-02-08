@@ -15,8 +15,8 @@ Public Class frmPNL_Migration
     Public Function LoadData(Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
 
-            Dim dtListofable As DataTable = mdlProcess.Load_PNL_GETTableList(Errorlog)
-            Dim dtListofPNL As DataTable = mdlProcess.LoadPNL_Search("", "", Errorlog)
+            Dim dtListofable As DataTable = ADO.Load_PNL_GETTableList(Errorlog)
+            Dim dtListofPNL As DataTable = ADO.LoadPNL_Search("", "", Errorlog)
             Dim dtData As DataTable = Nothing
             Dim dtDataDetails As DataTable = Nothing
 
@@ -38,7 +38,7 @@ Public Class frmPNL_Migration
                         SQLcmd = New SqlCommand
                         SQLcmd.CommandText = "SELECT * FROM " & TableName
 
-                        dtData = mdlProcess.Load_SQLCmd(SQLcmd, Errorlog)
+                        dtData = ADO.Load_SQLCmd(SQLcmd, Errorlog)
 
                         If dtData IsNot Nothing Then
 
@@ -52,7 +52,7 @@ Public Class frmPNL_Migration
                                     SQLcmd = New SqlCommand
                                     SQLcmd.CommandText = "SELECT * FROM " & TableNameDetails & "WHERE " & ColumnNameDetails & "=" & IIf(IsDBNull(dtData(ColumnName)), 0, dtData(ColumnName))
 
-                                    dtDataDetails = mdlProcess.Load_SQLCmd(SQLcmd, Errorlog)
+                                    dtDataDetails = ADO.Load_SQLCmd(SQLcmd, Errorlog)
 
                                     If dtDataDetails IsNot Nothing Then
 

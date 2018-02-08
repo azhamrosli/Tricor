@@ -1,6 +1,7 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class frmTableofContent_Add
+
     Dim ErrorLog As clsError = Nothing
     Public ID As Decimal = 0
     Public isEdit As Boolean = False
@@ -14,13 +15,13 @@ Public Class frmTableofContent_Add
     Public Const Default_Index As String = "TBL_INDEX"
     Private Sub frmTableofContent_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -35,7 +36,7 @@ Public Class frmTableofContent_Add
     End Sub
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
-            Dim dtDefault As DataTable = mdlProcess.Load_TableofContent_Default(Errorlog)
+            Dim dtDefault As DataTable = ADO.Load_TableofContent_Default(Errorlog)
 
             DsReport_Templatexsd.Tables(MainTable_Default).Rows.Clear()
             If dtDefault IsNot Nothing Then
@@ -55,7 +56,7 @@ Public Class frmTableofContent_Add
                 End If
             Else
 
-                Dim dt As DataTable = mdlProcess.Load_TableofContent_ByID(ID)
+                Dim dt As DataTable = ADO.Load_TableofContent_ByID(ID)
 
                 If dt Is Nothing Then
                     isEdit = False
@@ -68,7 +69,7 @@ Public Class frmTableofContent_Add
                 txtModifiedBy.EditValue = IIf(IsDBNull(dt.Rows(0)("ModifiedBy")), "", dt.Rows(0)("ModifiedBy"))
                 txtModifiedDT.EditValue = IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
 
-                dt = mdlProcess.Load_TableofContent_List_ByParentID(ID, Errorlog)
+                dt = ADO.Load_TableofContent_List_ByParentID(ID, Errorlog)
 
                 DsReport_Templatexsd.Tables(MainTable).Rows.Clear()
                 If dt IsNot Nothing Then
@@ -179,7 +180,7 @@ Public Class frmTableofContent_Add
             If isValid() Then
 
                 If isEdit Then
-                    If mdlProcess.Update_TableOfContent(ID, cboRefNo.EditValue, cboRefNo.Properties.GetDisplayText(cboRefNo.EditValue), cboYA.EditValue, DsReport_Templatexsd.Tables(MainTable), ErrorLog) Then
+                    If ADO.Update_TableOfContent(ID, cboRefNo.EditValue, cboRefNo.Properties.GetDisplayText(cboRefNo.EditValue), cboYA.EditValue, DsReport_Templatexsd.Tables(MainTable), ErrorLog) Then
                         MsgBox("Successfully updated data.", MsgBoxStyle.Information)
 
                     Else
@@ -188,7 +189,7 @@ Public Class frmTableofContent_Add
                 Else
                     Dim tmpID As Decimal = 0
 
-                    If mdlProcess.Save_TableOfContent(cboRefNo.EditValue, cboRefNo.Properties.GetDisplayText(cboRefNo.EditValue), cboYA.EditValue, DsReport_Templatexsd.Tables(MainTable), tmpID, ErrorLog) Then
+                    If ADO.Save_TableOfContent(cboRefNo.EditValue, cboRefNo.Properties.GetDisplayText(cboRefNo.EditValue), cboYA.EditValue, DsReport_Templatexsd.Tables(MainTable), tmpID, ErrorLog) Then
                         MsgBox("Successfully saved data.", MsgBoxStyle.Information)
                         ID = tmpID
                         isEdit = True
@@ -220,7 +221,7 @@ Public Class frmTableofContent_Add
             End If
 
             If isEdit = False Then
-                If mdlProcess.CheckExist_TableofContent(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                If ADO.CheckExist_TableofContent(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     MsgBox("This tax payer already exist data for " & cboYA.EditValue & ".", MsgBoxStyle.Exclamation)
                     Return False
                 End If

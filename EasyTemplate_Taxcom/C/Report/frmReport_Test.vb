@@ -25,7 +25,7 @@ Public Class frmReport_Test
         ReportViewer1.RefreshReport()
         'Try
 
-        '    Dim dt As DataTable = mdlProcess.Load_CAReport_Temp(ID, ErrorLog)
+        '    Dim dt As DataTable = ADO.Load_CAReport_Temp(ID, ErrorLog)
 
         '    If dt IsNot Nothing Then
         '        dsCA.Tables("CA_REPORT_TEMP").Rows.Clear()

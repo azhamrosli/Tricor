@@ -96,7 +96,7 @@ Public Class frmPNL_InterestResPurS33_Monthly
 
             Application.DoEvents()
 
-            Dim dtData As DataTable = mdlProcess.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR_TEMP(SourceNo, RefNo, YA, Errorlog)
+            Dim dtData As DataTable = ADO.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR_TEMP(SourceNo, RefNo, YA, Errorlog)
             If dtData IsNot Nothing Then
                 mdlPNL2.AppenData_InterestRestricted(dtData, DsPNL, Errorlog)
             End If
@@ -271,7 +271,7 @@ Public Class frmPNL_InterestResPurS33_Monthly
             CalcPercentageAmount_Expenses(DsPNL, MainTable, "", MainKey, "", Main_Addback, Main_Deduct, _
                                           MainDetails_Addback, MainDetails_Deduct, MainAmount, MainAmount_Details, _
                                           MainColumn_PercentageAmount, ErrorLog)
-            mdlProcess.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(KeyID, DsPNL.Tables(MainTable_Details), RefNo, YA, SourceNo, ErrorLog)
+            ADO.Save_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(KeyID, DsPNL.Tables(MainTable_Details), RefNo, YA, SourceNo, ErrorLog)
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -302,4 +302,36 @@ Public Class frmPNL_InterestResPurS33_Monthly
 
 
 
+    Private Sub ExportToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToolStripMenuItem.Click
+        Try
+            If DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Count > 0 Then
+                SaveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx"
+                Dim rslt As DialogResult = SaveFileDialog1.ShowDialog
+                Dim Path As String = Nothing
+                If rslt = Windows.Forms.DialogResult.OK Then
+                    Path = SaveFileDialog1.FileName
+
+                    GridControl1.ExportToXlsx(Path & ".xlsx")
+
+                    MsgBox("Succesfully export.", MsgBoxStyle.Information)
+                Else
+                    Exit Sub
+                End If
+            End If
+            
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        Try
+            If DsPNL.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Count > 0 Then
+                GridControl1.ShowPrintPreview()
+
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

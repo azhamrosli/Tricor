@@ -3,7 +3,7 @@
 
     Private Sub frmDeemedInterest_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            If mdlProcess.CreateLookUpYA(cboYA, Errorlog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -24,9 +24,9 @@
             Dim dt As DataTable = Nothing
 
             If cboYA.EditValue IsNot Nothing AndAlso IsNumeric(cboYA.EditValue) = True Then
-                dt = mdlProcess.LoadDeemedInterest_Rate(CInt(cboYA.EditValue), Errorlog)
+                dt = ADO.LoadDeemedInterest_Rate(CInt(cboYA.EditValue), Errorlog)
             Else
-                dt = mdlProcess.LoadDeemedInterest_Rate(2015, Errorlog)
+                dt = ADO.LoadDeemedInterest_Rate(2015, Errorlog)
             End If
 
 
@@ -68,9 +68,9 @@
         Try
             If isValid() Then
 
-                If mdlProcess.CheckExist_DeemedInterest(cboYA.EditValue, Errorlog) Then
+                If ADO.CheckExist_DeemedInterest(cboYA.EditValue, Errorlog) Then
 
-                    If mdlProcess.Update_DeemedInterest_Rate(cboYA.EditValue, txtJan.EditValue, txtFeb.EditValue, txtMac.EditValue, _
+                    If ADO.Update_DeemedInterest_Rate(cboYA.EditValue, txtJan.EditValue, txtFeb.EditValue, txtMac.EditValue, _
                                                              txtApr.EditValue, txtMay.EditValue, txtJun.EditValue, txtJul.EditValue, _
                                                              txtAug.EditValue, txtSep.EditValue, txtOct.EditValue, txtNov.EditValue, _
                                                              txtDec.EditValue, Errorlog) Then
@@ -79,7 +79,7 @@
                         MsgBox("Unsuccessfully update deemed interest.", MsgBoxStyle.Information)
                     End If
                 Else
-                    If mdlProcess.Save_DeemedInterest_Rate(cboYA.EditValue, txtJan.EditValue, txtFeb.EditValue, txtMac.EditValue, _
+                    If ADO.Save_DeemedInterest_Rate(cboYA.EditValue, txtJan.EditValue, txtFeb.EditValue, txtMac.EditValue, _
                                                            txtApr.EditValue, txtMay.EditValue, txtJun.EditValue, txtJul.EditValue, _
                                                            txtAug.EditValue, txtSep.EditValue, txtOct.EditValue, txtNov.EditValue, _
                                                            txtDec.EditValue, Errorlog) Then

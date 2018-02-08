@@ -21,7 +21,7 @@ Public Class frmCA_Report_Disposal
     Dim ds As dsCA
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
-            mdlProcess.Delete_CA_Report_TEMP(ID)
+            ADO.Delete_CA_Report_TEMP(ID)
         Catch ex As Exception
 
         End Try
@@ -41,7 +41,7 @@ Public Class frmCA_Report_Disposal
 
             Select Case TypeReport
                 Case 8, 9, 10
-                    dt = mdlProcess.Load_CAReport_Disposal(ID)
+                    dt = ADO.Load_CAReport_Disposal(ID)
             End Select
 
             If dt Is Nothing Then
@@ -63,7 +63,7 @@ Public Class frmCA_Report_Disposal
                     Dim col1 As GridColumn = GridView1.Columns("CA_CAEEO")
                     Dim col2 As GridColumn = GridView1.Columns("CA_CATEGORY_CODE")
                     Dim col3 As GridColumn = GridView1.Columns("CA_PURCHASE_YEAR")
-                   
+
                     col1.GroupIndex = 0
                     col2.GroupIndex = 1
                     col3.GroupIndex = 2
@@ -75,12 +75,12 @@ Public Class frmCA_Report_Disposal
                     Dim col2 As GridColumn = GridView1.Columns("CA_CAEEO")
                     Dim col3 As GridColumn = GridView1.Columns("CA_CATEGORY_CODE")
                     Dim col4 As GridColumn = GridView1.Columns("CA_PURCHASE_YEAR")
-                
+
                     col1.GroupIndex = 0
                     col2.GroupIndex = 1
                     col3.GroupIndex = 2
                     col4.GroupIndex = 3
-                
+
 
             End Select
             GridView1.EndSort()

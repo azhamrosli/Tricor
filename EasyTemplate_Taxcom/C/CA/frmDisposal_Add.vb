@@ -29,18 +29,18 @@
         Try
             cboSearchFor.SelectedIndex = 0
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpCategory(DsCA, ErrorLog) = False Then
+            If CreateLookUpCategory(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive category.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -69,8 +69,8 @@
             If isEdit Then
                 'select 1st ca
                 'load disposal
-                Dim dt As DataTable = mdlProcess.Load_DISPOSAL_BY_CADISP_KEY(ID_CA, ID)
-                Dim dtCA As DataTable = mdlProcess.Load_CA(ID_CA, ErrorLog)
+                Dim dt As DataTable = ADO.Load_DISPOSAL_BY_CADISP_KEY(ID_CA, ID)
+                Dim dtCA As DataTable = ADO.Load_CA(ID_CA, ErrorLog)
 
 
                 If dt Is Nothing OrElse dtCA Is Nothing Then
@@ -101,7 +101,7 @@
                 txtHP_Code.EditValue = IIf(IsDBNull(dtCA.Rows(0)("HP_CODE")), "", dtCA.Rows(0)("HP_CODE"))
                 txtDescription.EditValue = IIf(IsDBNull(dtCA.Rows(0)("CA_DESC")), 0, dtCA.Rows(0)("CA_DESC"))
                 Application.DoEvents()
-                txtTotal_QC.EditValue = Load_GetTotalCA(txtHP_Code.EditValue)
+                txtTotal_QC.EditValue = ADO.Load_GetTotalCA(txtHP_Code.EditValue)
 
                 txtIA.EditValue = IIf(IsDBNull(dtCA.Rows(0)("CA_RATE_IA")), 0, dtCA.Rows(0)("CA_RATE_IA"))
                 cboAA.EditValue = IIf(IsDBNull(dtCA.Rows(0)("CA_RATE_AA")), 0, dtCA.Rows(0)("CA_RATE_AA"))
@@ -143,7 +143,7 @@
             Else
                 cboYA.EditValue = mdlProcess.ArgParam3
                 If isFromCA Then
-                    Dim dtCA As DataTable = mdlProcess.Load_CA(ID_CA, ErrorLog)
+                    Dim dtCA As DataTable = ADO.Load_CA(ID_CA, ErrorLog)
 
                     dtRowSelected = dtCA.Rows(0)
 
@@ -163,7 +163,7 @@
                     txtHP_Code.EditValue = IIf(IsDBNull(dtRowSelected("HP_CODE")), "", dtRowSelected("HP_CODE"))
                     txtDescription.EditValue = IIf(IsDBNull(dtRowSelected("CA_DESC")), 0, dtRowSelected("CA_DESC"))
                     Application.DoEvents()
-                    txtTotal_QC.EditValue = Load_GetTotalCA(txtHP_Code.EditValue)
+                    txtTotal_QC.EditValue = ADO.Load_GetTotalCA(txtHP_Code.EditValue)
 
                     txtIA.EditValue = IIf(IsDBNull(dtRowSelected("CA_RATE_IA")), 0, dtRowSelected("CA_RATE_IA"))
                     cboAA.EditValue = IIf(IsDBNull(dtRowSelected("CA_RATE_AA")), 0, dtRowSelected("CA_RATE_AA"))
@@ -210,7 +210,7 @@
                 txtFileNo.EditValue = row("FileNo").ToString
                 txtCompanyCode.EditValue = row("CompanyCode").ToString
 
-                If mdlProcess.CreateLookUpSourceNo(cboSourceCode, cboRefNo.EditValue.ToString, cboYA.EditValue.ToString, ErrorLog) = False Then
+                If mdlProcess.CreateLookUpSourceNO(cboSourceCode, cboRefNo.EditValue.ToString, cboYA.EditValue.ToString, ErrorLog) = False Then
                     cboSourceCode.EditValue = ""
                     Exit Sub
                 Else
@@ -237,7 +237,7 @@
         Try
             If cboRefNo.EditValue.ToString <> "" Then
 
-                Dim dt As DataTable = mdlProcess.Load_Disposal_CA(cboRefNo.EditValue, cboYA.EditValue, cboSearchFor.SelectedIndex, txtSearchVal.EditValue)
+                Dim dt As DataTable = ADO.Load_Disposal_CA(cboRefNo.EditValue, cboYA.EditValue, cboSearchFor.SelectedIndex, txtSearchVal.EditValue)
 
                 DsCA.Tables("CA").Rows.Clear()
                 If dt IsNot Nothing Then
@@ -280,7 +280,7 @@
                     End If
 
 
-                    If Not String.IsNullOrEmpty(HP_CODE) And CInt(mdlProcess.Load_HP_Count(HP_CODE, ErrorLog)) > 1 Then
+                    If Not String.IsNullOrEmpty(HP_CODE) And CInt(ADO.Load_HP_Count(HP_CODE, ErrorLog)) > 1 Then
                         Dim rslt As DialogResult = MessageBox.Show("More than one CA record has been found under this HP Code." & vbCrLf & "Do you want to duplicate the disposal among these items?", "Disposal", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
                         If rslt = Windows.Forms.DialogResult.Yes Then
@@ -293,10 +293,10 @@
                     End If
 
                     If boolDuplicateDisposal AndAlso isEdit = False Then
-                        Dim intMaxYear As Integer = mdlProcess.LOAD_GetLatestCAYear(HP_CODE)
+                        Dim intMaxYear As Integer = ADO.LOAD_GetLatestCAYear(HP_CODE)
 
                         If intMaxYear > 0 AndAlso intMaxYear <= CInt(cboYA.EditValue) Then
-                            Dim dtCA As DataTable = mdlProcess.LOAD_GetCAByHPCode(HP_CODE)
+                            Dim dtCA As DataTable = ADO.LOAD_GetCAByHPCode(HP_CODE)
                             Dim dblRemainingQC As Double = 0
                             Dim REMAINING_QC As Decimal = 0
                             Dim CA_KEY As Integer = 0
@@ -310,7 +310,7 @@
                             For i As Integer = 0 To dtCA.Rows.Count - 1
                                 CA_KEY = IIf(IsDBNull(dtCA.Rows(i)("ca_key")), 0, dtCA.Rows(i)("ca_key"))
                                 CA_Qua_Cost = IIf(IsDBNull(dtCA.Rows(i)("ca_qualifying_cost")), 0, dtCA.Rows(i)("ca_qualifying_cost"))
-                                dblRemainingQC = CDbl(CA_Qua_Cost) - CDbl(mdlProcess.LOAD_GetTotalDisposedCA(CA_KEY))
+                                dblRemainingQC = CDbl(CA_Qua_Cost) - CDbl(ADO.LOAD_GetTotalDisposedCA(CA_KEY))
 
                                 If dblRemainingQC > 0 Then
                                     TWDV = Calc_TWDV(dtCA.Rows(i))
@@ -331,7 +331,7 @@
 
                                     BABC = CalculateBABC(chkControlTransfer.Checked.ToString, txtHP_Code.EditValue, txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, TWDV, txtDisposal_SalesProceed.EditValue, IIf(rgWithIn2YA.SelectedIndex = 0, True, False))
 
-                                    If mdlProcess.Save_Disposal(CA_KEY, LOAD_GetDISPKey(CA_KEY), cboYA.EditValue, dtDisposal.EditValue, _
+                                    If ADO.Save_Disposal(CA_KEY, ADO.LOAD_GetDISPKey(CA_KEY), cboYA.EditValue, dtDisposal.EditValue, _
                                                                 IIf(rgWithIn2YA.SelectedIndex = 0, True, False), DISPOSEAMOUNT, DISPOSEQC, _
                                                                 REMAINING_QC, TWDV, txtDisposal_SalesProceed.EditValue, BABC, txtDisposal_Remarks.EditValue, _
                                                                 txtAccumulated.EditValue, txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, cboTypeDisposal.EditValue, ReturnID, ErrorLog) = False Then
@@ -339,13 +339,13 @@
                                         Exit Sub
                                     End If
 
-                                    If mdlProcess.Update_UpdateRemainingQC(CA_KEY, REMAINING_QC, "CA", ErrorLog) = False Then
+                                    If ADO.Update_UpdateRemainingQC(CA_KEY, REMAINING_QC, "CA", ErrorLog) = False Then
                                         MsgBox("Failed to update remaining QC -CA." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                                         Exit Sub
                                     End If
 
-                                    If mdlProcess.LOAD_GetDISPRecordCount(CA_KEY) > 1 Then
-                                        If mdlProcess.Update_UpdateRemainingQC(CA_KEY, REMAINING_QC, "DISP", ErrorLog) = False Then
+                                    If ADO.LOAD_GetDISPRecordCount(CA_KEY) > 1 Then
+                                        If ADO.Update_UpdateRemainingQC(CA_KEY, REMAINING_QC, "DISP", ErrorLog) = False Then
                                             MsgBox("Failed to update remaining QC -DISP." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                                             Exit Sub
                                         End If
@@ -363,11 +363,11 @@
                             Exit Sub
                         End If
                     Else
-                        Dim DispKey As Integer = mdlProcess.LOAD_GetDISPKey(IIf(IsDBNull(dtRowSelected("ca_key")), 0, dtRowSelected("ca_key")))
+                        Dim DispKey As Integer = ADO.LOAD_GetDISPKey(IIf(IsDBNull(dtRowSelected("ca_key")), 0, dtRowSelected("ca_key")))
                         Dim CA_KEY As Integer = IIf(IsDBNull(dtRowSelected("ca_key")), 0, dtRowSelected("ca_key"))
 
                         If isEdit Then
-                            If mdlProcess.Update_Disposal(ID, CA_KEY, cboYA.EditValue, dtDisposal.EditValue, _
+                            If ADO.Update_Disposal(ID, CA_KEY, cboYA.EditValue, dtDisposal.EditValue, _
                                                         IIf(rgWithIn2YA.SelectedIndex = 0, True, False), txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
                                                         txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, txtDisposal_BABC.EditValue, txtDisposal_Remarks.EditValue, txtAccumulated.EditValue, _
                                                         txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, cboTypeDisposal.SelectedIndex, 0, ErrorLog) = False Then
@@ -376,7 +376,7 @@
                             End If
                         Else
 
-                            If mdlProcess.Save_Disposal(CA_KEY, DispKey, cboYA.EditValue, dtDisposal.EditValue, _
+                            If ADO.Save_Disposal(CA_KEY, DispKey, cboYA.EditValue, dtDisposal.EditValue, _
                                                         IIf(rgWithIn2YA.SelectedIndex = 0, True, False), txtDisposal_PurchaseAmount.EditValue, txtDispose_QC.EditValue, txtDisposal_RemainingQuaCost.EditValue, _
                                                         txtDisposal_TWDV.EditValue, txtDisposal_SalesProceed.EditValue, txtDisposal_BABC.EditValue, txtDisposal_Remarks.EditValue, txtAccumulated.EditValue, _
                                                         txtTransfereeName.EditValue, txtTaxFileNumber.EditValue, cboTypeDisposal.SelectedIndex, 0, ErrorLog) = False Then
@@ -389,13 +389,13 @@
                         End If
 
 
-                        If mdlProcess.Update_UpdateRemainingQC(CA_KEY, txtDisposal_RemainingQuaCost.EditValue, "CA", ErrorLog) = False Then
+                        If ADO.Update_UpdateRemainingQC(CA_KEY, txtDisposal_RemainingQuaCost.EditValue, "CA", ErrorLog) = False Then
                             MsgBox("Failed to update remaining QC -CA." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                             Exit Sub
                         End If
 
-                        If mdlProcess.LOAD_GetDISPRecordCount(CA_KEY) > 1 Then
-                            If mdlProcess.Update_UpdateRemainingQC(CA_KEY, txtDisposal_RemainingQuaCost.EditValue, "DISP", ErrorLog) = False Then
+                        If ADO.LOAD_GetDISPRecordCount(CA_KEY) > 1 Then
+                            If ADO.Update_UpdateRemainingQC(CA_KEY, txtDisposal_RemainingQuaCost.EditValue, "DISP", ErrorLog) = False Then
                                 MsgBox("Failed to update remaining QC -DISP." & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                                 Exit Sub
                             End If
@@ -424,7 +424,7 @@
                 Return False
             End If
 
-            If mdlProcess.LOAD_VerifySourceCode(cboRefNo.EditValue, cboYA.EditValue, cboSourceCode.EditValue) = False Then
+            If ADO.LOAD_VerifySourceCode(cboRefNo.EditValue, cboYA.EditValue, cboSourceCode.EditValue) = False Then
                 MsgBox("Source Code not exists under selected Year Assessment!", MsgBoxStyle.Exclamation)
                 Return False
             End If
@@ -487,7 +487,7 @@
                 txtHP_Code.EditValue = IIf(IsDBNull(dtrow("HP_CODE")), "", dtrow("HP_CODE"))
                 txtDescription.EditValue = IIf(IsDBNull(dtrow("CA_DESC")), 0, dtrow("CA_DESC"))
                 Application.DoEvents()
-                txtTotal_QC.EditValue = Load_GetTotalCA(txtHP_Code.EditValue)
+                txtTotal_QC.EditValue = ADO.Load_GetTotalCA(txtHP_Code.EditValue)
 
                 txtIA.EditValue = IIf(IsDBNull(dtrow("CA_RATE_IA")), 0, dtrow("CA_RATE_IA"))
                 cboAA.EditValue = IIf(IsDBNull(dtrow("CA_RATE_AA")), 0, dtrow("CA_RATE_AA"))

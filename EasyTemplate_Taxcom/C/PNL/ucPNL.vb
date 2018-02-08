@@ -36,13 +36,13 @@ Public Class ucPNL
 
     Private Sub frmPNL_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -75,7 +75,7 @@ Public Class ucPNL
             End If
 
 
-            Dim dt As DataTable = mdlProcess.LoadPNL_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadPNL_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             DsPNL.Tables("PROFIT_LOSS_ACCOUNT").Rows.Clear()
 
@@ -182,11 +182,11 @@ Public Class ucPNL
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Check_AdjustedIncomeExist(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_REF_NO"), GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_YA")) Then
+                    If ADO.Check_AdjustedIncomeExist(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_REF_NO"), GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_YA")) Then
 
                         MsgBox("This profit and loss already exist adjusted income. Information Reference (" & GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_REF_NO") & ")", MsgBoxStyle.Exclamation)
                     Else
-                        If mdlProcess.Delete_PNL(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_KEY")), ErrorLog) = False Then
+                        If ADO.Delete_PNL(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("PL_KEY")), ErrorLog) = False Then
                             tmpSts = False
 
                         End If
@@ -286,7 +286,7 @@ Public Class ucPNL
 
         End Try
     End Sub
-    
+
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
             Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
@@ -299,12 +299,19 @@ Public Class ucPNL
 
             Dim rpt As New rptPNL
 
-            rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(RefNo)
+            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
             rpt.paramYA.Value = CInt(YA)
 
 
 
             If mdlPNL2.PNL_Report(RefNo, YA, rpt.DsPNL1, ErrorLog) Then
+
+                Dim rpt_details As New rptPNL_Details
+                rpt_details.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                rpt_details.paramYA.Value = CInt(YA)
+                rpt_details.DataSource = rpt.DsPNL1
+
+                rpt.XrSubreport1.ReportSource = rpt_details
                 rpt.ShowPreview()
             Else
                 rpt = Nothing

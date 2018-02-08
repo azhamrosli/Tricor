@@ -1,12 +1,11 @@
 ﻿Imports System.Data.SqlClient
 
 Module mdlRefreshTaxComputation
-    Dim ADO As SQLDataObject
 #Region "NON ALLOWABLE TAXABLE"
 
     Public Function GetAJDTotalRevenueExpenditure(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -45,7 +44,7 @@ Module mdlRefreshTaxComputation
 
     Public Function GetAJDTotalOtherExpenditure(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -83,7 +82,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpOtherInterest(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -126,7 +125,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpContractPay(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -169,7 +168,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpDirectorFee(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -212,7 +211,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpTechnicalFee(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -255,7 +254,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpSalary(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -298,7 +297,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpRoyalty(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -341,7 +340,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpRental(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -384,7 +383,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpRepairMaintenance(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -427,7 +426,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpRND(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -470,7 +469,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpPromotionAdvertisement(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -513,7 +512,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpTravel(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -554,9 +553,9 @@ Module mdlRefreshTaxComputation
             Return 0
         End Try
     End Function
-   Public Function GetAJDTotalExpJKDM(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpJKDM(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -599,7 +598,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpEmployeeStock(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -642,7 +641,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpLegal(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -685,7 +684,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpEntertainStaff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -728,7 +727,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpOthersExpenses(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -771,7 +770,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpDepreciation(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -814,7 +813,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpEntertainNonStaff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -857,7 +856,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpProvision(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -900,7 +899,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpCompoundPenalty(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -943,7 +942,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpLeavePassage(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -986,7 +985,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpFAWrittenOff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1029,7 +1028,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpInitialSubscript(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1072,7 +1071,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpCapitalExpenditure(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1115,7 +1114,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalDepreciation(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1158,7 +1157,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalOtherNonAllowExpenses(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1201,7 +1200,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalPurchases(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1244,7 +1243,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpDonationNonApproved(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1287,7 +1286,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpInterestRestrict(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1330,7 +1329,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpUnrealLossFE(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1373,7 +1372,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpRealLossFENonTrade(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1416,7 +1415,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpLossDisposalFA(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1459,7 +1458,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalOtherExrLossForeignt(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1502,7 +1501,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpDonationApproved(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1545,7 +1544,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetAJDTotalExpZakat(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1589,7 +1588,7 @@ Module mdlRefreshTaxComputation
 
     Public Function GetAJDTotalRealFETrade(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1632,7 +1631,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetTotalNonAllowLoss(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1672,7 +1671,7 @@ Module mdlRefreshTaxComputation
 
     Public Function GetNonTaxableIncome(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1711,7 +1710,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetTotalTaxableIncome(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1750,7 +1749,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetTotalMovementNormal_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1788,7 +1787,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetTotalMovementNormal_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1826,7 +1825,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetTotalMovementComplex_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1877,7 +1876,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function GetTotalMovementComplex_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1931,7 +1930,7 @@ Module mdlRefreshTaxComputation
 
     Public Function GetTCBusinessSource(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -1962,7 +1961,7 @@ Module mdlRefreshTaxComputation
     End Function
     Public Function Load_TaxCom_DividendIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2000,7 +1999,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_RentalIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2039,7 +2038,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_RoyaltIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2078,7 +2077,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_InterestIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2117,7 +2116,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_OtherIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2156,7 +2155,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_NonSourceBusinessIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2195,7 +2194,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_ExemptDividend(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2234,7 +2233,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_OtherBusinessIncome(ByVal PNLID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2272,7 +2271,7 @@ Module mdlRefreshTaxComputation
 
     Public Function Load_TaxCom_OtherBusinessIncomeBySource(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -2356,7 +2355,7 @@ Module mdlRefreshTaxComputation
             Dim dtRow As DataRow = Nothing
             Dim PNLID As Integer = 0
             Dim SourceNo As Integer = 0
-            Dim dtTaxcom As DataTable = mdlProcess.Load_Tax_Computation(RefNo, YA)
+            Dim dtTaxcom As DataTable = ADO.Load_Tax_Computation(RefNo, YA)
             Dim dtPNL As DataTable = Nothing
 
 
@@ -2367,7 +2366,7 @@ Module mdlRefreshTaxComputation
                     SourceNo = IIf(IsDBNull(dtTaxcom.Rows(i)("TC_BUSINESS")), 0, dtTaxcom.Rows(i)("TC_BUSINESS"))
                     dtTemp = Nothing
 
-                    dtPNL = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
+                    dtPNL = ADO.Load_PNL(RefNo, YA, Errorlog)
 
                     If dtPNL IsNot Nothing Then
                         PNLID = IIf(IsDBNull(dtPNL.Rows(0)("PL_KEY")), 0, dtPNL.Rows(0)("PL_KEY"))
@@ -2449,7 +2448,7 @@ Module mdlRefreshTaxComputation
                         TC_AI_ADJ_IN_LOSS = adjustedincome
 
 
-                        mdlProcess.Update_AdjTaxcom(TaxcomID, TC_AI_DIVIDEND, TC_AI_RENTAL, TC_AI_ROYALTY, TC_AI_INTEREST, TC_AI_SEC4A, TC_AI_PNL_BAL, TC_AI_ADJ_BS_EXP_NA_EXP, TC_AI_ADJ_BS_IN_NA_LOS, TC_AI_ADJ_BS_IN_NT_IN, TC_AI_TOT_NONBS_IN, TC_AI_TOT_BS_IN, TC_AI_ADJ_BS_IN_TAX_IN, TC_AI_ADJ_BS_EXP_INT, TC_AI_ADJ_BS_EXP_RV_EXP, TC_AI_ADJ_BS_EXP_CLAIM, TC_AI_TOT_ADJ_BS_EXP, TC_OTHERDEDUCTION, TC_AI_TOT_ADJ_BS_IN, TC_AI_ADJ_IN_LOSS)
+                        ADO.Update_AdjTaxcom(TaxcomID, TC_AI_DIVIDEND, TC_AI_RENTAL, TC_AI_ROYALTY, TC_AI_INTEREST, TC_AI_SEC4A, TC_AI_PNL_BAL, TC_AI_ADJ_BS_EXP_NA_EXP, TC_AI_ADJ_BS_IN_NA_LOS, TC_AI_ADJ_BS_IN_NT_IN, TC_AI_TOT_NONBS_IN, TC_AI_TOT_BS_IN, TC_AI_ADJ_BS_IN_TAX_IN, TC_AI_ADJ_BS_EXP_INT, TC_AI_ADJ_BS_EXP_RV_EXP, TC_AI_ADJ_BS_EXP_CLAIM, TC_AI_TOT_ADJ_BS_EXP, TC_OTHERDEDUCTION, TC_AI_TOT_ADJ_BS_IN, TC_AI_ADJ_IN_LOSS)
 
 
                     End If

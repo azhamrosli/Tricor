@@ -13,13 +13,13 @@ Public Class frmMovement_Add
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -42,7 +42,7 @@ Public Class frmMovement_Add
                 End If
 
             Else
-                Dim dt As DataTable = mdlProcess.Load_MovementNormal(ID, ErrorLog)
+                Dim dt As DataTable = ADO.Load_MovementNormal(ID, ErrorLog)
 
                 If dt Is Nothing Then
                     isEdit = False
@@ -69,7 +69,7 @@ Public Class frmMovement_Add
                     Next
                 End If
 
-                dt = mdlProcess.Load_MovementNormal_Add(ID, ErrorLog)
+                dt = ADO.Load_MovementNormal_Add(ID, ErrorLog)
 
                 DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
                 If dt IsNot Nothing Then
@@ -79,7 +79,7 @@ Public Class frmMovement_Add
                     Next
                 End If
 
-                dt = mdlProcess.Load_MovementNormal_Deduct(ID, ErrorLog)
+                dt = ADO.Load_MovementNormal_Deduct(ID, ErrorLog)
 
                 DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
                 If dt IsNot Nothing Then
@@ -124,10 +124,11 @@ Public Class frmMovement_Add
                     Dim row As DataRow = view.GetDataRow(e.RowHandle)
 
                     If IsDBNull(row("MM_Deduct")) = False AndAlso CBool(row("MM_Deduct")) = True Then
-                        row("MM_ADDBACK_AMOUNT") = row("MM_Amount")
+                        row("MM_DEDUCT_AMOUNT") = row("MM_Amount")
                     Else
-                        row("MM_ADDBACK_AMOUNT") = 0
+                        row("MM_DEDUCT_AMOUNT") = 0
                     End If
+
                 End If
             End If
         Catch ex As Exception
@@ -228,6 +229,12 @@ Public Class frmMovement_Add
                         row("MM_ADDBACK_AMOUNT") = 0
                     End If
 
+                    If IsDBNull(row("MM_Deduct")) = False AndAlso CBool(row("MM_Deduct")) = True Then
+                        row("MM_DEDUCT_AMOUNT") = row("MM_Amount")
+                    Else
+                        row("MM_DEDUCT_AMOUNT") = 0
+                    End If
+
                     Application.DoEvents()
                     CalcVal()
                 End If
@@ -297,7 +304,7 @@ Public Class frmMovement_Add
             If isValid() Then
 
                 If isEdit Then
-                    If mdlProcess.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If ADO.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
                                                      DsMovement, ErrorLog) Then
@@ -312,7 +319,7 @@ Public Class frmMovement_Add
                     End If
                 Else
                     Dim tmpID As Integer = 0
-                    If mdlProcess.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If ADO.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                       dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                       txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
                                                       DsMovement, tmpID, ErrorLog) Then
@@ -367,7 +374,7 @@ Public Class frmMovement_Add
 
             If isEdit = False Then
 
-                If mdlProcess.CheckExist_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                If ADO.CheckExist_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
                     Return False
                 End If

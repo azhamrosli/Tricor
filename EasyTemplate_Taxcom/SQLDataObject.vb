@@ -57,7 +57,7 @@ Public Class SQLDataObject
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
-            mdlProcess.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name & " " & MethodName, ex.HResult.ToString, ex.Message, 2)
+            ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name & " " & MethodName, ex.HResult.ToString, ex.Message, 2)
         End Try
     End Sub
 

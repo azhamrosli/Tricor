@@ -26,18 +26,18 @@
 
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpCategory(DsCA, ErrorLog) = False Then
+            If CreateLookUpCategory(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive category.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -79,7 +79,7 @@
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_CA(ID)
+            Dim dt As DataTable = ADO.Load_CA(ID)
 
 
             If dt Is Nothing Then
@@ -207,7 +207,7 @@
                 cboHP.Properties.Items.Clear()
                 cboHP.EditValue = ""
 
-                If mdlProcess.CreateLookUpSourceNo(cboSourceCode, cboRefNo.EditValue.ToString, cboPurchaseYE.EditValue.ToString, ErrorLog) = False Then
+                If mdlProcess.CreateLookUpSourceNO(cboSourceCode, cboRefNo.EditValue.ToString, cboPurchaseYE.EditValue.ToString, ErrorLog) = False Then
                     cboSourceCode.EditValue = ""
                     chkHP.Checked = False
                     chkHP.Visible = False
@@ -419,7 +419,7 @@
             If isValid() Then
 
                 If isEdit Then
-                    If mdlProcess.Update_CA(ID, cboRefNo.EditValue, txtTaxPayer.Text, txtFileNo.Text, cboYA.EditValue, txtCompanyCode.EditValue, _
+                    If ADO.Update_CA(ID, cboRefNo.EditValue, txtTaxPayer.Text, txtFileNo.Text, cboYA.EditValue, txtCompanyCode.EditValue, _
                                          CInt(cboSourceCode.EditValue), IIf(rgTypeCA.SelectedIndex = 0, "ADD", "OPN"), _
                                          txtAssetID.EditValue, txtAsset.EditValue, cboCategory.EditValue, dtDateofPurchase.EditValue, _
                                          cboPurchaseYE.EditValue, CDec(txtPurchaseAmountFA.EditValue), CDec(txtDeposit.EditValue), _
@@ -436,7 +436,7 @@
                     End If
                 Else
                     Dim ReturnID As Integer = 0
-                    If mdlProcess.Save_CA(cboRefNo.EditValue, txtTaxPayer.Text, txtFileNo.Text, cboYA.EditValue, txtCompanyCode.EditValue, _
+                    If ADO.Save_CA(cboRefNo.EditValue, txtTaxPayer.Text, txtFileNo.Text, cboYA.EditValue, txtCompanyCode.EditValue, _
                                           CInt(cboSourceCode.EditValue), IIf(rgTypeCA.SelectedIndex = 0, "ADD", "OPN"), _
                                           txtAssetID.EditValue, txtAsset.EditValue, cboCategory.EditValue, dtDateofPurchase.EditValue, _
                                           cboPurchaseYE.EditValue, CDec(txtPurchaseAmountFA.EditValue), CDec(txtDeposit.EditValue), _
@@ -450,7 +450,7 @@
                         isEdit = True
                         MsgBox("Successfully saved CA.", MsgBoxStyle.Information)
 
-                        If CStr(cboHP.EditValue) <> "" AndAlso mdlProcess.Load_HPPrincipal(cboRefNo.EditValue, cboHP.EditValue) Is Nothing Then
+                        If CStr(cboHP.EditValue) <> "" AndAlso ADO.Load_HPPrincipal(cboRefNo.EditValue, cboHP.EditValue) Is Nothing Then
                             Dim rlst As DialogResult = MessageBox.Show("Do you want to create hire purchase?", "Capital Allowance", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
                             If rlst = Windows.Forms.DialogResult.Yes Then
@@ -537,7 +537,7 @@
     End Sub
     Private Sub LoadHPData()
         Try
-            Dim dt As DataTable = mdlProcess.Load_HPPrincipal(cboRefNo.EditValue, cboHP.EditValue)
+            Dim dt As DataTable = ADO.Load_HPPrincipal(cboRefNo.EditValue, cboHP.EditValue)
 
             If dt Is Nothing Then
                 Exit Sub
@@ -574,7 +574,7 @@
                     ListofCA_KEY.Add(ID)
                 Next
 
-                If mdlProcess.Duplicate_CA(ListofCA_KEY, ErrorLog) Then
+                If ADO.Duplicate_CA(ListofCA_KEY, ErrorLog) Then
                     MsgBox("Successfully duplicate capital allowance.", MsgBoxStyle.Information)
                     Me.LoadData()
                 Else

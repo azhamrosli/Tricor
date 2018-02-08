@@ -153,7 +153,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_DEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_DEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.SALES
                     If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
@@ -170,7 +170,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_PLFST_SALES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_PLFST_SALES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.OPENSTOCK
@@ -188,7 +188,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_PLFST_OPENSTOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_PLFST_OPENSTOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.PURCHASE
@@ -206,7 +206,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_PLFST_PURCHASE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_PLFST_PURCHASE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
                     If P1_docAllowanceExpenses IsNot Nothing AndAlso P1_docAllowanceExpenses.Controls.Count > 0 Then
@@ -223,7 +223,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_ALLOW(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_ALLOW(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
@@ -241,7 +241,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_NONALLOW(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_NONALLOW(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.CLOSESTOCK
@@ -259,7 +259,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_PLFST_CLOSESTOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_PLFST_CLOSESTOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERBUSINC
                     If P2_docOtherBizIncome IsNot Nothing AndAlso P2_docOtherBizIncome.Controls.Count > 0 Then
@@ -276,7 +276,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_NONSOURCE_BUSINESSINCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_NONSOURCE_BUSINESSINCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.REALFETRADE
                     If P2_docForeignCurrExGain IsNot Nothing AndAlso P2_docForeignCurrExGain.Controls.Count > 0 Then
@@ -293,7 +293,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_REALFET(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_REALFET(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.INTERESTINC
                     If P2_docInterestIncome IsNot Nothing AndAlso P2_docInterestIncome.Controls.Count > 0 Then
@@ -310,7 +310,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NBINTEREST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NBINTEREST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.RENTALINC
@@ -328,7 +328,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_RENTAL_INCOME(PNL_Key, ds.Tables(uc.MainTable), oConn, ListofCmd, Errorlog)
+                        ADO.Save_RENTAL_INCOME(PNL_Key, ds.Tables(uc.MainTable), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.ROYALTYINC
@@ -346,7 +346,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NBROYALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NBROYALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERINC
                     If P2_docOtherIncome IsNot Nothing AndAlso P2_docOtherIncome.Controls.Count > 0 Then
@@ -363,7 +363,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_INCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_INCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.PDFIXASSET
@@ -381,7 +381,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NTDISPOSALFA(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NTDISPOSALFA(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.PDINVEST
                     If P2_docProDisInvestment IsNot Nothing AndAlso P2_docProDisInvestment.Controls.Count > 0 Then
@@ -398,7 +398,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NTDISPOSALINVEST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NTDISPOSALINVEST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXEMDIV
                     If P2_docExemptDividend IsNot Nothing AndAlso P2_docExemptDividend.Controls.Count > 0 Then
@@ -415,7 +415,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXEMPT_DIVIDEND(PNL_Key, ds.Tables(uc.MainTable), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXEMPT_DIVIDEND(PNL_Key, ds.Tables(uc.MainTable), oConn, ListofCmd, Errorlog)
                     End If
 
 
@@ -434,7 +434,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NTFOREIGNINCREM(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NTFOREIGNINCREM(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.REALFE
                     If P2_docUnreaGainForeEx IsNot Nothing AndAlso P2_docUnreaGainForeEx.Controls.Count > 0 Then
@@ -451,7 +451,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NTUREALFET(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NTUREALFET(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
@@ -469,7 +469,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NTREALFE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NTREALFE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.UNREALFETRADE
                     If P2_docUnreaGainForeExNon IsNot Nothing AndAlso P2_docUnreaGainForeExNon.Controls.Count > 0 Then
@@ -486,7 +486,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_INCOME_NTUREALFENT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_INCOME_NTUREALFENT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
                     If P2_docOther IsNot Nothing AndAlso P2_docOther.Controls.Count > 0 Then
@@ -503,7 +503,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_NON_TAXABLE_INCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_NON_TAXABLE_INCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     If P3_docInterestResPurS33 IsNot Nothing AndAlso P3_docInterestResPurS33.Controls.Count > 0 Then
@@ -520,7 +520,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_INTERESTRESTRICT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Monthly), oConn, RefNo, YA, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_INTERESTRESTRICT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Monthly), oConn, RefNo, YA, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
@@ -538,7 +538,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_INTEREST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_INTEREST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPLEGAL
@@ -556,7 +556,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_LEGAL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_LEGAL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPTECHNICAL
@@ -574,7 +574,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_TECH_FEE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_TECH_FEE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
@@ -592,7 +592,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_CONTRACT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_CONTRACT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
@@ -610,7 +610,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_DIRECTORS_FEE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_DIRECTORS_FEE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPSALARY
@@ -628,7 +628,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_SALARY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_SALARY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
@@ -646,7 +646,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_EMPL_STOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_EMPL_STOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPROYALTY
@@ -664,7 +664,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_ROYALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_ROYALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPRENTAL
@@ -682,7 +682,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_RENTAL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_RENTAL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
@@ -700,7 +700,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_REPAIR(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_REPAIR(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPRND
@@ -718,7 +718,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_RESEARCH(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_RESEARCH(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
@@ -736,7 +736,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_PROMOTE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_PROMOTE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPTRAVEL
@@ -754,7 +754,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_TRAVEL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_TRAVEL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPJKDM
@@ -772,7 +772,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_EXPENSES_JKDM(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_EXPENSES_JKDM(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
@@ -790,7 +790,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXDEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXDEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
@@ -808,7 +808,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXAPPRDONATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXAPPRDONATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
@@ -826,7 +826,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXNAPPRDONATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXNAPPRDONATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPZAKAT
@@ -844,7 +844,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXZAKAT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXZAKAT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
@@ -862,7 +862,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXLOSSDISPOSALFA(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXLOSSDISPOSALFA(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
 
@@ -881,7 +881,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_ENTERTAINNSTAFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_ENTERTAINNSTAFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
@@ -899,7 +899,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_ENTERTAINSTAFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_ENTERTAINSTAFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
@@ -917,7 +917,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXPENALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXPENALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXPPROVISION
                     If p4_docProvisionAcc IsNot Nothing AndAlso p4_docProvisionAcc.Controls.Count > 0 Then
@@ -934,7 +934,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXPROVISIONACC(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXPROVISIONACC(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
                     If p4_docLeavePass IsNot Nothing AndAlso p4_docLeavePass.Controls.Count > 0 Then
@@ -951,7 +951,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXLEAVEPASSAGE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXLEAVEPASSAGE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     If p4_docFAWrittenOff IsNot Nothing AndAlso p4_docFAWrittenOff.Controls.Count > 0 Then
@@ -968,7 +968,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXFAWRITTENOFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXFAWRITTENOFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
@@ -986,7 +986,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXURLOSSFOREIGN(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXURLOSSFOREIGN(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
@@ -1004,7 +1004,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXRLOSSFOREIGNT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXRLOSSFOREIGNT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
@@ -1022,7 +1022,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXRLOSSFOREIGN(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXRLOSSFOREIGN(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
@@ -1040,7 +1040,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXINITIALSUB(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXINITIALSUB(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
@@ -1058,7 +1058,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXCAPITALEXP(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXCAPITALEXP(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
@@ -1076,7 +1076,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_OTHER_EXPENSES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+                        ADO.Save_OTHER_EXPENSES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     If P2_docDivIncome IsNot Nothing AndAlso P2_docDivIncome.Controls.Count > 0 Then
@@ -1093,7 +1093,7 @@ Module mdlPNL2
                             Return False
                         End If
 
-                        mdlProcess.Save_DIVIDEND_INCOME(PNL_Key, ds.Tables(uc.MainTable), uc.GetDiscloseNet, oConn, ListofCmd, Errorlog)
+                        ADO.Save_DIVIDEND_INCOME(PNL_Key, ds.Tables(uc.MainTable), uc.GetDiscloseNet, oConn, ListofCmd, Errorlog)
                     End If
             End Select
 
@@ -1272,7 +1272,7 @@ Module mdlPNL2
             Select Case Type
                 Case TaxComPNLEnuItem.SALES
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_PLFST_SALES(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_PLFST_SALES(PNL_KEY, Errorlog)
 
                     ds.Tables("PLFST_SALES_DETAIL").Rows.Clear()
                     ds.Tables("PLFST_SALES").Rows.Clear()
@@ -1289,11 +1289,12 @@ Module mdlPNL2
                             dtRow("PLFS_AMOUNT") = rowx("PLFS_AMOUNT")
                             dtRow("PLFS_NOTE") = rowx("PLFS_NOTE")
                             dtRow("PLFS_DETAIL") = rowx("PLFS_DETAIL")
+                            dtRow("RowIndex") = rowx("RowIndex")
                             ds.Tables("PLFST_SALES").Rows.Add(dtRow)
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_PLFST_SALES_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_PLFST_SALES_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1306,6 +1307,7 @@ Module mdlPNL2
                                 dtRow("PLFSD_DESC") = rowx("PLFSD_DESC")
                                 dtRow("PLFSD_AMOUNT") = rowx("PLFSD_AMOUNT")
                                 dtRow("PLFSD_NOTE") = rowx("PLFSD_NOTE")
+                                dtRow("RowIndex") = rowx("RowIndex")
                                 ds.Tables("PLFST_SALES_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1314,7 +1316,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.OPENSTOCK
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_PLFST_OPENSTOCK(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_PLFST_OPENSTOCK(PNL_KEY, Errorlog)
                     ds.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Clear()
                     ds.Tables("PLFST_OPENSTOCK").Rows.Clear()
 
@@ -1325,7 +1327,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_PLFST_OPENSTOCK_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_PLFST_OPENSTOCK_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1337,7 +1339,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.PURCHASE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_PLFST_PURCHASE(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_PLFST_PURCHASE(PNL_KEY, Errorlog)
                     ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Clear()
                     ds.Tables("PLFST_PURCHASE").Rows.Clear()
 
@@ -1359,14 +1361,14 @@ Module mdlPNL2
                                 Else
                                     dtRow("PLFPUR_DEDUCTIBLE") = False
                                 End If
-
+                                dtRow("RowIndex") = rowx("RowIndex")
                                 ds.Tables("PLFST_PURCHASE").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_PLFST_PURCHASE_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_PLFST_PURCHASE_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1384,7 +1386,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("PLFPURD_DEDUCTIBLE") = False
                                 End If
-
+                                dtRow("RowIndex") = rowx("RowIndex")
                                 ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1393,7 +1395,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.DEPRECIATION
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_EXPENSES_DEPRECIATION(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_EXPENSES_DEPRECIATION(PNL_KEY, Errorlog)
                     ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Clear()
                     ds.Tables("EXPENSES_DEPRECIATION").Rows.Clear()
 
@@ -1424,7 +1426,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_DEPRECIATION_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_DEPRECIATION_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1454,7 +1456,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_EXPENSES_ALLOW(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_EXPENSES_ALLOW(PNL_KEY, Errorlog)
                     ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Clear()
                     ds.Tables("EXPENSES_ALLOW").Rows.Clear()
 
@@ -1488,7 +1490,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_ALLOW_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_ALLOW_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1516,7 +1518,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_EXPENSES_NONALLOW(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_EXPENSES_NONALLOW(PNL_KEY, Errorlog)
                     ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Clear()
                     ds.Tables("EXPENSES_NONALLOW").Rows.Clear()
 
@@ -1546,7 +1548,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_NONALLOW_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_NONALLOW_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1575,7 +1577,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.CLOSESTOCK
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_PLFST_CLOSESTOCK(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_PLFST_CLOSESTOCK(PNL_KEY, Errorlog)
                     ds.Tables("PLFST_CLOSESTOCK_DETAIL").Rows.Clear()
                     ds.Tables("PLFST_CLOSESTOCK").Rows.Clear()
 
@@ -1586,7 +1588,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_PLFST_CLOSESTOCK_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_PLFST_CLOSESTOCK_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1598,7 +1600,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.OTHERBUSINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_NONSOURCE_BUSINESSINCOME(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_NONSOURCE_BUSINESSINCOME(PNL_KEY, Errorlog)
 
                     ds.Tables("NONSOURCE_BUSINESSINCOME_DETAIL").Rows.Clear()
                     ds.Tables("NONSOURCE_BUSINESSINCOME").Rows.Clear()
@@ -1609,7 +1611,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_NONSOURCE_BUSINESSINCOME_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_NONSOURCE_BUSINESSINCOME_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1621,7 +1623,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.REALFETRADE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_REALFET(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_REALFET(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_REALFET_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_REALFET").Rows.Clear()
@@ -1632,7 +1634,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_REALFET_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_REALFET_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1644,7 +1646,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_dividend_income(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_dividend_income(PNL_KEY, Errorlog)
 
                     ds.Tables("dividend_income").Rows.Clear()
 
@@ -1658,7 +1660,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.INTERESTINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NBINTEREST(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NBINTEREST(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NBINTEREST_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NBINTEREST").Rows.Clear()
@@ -1669,7 +1671,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NBINTEREST_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NBINTEREST_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1681,7 +1683,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.RENTALINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_rental_income(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_rental_income(PNL_KEY, Errorlog)
 
                     ds.Tables("rental_income").Rows.Clear()
                     If dt IsNot Nothing Then
@@ -1694,7 +1696,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.ROYALTYINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NBROYALTY(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NBROYALTY(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NBROYALTY_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NBROYALTY").Rows.Clear()
@@ -1705,7 +1707,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NBROYALTY_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NBROYALTY_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1717,7 +1719,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.OTHERINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_OTHER_INCOME(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_OTHER_INCOME(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_INCOME_DETAIL").Rows.Clear()
                     ds.Tables("OTHER_INCOME").Rows.Clear()
@@ -1728,7 +1730,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_INCOME_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_INCOME_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1740,7 +1742,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.PDFIXASSET
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NTDISPOSALFA(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NTDISPOSALFA(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NTDISPOSALFA_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NTDISPOSALFA").Rows.Clear()
@@ -1751,7 +1753,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NTDISPOSALFA_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NTDISPOSALFA_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1763,7 +1765,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.PDINVEST
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NTDISPOSALINVEST(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NTDISPOSALINVEST(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NTDISPOSALINVEST_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NTDISPOSALINVEST").Rows.Clear()
@@ -1774,7 +1776,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NTDISPOSALINVEST_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NTDISPOSALINVEST_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1786,7 +1788,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXEMDIV
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_exempt_dividend(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_exempt_dividend(PNL_KEY, Errorlog)
 
                     ds.Tables("exempt_dividend").Rows.Clear()
                     If dt IsNot Nothing Then
@@ -1797,7 +1799,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.FORINCREMIT
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NTFOREIGNINCREM(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NTFOREIGNINCREM(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NTFOREIGNINCREM_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NTFOREIGNINCREM").Rows.Clear()
@@ -1808,7 +1810,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NTFOREIGNINCREM_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NTFOREIGNINCREM_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1820,7 +1822,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.REALFE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NTUREALFET(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NTUREALFET(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NTUREALFET_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NTUREALFET").Rows.Clear()
@@ -1831,7 +1833,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NTUREALFET_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NTUREALFET_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1843,7 +1845,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NTREALFE(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NTREALFE(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NTREALFE_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NTREALFE").Rows.Clear()
@@ -1854,7 +1856,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NTREALFE_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NTREALFE_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1866,7 +1868,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.UNREALFETRADE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_INCOME_NTUREALFENT(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_INCOME_NTUREALFENT(PNL_KEY, Errorlog)
 
                     ds.Tables("INCOME_NTUREALFENT_DETAIL").Rows.Clear()
                     ds.Tables("INCOME_NTUREALFENT").Rows.Clear()
@@ -1877,7 +1879,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_INCOME_NTUREALFENT_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_INCOME_NTUREALFENT_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1889,7 +1891,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_non_taxable_income(RefNo, YA, Errorlog)
+                    dt = ADO.Load_PNL_non_taxable_income(RefNo, YA, Errorlog)
 
                     ds.Tables("NON_TAXABLE_INCOME_DETAIL").Rows.Clear()
                     ds.Tables("non_taxable_income").Rows.Clear()
@@ -1900,7 +1902,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_NON_TAXABLE_INCOME_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_NON_TAXABLE_INCOME_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -1912,7 +1914,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_interestrestrict(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_interestrestrict(PNL_KEY, Errorlog)
                     Dim tmpDt_Data As DataTable = Nothing
                     Dim tmpDt_Col As DataTable = Nothing
                     ds.Tables("REF_INTEREST_RESTRIC_DETAIL_MONTHLY").Rows.Clear()
@@ -1951,7 +1953,7 @@ Module mdlPNL2
 
                                 tmpDt_Data = Nothing
 
-                                tmpDt_Data = mdlProcess.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
+                                tmpDt_Data = ADO.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
 
                                 mdlPNL2.LoadTable_InterestRestricted(ds, RefNo, YA, rowx("EXIR_SOURCENO"), rowx("EXIR_EXIRKEY"), Errorlog)
 
@@ -1962,7 +1964,7 @@ Module mdlPNL2
                                 mdlPNL2.AppenData_InterestRestricted(tmpDt_Data, ds, Errorlog)
                                 Application.DoEvents()
 
-                                mdlProcess.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(PNL_KEY, ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT"), RefNo, _
+                                ADO.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(PNL_KEY, ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT"), RefNo, _
                                                                                       YA, rowx("EXIR_SOURCENO"), Errorlog)
 
 
@@ -2014,7 +2016,7 @@ Module mdlPNL2
                                         worksheet1.Rows(0).Insert()
                                         worksheet1.Rows(0).Insert()
                                         Application.DoEvents()
-                                        worksheet1.Rows(1)(0).Value = LoadTaxPayer_CompanyName(RefNo)
+                                        worksheet1.Rows(1)(0).Value = ADO.LoadTaxPayer_CompanyName(RefNo)
                                         worksheet1.Rows(2)(0).Value = "Schedule of Section 33(2) Restriction of Interest Expense"
                                         worksheet1.Rows(3)(0).Value = "Year of Assessment : " & CStr(YA)
 
@@ -2054,7 +2056,7 @@ Module mdlPNL2
                                 tmpDt_Data = Nothing
 
 
-                                tmpDt_Data = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
+                                tmpDt_Data = ADO.Load_REF_INTEREST_RESTRIC_DETAIL_YEARLY(rowx("EXIR_SOURCENO"), RefNo, YA, Errorlog)
 
                                 If tmpDt_Data IsNot Nothing Then
                                     For x As Integer = 0 To tmpDt_Data.Rows.Count - 1
@@ -2073,7 +2075,7 @@ Module mdlPNL2
 
                                         ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Add(dtRow)
                                     Next
-                                    If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ds.Tables("REF_INTEREST_RESTRIC_DETAIL"), RefNo, YA, rowx("EXIR_SOURCENO"), PNL_KEY, _
+                                    If ADO.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ds.Tables("REF_INTEREST_RESTRIC_DETAIL"), RefNo, YA, rowx("EXIR_SOURCENO"), PNL_KEY, _
                                                                   0, Errorlog, False) = False Then
 
                                     End If
@@ -2087,7 +2089,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_interest(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_interest(PNL_KEY, Errorlog)
                     ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Clear()
                     ds.Tables("expenses_interest").Rows.Clear()
 
@@ -2122,7 +2124,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_INTEREST_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_INTEREST_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2155,7 +2157,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPLEGAL
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_legal(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_legal(PNL_KEY, Errorlog)
                     ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Clear()
                     ds.Tables("expenses_legal").Rows.Clear()
 
@@ -2190,7 +2192,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_LEGAL_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_LEGAL_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2223,7 +2225,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPTECHNICAL
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_tech_fee(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_tech_fee(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Clear()
                     ds.Tables("expenses_tech_fee").Rows.Clear()
@@ -2258,7 +2260,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_TECH_FEE_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_TECH_FEE_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2291,7 +2293,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_contract(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_contract(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Clear()
                     ds.Tables("expenses_contract").Rows.Clear()
@@ -2326,7 +2328,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_CONTRACT_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_CONTRACT_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2360,7 +2362,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_directors_fee(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_directors_fee(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Clear()
                     ds.Tables("expenses_directors_fee").Rows.Clear()
@@ -2395,7 +2397,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_DIRECTORS_FEE_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_DIRECTORS_FEE_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2428,7 +2430,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPSALARY
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_salary(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_salary(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Clear()
                     ds.Tables("expenses_salary").Rows.Clear()
@@ -2463,7 +2465,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_SALARY_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_SALARY_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2497,7 +2499,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_empl_stock(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_empl_stock(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Clear()
                     ds.Tables("expenses_empl_stock").Rows.Clear()
@@ -2531,7 +2533,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_EMPLSTOCK_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_EMPLSTOCK_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2565,7 +2567,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPROYALTY
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_royalty(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_royalty(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Clear()
                     ds.Tables("expenses_royalty").Rows.Clear()
@@ -2600,7 +2602,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_ROYALTY_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_ROYALTY_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2633,7 +2635,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPRENTAL
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_rental(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_rental(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Clear()
                     ds.Tables("expenses_rental").Rows.Clear()
@@ -2669,7 +2671,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_RENTAL_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_RENTAL_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2703,7 +2705,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_repair(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_repair(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Clear()
                     ds.Tables("expenses_repair").Rows.Clear()
@@ -2738,7 +2740,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_REPAIR_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_REPAIR_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2771,7 +2773,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPRND
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_research(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_research(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Clear()
                     ds.Tables("expenses_research").Rows.Clear()
@@ -2806,7 +2808,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_RESEARCH_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_RESEARCH_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2839,7 +2841,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_promote(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_promote(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Clear()
                     ds.Tables("expenses_promote").Rows.Clear()
@@ -2874,7 +2876,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_PROMOTE_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_PROMOTE_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2907,7 +2909,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPTRAVEL
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_travel(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_travel(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Clear()
                     ds.Tables("expenses_travel").Rows.Clear()
@@ -2942,7 +2944,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_TRAVEL_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_TRAVEL_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -2975,7 +2977,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPJKDM
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_expenses_jkdm(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_expenses_jkdm(PNL_KEY, Errorlog)
 
                     ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Clear()
                     ds.Tables("expenses_jkdm").Rows.Clear()
@@ -3012,7 +3014,7 @@ Module mdlPNL2
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_EXPENSES_JKDM_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_EXPENSES_JKDM_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3046,7 +3048,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exdepreciation(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exdepreciation(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Clear()
                     ds.Tables("other_exdepreciation").Rows.Clear()
@@ -3075,14 +3077,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exdepreciation").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXDEPRECIATION_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXDEPRECIATION_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3106,7 +3108,7 @@ Module mdlPNL2
                                     dtRow("EXODEPD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
 
                                 ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3116,7 +3118,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exapprdonation(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exapprdonation(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Clear()
                     ds.Tables("other_exapprdonation").Rows.Clear()
@@ -3146,14 +3148,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exapprdonation").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXAPPRDONATION_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXAPPRDONATION_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3178,6 +3180,7 @@ Module mdlPNL2
                                     dtRow("EXOADD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3186,7 +3189,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exnapprdonation(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exnapprdonation(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Clear()
                     ds.Tables("other_exnapprdonation").Rows.Clear()
@@ -3215,14 +3218,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exnapprdonation").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXNAPPRDONATION_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXNAPPRDONATION_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3247,7 +3250,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3256,7 +3259,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPZAKAT
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exzakat(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exzakat(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Clear()
                     ds.Tables("other_exzakat").Rows.Clear()
@@ -3285,14 +3288,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exzakat").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXZAKAT_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXZAKAT_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3317,7 +3320,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3326,7 +3329,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exlossdisposalfa(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exlossdisposalfa(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Clear()
                     ds.Tables("other_exlossdisposalfa").Rows.Clear()
@@ -3355,14 +3358,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exlossdisposalfa").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXLOSSDISPOSALFA_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXLOSSDISPOSALFA_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3387,7 +3390,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3396,7 +3399,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_entertainnstaff(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_entertainnstaff(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Clear()
                     ds.Tables("other_entertainnstaff").Rows.Clear()
@@ -3425,14 +3428,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_entertainnstaff").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_ENTERTAINNSTAFF_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_ENTERTAINNSTAFF_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3457,7 +3460,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3466,7 +3469,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_OTHER_ENTERTAINSTAFF(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_OTHER_ENTERTAINSTAFF(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Clear()
                     ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Clear()
@@ -3495,14 +3498,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_ENTERTAINSTAFF_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_ENTERTAINSTAFF_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3527,6 +3530,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3535,7 +3539,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_expenalty(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_expenalty(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Clear()
                     ds.Tables("other_expenalty").Rows.Clear()
@@ -3564,14 +3568,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_expenalty").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXPENALTY_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXPENALTY_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3596,7 +3600,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3605,7 +3609,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPPROVISION
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exprovisionacc(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exprovisionacc(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Clear()
                     ds.Tables("other_exprovisionacc").Rows.Clear()
@@ -3634,14 +3638,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exprovisionacc").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXPROVISIONACC_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXPROVISIONACC_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3666,6 +3670,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3674,7 +3679,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exleavepassage(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exleavepassage(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Clear()
                     ds.Tables("other_exleavepassage").Rows.Clear()
@@ -3703,14 +3708,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exleavepassage").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXLEAVEPASSAGE_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXLEAVEPASSAGE_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3735,6 +3740,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
 
                                 ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3744,7 +3750,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exfawrittenoff(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exfawrittenoff(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Clear()
                     ds.Tables("other_exfawrittenoff").Rows.Clear()
@@ -3773,13 +3779,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exfawrittenoff").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXFAWRITTENOFF_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXFAWRITTENOFF_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3804,7 +3811,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3813,7 +3820,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exurlossforeign(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exurlossforeign(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Clear()
                     ds.Tables("other_exurlossforeign").Rows.Clear()
@@ -3842,14 +3849,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exurlossforeign").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXURLOSSFOREIGN_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXURLOSSFOREIGN_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3875,6 +3882,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3883,7 +3891,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exrlossforeignt(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exrlossforeignt(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Clear()
                     ds.Tables("other_exrlossforeignt").Rows.Clear()
@@ -3911,11 +3919,12 @@ Module mdlPNL2
                             End If
                             dtRow("RowIndex") = rowx("RowIndex")
                             dtRow("Pecentage") = rowx("Pecentage")
+                            dtRow("PecentageAmount") = rowx("PecentageAmount")
                             ds.Tables("other_exrlossforeignt").Rows.Add(dtRow)
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXRLOSSFOREIGNT_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXRLOSSFOREIGNT_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -3940,6 +3949,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3948,7 +3958,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exrlossforeign(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exrlossforeign(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Clear()
                     ds.Tables("other_exrlossforeign").Rows.Clear()
@@ -3977,13 +3987,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exrlossforeign").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXRLOSSFOREIGN_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXRLOSSFOREIGN_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -4008,6 +4019,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4016,7 +4028,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_exinitialsub(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_exinitialsub(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Clear()
                     ds.Tables("other_exinitialsub").Rows.Clear()
@@ -4045,14 +4057,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_exinitialsub").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXINITIALSUB_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXINITIALSUB_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -4077,6 +4089,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4085,7 +4098,7 @@ Module mdlPNL2
                     End If
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
                     dt = Nothing
-                    dt = mdlProcess.Load_PNL_other_excapitalexp(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_excapitalexp(PNL_KEY, Errorlog)
 
                     ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Clear()
                     ds.Tables("other_excapitalexp").Rows.Clear()
@@ -4114,13 +4127,14 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("other_excapitalexp").Rows.Add(dtRow)
                             End If
 
                         Next
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXCAPITALEXP_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXCAPITALEXP_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
@@ -4146,6 +4160,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
+                                dtRow("PecentageAmount") = rowx("PecentageAmount")
                                 ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4155,7 +4170,7 @@ Module mdlPNL2
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
                     dt = Nothing
 
-                    dt = mdlProcess.Load_PNL_other_expenses(PNL_KEY, Errorlog)
+                    dt = ADO.Load_PNL_other_expenses(PNL_KEY, Errorlog)
                     ds.Tables("OTHER_EXPENSES_DETAIL").Rows.Clear()
                     ds.Tables("other_expenses").Rows.Clear()
 
@@ -4204,7 +4219,7 @@ Module mdlPNL2
 
                         dt = Nothing
 
-                        dt = mdlProcess.Load_PNL_OTHER_EXPENSES_DETAIL(PNL_KEY, Errorlog)
+                        dt = ADO.Load_PNL_OTHER_EXPENSES_DETAIL(PNL_KEY, Errorlog)
 
                         If dt IsNot Nothing Then
                             For Each rowC As DataRow In dt.Rows
@@ -4546,7 +4561,7 @@ Module mdlPNL2
             End Select
 
             If SQLCmd IsNot Nothing Then
-                Return mdlProcess.Load_SQLCmd(SQLCmd, Errorlog)
+                Return ADO.Load_SQLCmd(SQLCmd, Errorlog)
             Else
                 Return Nothing
             End If
@@ -5357,7 +5372,7 @@ Module mdlPNL2
                                        Optional ByRef Errorlog As clsError = Nothing) As Boolean
 
         Try
-            Dim dtPNL As DataTable = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
+            Dim dtPNL As DataTable = ADO.Load_PNL(RefNo, YA, Errorlog)
 
             If dtPNL Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -5378,7 +5393,7 @@ Module mdlPNL2
 
             ID = "PNL_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-            While mdlProcess.Validate_PNL_TEMP_REPORTID(ID)
+            While ADO.Validate_PNL_TEMP_REPORTID(ID)
                 ID = "PNL_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
             End While
 
@@ -5502,7 +5517,7 @@ Module mdlPNL2
 
                 Next
 
-                Return mdlProcess.Save_PNL_Report_TEMP(dsDataSet.Tables(TableName), Errorlog)
+                Return ADO.Save_PNL_Report_TEMP(dsDataSet.Tables(TableName), Errorlog)
             End If
 
             Return False
@@ -5524,7 +5539,7 @@ Module mdlPNL2
     Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
 
-            Dim dtPNL As DataTable = mdlProcess.Load_PNL(RefNo, YA, Errorlog)
+            Dim dtPNL As DataTable = ADO.Load_PNL(RefNo, YA, Errorlog)
 
 
             If ds Is Nothing Then
@@ -5790,13 +5805,13 @@ Module mdlPNL2
                                              ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing)
         Try
 
-            Dim dt As DataTable = mdlProcess.Load_interestRestricMonthNBasis(Refno, YA, SourceNo, ErrorLog)
+            Dim dt As DataTable = ADO.Load_interestRestricMonthNBasis(Refno, YA, SourceNo, ErrorLog)
             Dim MonthDuration As Integer = 0
             Dim BasisPeriod As DateTime = Now
             Dim CurrBasisPeriod As DateTime = Now
             Dim dtRow As DataRow = Nothing
             Dim LabelTag As String = Nothing
-            Dim dtTaxPayer As DataTable = mdlProcess.LoadTaxPayer_ByRefNO(Refno)
+            Dim dtTaxPayer As DataTable = ADO.LoadTaxPayer_ByRefNO(Refno)
 
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Clear()
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Clear()
@@ -5814,7 +5829,7 @@ Module mdlPNL2
 
             MonthDuration = IIf(IsDBNull(dt.Rows(0)("DURATION")), 12, dt.Rows(0)("DURATION"))
             BasisPeriod = IIf(IsDBNull(dt.Rows(0)("BASICPERIOD")), Now, dt.Rows(0)("BASICPERIOD"))
-            CurrBasisPeriod = BasisPeriod
+            CurrBasisPeriod = BasisPeriod.AddMonths(-1)
 
             Dim clm As System.Data.DataColumn
 
@@ -5894,13 +5909,13 @@ Module mdlPNL2
                 Select Case i
                     Case 0
 
-                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "Borr")
+                        dt = ADO.Load_interestRestricSchedule(Refno, YA, SourceNo, "Borr")
                     Case 1
-                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "inv")
+                        dt = ADO.Load_interestRestricSchedule(Refno, YA, SourceNo, "inv")
                     Case 2
-                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "invNon")
+                        dt = ADO.Load_interestRestricSchedule(Refno, YA, SourceNo, "invNon")
                     Case Else
-                        dt = mdlProcess.Load_interestRestricSchedule(Refno, YA, SourceNo, "Interest")
+                        dt = ADO.Load_interestRestricSchedule(Refno, YA, SourceNo, "Interest")
                 End Select
 
                 If dt IsNot Nothing Then

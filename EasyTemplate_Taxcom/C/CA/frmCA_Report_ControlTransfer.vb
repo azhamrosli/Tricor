@@ -20,7 +20,7 @@ Public Class frmCA_Report_ControlTransfer
     Dim ds As dsCA
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
-            mdlProcess.Delete_CA_Report_TEMP(ID)
+            ADO.Delete_CA_Report_TEMP(ID)
         Catch ex As Exception
 
         End Try
@@ -40,7 +40,7 @@ Public Class frmCA_Report_ControlTransfer
 
             Select Case TypeReport
                 Case 7
-                    dt = mdlProcess.Load_CAReport_ControlTransfer_Temp(ID)
+                    dt = ADO.Load_CAReport_ControlTransfer_Temp(ID)
             End Select
 
             ds = New dsCA
@@ -204,12 +204,15 @@ Public Class frmCA_Report_ControlTransfer
                 End If
 
           
-                Dim rpt As XtraReport
-
-                rpt = ReportGenerator.GenerateReport(rpt, GridView1)
+                Dim rpt As New rpt_CAControlTransfer
+                rpt.DataSource = ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP_2")
                 rpt.Landscape = True
                 rpt.ShowPreview()
+                'Dim rpt As XtraReport
 
+                'rpt = ReportGenerator.GenerateReport(rpt, GridView1)
+                'rpt.Landscape = True
+                'rpt.ShowPreview()
 
                 If isExport Then
                     MsgBox("Succesfully export report to " & vbCrLf & Path, MsgBoxStyle.Information)

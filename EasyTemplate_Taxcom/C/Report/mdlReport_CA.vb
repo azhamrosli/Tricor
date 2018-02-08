@@ -5,13 +5,13 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dt As DataTable = mdlProcess.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
+            Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
             If dt IsNot Nothing Then
 
                 ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_CA_TEMP_REPORTID(ID)
+                While ADO.Validate_CA_TEMP_REPORTID(ID)
                     ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 
@@ -44,13 +44,13 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dt As DataTable = mdlProcess.LoadHP_Search(RefNo, YA, -1, "", Errorlog)
+            Dim dt As DataTable = ADO.LoadHP_Search(RefNo, YA, -1, "", Errorlog)
 
             If dt IsNot Nothing Then
 
                 ID = "HP_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_HP_TEMP_REPORTID(ID)
+                While ADO.Validate_HP_TEMP_REPORTID(ID)
                     ID = "HP_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 
@@ -83,13 +83,13 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               ByVal Type As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dt As DataTable = mdlProcess.LoadDisposal_Search_Report(RefNo, YA, RateFrom, RateTo, Category, Type, Errorlog)
+            Dim dt As DataTable = ADO.LoadDisposal_Search_Report(RefNo, YA, RateFrom, RateTo, Category, Type, Errorlog)
 
             If dt IsNot Nothing Then
 
                 ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_CA_TEMP_REPORTID(ID)
+                While ADO.Validate_CA_TEMP_REPORTID(ID)
                     ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 
@@ -122,9 +122,9 @@
                     dtCA = Nothing
 
                     If IsDBNull(dt.Rows(i)("CA_KEY")) = False Then
-                        dtCA = mdlProcess.Load_CA(dt.Rows(i)("CA_KEY"), Errorlog)
+                        dtCA = ADO.Load_CA(dt.Rows(i)("CA_KEY"), Errorlog)
                     End If
-                   
+
                     If dtCA IsNot Nothing Then
                         CA_KEY = IIf(IsDBNull(dtCA.Rows(0)("CA_KEY")), 0, dtCA.Rows(0)("CA_KEY"))
                         CA_NAME = IIf(IsDBNull(dtCA.Rows(0)("CA_NAME")), "", dtCA.Rows(0)("CA_NAME"))
@@ -149,7 +149,7 @@
                         DISP_TWDV = CDec(IIf(IsDBNull(dt.Rows(i)("CA_DISP_TWDV")), 0, dt.Rows(i)("CA_DISP_TWDV")))
                         DISP_BABC = CDec(IIf(IsDBNull(dt.Rows(i)("CA_DISP_BABC")), 0, dt.Rows(i)("CA_DISP_BABC")))
 
-                        If mdlProcess.Save_Disposal_Report_TEMP(ID, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, _
+                        If ADO.Save_Disposal_Report_TEMP(ID, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, _
                                                                 CA_YA, HP_CODE, CA_ASSET_NAME, CA_CATEGORY_CODE, CA_MODE, _
                                                                 CA_TRANSFERROR_NAME, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, _
                                                                 CA_RATE_AA, CA_CAEEO, DISP_DEPRECIATION, DISP_WDV, DISP_DISPOSAL_VALUE, DISP_PNL, _
@@ -183,13 +183,13 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dt As DataTable = mdlProcess.LoadCA_Search_Report_ControlTransfer(RefNo, "", RateFrom, RateTo, Category, Errorlog)
+            Dim dt As DataTable = ADO.LoadCA_Search_Report_ControlTransfer(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
             If dt IsNot Nothing Then
 
                 ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_CA_TEMP_REPORTID(ID)
+                While ADO.Validate_CA_TEMP_REPORTID(ID)
                     ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 
@@ -203,7 +203,7 @@
                 Next
 
 
-                Dim dtData As DataTable = Load_CAReport_Temp(ID, YA)
+                Dim dtData As DataTable = ADO.Load_CAReport_Temp(ID, YA)
 
                 If dtData IsNot Nothing Then
                     Dim CurrentYA As Integer = 0
@@ -248,13 +248,13 @@
                         CurrentYA = IIf(IsDBNull(dtData.Rows(i)("YA")), 0, dtData.Rows(i)("YA"))
                         CA_KEY = IIf(IsDBNull(dtData.Rows(i)("CA_KEY")), 0, dtData.Rows(i)("CA_KEY"))
 
-                        tmpDT = mdlProcess.Load_CA(CA_KEY, Errorlog)
+                        tmpDT = ADO.Load_CA(CA_KEY, Errorlog)
 
                         If tmpDT Is Nothing Then
                             Exit For
                         End If
 
-                   
+
                         CA_NAME = IIf(IsDBNull(dtData.Rows(i)("CA_NAME")), "", dtData.Rows(i)("CA_NAME"))
                         CA_SOURCENO = IIf(IsDBNull(dtData.Rows(i)("CA_SOURCENO")), 0, dtData.Rows(i)("CA_SOURCENO"))
                         CA_YA = IIf(IsDBNull(dtData.Rows(i)("CA_YA")), 0, dtData.Rows(i)("CA_YA"))
@@ -307,7 +307,7 @@
                                 AA_0 = QC_CF
                         End Select
 
-                        If mdlProcess.Save_CA_ControlTranfer(ID, RefNo, CurrentYA, CA_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, _
+                        If ADO.Save_CA_ControlTranfer(ID, RefNo, CurrentYA, CA_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, _
                                                              CA_PURCHASE_AMOUNT, CA_TRANSFERROR_NAME, CA_TRANSFER_VAL, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, _
                                                              CA_CAEEO, QC_CF, TWDV_BF, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, _
                                                              AA_60, AA_80, AA_90, AA_100, i, TmpID, Errorlog) = False Then
@@ -338,13 +338,13 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
                               Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dt As DataTable = mdlProcess.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
+            Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
             If dt IsNot Nothing Then
 
                 ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_CA__FA_TEMP_REPORTID(ID)
+                While ADO.Validate_CA__FA_TEMP_REPORTID(ID)
                     ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 
@@ -377,13 +377,13 @@
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, ByVal Type As mdlEnum.CAReport_Type, _
                               Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
-            Dim dtCA As DataTable = mdlProcess.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
+            Dim dtCA As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
             If dtCA IsNot Nothing Then
 
                 ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
 
-                While mdlProcess.Validate_CA_TEMP_REPORTID(ID)
+                While ADO.Validate_CA_TEMP_REPORTID(ID)
                     ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
                 End While
 
@@ -400,11 +400,11 @@
                 Dim dt As DataTable = Nothing
                 Select Case Type
                     Case CAReport_Type.CA_REPORT_SUMMARY_BYRATE
-                        dt = mdlProcess.Load_CAReportSummary_Temp_ByRate(ID, CInt(YA), Errorlog)
+                        dt = ADO.Load_CAReportSummary_Temp_ByRate(ID, CInt(YA), Errorlog)
                     Case CAReport_Type.CA_REPORT_SUMMARY_BYCATEGORY
-                        dt = mdlProcess.Load_CAReportSummary_Temp_ByCategory(ID, CInt(YA), Errorlog)
+                        dt = ADO.Load_CAReportSummary_Temp_ByCategory(ID, CInt(YA), Errorlog)
                 End Select
-                'mdlProcess.Load_CAReportSummary_Temp(ID, CInt(YA), Errorlog)
+                'ADO.Load_CAReportSummary_Temp(ID, CInt(YA), Errorlog)
 
                 If dt IsNot Nothing Then
 
@@ -481,10 +481,10 @@
                         TWDV_CF = CDec(IIf(IsDBNull(dt.Rows(i)("TWDV_CF")), 0, dt.Rows(i)("TWDV_CF")))
                         IndexNo = i
 
-                        If mdlProcess.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET, CA_CATEGORY_CODE, _
+                        If ADO.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET, CA_CATEGORY_CODE, _
                                               CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, _
                                               CA_RATE_IA, CA_RATE_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, _
-                                              TWDV_IA, TWDV_AA, TWDV_TOTAL, TWDV_CF, IndexNo, CAReport_TableType.CA_REPORT_SUMMARY_TEMP, ID, Errorlog) = False Then
+                                              TWDV_IA, TWDV_AA, TWDV_TOTAL, TWDV_CF, IndexNo, ADO.CAReport_TableType.CA_REPORT_SUMMARY_TEMP, ID, Errorlog) = False Then
                             Return False
                         End If
                     Next
@@ -536,7 +536,7 @@
             Dim dtDisposal As DataTable = Nothing
             Dim DISP_AMOUNT As Decimal = 0
             Dim IndexNo As Integer = 0
-            Dim dt As DataTable = mdlProcess.Load_HP(HP_KEY)
+            Dim dt As DataTable = ADO.Load_HP(HP_KEY)
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -578,7 +578,7 @@
 
             CurrentYA = CA_YA
 
-            dtYear = mdlProcess.Load_HP_YEARLY_ByYear(HP_KEY, CStr(CurrentYA))
+            dtYear = ADO.Load_HP_YEARLY_ByYear(HP_KEY, CStr(CurrentYA))
 
             BF_PRINCIPAL = HP_PRINCIPAL
             BF_INTEREST = HP_INTEREST
@@ -590,13 +590,13 @@
                 CURR_INTEREST = 0
                 CURR_PRINCIPAL = 0
             End If
-          
+
 
             CF_PRINCIPAL = BF_PRINCIPAL - CURR_PRINCIPAL
             CF_INTEREST = BF_INTEREST - CURR_INTEREST
             IndexNo = 0
 
-            If mdlProcess.Save_HP_TEMP_REPORT(RefNo, CurrentYA, HP_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY, CA_PURCHASE_YEAR, _
+            If ADO.Save_HP_TEMP_REPORT(RefNo, CurrentYA, HP_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY, CA_PURCHASE_YEAR, _
                                               HP_PRINCIPAL, HP_INTEREST_RATE, HP_INTEREST, HP_TOTAL, BF_PRINCIPAL, BF_INTEREST, _
                                               CURR_PRINCIPAL, CURR_INTEREST, CF_PRINCIPAL, CF_INTEREST, IndexNo, ID, Errorlog) = False Then
                 Return False
@@ -610,7 +610,7 @@
                 BF_PRINCIPAL = CF_PRINCIPAL
                 BF_INTEREST = CF_INTEREST
 
-                dtYear = mdlProcess.Load_HP_YEARLY_ByYear(HP_KEY, CStr(CurrentYA))
+                dtYear = ADO.Load_HP_YEARLY_ByYear(HP_KEY, CStr(CurrentYA))
 
                 If dtYear IsNot Nothing Then
                     CURR_INTEREST = CDec(IIf(IsDBNull(dtYear.Rows(0)("HPD_PRINCIPA")), 0, dtYear.Rows(0)("HPD_PRINCIPA")))
@@ -622,7 +622,7 @@
                 CF_PRINCIPAL = BF_PRINCIPAL - CURR_PRINCIPAL
                 CF_INTEREST = BF_INTEREST - CURR_INTEREST
 
-                If mdlProcess.Save_HP_TEMP_REPORT(RefNo, CurrentYA, HP_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY, CA_PURCHASE_YEAR, _
+                If ADO.Save_HP_TEMP_REPORT(RefNo, CurrentYA, HP_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY, CA_PURCHASE_YEAR, _
                                           HP_PRINCIPAL, HP_INTEREST_RATE, HP_INTEREST, HP_TOTAL, BF_PRINCIPAL, BF_INTEREST, _
                                           CURR_PRINCIPAL, CURR_INTEREST, CF_PRINCIPAL, CF_INTEREST, IndexNo, ID, Errorlog) = False Then
                     Return False
@@ -680,7 +680,7 @@
             Dim dtDisposal As DataTable = Nothing
             Dim DISP_AMOUNT As Decimal = 0
             Dim IndexNo As Integer = 0
-            Dim dt As DataTable = mdlProcess.Load_CA(CA_KEY)
+            Dim dt As DataTable = ADO.Load_CA(CA_KEY)
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -731,7 +731,7 @@
             TOTAL_AA += CA_AA
 
             LEFT_IA_AA = 100 - (TOTAL_IA + TOTAL_AA)
-            dtDisposal = mdlProcess.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
+            dtDisposal = ADO.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
 
             If CA_MODE.ToUpper = "OPN" Then
                 QC_BF = CA_QUA_AMOUNT
@@ -789,10 +789,10 @@
             If TWDV_CF < 0 Then
                 TWDV_CF = 0
             End If
-            If mdlProcess.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_CATEGORY, _
+            If ADO.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_CATEGORY, _
                                               CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YE, CA_QUA_AMOUNT, _
                                               CA_IA, CA_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, _
-                                              TWDV_IA, TWDV_AA, TWDV_TOTAL, TWDV_CF, IndexNo, CAReport_TableType.CA_REPORT_TEMP, ID, Errorlog) = False Then
+                                              TWDV_IA, TWDV_AA, TWDV_TOTAL, TWDV_CF, IndexNo, ADO.CAReport_TableType.CA_REPORT_TEMP, ID, Errorlog) = False Then
                 Return False
             End If
 
@@ -811,7 +811,7 @@
 
                 QC_BF = QC_CF
                 QC_ADD = 0
-                dtDisposal = mdlProcess.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
+                dtDisposal = ADO.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
                 If dtDisposal IsNot Nothing Then
                     DISP_AMOUNT = CDec(IIf(IsDBNull(dtDisposal.Rows(0)("CA_DISP_QC")), 0, dtDisposal.Rows(0)("CA_DISP_QC")))
                 Else
@@ -841,10 +841,10 @@
                 If TWDV_CF < 0 Then
                     TWDV_CF = 0
                 End If
-                If mdlProcess.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_CATEGORY, _
+                If ADO.Save_CA_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_CATEGORY, _
                                             CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YE, CA_QUA_AMOUNT, _
                                             CA_IA, CA_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, _
-                                            TWDV_IA, TWDV_AA, TWDV_TOTAL, TWDV_CF, IndexNo, CAReport_TableType.CA_REPORT_TEMP, ID, Errorlog) = False Then
+                                            TWDV_IA, TWDV_AA, TWDV_TOTAL, TWDV_CF, IndexNo, ADO.CAReport_TableType.CA_REPORT_TEMP, ID, Errorlog) = False Then
                     Return False
                 End If
 
@@ -909,7 +909,7 @@
             Dim dtDisposal As DataTable = Nothing
             Dim DISP_AMOUNT As Decimal = 0
             Dim IndexNo As Integer = 0
-            Dim dt As DataTable = mdlProcess.Load_CA(CA_KEY)
+            Dim dt As DataTable = ADO.Load_CA(CA_KEY)
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -960,7 +960,7 @@
 
             LEFT_IA_AA = 100 - (TOTAL_IA + TOTAL_AA)
 
-            dtDisposal = mdlProcess.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
+            dtDisposal = ADO.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
 
             If CA_MODE.ToUpper = "OPN" Then
                 QC_BF = CA_QUA_AMOUNT
@@ -1046,10 +1046,10 @@
             If PC_CF < 0 Then
                 PC_CF = 0
             End If
-            If mdlProcess.Save_CA_FAReconliliation_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_ASSET_CODE, CA_CATEGORY, _
+            If ADO.Save_CA_FAReconliliation_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_ASSET_CODE, CA_CATEGORY, _
                                               CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_PURCHASE_YE, CA_QUA_AMOUNT, CA_PURCHASE_AMOUNT, _
                                               CA_IA, CA_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, TWDV_IA, TWDV_AA, TWDV_CF, PC_BF, PC_ADD, PC_DISP, _
-                                              PC_CF, IndexNo, CAReport_TableType.CA_REPORT_FIXEDASET_RECONCILIATION, ID, Errorlog) = False Then
+                                              PC_CF, IndexNo, ADO.CAReport_TableType.CA_REPORT_FIXEDASET_RECONCILIATION, ID, Errorlog) = False Then
                 Return False
             End If
 
@@ -1068,7 +1068,7 @@
                 'QC
                 QC_BF = QC_CF
                 QC_ADD = 0
-                dtDisposal = mdlProcess.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
+                dtDisposal = ADO.Load_DISPOSAL_BY_CA_KEY_DISP_YA(CA_KEY, CStr(CurrentYA), Errorlog)
                 If dtDisposal IsNot Nothing Then
                     DISP_AMOUNT = CDec(IIf(IsDBNull(dtDisposal.Rows(0)("CA_DISP_QC")), 0, dtDisposal.Rows(0)("CA_DISP_QC")))
                 Else
@@ -1113,10 +1113,10 @@
                     PC_CF = 0
                 End If
 
-                If mdlProcess.Save_CA_FAReconliliation_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_ASSET_CODE, CA_CATEGORY, _
+                If ADO.Save_CA_FAReconliliation_TEMP_REPORT(RefNo, CurrentYA, CA_KEY, CA_NAME, CA_ASSET_NAME, CA_ASSET_CODE, CA_CATEGORY, _
                                             CA_SOURCENO, CA_YA, HP_CODE, CA_MODE, CA_PURCHASE_YE, CA_QUA_AMOUNT, CA_PURCHASE_AMOUNT, _
                                             CA_IA, CA_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, TWDV_IA, TWDV_AA, TWDV_CF, PC_BF, PC_ADD, PC_DISP, _
-                                            PC_CF, IndexNo, CAReport_TableType.CA_REPORT_FIXEDASET_RECONCILIATION, ID, Errorlog) = False Then
+                                            PC_CF, IndexNo, ADO.CAReport_TableType.CA_REPORT_FIXEDASET_RECONCILIATION, ID, Errorlog) = False Then
                     Return False
                 End If
 

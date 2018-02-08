@@ -31,13 +31,13 @@ Public Class frmCP204_Add
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -94,7 +94,7 @@ Public Class frmCP204_Add
                 btnPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             Else
 
-                Dim dt As DataTable = mdlProcess.Load_CP204_ByID(ID)
+                Dim dt As DataTable = ADO.Load_CP204_ByID(ID)
 
                 If dt Is Nothing Then
                     cboRefNo.ReadOnly = False
@@ -166,7 +166,7 @@ Public Class frmCP204_Add
                 CalcEstimationPercent()
 
 
-                Dim dtBreakDown As DataTable = mdlProcess.Load_CP204_BreakDown_ByParentID(ID)
+                Dim dtBreakDown As DataTable = ADO.Load_CP204_BreakDown_ByParentID(ID)
 
                 If dtBreakDown IsNot Nothing Then
 
@@ -224,7 +224,7 @@ Public Class frmCP204_Add
                 Exit Sub
             End If
 
-            Dim dt As DataTable = mdlProcess.LoadTaxPayer_ByRefNO(cboRefNo.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadTaxPayer_ByRefNO(cboRefNo.EditValue, ErrorLog)
 
             If dt IsNot Nothing Then
 
@@ -250,18 +250,18 @@ Public Class frmCP204_Add
 
                 Application.DoEvents()
 
-                Dim dtCP204Lastyear As DataTable = mdlProcess.Load_CP204(cboRefNo.EditValue, CStr((CInt(cboYA.EditValue) - 1)))
+                Dim dtCP204Lastyear As DataTable = ADO.Load_CP204(cboRefNo.EditValue, CStr((CInt(cboYA.EditValue) - 1)))
 
                 If dtCP204Lastyear IsNot Nothing Then
                     Dim YEAROFUSED As Integer = 0
                     If CInt(cboYA.EditValue) > CInt(IIf(IsDBNull(dtCP204Lastyear.Rows(0)("BCP_YA")), 0, dtCP204Lastyear.Rows(0)("BCP_YA"))) Then
                         YEAROFUSED = IIf(IsDBNull(dtCP204Lastyear.Rows(0)("BCP_YA")), 0, dtCP204Lastyear.Rows(0)("BCP_YA"))
-                        Dim dtCP204ALastyear As DataTable = mdlProcess.Load_CP204_LastYAChecking(cboRefNo.EditValue, "CP204A")
+                        Dim dtCP204ALastyear As DataTable = ADO.Load_CP204_LastYAChecking(cboRefNo.EditValue, "CP204A")
 
                         If dtCP204ALastyear IsNot Nothing Then
                             If YEAROFUSED = IIf(IsDBNull(dtCP204ALastyear.Rows(0)("BCP_YA")), 0, dtCP204ALastyear.Rows(0)("BCP_YA")) Then
 
-                                Dim dtCP204BLastyear As DataTable = mdlProcess.Load_CP204_LastYAChecking(cboRefNo.EditValue, "CP204B")
+                                Dim dtCP204BLastyear As DataTable = ADO.Load_CP204_LastYAChecking(cboRefNo.EditValue, "CP204B")
 
                                 If dtCP204BLastyear IsNot Nothing AndAlso YEAROFUSED = IIf(IsDBNull(dtCP204BLastyear.Rows(0)("BCP_YA")), 0, dtCP204BLastyear.Rows(0)("BCP_YA")) Then
                                     txtAmountTaxPayable_LastYear.EditValue = IIf(IsDBNull(dtCP204BLastyear.Rows(0)("BCP_REV_ESTIMATED_TAX")), 0, dtCP204BLastyear.Rows(0)("BCP_REV_ESTIMATED_TAX"))
@@ -498,7 +498,7 @@ Public Class frmCP204_Add
             If obj IsNot Nothing AndAlso IsNumeric(obj) Then
                 CurrPayAmount += CDec(obj)
             End If
-           
+
             obj = DsCP204.Tables(MainTable_Details).Compute("sum(" & MainTable_Amount2 & ")", "")
             If obj IsNot Nothing AndAlso IsNumeric(obj) Then
                 CurrPayAmount += CDec(obj)
@@ -511,7 +511,7 @@ Public Class frmCP204_Add
                             CurrInstall += CDec(.Rows(i)(MainTable_InstallmentAmount))
                         End If
                     End If
-                 
+
                 End With
             Next
 
@@ -560,7 +560,7 @@ Public Class frmCP204_Add
             End If
 
             dtRow(MainTable_Penalty) = CurrPenalty
-           
+
             If (CurrPayAmount - CurrInstall) > 0 Then
                 txtCurrAvaiblePayment.EditValue = CurrPayAmount - CurrInstall
             Else
@@ -644,7 +644,7 @@ Public Class frmCP204_Add
                 End If
             End If
 
-            Dim dt As DataTable = mdlProcess.Load_CP204_BreakDown_ByParentID(ID)
+            Dim dt As DataTable = ADO.Load_CP204_BreakDown_ByParentID(ID)
 
             DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Clear()
             If dt Is Nothing Then
@@ -733,7 +733,7 @@ Public Class frmCP204_Add
                 Dim tmpID As Integer = 0
                 Dim dtRow As DataRow = Nothing
 
-                tmpID = GETCP204KEY(ErrorLog)
+                tmpID = ADO.GETCP204KEY(ErrorLog)
                 tmpID += 1
 
                 dtRow = DsCP204.Tables("BORANG_CP204").NewRow
@@ -814,13 +814,13 @@ Public Class frmCP204_Add
                 DsCP204.Tables("BORANG_CP204").Rows.Add(dtRow)
 
                 If isEdit Then
-                    If mdlProcess.Update_CP204(DsCP204, ErrorLog) Then
+                    If ADO.Update_CP204(DsCP204, ErrorLog) Then
                         MsgBox("Succesfully update CP204", MsgBoxStyle.Information)
                     Else
                         MsgBox("Unsuccesfully update CP204", MsgBoxStyle.Critical)
                     End If
                 Else
-                    If mdlProcess.Save_CP204(DsCP204, ErrorLog) Then
+                    If ADO.Save_CP204(DsCP204, ErrorLog) Then
                         MsgBox("Succesfully saved CP204", MsgBoxStyle.Information)
                         ID = tmpID
                     Else

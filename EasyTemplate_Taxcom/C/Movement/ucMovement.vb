@@ -28,13 +28,13 @@ Public Class ucMovement
 
             Dim tmpType As Integer = -1
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -55,7 +55,7 @@ Public Class ucMovement
             End If
 
 
-            Dim dt As DataTable = mdlProcess.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
             DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
@@ -165,7 +165,7 @@ Public Class ucMovement
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
+                    If ADO.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -198,7 +198,7 @@ Public Class ucMovement
             Dim dtChild As DataTable = Nothing
             Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
 
-            dt = mdlProcess.Load_MovementNormal(ID, ErrorLog)
+            dt = ADO.Load_MovementNormal(ID, ErrorLog)
 
             DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
             DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
@@ -215,7 +215,7 @@ Public Class ucMovement
                 DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
             Next
 
-            dt = mdlProcess.Load_MovementNormal_Add(ID, ErrorLog)
+            dt = ADO.Load_MovementNormal_Add(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -223,7 +223,7 @@ Public Class ucMovement
                 Next
             End If
             Application.DoEvents()
-            dt = mdlProcess.Load_MovementNormal_Deduct(ID, ErrorLog)
+            dt = ADO.Load_MovementNormal_Deduct(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -232,7 +232,7 @@ Public Class ucMovement
             End If
 
             Dim rpt As New rptMovementNormal
-            rpt.paramCompanyName.Value = mdlProcess.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
+            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
             rpt.DataSource = DsMovement.Tables("MOVEMENT_NORMAL")
 
             rpt.ShowPreview()

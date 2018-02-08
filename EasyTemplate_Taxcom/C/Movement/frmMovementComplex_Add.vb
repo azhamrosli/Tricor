@@ -14,13 +14,13 @@ Public Class frmMovementComplex_Add
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -46,7 +46,7 @@ Public Class frmMovementComplex_Add
             Else
 
 
-                Dim dt As DataTable = mdlProcess.Load_MovementComplex(ID, ErrorLog)
+                Dim dt As DataTable = ADO.Load_MovementComplex(ID, ErrorLog)
 
                 If dt Is Nothing Then
                     Me.Text = "Movement Complex - Add"
@@ -83,9 +83,9 @@ Public Class frmMovementComplex_Add
                     Next
                 End If
 
-                dt = mdlProcess.Load_MovementComplex_Deduct(ID, ErrorLog)
+                dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
 
-           
+
                 If dt IsNot Nothing Then
                     For Each rowx As DataRow In dt.Rows
                         rowx("MM_ID") = DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count + 1
@@ -93,7 +93,7 @@ Public Class frmMovementComplex_Add
                     Next
                 End If
 
-                dt = mdlProcess.Load_MovementComplex_Add(ID, ErrorLog)
+                dt = ADO.Load_MovementComplex_Add(ID, ErrorLog)
 
                 DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
                 If dt IsNot Nothing Then
@@ -425,7 +425,7 @@ Public Class frmMovementComplex_Add
             If isValid() Then
 
                 If isEdit Then
-                    If mdlProcess.Update_MovementComplex(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If ADO.Update_MovementComplex(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
                                                       txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
@@ -439,7 +439,7 @@ Public Class frmMovementComplex_Add
                     End If
                 Else
                     Dim tmpID As Integer = 0
-                    If mdlProcess.Save_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If ADO.Save_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
                                                       txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
@@ -494,7 +494,7 @@ Public Class frmMovementComplex_Add
 
             If isEdit = False Then
 
-                If mdlProcess.CheckExist_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                If ADO.CheckExist_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
                     Return False
                 End If

@@ -27,7 +27,7 @@ Public Class ucSQLScript
         Try
             pnlLoading.Visible = True
 
-            Dim dt As DataTable = mdlProcess.Load_DatabaseList(ErrorLog)
+            Dim dt As DataTable = ADO.Load_DatabaseList(ErrorLog)
 
             If dt IsNot Nothing Then
 
@@ -124,7 +124,7 @@ Public Class ucSQLScript
 
                 SQLcmd.CommandText = strSQL
 
-                Dim dt As DataTable = mdlProcess.Load_SQLCmd(SQLcmd, SQLCOn, ErrorLog)
+                Dim dt As DataTable = ADO.Load_SQLCmd(SQLcmd, SQLCOn, ErrorLog)
 
                 If ErrorLog IsNot Nothing Then
                     txtErrolog.EditValue = ErrorLog.ErrorDateTime & vbCrLf & ErrorLog.ErrorMessage
@@ -146,7 +146,7 @@ Public Class ucSQLScript
 
                 SQLcmd.CommandText = strSQL
 
-                If mdlProcess.Run_SQLCmd(SQLcmd, SQLCOn, ErrorLog) = False Then
+                If ADO.Run_SQLCmd(SQLcmd, SQLCOn, ErrorLog) = False Then
                     If ErrorLog IsNot Nothing Then
                         txtErrolog.EditValue = ErrorLog.ErrorDateTime & vbCrLf & ErrorLog.ErrorMessage
                     Else
@@ -185,7 +185,7 @@ Public Class ucSQLScript
                 SQLCOn.Open()
             End If
 
-            Dim dt As DataTable = mdlProcess.GetListofTable(SQLCOn)
+            Dim dt As DataTable = ADO.GetListofTable(SQLCOn)
 
             If dt IsNot Nothing Then
 

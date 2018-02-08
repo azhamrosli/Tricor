@@ -19,7 +19,7 @@ Public Class frmHP_Report
 
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
-            mdlProcess.Delete_HP_REPORT_TEMP(ID)
+            ADO.Delete_HP_REPORT_TEMP(ID)
         Catch ex As Exception
 
         End Try
@@ -36,7 +36,7 @@ Public Class frmHP_Report
         Try
             Dim dt As DataTable = Nothing
 
-            dt = mdlProcess.Load_HPReport_Temp(ID, CInt(YA))
+            dt = ADO.Load_HPReport_Temp(ID, CInt(YA))
 
 
 

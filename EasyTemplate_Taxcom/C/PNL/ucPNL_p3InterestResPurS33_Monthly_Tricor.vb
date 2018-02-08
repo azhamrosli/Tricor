@@ -96,7 +96,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
 
             Application.DoEvents()
 
-            Dim dtData As DataTable = mdlProcess.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR_TEMP(SourceNo, RefNo, YA, Errorlog)
+            Dim dtData As DataTable = ADO.Load_REF_INTEREST_RESTRIC_MONTHLY_TRICOR_TEMP(SourceNo, RefNo, YA, Errorlog)
             If dtData IsNot Nothing Then
                 mdlPNL2.AppenData_InterestRestricted(dtData, DsPNL, Errorlog)
             End If
@@ -189,10 +189,10 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
                                     If (txtTotalInvBorr * txtTotalInvInterest) = 0 Then
                                         TotalRestrict += 0
                                     Else
-                                        TotalRestrict += txtTotalInvSub / (txtTotalInvBorr * txtTotalInvInterest)
+                                        TotalRestrict += (txtTotalInvSub / txtTotalInvBorr) * txtTotalInvInterest
                                     End If
 
-                                    rowx(colx.ColumnName) = TotalRestrict.ToString("N2")
+                                    rowx(colx.ColumnName) = TotalRestrict.ToString("N0")
 
                                 Case "6 INTEREST RESTRICTED BUT ALLOWABLE AGAINST"
                                     If rowx("TypeIncome") = "E1" Then
@@ -202,7 +202,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
                                             TotalInterest = (TotalRestrict * SubInterest) / txtTotalInvSub
                                         End If
 
-                                        rowx(colx.ColumnName) = TotalInterest.ToString("N2")
+                                        rowx(colx.ColumnName) = TotalInterest.ToString("N0")
                                     End If
                                     If rowx("TypeIncome") = "E2" Then
                                         If txtTotalInvSub = 0 Then
@@ -211,7 +211,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
                                             TotalRental = (TotalRestrict * SubRental) / txtTotalInvSub
                                         End If
 
-                                        rowx(colx.ColumnName) = TotalRental.ToString("N2")
+                                        rowx(colx.ColumnName) = TotalRental.ToString("N0")
                                     End If
                                     If rowx("TypeIncome") = "E3" Then
                                         If txtTotalInvSub = 0 Then
@@ -219,7 +219,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
                                         Else
                                             TotalDividend = (TotalRestrict * SubDividend) / txtTotalInvSub
                                         End If
-                                        rowx(colx.ColumnName) = TotalDividend.ToString("N2")
+                                        rowx(colx.ColumnName) = TotalDividend.ToString("N0")
                                     End If
                             End Select
 
@@ -257,7 +257,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
 
                         End Select
                     Next
-                End If      
+                End If
             Next
 
             For Each row As DataRow In DsPNL.Tables(MainTable).Rows
@@ -271,7 +271,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
             CalcPercentageAmount_Expenses(DsPNL, MainTable, "", MainKey, "", Main_Addback, Main_Deduct, _
                                           MainDetails_Addback, MainDetails_Deduct, MainAmount, MainAmount_Details, _
                                           MainColumn_PercentageAmount, ErrorLog)
-            mdlProcess.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(KeyID, DsPNL.Tables(MainTable_Details), RefNo, YA, SourceNo, ErrorLog)
+            ADO.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(KeyID, DsPNL.Tables(MainTable_Details), RefNo, YA, SourceNo, ErrorLog)
 
         Catch ex As Exception
             MsgBox(ex.Message)

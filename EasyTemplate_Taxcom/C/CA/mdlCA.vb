@@ -1,7 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
 Module mdlCA
-    Dim ADO As SQLDataObject
     Private strRefNo As String = Nothing
     Private strCYa As String = Nothing
     Private strPNLKey As Integer = 0
@@ -28,7 +27,7 @@ Module mdlCA
 
     Private Function GetBoolPLS60FA(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -65,7 +64,7 @@ Module mdlCA
     End Function
     Private Function GetDTCA_SourceNum(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -96,7 +95,7 @@ Module mdlCA
     End Function
     Private Function GetDTCA_AA_IARate(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -128,7 +127,7 @@ Module mdlCA
     End Function
     Private Function GetDTCADisposal(ByVal strCAKEY As String, ByVal strCAYA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -158,7 +157,7 @@ Module mdlCA
     End Function
     Private Function GetDTCADisposalBABCNonHP(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -189,7 +188,7 @@ Module mdlCA
     End Function
     Private Function GetDTCADisposalBABCHP(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -220,7 +219,7 @@ Module mdlCA
     End Function
     Private Function GetBoolChkMajorC(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -257,7 +256,7 @@ Module mdlCA
     End Function
     Private Function Load_PNL(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -287,7 +286,7 @@ Module mdlCA
     End Function
     Private Function Load_INT_AMOUNT_INTEREST_INCOME(ByVal TC_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -316,7 +315,7 @@ Module mdlCA
     End Function
     Private Function Load_SUN_AMOUNT_SUN_TOTAL(ByVal TC_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -345,7 +344,7 @@ Module mdlCA
     End Function
     Private Function GetDTTCUnabsorbedBusinessLoss(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -375,7 +374,7 @@ Module mdlCA
     End Function
     Private Function GetPartnerLoss_LstView(ByVal strKey As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -404,7 +403,7 @@ Module mdlCA
     End Function
     Private Function GetDTApprDonation(ByVal strPLKEYs As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -434,7 +433,7 @@ Module mdlCA
     End Function
     Private Function GetDTApprDonationDetail(ByVal strPLKEYs As Integer, ByVal strBusiness As String, ByVal strEXOADKEY As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -465,7 +464,7 @@ Module mdlCA
     End Function
     Private Function GetDTZakat(ByVal strPLKEYs As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -505,7 +504,7 @@ Module mdlCA
     End Function
     Private Function GetBoolSME(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -572,7 +571,7 @@ Module mdlCA
                                                 ByVal TC_CB_LS_BAL_BF As Double, ByVal TC_SI_ADJ_BS_IN_BC As Double, _
                                                 ByVal TC_NB_RENTIBA As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -644,7 +643,7 @@ Module mdlCA
     End Function
     Public Function Update_OBSchudule(ByVal OB_SCHEDULE_NYA As Double, ByVal TC_BUSINESS As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -677,7 +676,7 @@ Module mdlCA
     End Function
     Public Function Update_TAXCOMPUTATION_TC_SI_TOT(ByVal TC_SI_TOT As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -727,7 +726,7 @@ Module mdlCA
                                                 ByVal TC_TP_AGGR_IN_LOSS As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
 
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -789,7 +788,7 @@ Module mdlCA
     End Function
     Public Function UpdateNonAllowableExpenses(ByVal value As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -823,7 +822,7 @@ Module mdlCA
 
     Private Function GetTotalNonAllowableExpenses(Optional ByRef Errorlog As clsError = Nothing) As Double
         Try
-            strPNLKey = CInt(Load_PNL_GetKey(strRefNo, strCYa, Errorlog))
+            strPNLKey = CInt(ADO.Load_PNL_GetKey(strRefNo, strCYa, Errorlog))
             Dim strDeductible As String = "No"
             Dim dblTotalNonAllowExpenses As Double = 0
 
@@ -897,18 +896,18 @@ Module mdlCA
             strRefNo = TC_REF_NO
             strCYa = YA
 
-            Dim dt As DataTable = mdlProcess.LOAD_GetDTYA(TC_REF_NO)
+            Dim dt As DataTable = ADO.LOAD_GetDTYA(TC_REF_NO)
             Dim tmpTotalNonAllExp As Double = 0
             If dt IsNot Nothing Then
 
                 For Each dtRowYA As DataRow In dt.Rows
                     If strCYa = dtRowYA("TC_YA") Then
-                        drLstview = mdlProcess.Load_Tax_Computation(TC_REF_NO, CStr(YA), ErrorLog)
-                        drPartnerIncome = mdlProcess.Load_PartnerIncome(TC_REF_NO, CStr(YA), ErrorLog)
-                        dtRAOpeningBalance = mdlProcess.Load_RA_OpeningBalance(TC_REF_NO, CStr(YA), ErrorLog)
-                        drOpeningBalance = mdlProcess.Load_OpeningBalance(TC_REF_NO, CStr(YA), ErrorLog)
-                        dtOpeningBalanceNextYA = mdlProcess.Load_OpeningBalance_NextYA(TC_REF_NO, CStr(YA), ErrorLog)
-                        dtLessApprDonation = mdlProcess.Load_LessApprove_Donation(TC_REF_NO, CStr(YA), strPNLKey, strMainBuz, ErrorLog)
+                        drLstview = ADO.Load_Tax_Computation(TC_REF_NO, CStr(YA), ErrorLog)
+                        drPartnerIncome = ADO.Load_PartnerIncome(TC_REF_NO, CStr(YA), ErrorLog)
+                        dtRAOpeningBalance = ADO.Load_RA_OpeningBalance(TC_REF_NO, CStr(YA), ErrorLog)
+                        drOpeningBalance = ADO.Load_OpeningBalance(TC_REF_NO, CStr(YA), ErrorLog)
+                        dtOpeningBalanceNextYA = ADO.Load_OpeningBalance_NextYA(TC_REF_NO, CStr(YA), ErrorLog)
+                        dtLessApprDonation = ADO.Load_LessApprove_Donation(TC_REF_NO, CStr(YA), strPNLKey, strMainBuz, ErrorLog)
 
                         If drLstview IsNot Nothing AndAlso drLstview.Rows.Count > 0 Then
                             If SetAdjBusinessIn(ErrorLog) = False Then
@@ -916,7 +915,7 @@ Module mdlCA
                             End If
                             Application.DoEvents()
                             drTCUnabsorbedBusinessLoss = mdlCA.GetDTTCUnabsorbedBusinessLoss(ErrorLog)
-                            drLstview = mdlProcess.Load_Tax_Computation(TC_REF_NO, CStr(YA), ErrorLog)
+                            drLstview = ADO.Load_Tax_Computation(TC_REF_NO, CStr(YA), ErrorLog)
                             ' IIf(Aggregate(ErrorLog) = False, MsgBox(ErrorLog.ErrorMessage), Nothing)
                             If Aggregate(ErrorLog) = False Then
                                 MsgBox("Failed to refresh aggregate income", MsgBoxStyle.Critical)
@@ -1044,7 +1043,7 @@ Module mdlCA
                             TC_SI_ADJ_BS_IN = FormatNumber(row("TC_AI_ADJ_IN_LOSS"), 0)
                         End If
                     End If
-                    drOpeningBalance = mdlProcess.Load_OpeningBalance(strRefNo, strCYa, Errorlog)
+                    drOpeningBalance = ADO.Load_OpeningBalance(strRefNo, strCYa, Errorlog)
                     If drOpeningBalance IsNot Nothing Then
                         For Each dtrowOB As DataRow In drOpeningBalance.Rows
                             OB_SCHEDULE = CDbl(dtrowOB("OB_SCHEDULE"))
@@ -1102,7 +1101,7 @@ Module mdlCA
                         Next
 
                     End If
-                    
+
                     Dim sourcenum As String = ""
                     Dim pre_sourcenum As String = ""
                     drCA_sourceNum = GetDTCA_SourceNum() 'LeeCC rmk
@@ -1485,7 +1484,7 @@ Module mdlCA
                         End If
                     End If
 
-                    drOpeningBalance = mdlProcess.Load_OpeningBalance(strRefNo, strCYa, Errorlog)
+                    drOpeningBalance = ADO.Load_OpeningBalance(strRefNo, strCYa, Errorlog)
                     If drOpeningBalance IsNot Nothing AndAlso drOpeningBalance.Rows.Count > 0 Then
                         TC_CB_LS_BAL_BF = 0
                         For Each dtRowOB As DataRow In drOpeningBalance.Rows
@@ -1822,7 +1821,7 @@ Module mdlCA
                     dblzakat = 0
                     'azham note
                     'Me.GetDTPLLessApprDonation()
-                    dtLessApprDonation = mdlProcess.Load_LessApprove_Donation(strRefNo, strCYa, strPNLKey, strMainBuz, Errorlog)
+                    dtLessApprDonation = ADO.Load_LessApprove_Donation(strRefNo, strCYa, strPNLKey, strMainBuz, Errorlog)
 
                     dblzakat = GetDTZakat(strPNLKey)
 

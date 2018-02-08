@@ -10,17 +10,17 @@
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpCategory(DsCA, ErrorLog) = False Then
+            If CreateLookUpCategory(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive category.", MsgBoxStyle.Critical)
                 Exit Sub
             End If

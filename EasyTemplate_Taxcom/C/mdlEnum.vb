@@ -1,4 +1,5 @@
 ﻿Module mdlEnum
+
     Public Enum ModuleName
         CAPITAL_ALLOWANCE
         HIRE_PURCHASE
@@ -22,11 +23,7 @@
         TOTAL = 2
         NORMAL = 3
     End Enum
-    Public Enum CAReport_TableType
-        CA_REPORT_TEMP
-        CA_REPORT_SUMMARY_TEMP
-        CA_REPORT_FIXEDASET_RECONCILIATION
-    End Enum
+    
     Public Enum CAReport_Type
 
         '1.   Capital Allowance Details By Rate

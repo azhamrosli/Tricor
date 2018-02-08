@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class frmDatabase
+    
     Dim ErrorLog As clsError = Nothing
     Public Status As Boolean = False
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
@@ -78,7 +79,7 @@ Public Class frmDatabase
                 My.Settings.UserID = txtUser.EditValue
                 My.Settings.Password = txtPassword.EditValue
             End If
-           
+
 
         Catch ex As Exception
 
@@ -223,7 +224,7 @@ Public Class frmDatabase
             End If
 
             If chkTAXCOM_C.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 0, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 0, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -243,7 +244,7 @@ Public Class frmDatabase
 
 
             If chkTAX_CA_C.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 1, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 1, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -261,7 +262,7 @@ Public Class frmDatabase
 
 
             If chkTAX_CA_B.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 2, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 2, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -279,7 +280,7 @@ Public Class frmDatabase
 
 
             If chkTAXCOM_B.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 3, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 3, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -297,7 +298,7 @@ Public Class frmDatabase
 
 
             If chkTAXCOM_P.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 4, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 4, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -315,7 +316,7 @@ Public Class frmDatabase
 
 
             If chkTAX_CA_P.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 5, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 5, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -333,7 +334,7 @@ Public Class frmDatabase
 
 
             If chkTAXOFFICE.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 6, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 6, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub
@@ -350,7 +351,7 @@ Public Class frmDatabase
             End If
 
             If chkTAXCOM_R.Checked = True Then
-                If mdlProcess.BackupData(txtIniDir.Text, 7, SQLCon, ErrorLog) = False Then
+                If ADO.BackupData(txtIniDir.Text, 7, SQLCon, ErrorLog) = False Then
                     lblStatus.Text = "Unsuccessfully backup database." & vbCrLf & ErrorLog.ErrorMessage
                     lblStatus.ForeColor = Color.Red
                     Exit Sub

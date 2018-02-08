@@ -28,7 +28,7 @@ Public Class frmCA_Report_FA_Reconciliation
 
             Select Case TypeReport
                 Case 6
-                    dt = mdlProcess.Load_CAReport_FAReconciliation_Temp(ID, YA)
+                    dt = ADO.Load_CAReport_FAReconciliation_Temp(ID, YA)
             End Select
 
 
@@ -40,7 +40,7 @@ Public Class frmCA_Report_FA_Reconciliation
                 Next
             End If
 
-            mdlProcess.Delete_CA_Report_FAReconciliation_TEMP(ID)
+            ADO.Delete_CA_Report_FAReconciliation_TEMP(ID)
 
             Application.DoEvents()
             BandedGridView1.BeginSort()

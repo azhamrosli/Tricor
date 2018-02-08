@@ -64,10 +64,10 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
             Dim dt As DataTable = Nothing
 
-            dt = mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(SourceNo, RefNo, YA, Errorlog)
+            dt = ADO.Load_REF_INTEREST_RESTRIC_DETAIL_MONTHLY(SourceNo, RefNo, YA, Errorlog)
 
             If dt Is Nothing Then
-                mdlProcess.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(SourceNo, RefNo, YA, Errorlog)
+                ADO.Load_REF_INTEREST_RESTRIC_DETAIL_TEMP(SourceNo, RefNo, YA, Errorlog)
             End If
 
 
@@ -238,7 +238,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 Next
 
 
-                If mdlProcess.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, SourceNo, KeyID, _
+                If ADO.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(DsPNL1.Tables(MainTable_Details), RefNo, YA, SourceNo, KeyID, _
                                                                     Amount_tmp, ErrorLog, True) = False Then
 
                     MsgBox("Unsuccessfully save your data.", MsgBoxStyle.Critical)

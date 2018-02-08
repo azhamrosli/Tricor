@@ -26,18 +26,18 @@ Public Class frmHP_Add
     End Sub
     Private Sub LoadData()
         Try
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
-            If mdlProcess.CreateLookUpCategory(DsCA, ErrorLog) = False Then
+            If CreateLookUpCategory(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive category.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -77,7 +77,7 @@ Public Class frmHP_Add
 
 
             If ID_CA <> 0 Then
-                Dim dtCA As DataTable = mdlProcess.Load_CA(ID_CA, ErrorLog)
+                Dim dtCA As DataTable = ADO.Load_CA(ID_CA, ErrorLog)
 
                 If dtCA IsNot Nothing Then
 
@@ -93,7 +93,7 @@ Public Class frmHP_Add
             GenerateType()
             If isEdit Then
 
-                Dim dtHP As DataTable = mdlProcess.Load_HP(ID, ErrorLog)
+                Dim dtHP As DataTable = ADO.Load_HP(ID, ErrorLog)
 
                 If dtHP Is Nothing Then
                     Exit Sub
@@ -135,7 +135,7 @@ Public Class frmHP_Add
                 End If
 
 
-                Dim dtInstallment As DataTable = mdlProcess.Load_HP_INSTALLMENT(ID, ErrorLog)
+                Dim dtInstallment As DataTable = ADO.Load_HP_INSTALLMENT(ID, ErrorLog)
 
                 If dtInstallment IsNot Nothing Then
                     DsCA.Tables("HP_INSTALLMENT").Rows.Clear()
@@ -145,7 +145,7 @@ Public Class frmHP_Add
                     Next
                 End If
 
-                Dim dtYearly As DataTable = mdlProcess.Load_HP_YEARLY(ID, ErrorLog)
+                Dim dtYearly As DataTable = ADO.Load_HP_YEARLY(ID, ErrorLog)
 
                 If dtYearly IsNot Nothing Then
                     DsCA.Tables("HP_YEARLY").Rows.Clear()
@@ -615,7 +615,7 @@ Public Class frmHP_Add
                 If isEdit Then
 
 
-                    If mdlProcess.Update_HP(ID, "C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboPurchaseYE.EditValue, _
+                    If ADO.Update_HP(ID, "C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboPurchaseYE.EditValue, _
                                           txtCompanyCode.EditValue, cboSourceCode.EditValue, txtAssetID.EditValue, txtAsset.EditValue, _
                                           cboCategory.EditValue, dtDateofPurchase.EditValue, txtPurchaseAmountFA.EditValue, txtDeposit.EditValue, _
                                           txtRestrictedQua.EditValue, txtDescription.EditValue, cboHP.EditValue, txtPrincipal.EditValue, _
@@ -628,7 +628,7 @@ Public Class frmHP_Add
                     End If
                 Else
                     Dim ReturnID As Integer = 0
-                    If mdlProcess.Save_HP("C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboPurchaseYE.EditValue, _
+                    If ADO.Save_HP("C", cboRefNo.EditValue, txtTaxPayer.EditValue, txtFileNo.EditValue, cboPurchaseYE.EditValue, _
                                           txtCompanyCode.EditValue, cboSourceCode.EditValue, txtAssetID.EditValue, txtAsset.EditValue, _
                                           cboCategory.EditValue, dtDateofPurchase.EditValue, txtPurchaseAmountFA.EditValue, txtDeposit.EditValue, _
                                           txtRestrictedQua.EditValue, txtDescription.EditValue, cboHP.EditValue, txtPrincipal.EditValue, _

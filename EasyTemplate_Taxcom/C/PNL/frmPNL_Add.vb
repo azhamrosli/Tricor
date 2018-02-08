@@ -19,8 +19,8 @@ Public Class frmPNL_Add
             dsDataSet = New dsPNL
         End If
 
-
-        txtPCName.Caption = My.Computer.Name & " | " & GetServerName() & " | V" & mdlProcess.V1 & "." & mdlProcess.V2 & "." & mdlProcess.V3 & "." & mdlProcess.V4 & " R." & System.Reflection.Assembly.GetExecutingAssembly.GetName.Version.Revision.ToString
+        txtPCName.Caption = My.Computer.Name & " | " & GetServerName() & " | V" & My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & "." & My.Application.Info.Version.Build & "." & My.Application.Info.Version.Revision & " R = " & mdlProcess.R1
+        'txtPCName.Caption = My.Computer.Name & " | " & GetServerName() & " | V" & mdlProcess.V1 & "." & mdlProcess.V2 & "." & mdlProcess.V3 & "." & mdlProcess.V4 & " R." & System.Reflection.Assembly.GetExecutingAssembly.GetName.Version.Revision.ToString
         ' Add any initialization after the InitializeComponent() call.
 
     End Sub
@@ -44,12 +44,12 @@ Public Class frmPNL_Add
         Try
 
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Failed to load tax payer." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Me.Close()
             End If
             Application.DoEvents()
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog) = False Then
                 MsgBox("Failed to load ya." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Me.Close()
             End If
@@ -285,7 +285,7 @@ Public Class frmPNL_Add
                 InitDockingSystem(0)
                 Application.DoEvents()
             Else
-                Dim dtPNL As DataTable = mdlProcess.Load_PNL_ByKey(ID)
+                Dim dtPNL As DataTable = ADO.Load_PNL_ByKey(ID)
 
                 If dtPNL Is Nothing Then
                     cboRefNo.Enabled = True
@@ -794,7 +794,7 @@ Public Class frmPNL_Add
 
                 dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
 
-                mdlProcess.Update_ProfitAndLoss_Query(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
+                ADO.Update_ProfitAndLoss_Query(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
 
                 Progress(6, "trying to connect with database...")
 
@@ -808,7 +808,7 @@ Public Class frmPNL_Add
                 'new
                 Progress(4, "Preparing new PNL data...")
 
-                tmpID = GETPNLKEY(ErrorLog)
+                tmpID = ADO.GETPNLKEY(ErrorLog)
                 tmpID += 1
 
                 dtrow = dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").NewRow
@@ -904,7 +904,7 @@ Public Class frmPNL_Add
 
                 dsDataSet.Tables("PROFIT_LOSS_ACCOUNT").Rows.Add(dtrow)
 
-                mdlProcess.Save_ProfitAndLoss_Query(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
+                ADO.Save_ProfitAndLoss_Query(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT"), ListofCmd, ErrorLog)
 
                 Progress(6, "trying to connect with database...")
 
@@ -916,7 +916,7 @@ Public Class frmPNL_Add
 
             End If
 
-            mdlProcess.Delete_PNLItem(ListofCmd, tmpID, ErrorLog)
+            ADO.Delete_PNLItem(ListofCmd, tmpID, ErrorLog)
 
             Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
@@ -941,7 +941,7 @@ Public Class frmPNL_Add
             Progress(CurrentProgress, "Ready to saving " & ListofCmd.Count & " data(s)...")
 
             If ListofCmd IsNot Nothing AndAlso ListofCmd.Count > 0 Then
-                If mdlProcess.Save_PNLExecute(ListofCmd, ErrorLog) Then
+                If ADO.Save_PNLExecute(ListofCmd, ErrorLog) Then
                     Progress(100, "Done to saved " & ListofCmd.Count & " data(s)...")
                     isEdit = True
                     Application.DoEvents()
@@ -966,7 +966,7 @@ Public Class frmPNL_Add
     End Sub
     Private Sub isSuccessfullySaved(ByVal KeyID As Integer)
         Try
-            Dim dt As DataTable = mdlProcess.Load_PNLLastModified(KeyID)
+            Dim dt As DataTable = ADO.Load_PNLLastModified(KeyID)
 
             If dt IsNot Nothing Then
                 txtLastModified.EditValue = IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
@@ -1025,7 +1025,7 @@ Public Class frmPNL_Add
             End If
 
             If isEdit = False Then
-                If mdlProcess.Check_PNLExist(cboRefNo.EditValue, CInt(cboYA.EditValue), ErrorLog) Then
+                If ADO.Check_PNLExist(cboRefNo.EditValue, CInt(cboYA.EditValue), ErrorLog) Then
                     ' MsgBox("Profit and loss already exist.", MsgBoxStyle.Exclamation)
                     Dim rlst As DialogResult = MessageBox.Show("Profit and loss already exist, do you want to replace with this pnl?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
 
@@ -1228,7 +1228,7 @@ Public Class frmPNL_Add
             'dblNetProfitLoss = GetGrossProfitLoss() + dicPNL("OtherBusinessIncome") + GetTotalOtherNonBusinessIncome() + GetTotalNonTaxableIncome() - GetTotalExpensesDic() + dicPNL("RealFETrade")
             'Return dblNetProfitLoss
 
-            Dim NetProfitLoss As Decimal = CDec(txt_p1GrossProfitLoss.EditValue) + CDec(txt_p2OtherBizIncome.EditValue) + CDec(txt_p2ForeignCurrExGain.EditValue) - CDec(txt_p4TotalExpenses.EditValue)
+            Dim NetProfitLoss As Decimal = CDec(txt_p1GrossProfitLoss.EditValue) + CDec(txt_p2OtherBizIncome.EditValue) + CDec(txt_p2NonBizIncome.EditValue) + CDec(txt_p2ForeignCurrExGain.EditValue) - CDec(txt_p4TotalExpenses.EditValue)
 
             txt_p4NetProfitLoss.EditValue = NetProfitLoss
             txtNetProfit2.EditValue = NetProfitLoss
@@ -1299,7 +1299,7 @@ Public Class frmPNL_Add
                 '    Next
 
                 'End If
-                If mdlProcess.VerifyInvestmentHolding(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                If ADO.VerifyInvestmentHolding(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     cboS60F.Edit.ReadOnly = True
                     cboS60F.EditValue = "Yes"
                 Else

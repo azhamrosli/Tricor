@@ -21,13 +21,13 @@ Public Class ucCA
             cboFilterType.SelectedIndex = 0
             Application.DoEvents()
 
-            If mdlProcess.CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DsCA, ErrorLog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If mdlProcess.CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -77,7 +77,7 @@ Public Class ucCA
             '    DsCA.Tables("CA").ImportRow(dt.Rows(i))
             'Next
 
-            Dim dt As DataTable = mdlProcess.LoadCA_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
+            Dim dt As DataTable = ADO.LoadCA_Search(cboRefNo.EditValue, cboYA.EditValue, tmpType, txtFilterValue.EditValue, ErrorLog)
 
             DsCA.Tables("CA_DISPOSAL").Rows.Clear()
             DsCA.Tables("CA").Rows.Clear()
@@ -89,7 +89,7 @@ Public Class ucCA
 
             Dim dtDisposal As DataTable = Nothing
             For i As Integer = 0 To dt.Rows.Count - 1
-                dtDisposal = mdlProcess.Load_DISPOSAL_BY_CA_KEY(IIf(IsDBNull(dt.Rows(i)("CA_KEY")), 0, dt.Rows(i)("CA_KEY")))
+                dtDisposal = ADO.Load_DISPOSAL_BY_CA_KEY(IIf(IsDBNull(dt.Rows(i)("CA_KEY")), 0, dt.Rows(i)("CA_KEY")))
                 DsCA.Tables("CA").ImportRow(dt.Rows(i))
                 If dtDisposal IsNot Nothing Then
 
@@ -212,7 +212,7 @@ Public Class ucCA
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To dgvCA.SelectedRowsCount - 1
 
-                    If mdlProcess.Delete_CA(CInt(dgvCA.GetDataRow(dgvCA.GetSelectedRows(i))("CA_KEY")), ErrorLog) = False Then
+                    If ADO.Delete_CA(CInt(dgvCA.GetDataRow(dgvCA.GetSelectedRows(i))("CA_KEY")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -244,7 +244,7 @@ Public Class ucCA
                     ListofCA_KEY.Add(CInt(dgvCA.GetDataRow(dgvCA.GetSelectedRows(i))("CA_KEY")))
                 Next
 
-                If mdlProcess.Duplicate_CA(ListofCA_KEY, ErrorLog) Then
+                If ADO.Duplicate_CA(ListofCA_KEY, ErrorLog) Then
                     MsgBox("Successfully duplicate capital allowance.", MsgBoxStyle.Information)
                     Me.LoadData()
                 Else
