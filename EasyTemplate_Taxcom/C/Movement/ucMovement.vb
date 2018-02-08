@@ -12,6 +12,10 @@ Public Class ucMovement
         Else
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
         End If
+
+        If clsMoveNormal Is Nothing Then
+            clsMoveNormal = New clsMovementNormal
+        End If
         InitializeComponent()
     End Sub
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -54,21 +58,7 @@ Public Class ucMovement
                 cboYA.EditValue = ""
             End If
 
-
-            Dim dt As DataTable = ADO.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
-
-            DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
-            DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
-            DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
-
-            If dt Is Nothing Then
-                Exit Sub
-            End If
-
-            For i As Integer = 0 To dt.Rows.Count - 1
-                DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
-            Next
-
+            clsMoveNormal.SearchListData(cboRefNo.EditValue, cboYA.EditValue, DsMovement, ErrorLog)
 
         Catch ex As Exception
 
@@ -165,7 +155,7 @@ Public Class ucMovement
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If ADO.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
+                    If clsMoveNormal.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -198,7 +188,7 @@ Public Class ucMovement
             Dim dtChild As DataTable = Nothing
             Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
 
-            dt = ADO.Load_MovementNormal(ID, ErrorLog)
+            dt = clsMoveNormal.Load_MovementNormal(ID, ErrorLog)
 
             DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
             DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
@@ -215,7 +205,7 @@ Public Class ucMovement
                 DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
             Next
 
-            dt = ADO.Load_MovementNormal_Add(ID, ErrorLog)
+            dt = clsMoveNormal.Load_MovementNormal_Add(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -223,7 +213,7 @@ Public Class ucMovement
                 Next
             End If
             Application.DoEvents()
-            dt = ADO.Load_MovementNormal_Deduct(ID, ErrorLog)
+            dt = clsMoveNormal.Load_MovementNormal_Deduct(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1

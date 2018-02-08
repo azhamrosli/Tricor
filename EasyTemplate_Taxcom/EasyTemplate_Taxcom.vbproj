@@ -382,6 +382,7 @@
     <Compile Include="C\DeemedInterest\ucDeemedInterest.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="C\Movement\clsMovementNormal.vb" />
     <Compile Include="C\PNL\dsPNL1.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

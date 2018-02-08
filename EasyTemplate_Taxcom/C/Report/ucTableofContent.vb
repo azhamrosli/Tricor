@@ -2,6 +2,16 @@
 Imports DevExpress.XtraReports.UI
 Public Class ucTableofContent
     Dim ErrorLog As clsError = Nothing
+    Sub New()
+        If clsMoveNormal Is Nothing Then
+            clsMoveNormal = New clsMovementNormal
+        End If
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
             Dim frm As New frmTableofContent_Add
@@ -169,7 +179,7 @@ Public Class ucTableofContent
             Dim RefNo As String = Nothing
             Dim dsMovement As New dsMovement
 
-            dt = ADO.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            dt = clsMoveNormal.Load_MovementNormal_Search(cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             dsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
             dsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
@@ -188,7 +198,7 @@ Public Class ucTableofContent
                 dsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
             Next
 
-            dt = ADO.Load_MovementNormal_Add(ID, ErrorLog)
+            dt = clsMoveNormal.Load_MovementNormal_Add(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1
@@ -196,7 +206,7 @@ Public Class ucTableofContent
                 Next
             End If
             Application.DoEvents()
-            dt = ADO.Load_MovementNormal_Deduct(ID, ErrorLog)
+            dt = clsMoveNormal.Load_MovementNormal_Deduct(ID, ErrorLog)
 
             If dt IsNot Nothing Then
                 For i As Integer = 0 To dt.Rows.Count - 1

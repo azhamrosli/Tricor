@@ -21,15 +21,15 @@ Partial Class frmMovement_Add
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMovement_Add))
-        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip3 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem3 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem3 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip13 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem13 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem13 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip14 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem14 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem14 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip15 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem15 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem15 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
@@ -52,8 +52,6 @@ Partial Class frmMovement_Add
         Me.dtStart = New DevExpress.XtraEditors.DateEdit()
         Me.dtEnded = New DevExpress.XtraEditors.DateEdit()
         Me.dtBalanceStart = New DevExpress.XtraEditors.DateEdit()
-        Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
-        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.dtBalanceEnd = New DevExpress.XtraEditors.DateEdit()
         Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
@@ -68,6 +66,7 @@ Partial Class frmMovement_Add
         Me.txtAmount = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.colMM_AddBack = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.chkAddBack = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
+        Me.colMM_AddBack_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridControl2 = New DevExpress.XtraGrid.GridControl()
         Me.MOVEMENTDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
@@ -78,6 +77,7 @@ Partial Class frmMovement_Add
         Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.GridColumn4 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.RepositoryItemCheckEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
+        Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.TaxPayerFindBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.LabelControl10 = New DevExpress.XtraEditors.LabelControl()
@@ -100,9 +100,12 @@ Partial Class frmMovement_Add
         Me.colFileNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCountry = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCompanyCode = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_AddBack_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtTotalAmount_AddbackDeduct = New DevExpress.XtraEditors.TextEdit()
+        Me.SplitContainerControl1 = New DevExpress.XtraEditors.SplitContainerControl()
+        Me.LabelControl6 = New DevExpress.XtraEditors.LabelControl()
+        Me.PanelControl1 = New DevExpress.XtraEditors.PanelControl()
+        Me.PanelControl2 = New DevExpress.XtraEditors.PanelControl()
+        Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +142,12 @@ Partial Class frmMovement_Add
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotalAmount_AddbackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainerControl1.SuspendLayout()
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl1.SuspendLayout()
+        CType(Me.PanelControl2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.PanelControl2.SuspendLayout()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -176,12 +185,12 @@ Partial Class frmMovement_Add
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem1.Text = "Add new record"
-        ToolTipItem1.LeftIndent = 6
-        ToolTipItem1.Text = "Add new record Ctrl + R"
-        SuperToolTip1.Items.Add(ToolTipTitleItem1)
-        SuperToolTip1.Items.Add(ToolTipItem1)
-        Me.btnAdd.SuperTip = SuperToolTip1
+        ToolTipTitleItem13.Text = "Add new record"
+        ToolTipItem13.LeftIndent = 6
+        ToolTipItem13.Text = "Add new record Ctrl + R"
+        SuperToolTip13.Items.Add(ToolTipTitleItem13)
+        SuperToolTip13.Items.Add(ToolTipItem13)
+        Me.btnAdd.SuperTip = SuperToolTip13
         '
         'btnAddChild
         '
@@ -192,12 +201,12 @@ Partial Class frmMovement_Add
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem2.Text = "Add new record"
-        ToolTipItem2.LeftIndent = 6
-        ToolTipItem2.Text = "Add new record Ctrl + T"
-        SuperToolTip2.Items.Add(ToolTipTitleItem2)
-        SuperToolTip2.Items.Add(ToolTipItem2)
-        Me.btnAddChild.SuperTip = SuperToolTip2
+        ToolTipTitleItem14.Text = "Add new record"
+        ToolTipItem14.LeftIndent = 6
+        ToolTipItem14.Text = "Add new record Ctrl + T"
+        SuperToolTip14.Items.Add(ToolTipTitleItem14)
+        SuperToolTip14.Items.Add(ToolTipItem14)
+        Me.btnAddChild.SuperTip = SuperToolTip14
         '
         'btnDelete
         '
@@ -208,12 +217,12 @@ Partial Class frmMovement_Add
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem3.Text = "Delete record"
-        ToolTipItem3.LeftIndent = 6
-        ToolTipItem3.Text = "Delete record Ctrl + Y"
-        SuperToolTip3.Items.Add(ToolTipTitleItem3)
-        SuperToolTip3.Items.Add(ToolTipItem3)
-        Me.btnDelete.SuperTip = SuperToolTip3
+        ToolTipTitleItem15.Text = "Delete record"
+        ToolTipItem15.LeftIndent = 6
+        ToolTipItem15.Text = "Delete record Ctrl + Y"
+        SuperToolTip15.Items.Add(ToolTipTitleItem15)
+        SuperToolTip15.Items.Add(ToolTipItem15)
+        Me.btnDelete.SuperTip = SuperToolTip15
         '
         'btnMoveUp
         '
@@ -239,7 +248,7 @@ Partial Class frmMovement_Add
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Size = New System.Drawing.Size(924, 31)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1007, 31)
         '
         'barDockControlBottom
         '
@@ -247,7 +256,7 @@ Partial Class frmMovement_Add
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 569)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Size = New System.Drawing.Size(924, 0)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1007, 0)
         '
         'barDockControlLeft
         '
@@ -261,7 +270,7 @@ Partial Class frmMovement_Add
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(924, 31)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1007, 31)
         Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 538)
         '
@@ -313,7 +322,7 @@ Partial Class frmMovement_Add
         'LabelControl5
         '
         Me.LabelControl5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl5.Location = New System.Drawing.Point(452, 179)
+        Me.LabelControl5.Location = New System.Drawing.Point(535, 179)
         Me.LabelControl5.Name = "LabelControl5"
         Me.LabelControl5.Size = New System.Drawing.Size(44, 13)
         Me.LabelControl5.TabIndex = 8
@@ -360,26 +369,6 @@ Partial Class frmMovement_Add
         Me.dtBalanceStart.Size = New System.Drawing.Size(171, 20)
         Me.dtBalanceStart.TabIndex = 5
         '
-        'LabelControl6
-        '
-        Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl6.Appearance.Options.UseFont = True
-        Me.LabelControl6.Location = New System.Drawing.Point(10, 210)
-        Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(26, 16)
-        Me.LabelControl6.TabIndex = 15
-        Me.LabelControl6.Text = "Add"
-        '
-        'LabelControl7
-        '
-        Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl7.Appearance.Options.UseFont = True
-        Me.LabelControl7.Location = New System.Drawing.Point(12, 384)
-        Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(29, 16)
-        Me.LabelControl7.TabIndex = 17
-        Me.LabelControl7.Text = "Less"
-        '
         'dtBalanceEnd
         '
         Me.dtBalanceEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -395,7 +384,7 @@ Partial Class frmMovement_Add
         'LabelControl8
         '
         Me.LabelControl8.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl8.Location = New System.Drawing.Point(454, 544)
+        Me.LabelControl8.Location = New System.Drawing.Point(537, 544)
         Me.LabelControl8.Name = "LabelControl8"
         Me.LabelControl8.Size = New System.Drawing.Size(44, 13)
         Me.LabelControl8.TabIndex = 19
@@ -412,15 +401,14 @@ Partial Class frmMovement_Add
         '
         'GridControl1
         '
-        Me.GridControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridControl1.DataSource = Me.MOVEMENTADDBindingSource
-        Me.GridControl1.Location = New System.Drawing.Point(10, 229)
+        Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.Location = New System.Drawing.Point(0, 26)
         Me.GridControl1.MainView = Me.GridView1
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.txtAmount, Me.chkAddBack})
-        Me.GridControl1.Size = New System.Drawing.Size(901, 149)
+        Me.GridControl1.Size = New System.Drawing.Size(981, 112)
         Me.GridControl1.TabIndex = 8
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -504,18 +492,26 @@ Partial Class frmMovement_Add
         Me.chkAddBack.Name = "chkAddBack"
         Me.chkAddBack.ValueGrayed = True
         '
+        'colMM_AddBack_Amount
+        '
+        Me.colMM_AddBack_Amount.Caption = "AddBack Amount"
+        Me.colMM_AddBack_Amount.ColumnEdit = Me.txtAmount
+        Me.colMM_AddBack_Amount.FieldName = "MM_ADDBACK_AMOUNT"
+        Me.colMM_AddBack_Amount.Name = "colMM_AddBack_Amount"
+        Me.colMM_AddBack_Amount.OptionsColumn.TabStop = False
+        Me.colMM_AddBack_Amount.Visible = True
+        Me.colMM_AddBack_Amount.VisibleIndex = 3
+        '
         'GridControl2
         '
-        Me.GridControl2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GridControl2.DataSource = Me.MOVEMENTDEDUCTBindingSource
-        Me.GridControl2.Location = New System.Drawing.Point(12, 406)
+        Me.GridControl2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl2.Location = New System.Drawing.Point(0, 0)
         Me.GridControl2.MainView = Me.GridView2
         Me.GridControl2.MenuManager = Me.BarManager1
         Me.GridControl2.Name = "GridControl2"
         Me.GridControl2.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemMemoEdit1, Me.RepositoryItemTextEdit3, Me.RepositoryItemCheckEdit1})
-        Me.GridControl2.Size = New System.Drawing.Size(901, 112)
+        Me.GridControl2.Size = New System.Drawing.Size(981, 168)
         Me.GridControl2.TabIndex = 9
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -593,6 +589,16 @@ Partial Class frmMovement_Add
         Me.RepositoryItemCheckEdit1.Name = "RepositoryItemCheckEdit1"
         Me.RepositoryItemCheckEdit1.ValueGrayed = True
         '
+        'colMM_DEDUCT_AMOUNT
+        '
+        Me.colMM_DEDUCT_AMOUNT.Caption = "Deduct Amount"
+        Me.colMM_DEDUCT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colMM_DEDUCT_AMOUNT.FieldName = "MM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.Name = "colMM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
+        Me.colMM_DEDUCT_AMOUNT.Visible = True
+        Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 3
+        '
         'TaxPayerFindBindingSource
         '
         Me.TaxPayerFindBindingSource.DataMember = "TaxPayerFind"
@@ -641,7 +647,7 @@ Partial Class frmMovement_Add
         'txtNoteStart
         '
         Me.txtNoteStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteStart.Location = New System.Drawing.Point(734, 176)
+        Me.txtNoteStart.Location = New System.Drawing.Point(817, 176)
         Me.txtNoteStart.MenuManager = Me.BarManager1
         Me.txtNoteStart.Name = "txtNoteStart"
         Me.txtNoteStart.Size = New System.Drawing.Size(149, 20)
@@ -650,7 +656,7 @@ Partial Class frmMovement_Add
         'LabelControl13
         '
         Me.LabelControl13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl13.Location = New System.Drawing.Point(684, 179)
+        Me.LabelControl13.Location = New System.Drawing.Point(767, 179)
         Me.LabelControl13.Name = "LabelControl13"
         Me.LabelControl13.Size = New System.Drawing.Size(30, 13)
         Me.LabelControl13.TabIndex = 163
@@ -659,7 +665,7 @@ Partial Class frmMovement_Add
         'txtNoteEnd
         '
         Me.txtNoteEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteEnd.Location = New System.Drawing.Point(736, 541)
+        Me.txtNoteEnd.Location = New System.Drawing.Point(819, 541)
         Me.txtNoteEnd.MenuManager = Me.BarManager1
         Me.txtNoteEnd.Name = "txtNoteEnd"
         Me.txtNoteEnd.Size = New System.Drawing.Size(149, 20)
@@ -668,7 +674,7 @@ Partial Class frmMovement_Add
         'LabelControl12
         '
         Me.LabelControl12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl12.Location = New System.Drawing.Point(686, 544)
+        Me.LabelControl12.Location = New System.Drawing.Point(769, 544)
         Me.LabelControl12.Name = "LabelControl12"
         Me.LabelControl12.Size = New System.Drawing.Size(30, 13)
         Me.LabelControl12.TabIndex = 169
@@ -677,7 +683,7 @@ Partial Class frmMovement_Add
         'txtAmountStart
         '
         Me.txtAmountStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAmountStart.Location = New System.Drawing.Point(502, 176)
+        Me.txtAmountStart.Location = New System.Drawing.Point(585, 176)
         Me.txtAmountStart.MenuManager = Me.BarManager1
         Me.txtAmountStart.Name = "txtAmountStart"
         Me.txtAmountStart.Properties.DisplayFormat.FormatString = "n0"
@@ -695,7 +701,7 @@ Partial Class frmMovement_Add
         'txtAmountEnd
         '
         Me.txtAmountEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtAmountEnd.Location = New System.Drawing.Point(504, 541)
+        Me.txtAmountEnd.Location = New System.Drawing.Point(587, 541)
         Me.txtAmountEnd.MenuManager = Me.BarManager1
         Me.txtAmountEnd.Name = "txtAmountEnd"
         Me.txtAmountEnd.Properties.DisplayFormat.FormatString = "n0"
@@ -799,30 +805,10 @@ Partial Class frmMovement_Add
         Me.colCompanyCode.VisibleIndex = 7
         Me.colCompanyCode.Width = 100
         '
-        'colMM_AddBack_Amount
-        '
-        Me.colMM_AddBack_Amount.Caption = "AddBack Amount"
-        Me.colMM_AddBack_Amount.ColumnEdit = Me.txtAmount
-        Me.colMM_AddBack_Amount.FieldName = "MM_ADDBACK_AMOUNT"
-        Me.colMM_AddBack_Amount.Name = "colMM_AddBack_Amount"
-        Me.colMM_AddBack_Amount.OptionsColumn.TabStop = False
-        Me.colMM_AddBack_Amount.Visible = True
-        Me.colMM_AddBack_Amount.VisibleIndex = 3
-        '
-        'colMM_DEDUCT_AMOUNT
-        '
-        Me.colMM_DEDUCT_AMOUNT.Caption = "Deduct Amount"
-        Me.colMM_DEDUCT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
-        Me.colMM_DEDUCT_AMOUNT.FieldName = "MM_DEDUCT_AMOUNT"
-        Me.colMM_DEDUCT_AMOUNT.Name = "colMM_DEDUCT_AMOUNT"
-        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
-        Me.colMM_DEDUCT_AMOUNT.Visible = True
-        Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 3
-        '
         'txtTotalAmount_AddbackDeduct
         '
         Me.txtTotalAmount_AddbackDeduct.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtTotalAmount_AddbackDeduct.Location = New System.Drawing.Point(502, 150)
+        Me.txtTotalAmount_AddbackDeduct.Location = New System.Drawing.Point(585, 150)
         Me.txtTotalAmount_AddbackDeduct.MenuManager = Me.BarManager1
         Me.txtTotalAmount_AddbackDeduct.Name = "txtTotalAmount_AddbackDeduct"
         Me.txtTotalAmount_AddbackDeduct.Properties.DisplayFormat.FormatString = "n0"
@@ -838,11 +824,76 @@ Partial Class frmMovement_Add
         Me.txtTotalAmount_AddbackDeduct.TabIndex = 186
         Me.txtTotalAmount_AddbackDeduct.Visible = False
         '
+        'SplitContainerControl1
+        '
+        Me.SplitContainerControl1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainerControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.[Default]
+        Me.SplitContainerControl1.CaptionLocation = DevExpress.Utils.Locations.Top
+        Me.SplitContainerControl1.Collapsed = True
+        Me.SplitContainerControl1.Horizontal = False
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(10, 202)
+        Me.SplitContainerControl1.Name = "SplitContainerControl1"
+        Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
+        Me.SplitContainerControl1.Panel1.Controls.Add(Me.PanelControl1)
+        Me.SplitContainerControl1.Panel1.ShowCaption = True
+        Me.SplitContainerControl1.Panel1.Tag = "Add"
+        Me.SplitContainerControl1.Panel1.Text = "Add"
+        Me.SplitContainerControl1.Panel2.Controls.Add(Me.PanelControl2)
+        Me.SplitContainerControl1.Panel2.Controls.Add(Me.GridControl2)
+        Me.SplitContainerControl1.Panel2.ShowCaption = True
+        Me.SplitContainerControl1.Panel2.Tag = "Less"
+        Me.SplitContainerControl1.Panel2.Text = "Less"
+        Me.SplitContainerControl1.ShowCaption = True
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(985, 333)
+        Me.SplitContainerControl1.SplitterPosition = 138
+        Me.SplitContainerControl1.TabIndex = 191
+        '
+        'LabelControl6
+        '
+        Me.LabelControl6.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl6.Appearance.Options.UseFont = True
+        Me.LabelControl6.Location = New System.Drawing.Point(9, 5)
+        Me.LabelControl6.Name = "LabelControl6"
+        Me.LabelControl6.Size = New System.Drawing.Size(26, 16)
+        Me.LabelControl6.TabIndex = 9
+        Me.LabelControl6.Text = "Add"
+        '
+        'PanelControl1
+        '
+        Me.PanelControl1.Controls.Add(Me.LabelControl6)
+        Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl1.Name = "PanelControl1"
+        Me.PanelControl1.Size = New System.Drawing.Size(981, 26)
+        Me.PanelControl1.TabIndex = 10
+        '
+        'PanelControl2
+        '
+        Me.PanelControl2.Controls.Add(Me.LabelControl7)
+        Me.PanelControl2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.PanelControl2.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl2.Name = "PanelControl2"
+        Me.PanelControl2.Size = New System.Drawing.Size(981, 26)
+        Me.PanelControl2.TabIndex = 11
+        '
+        'LabelControl7
+        '
+        Me.LabelControl7.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelControl7.Appearance.Options.UseFont = True
+        Me.LabelControl7.Location = New System.Drawing.Point(9, 5)
+        Me.LabelControl7.Name = "LabelControl7"
+        Me.LabelControl7.Size = New System.Drawing.Size(29, 16)
+        Me.LabelControl7.TabIndex = 9
+        Me.LabelControl7.Text = "Less"
+        '
         'frmMovement_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(924, 569)
+        Me.ClientSize = New System.Drawing.Size(1007, 569)
+        Me.Controls.Add(Me.SplitContainerControl1)
         Me.Controls.Add(Me.txtTotalAmount_AddbackDeduct)
         Me.Controls.Add(Me.cboRefNo)
         Me.Controls.Add(Me.txtAmountEnd)
@@ -854,13 +905,9 @@ Partial Class frmMovement_Add
         Me.Controls.Add(Me.LabelControl11)
         Me.Controls.Add(Me.cboYA)
         Me.Controls.Add(Me.LabelControl10)
-        Me.Controls.Add(Me.GridControl2)
-        Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.dtBalanceEnd)
         Me.Controls.Add(Me.LabelControl8)
         Me.Controls.Add(Me.LabelControl9)
-        Me.Controls.Add(Me.LabelControl7)
-        Me.Controls.Add(Me.LabelControl6)
         Me.Controls.Add(Me.txtAmountStart)
         Me.Controls.Add(Me.dtBalanceStart)
         Me.Controls.Add(Me.dtEnded)
@@ -915,6 +962,14 @@ Partial Class frmMovement_Add
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotalAmount_AddbackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainerControl1.ResumeLayout(False)
+        CType(Me.PanelControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl1.ResumeLayout(False)
+        Me.PanelControl1.PerformLayout()
+        CType(Me.PanelControl2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.PanelControl2.ResumeLayout(False)
+        Me.PanelControl2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -933,8 +988,6 @@ Partial Class frmMovement_Add
     Friend WithEvents dtBalanceEnd As DevExpress.XtraEditors.DateEdit
     Friend WithEvents LabelControl8 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents LabelControl9 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
-    Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents dtBalanceStart As DevExpress.XtraEditors.DateEdit
     Friend WithEvents dtEnded As DevExpress.XtraEditors.DateEdit
     Friend WithEvents dtStart As DevExpress.XtraEditors.DateEdit
@@ -992,4 +1045,9 @@ Partial Class frmMovement_Add
     Friend WithEvents colMM_DEDUCT_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_AddBack_Amount As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents txtTotalAmount_AddbackDeduct As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents SplitContainerControl1 As DevExpress.XtraEditors.SplitContainerControl
+    Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents PanelControl1 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents PanelControl2 As DevExpress.XtraEditors.PanelControl
+    Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
 End Class

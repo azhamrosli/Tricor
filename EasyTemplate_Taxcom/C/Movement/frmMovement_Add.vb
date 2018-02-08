@@ -4,6 +4,18 @@ Public Class frmMovement_Add
     Dim ErrorLog As clsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
+    Sub New()
+
+        If clsMoveNormal Is Nothing Then
+            clsMoveNormal = New clsMovementNormal
+        End If
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
     Private Sub frmMovement_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadData()
@@ -42,8 +54,9 @@ Public Class frmMovement_Add
                 End If
 
             Else
-                Dim dt As DataTable = ADO.Load_MovementNormal(ID, ErrorLog)
+                Dim dt As DataTable = clsMoveNormal.Load_MovementNormal(ID, ErrorLog)
 
+                DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
                 If dt Is Nothing Then
                     isEdit = False
                     Exit Sub
@@ -62,33 +75,8 @@ Public Class frmMovement_Add
                 txtNoteEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_END")), 0, dt.Rows(0)("MM_NOTE_END"))
                 txtTotalAmount_AddbackDeduct.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT")), 0, dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
 
-                DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
-                If dt IsNot Nothing Then
-                    For Each rowx As DataRow In dt.Rows
-                        DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(rowx)
-                    Next
-                End If
-
-                dt = ADO.Load_MovementNormal_Add(ID, ErrorLog)
-
-                DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
-                If dt IsNot Nothing Then
-                    For Each rowx As DataRow In dt.Rows
-                        rowx("MM_ID") = DsMovement.Tables("MOVEMENT_ADD").Rows.Count + 1
-                        DsMovement.Tables("MOVEMENT_ADD").ImportRow(rowx)
-                    Next
-                End If
-
-                dt = ADO.Load_MovementNormal_Deduct(ID, ErrorLog)
-
-                DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
-                If dt IsNot Nothing Then
-                    For Each rowx As DataRow In dt.Rows
-                        rowx("MM_ID") = DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Count + 1
-                        Application.DoEvents()
-                        DsMovement.Tables("MOVEMENT_DEDUCT").ImportRow(rowx)
-                    Next
-                End If
+                DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(0))
+                clsMoveNormal.StoreDataToDataset(ID, DsMovement)
             End If
 
             MOVEMENTADDBindingSource.DataSource = DsMovement.Tables("MOVEMENT_ADD")
@@ -159,51 +147,19 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-    Private Sub CalcVal()
-        Try
-            Dim Total As Decimal = 0
-            Dim TotalAddBackDeduct As Decimal = 0
-            If txtAmountStart.EditValue IsNot Nothing AndAlso IsNumeric(txtAmountStart.EditValue) = True Then
-                Total += CDec(txtAmountStart.EditValue)
-            End If
 
-
-            If DsMovement.Tables("MOVEMENT_ADD") IsNot Nothing AndAlso DsMovement.Tables("MOVEMENT_ADD").Rows.Count > 0 Then
-                For Each rowx As DataRow In DsMovement.Tables("MOVEMENT_ADD").Rows
-                    If rowx.RowState <> DataRowState.Deleted AndAlso IsDBNull(rowx("MM_Amount")) = False Then
-                        Total += CDec(rowx("MM_Amount"))
-                        TotalAddBackDeduct += CDec(IIf(IsDBNull(rowx("MM_ADDBACK_AMOUNT")), 0, rowx("MM_ADDBACK_AMOUNT")))
-                    End If
-                Next
-            End If
-
-            If DsMovement.Tables("MOVEMENT_DEDUCT") IsNot Nothing AndAlso DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Count > 0 Then
-                For Each rowx As DataRow In DsMovement.Tables("MOVEMENT_DEDUCT").Rows
-                    If rowx.RowState <> DataRowState.Deleted AndAlso IsDBNull(rowx("MM_Amount")) = False Then
-                        Total -= CDec(rowx("MM_Amount"))
-                        TotalAddBackDeduct -= CDec(IIf(IsDBNull(rowx("MM_DEDUCT_AMOUNT")), 0, rowx("MM_DEDUCT_AMOUNT")))
-                    End If
-                Next
-            End If
-
-            txtAmountEnd.EditValue = Total
-            txtTotalAmount_AddbackDeduct.EditValue = TotalAddBackDeduct
-        Catch ex As Exception
-            txtAmountEnd.EditValue = 0
-        End Try
-    End Sub
 
     Private Sub txtAmountStart_EditValueChanged(sender As Object, e As EventArgs) Handles txtAmountStart.EditValueChanged
-        CalcVal()
+        clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
     End Sub
 
     Private Sub GridView1_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView1.RowDeleted
-        CalcVal()
+        clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
     End Sub
 
     Private Sub GridView1_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView1.RowUpdated
         Try
-           CalcVal()
+            clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
 
         Catch ex As Exception
 
@@ -236,7 +192,7 @@ Public Class frmMovement_Add
                     End If
 
                     Application.DoEvents()
-                    CalcVal()
+                    clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
                 End If
             End If
         Catch ex As Exception
@@ -245,8 +201,8 @@ Public Class frmMovement_Add
     End Sub
     Private Sub GridView2_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView2.RowUpdated
         Try
-          
-           CalcVal()
+
+            clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
 
         Catch ex As Exception
 
@@ -254,7 +210,7 @@ Public Class frmMovement_Add
 
     End Sub
     Private Sub GridView2_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView2.RowDeleted
-        CalcVal()
+        clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
     End Sub
 
     Private Sub GridView2_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView2.ValidateRow
@@ -270,10 +226,10 @@ Public Class frmMovement_Add
                     e.ErrorText = "Please put amount."
                     e.Valid = False
                 Else
-                   
+
 
                     Application.DoEvents()
-                    CalcVal()
+                    clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
                 End If
             End If
         Catch ex As Exception
@@ -304,7 +260,7 @@ Public Class frmMovement_Add
             If isValid() Then
 
                 If isEdit Then
-                    If ADO.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If clsMoveNormal.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
                                                      DsMovement, ErrorLog) Then
@@ -319,7 +275,7 @@ Public Class frmMovement_Add
                     End If
                 Else
                     Dim tmpID As Integer = 0
-                    If ADO.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If clsMoveNormal.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                       dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                       txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
                                                       DsMovement, tmpID, ErrorLog) Then
@@ -374,7 +330,7 @@ Public Class frmMovement_Add
 
             If isEdit = False Then
 
-                If ADO.CheckExist_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                If clsMoveNormal.CheckExist_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
                     MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
                     Return False
                 End If

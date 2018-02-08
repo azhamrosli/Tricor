@@ -9,13 +9,19 @@ Imports DevExpress.XtraEditors.Repository
 
 Module mdlProcess
     Public ADO As clsIODatabase
+    Public clsMoveNormal As clsMovementNormal
+
+
+
+
+
     'Dim ADO As SQLDataObject
     Public LicenseType As Integer = 0
     Public V1 As Integer = My.Application.Info.Version.Major
     Public V2 As Integer = My.Application.Info.Version.Minor
     Public V3 As Integer = My.Application.Info.Version.Build
     Public V4 As Integer = My.Application.Info.Version.Revision
-    Public R1 As String = "Add fix CP204 bug"
+    Public R1 As String = "Change To New Code OOP make a class move all from mdlProcess to clsIODatabase"
 
     Public ArgParam0 As String = "frmpnl" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
