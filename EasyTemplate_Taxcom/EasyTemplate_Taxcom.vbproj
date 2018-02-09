@@ -388,6 +388,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
+    <Compile Include="C\PNL\dsPNL2.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </Compile>
     <Compile Include="C\PNL\Report\rptPNL_Details.Designer.vb">
       <DependentUpon>rptPNL_Details.vb</DependentUpon>
     </Compile>
@@ -1536,7 +1541,7 @@
     <None Include="C\PNL\dsPNL.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPNL1.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
     </None>
     <None Include="C\PNL\dsPNL.xss">
       <DependentUpon>dsPNL.xsd</DependentUpon>

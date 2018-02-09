@@ -69,6 +69,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="RowIndex" msprop:Generator_ColumnVarNameInTable="columnRowIndex" msprop:Generator_ColumnPropNameInRow="RowIndex" msprop:Generator_ColumnPropNameInTable="RowIndexColumn" msprop:Generator_UserColumnName="RowIndex" type="xs:short" minOccurs="0" />
+              <xs:element name="TotalSourceNo" msprop:Generator_ColumnVarNameInTable="columnTotalSourceNo" msprop:Generator_ColumnPropNameInRow="TotalSourceNo" msprop:Generator_ColumnPropNameInTable="TotalSourceNoColumn" msprop:Generator_UserColumnName="TotalSourceNo" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -111,6 +112,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="RowIndex" msprop:Generator_ColumnVarNameInTable="columnRowIndex" msprop:Generator_ColumnPropNameInRow="RowIndex" msprop:Generator_ColumnPropNameInTable="RowIndexColumn" msprop:Generator_UserColumnName="RowIndex" type="xs:short" minOccurs="0" />
+              <xs:element name="TotalSourceNo" msprop:Generator_ColumnVarNameInTable="columnTotalSourceNo" msprop:Generator_ColumnPropNameInRow="TotalSourceNo" msprop:Generator_ColumnPropNameInTable="TotalSourceNoColumn" msprop:Generator_UserColumnName="TotalSourceNo" type="xs:short" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

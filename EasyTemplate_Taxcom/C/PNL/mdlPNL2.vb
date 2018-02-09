@@ -1289,6 +1289,7 @@ Module mdlPNL2
                             dtRow("PLFS_AMOUNT") = rowx("PLFS_AMOUNT")
                             dtRow("PLFS_NOTE") = rowx("PLFS_NOTE")
                             dtRow("PLFS_DETAIL") = rowx("PLFS_DETAIL")
+                            dtRow("TotalSourceNo") = ADO.Load_PNL_PLFST_SALES_TOTAL_SOURCENO(PNL_KEY, Errorlog)
                             dtRow("RowIndex") = rowx("RowIndex")
                             ds.Tables("PLFST_SALES").Rows.Add(dtRow)
                         Next
@@ -1323,7 +1324,17 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
-                            ds.Tables("PLFST_OPENSTOCK").ImportRow(rowx)
+                            dtRow = Nothing
+                            dtRow = ds.Tables("PLFST_OPENSTOCK").NewRow
+                            dtRow("PLFOS_KEY") = rowx("PLFOS_KEY")
+                            dtRow("PLFOS_PLFOSKEY") = rowx("PLFOS_PLFOSKEY")
+                            dtRow("PLFOS_SOURCENO") = rowx("PLFOS_SOURCENO")
+                            dtRow("PLFOS_DESC") = rowx("PLFOS_DESC")
+                            dtRow("PLFOS_AMOUNT") = rowx("PLFOS_AMOUNT")
+                            dtRow("PLFOS_NOTE") = rowx("PLFOS_NOTE")
+                            dtRow("RowIndex") = rowx("RowIndex")
+                            dtRow("TotalSourceNo") = ADO.Load_PNL_PLFST_OPENSTOCK_TOTAL_SOURCENO(PNL_KEY, Errorlog)
+                            ds.Tables("PLFST_OPENSTOCK").Rows.Add(dtRow)
                         Next
                         dt = Nothing
 
@@ -1331,7 +1342,18 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
-                                ds.Tables("PLFST_OPENSTOCK_DETAIL").ImportRow(rowx)
+                                dtRow = Nothing
+                                dtRow = ds.Tables("PLFST_OPENSTOCK_DETAIL").NewRow
+                                dtRow("PLFOSD_KEY") = rowx("PLFOSD_KEY")
+                                dtRow("PLFOSD_PLFOSKEY") = rowx("PLFOSD_PLFOSKEY")
+                                dtRow("PLFOSD_SOURCENO") = rowx("PLFOSD_SOURCENO")
+                                dtRow("PLFOSD_PLFOSDKEY") = ds.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Count + 1
+                                dtRow("PLFOSD_DESC") = rowx("PLFOSD_DESC")
+                                dtRow("PLFOSD_AMOUNT") = rowx("PLFOSD_AMOUNT")
+                                dtRow("PLFOSD_NOTE") = rowx("PLFOSD_NOTE")
+                                dtRow("RowIndex") = rowx("RowIndex")
+
+                                ds.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
                     Else

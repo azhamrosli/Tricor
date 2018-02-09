@@ -11,10 +11,6 @@ Module mdlProcess
     Public ADO As clsIODatabase
     Public clsMoveNormal As clsMovementNormal
 
-
-
-
-
     'Dim ADO As SQLDataObject
     Public LicenseType As Integer = 0
     Public V1 As Integer = My.Application.Info.Version.Major

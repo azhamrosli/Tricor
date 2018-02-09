@@ -1998,7 +1998,160 @@ Public Class clsIODatabase
             Return True
         End Try
     End Function
+    Public Function Load_PNL_PLFST_SALES_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
 
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFS_SOURCENO)) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+                Return dt.Rows(0)("countx")
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_SALES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
+
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(PLFS_SOURCENO) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY AND PLFS_SOURCENO= @SourceNo"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+                Return dt.Rows(0)("countx")
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_OPENSTOCK_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
+
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(PLFOS_SOURCENO) as countx FROM PLFST_OPENSTOCK WHERE PLFOS_KEY= @PL_KEY AND PLFOS_SOURCENO= @SourceNo"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+                Return dt.Rows(0)("countx")
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+    Public Function Load_PNL_PLFST_OPENSTOCK_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
+
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFOS_SOURCENO)) as countx FROM PLFST_OPENSTOCK WHERE PLFOS_KEY= @PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+                Return dt.Rows(0)("countx")
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
     Public Function Load_PNL_PLFST_SALES(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
 

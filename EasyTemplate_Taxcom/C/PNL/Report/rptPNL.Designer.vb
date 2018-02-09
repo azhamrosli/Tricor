@@ -349,11 +349,11 @@ Partial Public Class rptPNL
         Me.BottomMargin = New DevExpress.XtraReports.UI.BottomMarginBand()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.XrLabel195 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel193 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel194 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PageHeader = New DevExpress.XtraReports.UI.PageHeaderBand()
+        Me.XrLabel193 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel208 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel207 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PageHeader = New DevExpress.XtraReports.UI.PageHeaderBand()
         Me.TOTALCOS = New DevExpress.XtraReports.UI.FormattingRule()
         Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         Me.OTHER_EXPENSES_DETAILS = New DevExpress.XtraReports.UI.FormattingRule()
@@ -3410,18 +3410,6 @@ Partial Public Class rptPNL
         Me.XrLabel195.Text = "Reference"
         Me.XrLabel195.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
-        'XrLabel193
-        '
-        Me.XrLabel193.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel193.LocationFloat = New DevExpress.Utils.PointFloat(376.1713!, 92.66669!)
-        Me.XrLabel193.Name = "XrLabel193"
-        Me.XrLabel193.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel193.SizeF = New System.Drawing.SizeF(154.6625!, 23.0!)
-        Me.XrLabel193.StylePriority.UseFont = False
-        Me.XrLabel193.StylePriority.UseTextAlignment = False
-        Me.XrLabel193.Text = "RM"
-        Me.XrLabel193.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
-        '
         'XrLabel194
         '
         Me.XrLabel194.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -3434,11 +3422,17 @@ Partial Public Class rptPNL
         Me.XrLabel194.Text = "RM"
         Me.XrLabel194.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
-        'PageHeader
+        'XrLabel193
         '
-        Me.PageHeader.Expanded = False
-        Me.PageHeader.HeightF = 0.0!
-        Me.PageHeader.Name = "PageHeader"
+        Me.XrLabel193.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel193.LocationFloat = New DevExpress.Utils.PointFloat(376.1713!, 92.66669!)
+        Me.XrLabel193.Name = "XrLabel193"
+        Me.XrLabel193.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel193.SizeF = New System.Drawing.SizeF(154.6625!, 23.0!)
+        Me.XrLabel193.StylePriority.UseFont = False
+        Me.XrLabel193.StylePriority.UseTextAlignment = False
+        Me.XrLabel193.Text = "RM"
+        Me.XrLabel193.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'XrLabel208
         '
@@ -3463,6 +3457,12 @@ Partial Public Class rptPNL
         Me.XrLabel207.StylePriority.UseTextAlignment = False
         Me.XrLabel207.Text = "XrLabel207"
         Me.XrLabel207.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        '
+        'PageHeader
+        '
+        Me.PageHeader.Expanded = False
+        Me.PageHeader.HeightF = 0.0!
+        Me.PageHeader.Name = "PageHeader"
         '
         'TOTALCOS
         '
@@ -4227,6 +4227,7 @@ Partial Public Class rptPNL
         Me.DetailReport105.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail106})
         Me.DetailReport105.Level = 0
         Me.DetailReport105.Name = "DetailReport105"
+        Me.DetailReport105.PageBreak = DevExpress.XtraReports.UI.PageBreak.BeforeBand
         '
         'Detail106
         '

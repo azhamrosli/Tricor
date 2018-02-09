@@ -289,6 +289,11 @@ Public Class ucPNL
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
+            If GridView1.GetFocusedDataRow() Is Nothing Then
+                GridView1.FocusedRowHandle = 0
+                Application.DoEvents()
+
+            End If
             Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
             Dim YA As String = GridView1.GetFocusedDataRow()("PL_YA")
 
