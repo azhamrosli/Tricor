@@ -215,6 +215,38 @@ Public Class clsMovementNormal
             Return Nothing
         End Try
     End Function
+    Public Function Load_MovementNormal(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_NORMAL WHERE MM_REFNO=@MM_REFNO AND MM_YA=@MM_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_MovementNormal_Add(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
 
@@ -283,7 +315,7 @@ Public Class clsMovementNormal
                                         ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
                                         ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                         ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, _
+                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, ByVal TypePass As Integer, _
                                         ByVal ds As DataSet, _
                                         ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -297,7 +329,7 @@ Public Class clsMovementNormal
             Dim SQLcmd As SqlCommand
             Dim tmpID As Decimal = 0
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
@@ -314,6 +346,7 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddBackDeduct
+            SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
 
 
             Me.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
@@ -385,7 +418,7 @@ Public Class clsMovementNormal
                                       ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
                                       ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                       ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                      ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, _
+                                      ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, ByVal TypePass As Integer, _
                                       ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
@@ -399,7 +432,7 @@ Public Class clsMovementNormal
             Dim tmpID As Decimal = 0
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -418,6 +451,7 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddbackDeduct
+            SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
 
             ListofCmd.Add(SQLcmd)
 

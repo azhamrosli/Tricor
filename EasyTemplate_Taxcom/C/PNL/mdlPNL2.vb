@@ -1289,7 +1289,7 @@ Module mdlPNL2
                             dtRow("PLFS_AMOUNT") = rowx("PLFS_AMOUNT")
                             dtRow("PLFS_NOTE") = rowx("PLFS_NOTE")
                             dtRow("PLFS_DETAIL") = rowx("PLFS_DETAIL")
-                            dtRow("TotalSourceNo") = ADO.Load_PNL_PLFST_SALES_TOTAL_SOURCENO(PNL_KEY, Errorlog)
+                            dtRow("TotalSourceNo") = ADO.Load_PLFST_SALES_TOTAL_SOURCENO(PNL_KEY, Errorlog)
                             dtRow("RowIndex") = rowx("RowIndex")
                             ds.Tables("PLFST_SALES").Rows.Add(dtRow)
                         Next
@@ -1441,7 +1441,7 @@ Module mdlPNL2
 
                                 dtRow("EXDEP_NOTE") = rowx("EXDEP_NOTE")
                                 dtRow("EXDEP_DETAIL") = rowx("EXDEP_DETAIL")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_DEPRECIATION").Rows.Add(dtRow)
                             End If
 
@@ -1469,7 +1469,7 @@ Module mdlPNL2
                                 End If
 
                                 dtRow("EXDEPD_NOTE") = rowx("EXDEPD_NOTE")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1505,7 +1505,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("EXA_NOTE") = rowx("EXA_NOTE")
                                 dtRow("EXA_DETAIL") = rowx("EXA_DETAIL")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_ALLOW").Rows.Add(dtRow)
                             End If
 
@@ -1531,7 +1531,7 @@ Module mdlPNL2
                                 End If
                                 '  dtRow("EXAD_DEDUCTIBLE") = rowx("EXAD_DEDUCTIBLE")
                                 dtRow("EXAD_NOTE") = rowx("EXAD_NOTE")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1563,7 +1563,7 @@ Module mdlPNL2
                                 dtRow("EXNA_DEDUCTIBLE") = rowx("EXNA_DEDUCTIBLE")
                                 dtRow("EXNA_NOTE") = rowx("EXNA_NOTE")
                                 dtRow("EXNA_DETAIL") = rowx("EXNA_DETAIL")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_NONALLOW").Rows.Add(dtRow)
                             End If
 
@@ -1590,7 +1590,7 @@ Module mdlPNL2
                                 dtRow("EXNAD_DEDUCTIBLE") = rowx("EXNAD_DEDUCTIBLE")
                                 dtRow("EXNAD_AMOUNT") = rowx("EXNAD_AMOUNT")
                                 dtRow("EXNAD_NOTE") = rowx("EXNAD_NOTE")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -1970,7 +1970,7 @@ Module mdlPNL2
                                     dtRow("EXIR_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
 
                                 tmpDt_Data = Nothing
@@ -1991,90 +1991,96 @@ Module mdlPNL2
 
 
                                 If isPrint Then
-                                
-                                    'Dim frm As New frmReport_Test
-                                    'frm.rptURL = Application.StartupPath & "\Report1.rdlc"
-                                    'frm.ds = ds
-                                    'frm.Show()
-                                    Dim frm As New frmPNL_InterestResPurS33_Monthly
-                                    frm.ID_PNL = PNL_KEY
-                                    frm.RefNo = RefNo
-                                    frm.YA = YA
-                                    frm.SourceNo = rowx("EXIR_SOURCENO")
-                                    frm.KeyID = rowx("EXIR_EXIRKEY")
-                                    frm.LoadData(Errorlog)
-                                    Application.DoEvents()
-                                    Dim path As String = Application.StartupPath & "\ReportTemporary"
-                                    If System.IO.Directory.Exists(path) = False Then
-                                        System.IO.Directory.CreateDirectory(path)
-                                    End If
-
-                                    path += "\InterestRestricted.xlsx"
-
-                                    If System.IO.File.Exists(path) Then
-                                        System.IO.File.Delete(path)
-                                    End If
-
-                                    frm.GridControl1.ExportToXlsx(path)
-                                    Application.DoEvents()
-
-                                    Using stream As New FileStream(path, FileMode.Open)
-
-                                        Dim spreadsheetControl1 As New SpreadsheetControl
-
-                                        spreadsheetControl1.LoadDocument(stream, DocumentFormat.Xlsx)
-
-                                        Dim workbook As IWorkbook = spreadsheetControl1.Document
-
-                                        Dim worksheet1 As Worksheet = workbook.Worksheets(0)
-
-
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        worksheet1.Rows(0).Insert()
-                                        Application.DoEvents()
-                                        worksheet1.Rows(1)(0).Value = ADO.LoadTaxPayer_CompanyName(RefNo)
-                                        worksheet1.Rows(2)(0).Value = "Schedule of Section 33(2) Restriction of Interest Expense"
-                                        worksheet1.Rows(3)(0).Value = "Year of Assessment : " & CStr(YA)
-
-                                        worksheet1.Rows(5)(0).Value = "(In Malaysian Ringgit)"
-                                        Application.DoEvents()
-
-
-                                        '  worksheet1.Rows(0).Delete()
-                                        ' Application.DoEvents()
-
-                                        worksheet1.Rows(0)(0).Value = ""
-                                        worksheet1.Rows(0)(1).Value = ""
-                                        'Dim inx As Integer = 1
-                                        'For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
-
-                                        '    Select Case colx.ColumnName
-                                        '        Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
-
-                                        '        Case Else
-                                        '            inx += 1
-                                        '            worksheet1.Rows(7)(inx).Value = colx.ColumnName
-                                        '    End Select
-                                        'Next
-                                        workbook.SaveDocument(stream, DocumentFormat.Xlsx)
-
-
-                                    End Using
-                                    Application.DoEvents()
-
-
-                                    Dim frmExcel As New frmExcel
-                                    frmExcel.isAutoOpen = True
-                                    frmExcel.Path = path
-                                    frmExcel.Show()
-
+                                    mdlPNL2.AppenData_InterestRestricted_Report(tmpDt_Data, ds, RefNo, YA, rowx("EXIR_SOURCENO"), Errorlog)
                                 End If
+
+
+
+                                'If isPrint Then
+
+                                '    'Dim frm As New frmReport_Test
+                                '    'frm.rptURL = Application.StartupPath & "\Report1.rdlc"
+                                '    'frm.ds = ds
+                                '    'frm.Show()
+                                '    Dim frm As New frmPNL_InterestResPurS33_Monthly
+                                '    frm.ID_PNL = PNL_KEY
+                                '    frm.RefNo = RefNo
+                                '    frm.YA = YA
+                                '    frm.SourceNo = rowx("EXIR_SOURCENO")
+                                '    frm.KeyID = rowx("EXIR_EXIRKEY")
+                                '    frm.LoadData(Errorlog)
+                                '    Application.DoEvents()
+                                '    Dim path As String = Application.StartupPath & "\ReportTemporary"
+                                '    If System.IO.Directory.Exists(path) = False Then
+                                '        System.IO.Directory.CreateDirectory(path)
+                                '    End If
+
+                                '    path += "\InterestRestricted.xlsx"
+
+                                '    If System.IO.File.Exists(path) Then
+                                '        System.IO.File.Delete(path)
+                                '    End If
+
+                                '    frm.GridControl1.ExportToXlsx(path)
+                                '    Application.DoEvents()
+
+                                '    Using stream As New FileStream(path, FileMode.Open)
+
+                                '        Dim spreadsheetControl1 As New SpreadsheetControl
+
+                                '        spreadsheetControl1.LoadDocument(stream, DocumentFormat.Xlsx)
+
+                                '        Dim workbook As IWorkbook = spreadsheetControl1.Document
+
+                                '        Dim worksheet1 As Worksheet = workbook.Worksheets(0)
+
+
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        worksheet1.Rows(0).Insert()
+                                '        Application.DoEvents()
+                                '        worksheet1.Rows(1)(0).Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                                '        worksheet1.Rows(2)(0).Value = "Schedule of Section 33(2) Restriction of Interest Expense"
+                                '        worksheet1.Rows(3)(0).Value = "Year of Assessment : " & CStr(YA)
+
+                                '        worksheet1.Rows(5)(0).Value = "(In Malaysian Ringgit)"
+                                '        Application.DoEvents()
+
+
+                                '        '  worksheet1.Rows(0).Delete()
+                                '        ' Application.DoEvents()
+
+                                '        worksheet1.Rows(0)(0).Value = ""
+                                '        worksheet1.Rows(0)(1).Value = ""
+                                '        'Dim inx As Integer = 1
+                                '        'For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
+
+                                '        '    Select Case colx.ColumnName
+                                '        '        Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
+
+                                '        '        Case Else
+                                '        '            inx += 1
+                                '        '            worksheet1.Rows(7)(inx).Value = colx.ColumnName
+                                '        '    End Select
+                                '        'Next
+                                '        workbook.SaveDocument(stream, DocumentFormat.Xlsx)
+
+
+                                '    End Using
+                                '    Application.DoEvents()
+
+
+                                '    Dim frmExcel As New frmExcel
+                                '    frmExcel.isAutoOpen = True
+                                '    frmExcel.Path = path
+                                '    frmExcel.Show()
+
+                                'End If
                                 tmpDt_Data = Nothing
 
 
@@ -2139,7 +2145,7 @@ Module mdlPNL2
                                     dtRow("EXI_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_interest").Rows.Add(dtRow)
                             End If
 
@@ -2170,7 +2176,7 @@ Module mdlPNL2
                                     dtRow("EXID_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2207,7 +2213,7 @@ Module mdlPNL2
                                     dtRow("EXL_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_legal").Rows.Add(dtRow)
                             End If
 
@@ -2238,7 +2244,7 @@ Module mdlPNL2
                                     dtRow("EXLD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2275,7 +2281,7 @@ Module mdlPNL2
                                     dtRow("EXTF_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_tech_fee").Rows.Add(dtRow)
                             End If
 
@@ -2306,7 +2312,7 @@ Module mdlPNL2
                                     dtRow("EXTFD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2343,7 +2349,7 @@ Module mdlPNL2
                                     dtRow("EXC_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_contract").Rows.Add(dtRow)
                             End If
 
@@ -2375,7 +2381,7 @@ Module mdlPNL2
                                     dtRow("EXCD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2412,7 +2418,7 @@ Module mdlPNL2
                                     dtRow("EXDF_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_directors_fee").Rows.Add(dtRow)
                             End If
 
@@ -2443,7 +2449,7 @@ Module mdlPNL2
                                     dtRow("EXDFD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2480,7 +2486,7 @@ Module mdlPNL2
                                     dtRow("EXS_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_salary").Rows.Add(dtRow)
                             End If
 
@@ -2512,7 +2518,7 @@ Module mdlPNL2
                                     dtRow("EXSD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2548,7 +2554,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("EXES_DEDUCTIBLE_ADD") = False
                                 End If
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_empl_stock").Rows.Add(dtRow)
                             End If
 
@@ -2580,7 +2586,7 @@ Module mdlPNL2
                                 End If
 
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2617,7 +2623,7 @@ Module mdlPNL2
                                     dtRow("EXRO_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_royalty").Rows.Add(dtRow)
                             End If
 
@@ -2648,7 +2654,7 @@ Module mdlPNL2
                                     dtRow("EXROD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2685,7 +2691,7 @@ Module mdlPNL2
                                     dtRow("EXRENT_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 dtRow("Address") = rowx("Address")
                                 ds.Tables("expenses_rental").Rows.Add(dtRow)
                             End If
@@ -2717,7 +2723,7 @@ Module mdlPNL2
                                     dtRow("EXRENTD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 dtRow("Address") = rowx("Address")
                                 ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Add(dtRow)
                             Next
@@ -2755,7 +2761,7 @@ Module mdlPNL2
                                     dtRow("EXREP_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_repair").Rows.Add(dtRow)
                             End If
 
@@ -2786,7 +2792,7 @@ Module mdlPNL2
                                     dtRow("EXREPD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2823,7 +2829,7 @@ Module mdlPNL2
                                     dtRow("EXRES_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_research").Rows.Add(dtRow)
                             End If
 
@@ -2854,7 +2860,7 @@ Module mdlPNL2
                                     dtRow("EXRESD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2891,7 +2897,7 @@ Module mdlPNL2
                                     dtRow("EXP_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_promote").Rows.Add(dtRow)
                             End If
 
@@ -2922,7 +2928,7 @@ Module mdlPNL2
                                     dtRow("EXPD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2959,7 +2965,7 @@ Module mdlPNL2
                                     dtRow("EXT_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("expenses_travel").Rows.Add(dtRow)
                             End If
 
@@ -2990,7 +2996,7 @@ Module mdlPNL2
                                     dtRow("EXTD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3026,7 +3032,7 @@ Module mdlPNL2
                                 Else
                                     dtRow("EXJK_DEDUCTIBLE_ADD") = False
                                 End If
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 dtRow("RowIndex") = rowx("RowIndex")
 
 
@@ -3060,7 +3066,7 @@ Module mdlPNL2
                                     dtRow("EXJKD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
 
                                 ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3099,7 +3105,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exdepreciation").Rows.Add(dtRow)
                             End If
 
@@ -3130,7 +3136,7 @@ Module mdlPNL2
                                     dtRow("EXODEPD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
 
                                 ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3170,7 +3176,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exapprdonation").Rows.Add(dtRow)
                             End If
 
@@ -3202,7 +3208,7 @@ Module mdlPNL2
                                     dtRow("EXOADD_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3240,7 +3246,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exnapprdonation").Rows.Add(dtRow)
                             End If
 
@@ -3272,7 +3278,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3310,7 +3316,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exzakat").Rows.Add(dtRow)
                             End If
 
@@ -3342,7 +3348,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3380,7 +3386,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exlossdisposalfa").Rows.Add(dtRow)
                             End If
 
@@ -3412,7 +3418,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3450,7 +3456,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_entertainnstaff").Rows.Add(dtRow)
                             End If
 
@@ -3482,7 +3488,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3520,7 +3526,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Add(dtRow)
                             End If
 
@@ -3552,7 +3558,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3590,7 +3596,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_expenalty").Rows.Add(dtRow)
                             End If
 
@@ -3622,7 +3628,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3660,7 +3666,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exprovisionacc").Rows.Add(dtRow)
                             End If
 
@@ -3692,7 +3698,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3730,7 +3736,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exleavepassage").Rows.Add(dtRow)
                             End If
 
@@ -3762,7 +3768,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
 
                                 ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3801,7 +3807,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exfawrittenoff").Rows.Add(dtRow)
                             End If
 
@@ -3833,7 +3839,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3871,7 +3877,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exurlossforeign").Rows.Add(dtRow)
                             End If
 
@@ -3904,7 +3910,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3941,7 +3947,7 @@ Module mdlPNL2
                             End If
                             dtRow("RowIndex") = rowx("RowIndex")
                             dtRow("Pecentage") = rowx("Pecentage")
-                            dtRow("PecentageAmount") = rowx("PecentageAmount")
+                            dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                             ds.Tables("other_exrlossforeignt").Rows.Add(dtRow)
                         Next
                         dt = Nothing
@@ -3971,7 +3977,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4009,7 +4015,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exrlossforeign").Rows.Add(dtRow)
                             End If
 
@@ -4041,7 +4047,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4079,7 +4085,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_exinitialsub").Rows.Add(dtRow)
                             End If
 
@@ -4111,7 +4117,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4149,7 +4155,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_excapitalexp").Rows.Add(dtRow)
                             End If
 
@@ -4182,7 +4188,7 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4230,7 +4236,7 @@ Module mdlPNL2
                                 dtRow("EXO_DETAIL") = rowx("EXO_DETAIL")
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
-                                dtRow("PecentageAmount") = rowx("PecentageAmount")
+                                dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("other_expenses").Rows.Add(dtRow)
 
 
@@ -6094,7 +6100,8 @@ Module mdlPNL2
             Return "A"
         End Try
     End Function
-    Public Sub AppenData_InterestRestricted(ByVal tmpDt_Data As DataTable, ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+    Public Sub AppenData_InterestRestricted(ByVal tmpDt_Data As DataTable, ByVal ds As DataSet, _
+                                             Optional ByRef ErrorLog As clsError = Nothing)
         Try
             If tmpDt_Data Is Nothing Then
                 Exit Sub
@@ -6103,6 +6110,7 @@ Module mdlPNL2
             If ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT") Is Nothing Then
                 Exit Sub
             End If
+
 
             For Each datax As DataRow In tmpDt_Data.Rows
 
@@ -6143,5 +6151,110 @@ Module mdlPNL2
             AddListOfError(ErrorLog)
         End Try
     End Sub
+    Public Sub AppenData_InterestRestricted_Report(ByVal tmpDt_Data As DataTable, ByVal ds As DataSet, _
+                                            ByVal RefNo As String, ByVal YA As String, ByVal SourceNO As Integer, _
+                                            Optional ByRef ErrorLog As clsError = Nothing)
+        Try
+            If tmpDt_Data Is Nothing Then
+                Exit Sub
+            End If
 
+            ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows.Clear()
+
+            Dim dtRow As DataRow = Nothing
+            Dim MonthDuration As Integer
+            Dim BasisPeriod As DateTime = Now
+            Dim CurrBasisPeriod As DateTime = Now
+            Dim RowIndex As Integer = -1
+            Dim ColIndex As Integer = 0
+            Dim dt As DataTable = Nothing
+
+            dt = ADO.Load_interestRestricMonthNBasis(RefNo, YA, SourceNO, ErrorLog)
+
+            If dt Is Nothing Then
+                Exit Sub
+            End If
+
+            MonthDuration = IIf(IsDBNull(dt.Rows(0)("DURATION")), 12, dt.Rows(0)("DURATION"))
+            BasisPeriod = IIf(IsDBNull(dt.Rows(0)("BASICPERIOD")), Now, dt.Rows(0)("BASICPERIOD"))
+            CurrBasisPeriod = BasisPeriod.AddMonths(-1)
+
+            Dim TotalRowCount As Integer = ADO.Load_EXPENSES_INTERESTRESTRICT_TOTAL_ROWINDEX(RefNo, YA, SourceNO)
+
+            If TotalRowCount = 0 Then
+                Exit Sub
+            End If
+            For i As Integer = 0 To TotalRowCount - 1
+
+                dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").NewRow
+                dtRow("TotalColumn") = MonthDuration
+                ColIndex = 0
+                For Each row As DataRow In tmpDt_Data.Rows
+
+                    If i = IIf(IsDBNull(row("rowIndex")), 0, row("rowIndex")) Then
+
+                        Select Case IIf(IsDBNull(row("colTitle")), "", row("colTitle"))
+                            Case "KeyID"
+                                dtRow("KeyID") = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                            Case "Title"
+                                dtRow("Title") = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                            Case "TypeName"
+                                dtRow("TypeName") = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                            Case "TypeIncome"
+                                dtRow("TypeIncome") = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                            Case "TotalYear"
+                                dtRow("TotalYear") = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                            Case "LabelTag"
+                                dtRow("LabelTag") = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                            Case Else
+                                ColIndex += 1
+                                If ColIndex <= 18 Then
+                                    dtRow("No" & ColIndex) = IIf(IsDBNull(row("DataValue")), "", row("DataValue"))
+                                End If
+
+                                'For x As Integer = 1 To 18
+
+
+                                'Next
+
+                                'For Each col As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT_TRICOR").Columns
+                                '    Select Case col.ColumnName
+                                '        Case "KeyID", "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "TotalColumn"
+
+                                '        Case Else
+
+                                '            dtRow (col.ColumnName ) =
+                                '    End Select
+
+                                'Next
+
+                        End Select
+
+                    End If
+
+                Next                
+
+                ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").Rows.Add(dtRow)
+
+            Next
+
+            'If ADO.Save_InterestRestrictedTEST(ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor"), 0, ErrorLog) Then
+            '    MsgBox("OK azham ")
+            'Else
+            '    MsgBox("Failed azham ")
+            'End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+        End Try
+    End Sub
 End Module

@@ -435,7 +435,7 @@ Public Class frmPNL_Add
 
 
 
-                txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, ErrorLog)
+                txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             End If
 
@@ -941,7 +941,7 @@ Public Class frmPNL_Add
             Progress(CurrentProgress, "Ready to saving " & ListofCmd.Count & " data(s)...")
 
             If ListofCmd IsNot Nothing AndAlso ListofCmd.Count > 0 Then
-                If ADO.Save_PNLExecute(ListofCmd, ErrorLog) Then
+                If ADO.Save_ListExecute(ListofCmd, ErrorLog) Then
                     Progress(100, "Done to saved " & ListofCmd.Count & " data(s)...")
                     isEdit = True
                     Application.DoEvents()
@@ -1172,7 +1172,7 @@ Public Class frmPNL_Add
             End If
 
             Dim NonAllowableExpenses As Decimal = 0
-            Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, BalacingFigure, NonAllowableExpenses, ErrorLog)
+            Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, BalacingFigure, NonAllowableExpenses, cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
 
             txt_p4NonAllowableExpenses.EditValue = NonAllowableExpenses
             txt_p4TotalExpenses.EditValue = CDec(TotalExpenses)

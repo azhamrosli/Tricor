@@ -1929,6 +1929,9037 @@ Public Class clsIODatabase
     End Function
 #End Region
 #Region "PNL"
+#Region "PLFST_SALES"
+Public Function Load_PLFST_SALES_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFS_SOURCENO)) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_SALES_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFS_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_SALES_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_SALES_DETAIL WHERE PLFSD_KEY= @PL_KEY AND PLFSD_PLFSKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFSD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_SALES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(PLFS_SOURCENO) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY AND PLFS_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "PLFST_OPENSTOCK"
+Public Function Load_PLFST_OPENSTOCK_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFOS_SOURCENO)) as countx FROM PLFST_OPENSTOCK WHERE PLFOS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_OPENSTOCK_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_OPENSTOCK WHERE PLFOS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFOS_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_OPENSTOCK_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_OPENSTOCK_DETAIL WHERE PLFOSD_KEY= @PL_KEY AND PLFOSD_PLFOSKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFOSD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_OPENSTOCK_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(PLFOS_SOURCENO) as countx FROM PLFST_OPENSTOCK WHERE PLFOS_KEY= @PL_KEY AND PLFOS_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "PLSFT_PURCHASE"
+Public Function Load_PLFST_PURCHASE_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFPUR_SOURCENO)) as countx FROM PLFST_PURCHASE WHERE PLFPUR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_PURCHASE_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_PURCHASE WHERE PLFPUR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFPUR_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_PURCHASE_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_PURCHASE_DETAIL WHERE PLFPURD_KEY= @PL_KEY AND PLFPURD_PLFPURKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFPURD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_PURCHASE_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(PLFPUR_SOURCENO) as countx FROM PLFST_PURCHASE WHERE PLFPUR_KEY= @PL_KEY AND PLFPUR_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_DEPRECIATION"
+Public Function Load_EXPENSES_DEPRECIATION_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXDEP_SOURCENO)) as countx FROM EXPENSES_DEPRECIATION WHERE EXDEP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_DEPRECIATION_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_DEPRECIATION WHERE EXDEP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXDEP_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_DEPRECIATION_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_DEPRECIATION_DETAIL WHERE EXDEPD_KEY= @PL_KEY AND EXDEPD_EXDEPKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXDEPD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_DEPRECIATION_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXDEP_SOURCENO) as countx FROM EXPENSES_DEPRECIATION WHERE EXDEP_KEY= @PL_KEY AND EXDEP_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_ALLOW"
+Public Function Load_EXPENSES_ALLOW_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXA_SOURCENO)) as countx FROM EXPENSES_ALLOW WHERE EXA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_ALLOW_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_ALLOW WHERE EXA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXA_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_ALLOW_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_ALLOW_DETAIL WHERE EXAD_KEY= @PL_KEY AND EXAD_EXAKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXAD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_ALLOW_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXA_SOURCENO) as countx FROM EXPENSES_ALLOW WHERE EXA_KEY= @PL_KEY AND EXA_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_NONALLOW"
+Public Function Load_EXPENSES_NONALLOW_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXNA_SOURCENO)) as countx FROM EXPENSES_NONALLOW WHERE EXNA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_NONALLOW_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_NONALLOW WHERE EXNA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXNA_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_NONALLOW_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_NONALLOW_DETAIL WHERE EXNAD_KEY= @PL_KEY AND EXNAD_EXNAKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXNAD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_NONALLOW_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXNA_SOURCENO) as countx FROM EXPENSES_NONALLOW WHERE EXNA_KEY= @PL_KEY AND EXNA_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "PLFST_CLOSESTOCK"
+Public Function Load_PLFST_CLOSESTOCK_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFCS_SOURCENO)) as countx FROM PLFST_CLOSESTOCK WHERE PLFCS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_CLOSESTOCK_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_CLOSESTOCK WHERE PLFCS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFCS_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_CLOSESTOCK_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_CLOSESTOCK_DETAIL WHERE PLFCSD_KEY= @PL_KEY AND PLFCSD_PLFCSKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND PLFCSD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_PLFST_CLOSESTOCK_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(PLFCS_SOURCENO) as countx FROM PLFST_CLOSESTOCK WHERE PLFCS_KEY= @PL_KEY AND PLFCS_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "NONSOURCE_BUSINESSINCOME"
+Public Function Load_NONSOURCE_BUSINESSINCOME_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NSBI_SOURCENO)) as countx FROM NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_NONSOURCE_BUSINESSINCOME_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NSBI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_NONSOURCE_BUSINESSINCOME_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM NONSOURCE_BUSINESSINCOME_DETAIL WHERE NSBID_KEY= @PL_KEY AND NSBID_NSBIKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NSBID_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_NONSOURCE_BUSINESSINCOME_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NSBI_SOURCENO) as countx FROM NONSOURCE_BUSINESSINCOME WHERE NSBI_KEY= @PL_KEY AND NSBI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_REALFET"
+Public Function Load_INCOME_REALFET_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(IRFET_SOURCENO)) as countx FROM INCOME_REALFET WHERE IRFET_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_REALFET_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_REALFET WHERE IRFET_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND IRFET_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_REALFET_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_REALFET_DETAIL WHERE IRFETD_KEY= @PL_KEY AND IRFETD_IRFETKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND IRFETD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_REALFET_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(IRFET_SOURCENO) as countx FROM INCOME_REALFET WHERE IRFET_KEY= @PL_KEY AND IRFET_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "DIVIDEND_INCOME"
+Public Function Load_DIVIDEND_INCOME_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(DI_SOURCENO)) as countx FROM DIVIDEND_INCOME WHERE DI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_DIVIDEND_INCOME_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM DIVIDEND_INCOME WHERE DI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND DI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+
+Public Function Load_DIVIDEND_INCOME_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DI_SOURCENO) as countx FROM DIVIDEND_INCOME WHERE DI_KEY= @PL_KEY AND DI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NBINTEREST"
+Public Function Load_INCOME_NBINTEREST_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NOBII_SOURCENO)) as countx FROM INCOME_NBINTEREST WHERE NOBII_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NBINTEREST_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NBINTEREST WHERE NOBII_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NOBII_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NBINTEREST_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NBINTEREST_DETAIL WHERE NOBIID_KEY= @PL_KEY AND NOBIID_NOBIIKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NOBIID_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NBINTEREST_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NOBII_SOURCENO) as countx FROM INCOME_NBINTEREST WHERE NOBII_KEY= @PL_KEY AND NOBII_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "RENTAL_INCOME"
+Public Function Load_RENTAL_INCOME_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(RI_SOURCENO)) as countx FROM RENTAL_INCOME WHERE RI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_RENTAL_INCOME_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM RENTAL_INCOME WHERE RI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND RI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_RENTAL_INCOME_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(RI_SOURCENO) as countx FROM RENTAL_INCOME WHERE RI_KEY= @PL_KEY AND RI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NBROYALTY"
+Public Function Load_INCOME_NBROYALTY_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NOBRI_SOURCENO)) as countx FROM INCOME_NBROYALTY WHERE NOBRI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NBROYALTY_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NBROYALTY WHERE NOBRI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NOBRI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NBROYALTY_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NBROYALTY_DETAIL WHERE NOBRID_KEY= @PL_KEY AND NOBRID_NOBRIKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NOBRID_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NBROYALTY_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NOBRI_SOURCENO) as countx FROM INCOME_NBROYALTY WHERE NOBRI_KEY= @PL_KEY AND NOBRI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_INCOME"
+Public Function Load_OTHER_INCOME_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(OI_SOURCENO)) as countx FROM OTHER_INCOME WHERE OI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_INCOME_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_INCOME WHERE OI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND OI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_INCOME_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_INCOME_DETAIL WHERE OID_KEY= @PL_KEY AND OID_OIKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND OID_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_INCOME_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(OI_SOURCENO) as countx FROM OTHER_INCOME WHERE OI_KEY= @PL_KEY AND OI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NTDISPOSALFA"
+Public Function Load_INCOME_NTDISPOSALFA_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NTIDFA_SOURCENO)) as countx FROM INCOME_NTDISPOSALFA WHERE NTIDFA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTDISPOSALFA_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTDISPOSALFA WHERE NTIDFA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIDFA_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTDISPOSALFA_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTDISPOSALFA_DETAIL WHERE NTIDFAD_KEY= @PL_KEY AND NTIDFAD_NTIDFAKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIDFAD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTDISPOSALFA_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NTIDFA_SOURCENO) as countx FROM INCOME_NTDISPOSALFA WHERE NTIDFA_KEY= @PL_KEY AND NTIDFA_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NTDISPOSALINVEST"
+Public Function Load_INCOME_NTDISPOSALINVEST_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NTIDI_SOURCENO)) as countx FROM INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTDISPOSALINVEST_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIDI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTDISPOSALINVEST_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTDISPOSALINVEST_DETAIL WHERE NTIDID_KEY= @PL_KEY AND NTIDID_NTIDIKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIDID_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTDISPOSALINVEST_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NTIDI_SOURCENO) as countx FROM INCOME_NTDISPOSALINVEST WHERE NTIDI_KEY= @PL_KEY AND NTIDI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXEMPT_DIVIDEND"
+Public Function Load_EXEMPT_DIVIDEND_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(ED_SOURCENO)) as countx FROM EXEMPT_DIVIDEND WHERE ED_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXEMPT_DIVIDEND_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXEMPT_DIVIDEND WHERE ED_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND ED_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXEMPT_DIVIDEND_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(ED_SOURCENO) as countx FROM EXEMPT_DIVIDEND WHERE ED_KEY= @PL_KEY AND ED_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NTFOREIGNINCREM"
+Public Function Load_INCOME_NTFOREIGNINCREM_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NTIFIR_SOURCENO)) as countx FROM INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTFOREIGNINCREM_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIFIR_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTFOREIGNINCREM_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTFOREIGNINCREM_DETAIL WHERE NTIFIRD_KEY= @PL_KEY AND NTIFIRD_NTIFIRKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIFIRD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTFOREIGNINCREM_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NTIFIR_SOURCENO) as countx FROM INCOME_NTFOREIGNINCREM WHERE NTIFIR_KEY= @PL_KEY AND NTIFIR_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NTREALFE"
+Public Function Load_INCOME_NTREALFE_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NTIUT_SOURCENO)) as countx FROM INCOME_NTREALFE WHERE NTIUT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTREALFE_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTREALFE WHERE NTIUT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIUT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTREALFE_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTREALFE_DETAIL WHERE NTIUTD_KEY= @PL_KEY AND NTIUTD_NTIUTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIUTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTREALFE_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NTIUT_SOURCENO) as countx FROM INCOME_NTREALFE WHERE NTIUT_KEY= @PL_KEY AND NTIUT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NTUREALFET"
+Public Function Load_INCOME_NTUREALFET_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NTIRFECT_SOURCENO)) as countx FROM INCOME_NTUREALFET WHERE NTIRFECT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTUREALFET_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTUREALFET WHERE NTIUT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+                StrSQL += " AND NTIUT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTUREALFET_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTUREALFET_DETAIL WHERE NTIUTD_KEY= @PL_KEY AND NTIUTD_NTIUTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIRFECTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTUREALFET_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NTIRFECT_SOURCENO) as countx FROM INCOME_NTUREALFET WHERE NTIRFECT_KEY= @PL_KEY AND NTIRFECT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "INCOME_NTUREALFENT"
+Public Function Load_INCOME_NTUREALFENT_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NTIUNT_SOURCENO)) as countx FROM INCOME_NTUREALFENT WHERE NTIUNT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTUREALFENT_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTUREALFENT WHERE NTIUNT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIUNT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTUREALFENT_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM INCOME_NTUREALFENT_DETAIL WHERE NTIUNTD_KEY= @PL_KEY AND NTIUNTD_NTIUNTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTIUNTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_INCOME_NTUREALFENT_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NTIUNT_SOURCENO) as countx FROM INCOME_NTUREALFENT WHERE NTIUNT_KEY= @PL_KEY AND NTIUNT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "NON_TAXABLE_INCOME"
+Public Function Load_NON_TAXABLE_INCOME_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(NT_SOURCENO)) as countx FROM NON_TAXABLE_INCOME WHERE NT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_NON_TAXABLE_INCOME_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM NON_TAXABLE_INCOME WHERE NT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_NON_TAXABLE_INCOME_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM NON_TAXABLE_INCOME_DETAIL WHERE NTD_KEY= @PL_KEY AND NTD_NTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND NTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_NON_TAXABLE_INCOME_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(NT_SOURCENO) as countx FROM NON_TAXABLE_INCOME WHERE NT_KEY= @PL_KEY AND NT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_INTERESTRESTRICT"
+Public Function Load_EXPENSES_INTERESTRESTRICT_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXIR_SOURCENO)) as countx FROM EXPENSES_INTERESTRESTRICT WHERE EXIR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_INTERESTRESTRICT_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_INTERESTRESTRICT WHERE EXIR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXIR_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_INTERESTRESTRICT_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_INTERESTRESTRICT_DETAIL WHERE EXIRD_KEY= @PL_KEY AND EXIRD_EXIRKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXIRD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_INTERESTRESTRICT_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXIR_SOURCENO) as countx FROM EXPENSES_INTERESTRESTRICT WHERE EXIR_KEY= @PL_KEY AND EXIR_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+    End Function
+    Public Function Load_EXPENSES_INTERESTRESTRICT_TOTAL_ROWINDEX(ByVal RefNo As String, ByVal YA As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+        Try
+
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return 0
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "select count(distinct([rowIndex])) as countx from REF_INTEREST_RESTRIC_DETAIL_TRICOR WHERE RefNo=@RefNo AND YA=@YA AND SourceNo=@SourceNo"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+                Return dt.Rows(0)("countx")
+            Else
+                Return 0
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return 0
+        End Try
+    End Function
+#End Region
+
+#Region "EXPENSES_INTEREST"
+Public Function Load_EXPENSES_INTEREST_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXI_SOURCENO)) as countx FROM EXPENSES_INTEREST WHERE EXI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_INTEREST_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_INTEREST WHERE EXI_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXI_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_INTEREST_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_INTEREST_DETAIL WHERE EXID_KEY= @PL_KEY AND EXID_EXIKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXID_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_INTEREST_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXI_SOURCENO) as countx FROM EXPENSES_INTEREST WHERE EXI_KEY= @PL_KEY AND EXI_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_LEGAL"
+Public Function Load_EXPENSES_LEGAL_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXL_SOURCENO)) as countx FROM EXPENSES_LEGAL WHERE EXL_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_LEGAL_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_LEGAL WHERE EXL_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXL_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_LEGAL_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_LEGAL_DETAIL WHERE EXLD_KEY= @PL_KEY AND EXLD_EXLKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXLD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_LEGAL_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXL_SOURCENO) as countx FROM EXPENSES_LEGAL WHERE EXL_KEY= @PL_KEY AND EXL_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_TECH_FEE"
+Public Function Load_EXPENSES_TECH_FEE_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXTF_SOURCENO)) as countx FROM EXPENSES_TECH_FEE WHERE EXTF_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_TECH_FEE_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_TECH_FEE WHERE EXTF_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXTF_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_TECH_FEE_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_TECH_FEE_DETAIL WHERE EXTFD_KEY= @PL_KEY AND EXTFD_EXTFKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXTFD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_TECH_FEE_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXTF_SOURCENO) as countx FROM EXPENSES_TECH_FEE WHERE EXTF_KEY= @PL_KEY AND EXTF_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_CONTRACT"
+Public Function Load_EXPENSES_CONTRACT_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXC_SOURCENO)) as countx FROM EXPENSES_CONTRACT WHERE EXC_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_CONTRACT_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_CONTRACT WHERE EXC_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXC_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_CONTRACT_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_CONTRACT_DETAIL WHERE EXCD_KEY= @PL_KEY AND EXCD_EXCKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXCD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_CONTRACT_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXC_SOURCENO) as countx FROM EXPENSES_CONTRACT WHERE EXC_KEY= @PL_KEY AND EXC_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_DIRECTORS_FEE"
+Public Function Load_EXPENSES_DIRECTORS_FEE_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXDF_SOURCENO)) as countx FROM EXPENSES_DIRECTORS_FEE WHERE EXDF_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_DIRECTORS_FEE_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_DIRECTORS_FEE WHERE EXDF_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXDF_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_DIRECTORS_FEE_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_DIRECTORS_FEE_DETAIL WHERE EXDFD_KEY= @PL_KEY AND EXDFD_EXDFKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXDFD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_DIRECTORS_FEE_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXDF_SOURCENO) as countx FROM EXPENSES_DIRECTORS_FEE WHERE EXDF_KEY= @PL_KEY AND EXDF_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_SALARY"
+Public Function Load_EXPENSES_SALARY_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXS_SOURCENO)) as countx FROM EXPENSES_SALARY WHERE EXS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_SALARY_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_SALARY WHERE EXS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXS_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_SALARY_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_SALARY_DETAIL WHERE EXSD_KEY= @PL_KEY AND EXSD_EXSKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXSD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_SALARY_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXS_SOURCENO) as countx FROM EXPENSES_SALARY WHERE EXS_KEY= @PL_KEY AND EXS_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_EMPL_STOCK"
+Public Function Load_EXPENSES_EMPL_STOCK_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXES_SOURCENO)) as countx FROM EXPENSES_EMPL_STOCK WHERE EXES_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_EMPL_STOCK_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_EMPL_STOCK WHERE EXES_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXES_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_EMPL_STOCK_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_EMPLSTOCK_DETAIL WHERE EXESD_KEY= @PL_KEY AND EXESD_EXESKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXESD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_EMPL_STOCK_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXES_SOURCENO) as countx FROM EXPENSES_EMPL_STOCK WHERE EXES_KEY= @PL_KEY AND EXES_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_ROYALTY"
+Public Function Load_EXPENSES_ROYALTY_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXRO_SOURCENO)) as countx FROM EXPENSES_ROYALTY WHERE EXRO_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_ROYALTY_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_ROYALTY WHERE EXRO_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXRO_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_ROYALTY_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_ROYALTY_DETAIL WHERE EXROD_KEY= @PL_KEY AND EXROD_EXROKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXROD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_ROYALTY_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXRO_SOURCENO) as countx FROM EXPENSES_ROYALTY WHERE EXRO_KEY= @PL_KEY AND EXRO_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_RENTAL"
+Public Function Load_EXPENSES_RENTAL_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXRENT_SOURCENO)) as countx FROM EXPENSES_RENTAL WHERE EXRENT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_RENTAL_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_RENTAL WHERE EXRENT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXRENT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_RENTAL_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_RENTAL_DETAIL WHERE EXRENTD_KEY= @PL_KEY AND EXRENTD_EXRENTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXRENTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_RENTAL_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXRENT_SOURCENO) as countx FROM EXPENSES_RENTAL WHERE EXRENT_KEY= @PL_KEY AND EXRENT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_REPAIR"
+Public Function Load_EXPENSES_REPAIR_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXREP_SOURCENO)) as countx FROM EXPENSES_REPAIR WHERE EXREP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_REPAIR_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_REPAIR WHERE EXREP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXREP_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_REPAIR_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_REPAIR_DETAIL WHERE EXREPD_KEY= @PL_KEY AND EXREPD_EXREPKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXREPD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_REPAIR_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXREP_SOURCENO) as countx FROM EXPENSES_REPAIR WHERE EXREP_KEY= @PL_KEY AND EXREP_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_RESEARCH"
+Public Function Load_EXPENSES_RESEARCH_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXRES_SOURCENO)) as countx FROM EXPENSES_RESEARCH WHERE EXRES_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_RESEARCH_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_RESEARCH WHERE EXRES_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXRES_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_RESEARCH_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_RESEARCH_DETAIL WHERE EXRESD_KEY= @PL_KEY AND EXRESD_EXRESKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXRESD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_RESEARCH_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXRES_SOURCENO) as countx FROM EXPENSES_RESEARCH WHERE EXRES_KEY= @PL_KEY AND EXRES_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_PROMOTE"
+Public Function Load_EXPENSES_PROMOTE_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXP_SOURCENO)) as countx FROM EXPENSES_PROMOTE WHERE EXP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_PROMOTE_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_PROMOTE WHERE EXP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXP_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_PROMOTE_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_PROMOTE_DETAIL WHERE EXPD_KEY= @PL_KEY AND EXPD_EXPKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXPD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_PROMOTE_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXP_SOURCENO) as countx FROM EXPENSES_PROMOTE WHERE EXP_KEY= @PL_KEY AND EXP_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_TRAVEL"
+Public Function Load_EXPENSES_TRAVEL_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXT_SOURCENO)) as countx FROM EXPENSES_TRAVEL WHERE EXT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_TRAVEL_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_TRAVEL WHERE EXT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_TRAVEL_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_TRAVEL_DETAIL WHERE EXTD_KEY= @PL_KEY AND EXTD_EXTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_TRAVEL_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXT_SOURCENO) as countx FROM EXPENSES_TRAVEL WHERE EXT_KEY= @PL_KEY AND EXT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXURLOSSFOREIGN"
+Public Function Load_OTHER_EXURLOSSFOREIGN_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOUR_SOURCENO)) as countx FROM OTHER_EXURLOSSFOREIGN WHERE EXOUR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXURLOSSFOREIGN_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXURLOSSFOREIGN WHERE EXOUR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOUR_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXURLOSSFOREIGN_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXURLOSSFOREIGN_DETAIL WHERE EXOURD_KEY= @PL_KEY AND EXOURD_EXOURKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOURD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXURLOSSFOREIGN_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOUR_SOURCENO) as countx FROM OTHER_EXURLOSSFOREIGN WHERE EXOUR_KEY= @PL_KEY AND EXOUR_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "EXPENSES_JKDM"
+Public Function Load_EXPENSES_JKDM_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXJK_SOURCENO)) as countx FROM EXPENSES_JKDM WHERE EXJK_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_JKDM_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_JKDM WHERE EXJK_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXJK_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_JKDM_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM EXPENSES_JKDM_DETAIL WHERE EXJKD_KEY= @PL_KEY AND EXJKD_EXJKKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXJKD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_EXPENSES_JKDM_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXJK_SOURCENO) as countx FROM EXPENSES_JKDM WHERE EXJK_KEY= @PL_KEY AND EXJK_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXDEPRECIATION"
+Public Function Load_OTHER_EXDEPRECIATION_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXODEP_SOURCENO)) as countx FROM OTHER_EXDEPRECIATION WHERE EXODEP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXDEPRECIATION_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXDEPRECIATION WHERE EXODEP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXODEP_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXDEPRECIATION_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXDEPRECIATION_DETAIL WHERE EXODEPD_KEY= @PL_KEY AND EXODEPD_EXODEPKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXODEPD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXDEPRECIATION_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXODEP_SOURCENO) as countx FROM OTHER_EXDEPRECIATION WHERE EXODEP_KEY= @PL_KEY AND EXODEP_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXAPPRDONATION"
+Public Function Load_OTHER_EXAPPRDONATION_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOAD_SOURCENO)) as countx FROM OTHER_EXAPPRDONATION WHERE EXOAD_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXAPPRDONATION_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXAPPRDONATION WHERE EXOAD_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOAD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXAPPRDONATION_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXAPPRDONATION_DETAIL WHERE EXOADD_KEY= @PL_KEY AND EXOADD_EXOADKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOADD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXAPPRDONATION_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOAD_SOURCENO) as countx FROM OTHER_EXAPPRDONATION WHERE EXOAD_KEY= @PL_KEY AND EXOAD_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXNAPPRDONATION"
+Public Function Load_OTHER_EXNAPPRDONATION_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXONAD_SOURCENO)) as countx FROM OTHER_EXNAPPRDONATION WHERE EXONAD_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXNAPPRDONATION_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXNAPPRDONATION WHERE EXONAD_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXONAD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXNAPPRDONATION_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXNAPPRDONATION_DETAIL WHERE EXONADD_KEY= @PL_KEY AND EXONADD_EXONADKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXONADD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXNAPPRDONATION_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXONAD_SOURCENO) as countx FROM OTHER_EXNAPPRDONATION WHERE EXONAD_KEY= @PL_KEY AND EXONAD_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXZAKAT"
+Public Function Load_OTHER_EXZAKAT_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOZ_SOURCENO)) as countx FROM OTHER_EXZAKAT WHERE EXOZ_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXZAKAT_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXZAKAT WHERE EXOZ_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOZ_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXZAKAT_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXZAKAT_DETAIL WHERE EXOZD_KEY= @PL_KEY AND EXOZD_EXOZKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOZD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXZAKAT_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOZ_SOURCENO) as countx FROM OTHER_EXZAKAT WHERE EXOZ_KEY= @PL_KEY AND EXOZ_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXLOSSDISPOSALFA"
+Public Function Load_OTHER_EXLOSSDISPOSALFA_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOLD_SOURCENO)) as countx FROM OTHER_EXLOSSDISPOSALFA WHERE EXOLD_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXLOSSDISPOSALFA_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXLOSSDISPOSALFA WHERE EXOLD_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOLD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXLOSSDISPOSALFA_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXLOSSDISPOSALFA_DETAIL WHERE EXOLDD_KEY= @PL_KEY AND EXOLDD_EXOLDKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOLDD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXLOSSDISPOSALFA_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOLD_SOURCENO) as countx FROM OTHER_EXLOSSDISPOSALFA WHERE EXOLD_KEY= @PL_KEY AND EXOLD_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_ENTERTAINNSTAFF"
+Public Function Load_OTHER_ENTERTAINNSTAFF_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOENS_SOURCENO)) as countx FROM OTHER_ENTERTAINNSTAFF WHERE EXOENS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_ENTERTAINNSTAFF_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_ENTERTAINNSTAFF WHERE EXOENS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOENS_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_ENTERTAINNSTAFF_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_ENTERTAINNSTAFF_DETAIL WHERE EXOENSD_KEY= @PL_KEY AND EXOENSD_EXOENSKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOENSD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_ENTERTAINNSTAFF_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOENS_SOURCENO) as countx FROM OTHER_ENTERTAINNSTAFF WHERE EXOENS_KEY= @PL_KEY AND EXOENS_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_ENTERTAINSTAFF"
+Public Function Load_OTHER_ENTERTAINSTAFF_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOES_SOURCENO)) as countx FROM OTHER_ENTERTAINSTAFF WHERE EXOES_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_ENTERTAINSTAFF_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_ENTERTAINSTAFF WHERE EXOES_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOES_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_ENTERTAINSTAFF_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_ENTERTAINSTAFF_DETAIL WHERE EXOESD_KEY= @PL_KEY AND EXOESD_EXOESKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOESD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_ENTERTAINSTAFF_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOES_SOURCENO) as countx FROM OTHER_ENTERTAINSTAFF WHERE EXOES_KEY= @PL_KEY AND EXOES_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXPENALTY"
+Public Function Load_OTHER_EXPENALTY_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOP_SOURCENO)) as countx FROM OTHER_EXPENALTY WHERE EXOP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPENALTY_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPENALTY WHERE EXOP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOP_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPENALTY_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPENALTY_DETAIL WHERE EXOPD_KEY= @PL_KEY AND EXOPD_EXOPKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOPD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPENALTY_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOP_SOURCENO) as countx FROM OTHER_EXPENALTY WHERE EXOP_KEY= @PL_KEY AND EXOP_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXPROVISIONACC"
+Public Function Load_OTHER_EXPROVISIONACC_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOPA_SOURCENO)) as countx FROM OTHER_EXPROVISIONACC WHERE EXOPA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPROVISIONACC_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPROVISIONACC WHERE EXOPA_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOPA_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPROVISIONACC_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPROVISIONACC_DETAIL WHERE EXOPAD_KEY= @PL_KEY AND EXOPAD_EXOPAKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOPAD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPROVISIONACC_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOPA_SOURCENO) as countx FROM OTHER_EXPROVISIONACC WHERE EXOPA_KEY= @PL_KEY AND EXOPA_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXLEAVEPASSAGE"
+Public Function Load_OTHER_EXLEAVEPASSAGE_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOLP_SOURCENO)) as countx FROM OTHER_EXLEAVEPASSAGE WHERE EXOLP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXLEAVEPASSAGE_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXLEAVEPASSAGE WHERE EXOLP_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOLP_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXLEAVEPASSAGE_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXLEAVEPASSAGE_DETAIL WHERE EXOLPD_KEY= @PL_KEY AND EXOLPD_EXOLPKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOLPD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXLEAVEPASSAGE_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOLP_SOURCENO) as countx FROM OTHER_EXLEAVEPASSAGE WHERE EXOLP_KEY= @PL_KEY AND EXOLP_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXFAWRITTENOFF"
+Public Function Load_OTHER_EXFAWRITTENOFF_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOWO_SOURCENO)) as countx FROM OTHER_EXFAWRITTENOFF WHERE EXOWO_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXFAWRITTENOFF_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXFAWRITTENOFF WHERE EXOWO_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOWO_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXFAWRITTENOFF_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXFAWRITTENOFF_DETAIL WHERE EXOWOD_KEY= @PL_KEY AND EXOWOD_EXOWOKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOWOD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXFAWRITTENOFF_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOWO_SOURCENO) as countx FROM OTHER_EXFAWRITTENOFF WHERE EXOWO_KEY= @PL_KEY AND EXOWO_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXRLOSSFOREIGNT"
+Public Function Load_OTHER_EXRLOSSFOREIGNT_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXORT_SOURCENO)) as countx FROM OTHER_EXRLOSSFOREIGNT WHERE EXORT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXRLOSSFOREIGNT_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXRLOSSFOREIGNT WHERE EXORT_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXORT_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXRLOSSFOREIGNT_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXRLOSSFOREIGNT_DETAIL WHERE EXORTD_KEY= @PL_KEY AND EXORTD_EXORTKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXORTD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXRLOSSFOREIGNT_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXORT_SOURCENO) as countx FROM OTHER_EXRLOSSFOREIGNT WHERE EXORT_KEY= @PL_KEY AND EXORT_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXRLOSSFOREIGN"
+Public Function Load_OTHER_EXRLOSSFOREIGN_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOR_SOURCENO)) as countx FROM OTHER_EXRLOSSFOREIGN WHERE EXOR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXRLOSSFOREIGN_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXRLOSSFOREIGN WHERE EXOR_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOR_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXRLOSSFOREIGN_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXRLOSSFOREIGN_DETAIL WHERE EXORD_KEY= @PL_KEY AND EXORD_EXORKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXORD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXRLOSSFOREIGN_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOR_SOURCENO) as countx FROM OTHER_EXRLOSSFOREIGN WHERE EXOR_KEY= @PL_KEY AND EXOR_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXINITIALSUB"
+Public Function Load_OTHER_EXINITIALSUB_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOIS_SOURCENO)) as countx FROM OTHER_EXINITIALSUB WHERE EXOIS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXINITIALSUB_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXINITIALSUB WHERE EXOIS_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOIS_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXINITIALSUB_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXINITIALSUB_DETAIL WHERE EXOISD_KEY= @PL_KEY AND EXOISD_EXOISKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOISD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXINITIALSUB_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOIS_SOURCENO) as countx FROM OTHER_EXINITIALSUB WHERE EXOIS_KEY= @PL_KEY AND EXOIS_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXCAPITALEXP"
+Public Function Load_OTHER_EXCAPITALEXP_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXOCE_SOURCENO)) as countx FROM OTHER_EXCAPITALEXP WHERE EXOCE_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXCAPITALEXP_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXCAPITALEXP WHERE EXOCE_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOCE_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXCAPITALEXP_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXCAPITALEXP_DETAIL WHERE EXOCED_KEY= @PL_KEY AND EXOCED_EXOCEKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOCED_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXCAPITALEXP_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXOCE_SOURCENO) as countx FROM OTHER_EXCAPITALEXP WHERE EXOCE_KEY= @PL_KEY AND EXOCE_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
+
+#Region "OTHER_EXPENSES"
+
+Public Function Load_OTHER_EXPENSES_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXO_SOURCENO)) as countx FROM OTHER_EXPENSES WHERE EXO_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPENSES_COUNT(ByVal KeyID As Integer, Optional SourceNO As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPENSES WHERE EXO_KEY= @PL_KEY"
+        SQLcmd = New SqlCommand
+
+        If SourceNO <> -1 Then
+            StrSQL += " AND EXO_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNO
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPENSES_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPENSES_DETAIL WHERE EXOD_KEY= @PL_KEY AND EXOD_EXOKEY=@ParentID"
+        SQLcmd = New SqlCommand
+
+        If SourceNo <> -1 Then
+            StrSQL += " AND EXOD_SOURCENO=@SourceNo"
+            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+        End If
+
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+Public Function Load_OTHER_EXPENSES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    Try
+
+
+        Dim SqlCon As SqlConnection
+
+        If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+            Return 0
+        End If
+
+        Dim SQLcmd As SqlCommand
+        Dim StrSQL As String = "SELECT COUNT(EXO_SOURCENO) as countx FROM OTHER_EXPENSES WHERE EXO_KEY= @PL_KEY AND EXO_SOURCENO= @SourceNo"
+        SQLcmd = New SqlCommand
+        SQLcmd.CommandText = StrSQL
+        SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+        SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+        Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+            Return dt.Rows(0)("countx")
+        Else
+            Return 0
+        End If
+    Catch ex As Exception
+        If ErrorLog Is Nothing Then
+            ErrorLog = New clsError
+        End If
+        With ErrorLog
+            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+            .ErrorCode = "C1001"
+            .ErrorDateTime = Now
+            .ErrorMessage = ex.Message
+        End With
+
+        AddListOfError(ErrorLog)
+        Return 0
+    End Try
+End Function
+#End Region
 
     Public Function Load_PNLReport_ByID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -1998,122 +11029,337 @@ Public Class clsIODatabase
             Return True
         End Try
     End Function
-    Public Function Load_PNL_PLFST_SALES_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
-        Try
+    '#Region "PLSFT_SALES"
+    '    Public Function Load_PNL_PLFST_SALES_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
 
 
-            Dim SqlCon As SqlConnection
+    '            Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
-                Return 0
-            End If
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
 
-            Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFS_SOURCENO)) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(DISTINCT(PLFS_SOURCENO)) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY"
+    '            SQLcmd = New SqlCommand
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
 
-            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
-                Return dt.Rows(0)("countx")
-            Else
-                Return 0
-            End If
-        Catch ex As Exception
-            If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
-            End If
-            With ErrorLog
-                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = "C1001"
-                .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
-            End With
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
 
-            AddListOfError(ErrorLog)
-            Return 0
-        End Try
-    End Function
-    Public Function Load_PNL_PLFST_SALES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
-        Try
-
-
-            Dim SqlCon As SqlConnection
-
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
-                Return 0
-            End If
-
-            Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT COUNT(PLFS_SOURCENO) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY AND PLFS_SOURCENO= @SourceNo"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
-            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
-
-            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
-
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
-                Return dt.Rows(0)("countx")
-            Else
-                Return 0
-            End If
-        Catch ex As Exception
-            If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
-            End If
-            With ErrorLog
-                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = "C1001"
-                .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
-            End With
-
-            AddListOfError(ErrorLog)
-            Return 0
-        End Try
-    End Function
-    Public Function Load_PNL_PLFST_OPENSTOCK_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
-        Try
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '    Public Function Load_PNL_PLFST_SALES_COUNT(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
 
 
-            Dim SqlCon As SqlConnection
+    '            Dim SqlCon As SqlConnection
 
-            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
-                Return 0
-            End If
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
 
-            Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT COUNT(PLFOS_SOURCENO) as countx FROM PLFST_OPENSTOCK WHERE PLFOS_KEY= @PL_KEY AND PLFOS_SOURCENO= @SourceNo"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
-            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
-            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY"
+    '            SQLcmd = New SqlCommand
 
-            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+    '            If SourceNo <> -1 Then
+    '                StrSQL += " AND PLFS_SOURCENO=@SourceNo"
+    '                SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+    '            End If
 
-            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
-                Return dt.Rows(0)("countx")
-            Else
-                Return 0
-            End If
-        Catch ex As Exception
-            If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
-            End If
-            With ErrorLog
-                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                .ErrorCode = "C1001"
-                .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
-            End With
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
 
-            AddListOfError(ErrorLog)
-            Return 0
-        End Try
-    End Function
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '    Public Function Load_PNL_PLFST_SALES_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
+
+
+    '            Dim SqlCon As SqlConnection
+
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
+
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM PLFST_SALES_DETAIL WHERE PLFSD_KEY= @PL_KEY AND PLFSD_PLFSKEY=@ParentID"
+    '            SQLcmd = New SqlCommand
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+    '            SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '    Public Function Load_PNL_PLFST_SALES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
+
+
+    '            Dim SqlCon As SqlConnection
+
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
+
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(PLFS_SOURCENO) as countx FROM PLFST_SALES WHERE PLFS_KEY= @PL_KEY AND PLFS_SOURCENO= @SourceNo"
+    '            SQLcmd = New SqlCommand
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+    '            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '#End Region
+    '#Region "OTHER_EXPENSES"
+
+    '    Public Function Load_OTHER_EXPENSES_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
+
+
+    '            Dim SqlCon As SqlConnection
+
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
+
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(DISTINCT(EXO_SOURCENO)) as countx FROM OTHER_EXPENSES WHERE EXO_KEY= @PL_KEY"
+    '            SQLcmd = New SqlCommand
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '    Public Function Load_OTHER_EXPENSES_COUNT(ByVal KeyID As Integer, Optional SourceNO As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
+
+
+    '            Dim SqlCon As SqlConnection
+
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
+
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPENSES WHERE EXO_KEY= @PL_KEY"
+    '            SQLcmd = New SqlCommand
+
+    '            If SourceNO <> -1 Then
+    '                StrSQL += " AND EXO_SOURCENO=@SourceNo"
+    '                SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNO
+    '            End If
+
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '    Public Function Load_OTHER_EXPENSES_COUNT_SUBITEM(ByVal KeyID As Integer, ByVal ParentID As Integer, Optional ByVal SourceNo As Integer = -1, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
+
+
+    '            Dim SqlCon As SqlConnection
+
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
+
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM OTHER_EXPENSES_DETAIL WHERE EXOD_KEY= @PL_KEY AND EXOD_EXOKEY=@ParentID"
+    '            SQLcmd = New SqlCommand
+
+    '            If SourceNo <> -1 Then
+    '                StrSQL += " AND EXOD_SOURCENO=@SourceNo"
+    '                SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+    '            End If
+
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+    '            SQLcmd.Parameters.Add("@ParentID", SqlDbType.Int).Value = ParentID
+
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '    Public Function Load_OTHER_EXPENSES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
+    '        Try
+
+
+    '            Dim SqlCon As SqlConnection
+
+    '            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+    '                Return 0
+    '            End If
+
+    '            Dim SQLcmd As SqlCommand
+    '            Dim StrSQL As String = "SELECT COUNT(EXO_SOURCENO) as countx FROM OTHER_EXPENSES WHERE EXO_KEY= @PL_KEY AND EXO_SOURCENO= @SourceNo"
+    '            SQLcmd = New SqlCommand
+    '            SQLcmd.CommandText = StrSQL
+    '            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = KeyID
+    '            SQLcmd.Parameters.Add("@SourceNo", SqlDbType.Int).Value = SourceNo
+
+    '            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+    '            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False Then
+    '                Return dt.Rows(0)("countx")
+    '            Else
+    '                Return 0
+    '            End If
+    '        Catch ex As Exception
+    '            If ErrorLog Is Nothing Then
+    '                ErrorLog = New clsError
+    '            End If
+    '            With ErrorLog
+    '                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+    '                .ErrorCode = "C1001"
+    '                .ErrorDateTime = Now
+    '                .ErrorMessage = ex.Message
+    '            End With
+
+    '            AddListOfError(ErrorLog)
+    '            Return 0
+    '        End Try
+    '    End Function
+    '#End Region
     Public Function Load_PNL_PLFST_OPENSTOCK_TOTAL_SOURCENO(ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Integer
         Try
 
@@ -6690,9 +15936,75 @@ Public Class clsIODatabase
     End Function
 #End Region
 #Region "OTHER"
+
+
+    Public Function Load_TaxableIncome(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM TAXABLE_INCOME WHERE TI_REF_NO=@TI_REF_NO AND TI_YA=@TI_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TI_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TI_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+    Public Function Load_RevenueExpenditure(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM REVENUE_EXPENDITURE WHERE RE_REF_NO=@RE_REF_NO AND RE_YA=@RE_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RE_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@RE_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+
     Public Function CheckExist_DeemedInterest(ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6728,10 +16040,83 @@ Public Class clsIODatabase
             Return False
         End Try
     End Function
+    Public Function Load_GetTaxableIncome_Key(Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+        Try
 
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return -1
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT TI_KEY FROM TAXABLE_INCOME ORDER BY TI_KEY DESC"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso IsDBNull(dt.Rows(0)("TI_KEY")) = False Then
+                Return CInt(dt.Rows(0)("TI_KEY"))
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return -1
+        End Try
+    End Function
+    Public Function Load_GetRevenueExpenditure_Key(Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return -1
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT RE_KEY FROM REVENUE_EXPENDITURE ORDER BY RE_KEY DESC"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso IsDBNull(dt.Rows(0)("RE_KEY")) = False Then
+                Return CInt(dt.Rows(0)("RE_KEY"))
+            Else
+                Return -1
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return -1
+        End Try
+    End Function
     Public Function LoadDeemedInterest_Rate(ByVal YA As Integer, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6763,7 +16148,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_MovementComplex(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6792,9 +16177,41 @@ Public Class clsIODatabase
             Return Nothing
         End Try
     End Function
+    Public Function Load_MovementComplex(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_COMPLEX WHERE MM_REFNO=@MM_REFNO AND MM_YA=@MM_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_MovementComplex_Add(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6825,7 +16242,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_MovementComplex_Deduct(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6856,7 +16273,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_MovementComplex_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6908,7 +16325,7 @@ Public Class clsIODatabase
     End Function
     Public Function CheckExist_MovementComplex(ByVal MM_REFNO As String, ByVal MM_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6947,7 +16364,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_SQLCmd(ByVal SQLCmd As SqlCommand, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -6974,7 +16391,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_SQLCmd(ByVal SQLCmd As SqlCommand, ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
 
             SQLCmd.Connection = SQLCon
 
@@ -6996,7 +16413,7 @@ Public Class clsIODatabase
     End Function
     Public Function Run_SQLCmd(ByVal SQLCmd As SqlCommand, ByVal SQLCon As SqlConnection, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
 
             SQLCmd.Connection = SQLCon
 
@@ -7022,7 +16439,7 @@ Public Class clsIODatabase
             ErrorLog = New clsError
         End If
         Try
-            
+
             Dim SQLcmd As SqlCommand
 
             Dim StrSQL As String = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'"
@@ -7056,7 +16473,7 @@ Public Class clsIODatabase
             ErrorLog = New clsError
         End If
         Try
-            
+
             Dim SQLcmd As SqlCommand
 
             Dim StrSQL As String = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS " 'WHERE TABLE_NAME = N'" & TableName & "'"
@@ -7087,7 +16504,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_rptLampiranA1_AiNonTaxableIncome(ByVal DetailsName As String, ByVal PL_KEY As Integer, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7181,7 +16598,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_rptLampiranA1_AdjustedIncome(ByVal DetailsName As String, ByVal PL_KEY As Integer, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7466,7 +16883,7 @@ Public Class clsIODatabase
     End Function
     Public Function Load_rptLampiranA1_BusinessSource(ByVal BC_KEY As String, ByVal BC_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7499,7 +16916,7 @@ Public Class clsIODatabase
     End Function
     Public Function LoadSourceNo(ByVal RefNo As String, ByVal YA As String, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7532,7 +16949,7 @@ Public Class clsIODatabase
     End Function
     Public Function LoadYA(Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7562,7 +16979,7 @@ Public Class clsIODatabase
     End Function
     Public Function CheckYA_Exist(ByVal YA As Integer, Optional ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7599,7 +17016,7 @@ Public Class clsIODatabase
     End Function
     Public Function LoadState(Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7629,7 +17046,7 @@ Public Class clsIODatabase
     End Function
     Public Function LoadTaxPayer(Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7659,7 +17076,7 @@ Public Class clsIODatabase
     End Function
     Public Function LoadTaxPayer_CompanyName(ByVal TP_REF_NO As String, Optional ErrorLog As clsError = Nothing) As String
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7696,7 +17113,7 @@ Public Class clsIODatabase
     End Function
     Public Function LoadTaxPayer_ByRefNO(ByVal REF_NO As String, Optional ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7729,7 +17146,7 @@ Public Class clsIODatabase
 
     Public Function Load_DatabaseList(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -7758,7 +17175,7 @@ Public Class clsIODatabase
 
     Public Function Load_UserNote(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -9124,9 +18541,9 @@ Public Class clsIODatabase
             Return False
         End Try
     End Function
-    Public Function Save_PNLExecute(ByVal ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Save_ListExecute(ByVal ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14541,10 +23958,118 @@ Public Class clsIODatabase
 #End Region
 #Region "OTHER"
 
+
+    Public Function Save_InterestRestrictedTEST(ByVal dt As DataTable, ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+            Dim ListofCmd As New List(Of SqlCommand)
+            Dim ListofException As New List(Of String)
+
+            ListofException.Add("ID")
+            Me.CreateInsertCommand_ByDataTable(dt, SqlCon, ListofException, ListofCmd, ErrorLog)
+
+            If ListofCmd IsNot Nothing AndAlso ListofCmd.Count > 0 Then
+                Return ADO.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
+
+    Public Function Save_TaxableIncome(ByVal TI_REF_NO As String, ByVal TI_YA As String, ByVal TI_DESC As String, ByVal TI_AMOUNT As Decimal, _
+                                       ByVal TI_SOURCE As Integer, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, Nothing) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+            Dim Key As Integer = ADO.Load_GetTaxableIncome_Key(Nothing)
+
+            If Key = -1 Then
+                Return False
+            Else
+                Key += 1
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO TAXABLE_INCOME (TI_KEY,TI_REF_NO,TI_YA,TI_DESC,TI_AMOUNT,TI_SOURCENO) VALUES (@TI_KEY,@TI_REF_NO,@TI_YA,@TI_DESC,@TI_AMOUNT,@TI_SOURCENO)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TI_KEY", SqlDbType.Int).Value = Key
+            SQLcmd.Parameters.Add("@TI_REF_NO", SqlDbType.NVarChar, 20).Value = TI_REF_NO
+            SQLcmd.Parameters.Add("@TI_YA", SqlDbType.NVarChar, 5).Value = TI_YA
+            SQLcmd.Parameters.Add("@TI_DESC", SqlDbType.NVarChar, 255).Value = TI_DESC
+            SQLcmd.Parameters.Add("@TI_AMOUNT", SqlDbType.NVarChar, 25).Value = CStr(TI_AMOUNT)
+            SQLcmd.Parameters.Add("@TI_SOURCENO", SqlDbType.Int).Value = TI_SOURCE
+
+            ListofCmd.Add(SQLcmd)
+
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+    Public Function Save_RevenueExpenditure(ByVal RE_REF_NO As String, ByVal RE_YA As String, ByVal RE_DESC As String, ByVal RE_AMOUNT As Decimal, _
+                                       ByVal RE_SOURCE As Integer, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, Nothing) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+            Dim Key As Integer = ADO.Load_GetRevenueExpenditure_Key(Nothing)
+
+            If Key = -1 Then
+                Return False
+            Else
+                Key += 1
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "INSERT INTO REVENUE_EXPENDITURE (RE_KEY,RE_REF_NO,RE_YA,RE_DESC,RE_AMOUNT,RE_SOURCENO) VALUES (@RE_KEY,@RE_REF_NO,@RE_YA,@RE_DESC,@RE_AMOUNT,@RE_SOURCENO)"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RE_KEY", SqlDbType.Int).Value = Key
+            SQLcmd.Parameters.Add("@RE_REF_NO", SqlDbType.NVarChar, 20).Value = RE_REF_NO
+            SQLcmd.Parameters.Add("@RE_YA", SqlDbType.NVarChar, 5).Value = RE_YA
+            SQLcmd.Parameters.Add("@RE_DESC", SqlDbType.NVarChar, 255).Value = RE_DESC
+            SQLcmd.Parameters.Add("@RE_AMOUNT", SqlDbType.NVarChar, 25).Value = CStr(RE_AMOUNT)
+            SQLcmd.Parameters.Add("@RE_SOURCENO", SqlDbType.Int).Value = RE_SOURCE
+
+            ListofCmd.Add(SQLcmd)
+
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
     Public Function Save_UserNote(ByVal Name As String, ByVal Note As String, _
                                   ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14582,7 +24107,7 @@ Public Class clsIODatabase
                                              ByVal Sep As Decimal, ByVal Oct As Decimal, ByVal Nov As Decimal, ByVal Dec As Decimal, _
                                              Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14629,7 +24154,7 @@ Public Class clsIODatabase
                                   Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14672,7 +24197,7 @@ Public Class clsIODatabase
                                    Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14716,7 +24241,7 @@ Public Class clsIODatabase
                                    Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14760,7 +24285,7 @@ Public Class clsIODatabase
                                    Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14804,7 +24329,7 @@ Public Class clsIODatabase
                                        ByVal NA_DED_STATUS As String, ByVal NA_AMOUNT As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -14849,6 +24374,7 @@ Public Class clsIODatabase
                                  ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
                                  ByVal NoteStart As String, ByVal NoteEnd As String, _
                                  ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, ByVal MM_ADD_DEDUCT_AMOUNT As Decimal, _
+                                 ByVal TypePass As Integer, _
                                  ByVal ds As DataSet, _
                                  ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
@@ -14863,7 +24389,7 @@ Public Class clsIODatabase
             Dim tmpID As Decimal = 0
 
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -14885,6 +24411,7 @@ Public Class clsIODatabase
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = MM_ADD_DEDUCT_AMOUNT
+            SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
 
             Me.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
             Application.DoEvents()
@@ -15738,9 +25265,10 @@ Public Class clsIODatabase
                                    ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
                                    ByVal NoteStart As String, ByVal NoteEnd As String, _
                                    ByVal MM_GENERAL_END As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_END As Decimal, ByVal MM_SPECIFIC_NONALLOWABLE_END As Decimal, ByVal MM_ADD_DEDUCT_AMOUNT As Decimal, _
+                                   ByVal TypePass As Integer, _
                                    ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -15750,7 +25278,7 @@ Public Class clsIODatabase
             Dim SQLcmd As SqlCommand
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -15773,6 +25301,7 @@ Public Class clsIODatabase
             SQLcmd.Parameters.Add("@ModifiedBy", SqlDbType.NVarChar, 100).Value = My.Computer.Name
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = MM_ADD_DEDUCT_AMOUNT
+            SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
 
             ListofCmd.Add(SQLcmd)
 
@@ -17059,9 +26588,77 @@ Public Class clsIODatabase
     End Function
 #End Region
 #Region "OTHER"
+
+
+    Public Function Delete_TaxableIncome(ByVal RefNo As String, ByVal YA As String, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM TAXABLE_INCOME WHERE TI_REF_NO=@TI_REF_NO AND TI_YA=@TI_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TI_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TI_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            ListofCmd.Add(SQLcmd)
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+    Public Function Delete_RevenueExpenditure(ByVal RefNo As String, ByVal YA As String, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            ADO = New SQLDataObject()
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM REVENUE_EXPENDITURE WHERE RE_REF_NO=@RE_REF_NO AND RE_YA=@RE_YA"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RE_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@RE_YA", SqlDbType.NVarChar, 5).Value = YA
+
+            ListofCmd.Add(SQLcmd)
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
     Public Function Delete_CP204(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -17104,7 +26701,7 @@ Public Class clsIODatabase
     End Function
     Public Function Delete_MovementComplex(ByVal MM_ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -17152,10 +26749,10 @@ Public Class clsIODatabase
             Return False
         End Try
     End Function
-   
+
     Public Function Delete_BalanceSheet(ByVal BS_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
-            
+
             Dim SqlCon As SqlConnection
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -17169,7 +26766,7 @@ Public Class clsIODatabase
             SQLcmd.Parameters.Add("@BS_KEY", SqlDbType.Int).Value = BS_KEY
 
             ListofCmd.Add(SQLcmd)
-          
+
             Return Me.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
         Catch ex As Exception
@@ -17190,7 +26787,7 @@ Public Class clsIODatabase
     Public Function Delete_REPORT_AI_BAL(ByVal NA_REF_NO As String, Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -17223,7 +26820,7 @@ Public Class clsIODatabase
     Public Function Delete_REPORT_AI(Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
             Dim ListofSQLcmd As New List(Of SqlCommand)
 
@@ -17266,7 +26863,7 @@ Public Class clsIODatabase
     Public Function Delete_REPORT1_AI(Optional ErrorLog As clsError = Nothing) As Boolean
         Try
 
-            
+
             Dim SqlCon As SqlConnection
             Dim ListofSQLcmd As New List(Of SqlCommand)
 

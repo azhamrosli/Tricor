@@ -34,6 +34,7 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.btnAddMonthly = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -73,7 +74,6 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.colRIRD_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colRIRD_TYPE_INCOME = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colRIRD_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -169,6 +169,12 @@ Partial Class ucPNL_p3InterestResPurS33
         SuperToolTip2.Items.Add(ToolTipTitleItem2)
         SuperToolTip2.Items.Add(ToolTipItem2)
         Me.btnDelete.SuperTip = SuperToolTip2
+        '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "Report"
+        Me.BarButtonItem1.Id = 10
+        Me.BarButtonItem1.Name = "BarButtonItem1"
         '
         'barDockControlTop
         '
@@ -330,9 +336,9 @@ Partial Class ucPNL_p3InterestResPurS33
         'txtNumberic
         '
         Me.txtNumberic.AutoHeight = False
-        Me.txtNumberic.DisplayFormat.FormatString = "n2"
+        Me.txtNumberic.DisplayFormat.FormatString = "n0"
         Me.txtNumberic.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNumberic.Mask.EditMask = "c"
+        Me.txtNumberic.Mask.EditMask = "n0"
         Me.txtNumberic.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtNumberic.Name = "txtNumberic"
         Me.txtNumberic.NullValuePromptShowForEmptyValue = True
@@ -512,12 +518,6 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.colRIRD_NOTE.Visible = True
         Me.colRIRD_NOTE.VisibleIndex = 4
         Me.colRIRD_NOTE.Width = 300
-        '
-        'BarButtonItem1
-        '
-        Me.BarButtonItem1.Caption = "Report"
-        Me.BarButtonItem1.Id = 10
-        Me.BarButtonItem1.Name = "BarButtonItem1"
         '
         'ucPNL_p3InterestResPurS33
         '

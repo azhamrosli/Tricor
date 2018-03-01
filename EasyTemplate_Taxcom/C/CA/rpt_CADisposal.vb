@@ -653,7 +653,7 @@ Public Class rpt_CADisposal
         '
         'tableCell17
         '
-        Me.tableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_QUALIFYING_COST")})
+        Me.tableCell17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "CA_QUALIFYING_COST", "{0:#,# ;(#,#);0 }")})
         Me.tableCell17.Dpi = 254.0!
         Me.tableCell17.Name = "tableCell17"
         Me.tableCell17.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -662,7 +662,7 @@ Public Class rpt_CADisposal
         '
         'tableCell18
         '
-        Me.tableCell18.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_DEPRECIATION")})
+        Me.tableCell18.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_DEPRECIATION", "{0:#,# ;(#,#);0 }")})
         Me.tableCell18.Dpi = 254.0!
         Me.tableCell18.Name = "tableCell18"
         Me.tableCell18.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -671,7 +671,7 @@ Public Class rpt_CADisposal
         '
         'tableCell19
         '
-        Me.tableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_WDV")})
+        Me.tableCell19.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_WDV", "{0:#,# ;(#,#);0 }")})
         Me.tableCell19.Dpi = 254.0!
         Me.tableCell19.Name = "tableCell19"
         Me.tableCell19.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -680,7 +680,7 @@ Public Class rpt_CADisposal
         '
         'tableCell20
         '
-        Me.tableCell20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_DISPOSAL_VALUE")})
+        Me.tableCell20.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_DISPOSAL_VALUE", "{0:#,# ;(#,#);0 }")})
         Me.tableCell20.Dpi = 254.0!
         Me.tableCell20.Name = "tableCell20"
         Me.tableCell20.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -689,7 +689,7 @@ Public Class rpt_CADisposal
         '
         'tableCell21
         '
-        Me.tableCell21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_PNL")})
+        Me.tableCell21.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_PNL", "{0:#,# ;(#,#);0 }")})
         Me.tableCell21.Dpi = 254.0!
         Me.tableCell21.Name = "tableCell21"
         Me.tableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -708,7 +708,7 @@ Public Class rpt_CADisposal
         '
         'tableCell23
         '
-        Me.tableCell23.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_TWDV")})
+        Me.tableCell23.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_TWDV", "{0:#,# ;(#,#);0 }")})
         Me.tableCell23.Dpi = 254.0!
         Me.tableCell23.Name = "tableCell23"
         Me.tableCell23.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -717,7 +717,7 @@ Public Class rpt_CADisposal
         '
         'tableCell24
         '
-        Me.tableCell24.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_BABC")})
+        Me.tableCell24.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DISP_BABC", "{0:#,# ;(#,#);0 }")})
         Me.tableCell24.Dpi = 254.0!
         Me.tableCell24.Name = "tableCell24"
         Me.tableCell24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -767,7 +767,7 @@ Public Class rpt_CADisposal
         Me.tableCell27.Name = "tableCell27"
         Me.tableCell27.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell27.StylePriority.UseBackColor = False
-        XrSummary1.FormatString = "{0:n2}"
+        XrSummary1.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary1.IgnoreNullValues = True
         XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell27.Summary = XrSummary1
@@ -783,7 +783,7 @@ Public Class rpt_CADisposal
         Me.tableCell28.Name = "tableCell28"
         Me.tableCell28.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell28.StylePriority.UseBackColor = False
-        XrSummary2.FormatString = "{0:n2}"
+        XrSummary2.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary2.IgnoreNullValues = True
         XrSummary2.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell28.Summary = XrSummary2
@@ -799,7 +799,7 @@ Public Class rpt_CADisposal
         Me.tableCell29.Name = "tableCell29"
         Me.tableCell29.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell29.StylePriority.UseBackColor = False
-        XrSummary3.FormatString = "{0:n2}"
+        XrSummary3.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary3.IgnoreNullValues = True
         XrSummary3.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell29.Summary = XrSummary3
@@ -815,7 +815,7 @@ Public Class rpt_CADisposal
         Me.tableCell30.Name = "tableCell30"
         Me.tableCell30.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell30.StylePriority.UseBackColor = False
-        XrSummary4.FormatString = "{0:n2}"
+        XrSummary4.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary4.IgnoreNullValues = True
         XrSummary4.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell30.Summary = XrSummary4
@@ -831,7 +831,7 @@ Public Class rpt_CADisposal
         Me.tableCell31.Name = "tableCell31"
         Me.tableCell31.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell31.StylePriority.UseBackColor = False
-        XrSummary5.FormatString = "{0:n2}"
+        XrSummary5.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary5.IgnoreNullValues = True
         XrSummary5.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell31.Summary = XrSummary5
@@ -858,7 +858,7 @@ Public Class rpt_CADisposal
         Me.tableCell33.Name = "tableCell33"
         Me.tableCell33.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell33.StylePriority.UseBackColor = False
-        XrSummary6.FormatString = "{0:n2}"
+        XrSummary6.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary6.IgnoreNullValues = True
         XrSummary6.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell33.Summary = XrSummary6
@@ -874,7 +874,7 @@ Public Class rpt_CADisposal
         Me.tableCell34.Name = "tableCell34"
         Me.tableCell34.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell34.StylePriority.UseBackColor = False
-        XrSummary7.FormatString = "{0:n2}"
+        XrSummary7.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary7.IgnoreNullValues = True
         XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
         Me.tableCell34.Summary = XrSummary7
@@ -951,7 +951,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell1.Name = "XrTableCell1"
         Me.XrTableCell1.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell1.StylePriority.UseBackColor = False
-        XrSummary8.FormatString = "{0:n2}"
+        XrSummary8.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary8.IgnoreNullValues = True
         XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell1.Summary = XrSummary8
@@ -967,7 +967,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell2.Name = "XrTableCell2"
         Me.XrTableCell2.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell2.StylePriority.UseBackColor = False
-        XrSummary9.FormatString = "{0:n2}"
+        XrSummary9.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary9.IgnoreNullValues = True
         XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell2.Summary = XrSummary9
@@ -983,7 +983,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell3.Name = "XrTableCell3"
         Me.XrTableCell3.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell3.StylePriority.UseBackColor = False
-        XrSummary10.FormatString = "{0:n2}"
+        XrSummary10.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary10.IgnoreNullValues = True
         XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell3.Summary = XrSummary10
@@ -999,7 +999,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell4.Name = "XrTableCell4"
         Me.XrTableCell4.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell4.StylePriority.UseBackColor = False
-        XrSummary11.FormatString = "{0:n2}"
+        XrSummary11.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary11.IgnoreNullValues = True
         XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell4.Summary = XrSummary11
@@ -1015,7 +1015,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell5.Name = "XrTableCell5"
         Me.XrTableCell5.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell5.StylePriority.UseBackColor = False
-        XrSummary12.FormatString = "{0:n2}"
+        XrSummary12.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary12.IgnoreNullValues = True
         XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell5.Summary = XrSummary12
@@ -1042,7 +1042,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell7.Name = "XrTableCell7"
         Me.XrTableCell7.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell7.StylePriority.UseBackColor = False
-        XrSummary13.FormatString = "{0:n2}"
+        XrSummary13.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary13.IgnoreNullValues = True
         XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell7.Summary = XrSummary13
@@ -1058,7 +1058,7 @@ Public Class rpt_CADisposal
         Me.XrTableCell8.Name = "XrTableCell8"
         Me.XrTableCell8.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.XrTableCell8.StylePriority.UseBackColor = False
-        XrSummary14.FormatString = "{0:n2}"
+        XrSummary14.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary14.IgnoreNullValues = True
         XrSummary14.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.XrTableCell8.Summary = XrSummary14

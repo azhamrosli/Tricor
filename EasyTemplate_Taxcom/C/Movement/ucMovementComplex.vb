@@ -207,7 +207,7 @@ Public Class ucMovementComplex
                 End If
 
                 For i As Integer = 0 To dt.Rows.Count - 1
-                    dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the Year Ended " & IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), "", dt.Rows(i)("MM_YEAR_ENDED"))
+                    dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the Year Ended " & Format(IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), Now, dt.Rows(i)("MM_YEAR_ENDED")), "dd.MM.yyyy")
                     Application.DoEvents()
                     DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
                 Next

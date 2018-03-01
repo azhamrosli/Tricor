@@ -172,9 +172,9 @@ Partial Class ucPNL_p4UnreaLossForeEx
         'txtNumberic
         '
         Me.txtNumberic.AutoHeight = False
-        Me.txtNumberic.DisplayFormat.FormatString = "n2"
+        Me.txtNumberic.DisplayFormat.FormatString = "n0"
         Me.txtNumberic.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNumberic.Mask.EditMask = "c"
+        Me.txtNumberic.Mask.EditMask = "n0"
         Me.txtNumberic.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtNumberic.Name = "txtNumberic"
         Me.txtNumberic.NullValuePromptShowForEmptyValue = True
@@ -470,7 +470,7 @@ Partial Class ucPNL_p4UnreaLossForeEx
         '
         'btnAddChild
         '
-        Me.btnAddChild.Caption = "Add Child Data"
+        Me.btnAddChild.Caption = "Add Details Data"
         Me.btnAddChild.Id = 1
         Me.btnAddChild.ImageOptions.Image = CType(resources.GetObject("btnAddChild.ImageOptions.Image"), System.Drawing.Image)
         Me.btnAddChild.ImageOptions.LargeImage = CType(resources.GetObject("btnAddChild.ImageOptions.LargeImage"), System.Drawing.Image)
@@ -502,7 +502,7 @@ Partial Class ucPNL_p4UnreaLossForeEx
         '
         'btnDeleteChild
         '
-        Me.btnDeleteChild.Caption = "Delete Child"
+        Me.btnDeleteChild.Caption = "Delete Details"
         Me.btnDeleteChild.Id = 5
         Me.btnDeleteChild.ImageOptions.Image = CType(resources.GetObject("btnDeleteChild.ImageOptions.Image"), System.Drawing.Image)
         Me.btnDeleteChild.ImageOptions.LargeImage = CType(resources.GetObject("btnDeleteChild.ImageOptions.LargeImage"), System.Drawing.Image)
@@ -519,7 +519,7 @@ Partial Class ucPNL_p4UnreaLossForeEx
         '
         'btnExpand
         '
-        Me.btnExpand.Caption = "Expand Child"
+        Me.btnExpand.Caption = "Expand Details"
         Me.btnExpand.Id = 8
         Me.btnExpand.ImageOptions.Image = CType(resources.GetObject("btnExpand.ImageOptions.Image"), System.Drawing.Image)
         Me.btnExpand.ImageOptions.LargeImage = CType(resources.GetObject("btnExpand.ImageOptions.LargeImage"), System.Drawing.Image)
@@ -701,6 +701,8 @@ Partial Class ucPNL_p4UnreaLossForeEx
     Friend WithEvents colEXOUR_DEDUCTIBLE_ADD As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colEXOUR_DETAIL As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colRowIndex As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPecentageAmount1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colPecentageAmount As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
     Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
     Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem
@@ -720,7 +722,5 @@ Partial Class ucPNL_p4UnreaLossForeEx
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents RepositoryItemTextEdit4 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents colPecentageAmount1 As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colPecentageAmount As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

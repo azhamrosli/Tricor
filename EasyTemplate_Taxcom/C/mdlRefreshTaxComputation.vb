@@ -2422,8 +2422,11 @@ Module mdlRefreshTaxComputation
                         TC_AI_TOT_BS_IN = IncomeTotal
 
                         TC_AI_ADJ_BS_IN_TAX_IN = mdlRefreshTaxComputation.GetTotalTaxableIncome(RefNo, YA, SourceNo)
+                        TC_AI_ADJ_BS_IN_TAX_IN += GetTaxableIncome_Movement(RefNo, YA, 2, SourceNo, Errorlog)
+
                         TC_AI_ADJ_BS_EXP_INT = mdlRefreshTaxComputation.GetAJDTotalExpInterestRestrict(RefNo, SourceNo, "")
                         TC_AI_ADJ_BS_EXP_RV_EXP = mdlRefreshTaxComputation.GetAJDTotalRevenueExpenditure(RefNo, YA, SourceNo)
+                        TC_AI_ADJ_BS_EXP_RV_EXP += GetRevenueExpenditure_Movement(RefNo, YA, 3, SourceNo, Errorlog)
 
                         TC_AI_ADJ_BS_EXP_CLAIM = mdlRefreshTaxComputation.GetAJDTotalOtherExpenditure(RefNo, YA, SourceNo)
 
@@ -2473,6 +2476,186 @@ Module mdlRefreshTaxComputation
             Return True
         End Try
     End Function
+    Public Function GetTaxableIncome_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, ByVal SourceNo As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
+        Try
+            Dim dtMovement As DataTable = Nothing
+            Dim dtData As DataTable = Nothing
+            Dim tmpMovement As Decimal = 0
+            Dim Amount As Decimal = 0
+            'Normal movement
+
+            dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
+
+            If dtMovement IsNot Nothing Then
+                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
+                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
+                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+
+                        Dim ListofCmd As New List(Of SqlCommand)
+                        dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
+
+                        If dtData IsNot Nothing Then
+                            ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
+                            Dim tmpAmount As Decimal = 0
+                            For Each row As DataRow In dtData.Rows
+
+                                If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
+                                    tmpAmount = row("TI_AMOUNT")
+                                End If
+                                ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                            Next
+
+                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                            End If
+
+                            ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
+
+                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                                Return False
+                            End If
+
+                        End If
+                    End If
+                End If
+            End If
+            Application.DoEvents()
+
+            dtMovement = Nothing
+            'Complex Movement
+            dtMovement = ADO.Load_MovementComplex(RefNo, YA, ErrorLog)
+
+            If dtMovement IsNot Nothing Then
+                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
+                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
+                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+
+                        Dim ListofCmd As New List(Of SqlCommand)
+                        dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
+
+                        If dtData IsNot Nothing Then
+                            ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
+                            Dim tmpAmount As Decimal = 0
+                            For Each row As DataRow In dtData.Rows
+
+                                If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
+                                    tmpAmount = row("TI_AMOUNT")
+                                End If
+                                ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                            Next
+
+                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                            End If
+
+                            ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
+
+                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                                Return False
+                            End If
+
+                        End If
+                    End If
+                End If
+            End If
+
+            Return Amount
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
+    Public Function GetRevenueExpenditure_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, ByVal SourceNo As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
+        Try
+            Dim dtMovement As DataTable = Nothing
+            Dim dtData As DataTable = Nothing
+            Dim tmpMovement As Decimal = 0
+            Dim Amount As Decimal = 0
+            'Normal movement
+
+            dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
+
+            If dtMovement IsNot Nothing Then
+                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
+                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
+                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+
+                        Dim ListofCmd As New List(Of SqlCommand)
+                        dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
+
+                        If dtData IsNot Nothing Then
+                            ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
+                            Dim tmpAmount As Decimal = 0
+                            For Each row As DataRow In dtData.Rows
+
+                                If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
+                                    tmpAmount = row("RE_AMOUNT")
+                                End If
+                                ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                            Next
+
+                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                            End If
+
+                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
+
+                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                                Return False
+                            End If
+
+                        End If
+                    End If
+                End If
+            End If
+            Application.DoEvents()
+
+            dtMovement = Nothing
+            'Complex Movement
+            dtMovement = ADO.Load_MovementComplex(RefNo, YA, ErrorLog)
+
+            If dtMovement IsNot Nothing Then
+                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
+                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
+                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+
+                        Dim ListofCmd As New List(Of SqlCommand)
+                        dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
+
+                        If dtData IsNot Nothing Then
+                            ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
+                            Dim tmpAmount As Decimal = 0
+                            For Each row As DataRow In dtData.Rows
+
+                                If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
+                                    tmpAmount = row("RE_AMOUNT")
+                                End If
+                                ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                            Next
+
+                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                            End If
+
+                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
+
+                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                                Return False
+                            End If
+
+                        End If
+                    End If
+                End If
+            End If
+
+            Return Amount
+        Catch ex As Exception
+            Return 0
+        End Try
+    End Function
     Public Function GetTotalNonBusinessIncome(TC_AI_DIVIDEND As Decimal, TC_AI_RENTAL As Decimal, TC_AI_ROYALTY As Decimal, TC_AI_INTEREST As Decimal, TC_AI_SEC4A As Decimal) As Decimal
         Try
             Dim dblTotalNBI As Double = 0
@@ -2490,6 +2673,7 @@ Module mdlRefreshTaxComputation
             Dim dblTotalNonAllowExpenses As Double = 0
             Dim tmpMovement As Decimal = 0
             Dim SourceNo As Integer = 0
+            Dim dtMovement As DataTable = Nothing
             Dim drBusinessSource As DataTable = mdlRefreshTaxComputation.GetTCBusinessSource(RefNo, YA)
 
             If drBusinessSource IsNot Nothing AndAlso drBusinessSource.Rows.Count > 0 Then
@@ -2539,21 +2723,59 @@ Module mdlRefreshTaxComputation
                     dblTotalNonAllowExpenses += mdlRefreshTaxComputation.GetAJDTotalExpZakat(RefNo, SourceNo, strDeductible)
 
                     'Normal movement
-                    tmpMovement = mdlRefreshTaxComputation.GetTotalMovementNormal_AddBack(RefNo, SourceNo, Errorlog)
+                    dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, Errorlog)
 
-                    tmpMovement -= mdlRefreshTaxComputation.GetTotalMovementNormal_Deduct(RefNo, SourceNo, Errorlog)
+                    If dtMovement IsNot Nothing Then
+                        If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
+                            Select Case CInt(dtMovement.Rows(0)("MM_TYPE_PASS"))
+                                Case 1
+                                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False Then
+                                        tmpMovement = CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                                    End If
+                                Case 2
 
+                                Case 3
+
+                            End Select
+                        End If
+                    End If
                     dblTotalNonAllowExpenses += tmpMovement
 
-                    tmpMovement = 0
+                    dtMovement = Nothing
+                    'Complex Movement
+                    dtMovement = ADO.Load_MovementComplex(RefNo, YA, Errorlog)
 
-                    'Complex movement
+                    If dtMovement IsNot Nothing Then
+                        If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
+                            Select Case CInt(dtMovement.Rows(0)("MM_TYPE_PASS"))
+                                Case 1
+                                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False Then
+                                        tmpMovement = CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                                    End If
+                                Case 2
 
-                    tmpMovement = mdlRefreshTaxComputation.GetTotalMovementComplex_AddBack(RefNo, SourceNo, Errorlog)
+                                Case 3
 
-                    tmpMovement -= mdlRefreshTaxComputation.GetTotalMovementComplex_Deduct(RefNo, SourceNo, Errorlog)
-
+                            End Select
+                        End If
+                    End If
                     dblTotalNonAllowExpenses += tmpMovement
+                    ''Normal movement
+                    'tmpMovement = mdlRefreshTaxComputation.GetTotalMovementNormal_AddBack(RefNo, SourceNo, Errorlog)
+
+                    'tmpMovement -= mdlRefreshTaxComputation.GetTotalMovementNormal_Deduct(RefNo, SourceNo, Errorlog)
+
+                    'dblTotalNonAllowExpenses += tmpMovement
+
+                    'tmpMovement = 0
+
+                    ''Complex movement
+
+                    'tmpMovement = mdlRefreshTaxComputation.GetTotalMovementComplex_AddBack(RefNo, SourceNo, Errorlog)
+
+                    'tmpMovement -= mdlRefreshTaxComputation.GetTotalMovementComplex_Deduct(RefNo, SourceNo, Errorlog)
+
+                    'dblTotalNonAllowExpenses += tmpMovement
                 Next
 
             End If

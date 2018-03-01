@@ -21,12 +21,12 @@ Partial Class ucPNL_p2ExemptDividend
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ucPNL_p2ExemptDividend))
-        Dim SuperToolTip5 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem5 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem5 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip6 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem6 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem6 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colNOBRID_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colNOBRID_NOBRIKEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -38,12 +38,20 @@ Partial Class ucPNL_p2ExemptDividend
         Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.colNOBRID_SOURCENO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
+        Me.EXEMPTDIVIDENDBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colED_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colED_EDKEY = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colED_SOURCENO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.cboSourceNo = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.BUSINESSSOURCEBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsPNL1 = New EasyTemplate_Taxcom.dsPNL()
-        Me.cboStatus = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.colED_DATE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.dtDate = New DevExpress.XtraEditors.Repository.RepositoryItemDateEdit()
+        Me.colED_COMPANY = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colED_TIERSTATUS = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.cboStatus = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.colED_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
@@ -54,29 +62,21 @@ Partial Class ucPNL_p2ExemptDividend
         Me.barDockControlRight = New DevExpress.XtraBars.BarDockControl()
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.EXEMPTDIVIDENDBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.colED_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colED_EDKEY = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colED_DATE = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colED_COMPANY = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colED_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colED_TIERSTATUS = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colED_SOURCENO = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.EXEMPTDIVIDENDBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtDate, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtDate.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.EXEMPTDIVIDENDBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GridView2
@@ -132,9 +132,9 @@ Partial Class ucPNL_p2ExemptDividend
         'txtNumberic
         '
         Me.txtNumberic.AutoHeight = False
-        Me.txtNumberic.DisplayFormat.FormatString = "n2"
+        Me.txtNumberic.DisplayFormat.FormatString = "n0"
         Me.txtNumberic.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNumberic.Mask.EditMask = "c"
+        Me.txtNumberic.Mask.EditMask = "n0"
         Me.txtNumberic.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtNumberic.Name = "txtNumberic"
         Me.txtNumberic.NullValuePromptShowForEmptyValue = True
@@ -163,14 +163,26 @@ Partial Class ucPNL_p2ExemptDividend
         '
         Me.GridControl1.DataSource = Me.EXEMPTDIVIDENDBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 39)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.dtDate, Me.cboStatus})
-        Me.GridControl1.Size = New System.Drawing.Size(758, 386)
+        Me.GridControl1.Size = New System.Drawing.Size(884, 474)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
+        '
+        'EXEMPTDIVIDENDBindingSource
+        '
+        Me.EXEMPTDIVIDENDBindingSource.DataMember = "EXEMPT_DIVIDEND"
+        Me.EXEMPTDIVIDENDBindingSource.DataSource = Me.DsPNL1
+        '
+        'DsPNL1
+        '
+        Me.DsPNL1.DataSetName = "dsPNL"
+        Me.DsPNL1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
         'GridView1
         '
@@ -190,6 +202,26 @@ Partial Class ucPNL_p2ExemptDividend
         Me.GridView1.OptionsView.RowAutoHeight = True
         Me.GridView1.OptionsView.ShowFooter = True
         '
+        'colED_KEY
+        '
+        Me.colED_KEY.FieldName = "ED_KEY"
+        Me.colED_KEY.Name = "colED_KEY"
+        '
+        'colED_EDKEY
+        '
+        Me.colED_EDKEY.FieldName = "ED_EDKEY"
+        Me.colED_EDKEY.Name = "colED_EDKEY"
+        '
+        'colED_SOURCENO
+        '
+        Me.colED_SOURCENO.Caption = "Source No"
+        Me.colED_SOURCENO.ColumnEdit = Me.cboSourceNo
+        Me.colED_SOURCENO.FieldName = "ED_SOURCENO"
+        Me.colED_SOURCENO.Name = "colED_SOURCENO"
+        Me.colED_SOURCENO.Visible = True
+        Me.colED_SOURCENO.VisibleIndex = 0
+        Me.colED_SOURCENO.Width = 80
+        '
         'cboSourceNo
         '
         Me.cboSourceNo.AutoHeight = False
@@ -207,10 +239,42 @@ Partial Class ucPNL_p2ExemptDividend
         Me.BUSINESSSOURCEBindingSource.DataMember = "BUSINESS_SOURCE"
         Me.BUSINESSSOURCEBindingSource.DataSource = Me.DsPNL1
         '
-        'DsPNL1
+        'colED_DATE
         '
-        Me.DsPNL1.DataSetName = "dsPNL"
-        Me.DsPNL1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        Me.colED_DATE.Caption = "Payment Date"
+        Me.colED_DATE.ColumnEdit = Me.dtDate
+        Me.colED_DATE.FieldName = "ED_DATE"
+        Me.colED_DATE.Name = "colED_DATE"
+        Me.colED_DATE.Visible = True
+        Me.colED_DATE.VisibleIndex = 1
+        Me.colED_DATE.Width = 100
+        '
+        'dtDate
+        '
+        Me.dtDate.AutoHeight = False
+        Me.dtDate.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtDate.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtDate.Name = "dtDate"
+        '
+        'colED_COMPANY
+        '
+        Me.colED_COMPANY.Caption = "Company Name"
+        Me.colED_COMPANY.ColumnEdit = Me.txtNote
+        Me.colED_COMPANY.FieldName = "ED_COMPANY"
+        Me.colED_COMPANY.Name = "colED_COMPANY"
+        Me.colED_COMPANY.Visible = True
+        Me.colED_COMPANY.VisibleIndex = 2
+        Me.colED_COMPANY.Width = 300
+        '
+        'colED_TIERSTATUS
+        '
+        Me.colED_TIERSTATUS.Caption = "Exempt Status"
+        Me.colED_TIERSTATUS.ColumnEdit = Me.cboStatus
+        Me.colED_TIERSTATUS.FieldName = "ED_TIERSTATUS"
+        Me.colED_TIERSTATUS.Name = "colED_TIERSTATUS"
+        Me.colED_TIERSTATUS.Visible = True
+        Me.colED_TIERSTATUS.VisibleIndex = 3
+        Me.colED_TIERSTATUS.Width = 200
         '
         'cboStatus
         '
@@ -220,12 +284,16 @@ Partial Class ucPNL_p2ExemptDividend
         Me.cboStatus.Name = "cboStatus"
         Me.cboStatus.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
         '
-        'dtDate
+        'colED_AMOUNT
         '
-        Me.dtDate.AutoHeight = False
-        Me.dtDate.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtDate.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtDate.Name = "dtDate"
+        Me.colED_AMOUNT.Caption = "Amount"
+        Me.colED_AMOUNT.ColumnEdit = Me.txtNumberic
+        Me.colED_AMOUNT.FieldName = "ED_AMOUNT"
+        Me.colED_AMOUNT.Name = "colED_AMOUNT"
+        Me.colED_AMOUNT.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ED_AMOUNT", "SUM={0:0.##}")})
+        Me.colED_AMOUNT.Visible = True
+        Me.colED_AMOUNT.VisibleIndex = 4
+        Me.colED_AMOUNT.Width = 120
         '
         'BarManager1
         '
@@ -256,62 +324,70 @@ Partial Class ucPNL_p2ExemptDividend
         'btnAdd
         '
         Me.btnAdd.Caption = "Add Data"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem5.Text = "Add new record"
-        ToolTipItem5.LeftIndent = 6
-        ToolTipItem5.Text = "Add new record Ctrl + R"
-        SuperToolTip5.Items.Add(ToolTipTitleItem5)
-        SuperToolTip5.Items.Add(ToolTipItem5)
-        Me.btnAdd.SuperTip = SuperToolTip5
+        ToolTipTitleItem1.Text = "Add new record"
+        ToolTipItem1.LeftIndent = 6
+        ToolTipItem1.Text = "Add new record Ctrl + R"
+        SuperToolTip1.Items.Add(ToolTipTitleItem1)
+        SuperToolTip1.Items.Add(ToolTipItem1)
+        Me.btnAdd.SuperTip = SuperToolTip1
         '
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem6.Text = "Delete record"
-        ToolTipItem6.LeftIndent = 6
-        ToolTipItem6.Text = "Delete record Ctrl + Y"
-        SuperToolTip6.Items.Add(ToolTipTitleItem6)
-        SuperToolTip6.Items.Add(ToolTipItem6)
-        Me.btnDelete.SuperTip = SuperToolTip6
+        ToolTipTitleItem2.Text = "Delete record"
+        ToolTipItem2.LeftIndent = 6
+        ToolTipItem2.Text = "Delete record Ctrl + Y"
+        SuperToolTip2.Items.Add(ToolTipTitleItem2)
+        SuperToolTip2.Items.Add(ToolTipItem2)
+        Me.btnDelete.SuperTip = SuperToolTip2
         '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(758, 31)
+        Me.barDockControlTop.Manager = Me.BarManager1
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(884, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(758, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
+        Me.barDockControlBottom.Manager = Me.BarManager1
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(884, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Manager = Me.BarManager1
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 474)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(758, 31)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlRight.Location = New System.Drawing.Point(884, 39)
+        Me.barDockControlRight.Manager = Me.BarManager1
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 474)
         '
         'RepositoryItemTextEdit1
         '
@@ -326,99 +402,35 @@ Partial Class ucPNL_p2ExemptDividend
         Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         Me.RepositoryItemTextEdit2.ReadOnly = True
         '
-        'EXEMPTDIVIDENDBindingSource
-        '
-        Me.EXEMPTDIVIDENDBindingSource.DataMember = "EXEMPT_DIVIDEND"
-        Me.EXEMPTDIVIDENDBindingSource.DataSource = Me.DsPNL1
-        '
-        'colED_KEY
-        '
-        Me.colED_KEY.FieldName = "ED_KEY"
-        Me.colED_KEY.Name = "colED_KEY"
-        '
-        'colED_EDKEY
-        '
-        Me.colED_EDKEY.FieldName = "ED_EDKEY"
-        Me.colED_EDKEY.Name = "colED_EDKEY"
-        '
-        'colED_DATE
-        '
-        Me.colED_DATE.Caption = "Payment Date"
-        Me.colED_DATE.ColumnEdit = Me.dtDate
-        Me.colED_DATE.FieldName = "ED_DATE"
-        Me.colED_DATE.Name = "colED_DATE"
-        Me.colED_DATE.Visible = True
-        Me.colED_DATE.VisibleIndex = 1
-        Me.colED_DATE.Width = 100
-        '
-        'colED_COMPANY
-        '
-        Me.colED_COMPANY.Caption = "Company Name"
-        Me.colED_COMPANY.ColumnEdit = Me.txtNote
-        Me.colED_COMPANY.FieldName = "ED_COMPANY"
-        Me.colED_COMPANY.Name = "colED_COMPANY"
-        Me.colED_COMPANY.Visible = True
-        Me.colED_COMPANY.VisibleIndex = 2
-        Me.colED_COMPANY.Width = 300
-        '
-        'colED_AMOUNT
-        '
-        Me.colED_AMOUNT.Caption = "Amount"
-        Me.colED_AMOUNT.ColumnEdit = Me.txtNumberic
-        Me.colED_AMOUNT.FieldName = "ED_AMOUNT"
-        Me.colED_AMOUNT.Name = "colED_AMOUNT"
-        Me.colED_AMOUNT.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ED_AMOUNT", "SUM={0:0.##}")})
-        Me.colED_AMOUNT.Visible = True
-        Me.colED_AMOUNT.VisibleIndex = 4
-        Me.colED_AMOUNT.Width = 120
-        '
-        'colED_TIERSTATUS
-        '
-        Me.colED_TIERSTATUS.Caption = "Exempt Status"
-        Me.colED_TIERSTATUS.ColumnEdit = Me.cboStatus
-        Me.colED_TIERSTATUS.FieldName = "ED_TIERSTATUS"
-        Me.colED_TIERSTATUS.Name = "colED_TIERSTATUS"
-        Me.colED_TIERSTATUS.Visible = True
-        Me.colED_TIERSTATUS.VisibleIndex = 3
-        Me.colED_TIERSTATUS.Width = 200
-        '
-        'colED_SOURCENO
-        '
-        Me.colED_SOURCENO.Caption = "Source No"
-        Me.colED_SOURCENO.ColumnEdit = Me.cboSourceNo
-        Me.colED_SOURCENO.FieldName = "ED_SOURCENO"
-        Me.colED_SOURCENO.Name = "colED_SOURCENO"
-        Me.colED_SOURCENO.Visible = True
-        Me.colED_SOURCENO.VisibleIndex = 0
-        Me.colED_SOURCENO.Width = 80
-        '
         'ucPNL_p2ExemptDividend
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p2ExemptDividend"
-        Me.Size = New System.Drawing.Size(758, 417)
+        Me.Size = New System.Drawing.Size(884, 513)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.EXEMPTDIVIDENDBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtDate.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtDate, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.EXEMPTDIVIDENDBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl

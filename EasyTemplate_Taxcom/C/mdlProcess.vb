@@ -19,10 +19,10 @@ Module mdlProcess
     Public V4 As Integer = My.Application.Info.Version.Revision
     Public R1 As String = "Change To New Code OOP make a class move all from mdlProcess to clsIODatabase"
 
-    Public ArgParam0 As String = "frmpnl" 'Form Name
+    Public ArgParam0 As String = "" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
     Public ArgParam2 As String = "0388601701" '"1054242304" 'RefNo
-    Public ArgParam3 As String = "2016" 'YA"
+    Public ArgParam3 As String = "2017" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
     Public ListofClsError As List(Of clsError) = Nothing
     Public dsDataSetErrorlog As DataSet
@@ -124,6 +124,38 @@ Module mdlProcess
         Try
 
             Dim strCon As String = DBSetting(1, ArgParam1)
+
+            If strCon Is Nothing OrElse strCon = "" Then
+                CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorLog)
+                Return False
+            End If
+
+            Dim Con As New SqlConnection(strCon)
+            If Con.State = ConnectionState.Closed Then
+                Con.Open()
+            End If
+
+            sqlCon = Con
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function DBConnection_B(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+        Try
+
+            Dim strCon As String = DBSetting(1, "TAXCOM_B")
 
             If strCon Is Nothing OrElse strCon = "" Then
                 CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, "4060", "Connection string is empty.", ErrorLog)

@@ -383,20 +383,34 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="C\Movement\clsMovementNormal.vb" />
-    <Compile Include="C\PNL\dsPNL1.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="C\PNL\dsPNL.Designer.vb">
+      <DependentUpon>dsPNL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\PNL\dsPNL.vb">
       <DependentUpon>dsPNL.xsd</DependentUpon>
+      <SubType>code</SubType>
     </Compile>
     <Compile Include="C\PNL\dsPNL2.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
+    <Compile Include="C\PNL\Report\rptPNL.Designer.vb">
+      <DependentUpon>rptPNL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="C\PNL\Report\rptPNL_Details.Designer.vb">
       <DependentUpon>rptPNL_Details.vb</DependentUpon>
     </Compile>
     <Compile Include="C\PNL\Report\rptPNL_Details.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL_InterestResict.Designer.vb">
+      <DependentUpon>rptPNL_InterestResict.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL_InterestResict.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.Designer.vb">
@@ -480,12 +494,6 @@
       <DependentUpon>frmLogin_Administrator.vb</DependentUpon>
     </Compile>
     <Compile Include="frmLogin_Administrator.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="B\PNL B+\frmPNL_B_Add.Designer.vb">
-      <DependentUpon>frmPNL_B_Add.vb</DependentUpon>
-    </Compile>
-    <Compile Include="B\PNL B+\frmPNL_B_Add.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="C\PNL\frmPNL_Migration.Designer.vb">
@@ -572,12 +580,6 @@
     <Compile Include="C\PNL\PNL Import\frmPNL_Import_Select.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="C\PNL\Report\rptPNL.Designer.vb">
-      <DependentUpon>rptPNL.vb</DependentUpon>
-    </Compile>
-    <Compile Include="C\PNL\Report\rptPNL.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="C\PNL\Report\rptPNL_Sales.Designer.vb">
       <DependentUpon>rptPNL_Sales.vb</DependentUpon>
     </Compile>
@@ -648,12 +650,6 @@
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="C\PNL\dsPNL.Designer.vb">
-      <DependentUpon>dsPNL.vb</DependentUpon>
-    </Compile>
-    <Compile Include="C\PNL\dsPNL.vb">
-      <DependentUpon>dsPNL.xsd</DependentUpon>
-    </Compile>
     <Compile Include="C\PNL\dsPNL21.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1142,8 +1138,14 @@
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\Report1.rdlc" />
+    <EmbeddedResource Include="C\PNL\Report\rptPNL.resx">
+      <DependentUpon>rptPNL.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\rptPNL_Details.resx">
       <DependentUpon>rptPNL_Details.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\PNL\Report\rptPNL_InterestResict.resx">
+      <DependentUpon>rptPNL_InterestResict.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\ucPNL_p3InterestResPurS33_Monthly_Tricor.resx">
       <DependentUpon>ucPNL_p3InterestResPurS33_Monthly_Tricor.vb</DependentUpon>
@@ -1193,9 +1195,6 @@
     <EmbeddedResource Include="C\Movement\ucMovementComplex.resx">
       <DependentUpon>ucMovementComplex.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="B\PNL B+\frmPNL_B_Add.resx">
-      <DependentUpon>frmPNL_B_Add.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\frmPNL_Add.resx">
       <DependentUpon>frmPNL_Add.vb</DependentUpon>
     </EmbeddedResource>
@@ -1207,9 +1206,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\PNL Import\frmPNL_Import_Select.resx">
       <DependentUpon>frmPNL_Import_Select.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="C\PNL\Report\rptPNL.resx">
-      <DependentUpon>rptPNL.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\rptPNL_Sales.resx">
       <DependentUpon>rptPNL_Sales.vb</DependentUpon>
@@ -1503,6 +1499,17 @@
     <None Include="C\Movement\dsMovement.xss">
       <DependentUpon>dsMovement.xsd</DependentUpon>
     </None>
+    <None Include="C\PNL\dsPNL.xsc">
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </None>
+    <None Include="C\PNL\dsPNL.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="C\PNL\dsPNL.xss">
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </None>
     <None Include="C\Report\dsRA_ITA.xsc">
       <DependentUpon>dsRA_ITA.xsd</DependentUpon>
     </None>
@@ -1535,17 +1542,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="C\PNL\dsPNL.xsc">
-      <DependentUpon>dsPNL.xsd</DependentUpon>
-    </None>
-    <None Include="C\PNL\dsPNL.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="C\PNL\dsPNL.xss">
-      <DependentUpon>dsPNL.xsd</DependentUpon>
-    </None>
     <None Include="C\PNL\dsPNL2.xsc">
       <DependentUpon>dsPNL2.xsd</DependentUpon>
     </None>

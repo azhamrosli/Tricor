@@ -60,6 +60,16 @@ Partial Class ucPNL_p1Sales
         Me.colPLFS_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPLFS_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colPLFS_DETAIL = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.BarDockControl5 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl4 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl6 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl3 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl7 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl8 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl2 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl9 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl10 = New DevExpress.XtraBars.BarDockControl()
+        Me.BarDockControl11 = New DevExpress.XtraBars.BarDockControl()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
@@ -150,9 +160,9 @@ Partial Class ucPNL_p1Sales
         'txtNumberic
         '
         Me.txtNumberic.AutoHeight = False
-        Me.txtNumberic.DisplayFormat.FormatString = "n2"
+        Me.txtNumberic.DisplayFormat.FormatString = "n0"
         Me.txtNumberic.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNumberic.Mask.EditMask = "c"
+        Me.txtNumberic.Mask.EditMask = "n0"
         Me.txtNumberic.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtNumberic.Name = "txtNumberic"
         Me.txtNumberic.NullValuePromptShowForEmptyValue = True
@@ -177,14 +187,16 @@ Partial Class ucPNL_p1Sales
         '
         Me.GridControl1.DataSource = Me.PLFSTSALESBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         GridLevelNode1.LevelTemplate = Me.GridView2
         GridLevelNode1.RelationName = "FK_PLFST_SALES_PLFST_SALES_DETAIL"
         Me.GridControl1.LevelTree.Nodes.AddRange(New DevExpress.XtraGrid.GridLevelNode() {GridLevelNode1})
-        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 39)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo})
-        Me.GridControl1.Size = New System.Drawing.Size(946, 386)
+        Me.GridControl1.Size = New System.Drawing.Size(1104, 474)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -293,6 +305,86 @@ Partial Class ucPNL_p1Sales
         Me.colPLFS_DETAIL.VisibleIndex = 4
         Me.colPLFS_DETAIL.Width = 100
         '
+        'BarDockControl5
+        '
+        Me.BarDockControl5.CausesValidation = False
+        Me.BarDockControl5.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BarDockControl5.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl5.Manager = Nothing
+        Me.BarDockControl5.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl4
+        '
+        Me.BarDockControl4.CausesValidation = False
+        Me.BarDockControl4.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BarDockControl4.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl4.Manager = Nothing
+        Me.BarDockControl4.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl6
+        '
+        Me.BarDockControl6.CausesValidation = False
+        Me.BarDockControl6.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BarDockControl6.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl6.Manager = Nothing
+        Me.BarDockControl6.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl3
+        '
+        Me.BarDockControl3.CausesValidation = False
+        Me.BarDockControl3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.BarDockControl3.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl3.Manager = Nothing
+        Me.BarDockControl3.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl7
+        '
+        Me.BarDockControl7.CausesValidation = False
+        Me.BarDockControl7.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BarDockControl7.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl7.Manager = Nothing
+        Me.BarDockControl7.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl8
+        '
+        Me.BarDockControl8.CausesValidation = False
+        Me.BarDockControl8.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BarDockControl8.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl8.Manager = Nothing
+        Me.BarDockControl8.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl2
+        '
+        Me.BarDockControl2.CausesValidation = False
+        Me.BarDockControl2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BarDockControl2.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl2.Manager = Nothing
+        Me.BarDockControl2.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl9
+        '
+        Me.BarDockControl9.CausesValidation = False
+        Me.BarDockControl9.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.BarDockControl9.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl9.Manager = Nothing
+        Me.BarDockControl9.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl10
+        '
+        Me.BarDockControl10.CausesValidation = False
+        Me.BarDockControl10.Dock = System.Windows.Forms.DockStyle.Left
+        Me.BarDockControl10.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl10.Manager = Nothing
+        Me.BarDockControl10.Size = New System.Drawing.Size(0, 0)
+        '
+        'BarDockControl11
+        '
+        Me.BarDockControl11.CausesValidation = False
+        Me.BarDockControl11.Dock = System.Windows.Forms.DockStyle.Right
+        Me.BarDockControl11.Location = New System.Drawing.Point(0, 0)
+        Me.BarDockControl11.Manager = Nothing
+        Me.BarDockControl11.Size = New System.Drawing.Size(0, 0)
+        '
         'BarManager1
         '
         Me.BarManager1.Bars.AddRange(New DevExpress.XtraBars.Bar() {Me.Bar1})
@@ -322,10 +414,10 @@ Partial Class ucPNL_p1Sales
         'btnAdd
         '
         Me.btnAdd.Caption = "Add Data"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -337,11 +429,11 @@ Partial Class ucPNL_p1Sales
         '
         'btnAddChild
         '
-        Me.btnAddChild.Caption = "Add Child Data"
-        Me.btnAddChild.Glyph = CType(resources.GetObject("btnAddChild.Glyph"), System.Drawing.Image)
+        Me.btnAddChild.Caption = "Add Details Data"
         Me.btnAddChild.Id = 1
+        Me.btnAddChild.ImageOptions.Image = CType(resources.GetObject("btnAddChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddChild.ImageOptions.LargeImage = CType(resources.GetObject("btnAddChild.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
-        Me.btnAddChild.LargeGlyph = CType(resources.GetObject("btnAddChild.LargeGlyph"), System.Drawing.Image)
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Add new record"
@@ -354,10 +446,10 @@ Partial Class ucPNL_p1Sales
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem3.Text = "Delete record"
@@ -369,11 +461,11 @@ Partial Class ucPNL_p1Sales
         '
         'btnDeleteChild
         '
-        Me.btnDeleteChild.Caption = "Delete Child"
-        Me.btnDeleteChild.Glyph = CType(resources.GetObject("btnDeleteChild.Glyph"), System.Drawing.Image)
+        Me.btnDeleteChild.Caption = "Delete Details"
         Me.btnDeleteChild.Id = 5
+        Me.btnDeleteChild.ImageOptions.Image = CType(resources.GetObject("btnDeleteChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDeleteChild.ImageOptions.LargeImage = CType(resources.GetObject("btnDeleteChild.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDeleteChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.U))
-        Me.btnDeleteChild.LargeGlyph = CType(resources.GetObject("btnDeleteChild.LargeGlyph"), System.Drawing.Image)
         Me.btnDeleteChild.Name = "btnDeleteChild"
         Me.btnDeleteChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem4.Text = "Delete record"
@@ -386,11 +478,11 @@ Partial Class ucPNL_p1Sales
         '
         'btnExpand
         '
-        Me.btnExpand.Caption = "Expand Child"
-        Me.btnExpand.Glyph = CType(resources.GetObject("btnExpand.Glyph"), System.Drawing.Image)
+        Me.btnExpand.Caption = "Expand Details"
         Me.btnExpand.Id = 8
+        Me.btnExpand.ImageOptions.Image = CType(resources.GetObject("btnExpand.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExpand.ImageOptions.LargeImage = CType(resources.GetObject("btnExpand.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnExpand.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E))
-        Me.btnExpand.LargeGlyph = CType(resources.GetObject("btnExpand.LargeGlyph"), System.Drawing.Image)
         Me.btnExpand.Name = "btnExpand"
         Me.btnExpand.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem5.Text = "Expand child"
@@ -403,18 +495,18 @@ Partial Class ucPNL_p1Sales
         'btnMoveUp
         '
         Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
         Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.Image = CType(resources.GetObject("btnMoveUp.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveUp.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveUp.Name = "btnMoveUp"
         Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnMoveDown
         '
         Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
         Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.Image = CType(resources.GetObject("btnMoveDown.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -423,28 +515,36 @@ Partial Class ucPNL_p1Sales
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Size = New System.Drawing.Size(946, 31)
+        Me.barDockControlTop.Manager = Me.BarManager1
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1104, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(946, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
+        Me.barDockControlBottom.Manager = Me.BarManager1
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1104, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Manager = Me.BarManager1
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 474)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(946, 31)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1104, 39)
+        Me.barDockControlRight.Manager = Me.BarManager1
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 474)
         '
         'RepositoryItemTextEdit1
         '
@@ -461,15 +561,16 @@ Partial Class ucPNL_p1Sales
         '
         'ucPNL_p1Sales
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p1Sales"
-        Me.Size = New System.Drawing.Size(946, 417)
+        Me.Size = New System.Drawing.Size(1104, 513)
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
@@ -483,21 +584,13 @@ Partial Class ucPNL_p1Sales
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents DsPNL As EasyTemplate_Taxcom.dsPNL
-    Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
-    Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
-    Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents btnAddChild As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
     Friend WithEvents colPLFSD_KEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFSD_PLFSKEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFSD_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
@@ -507,13 +600,7 @@ Partial Class ucPNL_p1Sales
     Friend WithEvents txtNumberic As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents colPLFSD_NOTE As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents txtNote As DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit
-    Friend WithEvents btnDeleteChild As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents btnExpand As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents cboSourceNo As DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
-    Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents colPLFS_KEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFS_PLFSKEY As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colPLFS_SOURCENO As DevExpress.XtraGrid.Columns.GridColumn
@@ -524,5 +611,30 @@ Partial Class ucPNL_p1Sales
     Friend WithEvents DsPNL1 As EasyTemplate_Taxcom.dsPNL
     Friend WithEvents BUSINESSSOURCEBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents PLFSTSALESBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents BarDockControl5 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl4 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl6 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl3 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl7 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl8 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl2 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl9 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl10 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarDockControl11 As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
+    Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
+    Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnAddChild As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnDeleteChild As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnExpand As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
 
 End Class

@@ -75,6 +75,25 @@ Public Class frmMovement_Add
                 txtNoteEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_END")), 0, dt.Rows(0)("MM_NOTE_END"))
                 txtTotalAmount_AddbackDeduct.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT")), 0, dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
 
+                If IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 1 Then
+                    chkNonAllowableExpenses.Checked = True
+                    chkTaxPositive.Checked = False
+                    chkTaxNegative.Checked = False
+                ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 2 Then
+                    chkNonAllowableExpenses.Checked = False
+                    chkTaxPositive.Checked = True
+                    chkTaxNegative.Checked = False
+                ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 3 Then
+                    chkNonAllowableExpenses.Checked = False
+                    chkTaxPositive.Checked = False
+                    chkTaxNegative.Checked = True
+                Else
+                    chkNonAllowableExpenses.Checked = False
+                    chkTaxPositive.Checked = False
+                    chkTaxNegative.Checked = False
+                End If
+
+
                 DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(0))
                 clsMoveNormal.StoreDataToDataset(ID, DsMovement)
             End If
@@ -259,10 +278,20 @@ Public Class frmMovement_Add
         Try
             If isValid() Then
 
+                Dim TypePass As Integer = 0
+
+                If chkNonAllowableExpenses.Checked Then
+                    TypePass = 1
+                ElseIf chkTaxPositive.Checked Then
+                    TypePass = 2
+                ElseIf chkTaxNegative.Checked Then
+                    TypePass = 3
+                End If
+
                 If isEdit Then
                     If clsMoveNormal.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
-                                                     txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
+                                                     txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, TypePass, _
                                                      DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
@@ -277,7 +306,7 @@ Public Class frmMovement_Add
                     Dim tmpID As Integer = 0
                     If clsMoveNormal.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                       dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
-                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, _
+                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, TypePass, _
                                                       DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True
@@ -412,5 +441,24 @@ Public Class frmMovement_Add
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub chkNonAllowableExpenses_CheckedChanged(sender As Object, e As EventArgs) Handles chkNonAllowableExpenses.CheckedChanged, chkTaxNegative.CheckedChanged, chkTaxPositive.CheckedChanged
+        Try
+            If chkNonAllowableExpenses.Checked Then
+                chkTaxNegative.Checked = False
+                chkTaxPositive.Checked = False
+            ElseIf chkTaxPositive.Checked Then
+                chkNonAllowableExpenses.Checked = False
+                chkTaxPositive.Checked = False
+            ElseIf chkTaxNegative.Checked Then
+                chkNonAllowableExpenses.Checked = False
+                chkTaxPositive.Checked = False
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 End Class

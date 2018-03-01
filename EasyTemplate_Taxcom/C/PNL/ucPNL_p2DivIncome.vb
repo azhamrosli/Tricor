@@ -324,4 +324,16 @@ Public Class ucPNL_p2DivIncome
     Private Sub GridControl1_Click(sender As Object, e As EventArgs) Handles GridControl1.Click
 
     End Sub
+
+    Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+
+    End Sub
+
+    Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+
+    End Sub
+
+    Private Sub btnDeleteChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+
+    End Sub
 End Class

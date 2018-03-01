@@ -73,9 +73,9 @@ Partial Class ucPNL_p3InterestResPurS33_Monthly_Tricor
         'RepositoryItemTextEdit3
         '
         Me.RepositoryItemTextEdit3.AutoHeight = False
-        Me.RepositoryItemTextEdit3.DisplayFormat.FormatString = "n2"
+        Me.RepositoryItemTextEdit3.DisplayFormat.FormatString = "n0"
         Me.RepositoryItemTextEdit3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit3.Mask.EditMask = "n2"
+        Me.RepositoryItemTextEdit3.Mask.EditMask = "n0"
         Me.RepositoryItemTextEdit3.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         '

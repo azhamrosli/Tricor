@@ -306,31 +306,35 @@ Partial Class frmCP204_Add
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Size = New System.Drawing.Size(1426, 31)
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1664, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 682)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 839)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1426, 0)
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1664, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 651)
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 800)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1426, 31)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1664, 39)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 651)
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 800)
         '
         'RepositoryItemTextEdit1
         '
@@ -356,32 +360,35 @@ Partial Class frmCP204_Add
         Me.PanelControl1.Controls.Add(Me.cboYA)
         Me.PanelControl1.Controls.Add(Me.LabelControl10)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 39)
         Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1426, 101)
+        Me.PanelControl1.Size = New System.Drawing.Size(1664, 124)
         Me.PanelControl1.TabIndex = 4
         '
         'LabelControl33
         '
-        Me.LabelControl33.Location = New System.Drawing.Point(775, 23)
+        Me.LabelControl33.Location = New System.Drawing.Point(904, 28)
+        Me.LabelControl33.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl33.Name = "LabelControl33"
-        Me.LabelControl33.Size = New System.Drawing.Size(128, 13)
+        Me.LabelControl33.Size = New System.Drawing.Size(153, 16)
         Me.LabelControl33.TabIndex = 172
         Me.LabelControl33.Text = "Balance payment amount :"
         '
         'txtCurrAvaiblePayment
         '
         Me.txtCurrAvaiblePayment.EditValue = "0"
-        Me.txtCurrAvaiblePayment.Location = New System.Drawing.Point(911, 20)
+        Me.txtCurrAvaiblePayment.Location = New System.Drawing.Point(1063, 25)
+        Me.txtCurrAvaiblePayment.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCurrAvaiblePayment.Name = "txtCurrAvaiblePayment"
         Me.txtCurrAvaiblePayment.Properties.ReadOnly = True
-        Me.txtCurrAvaiblePayment.Size = New System.Drawing.Size(262, 20)
+        Me.txtCurrAvaiblePayment.Size = New System.Drawing.Size(306, 22)
         Me.txtCurrAvaiblePayment.TabIndex = 171
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(113, 20)
+        Me.cboRefNo.Location = New System.Drawing.Point(132, 25)
+        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboRefNo.MenuManager = Me.BarManager1
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -391,7 +398,7 @@ Partial Class frmCP204_Add
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"
         Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
-        Me.cboRefNo.Size = New System.Drawing.Size(262, 20)
+        Me.cboRefNo.Size = New System.Drawing.Size(306, 22)
         Me.cboRefNo.TabIndex = 170
         '
         'TaxPayerFindBindingSource
@@ -480,55 +487,60 @@ Partial Class frmCP204_Add
         '
         'txtRefRegistrationNo
         '
-        Me.txtRefRegistrationNo.Location = New System.Drawing.Point(113, 70)
+        Me.txtRefRegistrationNo.Location = New System.Drawing.Point(132, 86)
+        Me.txtRefRegistrationNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtRefRegistrationNo.Name = "txtRefRegistrationNo"
         Me.txtRefRegistrationNo.Properties.ReadOnly = True
-        Me.txtRefRegistrationNo.Size = New System.Drawing.Size(262, 20)
+        Me.txtRefRegistrationNo.Size = New System.Drawing.Size(306, 22)
         Me.txtRefRegistrationNo.TabIndex = 169
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(113, 46)
+        Me.txtRefNo.Location = New System.Drawing.Point(132, 57)
+        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(262, 20)
+        Me.txtRefNo.Size = New System.Drawing.Size(306, 22)
         Me.txtRefNo.TabIndex = 168
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(387, 23)
+        Me.LabelControl11.Location = New System.Drawing.Point(451, 28)
+        Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(20, 13)
+        Me.LabelControl11.Size = New System.Drawing.Size(24, 16)
         Me.LabelControl11.TabIndex = 167
         Me.LabelControl11.Text = "YA :"
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(471, 20)
+        Me.cboYA.Location = New System.Drawing.Point(549, 25)
+        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(280, 20)
+        Me.cboYA.Size = New System.Drawing.Size(327, 22)
         Me.cboYA.TabIndex = 165
         '
         'LabelControl10
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(10, 22)
+        Me.LabelControl10.Location = New System.Drawing.Point(12, 27)
+        Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(40, 13)
+        Me.LabelControl10.Size = New System.Drawing.Size(47, 16)
         Me.LabelControl10.TabIndex = 166
         Me.LabelControl10.Text = "Ref No :"
         '
         'XtraTabControl1
         '
         Me.XtraTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.XtraTabControl1.Location = New System.Drawing.Point(0, 132)
+        Me.XtraTabControl1.Location = New System.Drawing.Point(0, 163)
         Me.XtraTabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabControl1.Name = "XtraTabControl1"
         Me.XtraTabControl1.SelectedTabPage = Me.XtraTabPage1
         Me.XtraTabControl1.ShowTabHeader = DevExpress.Utils.DefaultBoolean.[True]
-        Me.XtraTabControl1.Size = New System.Drawing.Size(1426, 550)
+        Me.XtraTabControl1.Size = New System.Drawing.Size(1664, 676)
         Me.XtraTabControl1.TabIndex = 5
         Me.XtraTabControl1.TabPages.AddRange(New DevExpress.XtraTab.XtraTabPage() {Me.XtraTabPage1, Me.XtraTabPage2})
         '
@@ -601,216 +613,235 @@ Partial Class frmCP204_Add
         Me.XtraTabPage1.Controls.Add(Me.LabelControl1)
         Me.XtraTabPage1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage1.Name = "XtraTabPage1"
-        Me.XtraTabPage1.Size = New System.Drawing.Size(1420, 522)
+        Me.XtraTabPage1.Size = New System.Drawing.Size(1657, 642)
         Me.XtraTabPage1.Text = "CP204"
         '
         'llbAmountTaxpayerLastYear
         '
-        Me.llbAmountTaxpayerLastYear.Location = New System.Drawing.Point(493, 184)
+        Me.llbAmountTaxpayerLastYear.Location = New System.Drawing.Point(575, 226)
+        Me.llbAmountTaxpayerLastYear.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.llbAmountTaxpayerLastYear.Name = "llbAmountTaxpayerLastYear"
-        Me.llbAmountTaxpayerLastYear.Size = New System.Drawing.Size(55, 13)
+        Me.llbAmountTaxpayerLastYear.Size = New System.Drawing.Size(65, 16)
         Me.llbAmountTaxpayerLastYear.TabIndex = 239
         Me.llbAmountTaxpayerLastYear.Text = ") Last year "
         '
         'LabelControl32
         '
-        Me.LabelControl32.Location = New System.Drawing.Point(334, 184)
+        Me.LabelControl32.Location = New System.Drawing.Point(390, 226)
+        Me.LabelControl32.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl32.Name = "LabelControl32"
-        Me.LabelControl32.Size = New System.Drawing.Size(4, 13)
+        Me.LabelControl32.Size = New System.Drawing.Size(5, 16)
         Me.LabelControl32.TabIndex = 238
         Me.LabelControl32.Text = "("
         '
         'txtAmountTaxPayable_LastYear
         '
-        Me.txtAmountTaxPayable_LastYear.Location = New System.Drawing.Point(344, 181)
+        Me.txtAmountTaxPayable_LastYear.Location = New System.Drawing.Point(401, 223)
+        Me.txtAmountTaxPayable_LastYear.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountTaxPayable_LastYear.Name = "txtAmountTaxPayable_LastYear"
         Me.txtAmountTaxPayable_LastYear.Properties.DisplayFormat.FormatString = "n2"
         Me.txtAmountTaxPayable_LastYear.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtAmountTaxPayable_LastYear.Properties.Mask.EditMask = "n2"
         Me.txtAmountTaxPayable_LastYear.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtAmountTaxPayable_LastYear.Properties.ReadOnly = True
-        Me.txtAmountTaxPayable_LastYear.Size = New System.Drawing.Size(143, 20)
+        Me.txtAmountTaxPayable_LastYear.Size = New System.Drawing.Size(167, 22)
         Me.txtAmountTaxPayable_LastYear.TabIndex = 237
         '
         'txtFirstInstallmentCount
         '
-        Me.txtFirstInstallmentCount.Location = New System.Drawing.Point(209, 393)
+        Me.txtFirstInstallmentCount.Location = New System.Drawing.Point(244, 484)
+        Me.txtFirstInstallmentCount.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtFirstInstallmentCount.Name = "txtFirstInstallmentCount"
         Me.txtFirstInstallmentCount.Properties.ReadOnly = True
-        Me.txtFirstInstallmentCount.Size = New System.Drawing.Size(40, 20)
+        Me.txtFirstInstallmentCount.Size = New System.Drawing.Size(47, 22)
         Me.txtFirstInstallmentCount.TabIndex = 236
         '
         'cboYA_To_SME
         '
         Me.cboYA_To_SME.Enabled = False
-        Me.cboYA_To_SME.Location = New System.Drawing.Point(590, 318)
+        Me.cboYA_To_SME.Location = New System.Drawing.Point(688, 391)
+        Me.cboYA_To_SME.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboYA_To_SME.Name = "cboYA_To_SME"
         Me.cboYA_To_SME.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA_To_SME.Properties.PopupSizeable = True
         Me.cboYA_To_SME.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA_To_SME.Size = New System.Drawing.Size(143, 20)
+        Me.cboYA_To_SME.Size = New System.Drawing.Size(167, 22)
         Me.cboYA_To_SME.TabIndex = 235
         '
         'cboYA_From_SME
         '
         Me.cboYA_From_SME.Enabled = False
-        Me.cboYA_From_SME.Location = New System.Drawing.Point(423, 318)
+        Me.cboYA_From_SME.Location = New System.Drawing.Point(493, 391)
+        Me.cboYA_From_SME.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboYA_From_SME.Name = "cboYA_From_SME"
         Me.cboYA_From_SME.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA_From_SME.Properties.PopupSizeable = True
         Me.cboYA_From_SME.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA_From_SME.Size = New System.Drawing.Size(143, 20)
+        Me.cboYA_From_SME.Size = New System.Drawing.Size(167, 22)
         Me.cboYA_From_SME.TabIndex = 234
         '
         'cboState_Alt_Cor
         '
-        Me.cboState_Alt_Cor.Location = New System.Drawing.Point(926, 240)
+        Me.cboState_Alt_Cor.Location = New System.Drawing.Point(1080, 295)
+        Me.cboState_Alt_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboState_Alt_Cor.Name = "cboState_Alt_Cor"
         Me.cboState_Alt_Cor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboState_Alt_Cor.Properties.PopupSizeable = True
         Me.cboState_Alt_Cor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboState_Alt_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.cboState_Alt_Cor.Size = New System.Drawing.Size(409, 22)
         Me.cboState_Alt_Cor.TabIndex = 233
         '
         'cboState_Cor
         '
-        Me.cboState_Cor.Location = New System.Drawing.Point(173, 119)
+        Me.cboState_Cor.Location = New System.Drawing.Point(202, 146)
+        Me.cboState_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboState_Cor.Name = "cboState_Cor"
         Me.cboState_Cor.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboState_Cor.Properties.PopupSizeable = True
         Me.cboState_Cor.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboState_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.cboState_Cor.Size = New System.Drawing.Size(409, 22)
         Me.cboState_Cor.TabIndex = 232
         '
         'LabelControl28
         '
-        Me.LabelControl28.Location = New System.Drawing.Point(762, 243)
+        Me.LabelControl28.Location = New System.Drawing.Point(889, 299)
+        Me.LabelControl28.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl28.Name = "LabelControl28"
-        Me.LabelControl28.Size = New System.Drawing.Size(33, 13)
+        Me.LabelControl28.Size = New System.Drawing.Size(39, 16)
         Me.LabelControl28.TabIndex = 231
         Me.LabelControl28.Text = "State :"
         '
         'LabelControl29
         '
-        Me.LabelControl29.Location = New System.Drawing.Point(1040, 219)
+        Me.LabelControl29.Location = New System.Drawing.Point(1213, 270)
+        Me.LabelControl29.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl29.Name = "LabelControl29"
-        Me.LabelControl29.Size = New System.Drawing.Size(26, 13)
+        Me.LabelControl29.Size = New System.Drawing.Size(30, 16)
         Me.LabelControl29.TabIndex = 229
         Me.LabelControl29.Text = "City :"
         '
         'txtCity_Alt_Cor
         '
-        Me.txtCity_Alt_Cor.Location = New System.Drawing.Point(1071, 216)
+        Me.txtCity_Alt_Cor.Location = New System.Drawing.Point(1249, 266)
+        Me.txtCity_Alt_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCity_Alt_Cor.Name = "txtCity_Alt_Cor"
-        Me.txtCity_Alt_Cor.Size = New System.Drawing.Size(207, 20)
+        Me.txtCity_Alt_Cor.Size = New System.Drawing.Size(241, 22)
         Me.txtCity_Alt_Cor.TabIndex = 228
         '
         'LabelControl30
         '
-        Me.LabelControl30.Location = New System.Drawing.Point(762, 219)
+        Me.LabelControl30.Location = New System.Drawing.Point(889, 270)
+        Me.LabelControl30.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl30.Name = "LabelControl30"
-        Me.LabelControl30.Size = New System.Drawing.Size(64, 13)
+        Me.LabelControl30.Size = New System.Drawing.Size(76, 16)
         Me.LabelControl30.TabIndex = 227
         Me.LabelControl30.Text = "Postal Code :"
         '
         'txtPostcode_Alt_Cor
         '
-        Me.txtPostcode_Alt_Cor.Location = New System.Drawing.Point(926, 216)
+        Me.txtPostcode_Alt_Cor.Location = New System.Drawing.Point(1080, 266)
+        Me.txtPostcode_Alt_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtPostcode_Alt_Cor.Name = "txtPostcode_Alt_Cor"
-        Me.txtPostcode_Alt_Cor.Size = New System.Drawing.Size(89, 20)
+        Me.txtPostcode_Alt_Cor.Size = New System.Drawing.Size(104, 22)
         Me.txtPostcode_Alt_Cor.TabIndex = 226
         '
         'txtAdd3_Alt_Cor
         '
-        Me.txtAdd3_Alt_Cor.Location = New System.Drawing.Point(926, 192)
+        Me.txtAdd3_Alt_Cor.Location = New System.Drawing.Point(1080, 236)
+        Me.txtAdd3_Alt_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAdd3_Alt_Cor.Name = "txtAdd3_Alt_Cor"
-        Me.txtAdd3_Alt_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.txtAdd3_Alt_Cor.Size = New System.Drawing.Size(409, 22)
         Me.txtAdd3_Alt_Cor.TabIndex = 225
         '
         'txtAdd2_Alt_Cor
         '
-        Me.txtAdd2_Alt_Cor.Location = New System.Drawing.Point(926, 167)
+        Me.txtAdd2_Alt_Cor.Location = New System.Drawing.Point(1080, 206)
+        Me.txtAdd2_Alt_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAdd2_Alt_Cor.Name = "txtAdd2_Alt_Cor"
-        Me.txtAdd2_Alt_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.txtAdd2_Alt_Cor.Size = New System.Drawing.Size(409, 22)
         Me.txtAdd2_Alt_Cor.TabIndex = 224
         '
         'txtAdd1_Alt_Cor
         '
-        Me.txtAdd1_Alt_Cor.Location = New System.Drawing.Point(926, 143)
+        Me.txtAdd1_Alt_Cor.Location = New System.Drawing.Point(1080, 176)
+        Me.txtAdd1_Alt_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAdd1_Alt_Cor.Name = "txtAdd1_Alt_Cor"
-        Me.txtAdd1_Alt_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.txtAdd1_Alt_Cor.Size = New System.Drawing.Size(409, 22)
         Me.txtAdd1_Alt_Cor.TabIndex = 223
         '
         'LabelControl31
         '
-        Me.LabelControl31.Location = New System.Drawing.Point(762, 145)
+        Me.LabelControl31.Location = New System.Drawing.Point(889, 178)
+        Me.LabelControl31.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl31.Name = "LabelControl31"
-        Me.LabelControl31.Size = New System.Drawing.Size(128, 13)
+        Me.LabelControl31.Size = New System.Drawing.Size(152, 16)
         Me.LabelControl31.TabIndex = 222
         Me.LabelControl31.Text = "Correspondence Address :"
         '
         'LabelControl26
         '
-        Me.LabelControl26.Location = New System.Drawing.Point(1168, 98)
+        Me.LabelControl26.Location = New System.Drawing.Point(1363, 121)
+        Me.LabelControl26.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl26.Name = "LabelControl26"
-        Me.LabelControl26.Size = New System.Drawing.Size(12, 13)
+        Me.LabelControl26.Size = New System.Drawing.Size(15, 16)
         Me.LabelControl26.TabIndex = 221
         Me.LabelControl26.Text = "To"
         '
         'dtBasisPeriodSecEnd
         '
         Me.dtBasisPeriodSecEnd.EditValue = Nothing
-        Me.dtBasisPeriodSecEnd.Location = New System.Drawing.Point(1186, 95)
+        Me.dtBasisPeriodSecEnd.Location = New System.Drawing.Point(1384, 117)
         Me.dtBasisPeriodSecEnd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtBasisPeriodSecEnd.MenuManager = Me.BarManager1
         Me.dtBasisPeriodSecEnd.Name = "dtBasisPeriodSecEnd"
         Me.dtBasisPeriodSecEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBasisPeriodSecEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBasisPeriodSecEnd.Size = New System.Drawing.Size(143, 20)
+        Me.dtBasisPeriodSecEnd.Size = New System.Drawing.Size(167, 22)
         Me.dtBasisPeriodSecEnd.TabIndex = 220
         '
         'dtBasisPeriodSecStart
         '
         Me.dtBasisPeriodSecStart.EditValue = Nothing
-        Me.dtBasisPeriodSecStart.Location = New System.Drawing.Point(1020, 95)
+        Me.dtBasisPeriodSecStart.Location = New System.Drawing.Point(1190, 117)
         Me.dtBasisPeriodSecStart.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtBasisPeriodSecStart.MenuManager = Me.BarManager1
         Me.dtBasisPeriodSecStart.Name = "dtBasisPeriodSecStart"
         Me.dtBasisPeriodSecStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBasisPeriodSecStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBasisPeriodSecStart.Size = New System.Drawing.Size(143, 20)
+        Me.dtBasisPeriodSecStart.Size = New System.Drawing.Size(167, 22)
         Me.dtBasisPeriodSecStart.TabIndex = 219
         '
         'LabelControl27
         '
-        Me.LabelControl27.Location = New System.Drawing.Point(1168, 61)
+        Me.LabelControl27.Location = New System.Drawing.Point(1363, 75)
+        Me.LabelControl27.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl27.Name = "LabelControl27"
-        Me.LabelControl27.Size = New System.Drawing.Size(12, 13)
+        Me.LabelControl27.Size = New System.Drawing.Size(15, 16)
         Me.LabelControl27.TabIndex = 218
         Me.LabelControl27.Text = "To"
         '
         'dtBasisPeriodYAEnd
         '
         Me.dtBasisPeriodYAEnd.EditValue = Nothing
-        Me.dtBasisPeriodYAEnd.Location = New System.Drawing.Point(1186, 58)
+        Me.dtBasisPeriodYAEnd.Location = New System.Drawing.Point(1384, 71)
         Me.dtBasisPeriodYAEnd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtBasisPeriodYAEnd.MenuManager = Me.BarManager1
         Me.dtBasisPeriodYAEnd.Name = "dtBasisPeriodYAEnd"
         Me.dtBasisPeriodYAEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBasisPeriodYAEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBasisPeriodYAEnd.Size = New System.Drawing.Size(143, 20)
+        Me.dtBasisPeriodYAEnd.Size = New System.Drawing.Size(167, 22)
         Me.dtBasisPeriodYAEnd.TabIndex = 217
         '
         'dtBasisPeriodYAStart
         '
         Me.dtBasisPeriodYAStart.EditValue = Nothing
-        Me.dtBasisPeriodYAStart.Location = New System.Drawing.Point(1019, 58)
+        Me.dtBasisPeriodYAStart.Location = New System.Drawing.Point(1189, 71)
         Me.dtBasisPeriodYAStart.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtBasisPeriodYAStart.MenuManager = Me.BarManager1
         Me.dtBasisPeriodYAStart.Name = "dtBasisPeriodYAStart"
         Me.dtBasisPeriodYAStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBasisPeriodYAStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBasisPeriodYAStart.Size = New System.Drawing.Size(143, 20)
+        Me.dtBasisPeriodYAStart.Size = New System.Drawing.Size(167, 22)
         Me.dtBasisPeriodYAStart.TabIndex = 216
         '
         'LabelControl25
@@ -818,9 +849,10 @@ Partial Class frmCP204_Add
         Me.LabelControl25.Appearance.Options.UseTextOptions = True
         Me.LabelControl25.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.LabelControl25.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl25.Location = New System.Drawing.Point(781, 96)
+        Me.LabelControl25.Location = New System.Drawing.Point(911, 118)
+        Me.LabelControl25.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl25.Name = "LabelControl25"
-        Me.LabelControl25.Size = New System.Drawing.Size(206, 30)
+        Me.LabelControl25.Size = New System.Drawing.Size(240, 37)
         Me.LabelControl25.TabIndex = 215
         Me.LabelControl25.Text = "7.2 Basis Period for the 2nd subsequent Year of Assessment"
         '
@@ -829,9 +861,10 @@ Partial Class frmCP204_Add
         Me.LabelControl24.Appearance.Options.UseTextOptions = True
         Me.LabelControl24.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.LabelControl24.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl24.Location = New System.Drawing.Point(781, 59)
+        Me.LabelControl24.Location = New System.Drawing.Point(911, 73)
+        Me.LabelControl24.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl24.Name = "LabelControl24"
-        Me.LabelControl24.Size = New System.Drawing.Size(234, 30)
+        Me.LabelControl24.Size = New System.Drawing.Size(273, 37)
         Me.LabelControl24.TabIndex = 214
         Me.LabelControl24.Text = "7.1 Basis Period for the immediate following Year of Assessment"
         '
@@ -840,76 +873,83 @@ Partial Class frmCP204_Add
         Me.LabelControl23.Appearance.Options.UseTextOptions = True
         Me.LabelControl23.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.LabelControl23.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl23.Location = New System.Drawing.Point(759, 23)
+        Me.LabelControl23.Location = New System.Drawing.Point(885, 28)
+        Me.LabelControl23.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl23.Name = "LabelControl23"
-        Me.LabelControl23.Size = New System.Drawing.Size(545, 30)
+        Me.LabelControl23.Size = New System.Drawing.Size(636, 37)
         Me.LabelControl23.TabIndex = 213
         Me.LabelControl23.Text = "7. These columns are to be completed by new companies or if there are changes as " & _
     "a result of a change in the date of closing accounts"
         '
         'txtLastInstallment
         '
-        Me.txtLastInstallment.Location = New System.Drawing.Point(513, 444)
+        Me.txtLastInstallment.Location = New System.Drawing.Point(598, 546)
+        Me.txtLastInstallment.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtLastInstallment.Name = "txtLastInstallment"
         Me.txtLastInstallment.Properties.DisplayFormat.FormatString = "n2"
         Me.txtLastInstallment.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtLastInstallment.Properties.Mask.EditMask = "n2"
         Me.txtLastInstallment.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtLastInstallment.Size = New System.Drawing.Size(143, 20)
+        Me.txtLastInstallment.Size = New System.Drawing.Size(167, 22)
         Me.txtLastInstallment.TabIndex = 212
         '
         'txtFirstInstallment
         '
-        Me.txtFirstInstallment.Location = New System.Drawing.Point(513, 420)
+        Me.txtFirstInstallment.Location = New System.Drawing.Point(598, 517)
+        Me.txtFirstInstallment.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtFirstInstallment.Name = "txtFirstInstallment"
         Me.txtFirstInstallment.Properties.DisplayFormat.FormatString = "n2"
         Me.txtFirstInstallment.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtFirstInstallment.Properties.Mask.EditMask = "n2"
         Me.txtFirstInstallment.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtFirstInstallment.Size = New System.Drawing.Size(143, 20)
+        Me.txtFirstInstallment.Size = New System.Drawing.Size(167, 22)
         Me.txtFirstInstallment.TabIndex = 211
         '
         'LabelControl22
         '
         Me.LabelControl22.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl22.Location = New System.Drawing.Point(32, 447)
+        Me.LabelControl22.Location = New System.Drawing.Point(37, 550)
+        Me.LabelControl22.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl22.Name = "LabelControl22"
-        Me.LabelControl22.Size = New System.Drawing.Size(111, 13)
+        Me.LabelControl22.Size = New System.Drawing.Size(129, 16)
         Me.LabelControl22.TabIndex = 210
         Me.LabelControl22.Text = "6.2 Last instalment"
         '
         'LabelControl21
         '
-        Me.LabelControl21.Location = New System.Drawing.Point(32, 422)
+        Me.LabelControl21.Location = New System.Drawing.Point(37, 519)
+        Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl21.Name = "LabelControl21"
-        Me.LabelControl21.Size = New System.Drawing.Size(108, 13)
+        Me.LabelControl21.Size = New System.Drawing.Size(129, 16)
         Me.LabelControl21.TabIndex = 209
         Me.LabelControl21.Text = "6.1 First instalment to "
         '
         'LabelControl20
         '
-        Me.LabelControl20.Location = New System.Drawing.Point(536, 396)
+        Me.LabelControl20.Location = New System.Drawing.Point(625, 487)
+        Me.LabelControl20.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl20.Name = "LabelControl20"
-        Me.LabelControl20.Size = New System.Drawing.Size(92, 13)
+        Me.LabelControl20.Size = New System.Drawing.Size(108, 16)
         Me.LabelControl20.TabIndex = 208
         Me.LabelControl20.Text = "Monthly Instalment"
         '
         'LabelControl19
         '
-        Me.LabelControl19.Location = New System.Drawing.Point(9, 396)
+        Me.LabelControl19.Location = New System.Drawing.Point(10, 487)
+        Me.LabelControl19.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl19.Name = "LabelControl19"
-        Me.LabelControl19.Size = New System.Drawing.Size(182, 13)
+        Me.LabelControl19.Size = New System.Drawing.Size(214, 16)
         Me.LabelControl19.TabIndex = 207
         Me.LabelControl19.Text = "6. Computation of Monthly Instalment"
         '
         'rbPeriodEnded
         '
-        Me.rbPeriodEnded.Location = New System.Drawing.Point(423, 351)
+        Me.rbPeriodEnded.Location = New System.Drawing.Point(493, 432)
         Me.rbPeriodEnded.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rbPeriodEnded.MenuManager = Me.BarManager1
         Me.rbPeriodEnded.Name = "rbPeriodEnded"
         Me.rbPeriodEnded.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(True, "Yes"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "No")})
-        Me.rbPeriodEnded.Size = New System.Drawing.Size(232, 21)
+        Me.rbPeriodEnded.Size = New System.Drawing.Size(271, 26)
         Me.rbPeriodEnded.TabIndex = 206
         '
         'LabelControl18
@@ -917,9 +957,10 @@ Partial Class frmCP204_Add
         Me.LabelControl18.Appearance.Options.UseTextOptions = True
         Me.LabelControl18.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
         Me.LabelControl18.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None
-        Me.LabelControl18.Location = New System.Drawing.Point(32, 348)
+        Me.LabelControl18.Location = New System.Drawing.Point(37, 428)
+        Me.LabelControl18.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl18.Name = "LabelControl18"
-        Me.LabelControl18.Size = New System.Drawing.Size(386, 41)
+        Me.LabelControl18.Size = New System.Drawing.Size(450, 50)
         Me.LabelControl18.TabIndex = 205
         Me.LabelControl18.Text = "5.2 Indicate whether the accounts prepared for the period ended on the same date " & _
     "as reladted companies in the same group."
@@ -928,270 +969,292 @@ Partial Class frmCP204_Add
         '
         Me.dtCommencement.EditValue = Nothing
         Me.dtCommencement.Enabled = False
-        Me.dtCommencement.Location = New System.Drawing.Point(590, 294)
+        Me.dtCommencement.Location = New System.Drawing.Point(688, 362)
         Me.dtCommencement.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtCommencement.MenuManager = Me.BarManager1
         Me.dtCommencement.Name = "dtCommencement"
         Me.dtCommencement.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtCommencement.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtCommencement.Size = New System.Drawing.Size(143, 20)
+        Me.dtCommencement.Size = New System.Drawing.Size(167, 22)
         Me.dtCommencement.TabIndex = 204
         '
         'chkCommencement
         '
-        Me.chkCommencement.Location = New System.Drawing.Point(572, 295)
+        Me.chkCommencement.Location = New System.Drawing.Point(667, 363)
         Me.chkCommencement.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.chkCommencement.MenuManager = Me.BarManager1
         Me.chkCommencement.Name = "chkCommencement"
         Me.chkCommencement.Properties.Caption = ""
-        Me.chkCommencement.Size = New System.Drawing.Size(15, 19)
+        Me.chkCommencement.Size = New System.Drawing.Size(17, 19)
         Me.chkCommencement.TabIndex = 203
         '
         'LabelControl17
         '
-        Me.LabelControl17.Location = New System.Drawing.Point(572, 320)
+        Me.LabelControl17.Location = New System.Drawing.Point(667, 394)
+        Me.LabelControl17.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl17.Name = "LabelControl17"
-        Me.LabelControl17.Size = New System.Drawing.Size(12, 13)
+        Me.LabelControl17.Size = New System.Drawing.Size(15, 16)
         Me.LabelControl17.TabIndex = 200
         Me.LabelControl17.Text = "To"
         '
         'chkSME
         '
-        Me.chkSME.Location = New System.Drawing.Point(393, 318)
+        Me.chkSME.Location = New System.Drawing.Point(458, 391)
         Me.chkSME.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.chkSME.MenuManager = Me.BarManager1
         Me.chkSME.Name = "chkSME"
         Me.chkSME.Properties.Caption = ""
-        Me.chkSME.Size = New System.Drawing.Size(26, 19)
+        Me.chkSME.Size = New System.Drawing.Size(30, 19)
         Me.chkSME.TabIndex = 198
         '
         'LabelControl16
         '
-        Me.LabelControl16.Location = New System.Drawing.Point(32, 320)
+        Me.LabelControl16.Location = New System.Drawing.Point(37, 394)
+        Me.LabelControl16.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl16.Name = "LabelControl16"
-        Me.LabelControl16.Size = New System.Drawing.Size(206, 13)
+        Me.LabelControl16.Size = New System.Drawing.Size(244, 16)
         Me.LabelControl16.TabIndex = 197
         Me.LabelControl16.Text = "5.1 SME status only companies that qualify"
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(9, 297)
+        Me.LabelControl15.Location = New System.Drawing.Point(10, 366)
+        Me.LabelControl15.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl15.Name = "LabelControl15"
-        Me.LabelControl15.Size = New System.Drawing.Size(315, 13)
+        Me.LabelControl15.Size = New System.Drawing.Size(374, 16)
         Me.LabelControl15.TabIndex = 195
         Me.LabelControl15.Text = "5. New Company: state the date of commencement of operations"
         '
         'LabelControl13
         '
-        Me.LabelControl13.Location = New System.Drawing.Point(572, 274)
+        Me.LabelControl13.Location = New System.Drawing.Point(667, 337)
+        Me.LabelControl13.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl13.Name = "LabelControl13"
-        Me.LabelControl13.Size = New System.Drawing.Size(12, 13)
+        Me.LabelControl13.Size = New System.Drawing.Size(15, 16)
         Me.LabelControl13.TabIndex = 194
         Me.LabelControl13.Text = "To"
         '
         'dtBasisPeriodEnd
         '
         Me.dtBasisPeriodEnd.EditValue = Nothing
-        Me.dtBasisPeriodEnd.Location = New System.Drawing.Point(590, 271)
+        Me.dtBasisPeriodEnd.Location = New System.Drawing.Point(688, 334)
         Me.dtBasisPeriodEnd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtBasisPeriodEnd.MenuManager = Me.BarManager1
         Me.dtBasisPeriodEnd.Name = "dtBasisPeriodEnd"
         Me.dtBasisPeriodEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBasisPeriodEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBasisPeriodEnd.Size = New System.Drawing.Size(143, 20)
+        Me.dtBasisPeriodEnd.Size = New System.Drawing.Size(167, 22)
         Me.dtBasisPeriodEnd.TabIndex = 193
         '
         'dtBasisPeriodStart
         '
         Me.dtBasisPeriodStart.EditValue = Nothing
-        Me.dtBasisPeriodStart.Location = New System.Drawing.Point(423, 271)
+        Me.dtBasisPeriodStart.Location = New System.Drawing.Point(493, 334)
         Me.dtBasisPeriodStart.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtBasisPeriodStart.MenuManager = Me.BarManager1
         Me.dtBasisPeriodStart.Name = "dtBasisPeriodStart"
         Me.dtBasisPeriodStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBasisPeriodStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBasisPeriodStart.Size = New System.Drawing.Size(143, 20)
+        Me.dtBasisPeriodStart.Size = New System.Drawing.Size(167, 22)
         Me.dtBasisPeriodStart.TabIndex = 192
         '
         'LabelControl14
         '
-        Me.LabelControl14.Location = New System.Drawing.Point(9, 274)
+        Me.LabelControl14.Location = New System.Drawing.Point(10, 337)
+        Me.LabelControl14.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl14.Name = "LabelControl14"
-        Me.LabelControl14.Size = New System.Drawing.Size(70, 13)
+        Me.LabelControl14.Size = New System.Drawing.Size(84, 16)
         Me.LabelControl14.TabIndex = 191
         Me.LabelControl14.Text = "4. Basis Period"
         '
         'LabelControl12
         '
-        Me.LabelControl12.Location = New System.Drawing.Point(572, 251)
+        Me.LabelControl12.Location = New System.Drawing.Point(667, 309)
+        Me.LabelControl12.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl12.Name = "LabelControl12"
-        Me.LabelControl12.Size = New System.Drawing.Size(12, 13)
+        Me.LabelControl12.Size = New System.Drawing.Size(15, 16)
         Me.LabelControl12.TabIndex = 190
         Me.LabelControl12.Text = "To"
         '
         'dtAccEnd
         '
         Me.dtAccEnd.EditValue = Nothing
-        Me.dtAccEnd.Location = New System.Drawing.Point(590, 249)
+        Me.dtAccEnd.Location = New System.Drawing.Point(688, 306)
         Me.dtAccEnd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtAccEnd.MenuManager = Me.BarManager1
         Me.dtAccEnd.Name = "dtAccEnd"
         Me.dtAccEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtAccEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtAccEnd.Size = New System.Drawing.Size(143, 20)
+        Me.dtAccEnd.Size = New System.Drawing.Size(167, 22)
         Me.dtAccEnd.TabIndex = 189
         '
         'dtAccStart
         '
         Me.dtAccStart.EditValue = Nothing
-        Me.dtAccStart.Location = New System.Drawing.Point(423, 249)
+        Me.dtAccStart.Location = New System.Drawing.Point(493, 306)
         Me.dtAccStart.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtAccStart.MenuManager = Me.BarManager1
         Me.dtAccStart.Name = "dtAccStart"
         Me.dtAccStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtAccStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtAccStart.Size = New System.Drawing.Size(143, 20)
+        Me.dtAccStart.Size = New System.Drawing.Size(167, 22)
         Me.dtAccStart.TabIndex = 188
         '
         'LabelControl9
         '
-        Me.LabelControl9.Location = New System.Drawing.Point(9, 251)
+        Me.LabelControl9.Location = New System.Drawing.Point(10, 309)
+        Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(99, 13)
+        Me.LabelControl9.Size = New System.Drawing.Size(117, 16)
         Me.LabelControl9.TabIndex = 187
         Me.LabelControl9.Text = "3. Accounting Period"
         '
         'txtAmountTaxPayable
         '
-        Me.txtAmountTaxPayable.Location = New System.Drawing.Point(173, 181)
+        Me.txtAmountTaxPayable.Location = New System.Drawing.Point(202, 223)
+        Me.txtAmountTaxPayable.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountTaxPayable.Name = "txtAmountTaxPayable"
         Me.txtAmountTaxPayable.Properties.DisplayFormat.FormatString = "n2"
         Me.txtAmountTaxPayable.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtAmountTaxPayable.Properties.Mask.EditMask = "n2"
         Me.txtAmountTaxPayable.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtAmountTaxPayable.Size = New System.Drawing.Size(143, 20)
+        Me.txtAmountTaxPayable.Size = New System.Drawing.Size(167, 22)
         Me.txtAmountTaxPayable.TabIndex = 186
         '
         'LabelControl8
         '
-        Me.LabelControl8.Location = New System.Drawing.Point(227, 215)
+        Me.LabelControl8.Location = New System.Drawing.Point(265, 265)
+        Me.LabelControl8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl8.Name = "LabelControl8"
-        Me.LabelControl8.Size = New System.Drawing.Size(227, 13)
+        Me.LabelControl8.Size = New System.Drawing.Size(274, 16)
         Me.LabelControl8.TabIndex = 185
         Me.LabelControl8.Text = "% of the estimantion from immediate prior year"
         '
         'txtEstimationPercent
         '
-        Me.txtEstimationPercent.Location = New System.Drawing.Point(145, 213)
+        Me.txtEstimationPercent.Location = New System.Drawing.Point(169, 262)
+        Me.txtEstimationPercent.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtEstimationPercent.Name = "txtEstimationPercent"
         Me.txtEstimationPercent.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
         Me.txtEstimationPercent.Properties.Appearance.ForeColor = System.Drawing.Color.Black
         Me.txtEstimationPercent.Properties.Appearance.Options.UseBackColor = True
         Me.txtEstimationPercent.Properties.Appearance.Options.UseForeColor = True
         Me.txtEstimationPercent.Properties.ReadOnly = True
-        Me.txtEstimationPercent.Size = New System.Drawing.Size(77, 20)
+        Me.txtEstimationPercent.Size = New System.Drawing.Size(90, 22)
         Me.txtEstimationPercent.TabIndex = 184
         '
         'LabelControl6
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(32, 215)
+        Me.LabelControl6.Location = New System.Drawing.Point(37, 265)
+        Me.LabelControl6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(103, 13)
+        Me.LabelControl6.Size = New System.Drawing.Size(126, 16)
         Me.LabelControl6.TabIndex = 183
         Me.LabelControl6.Text = "2.1 This estimation is "
         '
         'LabelControl7
         '
-        Me.LabelControl7.Location = New System.Drawing.Point(9, 184)
+        Me.LabelControl7.Location = New System.Drawing.Point(10, 226)
+        Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(122, 13)
+        Me.LabelControl7.Size = New System.Drawing.Size(144, 16)
         Me.LabelControl7.TabIndex = 182
         Me.LabelControl7.Text = "2. Estimated Tax Payable"
         '
         'LabelControl5
         '
-        Me.LabelControl5.Location = New System.Drawing.Point(9, 145)
+        Me.LabelControl5.Location = New System.Drawing.Point(10, 178)
+        Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(33, 13)
+        Me.LabelControl5.Size = New System.Drawing.Size(39, 16)
         Me.LabelControl5.TabIndex = 180
         Me.LabelControl5.Text = "Date : "
         '
         'dtDate
         '
         Me.dtDate.EditValue = Nothing
-        Me.dtDate.Location = New System.Drawing.Point(173, 143)
+        Me.dtDate.Location = New System.Drawing.Point(202, 176)
         Me.dtDate.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dtDate.MenuManager = Me.BarManager1
         Me.dtDate.Name = "dtDate"
         Me.dtDate.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtDate.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtDate.Size = New System.Drawing.Size(143, 20)
+        Me.dtDate.Size = New System.Drawing.Size(167, 22)
         Me.dtDate.TabIndex = 179
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(9, 122)
+        Me.LabelControl4.Location = New System.Drawing.Point(10, 150)
+        Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(33, 13)
+        Me.LabelControl4.Size = New System.Drawing.Size(39, 16)
         Me.LabelControl4.TabIndex = 178
         Me.LabelControl4.Text = "State :"
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(287, 98)
+        Me.LabelControl3.Location = New System.Drawing.Point(335, 121)
+        Me.LabelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(26, 13)
+        Me.LabelControl3.Size = New System.Drawing.Size(30, 16)
         Me.LabelControl3.TabIndex = 176
         Me.LabelControl3.Text = "City :"
         '
         'txtCity_Cor
         '
-        Me.txtCity_Cor.Location = New System.Drawing.Point(318, 95)
+        Me.txtCity_Cor.Location = New System.Drawing.Point(371, 117)
+        Me.txtCity_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtCity_Cor.Name = "txtCity_Cor"
-        Me.txtCity_Cor.Size = New System.Drawing.Size(207, 20)
+        Me.txtCity_Cor.Size = New System.Drawing.Size(241, 22)
         Me.txtCity_Cor.TabIndex = 175
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(9, 98)
+        Me.LabelControl2.Location = New System.Drawing.Point(10, 121)
+        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(64, 13)
+        Me.LabelControl2.Size = New System.Drawing.Size(76, 16)
         Me.LabelControl2.TabIndex = 174
         Me.LabelControl2.Text = "Postal Code :"
         '
         'txtPostcode_Cor
         '
-        Me.txtPostcode_Cor.Location = New System.Drawing.Point(173, 95)
+        Me.txtPostcode_Cor.Location = New System.Drawing.Point(202, 117)
+        Me.txtPostcode_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtPostcode_Cor.Name = "txtPostcode_Cor"
-        Me.txtPostcode_Cor.Size = New System.Drawing.Size(89, 20)
+        Me.txtPostcode_Cor.Size = New System.Drawing.Size(104, 22)
         Me.txtPostcode_Cor.TabIndex = 173
         '
         'txtAdd3_Cor
         '
-        Me.txtAdd3_Cor.Location = New System.Drawing.Point(173, 71)
+        Me.txtAdd3_Cor.Location = New System.Drawing.Point(202, 87)
+        Me.txtAdd3_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAdd3_Cor.Name = "txtAdd3_Cor"
-        Me.txtAdd3_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.txtAdd3_Cor.Size = New System.Drawing.Size(409, 22)
         Me.txtAdd3_Cor.TabIndex = 172
         '
         'txtAdd2_Cor
         '
-        Me.txtAdd2_Cor.Location = New System.Drawing.Point(173, 46)
+        Me.txtAdd2_Cor.Location = New System.Drawing.Point(202, 57)
+        Me.txtAdd2_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAdd2_Cor.Name = "txtAdd2_Cor"
-        Me.txtAdd2_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.txtAdd2_Cor.Size = New System.Drawing.Size(409, 22)
         Me.txtAdd2_Cor.TabIndex = 171
         '
         'txtAdd1_Cor
         '
-        Me.txtAdd1_Cor.Location = New System.Drawing.Point(173, 22)
+        Me.txtAdd1_Cor.Location = New System.Drawing.Point(202, 27)
+        Me.txtAdd1_Cor.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAdd1_Cor.Name = "txtAdd1_Cor"
-        Me.txtAdd1_Cor.Size = New System.Drawing.Size(351, 20)
+        Me.txtAdd1_Cor.Size = New System.Drawing.Size(409, 22)
         Me.txtAdd1_Cor.TabIndex = 170
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(9, 24)
+        Me.LabelControl1.Location = New System.Drawing.Point(10, 30)
+        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(128, 13)
+        Me.LabelControl1.Size = New System.Drawing.Size(152, 16)
         Me.LabelControl1.TabIndex = 167
         Me.LabelControl1.Text = "Correspondence Address :"
         '
@@ -1200,7 +1263,7 @@ Partial Class frmCP204_Add
         Me.XtraTabPage2.Controls.Add(Me.GridControl1)
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
-        Me.XtraTabPage2.Size = New System.Drawing.Size(1420, 522)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(1657, 642)
         Me.XtraTabPage2.Text = "Monthly Instalment Breakdown"
         '
         'GridControl1
@@ -1208,12 +1271,14 @@ Partial Class frmCP204_Add
         Me.GridControl1.ContextMenuStrip = Me.ContextMenuStrip1
         Me.GridControl1.DataSource = Me.BORANGCP204TRICORBREAKDOWNBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Location = New System.Drawing.Point(0, 0)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.RepositoryItemTextEdit3, Me.chkAddBack, Me.cboDate})
-        Me.GridControl1.Size = New System.Drawing.Size(1420, 522)
+        Me.GridControl1.Size = New System.Drawing.Size(1657, 642)
         Me.GridControl1.TabIndex = 192
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -1222,18 +1287,18 @@ Partial Class frmCP204_Add
         Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ApplyPaymentToolStripMenuItem, Me.ClearPaymentToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(156, 48)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(178, 52)
         '
         'ApplyPaymentToolStripMenuItem
         '
         Me.ApplyPaymentToolStripMenuItem.Name = "ApplyPaymentToolStripMenuItem"
-        Me.ApplyPaymentToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.ApplyPaymentToolStripMenuItem.Size = New System.Drawing.Size(177, 24)
         Me.ApplyPaymentToolStripMenuItem.Text = "Apply Payment"
         '
         'ClearPaymentToolStripMenuItem
         '
         Me.ClearPaymentToolStripMenuItem.Name = "ClearPaymentToolStripMenuItem"
-        Me.ClearPaymentToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.ClearPaymentToolStripMenuItem.Size = New System.Drawing.Size(177, 24)
         Me.ClearPaymentToolStripMenuItem.Text = "Clear Payment"
         '
         'BORANGCP204TRICORBREAKDOWNBindingSource
@@ -1319,9 +1384,9 @@ Partial Class frmCP204_Add
         Me.RepositoryItemTextEdit3.AutoHeight = False
         Me.RepositoryItemTextEdit3.DisplayFormat.FormatString = "n0"
         Me.RepositoryItemTextEdit3.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit3.EditFormat.FormatString = "n0"
+        Me.RepositoryItemTextEdit3.EditFormat.FormatString = "n2"
         Me.RepositoryItemTextEdit3.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.RepositoryItemTextEdit3.Mask.EditMask = "n0"
+        Me.RepositoryItemTextEdit3.Mask.EditMask = "n2"
         Me.RepositoryItemTextEdit3.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
         '
@@ -1410,9 +1475,9 @@ Partial Class frmCP204_Add
         '
         'frmCP204_Add
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1426, 682)
+        Me.ClientSize = New System.Drawing.Size(1664, 839)
         Me.Controls.Add(Me.XtraTabControl1)
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.barDockControlLeft)

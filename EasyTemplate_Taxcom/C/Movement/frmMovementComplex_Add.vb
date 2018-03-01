@@ -72,6 +72,24 @@ Public Class frmMovementComplex_Add
                 txtAmountSpecificAllow.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SPECIFIC_ALLOWABLE_START")), 0, dt.Rows(0)("MM_SPECIFIC_ALLOWABLE_START"))
                 txtAmountSpecificNonAllow.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SPECIFIC_NONALLOWABLE_START")), 0, dt.Rows(0)("MM_SPECIFIC_NONALLOWABLE_START"))
 
+                If IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 1 Then
+                    chkNonAllowableExpenses.Checked = True
+                    chkTaxPositive.Checked = False
+                    chkTaxNegative.Checked = False
+                ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 2 Then
+                    chkNonAllowableExpenses.Checked = False
+                    chkTaxPositive.Checked = True
+                    chkTaxNegative.Checked = False
+                ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 3 Then
+                    chkNonAllowableExpenses.Checked = False
+                    chkTaxPositive.Checked = False
+                    chkTaxNegative.Checked = True
+                Else
+                    chkNonAllowableExpenses.Checked = False
+                    chkTaxPositive.Checked = False
+                    chkTaxNegative.Checked = False
+                End If
+
                 DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
@@ -424,10 +442,21 @@ Public Class frmMovementComplex_Add
         Try
             If isValid() Then
 
+
+                Dim TypePass As Integer = 0
+
+                If chkNonAllowableExpenses.Checked Then
+                    TypePass = 1
+                ElseIf chkTaxPositive.Checked Then
+                    TypePass = 2
+                ElseIf chkTaxNegative.Checked Then
+                    TypePass = 3
+                End If
+
                 If isEdit Then
                     If ADO.Update_MovementComplex(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, DsMovement, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
                         If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
@@ -441,7 +470,7 @@ Public Class frmMovementComplex_Add
                     Dim tmpID As Integer = 0
                     If ADO.Save_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, DsMovement, tmpID, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
@@ -514,5 +543,23 @@ Public Class frmMovementComplex_Add
         Catch ex As Exception
 
         End Try
+    End Sub
+    Private Sub chkNonAllowableExpenses_CheckedChanged(sender As Object, e As EventArgs) Handles chkNonAllowableExpenses.CheckedChanged, chkTaxNegative.CheckedChanged, chkTaxPositive.CheckedChanged
+        Try
+            If chkNonAllowableExpenses.Checked Then
+                chkTaxNegative.Checked = False
+                chkTaxPositive.Checked = False
+            ElseIf chkTaxPositive.Checked Then
+                chkNonAllowableExpenses.Checked = False
+                chkTaxPositive.Checked = False
+            ElseIf chkTaxNegative.Checked Then
+                chkNonAllowableExpenses.Checked = False
+                chkTaxPositive.Checked = False
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 End Class

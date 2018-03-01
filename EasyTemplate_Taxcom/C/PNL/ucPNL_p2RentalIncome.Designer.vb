@@ -27,6 +27,15 @@ Partial Class ucPNL_p2RentalIncome
         Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
         Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
         Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip3 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem3 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem3 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip4 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem4 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem4 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip5 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem5 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem5 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colNOBRID_KEY = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colNOBRID_NOBRIKEY = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -57,7 +66,12 @@ Partial Class ucPNL_p2RentalIncome
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnAddChild = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnDeleteChild = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnExpand = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -134,9 +148,9 @@ Partial Class ucPNL_p2RentalIncome
         'txtNumberic
         '
         Me.txtNumberic.AutoHeight = False
-        Me.txtNumberic.DisplayFormat.FormatString = "n2"
+        Me.txtNumberic.DisplayFormat.FormatString = "n0"
         Me.txtNumberic.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNumberic.Mask.EditMask = "c"
+        Me.txtNumberic.Mask.EditMask = "n0"
         Me.txtNumberic.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtNumberic.Name = "txtNumberic"
         Me.txtNumberic.NullValuePromptShowForEmptyValue = True
@@ -166,12 +180,12 @@ Partial Class ucPNL_p2RentalIncome
         Me.GridControl1.DataSource = Me.RENTALINCOMEBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GridControl1.Location = New System.Drawing.Point(0, 37)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 39)
         Me.GridControl1.MainView = Me.GridView1
         Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.dtDate, Me.cboStatus})
-        Me.GridControl1.Size = New System.Drawing.Size(884, 476)
+        Me.GridControl1.Size = New System.Drawing.Size(884, 474)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -324,8 +338,8 @@ Partial Class ucPNL_p2RentalIncome
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnDelete})
-        Me.BarManager1.MaxItemId = 9
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnDeleteChild, Me.btnExpand, Me.btnMoveUp, Me.btnMoveDown})
+        Me.BarManager1.MaxItemId = 11
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -335,7 +349,7 @@ Partial Class ucPNL_p2RentalIncome
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(31, 109)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDeleteChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExpand), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -345,10 +359,10 @@ Partial Class ucPNL_p2RentalIncome
         'btnAdd
         '
         Me.btnAdd.Caption = "Add Data"
-        Me.btnAdd.Glyph = CType(resources.GetObject("btnAdd.Glyph"), System.Drawing.Image)
         Me.btnAdd.Id = 0
+        Me.btnAdd.ImageOptions.Image = CType(resources.GetObject("btnAdd.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageOptions.LargeImage = CType(resources.GetObject("btnAdd.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
-        Me.btnAdd.LargeGlyph = CType(resources.GetObject("btnAdd.LargeGlyph"), System.Drawing.Image)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem1.Text = "Add new record"
@@ -358,35 +372,104 @@ Partial Class ucPNL_p2RentalIncome
         SuperToolTip1.Items.Add(ToolTipItem1)
         Me.btnAdd.SuperTip = SuperToolTip1
         '
+        'btnAddChild
+        '
+        Me.btnAddChild.Caption = "Add Details Data"
+        Me.btnAddChild.Id = 1
+        Me.btnAddChild.ImageOptions.Image = CType(resources.GetObject("btnAddChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnAddChild.ImageOptions.LargeImage = CType(resources.GetObject("btnAddChild.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
+        Me.btnAddChild.Name = "btnAddChild"
+        Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        ToolTipTitleItem2.Text = "Add new record"
+        ToolTipItem2.LeftIndent = 6
+        ToolTipItem2.Text = "Add new record Ctrl + T"
+        SuperToolTip2.Items.Add(ToolTipTitleItem2)
+        SuperToolTip2.Items.Add(ToolTipItem2)
+        Me.btnAddChild.SuperTip = SuperToolTip2
+        '
         'btnDelete
         '
         Me.btnDelete.Caption = "Delete"
-        Me.btnDelete.Glyph = CType(resources.GetObject("btnDelete.Glyph"), System.Drawing.Image)
         Me.btnDelete.Id = 4
+        Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
-        Me.btnDelete.LargeGlyph = CType(resources.GetObject("btnDelete.LargeGlyph"), System.Drawing.Image)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem2.Text = "Delete record"
-        ToolTipItem2.LeftIndent = 6
-        ToolTipItem2.Text = "Delete record Ctrl + Y"
-        SuperToolTip2.Items.Add(ToolTipTitleItem2)
-        SuperToolTip2.Items.Add(ToolTipItem2)
-        Me.btnDelete.SuperTip = SuperToolTip2
+        ToolTipTitleItem3.Text = "Delete record"
+        ToolTipItem3.LeftIndent = 6
+        ToolTipItem3.Text = "Delete record Ctrl + Y"
+        SuperToolTip3.Items.Add(ToolTipTitleItem3)
+        SuperToolTip3.Items.Add(ToolTipItem3)
+        Me.btnDelete.SuperTip = SuperToolTip3
+        '
+        'btnDeleteChild
+        '
+        Me.btnDeleteChild.Caption = "Delete Details"
+        Me.btnDeleteChild.Id = 5
+        Me.btnDeleteChild.ImageOptions.Image = CType(resources.GetObject("btnDeleteChild.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDeleteChild.ImageOptions.LargeImage = CType(resources.GetObject("btnDeleteChild.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnDeleteChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.U))
+        Me.btnDeleteChild.Name = "btnDeleteChild"
+        Me.btnDeleteChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        ToolTipTitleItem4.Text = "Delete record"
+        ToolTipItem4.LeftIndent = 6
+        ToolTipItem4.Text = "Delete record Ctrl + U" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "How to use : Please select the main row first then contin" & _
+    "ues with select child row(s)."
+        SuperToolTip4.Items.Add(ToolTipTitleItem4)
+        SuperToolTip4.Items.Add(ToolTipItem4)
+        Me.btnDeleteChild.SuperTip = SuperToolTip4
+        '
+        'btnExpand
+        '
+        Me.btnExpand.Caption = "Expand Details"
+        Me.btnExpand.Id = 8
+        Me.btnExpand.ImageOptions.Image = CType(resources.GetObject("btnExpand.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnExpand.ImageOptions.LargeImage = CType(resources.GetObject("btnExpand.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnExpand.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.E))
+        Me.btnExpand.Name = "btnExpand"
+        Me.btnExpand.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        ToolTipTitleItem5.Text = "Expand child"
+        ToolTipItem5.LeftIndent = 6
+        ToolTipItem5.Text = "Expand selected row Ctrl + E"
+        SuperToolTip5.Items.Add(ToolTipTitleItem5)
+        SuperToolTip5.Items.Add(ToolTipItem5)
+        Me.btnExpand.SuperTip = SuperToolTip5
+        '
+        'btnMoveUp
+        '
+        Me.btnMoveUp.Caption = "Move Up"
+        Me.btnMoveUp.Id = 9
+        Me.btnMoveUp.ImageOptions.Image = CType(resources.GetObject("btnMoveUp.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveUp.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnMoveUp.Name = "btnMoveUp"
+        Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnMoveDown
+        '
+        Me.btnMoveDown.Caption = "Move Down"
+        Me.btnMoveDown.Id = 10
+        Me.btnMoveDown.ImageOptions.Image = CType(resources.GetObject("btnMoveDown.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnMoveDown.Name = "btnMoveDown"
+        Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'barDockControlTop
         '
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(884, 37)
+        Me.barDockControlTop.Size = New System.Drawing.Size(884, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.barDockControlBottom.Size = New System.Drawing.Size(884, 0)
         '
@@ -394,17 +477,19 @@ Partial Class ucPNL_p2RentalIncome
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 476)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 474)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(884, 37)
+        Me.barDockControlRight.Location = New System.Drawing.Point(884, 39)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 476)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 474)
         '
         'RepositoryItemTextEdit1
         '
@@ -447,24 +532,15 @@ Partial Class ucPNL_p2RentalIncome
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents DsPNL As EasyTemplate_Taxcom.dsPNL
-    Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
-    Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
-    Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
-    Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
     Friend WithEvents txtNumberic As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents txtNote As DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit
-    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents cboSourceNo As DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
     Friend WithEvents DsPNL1 As EasyTemplate_Taxcom.dsPNL
     Friend WithEvents BUSINESSSOURCEBindingSource As System.Windows.Forms.BindingSource
@@ -487,5 +563,20 @@ Partial Class ucPNL_p2RentalIncome
     Friend WithEvents dtDate As DevExpress.XtraEditors.Repository.RepositoryItemDateEdit
     Friend WithEvents colRI_DATE_END As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents cboStatus As DevExpress.XtraEditors.Repository.RepositoryItemComboBox
+    Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
+    Friend WithEvents Bar1 As DevExpress.XtraBars.Bar
+    Friend WithEvents btnAdd As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnAddChild As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnDelete As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnDeleteChild As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnExpand As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents barDockControlTop As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlBottom As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlLeft As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents barDockControlRight As DevExpress.XtraBars.BarDockControl
+    Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
 
 End Class

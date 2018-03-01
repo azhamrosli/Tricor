@@ -418,7 +418,7 @@ Partial Class frmPNL_Add
         Me.hideContainerRight.Controls.Add(Me.pnlDocExport)
         Me.hideContainerRight.Controls.Add(Me.pnlDocAdvanceSearch)
         Me.hideContainerRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.hideContainerRight.Location = New System.Drawing.Point(1296, 141)
+        Me.hideContainerRight.Location = New System.Drawing.Point(1068, 141)
         Me.hideContainerRight.Name = "hideContainerRight"
         Me.hideContainerRight.Size = New System.Drawing.Size(19, 583)
         '
@@ -427,7 +427,7 @@ Partial Class frmPNL_Add
         Me.pnlDocImport.Controls.Add(Me.DockPanel2_Container)
         Me.pnlDocImport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocImport.ID = New System.Guid("be65f503-51a1-4e68-b6dd-9904920f171e")
-        Me.pnlDocImport.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDocImport.Location = New System.Drawing.Point(820, 141)
         Me.pnlDocImport.Name = "pnlDocImport"
         Me.pnlDocImport.OriginalSize = New System.Drawing.Size(476, 198)
         Me.pnlDocImport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
@@ -439,9 +439,9 @@ Partial Class frmPNL_Add
         'DockPanel2_Container
         '
         Me.DockPanel2_Container.Controls.Add(Me.UcPNL_Import1)
-        Me.DockPanel2_Container.Location = New System.Drawing.Point(5, 23)
+        Me.DockPanel2_Container.Location = New System.Drawing.Point(5, 24)
         Me.DockPanel2_Container.Name = "DockPanel2_Container"
-        Me.DockPanel2_Container.Size = New System.Drawing.Size(467, 556)
+        Me.DockPanel2_Container.Size = New System.Drawing.Size(467, 555)
         Me.DockPanel2_Container.TabIndex = 0
         '
         'UcPNL_Import1
@@ -451,7 +451,7 @@ Partial Class frmPNL_Add
         Me.UcPNL_Import1.MainData = Nothing
         Me.UcPNL_Import1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.UcPNL_Import1.Name = "UcPNL_Import1"
-        Me.UcPNL_Import1.Size = New System.Drawing.Size(467, 556)
+        Me.UcPNL_Import1.Size = New System.Drawing.Size(467, 555)
         Me.UcPNL_Import1.TabIndex = 0
         '
         'pnlDocExport
@@ -459,7 +459,7 @@ Partial Class frmPNL_Add
         Me.pnlDocExport.Controls.Add(Me.ControlContainer1)
         Me.pnlDocExport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocExport.ID = New System.Guid("745323fa-419a-4730-bb91-2039d9d9de58")
-        Me.pnlDocExport.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDocExport.Location = New System.Drawing.Point(1037, 141)
         Me.pnlDocExport.Name = "pnlDocExport"
         Me.pnlDocExport.OriginalSize = New System.Drawing.Size(259, 200)
         Me.pnlDocExport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
@@ -472,9 +472,9 @@ Partial Class frmPNL_Add
         'ControlContainer1
         '
         Me.ControlContainer1.Controls.Add(Me.dgvExport)
-        Me.ControlContainer1.Location = New System.Drawing.Point(5, 23)
+        Me.ControlContainer1.Location = New System.Drawing.Point(5, 24)
         Me.ControlContainer1.Name = "ControlContainer1"
-        Me.ControlContainer1.Size = New System.Drawing.Size(250, 556)
+        Me.ControlContainer1.Size = New System.Drawing.Size(250, 555)
         Me.ControlContainer1.TabIndex = 0
         '
         'dgvExport
@@ -487,7 +487,7 @@ Partial Class frmPNL_Add
         Me.dgvExport.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvExport.MenuManager = Me.BarManager1
         Me.dgvExport.Name = "dgvExport"
-        Me.dgvExport.Size = New System.Drawing.Size(250, 556)
+        Me.dgvExport.Size = New System.Drawing.Size(250, 555)
         Me.dgvExport.TabIndex = 61
         Me.dgvExport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -616,7 +616,7 @@ Partial Class frmPNL_Add
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Size = New System.Drawing.Size(1315, 0)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1087, 0)
         '
         'barDockControlBottom
         '
@@ -624,7 +624,7 @@ Partial Class frmPNL_Add
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 724)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1315, 25)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1087, 25)
         '
         'barDockControlLeft
         '
@@ -638,7 +638,7 @@ Partial Class frmPNL_Add
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1315, 0)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1087, 0)
         Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 724)
         '
@@ -658,7 +658,7 @@ Partial Class frmPNL_Add
         Me.pnlDocAdvanceSearch.Controls.Add(Me.ControlContainer2)
         Me.pnlDocAdvanceSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocAdvanceSearch.ID = New System.Guid("2e49734a-7050-4a84-9e9a-349ee37f771d")
-        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(879, 141)
         Me.pnlDocAdvanceSearch.Name = "pnlDocAdvanceSearch"
         Me.pnlDocAdvanceSearch.Options.ShowCloseButton = False
         Me.pnlDocAdvanceSearch.OriginalSize = New System.Drawing.Size(417, 200)
@@ -672,9 +672,9 @@ Partial Class frmPNL_Add
         '
         Me.ControlContainer2.Controls.Add(Me.GCSearch)
         Me.ControlContainer2.Controls.Add(Me.PanelControl1)
-        Me.ControlContainer2.Location = New System.Drawing.Point(5, 23)
+        Me.ControlContainer2.Location = New System.Drawing.Point(5, 24)
         Me.ControlContainer2.Name = "ControlContainer2"
-        Me.ControlContainer2.Size = New System.Drawing.Size(408, 556)
+        Me.ControlContainer2.Size = New System.Drawing.Size(408, 555)
         Me.ControlContainer2.TabIndex = 0
         '
         'GCSearch
@@ -685,7 +685,7 @@ Partial Class frmPNL_Add
         Me.GCSearch.MainView = Me.GridView2
         Me.GCSearch.MenuManager = Me.BarManager1
         Me.GCSearch.Name = "GCSearch"
-        Me.GCSearch.Size = New System.Drawing.Size(408, 499)
+        Me.GCSearch.Size = New System.Drawing.Size(408, 498)
         Me.GCSearch.TabIndex = 1
         Me.GCSearch.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -897,7 +897,7 @@ Partial Class frmPNL_Add
         Me.txt_p1GrossProfitLoss.Name = "txt_p1GrossProfitLoss"
         Me.txt_p1GrossProfitLoss.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1GrossProfitLoss.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1GrossProfitLoss.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1GrossProfitLoss.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1GrossProfitLoss.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1GrossProfitLoss.Properties.NullText = "0"
         Me.txt_p1GrossProfitLoss.Properties.NullValuePrompt = "0"
@@ -913,7 +913,7 @@ Partial Class frmPNL_Add
         Me.txt_p1COS.Name = "txt_p1COS"
         Me.txt_p1COS.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1COS.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1COS.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1COS.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1COS.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1COS.Properties.NullText = "0"
         Me.txt_p1COS.Properties.NullValuePrompt = "0"
@@ -929,7 +929,7 @@ Partial Class frmPNL_Add
         Me.txt_p1CloseStock.Name = "txt_p1CloseStock"
         Me.txt_p1CloseStock.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1CloseStock.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1CloseStock.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1CloseStock.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1CloseStock.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1CloseStock.Properties.NullText = "0"
         Me.txt_p1CloseStock.Properties.NullValuePrompt = "0"
@@ -945,7 +945,7 @@ Partial Class frmPNL_Add
         Me.txt_p1PCP.Name = "txt_p1PCP"
         Me.txt_p1PCP.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1PCP.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1PCP.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1PCP.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1PCP.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1PCP.Properties.NullText = "0"
         Me.txt_p1PCP.Properties.NullValuePrompt = "0"
@@ -961,7 +961,7 @@ Partial Class frmPNL_Add
         Me.txt_p1COP.Name = "txt_p1COP"
         Me.txt_p1COP.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1COP.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1COP.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1COP.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1COP.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1COP.Properties.NullText = "0"
         Me.txt_p1COP.Properties.NullValuePrompt = "0"
@@ -977,7 +977,7 @@ Partial Class frmPNL_Add
         Me.txt_p1NonAllowableExpenses.Name = "txt_p1NonAllowableExpenses"
         Me.txt_p1NonAllowableExpenses.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1NonAllowableExpenses.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1NonAllowableExpenses.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1NonAllowableExpenses.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1NonAllowableExpenses.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1NonAllowableExpenses.Properties.NullText = "0"
         Me.txt_p1NonAllowableExpenses.Properties.NullValuePrompt = "0"
@@ -993,7 +993,7 @@ Partial Class frmPNL_Add
         Me.txt_p1AllowanceExpenses.Name = "txt_p1AllowanceExpenses"
         Me.txt_p1AllowanceExpenses.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1AllowanceExpenses.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1AllowanceExpenses.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1AllowanceExpenses.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1AllowanceExpenses.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1AllowanceExpenses.Properties.NullText = "0"
         Me.txt_p1AllowanceExpenses.Properties.NullValuePrompt = "0"
@@ -1009,7 +1009,7 @@ Partial Class frmPNL_Add
         Me.txt_p1Depreciation.Name = "txt_p1Depreciation"
         Me.txt_p1Depreciation.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1Depreciation.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1Depreciation.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1Depreciation.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1Depreciation.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1Depreciation.Properties.NullText = "0"
         Me.txt_p1Depreciation.Properties.NullValuePrompt = "0"
@@ -1025,7 +1025,7 @@ Partial Class frmPNL_Add
         Me.txt_p1Purchase.Name = "txt_p1Purchase"
         Me.txt_p1Purchase.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1Purchase.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1Purchase.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1Purchase.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1Purchase.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1Purchase.Properties.NullText = "0"
         Me.txt_p1Purchase.Properties.NullValuePrompt = "0"
@@ -1041,7 +1041,7 @@ Partial Class frmPNL_Add
         Me.txt_p1OpenStock.Name = "txt_p1OpenStock"
         Me.txt_p1OpenStock.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1OpenStock.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1OpenStock.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1OpenStock.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1OpenStock.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p1OpenStock.Properties.NullText = "0"
         Me.txt_p1OpenStock.Properties.NullValuePrompt = "0"
@@ -1057,9 +1057,9 @@ Partial Class frmPNL_Add
         Me.txt_p1Sales.Name = "txt_p1Sales"
         Me.txt_p1Sales.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p1Sales.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p1Sales.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p1Sales.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p1Sales.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txt_p1Sales.Properties.Mask.EditMask = "n"
+        Me.txt_p1Sales.Properties.Mask.EditMask = "n0"
         Me.txt_p1Sales.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txt_p1Sales.Properties.NullText = "0"
         Me.txt_p1Sales.Properties.NullValuePrompt = "0"
@@ -1240,7 +1240,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage2.Name = "XtraTabPage2"
         Me.XtraTabPage2.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage2.Size = New System.Drawing.Size(693, 628)
+        Me.XtraTabPage2.Size = New System.Drawing.Size(696, 528)
         Me.XtraTabPage2.Text = "Page 2"
         '
         'lbl_p2UnreaGainForeExNon
@@ -1263,7 +1263,7 @@ Partial Class frmPNL_Add
         Me.txt_p2Other.Name = "txt_p2Other"
         Me.txt_p2Other.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2Other.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2Other.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2Other.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2Other.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2Other.Properties.NullText = "0"
         Me.txt_p2Other.Properties.NullValuePrompt = "0"
@@ -1279,7 +1279,7 @@ Partial Class frmPNL_Add
         Me.txt_p2NonTaxProfit.Name = "txt_p2NonTaxProfit"
         Me.txt_p2NonTaxProfit.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2NonTaxProfit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2NonTaxProfit.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2NonTaxProfit.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2NonTaxProfit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2NonTaxProfit.Properties.NullText = "0"
         Me.txt_p2NonTaxProfit.Properties.NullValuePrompt = "0"
@@ -1295,7 +1295,7 @@ Partial Class frmPNL_Add
         Me.txt_p2UnreaGainForeExNon.Name = "txt_p2UnreaGainForeExNon"
         Me.txt_p2UnreaGainForeExNon.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2UnreaGainForeExNon.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2UnreaGainForeExNon.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2UnreaGainForeExNon.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2UnreaGainForeExNon.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2UnreaGainForeExNon.Properties.NullText = "0"
         Me.txt_p2UnreaGainForeExNon.Properties.NullValuePrompt = "0"
@@ -1311,7 +1311,7 @@ Partial Class frmPNL_Add
         Me.txt_p2UnreaGainForeEx.Name = "txt_p2UnreaGainForeEx"
         Me.txt_p2UnreaGainForeEx.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2UnreaGainForeEx.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2UnreaGainForeEx.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2UnreaGainForeEx.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2UnreaGainForeEx.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2UnreaGainForeEx.Properties.NullText = "0"
         Me.txt_p2UnreaGainForeEx.Properties.NullValuePrompt = "0"
@@ -1327,7 +1327,7 @@ Partial Class frmPNL_Add
         Me.txt_p2ReaForeExGainNonTrade.Name = "txt_p2ReaForeExGainNonTrade"
         Me.txt_p2ReaForeExGainNonTrade.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2ReaForeExGainNonTrade.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2ReaForeExGainNonTrade.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2ReaForeExGainNonTrade.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2ReaForeExGainNonTrade.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2ReaForeExGainNonTrade.Properties.NullText = "0"
         Me.txt_p2ReaForeExGainNonTrade.Properties.NullValuePrompt = "0"
@@ -1343,7 +1343,7 @@ Partial Class frmPNL_Add
         Me.txt_p2ForeIncomeRemmit.Name = "txt_p2ForeIncomeRemmit"
         Me.txt_p2ForeIncomeRemmit.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2ForeIncomeRemmit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2ForeIncomeRemmit.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2ForeIncomeRemmit.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2ForeIncomeRemmit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2ForeIncomeRemmit.Properties.NullText = "0"
         Me.txt_p2ForeIncomeRemmit.Properties.NullValuePrompt = "0"
@@ -1359,7 +1359,7 @@ Partial Class frmPNL_Add
         Me.txt_p2ExemptDividend.Name = "txt_p2ExemptDividend"
         Me.txt_p2ExemptDividend.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2ExemptDividend.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2ExemptDividend.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2ExemptDividend.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2ExemptDividend.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2ExemptDividend.Properties.NullText = "0"
         Me.txt_p2ExemptDividend.Properties.NullValuePrompt = "0"
@@ -1375,7 +1375,7 @@ Partial Class frmPNL_Add
         Me.txt_p2ProDisInvestment.Name = "txt_p2ProDisInvestment"
         Me.txt_p2ProDisInvestment.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2ProDisInvestment.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2ProDisInvestment.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2ProDisInvestment.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2ProDisInvestment.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2ProDisInvestment.Properties.NullText = "0"
         Me.txt_p2ProDisInvestment.Properties.NullValuePrompt = "0"
@@ -1391,7 +1391,7 @@ Partial Class frmPNL_Add
         Me.txt_p2ProDispPlantEq.Name = "txt_p2ProDispPlantEq"
         Me.txt_p2ProDispPlantEq.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2ProDispPlantEq.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2ProDispPlantEq.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2ProDispPlantEq.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2ProDispPlantEq.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2ProDispPlantEq.Properties.NullText = "0"
         Me.txt_p2ProDispPlantEq.Properties.NullValuePrompt = "0"
@@ -1407,7 +1407,7 @@ Partial Class frmPNL_Add
         Me.txt_p2NonBizIncome.Name = "txt_p2NonBizIncome"
         Me.txt_p2NonBizIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2NonBizIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2NonBizIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2NonBizIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2NonBizIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2NonBizIncome.Properties.NullText = "0"
         Me.txt_p2NonBizIncome.Properties.NullValuePrompt = "0"
@@ -1423,7 +1423,7 @@ Partial Class frmPNL_Add
         Me.txt_p2OtherIncome.Name = "txt_p2OtherIncome"
         Me.txt_p2OtherIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2OtherIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2OtherIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2OtherIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2OtherIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2OtherIncome.Properties.NullText = "0"
         Me.txt_p2OtherIncome.Properties.NullValuePrompt = "0"
@@ -1440,7 +1440,7 @@ Partial Class frmPNL_Add
         Me.txt_p2RoyaltyIncome.Name = "txt_p2RoyaltyIncome"
         Me.txt_p2RoyaltyIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2RoyaltyIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2RoyaltyIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2RoyaltyIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2RoyaltyIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2RoyaltyIncome.Properties.NullText = "0"
         Me.txt_p2RoyaltyIncome.Properties.NullValuePrompt = "0"
@@ -1457,7 +1457,7 @@ Partial Class frmPNL_Add
         Me.txt_p2RentalIncome.Name = "txt_p2RentalIncome"
         Me.txt_p2RentalIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2RentalIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2RentalIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2RentalIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2RentalIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2RentalIncome.Properties.NullText = "0"
         Me.txt_p2RentalIncome.Properties.NullValuePrompt = "0"
@@ -1473,7 +1473,7 @@ Partial Class frmPNL_Add
         Me.txt_p2InterestIncome.Name = "txt_p2InterestIncome"
         Me.txt_p2InterestIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2InterestIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2InterestIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2InterestIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2InterestIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2InterestIncome.Properties.NullText = "0"
         Me.txt_p2InterestIncome.Properties.NullValuePrompt = "0"
@@ -1489,7 +1489,7 @@ Partial Class frmPNL_Add
         Me.txt_p2DivIncome.Name = "txt_p2DivIncome"
         Me.txt_p2DivIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2DivIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2DivIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2DivIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2DivIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2DivIncome.Properties.NullText = "0"
         Me.txt_p2DivIncome.Properties.NullValuePrompt = "0"
@@ -1505,7 +1505,7 @@ Partial Class frmPNL_Add
         Me.txt_p2ForeignCurrExGain.Name = "txt_p2ForeignCurrExGain"
         Me.txt_p2ForeignCurrExGain.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2ForeignCurrExGain.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2ForeignCurrExGain.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2ForeignCurrExGain.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2ForeignCurrExGain.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2ForeignCurrExGain.Properties.NullText = "0"
         Me.txt_p2ForeignCurrExGain.Properties.NullValuePrompt = "0"
@@ -1521,7 +1521,7 @@ Partial Class frmPNL_Add
         Me.txt_p2OtherBizIncome.Name = "txt_p2OtherBizIncome"
         Me.txt_p2OtherBizIncome.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p2OtherBizIncome.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p2OtherBizIncome.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p2OtherBizIncome.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p2OtherBizIncome.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p2OtherBizIncome.Properties.NullText = "0"
         Me.txt_p2OtherBizIncome.Properties.NullValuePrompt = "0"
@@ -1780,7 +1780,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage3.Name = "XtraTabPage3"
         Me.XtraTabPage3.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage3.Size = New System.Drawing.Size(693, 628)
+        Me.XtraTabPage3.Size = New System.Drawing.Size(696, 528)
         Me.XtraTabPage3.Tag = ""
         Me.XtraTabPage3.Text = "Page 3"
         '
@@ -1791,7 +1791,7 @@ Partial Class frmPNL_Add
         Me.txt_p3ForeignCurrExLoss.Name = "txt_p3ForeignCurrExLoss"
         Me.txt_p3ForeignCurrExLoss.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3ForeignCurrExLoss.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3ForeignCurrExLoss.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3ForeignCurrExLoss.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3ForeignCurrExLoss.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3ForeignCurrExLoss.Properties.NullText = "0"
         Me.txt_p3ForeignCurrExLoss.Properties.NullValuePrompt = "0"
@@ -1831,7 +1831,7 @@ Partial Class frmPNL_Add
         Me.txt_p3Zakat.Name = "txt_p3Zakat"
         Me.txt_p3Zakat.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3Zakat.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3Zakat.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3Zakat.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3Zakat.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3Zakat.Properties.NullText = "0"
         Me.txt_p3Zakat.Properties.NullValuePrompt = "0"
@@ -1860,7 +1860,7 @@ Partial Class frmPNL_Add
         Me.txt_p3DonationNonApp.Name = "txt_p3DonationNonApp"
         Me.txt_p3DonationNonApp.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3DonationNonApp.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3DonationNonApp.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3DonationNonApp.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3DonationNonApp.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3DonationNonApp.Properties.NullText = "0"
         Me.txt_p3DonationNonApp.Properties.NullValuePrompt = "0"
@@ -1889,7 +1889,7 @@ Partial Class frmPNL_Add
         Me.txt_p3DonationApp.Name = "txt_p3DonationApp"
         Me.txt_p3DonationApp.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3DonationApp.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3DonationApp.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3DonationApp.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3DonationApp.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3DonationApp.Properties.NullText = "0"
         Me.txt_p3DonationApp.Properties.NullValuePrompt = "0"
@@ -1918,7 +1918,7 @@ Partial Class frmPNL_Add
         Me.txt_p3Depreciation.Name = "txt_p3Depreciation"
         Me.txt_p3Depreciation.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3Depreciation.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3Depreciation.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3Depreciation.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3Depreciation.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3Depreciation.Properties.NullText = "0"
         Me.txt_p3Depreciation.Properties.NullValuePrompt = "0"
@@ -1947,7 +1947,7 @@ Partial Class frmPNL_Add
         Me.txt_p3JKDM.Name = "txt_p3JKDM"
         Me.txt_p3JKDM.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3JKDM.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3JKDM.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3JKDM.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3JKDM.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3JKDM.Properties.NullText = "0"
         Me.txt_p3JKDM.Properties.NullValuePrompt = "0"
@@ -1976,7 +1976,7 @@ Partial Class frmPNL_Add
         Me.txt_p3Travelling.Name = "txt_p3Travelling"
         Me.txt_p3Travelling.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3Travelling.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3Travelling.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3Travelling.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3Travelling.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3Travelling.Properties.NullText = "0"
         Me.txt_p3Travelling.Properties.NullValuePrompt = "0"
@@ -2005,7 +2005,7 @@ Partial Class frmPNL_Add
         Me.txt_p3PromotionAds.Name = "txt_p3PromotionAds"
         Me.txt_p3PromotionAds.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3PromotionAds.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3PromotionAds.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3PromotionAds.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3PromotionAds.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3PromotionAds.Properties.NullText = "0"
         Me.txt_p3PromotionAds.Properties.NullValuePrompt = "0"
@@ -2034,7 +2034,7 @@ Partial Class frmPNL_Add
         Me.txt_p3ResearchDev.Name = "txt_p3ResearchDev"
         Me.txt_p3ResearchDev.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3ResearchDev.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3ResearchDev.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3ResearchDev.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3ResearchDev.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3ResearchDev.Properties.NullText = "0"
         Me.txt_p3ResearchDev.Properties.NullValuePrompt = "0"
@@ -2063,7 +2063,7 @@ Partial Class frmPNL_Add
         Me.txt_p3RepairMain.Name = "txt_p3RepairMain"
         Me.txt_p3RepairMain.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3RepairMain.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3RepairMain.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3RepairMain.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3RepairMain.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3RepairMain.Properties.NullText = "0"
         Me.txt_p3RepairMain.Properties.NullValuePrompt = "0"
@@ -2092,7 +2092,7 @@ Partial Class frmPNL_Add
         Me.txt_p3Rental.Name = "txt_p3Rental"
         Me.txt_p3Rental.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3Rental.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3Rental.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3Rental.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3Rental.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3Rental.Properties.NullText = "0"
         Me.txt_p3Rental.Properties.NullValuePrompt = "0"
@@ -2121,7 +2121,7 @@ Partial Class frmPNL_Add
         Me.txt_p3Royalty.Name = "txt_p3Royalty"
         Me.txt_p3Royalty.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3Royalty.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3Royalty.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3Royalty.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3Royalty.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3Royalty.Properties.NullText = "0"
         Me.txt_p3Royalty.Properties.NullValuePrompt = "0"
@@ -2150,7 +2150,7 @@ Partial Class frmPNL_Add
         Me.txt_p3COEStock.Name = "txt_p3COEStock"
         Me.txt_p3COEStock.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3COEStock.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3COEStock.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3COEStock.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3COEStock.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3COEStock.Properties.NullText = "0"
         Me.txt_p3COEStock.Properties.NullValuePrompt = "0"
@@ -2179,7 +2179,7 @@ Partial Class frmPNL_Add
         Me.txt_p3Salary.Name = "txt_p3Salary"
         Me.txt_p3Salary.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3Salary.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3Salary.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3Salary.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3Salary.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3Salary.Properties.NullText = "0"
         Me.txt_p3Salary.Properties.NullValuePrompt = "0"
@@ -2208,7 +2208,7 @@ Partial Class frmPNL_Add
         Me.txt_p3DirectorFee.Name = "txt_p3DirectorFee"
         Me.txt_p3DirectorFee.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3DirectorFee.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3DirectorFee.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3DirectorFee.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3DirectorFee.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3DirectorFee.Properties.NullText = "0"
         Me.txt_p3DirectorFee.Properties.NullValuePrompt = "0"
@@ -2237,7 +2237,7 @@ Partial Class frmPNL_Add
         Me.txt_p3ContractPay.Name = "txt_p3ContractPay"
         Me.txt_p3ContractPay.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3ContractPay.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3ContractPay.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3ContractPay.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3ContractPay.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3ContractPay.Properties.NullText = "0"
         Me.txt_p3ContractPay.Properties.NullValuePrompt = "0"
@@ -2266,7 +2266,7 @@ Partial Class frmPNL_Add
         Me.txt_p3TechPayNonResis.Name = "txt_p3TechPayNonResis"
         Me.txt_p3TechPayNonResis.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3TechPayNonResis.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3TechPayNonResis.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3TechPayNonResis.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3TechPayNonResis.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3TechPayNonResis.Properties.NullText = "0"
         Me.txt_p3TechPayNonResis.Properties.NullValuePrompt = "0"
@@ -2294,7 +2294,7 @@ Partial Class frmPNL_Add
         Me.txt_p3ProTechManLeganFees.Name = "txt_p3ProTechManLeganFees"
         Me.txt_p3ProTechManLeganFees.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3ProTechManLeganFees.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3ProTechManLeganFees.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3ProTechManLeganFees.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3ProTechManLeganFees.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3ProTechManLeganFees.Properties.NullText = "0"
         Me.txt_p3ProTechManLeganFees.Properties.NullValuePrompt = "0"
@@ -2323,7 +2323,7 @@ Partial Class frmPNL_Add
         Me.txt_p3OtherInterestExHirePur.Name = "txt_p3OtherInterestExHirePur"
         Me.txt_p3OtherInterestExHirePur.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3OtherInterestExHirePur.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3OtherInterestExHirePur.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3OtherInterestExHirePur.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3OtherInterestExHirePur.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3OtherInterestExHirePur.Properties.NullText = "0"
         Me.txt_p3OtherInterestExHirePur.Properties.NullValuePrompt = "0"
@@ -2352,7 +2352,7 @@ Partial Class frmPNL_Add
         Me.txt_p3InterestResPurS33.Name = "txt_p3InterestResPurS33"
         Me.txt_p3InterestResPurS33.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p3InterestResPurS33.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p3InterestResPurS33.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p3InterestResPurS33.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p3InterestResPurS33.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p3InterestResPurS33.Properties.NullText = "0"
         Me.txt_p3InterestResPurS33.Properties.NullValuePrompt = "0"
@@ -2428,7 +2428,7 @@ Partial Class frmPNL_Add
         Me.XtraTabPage4.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.XtraTabPage4.Name = "XtraTabPage4"
         Me.XtraTabPage4.ShowCloseButton = DevExpress.Utils.DefaultBoolean.[False]
-        Me.XtraTabPage4.Size = New System.Drawing.Size(693, 628)
+        Me.XtraTabPage4.Size = New System.Drawing.Size(696, 528)
         Me.XtraTabPage4.Text = "Page 4"
         '
         'txt_p4ExpectedExpenses
@@ -2466,7 +2466,7 @@ Partial Class frmPNL_Add
         Me.txt_p4NonAllowableExpenses.Name = "txt_p4NonAllowableExpenses"
         Me.txt_p4NonAllowableExpenses.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4NonAllowableExpenses.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4NonAllowableExpenses.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4NonAllowableExpenses.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4NonAllowableExpenses.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4NonAllowableExpenses.Properties.NullText = "0"
         Me.txt_p4NonAllowableExpenses.Properties.NullValuePrompt = "0"
@@ -2496,7 +2496,7 @@ Partial Class frmPNL_Add
         Me.txt_p4NetProfitLoss.Properties.Appearance.Options.UseFont = True
         Me.txt_p4NetProfitLoss.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4NetProfitLoss.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4NetProfitLoss.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4NetProfitLoss.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4NetProfitLoss.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4NetProfitLoss.Properties.NullText = "0"
         Me.txt_p4NetProfitLoss.Properties.NullValuePrompt = "0"
@@ -2523,7 +2523,7 @@ Partial Class frmPNL_Add
         Me.txt_p4TotalExpenses.Name = "txt_p4TotalExpenses"
         Me.txt_p4TotalExpenses.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4TotalExpenses.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4TotalExpenses.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4TotalExpenses.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4TotalExpenses.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4TotalExpenses.Properties.EditFormat.FormatString = "n"
         Me.txt_p4TotalExpenses.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -2552,7 +2552,7 @@ Partial Class frmPNL_Add
         Me.txt_p4TotalOtherExpenses.Name = "txt_p4TotalOtherExpenses"
         Me.txt_p4TotalOtherExpenses.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4TotalOtherExpenses.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4TotalOtherExpenses.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4TotalOtherExpenses.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4TotalOtherExpenses.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4TotalOtherExpenses.Properties.NullText = "0"
         Me.txt_p4TotalOtherExpenses.Properties.NullValuePrompt = "0"
@@ -2604,7 +2604,7 @@ Partial Class frmPNL_Add
         Me.txt_p4Other.Name = "txt_p4Other"
         Me.txt_p4Other.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4Other.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4Other.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4Other.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4Other.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4Other.Properties.NullText = "0"
         Me.txt_p4Other.Properties.NullValuePrompt = "0"
@@ -2633,7 +2633,7 @@ Partial Class frmPNL_Add
         Me.txt_p4CAExpenditure.Name = "txt_p4CAExpenditure"
         Me.txt_p4CAExpenditure.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4CAExpenditure.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4CAExpenditure.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4CAExpenditure.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4CAExpenditure.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4CAExpenditure.Properties.NullText = "0"
         Me.txt_p4CAExpenditure.Properties.NullValuePrompt = "0"
@@ -2662,7 +2662,7 @@ Partial Class frmPNL_Add
         Me.txt_p4InitSub.Name = "txt_p4InitSub"
         Me.txt_p4InitSub.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4InitSub.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4InitSub.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4InitSub.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4InitSub.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4InitSub.Properties.NullText = "0"
         Me.txt_p4InitSub.Properties.NullValuePrompt = "0"
@@ -2691,7 +2691,7 @@ Partial Class frmPNL_Add
         Me.txt_p4ReaLossForeExNonTrade.Name = "txt_p4ReaLossForeExNonTrade"
         Me.txt_p4ReaLossForeExNonTrade.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4ReaLossForeExNonTrade.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4ReaLossForeExNonTrade.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4ReaLossForeExNonTrade.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4ReaLossForeExNonTrade.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4ReaLossForeExNonTrade.Properties.NullText = "0"
         Me.txt_p4ReaLossForeExNonTrade.Properties.NullValuePrompt = "0"
@@ -2720,7 +2720,7 @@ Partial Class frmPNL_Add
         Me.txt_p4ReaLossForeExTrade.Name = "txt_p4ReaLossForeExTrade"
         Me.txt_p4ReaLossForeExTrade.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4ReaLossForeExTrade.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4ReaLossForeExTrade.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4ReaLossForeExTrade.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4ReaLossForeExTrade.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4ReaLossForeExTrade.Properties.NullText = "0"
         Me.txt_p4ReaLossForeExTrade.Properties.NullValuePrompt = "0"
@@ -2749,7 +2749,7 @@ Partial Class frmPNL_Add
         Me.txt_p4UnreaLossForeEx.Name = "txt_p4UnreaLossForeEx"
         Me.txt_p4UnreaLossForeEx.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4UnreaLossForeEx.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4UnreaLossForeEx.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4UnreaLossForeEx.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4UnreaLossForeEx.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4UnreaLossForeEx.Properties.NullText = "0"
         Me.txt_p4UnreaLossForeEx.Properties.NullValuePrompt = "0"
@@ -2778,7 +2778,7 @@ Partial Class frmPNL_Add
         Me.txt_p4FAWrittenOff.Name = "txt_p4FAWrittenOff"
         Me.txt_p4FAWrittenOff.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4FAWrittenOff.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4FAWrittenOff.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4FAWrittenOff.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4FAWrittenOff.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4FAWrittenOff.Properties.NullText = "0"
         Me.txt_p4FAWrittenOff.Properties.NullValuePrompt = "0"
@@ -2807,7 +2807,7 @@ Partial Class frmPNL_Add
         Me.txt_p4LeavePass.Name = "txt_p4LeavePass"
         Me.txt_p4LeavePass.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4LeavePass.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4LeavePass.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4LeavePass.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4LeavePass.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4LeavePass.Properties.NullText = "0"
         Me.txt_p4LeavePass.Properties.NullValuePrompt = "0"
@@ -2836,7 +2836,7 @@ Partial Class frmPNL_Add
         Me.txt_p4ProvisionAcc.Name = "txt_p4ProvisionAcc"
         Me.txt_p4ProvisionAcc.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4ProvisionAcc.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4ProvisionAcc.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4ProvisionAcc.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4ProvisionAcc.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4ProvisionAcc.Properties.NullText = "0"
         Me.txt_p4ProvisionAcc.Properties.NullValuePrompt = "0"
@@ -2865,7 +2865,7 @@ Partial Class frmPNL_Add
         Me.txt_p4Compound.Name = "txt_p4Compound"
         Me.txt_p4Compound.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4Compound.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4Compound.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4Compound.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4Compound.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4Compound.Properties.NullText = "0"
         Me.txt_p4Compound.Properties.NullValuePrompt = "0"
@@ -2894,7 +2894,7 @@ Partial Class frmPNL_Add
         Me.txt_p4EntStaff.Name = "txt_p4EntStaff"
         Me.txt_p4EntStaff.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4EntStaff.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4EntStaff.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4EntStaff.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4EntStaff.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4EntStaff.Properties.NullText = "0"
         Me.txt_p4EntStaff.Properties.NullValuePrompt = "0"
@@ -2923,7 +2923,7 @@ Partial Class frmPNL_Add
         Me.txt_p4EntNonStaff.Name = "txt_p4EntNonStaff"
         Me.txt_p4EntNonStaff.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4EntNonStaff.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4EntNonStaff.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4EntNonStaff.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4EntNonStaff.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4EntNonStaff.Properties.NullText = "0"
         Me.txt_p4EntNonStaff.Properties.NullValuePrompt = "0"
@@ -2952,7 +2952,7 @@ Partial Class frmPNL_Add
         Me.txt_p4LossDispFA.Name = "txt_p4LossDispFA"
         Me.txt_p4LossDispFA.Properties.Appearance.Options.UseTextOptions = True
         Me.txt_p4LossDispFA.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.txt_p4LossDispFA.Properties.DisplayFormat.FormatString = "n"
+        Me.txt_p4LossDispFA.Properties.DisplayFormat.FormatString = "n0"
         Me.txt_p4LossDispFA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txt_p4LossDispFA.Properties.NullText = "0"
         Me.txt_p4LossDispFA.Properties.NullValuePrompt = "0"
@@ -3001,7 +3001,7 @@ Partial Class frmPNL_Add
         Me.RibbonControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemRadioGroup1, Me.RepositoryItemComboBox1, Me.RepositoryItemTextEdit1, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox2, Me.RepositoryItemTextEdit2, Me.RepositoryItemTextEdit3, Me.RepositoryItemTextEdit4, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemComboBox3, Me.RepositoryItemComboBox4, Me.RepositoryItemProgressBar1, Me.RepositoryItemTextEdit7, Me.RepositoryItemSearchLookUpEdit1})
         Me.RibbonControl1.ShowExpandCollapseButton = DevExpress.Utils.DefaultBoolean.[False]
         Me.RibbonControl1.ShowToolbarCustomizeItem = False
-        Me.RibbonControl1.Size = New System.Drawing.Size(1315, 141)
+        Me.RibbonControl1.Size = New System.Drawing.Size(1087, 141)
         Me.RibbonControl1.Toolbar.ShowCustomizeItem = False
         '
         'btnSave
@@ -3507,7 +3507,7 @@ Partial Class frmPNL_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1315, 749)
+        Me.ClientSize = New System.Drawing.Size(1087, 749)
         Me.Controls.Add(Me.pnlDocInformation)
         Me.Controls.Add(Me.hideContainerRight)
         Me.Controls.Add(Me.RibbonControl1)

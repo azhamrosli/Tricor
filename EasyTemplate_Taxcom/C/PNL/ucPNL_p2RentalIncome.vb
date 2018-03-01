@@ -193,7 +193,7 @@ Public Class ucPNL_p2RentalIncome
 
         End Try
     End Sub
-    Private Sub btnExpand_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+    Private Sub btnExpand_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExpand.ItemClick
         Try
             GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
         Catch ex As Exception
@@ -212,4 +212,16 @@ Public Class ucPNL_p2RentalIncome
     End Sub
 
 
+    Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveDown.ItemClick
+
+    End Sub
+    Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveUp.ItemClick
+
+    End Sub
+    Private Sub btnDeleteChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDeleteChild.ItemClick
+
+    End Sub
+    Private Sub btnAddChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddChild.ItemClick
+
+    End Sub
 End Class

@@ -49,6 +49,7 @@ Partial Class frmMovementComplex_Add
         Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
         Me.MOVEMENTCOMPLEXDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.XtraScrollableControl1 = New DevExpress.XtraEditors.XtraScrollableControl()
+        Me.txtTotal_AddBackDeduct = New DevExpress.XtraEditors.TextEdit()
         Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
         Me.SearchLookUpEdit2View = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colRefNo = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -76,6 +77,7 @@ Partial Class frmMovementComplex_Add
         Me.colMM_SPECIFIC_ALLOWABLE_ADDBACK = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_SPECIFIC_NONALLOWABLE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_ADDBACK_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.PanelControl3 = New DevExpress.XtraEditors.PanelControl()
         Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
@@ -95,6 +97,7 @@ Partial Class frmMovementComplex_Add
         Me.colMM_SPECIFIC_ALLOWABLE_DEDUCT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_SPECIFIC_NONALLOWABLE1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colMM_NOTE1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.PanelControl4 = New DevExpress.XtraEditors.PanelControl()
         Me.LabelControl12 = New DevExpress.XtraEditors.LabelControl()
@@ -131,9 +134,9 @@ Partial Class frmMovementComplex_Add
         Me.LabelControl3 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
-        Me.colMM_ADDBACK_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_DEDUCT_AMOUNT = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.txtTotal_AddBackDeduct = New DevExpress.XtraEditors.TextEdit()
+        Me.chkTaxNegative = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkTaxPositive = New DevExpress.XtraEditors.CheckEdit()
+        Me.chkNonAllowableExpenses = New DevExpress.XtraEditors.CheckEdit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -143,6 +146,7 @@ Partial Class frmMovementComplex_Add
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraScrollableControl1.SuspendLayout()
+        CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -184,7 +188,9 @@ Partial Class frmMovementComplex_Add
         CType(Me.dtStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtStart.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTitle.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkTaxNegative.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkTaxPositive.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkNonAllowableExpenses.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -285,31 +291,35 @@ Partial Class frmMovementComplex_Add
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Size = New System.Drawing.Size(961, 31)
+        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1213, 39)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 777)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 956)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Size = New System.Drawing.Size(961, 0)
+        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1213, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 746)
+        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 917)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(961, 31)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1213, 39)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 746)
+        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 917)
         '
         'RepositoryItemTextEdit1
         '
@@ -351,6 +361,9 @@ Partial Class frmMovementComplex_Add
         '
         'XtraScrollableControl1
         '
+        Me.XtraScrollableControl1.Controls.Add(Me.chkTaxNegative)
+        Me.XtraScrollableControl1.Controls.Add(Me.chkTaxPositive)
+        Me.XtraScrollableControl1.Controls.Add(Me.chkNonAllowableExpenses)
         Me.XtraScrollableControl1.Controls.Add(Me.txtTotal_AddBackDeduct)
         Me.XtraScrollableControl1.Controls.Add(Me.cboRefNo)
         Me.XtraScrollableControl1.Controls.Add(Me.SplitContainerControl1)
@@ -376,14 +389,36 @@ Partial Class frmMovementComplex_Add
         Me.XtraScrollableControl1.Controls.Add(Me.LabelControl2)
         Me.XtraScrollableControl1.Controls.Add(Me.LabelControl1)
         Me.XtraScrollableControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.XtraScrollableControl1.Location = New System.Drawing.Point(0, 31)
+        Me.XtraScrollableControl1.Location = New System.Drawing.Point(0, 39)
+        Me.XtraScrollableControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
-        Me.XtraScrollableControl1.Size = New System.Drawing.Size(961, 746)
+        Me.XtraScrollableControl1.Size = New System.Drawing.Size(1213, 917)
         Me.XtraScrollableControl1.TabIndex = 210
+        '
+        'txtTotal_AddBackDeduct
+        '
+        Me.txtTotal_AddBackDeduct.Location = New System.Drawing.Point(330, 830)
+        Me.txtTotal_AddBackDeduct.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTotal_AddBackDeduct.MenuManager = Me.BarManager1
+        Me.txtTotal_AddBackDeduct.Name = "txtTotal_AddBackDeduct"
+        Me.txtTotal_AddBackDeduct.Properties.DisplayFormat.FormatString = "n0"
+        Me.txtTotal_AddBackDeduct.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotal_AddBackDeduct.Properties.EditFormat.FormatString = "n0"
+        Me.txtTotal_AddBackDeduct.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtTotal_AddBackDeduct.Properties.Mask.EditMask = "n0"
+        Me.txtTotal_AddBackDeduct.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtTotal_AddBackDeduct.Properties.NullText = "0"
+        Me.txtTotal_AddBackDeduct.Properties.NullValuePrompt = "0"
+        Me.txtTotal_AddBackDeduct.Properties.NullValuePromptShowForEmptyValue = True
+        Me.txtTotal_AddBackDeduct.Properties.ReadOnly = True
+        Me.txtTotal_AddBackDeduct.Size = New System.Drawing.Size(174, 22)
+        Me.txtTotal_AddBackDeduct.TabIndex = 187
+        Me.txtTotal_AddBackDeduct.Visible = False
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(96, 6)
+        Me.cboRefNo.Location = New System.Drawing.Point(112, 7)
+        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboRefNo.MenuManager = Me.BarManager1
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -393,7 +428,7 @@ Partial Class frmMovementComplex_Add
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"
         Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
-        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
+        Me.cboRefNo.Size = New System.Drawing.Size(327, 22)
         Me.cboRefNo.TabIndex = 233
         '
         'SearchLookUpEdit2View
@@ -477,7 +512,8 @@ Partial Class frmMovementComplex_Add
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainerControl1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 221)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(14, 272)
+        Me.SplitContainerControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.PanelControl3)
@@ -485,8 +521,8 @@ Partial Class frmMovementComplex_Add
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.GridControl2)
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.PanelControl4)
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(933, 450)
-        Me.SplitContainerControl1.SplitterPosition = 162
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(1180, 553)
+        Me.SplitContainerControl1.SplitterPosition = 189
         Me.SplitContainerControl1.TabIndex = 232
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
         '
@@ -494,12 +530,14 @@ Partial Class frmMovementComplex_Add
         '
         Me.GridControl1.DataSource = Me.MOVEMENTCOMPLEXADDBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.Location = New System.Drawing.Point(0, 23)
+        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 28)
         Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.txtAmount, Me.chkAddBack})
-        Me.GridControl1.Size = New System.Drawing.Size(933, 139)
+        Me.GridControl1.Size = New System.Drawing.Size(1180, 161)
         Me.GridControl1.TabIndex = 9
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -635,6 +673,18 @@ Partial Class frmMovementComplex_Add
         Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK.VisibleIndex = 7
         Me.colMM_SPECIFIC_NONALLOWABLE_ADDBACK.Width = 120
         '
+        'colMM_ADDBACK_AMOUNT
+        '
+        Me.colMM_ADDBACK_AMOUNT.Caption = "Add Back Amount"
+        Me.colMM_ADDBACK_AMOUNT.ColumnEdit = Me.txtAmount
+        Me.colMM_ADDBACK_AMOUNT.FieldName = "MM_ADDBACK_AMOUNT"
+        Me.colMM_ADDBACK_AMOUNT.Name = "colMM_ADDBACK_AMOUNT"
+        Me.colMM_ADDBACK_AMOUNT.OptionsColumn.ReadOnly = True
+        Me.colMM_ADDBACK_AMOUNT.OptionsColumn.TabStop = False
+        Me.colMM_ADDBACK_AMOUNT.Visible = True
+        Me.colMM_ADDBACK_AMOUNT.VisibleIndex = 8
+        Me.colMM_ADDBACK_AMOUNT.Width = 100
+        '
         'colMM_NOTE
         '
         Me.colMM_NOTE.Caption = "Note"
@@ -650,17 +700,19 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl3.Controls.Add(Me.LabelControl9)
         Me.PanelControl3.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelControl3.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl3.Name = "PanelControl3"
-        Me.PanelControl3.Size = New System.Drawing.Size(933, 23)
+        Me.PanelControl3.Size = New System.Drawing.Size(1180, 28)
         Me.PanelControl3.TabIndex = 0
         '
         'LabelControl9
         '
         Me.LabelControl9.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl9.Appearance.Options.UseFont = True
-        Me.LabelControl9.Location = New System.Drawing.Point(5, 3)
+        Me.LabelControl9.Location = New System.Drawing.Point(6, 4)
+        Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(26, 16)
+        Me.LabelControl9.Size = New System.Drawing.Size(32, 19)
         Me.LabelControl9.TabIndex = 223
         Me.LabelControl9.Text = "Add"
         '
@@ -668,12 +720,14 @@ Partial Class frmMovementComplex_Add
         '
         Me.GridControl2.DataSource = Me.MOVEMENTCOMPLEXDEDUCTBindingSource
         Me.GridControl2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl2.Location = New System.Drawing.Point(0, 23)
+        Me.GridControl2.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.GridControl2.Location = New System.Drawing.Point(0, 28)
         Me.GridControl2.MainView = Me.GridView2
+        Me.GridControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl2.MenuManager = Me.BarManager1
         Me.GridControl2.Name = "GridControl2"
         Me.GridControl2.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemMemoEdit1, Me.RepositoryItemTextEdit3, Me.RepositoryItemCheckEdit1})
-        Me.GridControl2.Size = New System.Drawing.Size(933, 260)
+        Me.GridControl2.Size = New System.Drawing.Size(1180, 330)
         Me.GridControl2.TabIndex = 11
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -809,6 +863,18 @@ Partial Class frmMovementComplex_Add
         Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT.VisibleIndex = 7
         Me.colMM_SPECIFIC_NONALLOWABLE_DEDUCT.Width = 120
         '
+        'colMM_DEDUCT_AMOUNT
+        '
+        Me.colMM_DEDUCT_AMOUNT.Caption = "Deduct Amount"
+        Me.colMM_DEDUCT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
+        Me.colMM_DEDUCT_AMOUNT.FieldName = "MM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.Name = "colMM_DEDUCT_AMOUNT"
+        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.ReadOnly = True
+        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
+        Me.colMM_DEDUCT_AMOUNT.Visible = True
+        Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 8
+        Me.colMM_DEDUCT_AMOUNT.Width = 100
+        '
         'colMM_NOTE1
         '
         Me.colMM_NOTE1.Caption = "Note"
@@ -824,17 +890,19 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl4.Controls.Add(Me.LabelControl12)
         Me.PanelControl4.Dock = System.Windows.Forms.DockStyle.Top
         Me.PanelControl4.Location = New System.Drawing.Point(0, 0)
+        Me.PanelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl4.Name = "PanelControl4"
-        Me.PanelControl4.Size = New System.Drawing.Size(933, 23)
+        Me.PanelControl4.Size = New System.Drawing.Size(1180, 28)
         Me.PanelControl4.TabIndex = 10
         '
         'LabelControl12
         '
         Me.LabelControl12.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl12.Appearance.Options.UseFont = True
-        Me.LabelControl12.Location = New System.Drawing.Point(5, 3)
+        Me.LabelControl12.Location = New System.Drawing.Point(6, 4)
+        Me.LabelControl12.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl12.Name = "LabelControl12"
-        Me.LabelControl12.Size = New System.Drawing.Size(29, 16)
+        Me.LabelControl12.Size = New System.Drawing.Size(35, 19)
         Me.LabelControl12.TabIndex = 223
         Me.LabelControl12.Text = "Less"
         '
@@ -848,22 +916,25 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl2.Controls.Add(Me.txtAmountSpecificAllow_End)
         Me.PanelControl2.Controls.Add(Me.LabelControl16)
         Me.PanelControl2.Controls.Add(Me.txtAmountGeneral_End)
-        Me.PanelControl2.Location = New System.Drawing.Point(12, 696)
+        Me.PanelControl2.Location = New System.Drawing.Point(14, 856)
+        Me.PanelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl2.Name = "PanelControl2"
-        Me.PanelControl2.Size = New System.Drawing.Size(933, 46)
+        Me.PanelControl2.Size = New System.Drawing.Size(1180, 57)
         Me.PanelControl2.TabIndex = 231
         '
         'LabelControl14
         '
-        Me.LabelControl14.Location = New System.Drawing.Point(5, 19)
+        Me.LabelControl14.Location = New System.Drawing.Point(6, 23)
+        Me.LabelControl14.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl14.Name = "LabelControl14"
-        Me.LabelControl14.Size = New System.Drawing.Size(50, 13)
+        Me.LabelControl14.Size = New System.Drawing.Size(59, 16)
         Me.LabelControl14.TabIndex = 181
         Me.LabelControl14.Text = "1. General"
         '
         'txtAmountSpecificNonAllow_End
         '
-        Me.txtAmountSpecificNonAllow_End.Location = New System.Drawing.Point(757, 16)
+        Me.txtAmountSpecificNonAllow_End.Location = New System.Drawing.Point(883, 20)
+        Me.txtAmountSpecificNonAllow_End.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountSpecificNonAllow_End.MenuManager = Me.BarManager1
         Me.txtAmountSpecificNonAllow_End.Name = "txtAmountSpecificNonAllow_End"
         Me.txtAmountSpecificNonAllow_End.Properties.DisplayFormat.FormatString = "n0"
@@ -876,20 +947,22 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountSpecificNonAllow_End.Properties.NullValuePrompt = "0"
         Me.txtAmountSpecificNonAllow_End.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtAmountSpecificNonAllow_End.Properties.ReadOnly = True
-        Me.txtAmountSpecificNonAllow_End.Size = New System.Drawing.Size(149, 20)
+        Me.txtAmountSpecificNonAllow_End.Size = New System.Drawing.Size(174, 22)
         Me.txtAmountSpecificNonAllow_End.TabIndex = 186
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(271, 19)
+        Me.LabelControl15.Location = New System.Drawing.Point(316, 23)
+        Me.LabelControl15.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl15.Name = "LabelControl15"
-        Me.LabelControl15.Size = New System.Drawing.Size(105, 13)
+        Me.LabelControl15.Size = New System.Drawing.Size(128, 16)
         Me.LabelControl15.TabIndex = 182
         Me.LabelControl15.Text = "2. Specific (Allowable)"
         '
         'txtAmountSpecificAllow_End
         '
-        Me.txtAmountSpecificAllow_End.Location = New System.Drawing.Point(401, 16)
+        Me.txtAmountSpecificAllow_End.Location = New System.Drawing.Point(468, 20)
+        Me.txtAmountSpecificAllow_End.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountSpecificAllow_End.MenuManager = Me.BarManager1
         Me.txtAmountSpecificAllow_End.Name = "txtAmountSpecificAllow_End"
         Me.txtAmountSpecificAllow_End.Properties.DisplayFormat.FormatString = "n0"
@@ -902,20 +975,22 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountSpecificAllow_End.Properties.NullValuePrompt = "0"
         Me.txtAmountSpecificAllow_End.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtAmountSpecificAllow_End.Properties.ReadOnly = True
-        Me.txtAmountSpecificAllow_End.Size = New System.Drawing.Size(149, 20)
+        Me.txtAmountSpecificAllow_End.Size = New System.Drawing.Size(174, 22)
         Me.txtAmountSpecificAllow_End.TabIndex = 185
         '
         'LabelControl16
         '
-        Me.LabelControl16.Location = New System.Drawing.Point(604, 19)
+        Me.LabelControl16.Location = New System.Drawing.Point(705, 23)
+        Me.LabelControl16.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl16.Name = "LabelControl16"
-        Me.LabelControl16.Size = New System.Drawing.Size(134, 13)
+        Me.LabelControl16.Size = New System.Drawing.Size(163, 16)
         Me.LabelControl16.TabIndex = 183
         Me.LabelControl16.Text = "3. Specific (Non - Allowable)"
         '
         'txtAmountGeneral_End
         '
-        Me.txtAmountGeneral_End.Location = New System.Drawing.Point(84, 16)
+        Me.txtAmountGeneral_End.Location = New System.Drawing.Point(98, 20)
+        Me.txtAmountGeneral_End.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountGeneral_End.MenuManager = Me.BarManager1
         Me.txtAmountGeneral_End.Name = "txtAmountGeneral_End"
         Me.txtAmountGeneral_End.Properties.DisplayFormat.FormatString = "n0"
@@ -928,24 +1003,26 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountGeneral_End.Properties.NullValuePrompt = "0"
         Me.txtAmountGeneral_End.Properties.NullValuePromptShowForEmptyValue = True
         Me.txtAmountGeneral_End.Properties.ReadOnly = True
-        Me.txtAmountGeneral_End.Size = New System.Drawing.Size(149, 20)
+        Me.txtAmountGeneral_End.Size = New System.Drawing.Size(174, 22)
         Me.txtAmountGeneral_End.TabIndex = 184
         '
         'txtNoteEnd
         '
         Me.txtNoteEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteEnd.Location = New System.Drawing.Point(796, 670)
+        Me.txtNoteEnd.Location = New System.Drawing.Point(1021, 824)
+        Me.txtNoteEnd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNoteEnd.MenuManager = Me.BarManager1
         Me.txtNoteEnd.Name = "txtNoteEnd"
-        Me.txtNoteEnd.Size = New System.Drawing.Size(149, 20)
+        Me.txtNoteEnd.Size = New System.Drawing.Size(174, 22)
         Me.txtNoteEnd.TabIndex = 10
         '
         'LabelControl17
         '
         Me.LabelControl17.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl17.Location = New System.Drawing.Point(746, 673)
+        Me.LabelControl17.Location = New System.Drawing.Point(962, 827)
+        Me.LabelControl17.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl17.Name = "LabelControl17"
-        Me.LabelControl17.Size = New System.Drawing.Size(30, 13)
+        Me.LabelControl17.Size = New System.Drawing.Size(35, 16)
         Me.LabelControl17.TabIndex = 230
         Me.LabelControl17.Text = "Note :"
         '
@@ -953,20 +1030,22 @@ Partial Class frmMovementComplex_Add
         '
         Me.dtBalanceEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtBalanceEnd.EditValue = Nothing
-        Me.dtBalanceEnd.Location = New System.Drawing.Point(96, 674)
+        Me.dtBalanceEnd.Location = New System.Drawing.Point(112, 829)
+        Me.dtBalanceEnd.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtBalanceEnd.MenuManager = Me.BarManager1
         Me.dtBalanceEnd.Name = "dtBalanceEnd"
         Me.dtBalanceEnd.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBalanceEnd.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBalanceEnd.Size = New System.Drawing.Size(171, 20)
+        Me.dtBalanceEnd.Size = New System.Drawing.Size(199, 22)
         Me.dtBalanceEnd.TabIndex = 9
         '
         'LabelControl18
         '
         Me.LabelControl18.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl18.Location = New System.Drawing.Point(12, 677)
+        Me.LabelControl18.Location = New System.Drawing.Point(14, 832)
+        Me.LabelControl18.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl18.Name = "LabelControl18"
-        Me.LabelControl18.Size = New System.Drawing.Size(71, 13)
+        Me.LabelControl18.Size = New System.Drawing.Size(85, 16)
         Me.LabelControl18.TabIndex = 228
         Me.LabelControl18.Text = "Balance as at :"
         '
@@ -974,9 +1053,10 @@ Partial Class frmMovementComplex_Add
         '
         Me.LabelControl8.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl8.Appearance.Options.UseFont = True
-        Me.LabelControl8.Location = New System.Drawing.Point(12, 120)
+        Me.LabelControl8.Location = New System.Drawing.Point(14, 148)
+        Me.LabelControl8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl8.Name = "LabelControl8"
-        Me.LabelControl8.Size = New System.Drawing.Size(52, 16)
+        Me.LabelControl8.Size = New System.Drawing.Size(67, 19)
         Me.LabelControl8.TabIndex = 222
         Me.LabelControl8.Text = "Opening"
         '
@@ -990,22 +1070,25 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl1.Controls.Add(Me.txtAmountSpecificAllow)
         Me.PanelControl1.Controls.Add(Me.LabelControl7)
         Me.PanelControl1.Controls.Add(Me.txtAmountGeneral)
-        Me.PanelControl1.Location = New System.Drawing.Point(12, 165)
+        Me.PanelControl1.Location = New System.Drawing.Point(14, 203)
+        Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(933, 50)
+        Me.PanelControl1.Size = New System.Drawing.Size(1180, 62)
         Me.PanelControl1.TabIndex = 221
         '
         'LabelControl5
         '
-        Me.LabelControl5.Location = New System.Drawing.Point(5, 19)
+        Me.LabelControl5.Location = New System.Drawing.Point(6, 23)
+        Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(50, 13)
+        Me.LabelControl5.Size = New System.Drawing.Size(59, 16)
         Me.LabelControl5.TabIndex = 181
         Me.LabelControl5.Text = "1. General"
         '
         'txtAmountSpecificNonAllow
         '
-        Me.txtAmountSpecificNonAllow.Location = New System.Drawing.Point(757, 16)
+        Me.txtAmountSpecificNonAllow.Location = New System.Drawing.Point(883, 20)
+        Me.txtAmountSpecificNonAllow.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountSpecificNonAllow.MenuManager = Me.BarManager1
         Me.txtAmountSpecificNonAllow.Name = "txtAmountSpecificNonAllow"
         Me.txtAmountSpecificNonAllow.Properties.DisplayFormat.FormatString = "n0"
@@ -1017,20 +1100,22 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountSpecificNonAllow.Properties.NullText = "0"
         Me.txtAmountSpecificNonAllow.Properties.NullValuePrompt = "0"
         Me.txtAmountSpecificNonAllow.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txtAmountSpecificNonAllow.Size = New System.Drawing.Size(149, 20)
+        Me.txtAmountSpecificNonAllow.Size = New System.Drawing.Size(174, 22)
         Me.txtAmountSpecificNonAllow.TabIndex = 186
         '
         'LabelControl6
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(271, 19)
+        Me.LabelControl6.Location = New System.Drawing.Point(316, 23)
+        Me.LabelControl6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(105, 13)
+        Me.LabelControl6.Size = New System.Drawing.Size(128, 16)
         Me.LabelControl6.TabIndex = 182
         Me.LabelControl6.Text = "2. Specific (Allowable)"
         '
         'txtAmountSpecificAllow
         '
-        Me.txtAmountSpecificAllow.Location = New System.Drawing.Point(401, 16)
+        Me.txtAmountSpecificAllow.Location = New System.Drawing.Point(468, 20)
+        Me.txtAmountSpecificAllow.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountSpecificAllow.MenuManager = Me.BarManager1
         Me.txtAmountSpecificAllow.Name = "txtAmountSpecificAllow"
         Me.txtAmountSpecificAllow.Properties.DisplayFormat.FormatString = "n0"
@@ -1042,20 +1127,22 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountSpecificAllow.Properties.NullText = "0"
         Me.txtAmountSpecificAllow.Properties.NullValuePrompt = "0"
         Me.txtAmountSpecificAllow.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txtAmountSpecificAllow.Size = New System.Drawing.Size(149, 20)
+        Me.txtAmountSpecificAllow.Size = New System.Drawing.Size(174, 22)
         Me.txtAmountSpecificAllow.TabIndex = 185
         '
         'LabelControl7
         '
-        Me.LabelControl7.Location = New System.Drawing.Point(604, 19)
+        Me.LabelControl7.Location = New System.Drawing.Point(705, 23)
+        Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(134, 13)
+        Me.LabelControl7.Size = New System.Drawing.Size(163, 16)
         Me.LabelControl7.TabIndex = 183
         Me.LabelControl7.Text = "3. Specific (Non - Allowable)"
         '
         'txtAmountGeneral
         '
-        Me.txtAmountGeneral.Location = New System.Drawing.Point(84, 16)
+        Me.txtAmountGeneral.Location = New System.Drawing.Point(98, 20)
+        Me.txtAmountGeneral.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtAmountGeneral.MenuManager = Me.BarManager1
         Me.txtAmountGeneral.Name = "txtAmountGeneral"
         Me.txtAmountGeneral.Properties.DisplayFormat.FormatString = "n0"
@@ -1067,188 +1154,199 @@ Partial Class frmMovementComplex_Add
         Me.txtAmountGeneral.Properties.NullText = "0"
         Me.txtAmountGeneral.Properties.NullValuePrompt = "0"
         Me.txtAmountGeneral.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txtAmountGeneral.Size = New System.Drawing.Size(149, 20)
+        Me.txtAmountGeneral.Size = New System.Drawing.Size(174, 22)
         Me.txtAmountGeneral.TabIndex = 184
         '
         'txtNoteStart
         '
         Me.txtNoteStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtNoteStart.Location = New System.Drawing.Point(796, 139)
+        Me.txtNoteStart.Location = New System.Drawing.Point(1021, 171)
+        Me.txtNoteStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtNoteStart.MenuManager = Me.BarManager1
         Me.txtNoteStart.Name = "txtNoteStart"
-        Me.txtNoteStart.Size = New System.Drawing.Size(149, 20)
+        Me.txtNoteStart.Size = New System.Drawing.Size(174, 22)
         Me.txtNoteStart.TabIndex = 6
         '
         'LabelControl13
         '
         Me.LabelControl13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LabelControl13.Location = New System.Drawing.Point(746, 142)
+        Me.LabelControl13.Location = New System.Drawing.Point(962, 175)
+        Me.LabelControl13.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl13.Name = "LabelControl13"
-        Me.LabelControl13.Size = New System.Drawing.Size(30, 13)
+        Me.LabelControl13.Size = New System.Drawing.Size(35, 16)
         Me.LabelControl13.TabIndex = 220
         Me.LabelControl13.Text = "Note :"
         '
         'txtRefNo
         '
-        Me.txtRefNo.Location = New System.Drawing.Point(96, 32)
+        Me.txtRefNo.Location = New System.Drawing.Point(112, 39)
+        Me.txtRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtRefNo.MenuManager = Me.BarManager1
         Me.txtRefNo.Name = "txtRefNo"
         Me.txtRefNo.Properties.ReadOnly = True
-        Me.txtRefNo.Size = New System.Drawing.Size(280, 20)
+        Me.txtRefNo.Size = New System.Drawing.Size(327, 22)
         Me.txtRefNo.TabIndex = 219
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(12, 61)
+        Me.LabelControl11.Location = New System.Drawing.Point(14, 75)
+        Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(20, 13)
+        Me.LabelControl11.Size = New System.Drawing.Size(24, 16)
         Me.LabelControl11.TabIndex = 218
         Me.LabelControl11.Text = "YA :"
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(96, 58)
+        Me.cboYA.Location = New System.Drawing.Point(112, 71)
+        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(280, 20)
+        Me.cboYA.Size = New System.Drawing.Size(327, 22)
         Me.cboYA.TabIndex = 1
         '
         'LabelControl10
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(12, 9)
+        Me.LabelControl10.Location = New System.Drawing.Point(14, 11)
+        Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(40, 13)
+        Me.LabelControl10.Size = New System.Drawing.Size(47, 16)
         Me.LabelControl10.TabIndex = 217
         Me.LabelControl10.Text = "Ref No :"
         '
         'dtBalanceStart
         '
         Me.dtBalanceStart.EditValue = Nothing
-        Me.dtBalanceStart.Location = New System.Drawing.Point(96, 139)
+        Me.dtBalanceStart.Location = New System.Drawing.Point(112, 171)
+        Me.dtBalanceStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtBalanceStart.MenuManager = Me.BarManager1
         Me.dtBalanceStart.Name = "dtBalanceStart"
         Me.dtBalanceStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtBalanceStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtBalanceStart.Size = New System.Drawing.Size(171, 20)
+        Me.dtBalanceStart.Size = New System.Drawing.Size(199, 22)
         Me.dtBalanceStart.TabIndex = 5
         '
         'dtEnded
         '
         Me.dtEnded.EditValue = Nothing
-        Me.dtEnded.Location = New System.Drawing.Point(482, 32)
+        Me.dtEnded.Location = New System.Drawing.Point(562, 39)
+        Me.dtEnded.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtEnded.MenuManager = Me.BarManager1
         Me.dtEnded.Name = "dtEnded"
         Me.dtEnded.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtEnded.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtEnded.Size = New System.Drawing.Size(171, 20)
+        Me.dtEnded.Size = New System.Drawing.Size(199, 22)
         Me.dtEnded.TabIndex = 4
         '
         'dtStart
         '
         Me.dtStart.EditValue = Nothing
-        Me.dtStart.Location = New System.Drawing.Point(482, 6)
+        Me.dtStart.Location = New System.Drawing.Point(562, 7)
+        Me.dtStart.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.dtStart.MenuManager = Me.BarManager1
         Me.dtStart.Name = "dtStart"
         Me.dtStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtStart.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtStart.Size = New System.Drawing.Size(171, 20)
+        Me.dtStart.Size = New System.Drawing.Size(199, 22)
         Me.dtStart.TabIndex = 3
         '
         'txtTitle
         '
-        Me.txtTitle.Location = New System.Drawing.Point(96, 84)
+        Me.txtTitle.Location = New System.Drawing.Point(112, 103)
+        Me.txtTitle.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.txtTitle.MenuManager = Me.BarManager1
         Me.txtTitle.Name = "txtTitle"
-        Me.txtTitle.Size = New System.Drawing.Size(557, 20)
+        Me.txtTitle.Size = New System.Drawing.Size(650, 22)
         Me.txtTitle.TabIndex = 2
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(12, 142)
+        Me.LabelControl4.Location = New System.Drawing.Point(14, 175)
+        Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(71, 13)
+        Me.LabelControl4.Size = New System.Drawing.Size(85, 16)
         Me.LabelControl4.TabIndex = 215
         Me.LabelControl4.Text = "Balance as at :"
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(398, 35)
+        Me.LabelControl3.Location = New System.Drawing.Point(464, 43)
+        Me.LabelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(62, 13)
+        Me.LabelControl3.Size = New System.Drawing.Size(74, 16)
         Me.LabelControl3.TabIndex = 214
         Me.LabelControl3.Text = "Year Ended :"
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(398, 9)
+        Me.LabelControl2.Location = New System.Drawing.Point(464, 11)
+        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(70, 13)
+        Me.LabelControl2.Size = New System.Drawing.Size(84, 16)
         Me.LabelControl2.TabIndex = 212
         Me.LabelControl2.Text = "Period Ended :"
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 87)
+        Me.LabelControl1.Location = New System.Drawing.Point(14, 107)
+        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(27, 13)
+        Me.LabelControl1.Size = New System.Drawing.Size(34, 16)
         Me.LabelControl1.TabIndex = 210
         Me.LabelControl1.Text = "Title :"
         '
-        'colMM_ADDBACK_AMOUNT
+        'chkTaxNegative
         '
-        Me.colMM_ADDBACK_AMOUNT.Caption = "Add Back Amount"
-        Me.colMM_ADDBACK_AMOUNT.ColumnEdit = Me.txtAmount
-        Me.colMM_ADDBACK_AMOUNT.FieldName = "MM_ADDBACK_AMOUNT"
-        Me.colMM_ADDBACK_AMOUNT.Name = "colMM_ADDBACK_AMOUNT"
-        Me.colMM_ADDBACK_AMOUNT.OptionsColumn.ReadOnly = True
-        Me.colMM_ADDBACK_AMOUNT.OptionsColumn.TabStop = False
-        Me.colMM_ADDBACK_AMOUNT.Visible = True
-        Me.colMM_ADDBACK_AMOUNT.VisibleIndex = 8
-        Me.colMM_ADDBACK_AMOUNT.Width = 100
+        Me.chkTaxNegative.Location = New System.Drawing.Point(787, 78)
+        Me.chkTaxNegative.MenuManager = Me.BarManager1
+        Me.chkTaxNegative.Name = "chkTaxNegative"
+        Me.chkTaxNegative.Properties.Appearance.Options.UseTextOptions = True
+        Me.chkTaxNegative.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top
+        Me.chkTaxNegative.Properties.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
+        Me.chkTaxNegative.Properties.AutoHeight = False
+        Me.chkTaxNegative.Properties.Caption = "2.3 Allowable expenses not entered in P&&L (extracted from the  Balance Sheet)"
+        Me.chkTaxNegative.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.[Default]
+        Me.chkTaxNegative.Properties.GlyphVAlignment = DevExpress.Utils.VertAlignment.Top
+        Me.chkTaxNegative.Size = New System.Drawing.Size(353, 37)
+        Me.chkTaxNegative.TabIndex = 236
         '
-        'colMM_DEDUCT_AMOUNT
+        'chkTaxPositive
         '
-        Me.colMM_DEDUCT_AMOUNT.Caption = "Deduct Amount"
-        Me.colMM_DEDUCT_AMOUNT.ColumnEdit = Me.RepositoryItemTextEdit3
-        Me.colMM_DEDUCT_AMOUNT.FieldName = "MM_DEDUCT_AMOUNT"
-        Me.colMM_DEDUCT_AMOUNT.Name = "colMM_DEDUCT_AMOUNT"
-        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.ReadOnly = True
-        Me.colMM_DEDUCT_AMOUNT.OptionsColumn.TabStop = False
-        Me.colMM_DEDUCT_AMOUNT.Visible = True
-        Me.colMM_DEDUCT_AMOUNT.VisibleIndex = 8
-        Me.colMM_DEDUCT_AMOUNT.Width = 100
+        Me.chkTaxPositive.Location = New System.Drawing.Point(787, 35)
+        Me.chkTaxPositive.MenuManager = Me.BarManager1
+        Me.chkTaxPositive.Name = "chkTaxPositive"
+        Me.chkTaxPositive.Properties.Appearance.Options.UseTextOptions = True
+        Me.chkTaxPositive.Properties.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top
+        Me.chkTaxPositive.Properties.Appearance.TextOptions.WordWrap = DevExpress.Utils.WordWrap.Wrap
+        Me.chkTaxPositive.Properties.AutoHeight = False
+        Me.chkTaxPositive.Properties.Caption = "Taxable gain / must not entered in the P&&L but entered in the Balance Sheet. "
+        Me.chkTaxPositive.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.[Default]
+        Me.chkTaxPositive.Properties.GlyphVAlignment = DevExpress.Utils.VertAlignment.Top
+        Me.chkTaxPositive.Size = New System.Drawing.Size(353, 37)
+        Me.chkTaxPositive.TabIndex = 235
         '
-        'txtTotal_AddBackDeduct
+        'chkNonAllowableExpenses
         '
-        Me.txtTotal_AddBackDeduct.Location = New System.Drawing.Point(283, 674)
-        Me.txtTotal_AddBackDeduct.MenuManager = Me.BarManager1
-        Me.txtTotal_AddBackDeduct.Name = "txtTotal_AddBackDeduct"
-        Me.txtTotal_AddBackDeduct.Properties.DisplayFormat.FormatString = "n0"
-        Me.txtTotal_AddBackDeduct.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtTotal_AddBackDeduct.Properties.EditFormat.FormatString = "n0"
-        Me.txtTotal_AddBackDeduct.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtTotal_AddBackDeduct.Properties.Mask.EditMask = "n0"
-        Me.txtTotal_AddBackDeduct.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtTotal_AddBackDeduct.Properties.NullText = "0"
-        Me.txtTotal_AddBackDeduct.Properties.NullValuePrompt = "0"
-        Me.txtTotal_AddBackDeduct.Properties.NullValuePromptShowForEmptyValue = True
-        Me.txtTotal_AddBackDeduct.Properties.ReadOnly = True
-        Me.txtTotal_AddBackDeduct.Size = New System.Drawing.Size(149, 20)
-        Me.txtTotal_AddBackDeduct.TabIndex = 187
-        Me.txtTotal_AddBackDeduct.Visible = False
+        Me.chkNonAllowableExpenses.Location = New System.Drawing.Point(787, 9)
+        Me.chkNonAllowableExpenses.MenuManager = Me.BarManager1
+        Me.chkNonAllowableExpenses.Name = "chkNonAllowableExpenses"
+        Me.chkNonAllowableExpenses.Properties.Caption = "Non Allowable Expenses"
+        Me.chkNonAllowableExpenses.Size = New System.Drawing.Size(160, 20)
+        Me.chkNonAllowableExpenses.TabIndex = 234
         '
         'frmMovementComplex_Add
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(961, 777)
+        Me.ClientSize = New System.Drawing.Size(1213, 956)
         Me.Controls.Add(Me.XtraScrollableControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
+        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmMovementComplex_Add"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Movement Complex Add"
@@ -1263,6 +1361,7 @@ Partial Class frmMovementComplex_Add
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraScrollableControl1.ResumeLayout(False)
         Me.XtraScrollableControl1.PerformLayout()
+        CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SearchLookUpEdit2View, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SplitContainerControl1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1308,7 +1407,9 @@ Partial Class frmMovementComplex_Add
         CType(Me.dtStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtStart.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTitle.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkTaxNegative.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkTaxPositive.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkNonAllowableExpenses.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1417,4 +1518,7 @@ Partial Class frmMovementComplex_Add
     Friend WithEvents colMM_ADDBACK_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_DEDUCT_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents txtTotal_AddBackDeduct As DevExpress.XtraEditors.TextEdit
+    Friend WithEvents chkTaxNegative As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents chkTaxPositive As DevExpress.XtraEditors.CheckEdit
+    Friend WithEvents chkNonAllowableExpenses As DevExpress.XtraEditors.CheckEdit
 End Class

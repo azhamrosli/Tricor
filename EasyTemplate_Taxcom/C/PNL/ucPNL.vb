@@ -315,9 +315,16 @@ Public Class ucPNL
                 rpt_details.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
                 rpt_details.paramYA.Value = CInt(YA)
                 rpt_details.DataSource = rpt.DsPNL1
-
                 rpt.XrSubreport1.ReportSource = rpt_details
                 rpt.ShowPreview()
+                Application.DoEvents()
+
+                Dim rpt_interest As New rptPNL_InterestResict
+                rpt_interest.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                rpt_interest.paramYA.Value = CInt(YA)
+                rpt_interest.DataSource = rpt.DsPNL1
+                rpt_interest.ShowPreview()
+                Application.DoEvents()
             Else
                 rpt = Nothing
                 MsgBox("Failed to load report.", MsgBoxStyle.Critical)

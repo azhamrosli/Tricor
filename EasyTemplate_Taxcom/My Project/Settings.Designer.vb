@@ -121,6 +121,28 @@ Partial Friend NotInheritable Class Settings
             Me("Password") = value
         End Set
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property LastModule() As String
+        Get
+            Return CType(Me("LastModule"),String)
+        End Get
+        Set
+            Me("LastModule") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("Data Source=AZHAM-LAPTOP;Initial Catalog=TAXCOM_B;User ID=sa;Password=azham91")>  _
+    Public ReadOnly Property TAXCOM_BConnectionString() As String
+        Get
+            Return CType(Me("TAXCOM_BConnectionString"),String)
+        End Get
+    End Property
 End Class
 
 Namespace My
