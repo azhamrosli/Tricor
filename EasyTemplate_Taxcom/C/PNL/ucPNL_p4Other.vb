@@ -65,8 +65,11 @@ Public Class ucPNL_p4Other
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             OTHEREXPENSESBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
-            If isEdit Then
-
+           
+            If dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE") IsNot Nothing AndAlso dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Count > 0 AndAlso mdlPNL2.GetIncludeInReport(TaxComPNLEnuItem.EXPOTHERSEXPENSES, dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE")) Then
+                chkIncludeInReport.EditValue = True
+            Else
+                chkIncludeInReport.EditValue = False
             End If
 
         Catch ex As Exception
@@ -289,5 +292,9 @@ Public Class ucPNL_p4Other
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub chkIncludeInReport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles chkIncludeInReport.ItemClick
+
     End Sub
 End Class

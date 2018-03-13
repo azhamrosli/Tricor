@@ -383,12 +383,23 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="C\Movement\clsMovementNormal.vb" />
+    <Compile Include="C\Note\frmNote.Designer.vb">
+      <DependentUpon>frmNote.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Note\frmNote.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="C\PNL\dsPNL.Designer.vb">
       <DependentUpon>dsPNL.vb</DependentUpon>
     </Compile>
     <Compile Include="C\PNL\dsPNL.vb">
       <DependentUpon>dsPNL.xsd</DependentUpon>
       <SubType>code</SubType>
+    </Compile>
+    <Compile Include="C\PNL\dsPNL1.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPNL.xsd</DependentUpon>
     </Compile>
     <Compile Include="C\PNL\dsPNL2.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1137,6 +1148,9 @@
     <EmbeddedResource Include="C\DeemedInterest\ucDeemedInterest.resx">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\Note\frmNote.resx">
+      <DependentUpon>frmNote.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\Report1.rdlc" />
     <EmbeddedResource Include="C\PNL\Report\rptPNL.resx">
       <DependentUpon>rptPNL.vb</DependentUpon>
@@ -1505,7 +1519,7 @@
     <None Include="C\PNL\dsPNL.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsPNL2.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsPNL1.Designer.vb</LastGenOutput>
     </None>
     <None Include="C\PNL\dsPNL.xss">
       <DependentUpon>dsPNL.xsd</DependentUpon>

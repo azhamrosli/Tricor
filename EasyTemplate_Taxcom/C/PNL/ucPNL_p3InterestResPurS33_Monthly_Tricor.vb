@@ -81,15 +81,18 @@ Public Class ucPNL_p3InterestResPurS33_Monthly_Tricor
                         ElseIf colx.ColumnName = "TypeIncome" Or colx.ColumnName = "KeyID" Then
                             col.Visible = False
                         End If
-
                     Case Else
 
                         Dim item1 As GridGroupSummaryItem = New GridGroupSummaryItem()
                         item1.FieldName = colx.ColumnName
                         item1.SummaryType = DevExpress.Data.SummaryItemType.Sum
-                        item1.DisplayFormat = "{0:n2}"
+                        item1.DisplayFormat = "{0:n0}"
                         item1.ShowInGroupColumnFooter = GridView1.Columns(colx.ColumnName)
                         GridView1.GroupSummary.Add(item1)
+
+                        Dim col As GridColumn = GridView1.Columns(colx.ColumnName)
+
+                        col.ColumnEdit = RepositoryItemTextEdit3
                 End Select
 
             Next

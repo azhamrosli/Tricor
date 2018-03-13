@@ -65,8 +65,16 @@ Public Class ucPNL_p2DivIncome
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             DIVIDENDINCOMEBindingSource.DataSource = dsDataSet.Tables("DIVIDEND_INCOME")
 
-            cboSourceNo1.EditValue = SourceNo
-            cboTypeofIncome.EditValue = "Single Tier"
+
+
+
+            If dsDataSet.Tables("DIVIDEND_INCOME") IsNot Nothing AndAlso dsDataSet.Tables("DIVIDEND_INCOME").Rows.Count > 0 Then
+                cboSourceNo1.EditValue = IIf(IsDBNull(dsDataSet.Tables("DIVIDEND_INCOME").Rows(0)(MainSourceNo)), 0, dsDataSet.Tables("DIVIDEND_INCOME").Rows(0)(MainSourceNo))
+                cboTypeofIncome.EditValue = IIf(IsDBNull(dsDataSet.Tables("DIVIDEND_INCOME").Rows(0)("DI_TRANSFER")), "Single Tier", dsDataSet.Tables("DIVIDEND_INCOME").Rows(0)("DI_TRANSFER"))
+            Else
+                cboSourceNo1.EditValue = SourceNo.EditValue
+                cboTypeofIncome.EditValue = "Single Tier"
+            End If
 
             If isEdit Then
 
@@ -181,6 +189,16 @@ Public Class ucPNL_p2DivIncome
                     row("DI_TAXRATE") = 0
                     Application.DoEvents()
 
+                    If txtPercentage.EditValue Is Nothing OrElse IsNumeric(txtPercentage.EditValue) = False Then
+                        row("DI_Percentage") = 0
+                        row("DI_PercentageAmount") = 0
+                    Else
+                        row("DI_Percentage") = CDec(txtPercentage.EditValue)
+                        row("DI_PercentageAmount") = (CDec(row(MainAmount_DI_GROSS)) / 100) * CDec(txtPercentage.EditValue)
+                    End If
+
+
+
                     If row("DI_TRANSFER") = "Section 4a" Then
 
                         Dim dtRow As DataRow = Nothing
@@ -232,7 +250,7 @@ Public Class ucPNL_p2DivIncome
         Try
             GridView1.GetDataRow(e.RowHandle)(Main_Desc) = Me.Parent.Text
             GridView1.GetDataRow(e.RowHandle)("DI_DATE") = Now
-            GridView1.GetDataRow(e.RowHandle)("DI_TRANSFER") = "Single Tier"
+            GridView1.GetDataRow(e.RowHandle)("DI_TRANSFER") = cboTypeofIncome.EditValue
             GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
 
@@ -240,13 +258,30 @@ Public Class ucPNL_p2DivIncome
     End Sub
 
     Private Sub cboTypeofIncome_EditValueChanged(sender As Object, e As EventArgs) Handles cboTypeofIncome.EditValueChanged
-        Transfer()
+        If cboTypeofIncome.EditValue = "Percentage" Then
+            txtPercentage.Enabled = True
+        Else
+            txtPercentage.Enabled = False
+            Transfer()
+        End If
+
     End Sub
     Private Sub Transfer()
         Try
             Dim dtRow As DataRow = Nothing
             Dim tmpDs As DataSet = New dsPNL
             Dim ds As DataSet = Nothing
+
+
+            For Each row As DataRow In dsDataSet.Tables("DIVIDEND_INCOME").Rows
+               
+                row("DI_TRANSFER") = cboTypeofIncome.EditValue
+                row("DI_Percentage") = 0
+                row("DI_PercentageAmount") = 0
+                Application.DoEvents()
+
+            Next
+            dsDataSet.Tables("DIVIDEND_INCOME").AcceptChanges()
 
             If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
                 Dim contrl As Control = Nothing
@@ -321,19 +356,27 @@ Public Class ucPNL_p2DivIncome
         End Try
     End Sub
 
-    Private Sub GridControl1_Click(sender As Object, e As EventArgs) Handles GridControl1.Click
+    Private Sub txtPercentage_EditValueChanged(sender As Object, e As EventArgs) Handles txtPercentage.EditValueChanged
+        Try
+            Dim Percentage As Decimal = 0
+            Dim MainAmount_DI_GROSSData As Decimal = 0
+            If txtPercentage IsNot Nothing AndAlso IsNumeric(txtPercentage.EditValue) Then
+                Percentage = CDec(txtPercentage.EditValue)
+            End If
 
+            For Each row As DataRow In dsDataSet.Tables("DIVIDEND_INCOME").Rows
+                MainAmount_DI_GROSSData = IIf(IsDBNull(row(MainAmount_DI_GROSS)), 0, row(MainAmount_DI_GROSS))
+
+                row("DI_TRANSFER") = cboTypeofIncome.EditValue
+                row("DI_Percentage") = Percentage
+                row("DI_PercentageAmount") = (MainAmount_DI_GROSSData / 100) * CDec(txtPercentage.EditValue)
+                Application.DoEvents()
+
+            Next
+            dsDataSet.Tables("DIVIDEND_INCOME").AcceptChanges()
+        Catch ex As Exception
+
+        End Try
     End Sub
 
-    Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
-
-    End Sub
-
-    Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
-
-    End Sub
-
-    Private Sub btnDeleteChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
-
-    End Sub
 End Class

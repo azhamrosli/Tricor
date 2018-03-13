@@ -611,7 +611,8 @@
         End Try
     End Function
 #End Region
-    '#Region "DIVIDEND_INCOME"
+#Region "DIVIDEND_INCOME"
+
     '    Private Sub txtTotal_DIVIDEND_INCOME_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_DIVIDEND_INCOME.BeforePrint
     '        Try
     '            Dim PL_KEY As Integer = DIVIDEND_INCOME.GetCurrentColumnValue("DI_KEY")
@@ -686,7 +687,7 @@
     '            Return False
     '        End Try
     '    End Function
-    '#End Region
+#End Region
 #Region "INCOME_NBINTEREST"
     Private Sub txtTotal_INCOME_NBINTEREST_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_INCOME_NBINTEREST.BeforePrint
         Try
@@ -4403,4 +4404,40 @@
     End Function
 #End Region
 
+    Private Sub title_Dividend_Income_Transfer_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles title_Dividend_Income_Transfer.BeforePrint
+        Try
+            Dim TypeofIncome As String = DIVIDEND_INCOME.GetCurrentColumnValue("DI_TRANSFER")
+            Dim Percentage As Decimal = DIVIDEND_INCOME.GetCurrentColumnValue("DI_Percentage")
+
+            If TypeofIncome = "Percentage" Then
+                title_Dividend_Income_Transfer.Text = "Tax Deduct (" & Percentage & "%)"
+            Else
+                title_Dividend_Income_Transfer.Text = "Tax Deduct"
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub txtDividend_Income_Transfer_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtDividend_Income_Transfer.BeforePrint
+        Try
+            Dim TypeofIncome As String = DIVIDEND_INCOME.GetCurrentColumnValue("DI_TRANSFER")
+            Dim Amount As Decimal = 0
+
+            If IsDBNull(DIVIDEND_INCOME.GetCurrentColumnValue("DI_PercentageAmount")) = False AndAlso IsNumeric(DIVIDEND_INCOME.GetCurrentColumnValue("DI_PercentageAmount")) Then
+                Amount = CDec(DIVIDEND_INCOME.GetCurrentColumnValue("DI_PercentageAmount"))
+            Else
+                Amount = 0
+            End If
+            If TypeofIncome = "Percentage" Then
+                txtDividend_Income_Transfer.Text = Amount
+            Else
+                txtDividend_Income_Transfer.Text = TypeofIncome
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

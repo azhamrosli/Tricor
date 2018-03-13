@@ -396,7 +396,7 @@ Public Class frmPNL_Add
                 'txt_p4ReaLossForeExNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT"))
                 'txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
                 'txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
-                txt_p4ExpectedExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
+                txt_p4ExpectedExpenses.EditValue = 0 ' IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
                 CurrentProgress += 5
                 Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
@@ -416,6 +416,17 @@ Public Class frmPNL_Add
                         Progress(CurrentProgress, "Loading " & tmp.LabelTricor & " data...")
                         Application.DoEvents()
 
+
+                    Next
+                End If
+
+                dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Clear()
+
+                Dim dtExclude As DataTable = ADO.Load_PNL_IncludeInReport(ID, ErrorLog)
+
+                If dtExclude IsNot Nothing Then
+                    For Each row As DataRow In dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows
+                        dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").ImportRow(row)
                     Next
                 End If
 
@@ -425,6 +436,7 @@ Public Class frmPNL_Add
 
                 If listofclsPNLLabel IsNot Nothing Then
                     Dim txtamount As DevExpress.XtraEditors.TextEdit
+                    Dim isIncludeInReport As Boolean = False
                     For Each tmp As clsPNL_LabelName In listofclsPNLLabel
                         GetTxtAmount(tmp.Type, txtamount)
                         mdlPNL2.PNL_ReCalcAll_Amount(tmp.Type, dsDataSet, txtamount, ErrorLog)
@@ -435,7 +447,8 @@ Public Class frmPNL_Add
 
 
 
-                txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+                txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, _
+                                                                                       cboMainSource, ErrorLog)
 
             End If
 
@@ -470,7 +483,7 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
-    Private Function GetTxtAmount(ByVal type As TaxComPNLEnuItem, ByRef txtAmount As DevExpress.XtraEditors.TextEdit)
+    Private Sub GetTxtAmount(ByVal type As TaxComPNLEnuItem, ByRef txtAmount As DevExpress.XtraEditors.TextEdit)
         Try
             Select Case type
                 Case TaxComPNLEnuItem.SALES
@@ -565,7 +578,12 @@ Public Class frmPNL_Add
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     txtAmount = txt_p4FAWrittenOff
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                    txtAmount = txt_p4UnreaLossForeEx
+                    If isVersionLicenseType = VersionLicenseType.Tricor Then
+                        txtAmount = txt_p3ForeignCurrExLoss
+                    Else
+                        txtAmount = txt_p4UnreaLossForeEx
+                    End If
+
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
                     txtAmount = txt_p4ReaLossForeExTrade
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
@@ -592,7 +610,8 @@ Public Class frmPNL_Add
         Catch ex As Exception
             txtAmount = txt_p2DivIncome
         End Try
-    End Function
+    End Sub
+   
     Private Sub lblSales_DoubleClick(sender As Object, e As EventArgs) Handles lbl_p1Sales.DoubleClick, lbl_p1OpenStock.DoubleClick, lbl_p1Purchase.DoubleClick, lbl_p1Depreciation.DoubleClick, lbl_p1AllowanceExpenses.DoubleClick, lbl_p1NonAllowableExpenses.DoubleClick, lbl_p1CloseStock.DoubleClick, lbl_p2OtherBizIncome.DoubleClick, lbl_p2ForeignCurrExGain.DoubleClick, lbl_p2InterestIncome.DoubleClick, lbl_p2RoyaltyIncome.DoubleClick, lbl_p2OtherIncome.DoubleClick, lbl_p2ProDispPlantEq.DoubleClick, lbl_p2ProDisInvestment.DoubleClick, lbl_p2ForeIncomeRemmit.DoubleClick, lbl_p2ReaForeExGainNonTrade.DoubleClick, lbl_p2UnreaGainForeEx.DoubleClick, lbl_p2UnreaGainForeExNon.DoubleClick, lbl_p3OtherInterestExHirePur.DoubleClick, lbl_p3ProTechManLeganFees.DoubleClick, lbl_p3TechPayNonResis.DoubleClick, lbl_p3ContractPay.DoubleClick, lbl_p3DirectorFee.DoubleClick, lbl_p3Salary.DoubleClick, lbl_p3COEStock.DoubleClick, lbl_p3Royalty.DoubleClick, lbl_p3Rental.DoubleClick, lbl_p3RepairMain.DoubleClick, lbl_p3ResearchDev.DoubleClick, lbl_p3PromotionAds.DoubleClick, lbl_p3Travelling.DoubleClick, lbl_p3JKDM.DoubleClick, lbl_p3Depreciation.DoubleClick, lbl_p3DonationApp.DoubleClick, lbl_p3DonationNonApp.DoubleClick, lbl_p3Zakat.DoubleClick, lbl_p4LossDispFA.DoubleClick, lbl_p4EntNonStaff.DoubleClick, lbl_p4EntStaff.DoubleClick, lbl_p4Compound.DoubleClick, lbl_p4ProvisionAcc.DoubleClick, lbl_p4LeavePass.DoubleClick, lbl_p4FAWrittenOff.DoubleClick, lbl_p4UnreaLossForeEx.DoubleClick, lbl_p4ReaLossForeExTrade.DoubleClick, lbl_p4ReaLossForeExNonTrade.DoubleClick, lbl_p4InitSub.DoubleClick, lbl_p4CAExpenditure.DoubleClick, lbl_p4Other.DoubleClick, lbl_p2RentalIncome.DoubleClick, lblP4NonAllowableExpenses.DoubleClick, lbl_p2Other.DoubleClick, lbl_p2ExemptDividend.DoubleClick, lbl_p3InterestResPurS33.DoubleClick, lbl_p2DivIncome.DoubleClick, lbl_p3ForeignCurrExLoss.DoubleClick
         Try
 
@@ -921,7 +940,14 @@ Public Class frmPNL_Add
             Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
             CurrentProgress = 6
+            Dim isIncludeInReport As Boolean = True
             If listofclsPNLLabel IsNot Nothing Then
+                dtrow = Nothing
+
+                dtrow = dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").NewRow
+
+                dtrow("PL_KEY") = tmpID
+
                 For Each tmp As clsPNL_LabelName In listofclsPNLLabel
                     CurrentProgress += 1
                     If mdlProcess.isVersionLicenseType = VersionLicenseType.Tricor Then
@@ -934,8 +960,15 @@ Public Class frmPNL_Add
                         Dim x As Integer = 0
                     End If
 
-                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd, txtRefNo.EditValue, cboYA.EditValue, ErrorLog)
+                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd, txtRefNo.EditValue, cboYA.EditValue, isIncludeInReport, ErrorLog)
+                    Application.DoEvents()
+                    Me.InsertIncludeInReport(isIncludeInReport, tmp.Type, dtrow)
+
                 Next
+
+                dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Add(dtrow)
+                Application.DoEvents()
+                ADO.Save_PNL_ExcludeInReport(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE"), ListofCmd, ErrorLog)
             End If
             CurrentProgress += 1
             Progress(CurrentProgress, "Ready to saving " & ListofCmd.Count & " data(s)...")
@@ -948,7 +981,6 @@ Public Class frmPNL_Add
                     isSuccessfullySaved(tmpID)
                     If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
                         MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
-
                     End If
                 Else
                     Progress(100, "Failed to saving " & ListofCmd.Count & " data(s)...")
@@ -962,6 +994,18 @@ Public Class frmPNL_Add
             If ErrorLog IsNot Nothing Then
                 MsgBox(ErrorLog.ErrorMessage)
             End If
+        End Try
+    End Sub
+    Private Sub InsertIncludeInReport(ByVal isIncludeInReport As Boolean, ByVal Type As TaxComPNLEnuItem, ByVal dtrow As DataRow)
+        Try
+            Select Case Type
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    dtrow("PL_OTHER_EXP_OTHERS") = isIncludeInReport
+
+
+            End Select
+        Catch ex As Exception
+
         End Try
     End Sub
     Private Sub isSuccessfullySaved(ByVal KeyID As Integer)
@@ -1172,7 +1216,11 @@ Public Class frmPNL_Add
             End If
 
             Dim NonAllowableExpenses As Decimal = 0
-            Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, BalacingFigure, NonAllowableExpenses, cboRefNo.EditValue, cboYA.EditValue, ErrorLog)
+            Dim TotalExpenses As Decimal = mdlPNL.CalcExpenses(p3ForeignCurrExLoss, p3OtherInterestExHirePur, p3ProTechManLeganFees, p3TechPayNonResis, _
+                                                               p3ContractPay, p3DirectorFee, p3Salary, p3COEStock, _
+                                                               p3Royalty, p3Rental, p3RepairMain, p3ResearchDev, p3PromotionAds, _
+                                                               p3Travelling, p3JKDM, p3InterestResPurS33, p4TotalOtherExpenses, _
+                                                               BalacingFigure, NonAllowableExpenses, cboRefNo.EditValue, cboYA.EditValue, cboMainSource, ErrorLog)
 
             txt_p4NonAllowableExpenses.EditValue = NonAllowableExpenses
             txt_p4TotalExpenses.EditValue = CDec(TotalExpenses)
@@ -1193,10 +1241,13 @@ Public Class frmPNL_Add
     Public Sub GetOtherBalancingFigureRefresh(ByVal TotalExpenses As Decimal, ByVal ExpectedExpenses As Decimal, _
                                                     Optional ByRef Errorlog As clsError = Nothing)
         Try
-            Dim dblOtherBalancingFigure As Decimal = ExpectedExpenses - TotalExpenses
+            If ExpectedExpenses <> 0 Then
+                Dim dblOtherBalancingFigure As Decimal = ExpectedExpenses - TotalExpenses
 
 
-            txt_p4OtherBalacingFigure.EditValue = dblOtherBalancingFigure
+                txt_p4OtherBalacingFigure.EditValue = dblOtherBalancingFigure
+            End If
+         
             'If TotalExpenses < txtTotalExpensesDic Then
             '    dblOtherBalancingFigure = txtTotalExpensesDic - TotalExpenses
             '    If dblOtherBalancingFigure >= ExpTotalBalance Then
@@ -1228,7 +1279,10 @@ Public Class frmPNL_Add
             'dblNetProfitLoss = GetGrossProfitLoss() + dicPNL("OtherBusinessIncome") + GetTotalOtherNonBusinessIncome() + GetTotalNonTaxableIncome() - GetTotalExpensesDic() + dicPNL("RealFETrade")
             'Return dblNetProfitLoss
 
-            Dim NetProfitLoss As Decimal = CDec(txt_p1GrossProfitLoss.EditValue) + CDec(txt_p2OtherBizIncome.EditValue) + CDec(txt_p2NonBizIncome.EditValue) + CDec(txt_p2ForeignCurrExGain.EditValue) - CDec(txt_p4TotalExpenses.EditValue)
+            ' Dim NetProfitLoss As Decimal = CDec(txt_p1GrossProfitLoss.EditValue) + CDec(txt_p2OtherBizIncome.EditValue) 
+            '+ CDec(txt_p2NonBizIncome.EditValue) + CDec(txt_p2ForeignCurrExGain.EditValue) - CDec(txt_p4TotalExpenses.EditValue)
+
+            Dim NetProfitLoss As Decimal = CDec(txt_p1GrossProfitLoss.EditValue) + CDec(txt_p2NonBizIncome.EditValue) + CDec(txt_p2NonTaxProfit.EditValue) + CDec(txt_p2OtherBizIncome.EditValue) - CDec(txt_p4TotalExpenses.EditValue) + CDec(txt_p2ForeignCurrExGain.EditValue)
 
             txt_p4NetProfitLoss.EditValue = NetProfitLoss
             txtNetProfit2.EditValue = NetProfitLoss
@@ -6391,4 +6445,5 @@ Public Class frmPNL_Add
 
         End Try
     End Sub
+
 End Class

@@ -927,6 +927,24 @@ tryagain:
 
 
     End Function
+    Public Function ProcessDoctoByte(ByVal Url As String) As Byte()
+        Try
+            Dim fInfo As New FileInfo(Url)
+            Dim numBytes As Long = fInfo.Length
+
+            Dim fStream As New FileStream(Url, FileMode.Open, FileAccess.Read)
+            Dim br As New BinaryReader(fStream)
+            Dim data As Byte() = br.ReadBytes(CInt(numBytes))
+
+            ' Show the number of bytes in the array.
+            br.Close()
+            fStream.Close()
+
+            Return data
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
     Public Sub GetImage(ByVal imgbyte As Byte(), Picbox As PictureBox)
         If imgbyte IsNot Nothing AndAlso imgbyte.Count > 0 Then
             Dim stream As New IO.MemoryStream()

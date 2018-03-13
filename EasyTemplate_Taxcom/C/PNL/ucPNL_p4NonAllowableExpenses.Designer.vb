@@ -45,6 +45,7 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colSourceNo = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colTitleKeyName = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colDescription = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colAmount = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -240,11 +241,14 @@ Partial Class ucPNL_p4NonAllowableExpenses
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colKeyName, Me.colTitleKeyName, Me.colDescription, Me.colAmount})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colID, Me.colKeyName, Me.colSourceNo, Me.colTitleKeyName, Me.colDescription, Me.colAmount})
         Me.GridView1.GridControl = Me.GridControl1
+        Me.GridView1.GroupCount = 1
+        Me.GridView1.GroupSummary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Amount", Me.colAmount, "{0:n0}")})
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
         Me.GridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.GridView1.OptionsBehavior.AutoExpandAllGroups = True
         Me.GridView1.OptionsBehavior.Editable = False
         Me.GridView1.OptionsDetail.AllowExpandEmptyDetails = True
         Me.GridView1.OptionsDetail.AllowOnlyOneMasterRowExpanded = True
@@ -255,6 +259,7 @@ Partial Class ucPNL_p4NonAllowableExpenses
         Me.GridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom
         Me.GridView1.OptionsView.RowAutoHeight = True
         Me.GridView1.OptionsView.ShowFooter = True
+        Me.GridView1.SortInfo.AddRange(New DevExpress.XtraGrid.Columns.GridColumnSortInfo() {New DevExpress.XtraGrid.Columns.GridColumnSortInfo(Me.colSourceNo, DevExpress.Data.ColumnSortOrder.Ascending)})
         '
         'colID
         '
@@ -265,6 +270,13 @@ Partial Class ucPNL_p4NonAllowableExpenses
         '
         Me.colKeyName.FieldName = "KeyName"
         Me.colKeyName.Name = "colKeyName"
+        '
+        'colSourceNo
+        '
+        Me.colSourceNo.FieldName = "SourceNo"
+        Me.colSourceNo.Name = "colSourceNo"
+        Me.colSourceNo.Visible = True
+        Me.colSourceNo.VisibleIndex = 0
         '
         'colTitleKeyName
         '
@@ -346,5 +358,6 @@ Partial Class ucPNL_p4NonAllowableExpenses
     Friend WithEvents colTitleKeyName As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colDescription As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colAmount As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colSourceNo As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

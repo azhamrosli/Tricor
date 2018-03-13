@@ -131,7 +131,8 @@ Module mdlPNL2
     End Sub
     Public Function PNL_GetSaveData(ByVal PNL_Key As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                     ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), _
-                                    ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    ByVal RefNo As String, ByVal YA As String, _
+                                    Optional ByRef isIncludeInReport As Boolean = True, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Dim contrl As Control = Nothing
             Dim ds As DataSet = Nothing
@@ -1076,7 +1077,15 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
                         ADO.Save_OTHER_EXPENSES(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
+
+
+
                     End If
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     If P2_docDivIncome IsNot Nothing AndAlso P2_docDivIncome.Controls.Count > 0 Then
@@ -1111,6 +1120,25 @@ Module mdlPNL2
             Return False
         End Try
     End Function
+    Public Function GetIncludeInReport(ByVal type As TaxComPNLEnuItem, ByVal dt As DataTable) As Boolean
+        Try
+            Select Case type
+                Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
+                    If dt IsNot Nothing AndAlso IsDBNull(dt.Rows(0)("PL_OTHER_EXP_OTHERS")) = False AndAlso CBool(dt.Rows(0)("PL_OTHER_EXP_OTHERS")) = True Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+
+                Case Else
+                    Return True
+            End Select
+            Return True
+        Catch ex As Exception
+            Return True
+        End Try
+    End Function
+
     Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Select Case Type
@@ -5593,12 +5621,14 @@ Module mdlPNL2
 
             Dim tmpDt As DataTable = Nothing
             Dim dtRow As DataRow = Nothing
+            Dim dtExclude As DataTable
             Dim PNL_KEY As Integer = 0
             Dim ScheduleInt As Integer = 0
             Dim ColumnName As String = Nothing
             Dim isHaveData As Boolean = False
             Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
+            ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE_REPORT").Rows.Clear()
             ClearMemoryDataset()
 
             For i As Integer = 0 To dtPNL.Rows.Count - 1
@@ -5773,9 +5803,6 @@ Module mdlPNL2
 
                             Case TaxComPNLEnuItem.INTERESTRESTRICT
                                 ColumnName = "PL_EXP_INTRESTRICT"
-
-
-
                             Case TaxComPNLEnuItem.DIVIDENDINC
                                 ColumnName = "PL_OTH_IN_DIVIDEND"
 
@@ -5789,12 +5816,20 @@ Module mdlPNL2
                         Else
                             dtRow(ColumnName) = DBNull.Value
                         End If
+
                         Application.DoEvents()
                     Next
                 End If
 
                 ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
 
+                dtExclude = ADO.Load_PNL_IncludeInReport(PNL_KEY, Errorlog)
+
+                If dtExclude IsNot Nothing Then
+                    For Each row As DataRow In dtExclude.Rows
+                        ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE_REPORT").ImportRow(row)
+                    Next
+                End If
             Next
 
             Return True
@@ -6188,6 +6223,8 @@ Module mdlPNL2
 
                 dtRow = ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT_Tricor").NewRow
                 dtRow("TotalColumn") = MonthDuration
+                dtRow("DateFrom") = BasisPeriod
+                dtRow("DateTo") = CurrBasisPeriod.AddMonths(+MonthDuration)
                 ColIndex = 0
                 For Each row As DataRow In tmpDt_Data.Rows
 

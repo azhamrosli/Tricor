@@ -1891,13 +1891,13 @@ Partial Public Class rptPNL
         '
         Me.P3InterestResPurS33.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel81, Me.XrLabel82, Me.XrLabel83})
         Me.P3InterestResPurS33.FormattingRules.Add(Me.INTERESTRESTRICT)
-        Me.P3InterestResPurS33.HeightF = 46.0!
+        Me.P3InterestResPurS33.HeightF = 23.0!
         Me.P3InterestResPurS33.Name = "P3InterestResPurS33"
         '
         'XrLabel81
         '
         Me.XrLabel81.Font = New System.Drawing.Font("Arial", 9.75!)
-        Me.XrLabel81.LocationFloat = New DevExpress.Utils.PointFloat(53.74966!, 22.99995!)
+        Me.XrLabel81.LocationFloat = New DevExpress.Utils.PointFloat(53.74966!, 0.0!)
         Me.XrLabel81.Name = "XrLabel81"
         Me.XrLabel81.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel81.SizeF = New System.Drawing.SizeF(321.8751!, 23.0!)

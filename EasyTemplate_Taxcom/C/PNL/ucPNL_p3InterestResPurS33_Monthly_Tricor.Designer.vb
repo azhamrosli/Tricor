@@ -44,7 +44,7 @@ Partial Class ucPNL_p3InterestResPurS33_Monthly_Tricor
         Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit3})
-        Me.GridControl1.Size = New System.Drawing.Size(871, 518)
+        Me.GridControl1.Size = New System.Drawing.Size(747, 421)
         Me.GridControl1.TabIndex = 20
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -81,12 +81,11 @@ Partial Class ucPNL_p3InterestResPurS33_Monthly_Tricor
         '
         'ucPNL_p3InterestResPurS33_Monthly_Tricor
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p3InterestResPurS33_Monthly_Tricor"
-        Me.Size = New System.Drawing.Size(871, 518)
+        Me.Size = New System.Drawing.Size(747, 421)
         CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.INTERESTRESTRICMONTLYREPORTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsPNL, System.ComponentModel.ISupportInitialize).EndInit()

@@ -36,11 +36,15 @@ Public Class ucCP204
                 cboYA.EditValue = ""
             End If
 
+            Dim MonthSearch As Integer = 0
+
             If txtMonth.EditValue Is Nothing OrElse IsNumeric(txtMonth.EditValue) = False Then
-                txtMonth.EditValue = -1
+                MonthSearch = -1
+            Else
+                MonthSearch = CDec(txtMonth.EditValue)
             End If
 
-            Dim dt As DataTable = ADO.Load_CP204_Search(cboRefNo.EditValue, cboYA.EditValue, CInt(txtMonth.EditValue), ErrorLog)
+            Dim dt As DataTable = ADO.Load_CP204_Search(cboRefNo.EditValue, cboYA.EditValue, MonthSearch, ErrorLog)
 
             DsCP204.Tables("BORANG_CP204").Rows.Clear()
 
@@ -211,7 +215,7 @@ Public Class ucCP204
                 dtRow("CP_INSTALLMENT_AMOUNT") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
                 dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_1")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_1"))
                 dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_1")), 0, dt.Rows(i)("CP_AMOUNT_PAID_1"))
-
+                '  dtRow("CP_TOTAL_INSTALLMENT") = IIf(IsDBNull(dt.Rows(i)("BCP_ESTIMATED_TAX")), 0, dt.Rows(i)("BCP_ESTIMATED_TAX"))
 
                 If IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")) = False AndAlso IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")) = False AndAlso CDec(dt.Rows(i)("CP_AMOUNT_PAID_2")) <> 0 Then
                     dtRow("CP_PENALTY") = 0
@@ -229,11 +233,11 @@ Public Class ucCP204
                     dtRow("CP_ID") = IIf(IsDBNull(dt.Rows(i)("CP_ID")), 0, dt.Rows(i)("CP_ID"))
                     dtRow("CP_PARENTID") = IIf(IsDBNull(dt.Rows(i)("CP_PARENTID")), 0, dt.Rows(i)("CP_PARENTID"))
                     dtRow("CP_INSTALL_NO") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALL_NO")), 0, dt.Rows(i)("CP_INSTALL_NO"))
-                    dtRow("CP_PAYMENT_DUE") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DUE")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DUE"))
-                    dtRow("CP_INSTALLMENT_AMOUNT") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
+                    dtRow("CP_PAYMENT_DUE") = DBNull.Value 'IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DUE")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DUE"))
+                    dtRow("CP_INSTALLMENT_AMOUNT") = DBNull.Value 'IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
                     dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_2"))
                     dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")), 0, dt.Rows(i)("CP_AMOUNT_PAID_2"))
-
+                    '  dtRow("CP_TOTAL_INSTALLMENT") = IIf(IsDBNull(dt.Rows(i)("BCP_ESTIMATED_TAX")), 0, dt.Rows(i)("BCP_ESTIMATED_TAX"))
                     dtRow("CP_PENALTY") = IIf(IsDBNull(dt.Rows(i)("CP_PENALTY")), 0, dt.Rows(i)("CP_PENALTY"))
                     DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Add(dtRow)
 
@@ -242,7 +246,9 @@ Public Class ucCP204
             Next
 
             Dim rpt As New rpt_CP204_Breakdown
-            rpt.paramCompanyName.Value = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_CO_NAME")
+            ' Dim ComName As String = GridView1
+            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_REF_NO"))
+            '  rpt.paramCompanyName.Value =' .ToString.ToUpper
             rpt.paramYA.Value = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_YA")
             rpt.paramApendix.Value = "APPENDIX"
             rpt.DataSource = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT")

@@ -316,15 +316,55 @@ Public Class ucPNL
                 rpt_details.paramYA.Value = CInt(YA)
                 rpt_details.DataSource = rpt.DsPNL1
                 rpt.XrSubreport1.ReportSource = rpt_details
-                rpt.ShowPreview()
+                rpt.CreateDocument()
                 Application.DoEvents()
 
                 Dim rpt_interest As New rptPNL_InterestResict
                 rpt_interest.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
                 rpt_interest.paramYA.Value = CInt(YA)
                 rpt_interest.DataSource = rpt.DsPNL1
-                rpt_interest.ShowPreview()
+                rpt_interest.CreateDocument()
                 Application.DoEvents()
+
+
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
+                    rpt.Pages.Add(pg)
+                Next
+
+                ''Do While x < minPageCount
+                ''    rpt.Pages.Insert(x * 2 + 1, rpt2.Pages(x))
+                ''    '  rpt1.Pages.Insert(x * 2 + 1, rpt3.Pages(x))
+                ''    x += 1
+                ''Loop
+
+                'If rpt_interest.Pages.Count <> minPageCount Then
+                '    x = minPageCount
+                '    Do While x < rpt_interest.Pages.Count
+                '        rpt1.Pages.Add(rpt2.Pages(x))
+                '        x += 1
+                '    Loop
+                'End If
+
+                'If rpt3.Pages.Count <> minPageCount Then
+                '    x = minPageCount
+                '    Do While x < rpt3.Pages.Count
+                '        rpt1.Pages.Add(rpt3.Pages(x))
+                '        x += 1
+                '    Loop
+                'End If
+
+                ' Reset all page numbers in the resulting document. 
+                ' rpt1.PrintingSystem.ContinuousPageNumbering = True
+
+                ' Show the Print Preview form (in a WinForms application). 
+                Dim printTool As New ReportPrintTool(rpt)
+                printTool.ShowPreviewDialog()
+
+
             Else
                 rpt = Nothing
                 MsgBox("Failed to load report.", MsgBoxStyle.Critical)
@@ -334,5 +374,11 @@ Public Class ucPNL
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Dim frm As New frmNote
+        frm.ShowDialog()
+
     End Sub
 End Class

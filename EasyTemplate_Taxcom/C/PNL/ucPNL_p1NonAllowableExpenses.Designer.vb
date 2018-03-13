@@ -400,12 +400,12 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.btnDelete.Id = 4
         Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
         Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
+        Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem3.Text = "Delete record"
         ToolTipItem3.LeftIndent = 6
-        ToolTipItem3.Text = "Delete record Ctrl + Y"
+        ToolTipItem3.Text = "Delete record [Delete]"
         SuperToolTip3.Items.Add(ToolTipTitleItem3)
         SuperToolTip3.Items.Add(ToolTipItem3)
         Me.btnDelete.SuperTip = SuperToolTip3
@@ -416,13 +416,13 @@ Partial Class ucPNL_p1NonAllowableExpenses
         Me.btnDeleteChild.Id = 5
         Me.btnDeleteChild.ImageOptions.Image = CType(resources.GetObject("btnDeleteChild.ImageOptions.Image"), System.Drawing.Image)
         Me.btnDeleteChild.ImageOptions.LargeImage = CType(resources.GetObject("btnDeleteChild.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnDeleteChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.U))
+        Me.btnDeleteChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Delete))
         Me.btnDeleteChild.Name = "btnDeleteChild"
         Me.btnDeleteChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem4.Text = "Delete record"
         ToolTipItem4.LeftIndent = 6
-        ToolTipItem4.Text = "Delete record Ctrl + U" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "How to use : Please select the main row first then contin" & _
-    "ues with select child row(s)."
+        ToolTipItem4.Text = "Delete record [Ctrl + Delete]" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "How to use : Please select the main row first then" & _
+    " continues with select delete row(s)."
         SuperToolTip4.Items.Add(ToolTipTitleItem4)
         SuperToolTip4.Items.Add(ToolTipItem4)
         Me.btnDeleteChild.SuperTip = SuperToolTip4

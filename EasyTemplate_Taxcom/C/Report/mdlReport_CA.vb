@@ -537,6 +537,7 @@
             Dim DISP_AMOUNT As Decimal = 0
             Dim IndexNo As Integer = 0
             Dim dt As DataTable = ADO.Load_HP(HP_KEY)
+            Dim dtCategory As DataTable = Nothing
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -559,7 +560,16 @@
 
                 HP_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CODE")), "", dt.Rows(0)("HP_CODE")))
                 CA_ASSET = CStr(IIf(IsDBNull(dt.Rows(0)("HP_ASSET")), "", dt.Rows(0)("HP_ASSET")))
-                CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CATEGORY_CODE")), "", dt.Rows(0)("HP_CATEGORY_CODE")))
+
+                dtCategory = ADO.LoadCategory(CStr(IIf(IsDBNull(dt.Rows(0)("HP_CATEGORY_CODE")), "", dt.Rows(0)("HP_CATEGORY_CODE"))), Errorlog)
+
+                If dtCategory IsNot Nothing Then
+                    CA_CATEGORY = CStr(IIf(IsDBNull(dtCategory.Rows(0)("CA_CATEGORY")), "", dtCategory.Rows(0)("CA_CATEGORY")))
+
+                Else
+                    CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CATEGORY_CODE")), "", dt.Rows(0)("HP_CATEGORY_CODE")))
+                End If
+
                 CA_PURCHASE_YEAR = CInt(IIf(IsDBNull(dt.Rows(0)("HP_YA")), 0, dt.Rows(0)("HP_YA")))
                 HP_PRINCIPAL = CDec(IIf(IsDBNull(dt.Rows(0)("HP_PRINCIPAL")), 0, dt.Rows(0)("HP_PRINCIPAL")))
                 HP_INTEREST_RATE = CInt(IIf(IsDBNull(dt.Rows(0)("HP_INTEREST_RATE")), 0, dt.Rows(0)("HP_INTEREST_RATE")))

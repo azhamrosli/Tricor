@@ -27,6 +27,50 @@ Public Class clsMovementNormal
 
         End Try
     End Sub
+    Public Function LoadWordMovement(ByRef AutoSouce As AutoCompleteStringCollection, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            Dim SqlCon As SqlConnection
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT TOP 1000 MM_Description FROM MOVEMENT_ADD ORDER BY MM_ID DESC UNION SELECT TOP 1000 MM_Description FROM MOVEMENT_DEDUCT ORDER BY MM_ID DESC"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+
+            Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing Then
+
+                If AutoSouce Is Nothing Then
+                    AutoSouce = New AutoCompleteStringCollection
+                Else
+                    AutoSouce.Clear()
+                End If
+                For Each row As DataRow In dt.Rows
+                    AutoSouce.Add(row("MM_Description"))
+                Next
+
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
     Public Sub SearchListData(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
         Try
             Dim dt As DataTable = Me.Load_MovementNormal_Search(RefNo, YA, ErrorLog)
@@ -312,7 +356,7 @@ Public Class clsMovementNormal
 #End Region
 #Region "SAVE"
     Public Function Save_MovementNormal(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
-                                        ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
+                                        ByVal TypeDate As String, ByVal YearEnded As DateTime, _
                                         ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                         ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
                                         ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, ByVal TypePass As Integer, _
@@ -329,13 +373,13 @@ Public Class clsMovementNormal
             Dim SQLcmd As SqlCommand
             Dim tmpID As Decimal = 0
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_TYPE,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_TYPE,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
-            SQLcmd.Parameters.Add("@MM_PERIOD_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(PeriodEnd), Now, PeriodEnd)
+            SQLcmd.Parameters.Add("@MM_TYPE", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(TypeDate), "", TypeDate)
             SQLcmd.Parameters.Add("@MM_YEAR_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(YearEnded), Now, YearEnded)
             SQLcmd.Parameters.Add("@MM_BALANCE_START", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceStart), Now, BalanceStart)
             SQLcmd.Parameters.Add("@MM_BALANCE_END", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceEnd), Now, BalanceEnd)
@@ -415,7 +459,7 @@ Public Class clsMovementNormal
 #End Region
 #Region "UPDATE"
     Public Function Update_MovementNormal(ByVal ID As Integer, ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
-                                      ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
+                                      ByVal TypeDate As String, ByVal YearEnded As DateTime, _
                                       ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                       ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
                                       ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, ByVal TypePass As Integer, _
@@ -432,7 +476,7 @@ Public Class clsMovementNormal
             Dim tmpID As Decimal = 0
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_TYPE=@MM_TYPE,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -440,7 +484,7 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
-            SQLcmd.Parameters.Add("@MM_PERIOD_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(PeriodEnd), Now, PeriodEnd)
+            SQLcmd.Parameters.Add("@MM_TYPE", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(TypeDate), "", TypeDate)
             SQLcmd.Parameters.Add("@MM_YEAR_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(YearEnded), Now, YearEnded)
             SQLcmd.Parameters.Add("@MM_BALANCE_START", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceStart), Now, BalanceStart)
             SQLcmd.Parameters.Add("@MM_BALANCE_END", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceEnd), Now, BalanceEnd)

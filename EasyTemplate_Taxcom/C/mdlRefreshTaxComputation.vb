@@ -2450,6 +2450,7 @@ Module mdlRefreshTaxComputation
 
                         TC_AI_ADJ_IN_LOSS = adjustedincome
 
+                        Application.DoEvents()
 
                         ADO.Update_AdjTaxcom(TaxcomID, TC_AI_DIVIDEND, TC_AI_RENTAL, TC_AI_ROYALTY, TC_AI_INTEREST, TC_AI_SEC4A, TC_AI_PNL_BAL, TC_AI_ADJ_BS_EXP_NA_EXP, TC_AI_ADJ_BS_IN_NA_LOS, TC_AI_ADJ_BS_IN_NT_IN, TC_AI_TOT_NONBS_IN, TC_AI_TOT_BS_IN, TC_AI_ADJ_BS_IN_TAX_IN, TC_AI_ADJ_BS_EXP_INT, TC_AI_ADJ_BS_EXP_RV_EXP, TC_AI_ADJ_BS_EXP_CLAIM, TC_AI_TOT_ADJ_BS_EXP, TC_OTHERDEDUCTION, TC_AI_TOT_ADJ_BS_IN, TC_AI_ADJ_IN_LOSS)
 
@@ -2487,38 +2488,40 @@ Module mdlRefreshTaxComputation
             dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
 
             If dtMovement IsNot Nothing Then
-                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
-                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
-                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                Dim ListofCmd As New List(Of SqlCommand)
+                ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
+                For i As Integer = 0 To dtMovement.Rows.Count - 1
+                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+                        If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
+                            Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
 
-                        Dim ListofCmd As New List(Of SqlCommand)
-                        dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
-
-                        If dtData IsNot Nothing Then
-                            ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
+                            dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
                             Dim tmpAmount As Decimal = 0
-                            For Each row As DataRow In dtData.Rows
+                            If dtData IsNot Nothing Then
 
-                                If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
-                                    tmpAmount = row("TI_AMOUNT")
+                                For Each row As DataRow In dtData.Rows
+
+                                    If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
+                                        tmpAmount = row("TI_AMOUNT")
+                                    End If
+                                    ' ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                                Next
+
+                            Else
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
-                                ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
 
-                            Next
-
-                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                                ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
                             End If
-
-                            ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-
                             If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
                                 Return False
                             End If
-
                         End If
                     End If
-                End If
+                Next
+
             End If
             Application.DoEvents()
 
@@ -2527,38 +2530,42 @@ Module mdlRefreshTaxComputation
             dtMovement = ADO.Load_MovementComplex(RefNo, YA, ErrorLog)
 
             If dtMovement IsNot Nothing Then
-                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
-                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
-                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                Dim ListofCmd As New List(Of SqlCommand)
+                ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
+                For i As Integer = 0 To dtMovement.Rows.Count - 1
+                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+                        If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
+                            Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
 
-                        Dim ListofCmd As New List(Of SqlCommand)
-                        dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
 
-                        If dtData IsNot Nothing Then
-                            ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
-                            Dim tmpAmount As Decimal = 0
-                            For Each row As DataRow In dtData.Rows
+                            dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
 
-                                If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
-                                    tmpAmount = row("TI_AMOUNT")
+                            If dtData IsNot Nothing Then
+
+                                Dim tmpAmount As Decimal = 0
+                                For Each row As DataRow In dtData.Rows
+
+                                    If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
+                                        tmpAmount = row("TI_AMOUNT")
+                                    End If
+                                    '  ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                                Next
+
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
-                                ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
 
-                            Next
+                                ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
 
-                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                                If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                                    Return False
+                                End If
+
                             End If
-
-                            ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-
-                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                                Return False
-                            End If
-
                         End If
                     End If
-                End If
+                Next
             End If
 
             Return Amount
@@ -2583,29 +2590,34 @@ Module mdlRefreshTaxComputation
 
                         Dim ListofCmd As New List(Of SqlCommand)
                         dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
-
+                        Dim tmpAmount As Integer = 0
                         If dtData IsNot Nothing Then
                             ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
-                            Dim tmpAmount As Decimal = 0
+
                             For Each row As DataRow In dtData.Rows
 
                                 If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
                                     tmpAmount = row("RE_AMOUNT")
                                 End If
-                                ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+                                '  ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
 
                             Next
 
                             If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
                                 tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
                             End If
-
                             ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-
-                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                                Return False
+                          
+                        Else
+                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
                             End If
+                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
+                        End If
 
+
+                        If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                            Return False
                         End If
                     End If
                 End If
@@ -2623,16 +2635,16 @@ Module mdlRefreshTaxComputation
 
                         Dim ListofCmd As New List(Of SqlCommand)
                         dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
-
+                        Dim tmpAmount As Integer = 0
+                        ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
                         If dtData IsNot Nothing Then
-                            ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
-                            Dim tmpAmount As Decimal = 0
+
                             For Each row As DataRow In dtData.Rows
 
                                 If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
                                     tmpAmount = row("RE_AMOUNT")
                                 End If
-                                ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+                                ' ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
 
                             Next
 
@@ -2642,10 +2654,16 @@ Module mdlRefreshTaxComputation
 
                             ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
 
-                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                                Return False
+                            
+                        Else
+                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
                             End If
 
+                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
+                        End If
+                        If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                            Return False
                         End If
                     End If
                 End If

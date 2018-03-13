@@ -4,6 +4,7 @@ Public Class frmMovement_Add
     Dim ErrorLog As clsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
+    Dim autosource As AutoCompleteStringCollection = Nothing
     Sub New()
 
         If clsMoveNormal Is Nothing Then
@@ -37,12 +38,12 @@ Public Class frmMovement_Add
             End If
 
 
-            dtStart.EditValue = Now
+            cboType.EditValue = "Year Ended"
             dtEnded.EditValue = New DateTime(DateTime.Now.Year, 12, 31)
             dtBalanceStart.EditValue = Now
             dtBalanceEnd.EditValue = New DateTime(DateTime.Now.Year, 12, 31)
 
-
+            clsMoveNormal.LoadWordMovement(autosource)
 
             If isEdit = False Then
                 If mdlProcess.ArgParam2 <> "" Then
@@ -65,7 +66,7 @@ Public Class frmMovement_Add
                 cboRefNo.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_REFNO")), "", dt.Rows(0)("MM_REFNO"))
                 cboYA.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_YA")), "", dt.Rows(0)("MM_YA"))
                 txtTitle.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_TITLE")), "", dt.Rows(0)("MM_TITLE"))
-                dtStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_PERIOD_ENDED")), Now, dt.Rows(0)("MM_PERIOD_ENDED"))
+                cboType.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_TYPE")), "Year Ended", dt.Rows(0)("MM_TYPE"))
                 dtEnded.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_YEAR_ENDED")), Now, dt.Rows(0)("MM_YEAR_ENDED"))
                 dtBalanceStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_BALANCE_START")), Now, dt.Rows(0)("MM_BALANCE_START"))
                 dtBalanceEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_BALANCE_END")), Now, dt.Rows(0)("MM_BALANCE_END"))
@@ -75,23 +76,24 @@ Public Class frmMovement_Add
                 txtNoteEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_END")), 0, dt.Rows(0)("MM_NOTE_END"))
                 txtTotalAmount_AddbackDeduct.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT")), 0, dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
 
-                If IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 1 Then
-                    chkNonAllowableExpenses.Checked = True
-                    chkTaxPositive.Checked = False
-                    chkTaxNegative.Checked = False
-                ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 2 Then
-                    chkNonAllowableExpenses.Checked = False
-                    chkTaxPositive.Checked = True
-                    chkTaxNegative.Checked = False
-                ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 3 Then
-                    chkNonAllowableExpenses.Checked = False
-                    chkTaxPositive.Checked = False
-                    chkTaxNegative.Checked = True
-                Else
-                    chkNonAllowableExpenses.Checked = False
-                    chkTaxPositive.Checked = False
-                    chkTaxNegative.Checked = False
-                End If
+                RGType.SelectedIndex = IIf(IsDBNull(dt.Rows(0)("MM_TYPE_PASS")), 0, dt.Rows(0)("MM_TYPE_PASS"))
+                'If IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 1 Then
+                '    chkNonAllowableExpenses.Checked = True
+                '    chkTaxPositive.Checked = False
+                '    chkTaxNegative.Checked = False
+                'ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 2 Then
+                '    chkNonAllowableExpenses.Checked = False
+                '    chkTaxPositive.Checked = True
+                '    chkTaxNegative.Checked = False
+                'ElseIf IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 3 Then
+                '    chkNonAllowableExpenses.Checked = False
+                '    chkTaxPositive.Checked = False
+                '    chkTaxNegative.Checked = True
+                'Else
+                '    chkNonAllowableExpenses.Checked = False
+                '    chkTaxPositive.Checked = False
+                '    chkTaxNegative.Checked = False
+                'End If
 
 
                 DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(0))
@@ -118,6 +120,17 @@ Public Class frmMovement_Add
                         row("MM_ADDBACK_AMOUNT") = 0
                     End If
                 End If
+            Else
+                If TypeOf sender Is GridView Then
+                    Dim view As GridView = CType(sender, GridView)
+                    Dim row As DataRow = view.GetDataRow(e.RowHandle)
+
+                    If IsDBNull(row("MM_AddBack")) = False AndAlso CBool(row("MM_AddBack")) = True Then
+                        row("MM_ADDBACK_AMOUNT") = row("MM_Amount")
+                    Else
+                        row("MM_ADDBACK_AMOUNT") = 0
+                    End If
+                End If
             End If
         Catch ex As Exception
 
@@ -126,6 +139,18 @@ Public Class frmMovement_Add
     Private Sub GridView2_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView2.CellValueChanged
         Try
             If e.Column.FieldName = "MM_Deduct" AndAlso CBool(e.Value) = True Then
+                If TypeOf sender Is GridView Then
+                    Dim view As GridView = CType(sender, GridView)
+                    Dim row As DataRow = view.GetDataRow(e.RowHandle)
+
+                    If IsDBNull(row("MM_Deduct")) = False AndAlso CBool(row("MM_Deduct")) = True Then
+                        row("MM_DEDUCT_AMOUNT") = row("MM_Amount")
+                    Else
+                        row("MM_DEDUCT_AMOUNT") = 0
+                    End If
+
+                End If
+            Else
                 If TypeOf sender Is GridView Then
                     Dim view As GridView = CType(sender, GridView)
                     Dim row As DataRow = view.GetDataRow(e.RowHandle)
@@ -180,6 +205,37 @@ Public Class frmMovement_Add
         Try
             clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
 
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub GridView1_ShownEditor(sender As Object, e As EventArgs) Handles GridView1.ShownEditor
+        Try
+            If GridView1.FocusedColumn.FieldName.Equals("MM_Description") Then
+                Dim currentEditor As DevExpress.XtraEditors.TextEdit = CType(CType(sender, GridView).ActiveEditor, DevExpress.XtraEditors.TextEdit)
+
+                If currentEditor IsNot Nothing Then
+                    currentEditor.MaskBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                    currentEditor.MaskBox.AutoCompleteSource = AutoCompleteSource.CustomSource
+                    currentEditor.MaskBox.AutoCompleteCustomSource = autosource
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub GridView2_ShownEditor(sender As Object, e As EventArgs) Handles GridView2.ShownEditor
+        Try
+            If GridView2.FocusedColumn.FieldName.Equals("MM_Description") Then
+                Dim currentEditor As DevExpress.XtraEditors.TextEdit = CType(CType(sender, GridView).ActiveEditor, DevExpress.XtraEditors.TextEdit)
+
+                If currentEditor IsNot Nothing Then
+                    currentEditor.MaskBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                    currentEditor.MaskBox.AutoCompleteSource = AutoCompleteSource.CustomSource
+                    currentEditor.MaskBox.AutoCompleteCustomSource = autosource
+                End If
+            End If
         Catch ex As Exception
 
         End Try
@@ -278,18 +334,19 @@ Public Class frmMovement_Add
         Try
             If isValid() Then
 
-                Dim TypePass As Integer = 0
+                Dim TypePass As Integer = RGType.SelectedIndex
 
-                If chkNonAllowableExpenses.Checked Then
-                    TypePass = 1
-                ElseIf chkTaxPositive.Checked Then
-                    TypePass = 2
-                ElseIf chkTaxNegative.Checked Then
-                    TypePass = 3
-                End If
+               
+                'If chkNonAllowableExpenses.Checked Then
+                '    TypePass = 1
+                'ElseIf chkTaxPositive.Checked Then
+                '    TypePass = 2
+                'ElseIf chkTaxNegative.Checked Then
+                '    TypePass = 3
+                'End If
 
                 If isEdit Then
-                    If clsMoveNormal.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If clsMoveNormal.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, TypePass, _
                                                      DsMovement, ErrorLog) Then
@@ -304,7 +361,7 @@ Public Class frmMovement_Add
                     End If
                 Else
                     Dim tmpID As Integer = 0
-                    If clsMoveNormal.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, dtStart.EditValue, _
+                    If clsMoveNormal.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                       dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                       txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, TypePass, _
                                                       DsMovement, tmpID, ErrorLog) Then
@@ -346,9 +403,10 @@ Public Class frmMovement_Add
                 Return False
             End If
 
-            If dtStart.EditValue Is Nothing OrElse IsDate(dtStart.EditValue) = False Then
-                dtStart.EditValue = Now
-            End If
+            'If dtStart.EditValue Is Nothing OrElse IsDate(dtStart.EditValue) = False Then
+            '    dtStart.EditValue = Now
+            'End If
+
             If dtEnded.EditValue Is Nothing OrElse IsDate(dtEnded.EditValue) = False Then
                 dtEnded.EditValue = Now
             End If
@@ -359,10 +417,10 @@ Public Class frmMovement_Add
 
             If isEdit = False Then
 
-                If clsMoveNormal.CheckExist_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
-                    MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
-                    Return False
-                End If
+                'If clsMoveNormal.CheckExist_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+                '    MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
+                '    Return False
+                'End If
 
             End If
 
@@ -438,27 +496,31 @@ Public Class frmMovement_Add
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
-        Catch ex As Exception
 
-        End Try
-    End Sub
 
-    Private Sub chkNonAllowableExpenses_CheckedChanged(sender As Object, e As EventArgs) Handles chkNonAllowableExpenses.CheckedChanged, chkTaxNegative.CheckedChanged, chkTaxPositive.CheckedChanged
-        Try
-            If chkNonAllowableExpenses.Checked Then
-                chkTaxNegative.Checked = False
-                chkTaxPositive.Checked = False
-            ElseIf chkTaxPositive.Checked Then
-                chkNonAllowableExpenses.Checked = False
-                chkTaxPositive.Checked = False
-            ElseIf chkTaxNegative.Checked Then
-                chkNonAllowableExpenses.Checked = False
-                chkTaxPositive.Checked = False
+            If cboRefNo.EditValue IsNot Nothing AndAlso cboRefNo.EditValue <> "" Then
+                Dim dt As DataTable = ADO.LoadTaxPayer_ByRefNO(cboRefNo.EditValue)
+
+                If dt IsNot Nothing AndAlso isEdit = False Then
+                    Dim BasisPeriodFrom As DateTime = IIf(IsDBNull(dt.Rows(0)("TP_BASIS_PERIOD_FR")), Now, dt.Rows(0)("TP_BASIS_PERIOD_FR"))
+                    Dim BasisPeriodTo As DateTime = IIf(IsDBNull(dt.Rows(0)("TP_BASIS_PERIOD_TO")), Now, dt.Rows(0)("TP_BASIS_PERIOD_TO"))
+
+                    dtBalanceStart.EditValue = BasisPeriodFrom
+                    dtBalanceEnd.EditValue = BasisPeriodTo
+
+                    If DateDiff(DateInterval.Month, BasisPeriodFrom, BasisPeriodTo) = 12 Then
+                        cboType.EditValue = "Year Ended"
+                    Else
+                        cboType.EditValue = "Period Ended"
+                    End If
+                    dtEnded.EditValue = IIf(IsDBNull(dt.Rows(0)("TP_ACC_PERIOD_TO")), Now, dt.Rows(0)("TP_ACC_PERIOD_TO"))
+
+
+
+                End If
             End If
-
         Catch ex As Exception
 
         End Try
-
     End Sub
 End Class

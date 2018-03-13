@@ -1683,7 +1683,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel878 = New DevExpress.XtraReports.UI.XRLabel()
         Me.DIVIDEND_INCOME = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail85 = New DevExpress.XtraReports.UI.DetailBand()
-        Me.XrLabel891 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.txtDividend_Income_Transfer = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel890 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel889 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel888 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1694,7 +1694,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel883 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel879 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel880 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel881 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.title_Dividend_Income_Transfer = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel882 = New DevExpress.XtraReports.UI.XRLabel()
         Me.GroupHeader45 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel886 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1991,6 +1991,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1046 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1043 = New DevExpress.XtraReports.UI.XRLabel()
         Me.CalculatedField1 = New DevExpress.XtraReports.UI.CalculatedField()
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         CType(Me.DsPNL1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me,System.ComponentModel.ISupportInitialize).BeginInit
         '
@@ -2567,6 +2568,7 @@ Partial Public Class rptPNL_Details
         Me.OTHER_EXPENSES.DataMember = "OTHER_EXPENSES"
         Me.OTHER_EXPENSES.DataSource = Me.DsPNL1
         Me.OTHER_EXPENSES.FormattingRules.Add(Me.EXPOTHERSEXPENSES)
+        Me.OTHER_EXPENSES.FormattingRules.Add(Me.EXPOTHERINTEREST_RPT_EXCLUDE)
         Me.OTHER_EXPENSES.Level = 53
         Me.OTHER_EXPENSES.Name = "OTHER_EXPENSES"
         '
@@ -12288,6 +12290,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_CONTRACT.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail55, Me.DetailReport55, Me.ReportHeader28, Me.ReportFooter27, Me.GroupHeader29})
         Me.EXPENSES_CONTRACT.DataMember = "EXPENSES_CONTRACT"
         Me.EXPENSES_CONTRACT.DataSource = Me.DsPNL1
+        Me.EXPENSES_CONTRACT.Expanded = false
         Me.EXPENSES_CONTRACT.FormattingRules.Add(Me.EXPCONTRACTPAY)
         Me.EXPENSES_CONTRACT.Level = 26
         Me.EXPENSES_CONTRACT.Name = "EXPENSES_CONTRACT"
@@ -12647,6 +12650,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_TECH_FEE.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail57, Me.DetailReport57, Me.ReportHeader29, Me.ReportFooter28, Me.GroupHeader30})
         Me.EXPENSES_TECH_FEE.DataMember = "EXPENSES_TECH_FEE"
         Me.EXPENSES_TECH_FEE.DataSource = Me.DsPNL1
+        Me.EXPENSES_TECH_FEE.Expanded = false
         Me.EXPENSES_TECH_FEE.FormattingRules.Add(Me.EXPTECHNICAL)
         Me.EXPENSES_TECH_FEE.Level = 25
         Me.EXPENSES_TECH_FEE.Name = "EXPENSES_TECH_FEE"
@@ -13006,6 +13010,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_LEGAL.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail59, Me.DetailReport59, Me.ReportHeader30, Me.ReportFooter29, Me.GroupHeader31})
         Me.EXPENSES_LEGAL.DataMember = "EXPENSES_LEGAL"
         Me.EXPENSES_LEGAL.DataSource = Me.DsPNL1
+        Me.EXPENSES_LEGAL.Expanded = false
         Me.EXPENSES_LEGAL.FormattingRules.Add(Me.EXPLEGAL)
         Me.EXPENSES_LEGAL.Level = 24
         Me.EXPENSES_LEGAL.Name = "EXPENSES_LEGAL"
@@ -13365,6 +13370,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_INTEREST.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail61, Me.DetailReport61, Me.ReportHeader31, Me.ReportFooter30, Me.GroupHeader32})
         Me.EXPENSES_INTEREST.DataMember = "EXPENSES_INTEREST"
         Me.EXPENSES_INTEREST.DataSource = Me.DsPNL1
+        Me.EXPENSES_INTEREST.Expanded = false
         Me.EXPENSES_INTEREST.FormattingRules.Add(Me.EXPOTHERINTEREST)
         Me.EXPENSES_INTEREST.Level = 23
         Me.EXPENSES_INTEREST.Name = "EXPENSES_INTEREST"
@@ -13725,6 +13731,7 @@ Partial Public Class rptPNL_Details
         Me.NON_TAXABLE_INCOME.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail63, Me.DetailReport63, Me.ReportHeader32, Me.ReportFooter31, Me.GroupHeader33})
         Me.NON_TAXABLE_INCOME.DataMember = "NON_TAXABLE_INCOME"
         Me.NON_TAXABLE_INCOME.DataSource = Me.DsPNL1
+        Me.NON_TAXABLE_INCOME.Expanded = false
         Me.NON_TAXABLE_INCOME.FormattingRules.Add(Me.OTHERNONTAXINC)
         Me.NON_TAXABLE_INCOME.Level = 21
         Me.NON_TAXABLE_INCOME.Name = "NON_TAXABLE_INCOME"
@@ -13999,6 +14006,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NTUREALFENT.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail65, Me.DetailReport65, Me.ReportHeader33, Me.ReportFooter32, Me.GroupHeader34})
         Me.INCOME_NTUREALFENT.DataMember = "INCOME_NTUREALFENT"
         Me.INCOME_NTUREALFENT.DataSource = Me.DsPNL1
+        Me.INCOME_NTUREALFENT.Expanded = false
         Me.INCOME_NTUREALFENT.FormattingRules.Add(Me.UNREALFETRADE)
         Me.INCOME_NTUREALFENT.Level = 20
         Me.INCOME_NTUREALFENT.Name = "INCOME_NTUREALFENT"
@@ -14274,6 +14282,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NTUREALFET.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail67, Me.DetailReport67, Me.ReportHeader34, Me.ReportFooter33, Me.GroupHeader35})
         Me.INCOME_NTUREALFET.DataMember = "INCOME_NTUREALFET"
         Me.INCOME_NTUREALFET.DataSource = Me.DsPNL1
+        Me.INCOME_NTUREALFET.Expanded = false
         Me.INCOME_NTUREALFET.FormattingRules.Add(Me.UNREALFENONTRADE)
         Me.INCOME_NTUREALFET.Level = 19
         Me.INCOME_NTUREALFET.Name = "INCOME_NTUREALFET"
@@ -14548,6 +14557,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NTREALFE.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail69, Me.DetailReport69, Me.ReportHeader35, Me.ReportFooter34, Me.GroupHeader36})
         Me.INCOME_NTREALFE.DataMember = "INCOME_NTREALFE"
         Me.INCOME_NTREALFE.DataSource = Me.DsPNL1
+        Me.INCOME_NTREALFE.Expanded = false
         Me.INCOME_NTREALFE.FormattingRules.Add(Me.REALFE)
         Me.INCOME_NTREALFE.Level = 18
         Me.INCOME_NTREALFE.Name = "INCOME_NTREALFE"
@@ -14835,6 +14845,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NTFOREIGNINCREM.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail71, Me.DetailReport71, Me.ReportHeader36, Me.ReportFooter35, Me.GroupHeader37})
         Me.INCOME_NTFOREIGNINCREM.DataMember = "INCOME_NTFOREIGNINCREM"
         Me.INCOME_NTFOREIGNINCREM.DataSource = Me.DsPNL1
+        Me.INCOME_NTFOREIGNINCREM.Expanded = false
         Me.INCOME_NTFOREIGNINCREM.FormattingRules.Add(Me.FORINCREMIT)
         Me.INCOME_NTFOREIGNINCREM.Level = 17
         Me.INCOME_NTFOREIGNINCREM.Name = "INCOME_NTFOREIGNINCREM"
@@ -15111,6 +15122,7 @@ Partial Public Class rptPNL_Details
         Me.EXEMPT_DIVIDEND.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail73, Me.ReportHeader37, Me.ReportFooter36, Me.GroupHeader38})
         Me.EXEMPT_DIVIDEND.DataMember = "EXEMPT_DIVIDEND"
         Me.EXEMPT_DIVIDEND.DataSource = Me.DsPNL1
+        Me.EXEMPT_DIVIDEND.Expanded = false
         Me.EXEMPT_DIVIDEND.FormattingRules.Add(Me.EXEMDIV)
         Me.EXEMPT_DIVIDEND.Level = 16
         Me.EXEMPT_DIVIDEND.Name = "EXEMPT_DIVIDEND"
@@ -15348,6 +15360,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NTDISPOSALINVEST.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail74, Me.DetailReport74, Me.ReportHeader38, Me.ReportFooter37, Me.GroupHeader39})
         Me.INCOME_NTDISPOSALINVEST.DataMember = "INCOME_NTDISPOSALINVEST"
         Me.INCOME_NTDISPOSALINVEST.DataSource = Me.DsPNL1
+        Me.INCOME_NTDISPOSALINVEST.Expanded = false
         Me.INCOME_NTDISPOSALINVEST.FormattingRules.Add(Me.PDINVEST)
         Me.INCOME_NTDISPOSALINVEST.Level = 15
         Me.INCOME_NTDISPOSALINVEST.Name = "INCOME_NTDISPOSALINVEST"
@@ -15627,6 +15640,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NTDISPOSALFA.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail76, Me.DetailReport76, Me.ReportHeader39, Me.ReportFooter38, Me.GroupHeader40})
         Me.INCOME_NTDISPOSALFA.DataMember = "INCOME_NTDISPOSALFA"
         Me.INCOME_NTDISPOSALFA.DataSource = Me.DsPNL1
+        Me.INCOME_NTDISPOSALFA.Expanded = false
         Me.INCOME_NTDISPOSALFA.FormattingRules.Add(Me.PDFIXASSET)
         Me.INCOME_NTDISPOSALFA.Level = 14
         Me.INCOME_NTDISPOSALFA.Name = "INCOME_NTDISPOSALFA"
@@ -15903,6 +15917,7 @@ Partial Public Class rptPNL_Details
         Me.OTHER_INCOME.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail78, Me.DetailReport78, Me.ReportHeader40, Me.ReportFooter39, Me.GroupHeader41})
         Me.OTHER_INCOME.DataMember = "OTHER_INCOME"
         Me.OTHER_INCOME.DataSource = Me.DsPNL1
+        Me.OTHER_INCOME.Expanded = false
         Me.OTHER_INCOME.FormattingRules.Add(Me.OTHERINC)
         Me.OTHER_INCOME.Level = 13
         Me.OTHER_INCOME.Name = "OTHER_INCOME"
@@ -16177,6 +16192,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NBROYALTY.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail80, Me.DetailReport80, Me.ReportHeader41, Me.ReportFooter40, Me.GroupHeader42})
         Me.INCOME_NBROYALTY.DataMember = "INCOME_NBROYALTY"
         Me.INCOME_NBROYALTY.DataSource = Me.DsPNL1
+        Me.INCOME_NBROYALTY.Expanded = false
         Me.INCOME_NBROYALTY.FormattingRules.Add(Me.ROYALTYINC)
         Me.INCOME_NBROYALTY.Level = 12
         Me.INCOME_NBROYALTY.Name = "INCOME_NBROYALTY"
@@ -16451,6 +16467,7 @@ Partial Public Class rptPNL_Details
         Me.RENTAL_INCOME.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail82, Me.ReportHeader42, Me.ReportFooter41, Me.GroupHeader43})
         Me.RENTAL_INCOME.DataMember = "RENTAL_INCOME"
         Me.RENTAL_INCOME.DataSource = Me.DsPNL1
+        Me.RENTAL_INCOME.Expanded = false
         Me.RENTAL_INCOME.FormattingRules.Add(Me.RENTALINC)
         Me.RENTAL_INCOME.Level = 11
         Me.RENTAL_INCOME.Name = "RENTAL_INCOME"
@@ -16701,6 +16718,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_NBINTEREST.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail83, Me.DetailReport83, Me.GroupHeader44, Me.ReportHeader43, Me.ReportFooter42})
         Me.INCOME_NBINTEREST.DataMember = "INCOME_NBINTEREST"
         Me.INCOME_NBINTEREST.DataSource = Me.DsPNL1
+        Me.INCOME_NBINTEREST.Expanded = false
         Me.INCOME_NBINTEREST.FormattingRules.Add(Me.INTERESTINC)
         Me.INCOME_NBINTEREST.Level = 10
         Me.INCOME_NBINTEREST.Name = "INCOME_NBINTEREST"
@@ -16975,27 +16993,28 @@ Partial Public Class rptPNL_Details
         Me.DIVIDEND_INCOME.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail85, Me.ReportHeader44, Me.GroupHeader45, Me.ReportFooter43})
         Me.DIVIDEND_INCOME.DataMember = "DIVIDEND_INCOME"
         Me.DIVIDEND_INCOME.DataSource = Me.DsPNL1
+        Me.DIVIDEND_INCOME.Expanded = false
         Me.DIVIDEND_INCOME.FormattingRules.Add(Me.DIVIDENDINC)
         Me.DIVIDEND_INCOME.Level = 9
         Me.DIVIDEND_INCOME.Name = "DIVIDEND_INCOME"
         '
         'Detail85
         '
-        Me.Detail85.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel891, Me.XrLabel890, Me.XrLabel889, Me.XrLabel888, Me.XrLabel887})
+        Me.Detail85.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.txtDividend_Income_Transfer, Me.XrLabel890, Me.XrLabel889, Me.XrLabel888, Me.XrLabel887})
         Me.Detail85.HeightF = 23!
         Me.Detail85.Name = "Detail85"
         '
-        'XrLabel891
+        'txtDividend_Income_Transfer
         '
-        Me.XrLabel891.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DIVIDEND_INCOME.DI_TRANSFER")})
-        Me.XrLabel891.Font = New System.Drawing.Font("Arial", 9.75!)
-        Me.XrLabel891.LocationFloat = New DevExpress.Utils.PointFloat(626.6292!, 0!)
-        Me.XrLabel891.Name = "XrLabel891"
-        Me.XrLabel891.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
-        Me.XrLabel891.SizeF = New System.Drawing.SizeF(113.5416!, 23!)
-        Me.XrLabel891.StylePriority.UseFont = false
-        Me.XrLabel891.StylePriority.UseTextAlignment = false
-        Me.XrLabel891.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
+        Me.txtDividend_Income_Transfer.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DIVIDEND_INCOME.DI_TRANSFER")})
+        Me.txtDividend_Income_Transfer.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.txtDividend_Income_Transfer.LocationFloat = New DevExpress.Utils.PointFloat(626.6292!, 0!)
+        Me.txtDividend_Income_Transfer.Name = "txtDividend_Income_Transfer"
+        Me.txtDividend_Income_Transfer.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.txtDividend_Income_Transfer.SizeF = New System.Drawing.SizeF(113.5416!, 23!)
+        Me.txtDividend_Income_Transfer.StylePriority.UseFont = false
+        Me.txtDividend_Income_Transfer.StylePriority.UseTextAlignment = false
+        Me.txtDividend_Income_Transfer.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter
         '
         'XrLabel890
         '
@@ -17053,7 +17072,7 @@ Partial Public Class rptPNL_Details
         '
         'ReportHeader44
         '
-        Me.ReportHeader44.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel885, Me.XrLabel884, Me.XrLabel883, Me.XrLabel879, Me.XrLabel880, Me.XrLabel881, Me.XrLabel882})
+        Me.ReportHeader44.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel885, Me.XrLabel884, Me.XrLabel883, Me.XrLabel879, Me.XrLabel880, Me.title_Dividend_Income_Transfer, Me.XrLabel882})
         Me.ReportHeader44.HeightF = 129.5835!
         Me.ReportHeader44.Name = "ReportHeader44"
         '
@@ -17121,17 +17140,17 @@ Partial Public Class rptPNL_Details
         Me.XrLabel880.StylePriority.UseTextAlignment = false
         Me.XrLabel880.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
-        'XrLabel881
+        'title_Dividend_Income_Transfer
         '
-        Me.XrLabel881.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel881.LocationFloat = New DevExpress.Utils.PointFloat(626.6292!, 106.5833!)
-        Me.XrLabel881.Name = "XrLabel881"
-        Me.XrLabel881.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
-        Me.XrLabel881.SizeF = New System.Drawing.SizeF(113.5416!, 22.99999!)
-        Me.XrLabel881.StylePriority.UseFont = false
-        Me.XrLabel881.StylePriority.UseTextAlignment = false
-        Me.XrLabel881.Text = "Tax Deducted"
-        Me.XrLabel881.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        Me.title_Dividend_Income_Transfer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.title_Dividend_Income_Transfer.LocationFloat = New DevExpress.Utils.PointFloat(626.6292!, 106.5833!)
+        Me.title_Dividend_Income_Transfer.Name = "title_Dividend_Income_Transfer"
+        Me.title_Dividend_Income_Transfer.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.title_Dividend_Income_Transfer.SizeF = New System.Drawing.SizeF(113.5416!, 22.99999!)
+        Me.title_Dividend_Income_Transfer.StylePriority.UseFont = false
+        Me.title_Dividend_Income_Transfer.StylePriority.UseTextAlignment = false
+        Me.title_Dividend_Income_Transfer.Text = "Tax Deducted"
+        Me.title_Dividend_Income_Transfer.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'XrLabel882
         '
@@ -17221,6 +17240,7 @@ Partial Public Class rptPNL_Details
         Me.INCOME_REALFET.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail86, Me.DetailReport86, Me.ReportHeader45, Me.ReportFooter44, Me.GroupHeader46})
         Me.INCOME_REALFET.DataMember = "INCOME_REALFET"
         Me.INCOME_REALFET.DataSource = Me.DsPNL1
+        Me.INCOME_REALFET.Expanded = false
         Me.INCOME_REALFET.FormattingRules.Add(Me.REALFETRADE)
         Me.INCOME_REALFET.Level = 8
         Me.INCOME_REALFET.Name = "INCOME_REALFET"
@@ -17495,6 +17515,7 @@ Partial Public Class rptPNL_Details
         Me.NONSOURCE_BUSINESSINCOME.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail88, Me.DetailReport88, Me.ReportHeader46, Me.ReportFooter45, Me.GroupHeader47})
         Me.NONSOURCE_BUSINESSINCOME.DataMember = "NONSOURCE_BUSINESSINCOME"
         Me.NONSOURCE_BUSINESSINCOME.DataSource = Me.DsPNL1
+        Me.NONSOURCE_BUSINESSINCOME.Expanded = false
         Me.NONSOURCE_BUSINESSINCOME.FormattingRules.Add(Me.OTHERBUSINC)
         Me.NONSOURCE_BUSINESSINCOME.Level = 7
         Me.NONSOURCE_BUSINESSINCOME.Name = "NONSOURCE_BUSINESSINCOME"
@@ -17774,6 +17795,7 @@ Partial Public Class rptPNL_Details
         Me.PLFST_CLOSESTOCK.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail90, Me.DetailReport90, Me.ReportHeader47, Me.GroupHeader48, Me.ReportFooter46})
         Me.PLFST_CLOSESTOCK.DataMember = "PLFST_CLOSESTOCK"
         Me.PLFST_CLOSESTOCK.DataSource = Me.DsPNL1
+        Me.PLFST_CLOSESTOCK.Expanded = false
         Me.PLFST_CLOSESTOCK.FormattingRules.Add(Me.CLOSESTOCK)
         Me.PLFST_CLOSESTOCK.Level = 6
         Me.PLFST_CLOSESTOCK.Name = "PLFST_CLOSESTOCK"
@@ -18048,6 +18070,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_NONALLOW.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail92, Me.DetailReport92, Me.ReportHeader48, Me.ReportFooter47, Me.GroupHeader49})
         Me.EXPENSES_NONALLOW.DataMember = "EXPENSES_NONALLOW"
         Me.EXPENSES_NONALLOW.DataSource = Me.DsPNL1
+        Me.EXPENSES_NONALLOW.Expanded = false
         Me.EXPENSES_NONALLOW.FormattingRules.Add(Me.OTHERNONALLOWEXP)
         Me.EXPENSES_NONALLOW.Level = 5
         Me.EXPENSES_NONALLOW.Name = "EXPENSES_NONALLOW"
@@ -18408,6 +18431,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_ALLOW.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail94, Me.DetailReport94, Me.ReportHeader49, Me.ReportFooter48, Me.GroupHeader50})
         Me.EXPENSES_ALLOW.DataMember = "EXPENSES_ALLOW"
         Me.EXPENSES_ALLOW.DataSource = Me.DsPNL1
+        Me.EXPENSES_ALLOW.Expanded = false
         Me.EXPENSES_ALLOW.FormattingRules.Add(Me.OTHERALLOWEXP)
         Me.EXPENSES_ALLOW.Level = 4
         Me.EXPENSES_ALLOW.Name = "EXPENSES_ALLOW"
@@ -18769,6 +18793,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_DEPRECIATION.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail96, Me.DetailReport96, Me.ReportHeader50, Me.ReportFooter49, Me.GroupHeader51})
         Me.EXPENSES_DEPRECIATION.DataMember = "EXPENSES_DEPRECIATION"
         Me.EXPENSES_DEPRECIATION.DataSource = Me.DsPNL1
+        Me.EXPENSES_DEPRECIATION.Expanded = false
         Me.EXPENSES_DEPRECIATION.FormattingRules.Add(Me.DEPRECIATION)
         Me.EXPENSES_DEPRECIATION.Level = 3
         Me.EXPENSES_DEPRECIATION.Name = "EXPENSES_DEPRECIATION"
@@ -19132,6 +19157,7 @@ Partial Public Class rptPNL_Details
         Me.PLFST_PURCHASE.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail98, Me.DetailReport98, Me.ReportHeader51, Me.RF_PLFST_PURCHASE, Me.GroupHeader52})
         Me.PLFST_PURCHASE.DataMember = "PLFST_PURCHASE"
         Me.PLFST_PURCHASE.DataSource = Me.DsPNL1
+        Me.PLFST_PURCHASE.Expanded = false
         Me.PLFST_PURCHASE.FormattingRules.Add(Me.PURCHASE)
         Me.PLFST_PURCHASE.Level = 2
         Me.PLFST_PURCHASE.Name = "PLFST_PURCHASE"
@@ -19408,6 +19434,7 @@ Partial Public Class rptPNL_Details
         Me.PLFST_OPENSTOCK.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail100, Me.PLST_OPENSTOCK_DETAIL_SUB, Me.ReportHeader52, Me.PF_PLFST_OPENSTOCK, Me.GroupHeader53, Me.GF_PLFST_OPENSTOCK})
         Me.PLFST_OPENSTOCK.DataMember = "PLFST_OPENSTOCK"
         Me.PLFST_OPENSTOCK.DataSource = Me.DsPNL1
+        Me.PLFST_OPENSTOCK.Expanded = false
         Me.PLFST_OPENSTOCK.FormattingRules.Add(Me.OPENSTOCK)
         Me.PLFST_OPENSTOCK.Level = 1
         Me.PLFST_OPENSTOCK.Name = "PLFST_OPENSTOCK"
@@ -19687,6 +19714,7 @@ Partial Public Class rptPNL_Details
         Me.PLFST_SALES.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.PLST_SALES_DETAIL, Me.PLST_SALES_DETAIL_SUB, Me.ReportHeader53, Me.GroupHeader54, Me.ReportFooter50, Me.GF_PLST_SALES})
         Me.PLFST_SALES.DataMember = "PLFST_SALES"
         Me.PLFST_SALES.DataSource = Me.DsPNL1
+        Me.PLFST_SALES.Expanded = false
         Me.PLFST_SALES.FormattingRules.Add(Me.SALES)
         Me.PLFST_SALES.Level = 0
         Me.PLFST_SALES.Name = "PLFST_SALES"
@@ -19970,6 +19998,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_INTERESTRESTRICT.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail104, Me.DetailReport104, Me.ReportHeader55, Me.ReportFooter53})
         Me.EXPENSES_INTERESTRESTRICT.DataMember = "EXPENSES_INTERESTRESTRICT"
         Me.EXPENSES_INTERESTRESTRICT.DataSource = Me.DsPNL1
+        Me.EXPENSES_INTERESTRESTRICT.Expanded = false
         Me.EXPENSES_INTERESTRESTRICT.FormattingRules.Add(Me.INTERESTRESTRICT)
         Me.EXPENSES_INTERESTRESTRICT.Level = 22
         Me.EXPENSES_INTERESTRESTRICT.Name = "EXPENSES_INTERESTRESTRICT"
@@ -20401,6 +20430,14 @@ Partial Public Class rptPNL_Details
         Me.CalculatedField1.Expression = "[PLFS_SOURCENO].Count()"
         Me.CalculatedField1.Name = "CalculatedField1"
         '
+        'EXPOTHERINTEREST_RPT_EXCLUDE
+        '
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_OTHERS]) == False And [PL_OTHER_EXP_OTHERS]== False"
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Name = "EXPOTHERINTEREST_RPT_EXCLUDE"
+        '
         'rptPNL_Details
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.OTHER_EXPENSES, Me.GroupHeader1, Me.OTHER_EXCAPITALEXP, Me.OTHER_EXINITIALSUB, Me.OTHER_EXRLOSSFOREIGN, Me.OTHER_EXRLOSSFOREIGNT, Me.OTHER_EXURLOSSFOREIGN, Me.OTHER_EXFAWRITTENOFF, Me.OTHER_EXLEAVEPASSAGE, Me.OTHER_EXPROVISIONACC, Me.OTHER_EXPENALTY, Me.OTHER_ENTERTAINSTAFF, Me.OTHER_ENTERTAINNSTAFF, Me.OTHER_EXLOSSDISPOSALFA, Me.OTHER_EXZAKAT, Me.OTHER_EXNAPPRDONATION, Me.OTHER_EXAPPRDONATION, Me.OTHER_EXDEPRECIATION, Me.EXPENSES_JKDM, Me.EXPENSES_TRAVEL, Me.EXPENSES_PROMOTE, Me.EXPENSES_RESEARCH, Me.EXPENSES_REPAIR, Me.EXPENSES_RENTAL, Me.EXPENSES_ROYALTY, Me.EXPENSES_EMPL_STOCK, Me.EXPENSES_SALARY, Me.EXPENSES_DIRECTORS_FEE, Me.EXPENSES_CONTRACT, Me.EXPENSES_TECH_FEE, Me.EXPENSES_LEGAL, Me.EXPENSES_INTEREST, Me.NON_TAXABLE_INCOME, Me.INCOME_NTUREALFENT, Me.INCOME_NTUREALFET, Me.INCOME_NTREALFE, Me.INCOME_NTFOREIGNINCREM, Me.EXEMPT_DIVIDEND, Me.INCOME_NTDISPOSALINVEST, Me.INCOME_NTDISPOSALFA, Me.OTHER_INCOME, Me.INCOME_NBROYALTY, Me.RENTAL_INCOME, Me.INCOME_NBINTEREST, Me.DIVIDEND_INCOME, Me.INCOME_REALFET, Me.NONSOURCE_BUSINESSINCOME, Me.PLFST_CLOSESTOCK, Me.EXPENSES_NONALLOW, Me.EXPENSES_ALLOW, Me.EXPENSES_DEPRECIATION, Me.PLFST_PURCHASE, Me.PLFST_OPENSTOCK, Me.PLFST_SALES, Me.EXPENSES_INTERESTRESTRICT})
@@ -20408,7 +20445,7 @@ Partial Public Class rptPNL_Details
         Me.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT"
         Me.DataSource = Me.DsPNL1
         Me.Font = New System.Drawing.Font("Segoe UI", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SALES, Me.OPENSTOCK, Me.PURCHASE, Me.DEPRECIATION, Me.OTHERALLOWEXP, Me.OTHERNONALLOWEXP, Me.CLOSESTOCK, Me.OTHERBUSINC, Me.REALFETRADE, Me.DIVIDENDINC, Me.INTERESTINC, Me.RENTALINC, Me.ROYALTYINC, Me.OTHERINC, Me.PDFIXASSET, Me.PDINVEST, Me.EXEMDIV, Me.FORINCREMIT, Me.REALFE, Me.UNREALFENONTRADE, Me.UNREALFETRADE, Me.OTHERNONTAXINC, Me.INTERESTRESTRICT, Me.EXPOTHERINTEREST, Me.EXPLEGAL, Me.EXPTECHNICAL, Me.EXPCONTRACTPAY, Me.EXPDIRECTORFEE, Me.EXPSALARY, Me.EXPEMPLOYEESTOCK, Me.EXPROYALTY, Me.EXPRENTAL, Me.EXPREPAIRMAINTENANCE, Me.EXPRND, Me.EXPADVERTISEMENT, Me.EXPTRAVEL, Me.EXPDEPRECIATION, Me.EXPDONATIONAPPR, Me.EXPDONATIONNONAPPR, Me.EXPZAKAT, Me.EXPLOSSDISPFA, Me.EXPENTERTAINNONSTAFF, Me.EXPENTERTAINSTAFF, Me.EXPCOMPAUNDPENALTY, Me.EXPPROVISION, Me.EXPLEAVEPASSAGE, Me.EXPFAWRITTENOFF, Me.EXPUNREALLOSSFE, Me.EXPREALLOSSFETRADE, Me.EXPREALLOSSFENONTRADE, Me.EXPINITIALSUBSCRIPT, Me.EXPCAPITALEXPENDITURE, Me.EXPOTHERSEXPENSES, Me.EXPJKDM, Me.LESSCLOSINGSTOCK, Me.TOTALCOS, Me.OTHERINCOME, Me.NONTAXABLEINCOME, Me.TITLE_COS, Me.TITLE_NONBIZINCOME, Me.TITLE_NONTAXABLEINCOME, Me.TITLE_EXPENDITURE, Me.TITLE_OTHEREXPENDITURE, Me.OTHER_EXPENSES_DETAILS, Me.OTHER_EXPENSES_DETAILS_INVT, Me.OTHER_EXCAPITALEXP_DETAIL, Me.OTHER_EXCAPITALEXP_DETAIL_INVT, Me.EXPINITIALSUBSCRIPT_DETAIL, Me.EXPINITIALSUBSCRIPT_DETAIL_INVT, Me.EXPREALLOSSFENONTRADE_DETAIL, Me.EXPREALLOSSFENONTRADE_DETAIL_INVT, Me.EXPREALLOSSFETRADE_DETAIL, Me.EXPREALLOSSFETRADE_DETAIL_INVT, Me.EXPUNREALLOSSFE_DETAIL, Me.EXPUNREALLOSSFE_DETAIL_INVT, Me.EXPFAWRITTENOFF_DETAIL, Me.EXPFAWRITTENOFF_DETAIL_INVT, Me.EXPLEAVEPASSAGE_DETAIL, Me.EXPLEAVEPASSAGE_DETAIL_INVT, Me.EXPPROVISION_DETAIL, Me.EXPPROVISION_DETAIL_INVT, Me.EXPCOMPAUNDPENALTY_DETAIL, Me.EXPCOMPAUNDPENALTY_DETAIL_INVT, Me.EXPENTERTAINSTAFF_DETAIL, Me.EXPENTERTAINSTAFF_DETAIL_INVT, Me.EXPENTERTAINNONSTAFF_DETAIL, Me.EXPENTERTAINNONSTAFF_DETAIL_INVT, Me.EXPLOSSDISPFA_DETAIL, Me.EXPLOSSDISPFA_DETAIL_INVT, Me.EXPZAKAT_DETAIL, Me.EXPZAKAT_DETAIL_INVT, Me.EXPDONATIONNONAPPR_DETAIL, Me.EXPDONATIONNONAPPR_DETAIL_INVT, Me.EXPDONATIONAPPR_DETAIL, Me.EXPDONATIONAPPR_DETAIL_INVT, Me.EXPDEPRECIATION_DETAIL, Me.EXPDEPRECIATION_DETAIL_INVT, Me.EXPJKDM_DETAIL, Me.EXPJKDM_DETAIL_INVT, Me.EXPTRAVEL_DETAIL, Me.EXPTRAVEL_DETAIL_INVT, Me.EXPADVERTISEMENT_DETAIL, Me.EXPADVERTISEMENT_DETAIL_INVT, Me.EXPRND_DETAIL, Me.EXPRND_DETAIL_INVY, Me.EXPREPAIRMAINTENANCE_DETAIL, Me.EXPREPAIRMAINTENANCE_DETAIL_INVT, Me.EXPRENTAL_DETAIL, Me.EXPRENTAL_DETAIL_INVT, Me.EXPROYALTY_DETAIL, Me.EXPROYALTY_DETAIL_INVT, Me.EXPEMPLOYEESTOCK_DETAIL, Me.EXPEMPLOYEESTOCK_DETAIL_INVT, Me.EXPSALARY_DETAIL, Me.EXPSALARY_DETAIL_INVT, Me.EXPDIRECTORFEE_DETAIL, Me.EXPDIRECTORFEE_DETAIL_INVT, Me.EXPCONTRACTPAY_DETAIL, Me.EXPCONTRACTPAY_DETAIL_INVT, Me.EXPTECHNICAL_DETAIL, Me.EXPTECHNICAL_DETAIL_INVT, Me.EXPLEGAL_DETAIL, Me.EXPLEGAL_DETAIL_INVT, Me.EXPOTHERINTEREST_DETAIL, Me.EXPOTHERINTEREST_DETAIL_INVT, Me.OTHERNONTAXINC_DETAIL, Me.OTHERNONTAXINC_DETAIL_INVT, Me.UNREALFETRADE_DETAIL, Me.UNREALFETRADE_DETAIL_INVT, Me.UNREALFENONTRADE_DETAIL, Me.UNREALFENONTRADE_DETAIL_INVT, Me.REALFE_DETAIL, Me.REALFE_DETAIL_INVT, Me.FORINCREMIT_DETAIL, Me.FORINCREMIT_DETAIL_INVT, Me.PDINVEST_DETAIL, Me.PDINVEST_DETAIL_INVT, Me.PDFIXASSET_DETAIL, Me.PDFIXASSET_DETAIL_INVT, Me.OTHERINC_DETAIL, Me.OTHERINC_DETAIL_INVT, Me.ROYALTYINC_DETAIL, Me.ROYALTYINC_DETAIL_INVT, Me.INTERESTINC_DETAIL, Me.INTERESTINC_DETAIL_INVT, Me.REALFETRADE_DETAIL, Me.REALFETRADE_DETAIL_INVT, Me.OTHERBUSINC_DETAIL, Me.OTHERBUSINC_DETAIL_INVT, Me.CLOSESTOCK_DETAIL, Me.CLOSESTOCK_DETAIL_INVT, Me.OTHERNONALLOWEXP_DETAIL, Me.OTHERNONALLOWEXP_DETAIL_INVT, Me.OTHERALLOWEXP_DETAIL, Me.OTHERALLOWEXP_DETAIL_INVT, Me.DEPRECIATION_DETAIL, Me.DEPRECIATION_DETAIL_INVT, Me.PURCHASE_DETAIL, Me.PURCHASE_DETAIL_INVT, Me.OPENSTOCK_DETAIL, Me.OPENSTOCK_DETAIL_INVT, Me.SALES_DETAIL, Me.SALES_DETAIL_INVT, Me.INTERESTRESTRICT_DETAIL, Me.EXPUNREALLOSSFE_NONTRICOR})
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SALES, Me.OPENSTOCK, Me.PURCHASE, Me.DEPRECIATION, Me.OTHERALLOWEXP, Me.OTHERNONALLOWEXP, Me.CLOSESTOCK, Me.OTHERBUSINC, Me.REALFETRADE, Me.DIVIDENDINC, Me.INTERESTINC, Me.RENTALINC, Me.ROYALTYINC, Me.OTHERINC, Me.PDFIXASSET, Me.PDINVEST, Me.EXEMDIV, Me.FORINCREMIT, Me.REALFE, Me.UNREALFENONTRADE, Me.UNREALFETRADE, Me.OTHERNONTAXINC, Me.INTERESTRESTRICT, Me.EXPOTHERINTEREST, Me.EXPLEGAL, Me.EXPTECHNICAL, Me.EXPCONTRACTPAY, Me.EXPDIRECTORFEE, Me.EXPSALARY, Me.EXPEMPLOYEESTOCK, Me.EXPROYALTY, Me.EXPRENTAL, Me.EXPREPAIRMAINTENANCE, Me.EXPRND, Me.EXPADVERTISEMENT, Me.EXPTRAVEL, Me.EXPDEPRECIATION, Me.EXPDONATIONAPPR, Me.EXPDONATIONNONAPPR, Me.EXPZAKAT, Me.EXPLOSSDISPFA, Me.EXPENTERTAINNONSTAFF, Me.EXPENTERTAINSTAFF, Me.EXPCOMPAUNDPENALTY, Me.EXPPROVISION, Me.EXPLEAVEPASSAGE, Me.EXPFAWRITTENOFF, Me.EXPUNREALLOSSFE, Me.EXPREALLOSSFETRADE, Me.EXPREALLOSSFENONTRADE, Me.EXPINITIALSUBSCRIPT, Me.EXPCAPITALEXPENDITURE, Me.EXPOTHERSEXPENSES, Me.EXPJKDM, Me.LESSCLOSINGSTOCK, Me.TOTALCOS, Me.OTHERINCOME, Me.NONTAXABLEINCOME, Me.TITLE_COS, Me.TITLE_NONBIZINCOME, Me.TITLE_NONTAXABLEINCOME, Me.TITLE_EXPENDITURE, Me.TITLE_OTHEREXPENDITURE, Me.OTHER_EXPENSES_DETAILS, Me.OTHER_EXPENSES_DETAILS_INVT, Me.OTHER_EXCAPITALEXP_DETAIL, Me.OTHER_EXCAPITALEXP_DETAIL_INVT, Me.EXPINITIALSUBSCRIPT_DETAIL, Me.EXPINITIALSUBSCRIPT_DETAIL_INVT, Me.EXPREALLOSSFENONTRADE_DETAIL, Me.EXPREALLOSSFENONTRADE_DETAIL_INVT, Me.EXPREALLOSSFETRADE_DETAIL, Me.EXPREALLOSSFETRADE_DETAIL_INVT, Me.EXPUNREALLOSSFE_DETAIL, Me.EXPUNREALLOSSFE_DETAIL_INVT, Me.EXPFAWRITTENOFF_DETAIL, Me.EXPFAWRITTENOFF_DETAIL_INVT, Me.EXPLEAVEPASSAGE_DETAIL, Me.EXPLEAVEPASSAGE_DETAIL_INVT, Me.EXPPROVISION_DETAIL, Me.EXPPROVISION_DETAIL_INVT, Me.EXPCOMPAUNDPENALTY_DETAIL, Me.EXPCOMPAUNDPENALTY_DETAIL_INVT, Me.EXPENTERTAINSTAFF_DETAIL, Me.EXPENTERTAINSTAFF_DETAIL_INVT, Me.EXPENTERTAINNONSTAFF_DETAIL, Me.EXPENTERTAINNONSTAFF_DETAIL_INVT, Me.EXPLOSSDISPFA_DETAIL, Me.EXPLOSSDISPFA_DETAIL_INVT, Me.EXPZAKAT_DETAIL, Me.EXPZAKAT_DETAIL_INVT, Me.EXPDONATIONNONAPPR_DETAIL, Me.EXPDONATIONNONAPPR_DETAIL_INVT, Me.EXPDONATIONAPPR_DETAIL, Me.EXPDONATIONAPPR_DETAIL_INVT, Me.EXPDEPRECIATION_DETAIL, Me.EXPDEPRECIATION_DETAIL_INVT, Me.EXPJKDM_DETAIL, Me.EXPJKDM_DETAIL_INVT, Me.EXPTRAVEL_DETAIL, Me.EXPTRAVEL_DETAIL_INVT, Me.EXPADVERTISEMENT_DETAIL, Me.EXPADVERTISEMENT_DETAIL_INVT, Me.EXPRND_DETAIL, Me.EXPRND_DETAIL_INVY, Me.EXPREPAIRMAINTENANCE_DETAIL, Me.EXPREPAIRMAINTENANCE_DETAIL_INVT, Me.EXPRENTAL_DETAIL, Me.EXPRENTAL_DETAIL_INVT, Me.EXPROYALTY_DETAIL, Me.EXPROYALTY_DETAIL_INVT, Me.EXPEMPLOYEESTOCK_DETAIL, Me.EXPEMPLOYEESTOCK_DETAIL_INVT, Me.EXPSALARY_DETAIL, Me.EXPSALARY_DETAIL_INVT, Me.EXPDIRECTORFEE_DETAIL, Me.EXPDIRECTORFEE_DETAIL_INVT, Me.EXPCONTRACTPAY_DETAIL, Me.EXPCONTRACTPAY_DETAIL_INVT, Me.EXPTECHNICAL_DETAIL, Me.EXPTECHNICAL_DETAIL_INVT, Me.EXPLEGAL_DETAIL, Me.EXPLEGAL_DETAIL_INVT, Me.EXPOTHERINTEREST_DETAIL, Me.EXPOTHERINTEREST_DETAIL_INVT, Me.OTHERNONTAXINC_DETAIL, Me.OTHERNONTAXINC_DETAIL_INVT, Me.UNREALFETRADE_DETAIL, Me.UNREALFETRADE_DETAIL_INVT, Me.UNREALFENONTRADE_DETAIL, Me.UNREALFENONTRADE_DETAIL_INVT, Me.REALFE_DETAIL, Me.REALFE_DETAIL_INVT, Me.FORINCREMIT_DETAIL, Me.FORINCREMIT_DETAIL_INVT, Me.PDINVEST_DETAIL, Me.PDINVEST_DETAIL_INVT, Me.PDFIXASSET_DETAIL, Me.PDFIXASSET_DETAIL_INVT, Me.OTHERINC_DETAIL, Me.OTHERINC_DETAIL_INVT, Me.ROYALTYINC_DETAIL, Me.ROYALTYINC_DETAIL_INVT, Me.INTERESTINC_DETAIL, Me.INTERESTINC_DETAIL_INVT, Me.REALFETRADE_DETAIL, Me.REALFETRADE_DETAIL_INVT, Me.OTHERBUSINC_DETAIL, Me.OTHERBUSINC_DETAIL_INVT, Me.CLOSESTOCK_DETAIL, Me.CLOSESTOCK_DETAIL_INVT, Me.OTHERNONALLOWEXP_DETAIL, Me.OTHERNONALLOWEXP_DETAIL_INVT, Me.OTHERALLOWEXP_DETAIL, Me.OTHERALLOWEXP_DETAIL_INVT, Me.DEPRECIATION_DETAIL, Me.DEPRECIATION_DETAIL_INVT, Me.PURCHASE_DETAIL, Me.PURCHASE_DETAIL_INVT, Me.OPENSTOCK_DETAIL, Me.OPENSTOCK_DETAIL_INVT, Me.SALES_DETAIL, Me.SALES_DETAIL_INVT, Me.INTERESTRESTRICT_DETAIL, Me.EXPUNREALLOSSFE_NONTRICOR, Me.EXPOTHERINTEREST_RPT_EXCLUDE})
         Me.Margins = New System.Drawing.Printing.Margins(31, 31, 20, 100)
         Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA})
         Me.RequestParameters = false
@@ -21487,7 +21524,7 @@ End Sub
     Friend WithEvents INTERESTINC_DETAIL As DevExpress.XtraReports.UI.FormattingRule
     Friend WithEvents DIVIDEND_INCOME As DevExpress.XtraReports.UI.DetailReportBand
     Friend WithEvents Detail85 As DevExpress.XtraReports.UI.DetailBand
-    Friend WithEvents XrLabel891 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents txtDividend_Income_Transfer As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel890 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel889 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel888 As DevExpress.XtraReports.UI.XRLabel
@@ -21498,7 +21535,7 @@ End Sub
     Friend WithEvents XrLabel883 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel879 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel880 As DevExpress.XtraReports.UI.XRLabel
-    Friend WithEvents XrLabel881 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents title_Dividend_Income_Transfer As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel882 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents GroupHeader45 As DevExpress.XtraReports.UI.GroupHeaderBand
     Friend WithEvents XrLabel886 As DevExpress.XtraReports.UI.XRLabel
@@ -22105,4 +22142,5 @@ End Sub
     Friend WithEvents lineTotal_OTHER_EXINITIALSUB_top As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents lineTotal_OTHER_EXINITIALSUB_bot As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLine60 As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents EXPOTHERINTEREST_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
 End Class

@@ -6974,7 +6974,7 @@ Partial Public Class dsCA
             Me.columnCA_NAME.MaxLength = 255
             Me.columnHP_CODE.MaxLength = 255
             Me.columnCA_ASSET.MaxLength = 255
-            Me.columnCA_CATEGORY_CODE.MaxLength = 20
+            Me.columnCA_CATEGORY_CODE.MaxLength = 200
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

@@ -164,7 +164,15 @@ Public Class ucPNL_Import
 
     Private Sub btnImport_Click(sender As Object, e As EventArgs) Handles btnImport.Click
         Try
+            If System.IO.File.Exists(txtFileUrl.EditValue) = False Then
+                MsgBox("File not exist", MsgBoxStyle.Exclamation)
+                txtFileUrl.ReadOnly = False
+                Exit Sub
+            Else
+                txtFileUrl.ReadOnly = True
+            End If
 
+            Import_Data()
         Catch ex As Exception
 
         End Try

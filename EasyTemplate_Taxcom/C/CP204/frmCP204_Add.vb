@@ -137,7 +137,7 @@ Public Class frmCP204_Add
                 dtAccEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("BCP_BASIS_PERIOD_TO")), Now, dt.Rows(0)("BCP_BASIS_PERIOD_TO"))
 
                 If IsDBNull(dt.Rows(0)("BCP_NEWCO_DATE")) = False Then
-                    dtAccEnd.EditValue = dt.Rows(0)("BCP_NEWCO_DATE")
+                    dtCommencement.EditValue = dt.Rows(0)("BCP_NEWCO_DATE")
                     chkCommencement.EditValue = True
                 Else
                     chkCommencement.EditValue = False
@@ -233,7 +233,7 @@ Public Class frmCP204_Add
                 dtAccStart.EditValue = IIf(IsDBNull(dt.Rows(0)("TP_ACC_PERIOD_FR")), Now, dt.Rows(0)("TP_ACC_PERIOD_FR"))
                 dtAccEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("TP_ACC_PERIOD_TO")), Now, dt.Rows(0)("TP_ACC_PERIOD_TO"))
                 If IsDBNull(dt.Rows(0)("TP_OPN_OPERATION")) = False Then
-                    dtAccEnd.EditValue = dt.Rows(0)("TP_OPN_OPERATION")
+                    dtCommencement.EditValue = dt.Rows(0)("TP_OPN_OPERATION")
                     chkCommencement.EditValue = True
                 Else
                     chkCommencement.EditValue = False
@@ -324,7 +324,7 @@ Public Class frmCP204_Add
 
             tmpTotal = DateDiff(DateInterval.Month, dtBasisPeriodStart.EditValue, dtBasisPeriodEnd.EditValue)
 
-            txtFirstInstallmentCount.EditValue = CInt(tmpTotal)
+            txtFirstInstallmentCount.EditValue = CInt(tmpTotal) + 1
 
             Application.DoEvents()
 
@@ -334,7 +334,7 @@ Public Class frmCP204_Add
             DsCP204.Tables(MainTable_Details).Rows.Clear()
 
             Dim dtRow As DataRow = Nothing
-            For i As Integer = 0 To CInt(txtFirstInstallmentCount.EditValue)
+            For i As Integer = 0 To CInt(txtFirstInstallmentCount.EditValue) - 1
                 dtRow = DsCP204.Tables(MainTable_Details).NewRow
                 dtRow("CP_PARENTID") = 0
                 dtRow("CP_INSTALL_NO") = i + 1
@@ -357,9 +357,9 @@ Public Class frmCP204_Add
                 Dim MonthyInstall As Decimal = 0
                 Dim LastAmount As Decimal = 0
                 Dim Amountx As Decimal = CDec(IIf(txtAmountTaxPayable.EditValue Is Nothing, 0, txtAmountTaxPayable.EditValue))
-                MonthyInstall = Amountx / (CInt(txtFirstInstallmentCount.EditValue) + 1)
+                MonthyInstall = Amountx / (CInt(txtFirstInstallmentCount.EditValue))
                 MonthyInstall = Math.Round(MonthyInstall, MidpointRounding.AwayFromZero)
-                LastAmount = Amountx - (MonthyInstall * CInt(txtFirstInstallmentCount.EditValue))
+                LastAmount = Amountx - (MonthyInstall * (CInt(txtFirstInstallmentCount.EditValue) - 1))
 
                 Dim paymentdue As DateTime
                 If CInt(cboYA.EditValue) < 2015 Then
@@ -398,7 +398,7 @@ Public Class frmCP204_Add
     End Sub
     Private Sub Installment_Breakdown()
         Try
-            Dim instalments As Decimal = FormatNumber(CDbl(txtAmountTaxPayable.EditValue) / (CDbl(txtFirstInstallmentCount.EditValue) + 1), 2)
+            Dim instalments As Decimal = FormatNumber(CDbl(txtAmountTaxPayable.EditValue) / (CDbl(txtFirstInstallmentCount.EditValue)), 2)
             Dim FirstInstallment As Decimal = 0
             Dim LastInstallment As Decimal = 0
 
@@ -863,9 +863,15 @@ Public Class frmCP204_Add
 
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
-            txtRefNo.EditValue = cboRefNo.Properties.View.GetDataRow(cboRefNo.Properties.View.FocusedRowHandle)("CompanyName")
-            txtRefRegistrationNo.EditValue = cboRefNo.Properties.View.GetFocusedRowCellValue("CompanyNo") 'cboRefNo.GetSelectedDataRow()
+            'If cboRefNo.Properties.View.FocusedRowHandle > -1 Then
+            '    txtRefNo.EditValue = cboRefNo.Properties.View.GetDataRow(cboRefNo.Properties.View.FocusedRowHandle)("CompanyName")
+            '    txtRefRegistrationNo.EditValue = cboRefNo.Properties.View.GetFocusedRowCellValue("CompanyNo") 'cboRefNo.GetSelectedDataRow()
+            'End If
+            txtRefNo.EditValue = cboRefNo.EditValue
+
             GenerateBreakDown()
+
+
         Catch ex As Exception
 
         End Try

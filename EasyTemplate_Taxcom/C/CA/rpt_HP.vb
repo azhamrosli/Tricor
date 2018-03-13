@@ -28,7 +28,7 @@ Public Class rpt_HP
     Friend WithEvents tableCell13 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableRow3 As DevExpress.XtraReports.UI.XRTableRow
     Friend WithEvents table3 As DevExpress.XtraReports.UI.XRTable
-    Friend WithEvents groupFooterBand1 As DevExpress.XtraReports.UI.GroupFooterBand
+    Friend WithEvents GFHP As DevExpress.XtraReports.UI.GroupFooterBand
     Friend WithEvents tableCell10 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell9 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents tableCell8 As DevExpress.XtraReports.UI.XRTableCell
@@ -57,7 +57,6 @@ Public Class rpt_HP
     Friend WithEvents label1 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents pageHeaderBand1 As DevExpress.XtraReports.UI.PageHeaderBand
     Friend WithEvents XrLine1 As DevExpress.XtraReports.UI.XRLine
-    Friend WithEvents XrLine3 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents ParamCompanyName As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents ParamYA As DevExpress.XtraReports.Parameters.Parameter
     Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
@@ -80,6 +79,9 @@ Public Class rpt_HP
     Friend WithEvents XrLabel12 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel15 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel16 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLine3 As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents FormattingRule2 As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents XrLabel17 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents topMarginBand1 As DevExpress.XtraReports.UI.TopMarginBand
     Public Sub New()
         InitializeComponent()
@@ -98,8 +100,10 @@ Public Class rpt_HP
         Dim XrSummary10 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary11 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary12 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary13 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.topMarginBand1 = New DevExpress.XtraReports.UI.TopMarginBand()
         Me.pageHeaderBand1 = New DevExpress.XtraReports.UI.PageHeaderBand()
+        Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
@@ -142,7 +146,8 @@ Public Class rpt_HP
         Me.tableCell8 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell9 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell10 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.groupFooterBand1 = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.GFHP = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.XrLine3 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
         Me.table3 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow3 = New DevExpress.XtraReports.UI.XRTableRow()
@@ -152,11 +157,12 @@ Public Class rpt_HP
         Me.tableCell16 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell17 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell18 = New DevExpress.XtraReports.UI.XRTableCell()
+        Me.XrLabel17 = New DevExpress.XtraReports.UI.XRLabel()
         Me.FormattingRule1 = New DevExpress.XtraReports.UI.FormattingRule()
         Me.DsCA = New EasyTemplate_Taxcom.dsCA()
         Me.reportFooterBand1 = New DevExpress.XtraReports.UI.ReportFooterBand()
         Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
-        Me.XrLine3 = New DevExpress.XtraReports.UI.XRLine()
+        Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
         Me.table4 = New DevExpress.XtraReports.UI.XRTable()
         Me.tableRow4 = New DevExpress.XtraReports.UI.XRTableRow()
         Me.tableCell21 = New DevExpress.XtraReports.UI.XRTableCell()
@@ -176,8 +182,7 @@ Public Class rpt_HP
         Me.HPREPORTTEMPBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.CalculatedField1 = New DevExpress.XtraReports.UI.CalculatedField()
         Me.CalculatedField2 = New DevExpress.XtraReports.UI.CalculatedField()
-        Me.XrLabel15 = New DevExpress.XtraReports.UI.XRLabel()
-        Me.XrLabel16 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.FormattingRule2 = New DevExpress.XtraReports.UI.FormattingRule()
         CType(Me.table1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -199,6 +204,21 @@ Public Class rpt_HP
         Me.pageHeaderBand1.HeightF = 542.2247!
         Me.pageHeaderBand1.Name = "pageHeaderBand1"
         Me.pageHeaderBand1.StyleName = "ReportHeaderBandStyle"
+        '
+        'XrLabel15
+        '
+        Me.XrLabel15.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel15.Dpi = 254.0!
+        Me.XrLabel15.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(2165.06!, 0.0!)
+        Me.XrLabel15.Name = "XrLabel15"
+        Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel15.SizeF = New System.Drawing.SizeF(294.251!, 39.58168!)
+        Me.XrLabel15.StylePriority.UseBackColor = False
+        Me.XrLabel15.StylePriority.UseFont = False
+        Me.XrLabel15.StylePriority.UseTextAlignment = False
+        Me.XrLabel15.Text = "SCHEDULE"
+        Me.XrLabel15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'XrLabel14
         '
@@ -386,7 +406,7 @@ Public Class rpt_HP
         'XrLabel2
         '
         Me.XrLabel2.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.ParamYA, "Text", "INCOME TAX COMPUTATION - YEAR OF ASSESSMENT - {0}")})
+        Me.XrLabel2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.ParamYA, "Text", "INCOME TAX COMPUTATION - YEAR OF ASSESSMENT {0}")})
         Me.XrLabel2.Dpi = 254.0!
         Me.XrLabel2.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 98.00165!)
@@ -741,14 +761,24 @@ Public Class rpt_HP
         Me.tableCell10.Weight = 0.36626784534843826R
         Me.tableCell10.WordWrap = False
         '
-        'groupFooterBand1
+        'GFHP
         '
-        Me.groupFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine1, Me.table3})
-        Me.groupFooterBand1.Dpi = 254.0!
-        Me.groupFooterBand1.GroupUnion = DevExpress.XtraReports.UI.GroupFooterUnion.WithLastDetail
-        Me.groupFooterBand1.HeightF = 103.6875!
-        Me.groupFooterBand1.Name = "groupFooterBand1"
-        Me.groupFooterBand1.StyleName = "ReportGroupFooterBandStyle"
+        Me.GFHP.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine3, Me.XrLine1, Me.table3, Me.XrLabel17})
+        Me.GFHP.Dpi = 254.0!
+        Me.GFHP.GroupUnion = DevExpress.XtraReports.UI.GroupFooterUnion.WithLastDetail
+        Me.GFHP.HeightF = 162.9541!
+        Me.GFHP.Name = "GFHP"
+        Me.GFHP.StyleName = "ReportGroupFooterBandStyle"
+        '
+        'XrLine3
+        '
+        Me.XrLine3.BackColor = System.Drawing.Color.Transparent
+        Me.XrLine3.Dpi = 254.0!
+        Me.XrLine3.LineWidth = 5
+        Me.XrLine3.LocationFloat = New DevExpress.Utils.PointFloat(694.5837!, 77.22917!)
+        Me.XrLine3.Name = "XrLine3"
+        Me.XrLine3.SizeF = New System.Drawing.SizeF(1767.417!, 13.22917!)
+        Me.XrLine3.StylePriority.UseBackColor = False
         '
         'XrLine1
         '
@@ -868,6 +898,20 @@ Public Class rpt_HP
         Me.tableCell18.Weight = 0.30357254706845738R
         Me.tableCell18.WordWrap = False
         '
+        'XrLabel17
+        '
+        Me.XrLabel17.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "ID")})
+        Me.XrLabel17.Dpi = 254.0!
+        Me.XrLabel17.LocationFloat = New DevExpress.Utils.PointFloat(433.9991!, 13.22917!)
+        Me.XrLabel17.Name = "XrLabel17"
+        Me.XrLabel17.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel17.SizeF = New System.Drawing.SizeF(254.0!, 58.42!)
+        XrSummary7.FormatString = "{0}"
+        XrSummary7.Func = DevExpress.XtraReports.UI.SummaryFunc.Count
+        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrLabel17.Summary = XrSummary7
+        Me.XrLabel17.Visible = False
+        '
         'FormattingRule1
         '
         Me.FormattingRule1.Condition = "[DataSource.CurrentRowIndex] == 0"
@@ -883,7 +927,7 @@ Public Class rpt_HP
         '
         'reportFooterBand1
         '
-        Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel16, Me.XrLine2, Me.XrLine3, Me.table4})
+        Me.reportFooterBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine2, Me.XrLabel16, Me.table4})
         Me.reportFooterBand1.Dpi = 254.0!
         Me.reportFooterBand1.HeightF = 140.7291!
         Me.reportFooterBand1.Name = "reportFooterBand1"
@@ -893,23 +937,24 @@ Public Class rpt_HP
         '
         Me.XrLine2.BackColor = System.Drawing.Color.Transparent
         Me.XrLine2.Dpi = 254.0!
-        Me.XrLine2.LineWidth = 3
-        Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(694.5828!, 0.0!)
+        Me.XrLine2.LineWidth = 5
+        Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(694.584!, 77.22917!)
         Me.XrLine2.Name = "XrLine2"
         Me.XrLine2.SizeF = New System.Drawing.SizeF(1767.417!, 13.22917!)
         Me.XrLine2.StylePriority.UseBackColor = False
         '
-        'XrLine3
+        'XrLabel16
         '
-        Me.XrLine3.BackColor = System.Drawing.Color.Transparent
-        Me.XrLine3.BorderWidth = 2.0!
-        Me.XrLine3.Dpi = 254.0!
-        Me.XrLine3.LineWidth = 5
-        Me.XrLine3.LocationFloat = New DevExpress.Utils.PointFloat(694.5828!, 77.22917!)
-        Me.XrLine3.Name = "XrLine3"
-        Me.XrLine3.SizeF = New System.Drawing.SizeF(1764.728!, 10.58333!)
-        Me.XrLine3.StylePriority.UseBackColor = False
-        Me.XrLine3.StylePriority.UseBorderWidth = False
+        Me.XrLabel16.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel16.Dpi = 254.0!
+        Me.XrLabel16.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 13.22917!)
+        Me.XrLabel16.Name = "XrLabel16"
+        Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel16.SizeF = New System.Drawing.SizeF(156.1042!, 63.99997!)
+        Me.XrLabel16.StylePriority.UseBackColor = False
+        Me.XrLabel16.StylePriority.UseFont = False
+        Me.XrLabel16.Text = "TOTAL"
         '
         'table4
         '
@@ -937,10 +982,10 @@ Public Class rpt_HP
         Me.tableCell21.Name = "tableCell21"
         Me.tableCell21.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell21.StylePriority.UseTextAlignment = False
-        XrSummary7.FormatString = "{0:#,# ;(#,#); 0}"
-        XrSummary7.IgnoreNullValues = True
-        XrSummary7.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell21.Summary = XrSummary7
+        XrSummary8.FormatString = "{0:#,# ;(#,#); 0}"
+        XrSummary8.IgnoreNullValues = True
+        XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell21.Summary = XrSummary8
         Me.tableCell21.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell21.Weight = 0.30359657325936323R
         Me.tableCell21.WordWrap = False
@@ -952,10 +997,10 @@ Public Class rpt_HP
         Me.tableCell22.Name = "tableCell22"
         Me.tableCell22.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell22.StylePriority.UseTextAlignment = False
-        XrSummary8.FormatString = "{0:#,# ;(#,#);0}"
-        XrSummary8.IgnoreNullValues = True
-        XrSummary8.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell22.Summary = XrSummary8
+        XrSummary9.FormatString = "{0:#,# ;(#,#);0}"
+        XrSummary9.IgnoreNullValues = True
+        XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell22.Summary = XrSummary9
         Me.tableCell22.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell22.Weight = 0.30174272775661476R
         Me.tableCell22.WordWrap = False
@@ -967,10 +1012,10 @@ Public Class rpt_HP
         Me.tableCell23.Name = "tableCell23"
         Me.tableCell23.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell23.StylePriority.UseTextAlignment = False
-        XrSummary9.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary9.IgnoreNullValues = True
-        XrSummary9.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell23.Summary = XrSummary9
+        XrSummary10.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary10.IgnoreNullValues = True
+        XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell23.Summary = XrSummary10
         Me.tableCell23.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell23.Weight = 0.30406092549757868R
         Me.tableCell23.WordWrap = False
@@ -982,10 +1027,10 @@ Public Class rpt_HP
         Me.tableCell24.Name = "tableCell24"
         Me.tableCell24.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell24.StylePriority.UseTextAlignment = False
-        XrSummary10.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary10.IgnoreNullValues = True
-        XrSummary10.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell24.Summary = XrSummary10
+        XrSummary11.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary11.IgnoreNullValues = True
+        XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell24.Summary = XrSummary11
         Me.tableCell24.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell24.Weight = 0.30405903340017337R
         Me.tableCell24.WordWrap = False
@@ -997,10 +1042,10 @@ Public Class rpt_HP
         Me.tableCell25.Name = "tableCell25"
         Me.tableCell25.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell25.StylePriority.UseTextAlignment = False
-        XrSummary11.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary11.IgnoreNullValues = True
-        XrSummary11.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell25.Summary = XrSummary11
+        XrSummary12.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary12.IgnoreNullValues = True
+        XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell25.Summary = XrSummary12
         Me.tableCell25.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell25.Weight = 0.30405903340017337R
         Me.tableCell25.WordWrap = False
@@ -1012,10 +1057,10 @@ Public Class rpt_HP
         Me.tableCell26.Name = "tableCell26"
         Me.tableCell26.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
         Me.tableCell26.StylePriority.UseTextAlignment = False
-        XrSummary12.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary12.IgnoreNullValues = True
-        XrSummary12.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.tableCell26.Summary = XrSummary12
+        XrSummary13.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary13.IgnoreNullValues = True
+        XrSummary13.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.tableCell26.Summary = XrSummary13
         Me.tableCell26.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell26.Weight = 0.304061146242276R
         Me.tableCell26.WordWrap = False
@@ -1089,41 +1134,21 @@ Public Class rpt_HP
         '
         Me.CalculatedField2.Name = "CalculatedField2"
         '
-        'XrLabel15
+        'FormattingRule2
         '
-        Me.XrLabel15.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel15.Dpi = 254.0!
-        Me.XrLabel15.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel15.LocationFloat = New DevExpress.Utils.PointFloat(2167.75!, 0.0!)
-        Me.XrLabel15.Name = "XrLabel15"
-        Me.XrLabel15.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel15.SizeF = New System.Drawing.SizeF(294.251!, 39.58168!)
-        Me.XrLabel15.StylePriority.UseBackColor = False
-        Me.XrLabel15.StylePriority.UseFont = False
-        Me.XrLabel15.StylePriority.UseTextAlignment = False
-        Me.XrLabel15.Text = "SCHEDULE"
-        Me.XrLabel15.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
-        '
-        'XrLabel16
-        '
-        Me.XrLabel16.BackColor = System.Drawing.Color.Transparent
-        Me.XrLabel16.Dpi = 254.0!
-        Me.XrLabel16.Font = New System.Drawing.Font("Arial Narrow", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel16.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 13.22917!)
-        Me.XrLabel16.Name = "XrLabel16"
-        Me.XrLabel16.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel16.SizeF = New System.Drawing.SizeF(156.1042!, 63.99997!)
-        Me.XrLabel16.StylePriority.UseBackColor = False
-        Me.XrLabel16.StylePriority.UseFont = False
-        Me.XrLabel16.Text = "TOTAL"
+        Me.FormattingRule2.Condition = "[DataSource.RowCount] == 1"
+        Me.FormattingRule2.DataMember = "HP_REPORT_TEMP"
+        Me.FormattingRule2.DataSource = Me.DsCA
+        Me.FormattingRule2.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.FormattingRule2.Name = "FormattingRule2"
         '
         'rpt_HP
         '
-        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.topMarginBand1, Me.pageHeaderBand1, Me.groupHeaderBand1, Me.detailBand1, Me.groupFooterBand1, Me.reportFooterBand1, Me.bottomMarginBand1})
+        Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.topMarginBand1, Me.pageHeaderBand1, Me.groupHeaderBand1, Me.detailBand1, Me.GFHP, Me.reportFooterBand1, Me.bottomMarginBand1})
         Me.CalculatedFields.AddRange(New DevExpress.XtraReports.UI.CalculatedField() {Me.CalculatedField1, Me.CalculatedField2})
         Me.DataSource = Me.HPREPORTTEMPBindingSource
         Me.Dpi = 254.0!
-        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1})
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1, Me.FormattingRule2})
         Me.Landscape = True
         Me.Margins = New System.Drawing.Printing.Margins(254, 254, 100, 100)
         Me.PageHeight = 2100
@@ -1147,18 +1172,26 @@ Public Class rpt_HP
 
     Dim Count As Integer = 0
 
-    Private Sub XrLabel12_SummaryReset(sender As Object, e As EventArgs)
+    Private Sub GFHP_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles GFHP.BeforePrint
+        Try
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub XrLabel17_SummaryReset(sender As Object, e As EventArgs) Handles XrLabel17.SummaryReset
         Count = 0
     End Sub
 
-    Private Sub XrLabel12_SummaryRowChanged(sender As Object, e As EventArgs)
+    Private Sub XrLabel17_SummaryRowChanged(sender As Object, e As EventArgs) Handles XrLabel17.SummaryRowChanged
         Try
             Count += 1
 
             If Count > 1 Then
-                groupFooterBand1.Visible = True
+                GFHP.Visible = True
             Else
-                groupFooterBand1.Visible = False
+                GFHP.Visible = False
             End If
         Catch ex As Exception
 

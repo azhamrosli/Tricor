@@ -160,12 +160,12 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.btnDelete.Id = 4
         Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
         Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
+        Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Delete record"
         ToolTipItem2.LeftIndent = 6
-        ToolTipItem2.Text = "Delete record Ctrl + Y"
+        ToolTipItem2.Text = "Delete record [Delete]"
         SuperToolTip2.Items.Add(ToolTipTitleItem2)
         SuperToolTip2.Items.Add(ToolTipItem2)
         Me.btnDelete.SuperTip = SuperToolTip2
@@ -175,6 +175,7 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.BarButtonItem1.Caption = "Report"
         Me.BarButtonItem1.Id = 10
         Me.BarButtonItem1.Name = "BarButtonItem1"
+        Me.BarButtonItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
         'barDockControlTop
         '
@@ -182,35 +183,31 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1025, 39)
+        Me.barDockControlTop.Size = New System.Drawing.Size(879, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 639)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 519)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1025, 0)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(879, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 600)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 488)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1025, 39)
+        Me.barDockControlRight.Location = New System.Drawing.Point(879, 31)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 600)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 488)
         '
         'RepositoryItemTextEdit1
         '
@@ -231,15 +228,14 @@ Partial Class ucPNL_p3InterestResPurS33
         Me.SplitContainerControl1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainerControl1.FixedPanel = DevExpress.XtraEditors.SplitFixedPanel.None
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 39)
-        Me.SplitContainerControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(0, 31)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Text = "Panel1"
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
         Me.SplitContainerControl1.ScrollBarSmallChange = 10
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(1025, 600)
-        Me.SplitContainerControl1.SplitterPosition = 272
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(879, 488)
+        Me.SplitContainerControl1.SplitterPosition = 222
         Me.SplitContainerControl1.TabIndex = 4
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
         '
@@ -247,13 +243,11 @@ Partial Class ucPNL_p3InterestResPurS33
         '
         Me.GridControl1.DataSource = Me.EXPENSESINTERESTRESTRICTBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Location = New System.Drawing.Point(0, 0)
         Me.GridControl1.MainView = Me.GridView1
-        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.chkDeduct, Me.cboType, Me.cboTypeIncome})
-        Me.GridControl1.Size = New System.Drawing.Size(1025, 272)
+        Me.GridControl1.Size = New System.Drawing.Size(879, 222)
         Me.GridControl1.TabIndex = 15
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -521,16 +515,15 @@ Partial Class ucPNL_p3InterestResPurS33
         '
         'ucPNL_p3InterestResPurS33
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.SplitContainerControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p3InterestResPurS33"
-        Me.Size = New System.Drawing.Size(1025, 639)
+        Me.Size = New System.Drawing.Size(879, 519)
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()

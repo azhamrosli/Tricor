@@ -200,7 +200,7 @@ Public Class ucMovement
             End If
 
             For i As Integer = 0 To dt.Rows.Count - 1
-                dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the Year Ended " & Format(IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), Now, dt.Rows(i)("MM_YEAR_ENDED")), "dd.MM.yyyy")
+                dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the " & IIf(IsDBNull(dt.Rows(i)("MM_TYPE")), "Year Ended", dt.Rows(i)("MM_TYPE")) & " " & Format(IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), Now, dt.Rows(i)("MM_YEAR_ENDED")), "dd.MM.yyyy")
                 Application.DoEvents()
                 DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
             Next
@@ -223,6 +223,7 @@ Public Class ucMovement
 
             Dim rpt As New rptMovementNormal
             rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
+            rpt.paramParentID.Value = ID
             rpt.DataSource = DsMovement.Tables("MOVEMENT_NORMAL")
 
             rpt.ShowPreview()

@@ -1121,6 +1121,38 @@ Public Class clsIODatabase
             Return Nothing
         End Try
     End Function
+    Public Function LoadCategory(ByVal CA_CODE As String, Optional ErrorLog As clsError = Nothing) As DataTable
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM CA_CATEGORY WHERE CA_CODE=@CA_CODE"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@CA_CODE", SqlDbType.NVarChar, 20).Value = CA_CODE
+
+            Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function LoadPNL_Search(ByVal RefNo As String, ByVal YA As String, _
                                    Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
@@ -10961,6 +10993,38 @@ Public Function Load_OTHER_EXPENSES_TOTAL_SOURCENO_BYSOURCE(ByVal KeyID As Integ
 End Function
 #End Region
 
+    Public Function Load_PNL_IncludeInReport(ByVal PL_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE WHERE PL_KEY=@KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@KEY", SqlDbType.Int).Value = PL_KEY
+
+            Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
+
+
+
     Public Function Load_PNLReport_ByID(ByVal ID As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
             
@@ -15940,7 +16004,7 @@ End Function
 
     Public Function Load_TaxableIncome(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -15971,7 +16035,7 @@ End Function
     End Function
     Public Function Load_RevenueExpenditure(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
-            ADO = New SQLDataObject()
+
             Dim SqlCon As SqlConnection
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -18566,6 +18630,52 @@ End Function
             Return False
         End Try
     End Function
+
+    Public Function Save_PNL_ExcludeInReport(ByVal dt As DataTable, ByRef ListofCmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+            If dt Is Nothing OrElse dt.Rows.Count <= 0 Then
+                Return False
+            End If
+
+            If ListofCmd Is Nothing Then
+                ListofCmd = New List(Of SqlCommand)
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "DELETE FROM PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE WHERE PL_KEY=@PL_KEY"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@PL_KEY", SqlDbType.Int).Value = dt.Rows(0)("PL_KEY")
+
+
+            ListofCmd.Add(SQLcmd)
+
+            Me.CreateInsertCommand_ByDataTable(dt, SqlCon, Nothing, ListofCmd, ErrorLog)
+
+            Return True
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
+
+
     Public Function Save_ProfitAndLoss_Query(ByVal dt As DataTable, ByRef Listofcmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
             
@@ -23910,7 +24020,7 @@ End Function
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 SQLcmd = Nothing
-                StrSQL = "INSERT INTO DIVIDEND_INCOME(DI_KEY,DI_DIVIDENDKEY,DI_DATE,DI_COMPANY,DI_GROSS,DI_TAX,DI_NET,DI_WARANT_NO,DI_CHKREGROSS,DI_TAXRATE,DI_REGROSS,DI_TAXDEDUCTION,DI_NETDEDUCTION,DI_ENDDATE,DI_TRATE,DI_SOURCENO,DI_DISCLOSE,DI_TRANSFER) VALUES (@DI_KEY,@DI_DIVIDENDKEY,@DI_DATE,@DI_COMPANY,@DI_GROSS,@DI_TAX,@DI_NET,@DI_WARANT_NO,@DI_CHKREGROSS,@DI_TAXRATE,@DI_REGROSS,@DI_TAXDEDUCTION,@DI_NETDEDUCTION,@DI_ENDDATE,@DI_TRATE,@DI_SOURCENO,@DI_DISCLOSE,@DI_TRANSFER)"
+                StrSQL = "INSERT INTO DIVIDEND_INCOME(DI_KEY,DI_DIVIDENDKEY,DI_DATE,DI_COMPANY,DI_GROSS,DI_TAX,DI_NET,DI_WARANT_NO,DI_CHKREGROSS,DI_TAXRATE,DI_REGROSS,DI_TAXDEDUCTION,DI_NETDEDUCTION,DI_ENDDATE,DI_TRATE,DI_SOURCENO,DI_DISCLOSE,DI_TRANSFER,DI_Percentage,DI_PercentageAmount) VALUES (@DI_KEY,@DI_DIVIDENDKEY,@DI_DATE,@DI_COMPANY,@DI_GROSS,@DI_TAX,@DI_NET,@DI_WARANT_NO,@DI_CHKREGROSS,@DI_TAXRATE,@DI_REGROSS,@DI_TAXDEDUCTION,@DI_NETDEDUCTION,@DI_ENDDATE,@DI_TRATE,@DI_SOURCENO,@DI_DISCLOSE,@DI_TRANSFER,@DI_Percentage,@DI_PercentageAmount)"
                 SQLcmd = New SqlCommand
                 SQLcmd.CommandText = StrSQL
                 SQLcmd.Parameters.Add("@DI_KEY", SqlDbType.Int).Value = PNL_Key
@@ -23932,6 +24042,8 @@ End Function
                 SQLcmd.Parameters.Add("@DI_SOURCENO", SqlDbType.Int).Value = dt.Rows(i)("DI_SOURCENO")
                 SQLcmd.Parameters.Add("@DI_DISCLOSE", SqlDbType.NVarChar, 3).Value = IIf(isDisclose = True, "Yes", "No")
                 SQLcmd.Parameters.Add("@DI_TRANSFER", SqlDbType.NVarChar, 25).Value = dt.Rows(i)("DI_TRANSFER")
+                SQLcmd.Parameters.Add("@DI_Percentage", SqlDbType.Decimal).Value = IIf(IsDBNull(dt.Rows(i)("DI_Percentage")), 0, dt.Rows(i)("DI_Percentage"))
+                SQLcmd.Parameters.Add("@DI_PercentageAmount", SqlDbType.Decimal).Value = IIf(IsDBNull(dt.Rows(i)("DI_PercentageAmount")), 0, dt.Rows(i)("DI_PercentageAmount"))
 
                 ListofCmd.Add(SQLcmd)
 
@@ -24007,14 +24119,9 @@ End Function
             End If
             Dim Key As Integer = ADO.Load_GetTaxableIncome_Key(Nothing)
 
-            If Key = -1 Then
-                Return False
-            Else
-                Key += 1
-            End If
-
+            Key += 1
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "INSERT INTO TAXABLE_INCOME (TI_KEY,TI_REF_NO,TI_YA,TI_DESC,TI_AMOUNT,TI_SOURCENO) VALUES (@TI_KEY,@TI_REF_NO,@TI_YA,@TI_DESC,@TI_AMOUNT,@TI_SOURCENO)"
+            Dim StrSQL As String = "INSERT INTO TAXABLE_INCOME (TI_KEY,TI_REF_NO,TI_YA,TI_DESC,TI_AMOUNT,TI_SOURCENO,TI_TYPE) VALUES (@TI_KEY,@TI_REF_NO,@TI_YA,@TI_DESC,@TI_AMOUNT,@TI_SOURCENO,@TI_TYPE)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@TI_KEY", SqlDbType.Int).Value = Key
@@ -24023,6 +24130,7 @@ End Function
             SQLcmd.Parameters.Add("@TI_DESC", SqlDbType.NVarChar, 255).Value = TI_DESC
             SQLcmd.Parameters.Add("@TI_AMOUNT", SqlDbType.NVarChar, 25).Value = CStr(TI_AMOUNT)
             SQLcmd.Parameters.Add("@TI_SOURCENO", SqlDbType.Int).Value = TI_SOURCE
+            SQLcmd.Parameters.Add("@TI_TYPE", SqlDbType.Int).Value = 1
 
             ListofCmd.Add(SQLcmd)
 
@@ -24042,14 +24150,10 @@ End Function
             End If
             Dim Key As Integer = ADO.Load_GetRevenueExpenditure_Key(Nothing)
 
-            If Key = -1 Then
-                Return False
-            Else
-                Key += 1
-            End If
+            Key += 1
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "INSERT INTO REVENUE_EXPENDITURE (RE_KEY,RE_REF_NO,RE_YA,RE_DESC,RE_AMOUNT,RE_SOURCENO) VALUES (@RE_KEY,@RE_REF_NO,@RE_YA,@RE_DESC,@RE_AMOUNT,@RE_SOURCENO)"
+            Dim StrSQL As String = "INSERT INTO REVENUE_EXPENDITURE (RE_KEY,RE_REF_NO,RE_YA,RE_DESC,RE_AMOUNT,RE_SOURCENO,RE_TYPE) VALUES (@RE_KEY,@RE_REF_NO,@RE_YA,@RE_DESC,@RE_AMOUNT,@RE_SOURCENO,@RE_TYPE)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@RE_KEY", SqlDbType.Int).Value = Key
@@ -24058,6 +24162,8 @@ End Function
             SQLcmd.Parameters.Add("@RE_DESC", SqlDbType.NVarChar, 255).Value = RE_DESC
             SQLcmd.Parameters.Add("@RE_AMOUNT", SqlDbType.NVarChar, 25).Value = CStr(RE_AMOUNT)
             SQLcmd.Parameters.Add("@RE_SOURCENO", SqlDbType.Int).Value = RE_SOURCE
+            SQLcmd.Parameters.Add("@RE_TYPE", SqlDbType.Int).Value = 1
+
 
             ListofCmd.Add(SQLcmd)
 
@@ -24368,7 +24474,7 @@ End Function
 #End Region
 #Region "MOVEMENT"
     Public Function Save_MovementComplex(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
-                                 ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
+                                 ByVal TypeDate As String, ByVal YearEnded As DateTime, _
                                  ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                  ByVal MM_GENERAL_START As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_START As Decimal, _
                                  ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
@@ -24389,14 +24495,14 @@ End Function
             Dim tmpID As Decimal = 0
 
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_PERIOD_ENDED,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_PERIOD_ENDED,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_COMPLEX (MM_REFNO,MM_YA,MM_TITLE,MM_TYPE,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START,MM_NOTE_END,MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_TYPE,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_GENERAL_START,@MM_SPECIFIC_ALLOWABLE_START,@MM_SPECIFIC_NONALLOWABLE_START,@MM_NOTE_START,@MM_NOTE_END,@MM_GENERAL_END,@MM_SPECIFIC_ALLOWABLE_END,@MM_SPECIFIC_NONALLOWABLE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
-            SQLcmd.Parameters.Add("@MM_PERIOD_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(PeriodEnd), Now, PeriodEnd)
+            SQLcmd.Parameters.Add("@MM_TYPE", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(TypeDate), "", TypeDate)
             SQLcmd.Parameters.Add("@MM_YEAR_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(YearEnded), Now, YearEnded)
             SQLcmd.Parameters.Add("@MM_BALANCE_START", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceStart), Now, BalanceStart)
             SQLcmd.Parameters.Add("@MM_BALANCE_END", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceEnd), Now, BalanceEnd)
@@ -25259,7 +25365,7 @@ End Function
 #Region "MOVEMENT"
   
     Public Function Update_MovementComplex(ByVal ID As Integer, ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
-                                   ByVal PeriodEnd As DateTime, ByVal YearEnded As DateTime, _
+                                   ByVal TypeDate As String, ByVal YearEnded As DateTime, _
                                    ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                    ByVal MM_GENERAL_START As Decimal, ByVal MM_SPECIFIC_ALLOWABLE_START As Decimal, _
                                    ByVal MM_SPECIFIC_NONALLOWABLE_START As Decimal, _
@@ -25278,7 +25384,7 @@ End Function
             Dim SQLcmd As SqlCommand
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_PERIOD_ENDED=@MM_PERIOD_ENDED,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_COMPLEX SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_TYPE=@MM_TYPE,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_GENERAL_START=@MM_GENERAL_START,MM_SPECIFIC_ALLOWABLE_START=@MM_SPECIFIC_ALLOWABLE_START,MM_SPECIFIC_NONALLOWABLE_START=@MM_SPECIFIC_NONALLOWABLE_START,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,MM_GENERAL_END=@MM_GENERAL_END,MM_SPECIFIC_ALLOWABLE_END=@MM_SPECIFIC_ALLOWABLE_END,MM_SPECIFIC_NONALLOWABLE_END=@MM_SPECIFIC_NONALLOWABLE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -25286,7 +25392,7 @@ End Function
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
-            SQLcmd.Parameters.Add("@MM_PERIOD_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(PeriodEnd), Now, PeriodEnd)
+            SQLcmd.Parameters.Add("@MM_TYPE", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(TypeDate), "", TypeDate)
             SQLcmd.Parameters.Add("@MM_YEAR_ENDED", SqlDbType.DateTime).Value = IIf(IsDBNull(YearEnded), Now, YearEnded)
             SQLcmd.Parameters.Add("@MM_BALANCE_START", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceStart), Now, BalanceStart)
             SQLcmd.Parameters.Add("@MM_BALANCE_END", SqlDbType.DateTime).Value = IIf(IsDBNull(BalanceEnd), Now, BalanceEnd)
@@ -25627,7 +25733,7 @@ End Function
             SQLcmd.Parameters.Add("@TC_AI_ADJ_IN_LOSS", SqlDbType.NVarChar, 25).Value = CStr(TC_AI_ADJ_IN_LOSS)
             SQLcmd.Parameters.Add("@TC_KEY", SqlDbType.Int).Value = ID
 
-
+            Application.DoEvents()
             Return Me.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
             If ErrorLog Is Nothing Then
@@ -26600,7 +26706,7 @@ End Function
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "DELETE FROM TAXABLE_INCOME WHERE TI_REF_NO=@TI_REF_NO AND TI_YA=@TI_YA"
+            Dim StrSQL As String = "DELETE FROM TAXABLE_INCOME WHERE TI_REF_NO=@TI_REF_NO AND TI_YA=@TI_YA AND TI_TYPE=1"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@TI_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
@@ -26633,7 +26739,7 @@ End Function
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "DELETE FROM REVENUE_EXPENDITURE WHERE RE_REF_NO=@RE_REF_NO AND RE_YA=@RE_YA"
+            Dim StrSQL As String = "DELETE FROM REVENUE_EXPENDITURE WHERE RE_REF_NO=@RE_REF_NO AND RE_YA=@RE_YA AND RE_TYPE=1"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@RE_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo

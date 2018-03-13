@@ -64,12 +64,16 @@ Partial Class ucPNL_p2DivIncome
         Me.colDI_ENDDATE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colDI_TRATE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colDI_DISCLOSE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colDI_Percentage = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colDI_PercentageAmount = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.cboTypeofIncome = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemComboBox1 = New DevExpress.XtraEditors.Repository.RepositoryItemComboBox()
+        Me.txtPercentage = New DevExpress.XtraBars.BarEditItem()
+        Me.RepositoryItemTextEdit3 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.cboSourceNo1 = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemLookUpEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.chkDiscloseNet = New DevExpress.XtraBars.BarEditItem()
@@ -81,26 +85,27 @@ Partial Class ucPNL_p2DivIncome
         Me.RepositoryItemTextEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.RepositoryItemLookUpEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
-        CType(Me.GridView2,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.txtNumberic,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.txtNote,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridControl1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.DIVIDENDINCOMEBindingSource,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.DsPNL1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.GridView1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.cboSourceNo,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.BUSINESSSOURCEBindingSource,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.dtDate,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.dtDate.CalendarTimeProperties,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.cboTypeIncome,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.BarManager1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.RepositoryItemComboBox1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.RepositoryItemLookUpEdit2,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.RepositoryItemCheckEdit1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.RepositoryItemTextEdit1,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.RepositoryItemTextEdit2,System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.RepositoryItemLookUpEdit1,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.SuspendLayout
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DIVIDENDINCOMEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtDate, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtDate.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboTypeIncome, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemLookUpEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemCheckEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
         '
         'GridView2
         '
@@ -109,12 +114,12 @@ Partial Class ucPNL_p2DivIncome
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
         Me.GridView2.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[True]
-        Me.GridView2.OptionsDetail.SmartDetailHeight = true
-        Me.GridView2.OptionsSelection.MultiSelect = true
-        Me.GridView2.OptionsView.ColumnAutoWidth = false
+        Me.GridView2.OptionsDetail.SmartDetailHeight = True
+        Me.GridView2.OptionsSelection.MultiSelect = True
+        Me.GridView2.OptionsView.ColumnAutoWidth = False
         Me.GridView2.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom
-        Me.GridView2.OptionsView.RowAutoHeight = true
-        Me.GridView2.OptionsView.ShowFooter = true
+        Me.GridView2.OptionsView.RowAutoHeight = True
+        Me.GridView2.OptionsView.ShowFooter = True
         Me.GridView2.ViewCaption = "Details"
         '
         'colNTD_KEY
@@ -137,7 +142,7 @@ Partial Class ucPNL_p2DivIncome
         Me.colNTD_DESC.Caption = "Description"
         Me.colNTD_DESC.FieldName = "NTD_DESC"
         Me.colNTD_DESC.Name = "colNTD_DESC"
-        Me.colNTD_DESC.Visible = true
+        Me.colNTD_DESC.Visible = True
         Me.colNTD_DESC.VisibleIndex = 0
         Me.colNTD_DESC.Width = 300
         '
@@ -148,13 +153,13 @@ Partial Class ucPNL_p2DivIncome
         Me.colNTD_AMOUNT.FieldName = "NTD_AMOUNT"
         Me.colNTD_AMOUNT.Name = "colNTD_AMOUNT"
         Me.colNTD_AMOUNT.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "NTD_AMOUNT", "SUM={0:0.##}")})
-        Me.colNTD_AMOUNT.Visible = true
+        Me.colNTD_AMOUNT.Visible = True
         Me.colNTD_AMOUNT.VisibleIndex = 1
         Me.colNTD_AMOUNT.Width = 120
         '
         'txtNumberic
         '
-        Me.txtNumberic.AutoHeight = false
+        Me.txtNumberic.AutoHeight = False
         Me.txtNumberic.DisplayFormat.FormatString = "n0"
         Me.txtNumberic.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
         Me.txtNumberic.Mask.EditMask = "n0"
@@ -194,13 +199,11 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.GridControl1.DataSource = Me.DIVIDENDINCOMEBindingSource
         Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.EmbeddedNavigator.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.GridControl1.Location = New System.Drawing.Point(0, 39)
+        Me.GridControl1.Location = New System.Drawing.Point(0, 31)
         Me.GridControl1.MainView = Me.GridView1
-        Me.GridControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.GridControl1.Name = "GridControl1"
         Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNumberic, Me.txtNote, Me.cboSourceNo, Me.dtDate, Me.cboTypeIncome})
-        Me.GridControl1.Size = New System.Drawing.Size(934, 474)
+        Me.GridControl1.Size = New System.Drawing.Size(1122, 386)
         Me.GridControl1.TabIndex = 0
         Me.GridControl1.UseEmbeddedNavigator = True
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1, Me.GridView2})
@@ -218,7 +221,7 @@ Partial Class ucPNL_p2DivIncome
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colDI_KEY, Me.colDI_DIVIDENDKEY, Me.colDI_SOURCENO, Me.colDI_COMPANY, Me.colDI_WARANT_NO, Me.colDI_DATE, Me.colDI_GROSS, Me.colDI_TAX, Me.colDI_NET, Me.colDI_TRANSFER, Me.colDI_CHKREGROSS, Me.colDI_TAXRATE, Me.colDI_REGROSS, Me.colDI_TAXDEDUCTION, Me.colDI_NETDEDUCTION, Me.colDI_ENDDATE, Me.colDI_TRATE, Me.colDI_DISCLOSE})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colDI_KEY, Me.colDI_DIVIDENDKEY, Me.colDI_SOURCENO, Me.colDI_COMPANY, Me.colDI_WARANT_NO, Me.colDI_DATE, Me.colDI_GROSS, Me.colDI_TAX, Me.colDI_NET, Me.colDI_TRANSFER, Me.colDI_CHKREGROSS, Me.colDI_TAXRATE, Me.colDI_REGROSS, Me.colDI_TAXDEDUCTION, Me.colDI_NETDEDUCTION, Me.colDI_ENDDATE, Me.colDI_TRATE, Me.colDI_DISCLOSE, Me.colDI_Percentage, Me.colDI_PercentageAmount})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -391,6 +394,28 @@ Partial Class ucPNL_p2DivIncome
         Me.colDI_DISCLOSE.FieldName = "DI_DISCLOSE"
         Me.colDI_DISCLOSE.Name = "colDI_DISCLOSE"
         '
+        'colDI_Percentage
+        '
+        Me.colDI_Percentage.Caption = "Percentage"
+        Me.colDI_Percentage.FieldName = "DI_Percentage"
+        Me.colDI_Percentage.Name = "colDI_Percentage"
+        Me.colDI_Percentage.OptionsColumn.AllowEdit = False
+        Me.colDI_Percentage.OptionsColumn.TabStop = False
+        Me.colDI_Percentage.Visible = True
+        Me.colDI_Percentage.VisibleIndex = 6
+        Me.colDI_Percentage.Width = 100
+        '
+        'colDI_PercentageAmount
+        '
+        Me.colDI_PercentageAmount.Caption = "Percentage Amount"
+        Me.colDI_PercentageAmount.FieldName = "DI_PercentageAmount"
+        Me.colDI_PercentageAmount.Name = "colDI_PercentageAmount"
+        Me.colDI_PercentageAmount.OptionsColumn.AllowEdit = False
+        Me.colDI_PercentageAmount.OptionsColumn.TabStop = False
+        Me.colDI_PercentageAmount.Visible = True
+        Me.colDI_PercentageAmount.VisibleIndex = 7
+        Me.colDI_PercentageAmount.Width = 100
+        '
         'BarManager1
         '
         Me.BarManager1.Bars.AddRange(New DevExpress.XtraBars.Bar() {Me.Bar1})
@@ -399,9 +424,9 @@ Partial Class ucPNL_p2DivIncome
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnDelete, Me.cboTypeofIncome, Me.cboSourceNo1, Me.chkDiscloseNet})
-        Me.BarManager1.MaxItemId = 15
-        Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox1, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemCheckEdit1})
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnDelete, Me.cboTypeofIncome, Me.cboSourceNo1, Me.chkDiscloseNet, Me.txtPercentage})
+        Me.BarManager1.MaxItemId = 16
+        Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2, Me.RepositoryItemLookUpEdit1, Me.RepositoryItemComboBox1, Me.RepositoryItemLookUpEdit2, Me.RepositoryItemCheckEdit1, Me.RepositoryItemTextEdit3})
         '
         'Bar1
         '
@@ -410,7 +435,7 @@ Partial Class ucPNL_p2DivIncome
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(31, 109)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.cboTypeofIncome), New DevExpress.XtraBars.LinkPersistInfo(Me.cboSourceNo1), New DevExpress.XtraBars.LinkPersistInfo(Me.chkDiscloseNet)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.cboTypeofIncome), New DevExpress.XtraBars.LinkPersistInfo(Me.txtPercentage), New DevExpress.XtraBars.LinkPersistInfo(Me.cboSourceNo1), New DevExpress.XtraBars.LinkPersistInfo(Me.chkDiscloseNet)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -439,12 +464,12 @@ Partial Class ucPNL_p2DivIncome
         Me.btnDelete.Id = 4
         Me.btnDelete.ImageOptions.Image = CType(resources.GetObject("btnDelete.ImageOptions.Image"), System.Drawing.Image)
         Me.btnDelete.ImageOptions.LargeImage = CType(resources.GetObject("btnDelete.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.Y))
+        Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         ToolTipTitleItem2.Text = "Delete record"
         ToolTipItem2.LeftIndent = 6
-        ToolTipItem2.Text = "Delete record Ctrl + Y"
+        ToolTipItem2.Text = "Delete record [Delete]"
         SuperToolTip2.Items.Add(ToolTipTitleItem2)
         SuperToolTip2.Items.Add(ToolTipItem2)
         Me.btnDelete.SuperTip = SuperToolTip2
@@ -462,9 +487,27 @@ Partial Class ucPNL_p2DivIncome
         '
         Me.RepositoryItemComboBox1.AutoHeight = False
         Me.RepositoryItemComboBox1.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.RepositoryItemComboBox1.Items.AddRange(New Object() {"Single Tier", "Trust", "Royalty", "Interest", "Section 4a", "Other"})
+        Me.RepositoryItemComboBox1.Items.AddRange(New Object() {"Single Tier", "Percentage", "Trust", "Royalty", "Interest", "Section 4a", "Other"})
         Me.RepositoryItemComboBox1.Name = "RepositoryItemComboBox1"
         Me.RepositoryItemComboBox1.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
+        '
+        'txtPercentage
+        '
+        Me.txtPercentage.Caption = "Percentage"
+        Me.txtPercentage.Edit = Me.RepositoryItemTextEdit3
+        Me.txtPercentage.EditWidth = 100
+        Me.txtPercentage.Enabled = False
+        Me.txtPercentage.Id = 15
+        Me.txtPercentage.Name = "txtPercentage"
+        Me.txtPercentage.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'RepositoryItemTextEdit3
+        '
+        Me.RepositoryItemTextEdit3.AutoHeight = False
+        Me.RepositoryItemTextEdit3.Name = "RepositoryItemTextEdit3"
+        Me.RepositoryItemTextEdit3.NullText = "100"
+        Me.RepositoryItemTextEdit3.NullValuePrompt = "100"
+        Me.RepositoryItemTextEdit3.NullValuePromptShowForEmptyValue = True
         '
         'cboSourceNo1
         '
@@ -511,35 +554,31 @@ Partial Class ucPNL_p2DivIncome
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
         Me.barDockControlTop.Manager = Me.BarManager1
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(934, 39)
+        Me.barDockControlTop.Size = New System.Drawing.Size(1122, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 513)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 417)
         Me.barDockControlBottom.Manager = Me.BarManager1
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(934, 0)
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1122, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 39)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
         Me.barDockControlLeft.Manager = Me.BarManager1
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 474)
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 386)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(934, 39)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1122, 31)
         Me.barDockControlRight.Manager = Me.BarManager1
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 474)
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 386)
         '
         'RepositoryItemTextEdit1
         '
@@ -562,39 +601,39 @@ Partial Class ucPNL_p2DivIncome
         '
         'ucPNL_p2DivIncome
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.GridControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "ucPNL_p2DivIncome"
-        Me.Size = New System.Drawing.Size(934, 513)
-        CType(Me.GridView2,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.txtNumberic,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.txtNote,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridControl1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.DIVIDENDINCOMEBindingSource,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.DsPNL1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.GridView1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.cboSourceNo,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.BUSINESSSOURCEBindingSource,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.dtDate.CalendarTimeProperties,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.dtDate,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.cboTypeIncome,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.BarManager1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.RepositoryItemComboBox1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.RepositoryItemLookUpEdit2,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.RepositoryItemCheckEdit1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.RepositoryItemTextEdit1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.RepositoryItemTextEdit2,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.RepositoryItemLookUpEdit1,System.ComponentModel.ISupportInitialize).EndInit
-        Me.ResumeLayout(false)
-        Me.PerformLayout
+        Me.Size = New System.Drawing.Size(1122, 417)
+        CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtNumberic, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DIVIDENDINCOMEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboSourceNo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BUSINESSSOURCEBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtDate.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtDate, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboTypeIncome, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemComboBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemLookUpEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemCheckEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemLookUpEdit1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
 
-End Sub
+    End Sub
     Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
     Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
@@ -650,5 +689,9 @@ End Sub
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents RepositoryItemLookUpEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit
+    Friend WithEvents txtPercentage As DevExpress.XtraBars.BarEditItem
+    Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents colDI_Percentage As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colDI_PercentageAmount As DevExpress.XtraGrid.Columns.GridColumn
 
 End Class

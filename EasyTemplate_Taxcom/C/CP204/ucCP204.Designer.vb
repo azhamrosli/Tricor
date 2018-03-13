@@ -542,7 +542,7 @@ Partial Class ucCP204
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboRefNo.Properties.DataSource = Me.TaxPayerFindBindingSource
-        Me.cboRefNo.Properties.DisplayMember = "RefNo"
+        Me.cboRefNo.Properties.DisplayMember = "CompanyName"
         Me.cboRefNo.Properties.NullText = "Select"
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"

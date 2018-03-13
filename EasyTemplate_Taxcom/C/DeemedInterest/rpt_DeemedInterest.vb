@@ -30,14 +30,17 @@ Public Class rpt_DeemedInterest
     Friend WithEvents table1 As DevExpress.XtraReports.UI.XRTable
     Friend WithEvents pageHeaderBand1 As DevExpress.XtraReports.UI.PageHeaderBand
     Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
-    Friend WithEvents XrLabel2 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents lblExp As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLine2 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLine1 As DevExpress.XtraReports.UI.XRLine
+    Friend WithEvents XrLabel3 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel2 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel6 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents topMarginBand1 As DevExpress.XtraReports.UI.TopMarginBand
     Public Sub New()
         InitializeComponent()
     End Sub
-	Private Sub InitializeComponent()
+    Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim XrSummary1 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.topMarginBand1 = New DevExpress.XtraReports.UI.TopMarginBand()
@@ -56,7 +59,7 @@ Public Class rpt_DeemedInterest
         Me.tableCell6 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell7 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.tableCell8 = New DevExpress.XtraReports.UI.XRTableCell()
-        Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.lblExp = New DevExpress.XtraReports.UI.XRLabel()
         Me.reportFooterBand1 = New DevExpress.XtraReports.UI.ReportFooterBand()
         Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
@@ -73,6 +76,9 @@ Public Class rpt_DeemedInterest
         Me.ReportEvenStyle = New DevExpress.XtraReports.UI.XRControlStyle()
         Me.DEEMEDINTERESTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsTaxcomputation = New EasyTemplate_Taxcom.dsTaxcomputation()
+        Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
         CType(Me.table1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.table3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,9 +94,9 @@ Public Class rpt_DeemedInterest
         '
         'pageHeaderBand1
         '
-        Me.pageHeaderBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table1, Me.XrLabel1})
+        Me.pageHeaderBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel3, Me.XrLabel2, Me.XrLabel6, Me.table1, Me.XrLabel1})
         Me.pageHeaderBand1.Dpi = 254.0!
-        Me.pageHeaderBand1.HeightF = 214.8125!
+        Me.pageHeaderBand1.HeightF = 307.4166!
         Me.pageHeaderBand1.Name = "pageHeaderBand1"
         Me.pageHeaderBand1.StyleName = "ReportHeaderBandStyle"
         '
@@ -98,7 +104,7 @@ Public Class rpt_DeemedInterest
         '
         Me.table1.BackColor = System.Drawing.Color.Transparent
         Me.table1.Dpi = 254.0!
-        Me.table1.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.table1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 119.0625!)
         Me.table1.Name = "table1"
         Me.table1.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow1})
@@ -129,7 +135,7 @@ Public Class rpt_DeemedInterest
         Me.tableCell2.Dpi = 254.0!
         Me.tableCell2.Multiline = True
         Me.tableCell2.Name = "tableCell2"
-        Me.tableCell2.Text = "Balance as at Month End" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RM"
+        Me.tableCell2.Text = "Balance as at Month End" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.tableCell2.Weight = 0.63499998926517354R
         '
         'tableCell3
@@ -137,7 +143,7 @@ Public Class rpt_DeemedInterest
         Me.tableCell3.Dpi = 254.0!
         Me.tableCell3.Multiline = True
         Me.tableCell3.Name = "tableCell3"
-        Me.tableCell3.Text = "Average Lending Rate" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "%"
+        Me.tableCell3.Text = "Average Lending Rate" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.tableCell3.Weight = 0.73394985571730187R
         '
         'tableCell4
@@ -145,14 +151,14 @@ Public Class rpt_DeemedInterest
         Me.tableCell4.Dpi = 254.0!
         Me.tableCell4.Multiline = True
         Me.tableCell4.Name = "tableCell4"
-        Me.tableCell4.Text = "Amount" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "RM"
+        Me.tableCell4.Text = "Amount" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.tableCell4.Weight = 0.39132442770000775R
         '
         'XrLabel1
         '
         Me.XrLabel1.BackColor = System.Drawing.Color.Transparent
         Me.XrLabel1.Dpi = 254.0!
-        Me.XrLabel1.Font = New System.Drawing.Font("Arial", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 13.12335!)
         Me.XrLabel1.Name = "XrLabel1"
         Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
@@ -163,7 +169,7 @@ Public Class rpt_DeemedInterest
         '
         'detailBand1
         '
-        Me.detailBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table2, Me.XrLabel2})
+        Me.detailBand1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.table2, Me.lblExp})
         Me.detailBand1.Dpi = 254.0!
         Me.detailBand1.EvenStyleName = "ReportEvenStyle"
         Me.detailBand1.HeightF = 64.0!
@@ -174,7 +180,7 @@ Public Class rpt_DeemedInterest
         'table2
         '
         Me.table2.Dpi = 254.0!
-        Me.table2.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.table2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
         Me.table2.Name = "table2"
         Me.table2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow2})
@@ -199,7 +205,7 @@ Public Class rpt_DeemedInterest
         '
         'tableCell6
         '
-        Me.tableCell6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "MONTHLY_BASIS", "{0:n2}")})
+        Me.tableCell6.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "MONTHLY_BASIS", "{0:#,# ;(#,#);0 }")})
         Me.tableCell6.Dpi = 254.0!
         Me.tableCell6.Name = "tableCell6"
         Me.tableCell6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -218,21 +224,22 @@ Public Class rpt_DeemedInterest
         '
         'tableCell8
         '
-        Me.tableCell8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DEEMED_INT", "{0:n0}")})
+        Me.tableCell8.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "DEEMED_INT", "{0:#,# ;(#,#);0 }")})
         Me.tableCell8.Dpi = 254.0!
         Me.tableCell8.Name = "tableCell8"
         Me.tableCell8.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.tableCell8.Weight = 0.39132444280233747R
         Me.tableCell8.WordWrap = False
         '
-        'XrLabel2
+        'lblExp
         '
-        Me.XrLabel2.Dpi = 254.0!
-        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(1857.375!, 0.0!)
-        Me.XrLabel2.Name = "XrLabel2"
-        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
-        Me.XrLabel2.SizeF = New System.Drawing.SizeF(866.625!, 58.42!)
-        Me.XrLabel2.Text = "[ie. 1/12 x RM[MONTHLY_BASIS] x [AVR_LEND_RATE]%]"
+        Me.lblExp.Dpi = 254.0!
+        Me.lblExp.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblExp.LocationFloat = New DevExpress.Utils.PointFloat(1857.375!, 0.0!)
+        Me.lblExp.Name = "lblExp"
+        Me.lblExp.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.lblExp.SizeF = New System.Drawing.SizeF(866.625!, 58.42!)
+        Me.lblExp.StylePriority.UseFont = False
         '
         'reportFooterBand1
         '
@@ -266,7 +273,7 @@ Public Class rpt_DeemedInterest
         '
         Me.table3.BackColor = System.Drawing.Color.Transparent
         Me.table3.Dpi = 254.0!
-        Me.table3.Font = New System.Drawing.Font("Arial Narrow", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.table3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.table3.LocationFloat = New DevExpress.Utils.PointFloat(1553.929!, 18.52083!)
         Me.table3.Name = "table3"
         Me.table3.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.tableRow3})
@@ -287,7 +294,7 @@ Public Class rpt_DeemedInterest
         Me.tableCell12.Dpi = 254.0!
         Me.tableCell12.Name = "tableCell12"
         Me.tableCell12.Padding = New DevExpress.XtraPrinting.PaddingInfo(4, 4, 0, 0, 96.0!)
-        XrSummary1.FormatString = "{0:n2}"
+        XrSummary1.FormatString = "{0:#,# ;(#,#);0 }"
         XrSummary1.IgnoreNullValues = True
         XrSummary1.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
         Me.tableCell12.Summary = XrSummary1
@@ -360,6 +367,51 @@ Public Class rpt_DeemedInterest
         Me.DsTaxcomputation.DataSetName = "dsTaxcomputation"
         Me.DsTaxcomputation.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
+        'XrLabel6
+        '
+        Me.XrLabel6.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel6.Dpi = 254.0!
+        Me.XrLabel6.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(1553.929!, 212.1666!)
+        Me.XrLabel6.Name = "XrLabel6"
+        Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel6.SizeF = New System.Drawing.SizeF(303.4459!, 67.60417!)
+        Me.XrLabel6.StylePriority.UseBackColor = False
+        Me.XrLabel6.StylePriority.UseFont = False
+        Me.XrLabel6.StylePriority.UseTextAlignment = False
+        Me.XrLabel6.Text = "RM"
+        Me.XrLabel6.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel2
+        '
+        Me.XrLabel2.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel2.Dpi = 254.0!
+        Me.XrLabel2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel2.LocationFloat = New DevExpress.Utils.PointFloat(984.8!, 212.1666!)
+        Me.XrLabel2.Name = "XrLabel2"
+        Me.XrLabel2.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel2.SizeF = New System.Drawing.SizeF(569.1288!, 67.60417!)
+        Me.XrLabel2.StylePriority.UseBackColor = False
+        Me.XrLabel2.StylePriority.UseFont = False
+        Me.XrLabel2.StylePriority.UseTextAlignment = False
+        Me.XrLabel2.Text = "%"
+        Me.XrLabel2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
+        'XrLabel3
+        '
+        Me.XrLabel3.BackColor = System.Drawing.Color.Transparent
+        Me.XrLabel3.Dpi = 254.0!
+        Me.XrLabel3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(492.4001!, 212.1666!)
+        Me.XrLabel3.Name = "XrLabel3"
+        Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
+        Me.XrLabel3.SizeF = New System.Drawing.SizeF(492.4001!, 67.60417!)
+        Me.XrLabel3.StylePriority.UseBackColor = False
+        Me.XrLabel3.StylePriority.UseFont = False
+        Me.XrLabel3.StylePriority.UseTextAlignment = False
+        Me.XrLabel3.Text = "RM"
+        Me.XrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter
+        '
         'rpt_DeemedInterest
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.topMarginBand1, Me.pageHeaderBand1, Me.detailBand1, Me.reportFooterBand1, Me.bottomMarginBand1})
@@ -382,5 +434,21 @@ Public Class rpt_DeemedInterest
         CType(Me.DsTaxcomputation, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
+    End Sub
+
+    Private Sub lblExp_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles lblExp.BeforePrint
+        Try
+            '[ie. 1/12 x RM[MONTHLY_BASIS] x [AVR_LEND_RATE]%]
+            Dim MonthlyBasis As Object = Me.GetCurrentColumnValue("MONTHLY_BASIS")
+            Dim Avg As Object = Me.GetCurrentColumnValue("AVR_LEND_RATE")
+
+            If MonthlyBasis IsNot Nothing AndAlso Avg IsNot Nothing AndAlso IsNumeric(MonthlyBasis) AndAlso IsNumeric(Avg) Then
+                lblExp.Text = "[ie. 1/12 x RM" & CDec(MonthlyBasis).ToString("N0") & " x " & CDec(Avg) & "%]"
+            Else
+                lblExp.Text = ""
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class
