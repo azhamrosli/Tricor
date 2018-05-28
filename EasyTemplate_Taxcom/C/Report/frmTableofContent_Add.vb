@@ -13,6 +13,9 @@ Public Class frmTableofContent_Add
     Public Const Default_ReportName As String = "TBL_REPORTNAME"
     Public Const Default_ParentNo As String = "TBL_PARENTID"
     Public Const Default_Index As String = "TBL_INDEX"
+
+    Dim autosource As AutoCompleteStringCollection = Nothing
+
     Private Sub frmTableofContent_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
@@ -28,6 +31,14 @@ Public Class frmTableofContent_Add
 
             Application.DoEvents()
 
+            If autosource Is Nothing Then
+                autosource = New AutoCompleteStringCollection
+            Else
+                autosource.Clear()
+            End If
+
+            autosource.Add("Schedule")
+            autosource.Add("Appendix")
 
             Me.LoadData()
         Catch ex As Exception
@@ -94,12 +105,63 @@ Public Class frmTableofContent_Add
             AddListOfError(Errorlog)
         End Try
     End Sub
+    Private Sub CheckLastYearTOC()
+        Try
+            If isEdit = True Then
+                Exit Sub
+            End If
 
+            If cboRefNo.EditValue IsNot Nothing AndAlso cboYA.EditValue IsNot Nothing AndAlso IsNumeric(cboYA.EditValue) Then
+                Dim LastYA As Integer = Now.Year
+
+                LastYA = CInt(cboYA.EditValue) - 1
+                If ADO.CheckExist_TableofContent(cboRefNo.EditValue, LastYA.ToString) Then
+
+                    Dim rlst As DialogResult = MessageBox.Show("Do you want copy from previous YA data?", "Question", MessageBoxButtons.YesNo)
+
+                    If rlst = Windows.Forms.DialogResult.Yes Then
+
+                        Dim dt As DataTable = Nothing
+
+                        dt = ADO.Load_TableofContent_Search(cboRefNo.EditValue, LastYA.ToString)
+                        If dt IsNot Nothing Then
+                            ID = IIf(IsDBNull(dt.Rows(0)("TBL_ID")), 0, dt.Rows(0)("TBL_ID"))
+
+                            dt = ADO.Load_TableofContent_ByID(ID)
+
+                            If dt Is Nothing Then
+                                Exit Sub
+                            End If
+
+                            dt = ADO.Load_TableofContent_List_ByParentID(ID, ErrorLog)
+
+                            DsReport_Templatexsd.Tables(MainTable).Rows.Clear()
+                            If dt IsNot Nothing Then
+
+                                For i As Integer = 0 To dt.Rows.Count - 1
+                                    DsReport_Templatexsd.Tables(MainTable).ImportRow(dt(i))
+                                Next
+                            End If
+
+                        End If
+
+
+                    End If
+                End If
+            End If
+
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 
 
     Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
+
+            CheckLastYearTOC()
         Catch ex As Exception
 
         End Try
@@ -130,6 +192,23 @@ Public Class frmTableofContent_Add
         End Try
     End Sub
 
+
+    Private Sub GridView1_ShownEditor(sender As Object, e As EventArgs) Handles GridView1.ShownEditor
+        Try
+            If GridView1.FocusedColumn.FieldName.Equals("TBL_SCH") Then
+                Dim currentEditor As DevExpress.XtraEditors.TextEdit = CType(CType(sender, GridView).ActiveEditor, DevExpress.XtraEditors.TextEdit)
+
+                If currentEditor IsNot Nothing Then
+                    currentEditor.MaskBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend
+                    currentEditor.MaskBox.AutoCompleteSource = AutoCompleteSource.CustomSource
+                    currentEditor.MaskBox.AutoCompleteCustomSource = autosource
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
     Private Sub GridView1_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView1.ValidateRow
         Try
             If TypeOf sender Is GridView Then
@@ -140,6 +219,17 @@ Public Class frmTableofContent_Add
                     e.ErrorText = "Please put report / title / index."
                     e.Valid = False
                 End If
+
+                For Each rowDetailsList As DataRow In DsReport_Templatexsd.Tables(MainTable).Rows
+
+                    If rowDetailsList(Default_ReportName) = row(Default_ReportName) Then
+                        e.ErrorText = "Report already exist. Cannot add same report in one template, report should be unique."
+                        e.Valid = False
+                        Exit Sub
+                    End If
+
+                Next
+
             End If
 
         Catch ex As Exception
@@ -232,4 +322,23 @@ Public Class frmTableofContent_Add
         End Try
 
     End Function
+
+    Private Sub cboYA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedIndexChanged
+        CheckLastYearTOC()
+    End Sub
+
+    Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
+        Try
+            GridView1.DeleteSelectedRows()
+
+            DsReport_Templatexsd.Tables(MainTable).AcceptChanges()
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub GridControl1_Click(sender As Object, e As EventArgs) Handles GridControl1.Click
+
+    End Sub
 End Class

@@ -4440,4 +4440,35 @@
 
         End Try
     End Sub
+
+    Private Sub rptSubNote_DIVIDEND_INCOME_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles rptSubNote_PLST_SALES.BeforePrint, _
+        rptSubNote_PLST_OPENSTOCK.BeforePrint, rptSubNote_PLST_PURCHASE.BeforePrint, rptSubNote_EXPENSES_DEPRECIATION.BeforePrint, EXPENSES_ALLOW.BeforePrint, _
+        rptSubNote_EXPENSES_NONALLOW.BeforePrint, rptSubNote_PLFST_CLOSESTOCK.BeforePrint, rptSubNote_NONSOURCE_BUSINESSINCOME.BeforePrint, _
+        rptSubNote_INCOME_REALFET.BeforePrint, rptSubNote_DIVIDEND_INCOME.BeforePrint, rptSubNote_INCOME_NBINTEREST.BeforePrint, _
+        rptSubNote_RENTAL_INCOME.BeforePrint, rptSubNote_INCOME_NBROYALTY.BeforePrint, rptSubNote_OTHER_INCOME.BeforePrint, _
+        rptSubNote_INCOME_NTDISPOSALFA.BeforePrint, rptSubNote_INCOME_NTDISPOSALINVEST.BeforePrint, rptSubNote_EXEMPT_DIVIDEND.BeforePrint, _
+        rptSubNote_INCOME_NTFOREIGNINCREM.BeforePrint, rptSubNote_INCOME_NTREALFE.BeforePrint, rptSubNote_INCOME_NTUREALFET.BeforePrint, _
+        rptSubNote_INCOME_NTUREALFENT.BeforePrint, rptSubNote_NON_TAXABLE_INCOME.BeforePrint, rptSubNote_EXPENSES_INTERESTRESTRICT.BeforePrint, _
+        rptSubNote_EXPENSES_INTEREST.BeforePrint, rptSubNote_EXPENSES_LEGAL.BeforePrint, rptSubNote_EXPENSES_TECH_FEE.BeforePrint, _
+        rptSubNote_EXPENSES_CONTRACT.BeforePrint, rptSubNote_EXPENSES_DIRECTORS_FEE.BeforePrint, rptSubNote_EXPENSES_SALARY.BeforePrint, _
+        rptSubNote_EXPENSES_EMPL_STOCK.BeforePrint, rptSubNote_EXPENSES_ROYALTY.BeforePrint, rptSubNote_EXPENSES_RENTAL.BeforePrint, _
+        rptSubNote_EXPENSES_REPAIR.BeforePrint, rptSubNote_EXPENSES_RESEARCH.BeforePrint, rptSubNote_EXPENSES_PROMOTE.BeforePrint, _
+        rptSubNote_EXPENSES_TRAVEL.BeforePrint, rptSubNote_EXPENSES_JKDM.BeforePrint, rptSubNote_OTHER_EXDEPRECIATION.BeforePrint, _
+        rptSubNote_OTHER_EXAPPRDONATION.BeforePrint, rptSubNote_OTHER_EXNAPPRDONATION.BeforePrint, rptSubNote_OTHER_EXZAKAT.BeforePrint, _
+        rptSubNote_OTHER_EXLOSSDISPOSALFA.BeforePrint, rptSubNote_OTHER_ENTERTAINNSTAFF.BeforePrint, rptSubNote_OTHER_ENTERTAINSTAFF.BeforePrint, _
+        rptSubNote_OTHER_EXPENALTY.BeforePrint, rptSubNote_OTHER_EXPROVISIONACC.BeforePrint, rptSubNote_OTHER_EXLEAVEPASSAGE.BeforePrint, _
+        rptSubNote_OTHER_EXFAWRITTENOFF.BeforePrint, rptSubNote_OTHER_EXURLOSSFOREIGN.BeforePrint, rptSubNote_OTHER_EXRLOSSFOREIGNT.BeforePrint, _
+        rptSubNote_OTHER_EXRLOSSFOREIGN.BeforePrint, rptSubNote_OTHER_EXINITIALSUB.BeforePrint, rptSubNote_OTHER_EXCAPITALEXP.BeforePrint, _
+        rptSubNote_OTHER_EXPENSES.BeforePrint
+
+        Try
+            If TypeOf sender Is DevExpress.XtraReports.UI.XRSubreport Then
+                Dim subrpt As DevExpress.XtraReports.UI.XRSubreport = CType(sender, DevExpress.XtraReports.UI.XRSubreport)
+                subrpt.ReportSource.DataSource = Me.DataSource
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

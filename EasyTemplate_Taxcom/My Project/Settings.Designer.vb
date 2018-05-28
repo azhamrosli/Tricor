@@ -143,6 +143,42 @@ Partial Friend NotInheritable Class Settings
             Return CType(Me("TAXCOM_BConnectionString"),String)
         End Get
     End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property ServerName_backup() As String
+        Get
+            Return CType(Me("ServerName_backup"),String)
+        End Get
+        Set
+            Me("ServerName_backup") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property UserID_backup() As String
+        Get
+            Return CType(Me("UserID_backup"),String)
+        End Get
+        Set
+            Me("UserID_backup") = value
+        End Set
+    End Property
+    
+    <Global.System.Configuration.UserScopedSettingAttribute(),  _
+     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+    Public Property Password_backup() As String
+        Get
+            Return CType(Me("Password_backup"),String)
+        End Get
+        Set
+            Me("Password_backup") = value
+        End Set
+    End Property
 End Class
 
 Namespace My

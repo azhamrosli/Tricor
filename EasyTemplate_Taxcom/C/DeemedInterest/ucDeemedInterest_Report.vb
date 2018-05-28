@@ -7,11 +7,7 @@ Public Class ucDeemedInterest_Report
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        If My.Settings.ThemeName <> "" Then
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
-        Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
-        End If
+
         InitializeComponent()
     End Sub
     Private Sub frmDeemedInterest_Load(sender As Object, e As EventArgs) Handles MyBase.Load

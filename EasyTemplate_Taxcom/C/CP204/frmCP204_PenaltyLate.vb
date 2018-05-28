@@ -191,4 +191,12 @@ Public Class frmCP204_PenaltyLate
         End Try
 
     End Sub
+
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+      
+    End Sub
+
+    Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
+
+    End Sub
 End Class

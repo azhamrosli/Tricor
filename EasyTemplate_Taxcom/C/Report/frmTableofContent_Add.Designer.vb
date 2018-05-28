@@ -25,6 +25,7 @@ Partial Class frmTableofContent_Add
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnSave = New DevExpress.XtraBars.BarButtonItem()
         Me.btnClose = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
@@ -63,6 +64,8 @@ Partial Class frmTableofContent_Add
         Me.cboReportName = New DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit()
         Me.TABLECONTENTDEFAULTBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         Me.colTBL_TTILE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTBL_SCH = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.RepositoryItemTextEdit2 = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
         Me.colTBL_INDEX = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colTBL_SEQUENCE = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -82,6 +85,7 @@ Partial Class frmTableofContent_Add
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboReportName, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TABLECONTENTDEFAULTBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -94,8 +98,8 @@ Partial Class frmTableofContent_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnMoveUp, Me.btnMoveDown})
-        Me.BarManager1.MaxItemId = 11
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnMoveUp, Me.btnMoveDown, Me.BarButtonItem1})
+        Me.BarManager1.MaxItemId = 12
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemSpinEdit1})
         '
         'Bar1
@@ -104,7 +108,7 @@ Partial Class frmTableofContent_Add
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.BarButtonItem1), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -115,36 +119,45 @@ Partial Class frmTableofContent_Add
         'btnSave
         '
         Me.btnSave.Caption = "Save"
-        Me.btnSave.Glyph = CType(resources.GetObject("btnSave.Glyph"), System.Drawing.Image)
         Me.btnSave.Id = 0
-        Me.btnSave.LargeGlyph = CType(resources.GetObject("btnSave.LargeGlyph"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnClose
         '
         Me.btnClose.Caption = "Close"
-        Me.btnClose.Glyph = CType(resources.GetObject("btnClose.Glyph"), System.Drawing.Image)
         Me.btnClose.Id = 2
-        Me.btnClose.LargeGlyph = CType(resources.GetObject("btnClose.LargeGlyph"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.Image = CType(resources.GetObject("btnClose.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.LargeImage = CType(resources.GetObject("btnClose.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'BarButtonItem1
+        '
+        Me.BarButtonItem1.Caption = "Remove Report"
+        Me.BarButtonItem1.Id = 11
+        Me.BarButtonItem1.ImageOptions.Image = CType(resources.GetObject("BarButtonItem1.ImageOptions.Image"), System.Drawing.Image)
+        Me.BarButtonItem1.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem1.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.BarButtonItem1.Name = "BarButtonItem1"
+        Me.BarButtonItem1.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnMoveUp
         '
         Me.btnMoveUp.Caption = "Move Up"
-        Me.btnMoveUp.Glyph = CType(resources.GetObject("btnMoveUp.Glyph"), System.Drawing.Image)
         Me.btnMoveUp.Id = 9
-        Me.btnMoveUp.LargeGlyph = CType(resources.GetObject("btnMoveUp.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.Image = CType(resources.GetObject("btnMoveUp.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveUp.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveUp.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveUp.Name = "btnMoveUp"
         Me.btnMoveUp.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnMoveDown
         '
         Me.btnMoveDown.Caption = "Move Down"
-        Me.btnMoveDown.Glyph = CType(resources.GetObject("btnMoveDown.Glyph"), System.Drawing.Image)
         Me.btnMoveDown.Id = 10
-        Me.btnMoveDown.LargeGlyph = CType(resources.GetObject("btnMoveDown.LargeGlyph"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.Image = CType(resources.GetObject("btnMoveDown.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
@@ -153,6 +166,7 @@ Partial Class frmTableofContent_Add
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
+        Me.barDockControlTop.Manager = Me.BarManager1
         Me.barDockControlTop.Size = New System.Drawing.Size(914, 31)
         '
         'barDockControlBottom
@@ -160,6 +174,7 @@ Partial Class frmTableofContent_Add
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.barDockControlBottom.Location = New System.Drawing.Point(0, 481)
+        Me.barDockControlBottom.Manager = Me.BarManager1
         Me.barDockControlBottom.Size = New System.Drawing.Size(914, 0)
         '
         'barDockControlLeft
@@ -167,6 +182,7 @@ Partial Class frmTableofContent_Add
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
         Me.barDockControlLeft.Size = New System.Drawing.Size(0, 450)
         '
         'barDockControlRight
@@ -174,6 +190,7 @@ Partial Class frmTableofContent_Add
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
         Me.barDockControlRight.Location = New System.Drawing.Point(914, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
         Me.barDockControlRight.Size = New System.Drawing.Size(0, 450)
         '
         'RepositoryItemTextEdit1
@@ -369,7 +386,7 @@ Partial Class frmTableofContent_Add
         Me.GridControl1.MainView = Me.GridView1
         Me.GridControl1.MenuManager = Me.BarManager1
         Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.cboReportName})
+        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.cboReportName, Me.RepositoryItemTextEdit2})
         Me.GridControl1.Size = New System.Drawing.Size(890, 344)
         Me.GridControl1.TabIndex = 171
         Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
@@ -386,7 +403,7 @@ Partial Class frmTableofContent_Add
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colTBL_ID, Me.colTBL_PARENTID, Me.colTBL_REPORTNAME, Me.colTBL_TTILE, Me.colTBL_INDEX, Me.colTBL_SEQUENCE})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colTBL_ID, Me.colTBL_PARENTID, Me.colTBL_REPORTNAME, Me.colTBL_TTILE, Me.colTBL_SCH, Me.colTBL_INDEX, Me.colTBL_SEQUENCE})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -412,7 +429,7 @@ Partial Class frmTableofContent_Add
         Me.colTBL_REPORTNAME.Name = "colTBL_REPORTNAME"
         Me.colTBL_REPORTNAME.Visible = True
         Me.colTBL_REPORTNAME.VisibleIndex = 0
-        Me.colTBL_REPORTNAME.Width = 150
+        Me.colTBL_REPORTNAME.Width = 180
         '
         'cboReportName
         '
@@ -438,7 +455,22 @@ Partial Class frmTableofContent_Add
         Me.colTBL_TTILE.Name = "colTBL_TTILE"
         Me.colTBL_TTILE.Visible = True
         Me.colTBL_TTILE.VisibleIndex = 1
-        Me.colTBL_TTILE.Width = 400
+        Me.colTBL_TTILE.Width = 481
+        '
+        'colTBL_SCH
+        '
+        Me.colTBL_SCH.Caption = "Sch / Appendix"
+        Me.colTBL_SCH.ColumnEdit = Me.RepositoryItemTextEdit2
+        Me.colTBL_SCH.FieldName = "TBL_SCH"
+        Me.colTBL_SCH.Name = "colTBL_SCH"
+        Me.colTBL_SCH.Visible = True
+        Me.colTBL_SCH.VisibleIndex = 2
+        Me.colTBL_SCH.Width = 100
+        '
+        'RepositoryItemTextEdit2
+        '
+        Me.RepositoryItemTextEdit2.AutoHeight = False
+        Me.RepositoryItemTextEdit2.Name = "RepositoryItemTextEdit2"
         '
         'colTBL_INDEX
         '
@@ -446,8 +478,8 @@ Partial Class frmTableofContent_Add
         Me.colTBL_INDEX.FieldName = "TBL_INDEX"
         Me.colTBL_INDEX.Name = "colTBL_INDEX"
         Me.colTBL_INDEX.Visible = True
-        Me.colTBL_INDEX.VisibleIndex = 2
-        Me.colTBL_INDEX.Width = 100
+        Me.colTBL_INDEX.VisibleIndex = 3
+        Me.colTBL_INDEX.Width = 111
         '
         'colTBL_SEQUENCE
         '
@@ -494,6 +526,7 @@ Partial Class frmTableofContent_Add
         CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboReportName, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TABLECONTENTDEFAULTBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -542,4 +575,7 @@ Partial Class frmTableofContent_Add
     Friend WithEvents TABLECONTENTDEFAULTBindingSource1 As System.Windows.Forms.BindingSource
     Friend WithEvents btnMoveUp As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnMoveDown As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents colTBL_SCH As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents BarButtonItem1 As DevExpress.XtraBars.BarButtonItem
 End Class

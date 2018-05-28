@@ -37,7 +37,7 @@ Partial Class ucTableofContent
         Me.dgvView = New DevExpress.XtraGrid.GridControl()
         Me.TABLECONTENTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.DsReport_Templatexsd = New EasyTemplate_Taxcom.dsReport_Templatexsd()
-        Me.dgvCA = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.dgvDetails = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.colTBL_ID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colTBL_REFNO = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colTBL_COMPANYNAME = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -50,6 +50,7 @@ Partial Class ucTableofContent
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.BarButtonItem1 = New DevExpress.XtraBars.BarButtonItem()
+        Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
@@ -77,12 +78,11 @@ Partial Class ucTableofContent
         Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
         Me.txtRefNo = New DevExpress.XtraEditors.TextEdit()
-        Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.dgvDisposal, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TABLECONTENTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DsReport_Templatexsd, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgvDetails, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -197,11 +197,11 @@ Partial Class ucTableofContent
         Me.dgvView.DataSource = Me.TABLECONTENTBindingSource
         Me.dgvView.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvView.Location = New System.Drawing.Point(0, 108)
-        Me.dgvView.MainView = Me.dgvCA
+        Me.dgvView.MainView = Me.dgvDetails
         Me.dgvView.Name = "dgvView"
         Me.dgvView.Size = New System.Drawing.Size(897, 377)
         Me.dgvView.TabIndex = 17
-        Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.dgvCA, Me.dgvDisposal})
+        Me.dgvView.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.dgvDetails, Me.dgvDisposal})
         '
         'TABLECONTENTBindingSource
         '
@@ -213,15 +213,15 @@ Partial Class ucTableofContent
         Me.DsReport_Templatexsd.DataSetName = "dsReport_Templatexsd"
         Me.DsReport_Templatexsd.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'dgvCA
+        'dgvDetails
         '
-        Me.dgvCA.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colTBL_ID, Me.colTBL_REFNO, Me.colTBL_COMPANYNAME, Me.colTBL_YA, Me.colModifiedBy, Me.colModifiedDateTime})
-        Me.dgvCA.GridControl = Me.dgvView
-        Me.dgvCA.Name = "dgvCA"
-        Me.dgvCA.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
-        Me.dgvCA.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[True]
-        Me.dgvCA.OptionsBehavior.Editable = False
-        Me.dgvCA.OptionsSelection.MultiSelect = True
+        Me.dgvDetails.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colTBL_ID, Me.colTBL_REFNO, Me.colTBL_COMPANYNAME, Me.colTBL_YA, Me.colModifiedBy, Me.colModifiedDateTime})
+        Me.dgvDetails.GridControl = Me.dgvView
+        Me.dgvDetails.Name = "dgvDetails"
+        Me.dgvDetails.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[False]
+        Me.dgvDetails.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[True]
+        Me.dgvDetails.OptionsBehavior.Editable = False
+        Me.dgvDetails.OptionsSelection.MultiSelect = True
         '
         'colTBL_ID
         '
@@ -321,6 +321,14 @@ Partial Class ucTableofContent
         Me.BarButtonItem1.Caption = "RA Report"
         Me.BarButtonItem1.Id = 8
         Me.BarButtonItem1.Name = "BarButtonItem1"
+        Me.BarButtonItem1.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+        '
+        'BarButtonItem2
+        '
+        Me.BarButtonItem2.Caption = "ITA Report"
+        Me.BarButtonItem2.Id = 9
+        Me.BarButtonItem2.Name = "BarButtonItem2"
+        Me.BarButtonItem2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
         'BarManager1
         '
@@ -476,7 +484,7 @@ Partial Class ucTableofContent
         Me.pnlLoading.AppearanceDescription.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.pnlLoading.AppearanceDescription.Options.UseFont = True
         Me.pnlLoading.BarAnimationElementThickness = 2
-        Me.pnlLoading.Location = New System.Drawing.Point(335, 261)
+        Me.pnlLoading.Location = New System.Drawing.Point(341, 249)
         Me.pnlLoading.Name = "pnlLoading"
         Me.pnlLoading.Size = New System.Drawing.Size(246, 66)
         Me.pnlLoading.TabIndex = 16
@@ -569,12 +577,6 @@ Partial Class ucTableofContent
         Me.txtRefNo.Size = New System.Drawing.Size(268, 20)
         Me.txtRefNo.TabIndex = 0
         '
-        'BarButtonItem2
-        '
-        Me.BarButtonItem2.Caption = "ITA Report"
-        Me.BarButtonItem2.Id = 9
-        Me.BarButtonItem2.Name = "BarButtonItem2"
-        '
         'ucTableofContent
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -592,7 +594,7 @@ Partial Class ucTableofContent
         CType(Me.dgvView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TABLECONTENTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DsReport_Templatexsd, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgvCA, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvDetails, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TaxPayerFindBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
@@ -651,7 +653,7 @@ Partial Class ucTableofContent
     Friend WithEvents colCA_DISP_SPROCEED As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCA_DISP_BABC As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCA_DISP_REMARKS As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents dgvCA As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents dgvDetails As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents TABLECONTENTBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents DsReport_Templatexsd As EasyTemplate_Taxcom.dsReport_Templatexsd
     Friend WithEvents TaxPayerFindBindingSource As System.Windows.Forms.BindingSource

@@ -29,11 +29,21 @@ Public Class ucPNL_p4Other
     Public Const MainColumn_Percentage As String = "Pecentage"  'PLFSD_DESC
     Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -65,7 +75,11 @@ Public Class ucPNL_p4Other
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             OTHEREXPENSESBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
-           
+            Application.DoEvents()
+
+            CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                               MainAmount_Details, MainColumn_PercentageAmount, Errorlog)
+
             If dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE") IsNot Nothing AndAlso dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Count > 0 AndAlso mdlPNL2.GetIncludeInReport(TaxComPNLEnuItem.EXPOTHERSEXPENSES, dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE")) Then
                 chkIncludeInReport.EditValue = True
             Else
@@ -82,6 +96,7 @@ Public Class ucPNL_p4Other
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -153,8 +168,6 @@ Public Class ucPNL_p4Other
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
                 CalcPercentageAmount(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
                                     MainAmount_Details, MainColumn_Percentage, MainColumn_PercentageAmount, ErrorLog)
-
-
             End If
 
 
@@ -294,7 +307,16 @@ Public Class ucPNL_p4Other
         End Try
     End Sub
 
-    Private Sub chkIncludeInReport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles chkIncludeInReport.ItemClick
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
 
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

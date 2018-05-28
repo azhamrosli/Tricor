@@ -115,6 +115,7 @@ Partial Class frmCA_Add3
         Me.txtIA = New DevExpress.XtraEditors.TextEdit()
         Me.lblTitle_CA = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl16 = New DevExpress.XtraEditors.LabelControl()
+        Me.btnNote = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -177,8 +178,8 @@ Partial Class frmCA_Add3
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnDuplicate, Me.txtDuplicateNo})
-        Me.BarManager1.MaxItemId = 9
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnSave, Me.btnClose, Me.btnDuplicate, Me.txtDuplicateNo, Me.btnNote})
+        Me.BarManager1.MaxItemId = 10
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemSpinEdit1})
         '
         'Bar1
@@ -187,7 +188,7 @@ Partial Class frmCA_Add3
         Me.Bar1.DockCol = 0
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDuplicate), New DevExpress.XtraBars.LinkPersistInfo(Me.txtDuplicateNo)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnSave), New DevExpress.XtraBars.LinkPersistInfo(Me.btnClose), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDuplicate), New DevExpress.XtraBars.LinkPersistInfo(Me.txtDuplicateNo)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.AutoPopupMode = DevExpress.XtraBars.BarAutoPopupMode.None
         Me.Bar1.OptionsBar.DisableClose = True
@@ -198,27 +199,27 @@ Partial Class frmCA_Add3
         'btnSave
         '
         Me.btnSave.Caption = "Save"
-        Me.btnSave.Glyph = CType(resources.GetObject("btnSave.Glyph"), System.Drawing.Image)
         Me.btnSave.Id = 0
-        Me.btnSave.LargeGlyph = CType(resources.GetObject("btnSave.LargeGlyph"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.Image = CType(resources.GetObject("btnSave.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnClose
         '
         Me.btnClose.Caption = "Close"
-        Me.btnClose.Glyph = CType(resources.GetObject("btnClose.Glyph"), System.Drawing.Image)
         Me.btnClose.Id = 2
-        Me.btnClose.LargeGlyph = CType(resources.GetObject("btnClose.LargeGlyph"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.Image = CType(resources.GetObject("btnClose.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnClose.ImageOptions.LargeImage = CType(resources.GetObject("btnClose.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnDuplicate
         '
         Me.btnDuplicate.Caption = "Duplicate CA"
-        Me.btnDuplicate.Glyph = CType(resources.GetObject("btnDuplicate.Glyph"), System.Drawing.Image)
         Me.btnDuplicate.Id = 6
-        Me.btnDuplicate.LargeGlyph = CType(resources.GetObject("btnDuplicate.LargeGlyph"), System.Drawing.Image)
+        Me.btnDuplicate.ImageOptions.Image = CType(resources.GetObject("btnDuplicate.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnDuplicate.ImageOptions.LargeImage = CType(resources.GetObject("btnDuplicate.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnDuplicate.Name = "btnDuplicate"
         Me.btnDuplicate.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         Me.btnDuplicate.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
@@ -247,32 +248,32 @@ Partial Class frmCA_Add3
         Me.barDockControlTop.CausesValidation = False
         Me.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.barDockControlTop.Location = New System.Drawing.Point(0, 0)
-        Me.barDockControlTop.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlTop.Size = New System.Drawing.Size(1321, 37)
+        Me.barDockControlTop.Manager = Me.BarManager1
+        Me.barDockControlTop.Size = New System.Drawing.Size(1132, 31)
         '
         'barDockControlBottom
         '
         Me.barDockControlBottom.CausesValidation = False
         Me.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 759)
-        Me.barDockControlBottom.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlBottom.Size = New System.Drawing.Size(1321, 0)
+        Me.barDockControlBottom.Location = New System.Drawing.Point(0, 617)
+        Me.barDockControlBottom.Manager = Me.BarManager1
+        Me.barDockControlBottom.Size = New System.Drawing.Size(1132, 0)
         '
         'barDockControlLeft
         '
         Me.barDockControlLeft.CausesValidation = False
         Me.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left
-        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 37)
-        Me.barDockControlLeft.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 722)
+        Me.barDockControlLeft.Location = New System.Drawing.Point(0, 31)
+        Me.barDockControlLeft.Manager = Me.BarManager1
+        Me.barDockControlLeft.Size = New System.Drawing.Size(0, 586)
         '
         'barDockControlRight
         '
         Me.barDockControlRight.CausesValidation = False
         Me.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right
-        Me.barDockControlRight.Location = New System.Drawing.Point(1321, 37)
-        Me.barDockControlRight.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
-        Me.barDockControlRight.Size = New System.Drawing.Size(0, 722)
+        Me.barDockControlRight.Location = New System.Drawing.Point(1132, 31)
+        Me.barDockControlRight.Manager = Me.BarManager1
+        Me.barDockControlRight.Size = New System.Drawing.Size(0, 586)
         '
         'RepositoryItemTextEdit1
         '
@@ -314,16 +315,14 @@ Partial Class frmCA_Add3
         Me.PanelControl1.Controls.Add(Me.chkCAEEO)
         Me.PanelControl1.Controls.Add(Me.LabelControl2)
         Me.PanelControl1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.PanelControl1.Location = New System.Drawing.Point(0, 37)
-        Me.PanelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.PanelControl1.Location = New System.Drawing.Point(0, 31)
         Me.PanelControl1.Name = "PanelControl1"
-        Me.PanelControl1.Size = New System.Drawing.Size(1321, 204)
+        Me.PanelControl1.Size = New System.Drawing.Size(1132, 166)
         Me.PanelControl1.TabIndex = 0
         '
         'cboRefNo
         '
-        Me.cboRefNo.Location = New System.Drawing.Point(162, 50)
-        Me.cboRefNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboRefNo.Location = New System.Drawing.Point(139, 41)
         Me.cboRefNo.MenuManager = Me.BarManager1
         Me.cboRefNo.Name = "cboRefNo"
         Me.cboRefNo.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -333,7 +332,7 @@ Partial Class frmCA_Add3
         Me.cboRefNo.Properties.PopupFormMinSize = New System.Drawing.Size(600, 0)
         Me.cboRefNo.Properties.ValueMember = "RefNo"
         Me.cboRefNo.Properties.View = Me.SearchLookUpEdit2View
-        Me.cboRefNo.Size = New System.Drawing.Size(327, 22)
+        Me.cboRefNo.Size = New System.Drawing.Size(280, 20)
         Me.cboRefNo.TabIndex = 181
         '
         'SearchLookUpEdit2View
@@ -412,199 +411,179 @@ Partial Class frmCA_Add3
         '
         'LabelControl28
         '
-        Me.LabelControl28.Location = New System.Drawing.Point(14, 146)
-        Me.LabelControl28.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl28.Location = New System.Drawing.Point(12, 119)
         Me.LabelControl28.Name = "LabelControl28"
-        Me.LabelControl28.Size = New System.Drawing.Size(95, 16)
+        Me.LabelControl28.Size = New System.Drawing.Size(80, 13)
         Me.LabelControl28.TabIndex = 180
         Me.LabelControl28.Text = "Company Code :"
         '
         'txtCompanyCode
         '
-        Me.txtCompanyCode.Location = New System.Drawing.Point(162, 143)
-        Me.txtCompanyCode.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtCompanyCode.Location = New System.Drawing.Point(139, 116)
         Me.txtCompanyCode.Name = "txtCompanyCode"
         Me.txtCompanyCode.Properties.ReadOnly = True
-        Me.txtCompanyCode.Size = New System.Drawing.Size(327, 22)
+        Me.txtCompanyCode.Size = New System.Drawing.Size(280, 20)
         Me.txtCompanyCode.TabIndex = 179
         '
         'LabelControl27
         '
-        Me.LabelControl27.Location = New System.Drawing.Point(14, 114)
-        Me.LabelControl27.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl27.Location = New System.Drawing.Point(12, 93)
         Me.LabelControl27.Name = "LabelControl27"
-        Me.LabelControl27.Size = New System.Drawing.Size(48, 16)
+        Me.LabelControl27.Size = New System.Drawing.Size(39, 13)
         Me.LabelControl27.TabIndex = 178
         Me.LabelControl27.Text = "File No :"
         '
         'txtFileNo
         '
-        Me.txtFileNo.Location = New System.Drawing.Point(162, 111)
-        Me.txtFileNo.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtFileNo.Location = New System.Drawing.Point(139, 90)
         Me.txtFileNo.Name = "txtFileNo"
         Me.txtFileNo.Properties.ReadOnly = True
-        Me.txtFileNo.Size = New System.Drawing.Size(327, 22)
+        Me.txtFileNo.Size = New System.Drawing.Size(280, 20)
         Me.txtFileNo.TabIndex = 177
         '
         'LabelControl26
         '
         Me.LabelControl26.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelControl26.Location = New System.Drawing.Point(14, 7)
-        Me.LabelControl26.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl26.Appearance.Options.UseFont = True
+        Me.LabelControl26.Location = New System.Drawing.Point(12, 6)
         Me.LabelControl26.Name = "LabelControl26"
-        Me.LabelControl26.Size = New System.Drawing.Size(228, 24)
+        Me.LabelControl26.Size = New System.Drawing.Size(185, 19)
         Me.LabelControl26.TabIndex = 176
         Me.LabelControl26.Text = "Tax Payer Information"
         '
         'cboHP
         '
-        Me.cboHP.Location = New System.Drawing.Point(709, 143)
-        Me.cboHP.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboHP.Location = New System.Drawing.Point(608, 116)
         Me.cboHP.Name = "cboHP"
         Me.cboHP.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboHP.Size = New System.Drawing.Size(282, 22)
+        Me.cboHP.Size = New System.Drawing.Size(242, 20)
         Me.cboHP.TabIndex = 8
         Me.cboHP.Visible = False
         '
         'lblHPCode
         '
-        Me.lblHPCode.Location = New System.Drawing.Point(561, 146)
-        Me.lblHPCode.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.lblHPCode.Location = New System.Drawing.Point(481, 119)
         Me.lblHPCode.Name = "lblHPCode"
-        Me.lblHPCode.Size = New System.Drawing.Size(121, 16)
+        Me.lblHPCode.Size = New System.Drawing.Size(101, 13)
         Me.lblHPCode.TabIndex = 168
         Me.lblHPCode.Text = "Hire Purchase Code :"
         Me.lblHPCode.Visible = False
         '
         'LabelControl3
         '
-        Me.LabelControl3.Location = New System.Drawing.Point(14, 176)
-        Me.LabelControl3.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl3.Location = New System.Drawing.Point(12, 143)
         Me.LabelControl3.Name = "LabelControl3"
-        Me.LabelControl3.Size = New System.Drawing.Size(124, 16)
+        Me.LabelControl3.Size = New System.Drawing.Size(104, 13)
         Me.LabelControl3.TabIndex = 154
         Me.LabelControl3.Text = "Year Of Assessment :"
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(14, 54)
-        Me.LabelControl1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 44)
         Me.LabelControl1.Name = "LabelControl1"
-        Me.LabelControl1.Size = New System.Drawing.Size(86, 16)
+        Me.LabelControl1.Size = New System.Drawing.Size(73, 13)
         Me.LabelControl1.TabIndex = 152
         Me.LabelControl1.Text = "Reference No :"
         '
         'chkREC
         '
-        Me.chkREC.Location = New System.Drawing.Point(999, 146)
-        Me.chkREC.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkREC.Location = New System.Drawing.Point(856, 119)
         Me.chkREC.Name = "chkREC"
         Me.chkREC.Properties.Caption = "Revenue Expenditure Capitalised"
-        Me.chkREC.Size = New System.Drawing.Size(218, 20)
+        Me.chkREC.Size = New System.Drawing.Size(187, 19)
         Me.chkREC.TabIndex = 7
         Me.chkREC.Visible = False
         '
         'cboSourceCode
         '
-        Me.cboSourceCode.Location = New System.Drawing.Point(709, 111)
-        Me.cboSourceCode.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboSourceCode.Location = New System.Drawing.Point(608, 90)
         Me.cboSourceCode.Name = "cboSourceCode"
         Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboSourceCode.Size = New System.Drawing.Size(282, 22)
+        Me.cboSourceCode.Size = New System.Drawing.Size(242, 20)
         Me.cboSourceCode.TabIndex = 4
         '
         'txtTaxPayer
         '
-        Me.txtTaxPayer.Location = New System.Drawing.Point(162, 82)
-        Me.txtTaxPayer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTaxPayer.Location = New System.Drawing.Point(139, 67)
         Me.txtTaxPayer.Name = "txtTaxPayer"
         Me.txtTaxPayer.Properties.ReadOnly = True
-        Me.txtTaxPayer.Size = New System.Drawing.Size(327, 22)
+        Me.txtTaxPayer.Size = New System.Drawing.Size(280, 20)
         Me.txtTaxPayer.TabIndex = 157
         '
         'cboYA
         '
-        Me.cboYA.Location = New System.Drawing.Point(162, 172)
-        Me.cboYA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboYA.Location = New System.Drawing.Point(139, 140)
         Me.cboYA.Name = "cboYA"
         Me.cboYA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboYA.Properties.PopupSizeable = True
         Me.cboYA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboYA.Size = New System.Drawing.Size(327, 22)
+        Me.cboYA.Size = New System.Drawing.Size(280, 20)
         Me.cboYA.TabIndex = 1
         '
         'LabelControl5
         '
-        Me.LabelControl5.Location = New System.Drawing.Point(561, 114)
-        Me.LabelControl5.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl5.Location = New System.Drawing.Point(481, 93)
         Me.LabelControl5.Name = "LabelControl5"
-        Me.LabelControl5.Size = New System.Drawing.Size(82, 16)
+        Me.LabelControl5.Size = New System.Drawing.Size(68, 13)
         Me.LabelControl5.TabIndex = 160
         Me.LabelControl5.Text = "Source Code :"
         '
         'rgTypeCA
         '
         Me.rgTypeCA.EditValue = True
-        Me.rgTypeCA.Location = New System.Drawing.Point(709, 42)
-        Me.rgTypeCA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.rgTypeCA.Location = New System.Drawing.Point(608, 34)
         Me.rgTypeCA.Name = "rgTypeCA"
         Me.rgTypeCA.Properties.Items.AddRange(New DevExpress.XtraEditors.Controls.RadioGroupItem() {New DevExpress.XtraEditors.Controls.RadioGroupItem(True, "Addition"), New DevExpress.XtraEditors.Controls.RadioGroupItem(False, "Opening")})
-        Me.rgTypeCA.Size = New System.Drawing.Size(282, 32)
+        Me.rgTypeCA.Size = New System.Drawing.Size(242, 26)
         Me.rgTypeCA.TabIndex = 2
         '
         'cboPurchaseYE
         '
-        Me.cboPurchaseYE.Location = New System.Drawing.Point(709, 82)
-        Me.cboPurchaseYE.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboPurchaseYE.Location = New System.Drawing.Point(608, 67)
         Me.cboPurchaseYE.Name = "cboPurchaseYE"
         Me.cboPurchaseYE.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboPurchaseYE.Size = New System.Drawing.Size(282, 22)
+        Me.cboPurchaseYE.Size = New System.Drawing.Size(242, 20)
         Me.cboPurchaseYE.TabIndex = 3
         '
         'LabelControl6
         '
-        Me.LabelControl6.Location = New System.Drawing.Point(561, 86)
-        Me.LabelControl6.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl6.Location = New System.Drawing.Point(481, 70)
         Me.LabelControl6.Name = "LabelControl6"
-        Me.LabelControl6.Size = New System.Drawing.Size(79, 16)
+        Me.LabelControl6.Size = New System.Drawing.Size(66, 13)
         Me.LabelControl6.TabIndex = 162
         Me.LabelControl6.Text = "Purchase YE :"
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(147, 54)
-        Me.LabelControl4.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl4.Location = New System.Drawing.Point(126, 44)
         Me.LabelControl4.Name = "LabelControl4"
-        Me.LabelControl4.Size = New System.Drawing.Size(8, 16)
+        Me.LabelControl4.Size = New System.Drawing.Size(7, 13)
         Me.LabelControl4.TabIndex = 156
         Me.LabelControl4.Text = "C"
         '
         'chkHP
         '
-        Me.chkHP.Location = New System.Drawing.Point(999, 82)
-        Me.chkHP.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkHP.Location = New System.Drawing.Point(856, 67)
         Me.chkHP.Name = "chkHP"
         Me.chkHP.Properties.Caption = "Hire Purchase Item"
-        Me.chkHP.Size = New System.Drawing.Size(141, 20)
+        Me.chkHP.Size = New System.Drawing.Size(121, 19)
         Me.chkHP.TabIndex = 5
         Me.chkHP.Visible = False
         '
         'chkCAEEO
         '
-        Me.chkCAEEO.Location = New System.Drawing.Point(999, 114)
-        Me.chkCAEEO.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkCAEEO.Location = New System.Drawing.Point(856, 93)
         Me.chkCAEEO.Name = "chkCAEEO"
         Me.chkCAEEO.Properties.Caption = "Capital Expenditure Expensed - Off"
-        Me.chkCAEEO.Size = New System.Drawing.Size(251, 20)
+        Me.chkCAEEO.Size = New System.Drawing.Size(215, 19)
         Me.chkCAEEO.TabIndex = 6
         Me.chkCAEEO.Visible = False
         '
         'LabelControl2
         '
-        Me.LabelControl2.Location = New System.Drawing.Point(14, 86)
-        Me.LabelControl2.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl2.Location = New System.Drawing.Point(12, 70)
         Me.LabelControl2.Name = "LabelControl2"
-        Me.LabelControl2.Size = New System.Drawing.Size(66, 16)
+        Me.LabelControl2.Size = New System.Drawing.Size(56, 13)
         Me.LabelControl2.TabIndex = 153
         Me.LabelControl2.Text = "Tax Payer :"
         '
@@ -652,10 +631,9 @@ Partial Class frmCA_Add3
         Me.pnlMain.Controls.Add(Me.LabelControl16)
         Me.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlMain.Enabled = False
-        Me.pnlMain.Location = New System.Drawing.Point(0, 241)
-        Me.pnlMain.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.pnlMain.Location = New System.Drawing.Point(0, 197)
         Me.pnlMain.Name = "pnlMain"
-        Me.pnlMain.Size = New System.Drawing.Size(1321, 518)
+        Me.pnlMain.Size = New System.Drawing.Size(1132, 420)
         Me.pnlMain.TabIndex = 1
         '
         'pnlControlTransfer
@@ -666,116 +644,104 @@ Partial Class frmCA_Add3
         Me.pnlControlTransfer.Controls.Add(Me.LabelControl17)
         Me.pnlControlTransfer.Controls.Add(Me.LabelControl7)
         Me.pnlControlTransfer.Controls.Add(Me.LabelControl8)
-        Me.pnlControlTransfer.Location = New System.Drawing.Point(671, 379)
-        Me.pnlControlTransfer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.pnlControlTransfer.Location = New System.Drawing.Point(575, 308)
         Me.pnlControlTransfer.Name = "pnlControlTransfer"
-        Me.pnlControlTransfer.Size = New System.Drawing.Size(636, 123)
+        Me.pnlControlTransfer.Size = New System.Drawing.Size(545, 100)
         Me.pnlControlTransfer.TabIndex = 244
         Me.pnlControlTransfer.Visible = False
         '
         'txtTransferVal
         '
-        Me.txtTransferVal.Location = New System.Drawing.Point(184, 78)
-        Me.txtTransferVal.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTransferVal.Location = New System.Drawing.Point(158, 63)
         Me.txtTransferVal.Name = "txtTransferVal"
-        Me.txtTransferVal.Size = New System.Drawing.Size(246, 22)
+        Me.txtTransferVal.Size = New System.Drawing.Size(211, 20)
         Me.txtTransferVal.TabIndex = 231
         '
         'txtTransferorName
         '
-        Me.txtTransferorName.Location = New System.Drawing.Point(184, 46)
-        Me.txtTransferorName.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTransferorName.Location = New System.Drawing.Point(158, 37)
         Me.txtTransferorName.Name = "txtTransferorName"
-        Me.txtTransferorName.Size = New System.Drawing.Size(246, 22)
+        Me.txtTransferorName.Size = New System.Drawing.Size(211, 20)
         Me.txtTransferorName.TabIndex = 230
         '
         'txtTaxFileNumber
         '
-        Me.txtTaxFileNumber.Location = New System.Drawing.Point(184, 14)
-        Me.txtTaxFileNumber.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTaxFileNumber.Location = New System.Drawing.Point(158, 11)
         Me.txtTaxFileNumber.Name = "txtTaxFileNumber"
-        Me.txtTaxFileNumber.Size = New System.Drawing.Size(246, 22)
+        Me.txtTaxFileNumber.Size = New System.Drawing.Size(211, 20)
         Me.txtTaxFileNumber.TabIndex = 229
         '
         'LabelControl17
         '
-        Me.LabelControl17.Location = New System.Drawing.Point(6, 81)
-        Me.LabelControl17.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl17.Location = New System.Drawing.Point(5, 66)
         Me.LabelControl17.Name = "LabelControl17"
-        Me.LabelControl17.Size = New System.Drawing.Size(94, 16)
+        Me.LabelControl17.Size = New System.Drawing.Size(77, 13)
         Me.LabelControl17.TabIndex = 228
         Me.LabelControl17.Text = "Transfer Value :"
         '
         'LabelControl7
         '
-        Me.LabelControl7.Location = New System.Drawing.Point(6, 49)
-        Me.LabelControl7.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl7.Location = New System.Drawing.Point(5, 40)
         Me.LabelControl7.Name = "LabelControl7"
-        Me.LabelControl7.Size = New System.Drawing.Size(107, 16)
+        Me.LabelControl7.Size = New System.Drawing.Size(88, 13)
         Me.LabelControl7.TabIndex = 227
         Me.LabelControl7.Text = "Transferor Name :"
         '
         'LabelControl8
         '
-        Me.LabelControl8.Location = New System.Drawing.Point(6, 17)
-        Me.LabelControl8.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl8.Location = New System.Drawing.Point(5, 14)
         Me.LabelControl8.Name = "LabelControl8"
-        Me.LabelControl8.Size = New System.Drawing.Size(103, 16)
+        Me.LabelControl8.Size = New System.Drawing.Size(84, 13)
         Me.LabelControl8.TabIndex = 226
         Me.LabelControl8.Text = "Tax File Number :"
         '
         'txtCategory
         '
-        Me.txtCategory.Location = New System.Drawing.Point(416, 156)
-        Me.txtCategory.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtCategory.Location = New System.Drawing.Point(357, 127)
         Me.txtCategory.Name = "txtCategory"
         Me.txtCategory.Properties.ReadOnly = True
-        Me.txtCategory.Size = New System.Drawing.Size(218, 22)
+        Me.txtCategory.Size = New System.Drawing.Size(187, 20)
         Me.txtCategory.TabIndex = 243
         '
         'cboAA
         '
-        Me.cboAA.Location = New System.Drawing.Point(855, 124)
-        Me.cboAA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboAA.Location = New System.Drawing.Point(733, 101)
         Me.cboAA.Name = "cboAA"
         Me.cboAA.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboAA.Properties.Items.AddRange(New Object() {"0", "2", "3", "8", "10", "12", "14", "16", "20", "40", "50", "60", "80", "90", "100"})
         Me.cboAA.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboAA.Size = New System.Drawing.Size(246, 22)
+        Me.cboAA.Size = New System.Drawing.Size(211, 20)
         Me.cboAA.TabIndex = 9
         '
         'txtDescription
         '
-        Me.txtDescription.Location = New System.Drawing.Point(173, 318)
-        Me.txtDescription.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtDescription.Location = New System.Drawing.Point(148, 258)
         Me.txtDescription.MenuManager = Me.BarManager1
         Me.txtDescription.Name = "txtDescription"
-        Me.txtDescription.Size = New System.Drawing.Size(462, 95)
+        Me.txtDescription.Size = New System.Drawing.Size(396, 77)
         Me.txtDescription.TabIndex = 7
         '
         'dtDateofPurchase
         '
         Me.dtDateofPurchase.EditValue = Nothing
-        Me.dtDateofPurchase.Location = New System.Drawing.Point(173, 188)
-        Me.dtDateofPurchase.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.dtDateofPurchase.Location = New System.Drawing.Point(148, 153)
         Me.dtDateofPurchase.MenuManager = Me.BarManager1
         Me.dtDateofPurchase.Name = "dtDateofPurchase"
         Me.dtDateofPurchase.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.dtDateofPurchase.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtDateofPurchase.Size = New System.Drawing.Size(237, 22)
+        Me.dtDateofPurchase.Size = New System.Drawing.Size(203, 20)
         Me.dtDateofPurchase.TabIndex = 3
         '
         'cboCategory
         '
-        Me.cboCategory.Location = New System.Drawing.Point(173, 156)
-        Me.cboCategory.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboCategory.Location = New System.Drawing.Point(148, 127)
         Me.cboCategory.MenuManager = Me.BarManager1
         Me.cboCategory.Name = "cboCategory"
         Me.cboCategory.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboCategory.Properties.DataSource = Me.CategoryBindingSource
         Me.cboCategory.Properties.DisplayMember = "CA_CODE"
         Me.cboCategory.Properties.ValueMember = "CA_CODE"
-        Me.cboCategory.Size = New System.Drawing.Size(237, 22)
+        Me.cboCategory.Size = New System.Drawing.Size(203, 20)
         Me.cboCategory.TabIndex = 2
         '
         'CategoryBindingSource
@@ -785,17 +751,15 @@ Partial Class frmCA_Add3
         '
         'LabelControl25
         '
-        Me.LabelControl25.Location = New System.Drawing.Point(10, 321)
-        Me.LabelControl25.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl25.Location = New System.Drawing.Point(9, 261)
         Me.LabelControl25.Name = "LabelControl25"
-        Me.LabelControl25.Size = New System.Drawing.Size(103, 16)
+        Me.LabelControl25.Size = New System.Drawing.Size(87, 13)
         Me.LabelControl25.TabIndex = 242
         Me.LabelControl25.Text = "Description/Note :"
         '
         'txtRestrictedQua
         '
-        Me.txtRestrictedQua.Location = New System.Drawing.Point(173, 286)
-        Me.txtRestrictedQua.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRestrictedQua.Location = New System.Drawing.Point(148, 232)
         Me.txtRestrictedQua.Name = "txtRestrictedQua"
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatString = "n"
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -804,22 +768,20 @@ Partial Class frmCA_Add3
         Me.txtRestrictedQua.Properties.NullText = "0"
         Me.txtRestrictedQua.Properties.NullValuePrompt = "0"
         Me.txtRestrictedQua.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtRestrictedQua.Size = New System.Drawing.Size(237, 22)
+        Me.txtRestrictedQua.Size = New System.Drawing.Size(203, 20)
         Me.txtRestrictedQua.TabIndex = 6
         '
         'LabelControl15
         '
-        Me.LabelControl15.Location = New System.Drawing.Point(10, 289)
-        Me.LabelControl15.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl15.Location = New System.Drawing.Point(9, 235)
         Me.LabelControl15.Name = "LabelControl15"
-        Me.LabelControl15.Size = New System.Drawing.Size(155, 16)
+        Me.LabelControl15.Size = New System.Drawing.Size(132, 13)
         Me.LabelControl15.TabIndex = 240
         Me.LabelControl15.Text = "Restricted Qualifying Cost :"
         '
         'txtDeposit
         '
-        Me.txtDeposit.Location = New System.Drawing.Point(173, 254)
-        Me.txtDeposit.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtDeposit.Location = New System.Drawing.Point(148, 206)
         Me.txtDeposit.Name = "txtDeposit"
         Me.txtDeposit.Properties.DisplayFormat.FormatString = "n"
         Me.txtDeposit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -828,22 +790,20 @@ Partial Class frmCA_Add3
         Me.txtDeposit.Properties.NullText = "0"
         Me.txtDeposit.Properties.NullValuePrompt = "0"
         Me.txtDeposit.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtDeposit.Size = New System.Drawing.Size(237, 22)
+        Me.txtDeposit.Size = New System.Drawing.Size(203, 20)
         Me.txtDeposit.TabIndex = 5
         '
         'LabelControl14
         '
-        Me.LabelControl14.Location = New System.Drawing.Point(10, 257)
-        Me.LabelControl14.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl14.Location = New System.Drawing.Point(9, 209)
         Me.LabelControl14.Name = "LabelControl14"
-        Me.LabelControl14.Size = New System.Drawing.Size(141, 16)
+        Me.LabelControl14.Size = New System.Drawing.Size(118, 13)
         Me.LabelControl14.TabIndex = 238
         Me.LabelControl14.Text = "Deposit/ Payment (RM) :"
         '
         'txtPurchaseAmountFA
         '
-        Me.txtPurchaseAmountFA.Location = New System.Drawing.Point(173, 222)
-        Me.txtPurchaseAmountFA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtPurchaseAmountFA.Location = New System.Drawing.Point(148, 180)
         Me.txtPurchaseAmountFA.Name = "txtPurchaseAmountFA"
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatString = "n"
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -852,123 +812,111 @@ Partial Class frmCA_Add3
         Me.txtPurchaseAmountFA.Properties.NullText = "0"
         Me.txtPurchaseAmountFA.Properties.NullValuePrompt = "0"
         Me.txtPurchaseAmountFA.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtPurchaseAmountFA.Size = New System.Drawing.Size(237, 22)
+        Me.txtPurchaseAmountFA.Size = New System.Drawing.Size(203, 20)
         Me.txtPurchaseAmountFA.TabIndex = 4
         '
         'LabelControl13
         '
-        Me.LabelControl13.Location = New System.Drawing.Point(10, 225)
-        Me.LabelControl13.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl13.Location = New System.Drawing.Point(9, 183)
         Me.LabelControl13.Name = "LabelControl13"
-        Me.LabelControl13.Size = New System.Drawing.Size(141, 16)
+        Me.LabelControl13.Size = New System.Drawing.Size(117, 13)
         Me.LabelControl13.TabIndex = 236
         Me.LabelControl13.Text = "Purchase Amount (RM) :"
         '
         'LabelControl12
         '
-        Me.LabelControl12.Location = New System.Drawing.Point(10, 193)
-        Me.LabelControl12.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl12.Location = New System.Drawing.Point(9, 157)
         Me.LabelControl12.Name = "LabelControl12"
-        Me.LabelControl12.Size = New System.Drawing.Size(106, 16)
+        Me.LabelControl12.Size = New System.Drawing.Size(90, 13)
         Me.LabelControl12.TabIndex = 235
         Me.LabelControl12.Text = "Date of Purchase :"
         '
         'LabelControl11
         '
-        Me.LabelControl11.Location = New System.Drawing.Point(10, 160)
-        Me.LabelControl11.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl11.Location = New System.Drawing.Point(9, 130)
         Me.LabelControl11.Name = "LabelControl11"
-        Me.LabelControl11.Size = New System.Drawing.Size(93, 16)
+        Me.LabelControl11.Size = New System.Drawing.Size(80, 13)
         Me.LabelControl11.TabIndex = 234
         Me.LabelControl11.Text = "Category Code :"
         '
         'txtAssetID
         '
-        Me.txtAssetID.Location = New System.Drawing.Point(173, 124)
-        Me.txtAssetID.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtAssetID.Location = New System.Drawing.Point(148, 101)
         Me.txtAssetID.Name = "txtAssetID"
-        Me.txtAssetID.Size = New System.Drawing.Size(237, 22)
+        Me.txtAssetID.Size = New System.Drawing.Size(203, 20)
         Me.txtAssetID.TabIndex = 1
         '
         'LabelControl10
         '
-        Me.LabelControl10.Location = New System.Drawing.Point(10, 128)
-        Me.LabelControl10.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl10.Location = New System.Drawing.Point(9, 104)
         Me.LabelControl10.Name = "LabelControl10"
-        Me.LabelControl10.Size = New System.Drawing.Size(112, 16)
+        Me.LabelControl10.Size = New System.Drawing.Size(95, 13)
         Me.LabelControl10.TabIndex = 232
         Me.LabelControl10.Text = "Asset ID/ Stock ID :"
         '
         'txtAsset
         '
-        Me.txtAsset.Location = New System.Drawing.Point(173, 92)
-        Me.txtAsset.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtAsset.Location = New System.Drawing.Point(148, 75)
         Me.txtAsset.Name = "txtAsset"
-        Me.txtAsset.Size = New System.Drawing.Size(462, 22)
+        Me.txtAsset.Size = New System.Drawing.Size(396, 20)
         Me.txtAsset.TabIndex = 0
         '
         'LabelControl9
         '
-        Me.LabelControl9.Location = New System.Drawing.Point(10, 96)
-        Me.LabelControl9.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl9.Location = New System.Drawing.Point(9, 78)
         Me.LabelControl9.Name = "LabelControl9"
-        Me.LabelControl9.Size = New System.Drawing.Size(107, 16)
+        Me.LabelControl9.Size = New System.Drawing.Size(90, 13)
         Me.LabelControl9.TabIndex = 230
         Me.LabelControl9.Text = "Asset Description :"
         '
         'lblTitle_FA
         '
         Me.lblTitle_FA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle_FA.Location = New System.Drawing.Point(10, 21)
-        Me.lblTitle_FA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.lblTitle_FA.Appearance.Options.UseFont = True
+        Me.lblTitle_FA.Location = New System.Drawing.Point(9, 17)
         Me.lblTitle_FA.Name = "lblTitle_FA"
-        Me.lblTitle_FA.Size = New System.Drawing.Size(352, 24)
+        Me.lblTitle_FA.Size = New System.Drawing.Size(284, 19)
         Me.lblTitle_FA.TabIndex = 229
         Me.lblTitle_FA.Text = "Fixed Asset Information (Addition)"
         '
         'chkDeductAdjustIncome
         '
-        Me.chkDeductAdjustIncome.Location = New System.Drawing.Point(1119, 254)
-        Me.chkDeductAdjustIncome.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkDeductAdjustIncome.Location = New System.Drawing.Point(959, 206)
         Me.chkDeductAdjustIncome.Name = "chkDeductAdjustIncome"
         Me.chkDeductAdjustIncome.Properties.AutoHeight = False
         Me.chkDeductAdjustIncome.Properties.Caption = "Deduct from Adjusted Income"
-        Me.chkDeductAdjustIncome.Size = New System.Drawing.Size(192, 19)
+        Me.chkDeductAdjustIncome.Size = New System.Drawing.Size(165, 19)
         Me.chkDeductAdjustIncome.TabIndex = 19
         '
         'chkDeferred
         '
-        Me.chkDeferred.Location = New System.Drawing.Point(1119, 190)
-        Me.chkDeferred.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkDeferred.Location = New System.Drawing.Point(959, 154)
         Me.chkDeferred.Name = "chkDeferred"
         Me.chkDeferred.Properties.Caption = "Deferred Claim"
-        Me.chkDeferred.Size = New System.Drawing.Size(160, 20)
+        Me.chkDeferred.Size = New System.Drawing.Size(137, 19)
         Me.chkDeferred.TabIndex = 17
         Me.chkDeferred.Visible = False
         '
         'chkControlTransfer
         '
-        Me.chkControlTransfer.Location = New System.Drawing.Point(1119, 220)
-        Me.chkControlTransfer.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkControlTransfer.Location = New System.Drawing.Point(959, 179)
         Me.chkControlTransfer.Name = "chkControlTransfer"
         Me.chkControlTransfer.Properties.Caption = "Control Transfer"
-        Me.chkControlTransfer.Size = New System.Drawing.Size(141, 20)
+        Me.chkControlTransfer.Size = New System.Drawing.Size(121, 19)
         Me.chkControlTransfer.TabIndex = 18
         '
         'chkAccelerated
         '
-        Me.chkAccelerated.Location = New System.Drawing.Point(671, 348)
-        Me.chkAccelerated.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.chkAccelerated.Location = New System.Drawing.Point(575, 283)
         Me.chkAccelerated.Name = "chkAccelerated"
         Me.chkAccelerated.Properties.Caption = "Accelerated Capital Allowance"
         Me.chkAccelerated.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Far
-        Me.chkAccelerated.Size = New System.Drawing.Size(204, 20)
+        Me.chkAccelerated.Size = New System.Drawing.Size(175, 19)
         Me.chkAccelerated.TabIndex = 16
         '
         'txtTWDV
         '
-        Me.txtTWDV.Location = New System.Drawing.Point(855, 316)
-        Me.txtTWDV.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtTWDV.Location = New System.Drawing.Point(733, 257)
         Me.txtTWDV.Name = "txtTWDV"
         Me.txtTWDV.Properties.DisplayFormat.FormatString = "n"
         Me.txtTWDV.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -977,22 +925,20 @@ Partial Class frmCA_Add3
         Me.txtTWDV.Properties.NullText = "0"
         Me.txtTWDV.Properties.NullValuePrompt = "0"
         Me.txtTWDV.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtTWDV.Size = New System.Drawing.Size(246, 22)
+        Me.txtTWDV.Size = New System.Drawing.Size(211, 20)
         Me.txtTWDV.TabIndex = 15
         '
         'LabelControl24
         '
-        Me.LabelControl24.Location = New System.Drawing.Point(671, 320)
-        Me.LabelControl24.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl24.Location = New System.Drawing.Point(575, 260)
         Me.LabelControl24.Name = "LabelControl24"
-        Me.LabelControl24.Size = New System.Drawing.Size(45, 16)
+        Me.LabelControl24.Size = New System.Drawing.Size(36, 13)
         Me.LabelControl24.TabIndex = 223
         Me.LabelControl24.Text = "TWDV :"
         '
         'txtRemainingQualifyingCost
         '
-        Me.txtRemainingQualifyingCost.Location = New System.Drawing.Point(855, 284)
-        Me.txtRemainingQualifyingCost.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtRemainingQualifyingCost.Location = New System.Drawing.Point(733, 231)
         Me.txtRemainingQualifyingCost.Name = "txtRemainingQualifyingCost"
         Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -1002,22 +948,20 @@ Partial Class frmCA_Add3
         Me.txtRemainingQualifyingCost.Properties.NullValuePrompt = "0"
         Me.txtRemainingQualifyingCost.Properties.ReadOnly = True
         Me.txtRemainingQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtRemainingQualifyingCost.Size = New System.Drawing.Size(246, 22)
+        Me.txtRemainingQualifyingCost.Size = New System.Drawing.Size(211, 20)
         Me.txtRemainingQualifyingCost.TabIndex = 14
         '
         'LabelControl23
         '
-        Me.LabelControl23.Location = New System.Drawing.Point(671, 288)
-        Me.LabelControl23.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl23.Location = New System.Drawing.Point(575, 234)
         Me.LabelControl23.Name = "LabelControl23"
-        Me.LabelControl23.Size = New System.Drawing.Size(190, 16)
+        Me.LabelControl23.Size = New System.Drawing.Size(158, 13)
         Me.LabelControl23.TabIndex = 221
         Me.LabelControl23.Text = "Remaining Qualifying Cost (RM) :"
         '
         'txtNonQualifyingCost
         '
-        Me.txtNonQualifyingCost.Location = New System.Drawing.Point(855, 252)
-        Me.txtNonQualifyingCost.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtNonQualifyingCost.Location = New System.Drawing.Point(733, 205)
         Me.txtNonQualifyingCost.Name = "txtNonQualifyingCost"
         Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -1027,22 +971,20 @@ Partial Class frmCA_Add3
         Me.txtNonQualifyingCost.Properties.NullValuePrompt = "0"
         Me.txtNonQualifyingCost.Properties.ReadOnly = True
         Me.txtNonQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtNonQualifyingCost.Size = New System.Drawing.Size(246, 22)
+        Me.txtNonQualifyingCost.Size = New System.Drawing.Size(211, 20)
         Me.txtNonQualifyingCost.TabIndex = 13
         '
         'LabelControl22
         '
-        Me.LabelControl22.Location = New System.Drawing.Point(671, 256)
-        Me.LabelControl22.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl22.Location = New System.Drawing.Point(575, 208)
         Me.LabelControl22.Name = "LabelControl22"
-        Me.LabelControl22.Size = New System.Drawing.Size(152, 16)
+        Me.LabelControl22.Size = New System.Drawing.Size(128, 13)
         Me.LabelControl22.TabIndex = 219
         Me.LabelControl22.Text = "Non Qualifying Cost (RM) :"
         '
         'txtQualifyingCost
         '
-        Me.txtQualifyingCost.Location = New System.Drawing.Point(855, 220)
-        Me.txtQualifyingCost.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtQualifyingCost.Location = New System.Drawing.Point(733, 179)
         Me.txtQualifyingCost.Name = "txtQualifyingCost"
         Me.txtQualifyingCost.Properties.DisplayFormat.FormatString = "n"
         Me.txtQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -1051,22 +993,20 @@ Partial Class frmCA_Add3
         Me.txtQualifyingCost.Properties.NullText = "0"
         Me.txtQualifyingCost.Properties.NullValuePrompt = "0"
         Me.txtQualifyingCost.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtQualifyingCost.Size = New System.Drawing.Size(246, 22)
+        Me.txtQualifyingCost.Size = New System.Drawing.Size(211, 20)
         Me.txtQualifyingCost.TabIndex = 12
         '
         'LabelControl21
         '
-        Me.LabelControl21.Location = New System.Drawing.Point(671, 224)
-        Me.LabelControl21.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl21.Location = New System.Drawing.Point(575, 182)
         Me.LabelControl21.Name = "LabelControl21"
-        Me.LabelControl21.Size = New System.Drawing.Size(126, 16)
+        Me.LabelControl21.Size = New System.Drawing.Size(106, 13)
         Me.LabelControl21.TabIndex = 217
         Me.LabelControl21.Text = "Qualifying Cost (RM) :"
         '
         'txtPurchaseAmount
         '
-        Me.txtPurchaseAmount.Location = New System.Drawing.Point(855, 188)
-        Me.txtPurchaseAmount.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtPurchaseAmount.Location = New System.Drawing.Point(733, 153)
         Me.txtPurchaseAmount.Name = "txtPurchaseAmount"
         Me.txtPurchaseAmount.Properties.DisplayFormat.FormatString = "n"
         Me.txtPurchaseAmount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -1076,51 +1016,46 @@ Partial Class frmCA_Add3
         Me.txtPurchaseAmount.Properties.NullValuePrompt = "0"
         Me.txtPurchaseAmount.Properties.ReadOnly = True
         Me.txtPurchaseAmount.RightToLeft = System.Windows.Forms.RightToLeft.Yes
-        Me.txtPurchaseAmount.Size = New System.Drawing.Size(246, 22)
+        Me.txtPurchaseAmount.Size = New System.Drawing.Size(211, 20)
         Me.txtPurchaseAmount.TabIndex = 11
         '
         'LabelControl20
         '
-        Me.LabelControl20.Location = New System.Drawing.Point(671, 192)
-        Me.LabelControl20.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl20.Location = New System.Drawing.Point(575, 156)
         Me.LabelControl20.Name = "LabelControl20"
-        Me.LabelControl20.Size = New System.Drawing.Size(141, 16)
+        Me.LabelControl20.Size = New System.Drawing.Size(117, 13)
         Me.LabelControl20.TabIndex = 215
         Me.LabelControl20.Text = "Purchase Amount (RM) :"
         '
         'LabelControl19
         '
-        Me.LabelControl19.Location = New System.Drawing.Point(671, 160)
-        Me.LabelControl19.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl19.Location = New System.Drawing.Point(575, 130)
         Me.LabelControl19.Name = "LabelControl19"
-        Me.LabelControl19.Size = New System.Drawing.Size(60, 16)
+        Me.LabelControl19.Size = New System.Drawing.Size(52, 13)
         Me.LabelControl19.TabIndex = 214
         Me.LabelControl19.Text = "Incentive :"
         '
         'cboIncentive
         '
-        Me.cboIncentive.Location = New System.Drawing.Point(855, 156)
-        Me.cboIncentive.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.cboIncentive.Location = New System.Drawing.Point(733, 127)
         Me.cboIncentive.Name = "cboIncentive"
         Me.cboIncentive.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
         Me.cboIncentive.Properties.Items.AddRange(New Object() {"", "RA", "ITA"})
         Me.cboIncentive.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor
-        Me.cboIncentive.Size = New System.Drawing.Size(246, 22)
+        Me.cboIncentive.Size = New System.Drawing.Size(211, 20)
         Me.cboIncentive.TabIndex = 10
         '
         'LabelControl18
         '
-        Me.LabelControl18.Location = New System.Drawing.Point(671, 128)
-        Me.LabelControl18.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl18.Location = New System.Drawing.Point(575, 104)
         Me.LabelControl18.Name = "LabelControl18"
-        Me.LabelControl18.Size = New System.Drawing.Size(81, 16)
+        Me.LabelControl18.Size = New System.Drawing.Size(69, 13)
         Me.LabelControl18.TabIndex = 212
         Me.LabelControl18.Text = "AA Rate (%) :"
         '
         'txtIA
         '
-        Me.txtIA.Location = New System.Drawing.Point(855, 92)
-        Me.txtIA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.txtIA.Location = New System.Drawing.Point(733, 75)
         Me.txtIA.Name = "txtIA"
         Me.txtIA.Properties.DisplayFormat.FormatString = "f0"
         Me.txtIA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
@@ -1130,40 +1065,47 @@ Partial Class frmCA_Add3
         Me.txtIA.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtIA.Properties.NullText = "0"
         Me.txtIA.Properties.NullValuePrompt = "0"
-        Me.txtIA.Size = New System.Drawing.Size(246, 22)
+        Me.txtIA.Size = New System.Drawing.Size(211, 20)
         Me.txtIA.TabIndex = 8
         '
         'lblTitle_CA
         '
         Me.lblTitle_CA.Appearance.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle_CA.Location = New System.Drawing.Point(671, 21)
-        Me.lblTitle_CA.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.lblTitle_CA.Appearance.Options.UseFont = True
+        Me.lblTitle_CA.Location = New System.Drawing.Point(575, 17)
         Me.lblTitle_CA.Name = "lblTitle_CA"
-        Me.lblTitle_CA.Size = New System.Drawing.Size(417, 24)
+        Me.lblTitle_CA.Size = New System.Drawing.Size(337, 19)
         Me.lblTitle_CA.TabIndex = 210
         Me.lblTitle_CA.Text = "Capital Allowance Information (Addition)"
         '
         'LabelControl16
         '
-        Me.LabelControl16.Location = New System.Drawing.Point(671, 96)
-        Me.LabelControl16.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
+        Me.LabelControl16.Location = New System.Drawing.Point(575, 78)
         Me.LabelControl16.Name = "LabelControl16"
-        Me.LabelControl16.Size = New System.Drawing.Size(77, 16)
+        Me.LabelControl16.Size = New System.Drawing.Size(66, 13)
         Me.LabelControl16.TabIndex = 209
         Me.LabelControl16.Text = "IA Rate (%) :"
         '
+        'btnNote
+        '
+        Me.btnNote.Caption = "Note"
+        Me.btnNote.Id = 9
+        Me.btnNote.ImageOptions.Image = CType(resources.GetObject("btnNote.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote.ImageOptions.LargeImage = CType(resources.GetObject("btnNote.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote.Name = "btnNote"
+        Me.btnNote.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
         'frmCA_Add3
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1321, 759)
+        Me.ClientSize = New System.Drawing.Size(1132, 617)
         Me.Controls.Add(Me.pnlMain)
         Me.Controls.Add(Me.PanelControl1)
         Me.Controls.Add(Me.barDockControlLeft)
         Me.Controls.Add(Me.barDockControlRight)
         Me.Controls.Add(Me.barDockControlBottom)
         Me.Controls.Add(Me.barDockControlTop)
-        Me.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.Name = "frmCA_Add3"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Capital Allowance"
@@ -1222,6 +1164,7 @@ Partial Class frmCA_Add3
         CType(Me.cboIncentive.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtIA.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents BarManager1 As DevExpress.XtraBars.BarManager
@@ -1318,4 +1261,5 @@ Partial Class frmCA_Add3
     Friend WithEvents colFileNo As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents btnNote As DevExpress.XtraBars.BarButtonItem
 End Class

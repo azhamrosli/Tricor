@@ -10,16 +10,29 @@ Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 
 Public Class frmHP_Report
+    Dim clsNote As clsNote_CA = Nothing
+
+    Dim clsErrorLog As clsError = Nothing
+
     Public ID As String = ""
     Public RefNo As String = ""
     Public YA As String = ""
     Public ComName As String = ""
     Public TypeReport As Integer = 0
     Dim link As PrintableComponentLink
+    Sub New()
 
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        If clsNote Is Nothing Then
+            clsNote = New clsNote_CA
+        End If
+    End Sub
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
-            ADO.Delete_HP_REPORT_TEMP(ID)
+            ADO.Delete_HP_Report_TEMP(ID)
         Catch ex As Exception
 
         End Try
@@ -66,31 +79,23 @@ Public Class frmHP_Report
     End Sub
     Private Sub PrintExport(ByVal isExport As Boolean)
         Try
-            Try
-                Dim Path As String = Nothing
-                If isExport Then
-                    SaveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx"
-                    Dim rslt As DialogResult = SaveFileDialog1.ShowDialog
 
-                    If rslt = Windows.Forms.DialogResult.OK Then
-                        Path = SaveFileDialog1.FileName
-                    Else
-                        Exit Sub
-                    End If
+            Dim Path As String = Nothing
+            If isExport Then
+                SaveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx"
+                Dim rslt As DialogResult = SaveFileDialog1.ShowDialog
+
+                If rslt = Windows.Forms.DialogResult.OK Then
+                    Path = SaveFileDialog1.FileName
+                Else
+                    Exit Sub
                 End If
+            End If
 
+            'Capital Allowance Details By Rate
+            Dim rpt As rpt_HP
 
-
-                 'Capital Allowance Details By Rate
-                Dim rpt As New rpt_HP
-
-                rpt.paramCompanyName.Value = ComName
-                rpt.paramYA.Value = CInt(YA)
-
-
-                rpt.Landscape = True
-                rpt.DataSource = DsCA.Tables("HP_REPORT_TEMP")
-
+            If mdlProcess.PrintReport_HP(DsCA, ComName, YA, rpt, clsErrorLog) Then
                 If isExport Then
                     rpt.ExportToXlsx(Path)
                 Else
@@ -100,11 +105,10 @@ Public Class frmHP_Report
                 If isExport Then
                     MsgBox("Succesfully export report to " & vbCrLf & Path, MsgBoxStyle.Information)
                 End If
+            Else
+                MsgBox("Failed to load hire purchase report.", MsgBoxStyle.Critical)
+            End If
 
-
-            Catch ex As Exception
-
-            End Try
         Catch ex As Exception
 
         End Try

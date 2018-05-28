@@ -27,12 +27,23 @@ Public Class ucPNL_p1Depreciation
     Public Const Main_Deduct As String = ""  'PLFSD_DESC
     Public Const MainDetails_Deduct As String = ""  'PLFSD_DESC
     Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
+    Public Const MainColumn_Percentage As String = ""
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -56,7 +67,10 @@ Public Class ucPNL_p1Depreciation
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             EXPENSESDEPRECIATIONBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
+            Application.DoEvents()
 
+            CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                               MainAmount_Details, MainColumn_PercentageAmount, Errorlog)
             If isEdit Then
 
             End If
@@ -71,6 +85,7 @@ Public Class ucPNL_p1Depreciation
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -283,4 +298,16 @@ Public Class ucPNL_p1Depreciation
         End Try
     End Sub
 
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
+
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

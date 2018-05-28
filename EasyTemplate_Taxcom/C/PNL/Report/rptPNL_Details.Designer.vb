@@ -304,6 +304,8 @@ Partial Public Class rptPNL_Details
         Dim XrSummary282 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary283 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Dim XrSummary284 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary285 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
+        Dim XrSummary286 As DevExpress.XtraReports.UI.XRSummary = New DevExpress.XtraReports.UI.XRSummary()
         Me.Detail = New DevExpress.XtraReports.UI.DetailBand()
         Me.SALES = New DevExpress.XtraReports.UI.FormattingRule()
         Me.TITLE_COS = New DevExpress.XtraReports.UI.FormattingRule()
@@ -402,6 +404,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel186 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel196 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXPENSES = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine5 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
@@ -411,6 +414,7 @@ Partial Public Class rptPNL_Details
         Me.lineTotal_OTHER_EXPENSES_top = New DevExpress.XtraReports.UI.XRLine()
         Me.perTotal_OTHER_EXPENSES = New DevExpress.XtraReports.UI.XRLabel()
         Me.txtTotal_OTHER_EXPENSES = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.AddBack_Details = New DevExpress.XtraReports.UI.CalculatedField()
         Me.Deduct_Details = New DevExpress.XtraReports.UI.CalculatedField()
         Me.AddBack = New DevExpress.XtraReports.UI.CalculatedField()
@@ -444,10 +448,12 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXCAPITALEXP = New DevExpress.XtraReports.UI.XRLabel()
         Me.OTHER_EXCAPITALEXP_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ReportFooter1 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXCAPITALEXP = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine61 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel157 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel156 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel204 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXINITIALSUB = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail5 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXINITIALSUB = New DevExpress.XtraReports.UI.XRLine()
@@ -474,10 +480,12 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_EXINITIALSUB = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_OTHER_EXINITIALSUB = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter2 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXINITIALSUB = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine60 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel153 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel152 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel245 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.EXPINITIALSUBSCRIPT_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.EXPINITIALSUBSCRIPT_DETAIL_INVT = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXRLOSSFOREIGN = New DevExpress.XtraReports.UI.DetailReportBand()
@@ -508,10 +516,12 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader5 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel251 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter3 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine57 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel149 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel148 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel262 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXRLOSSFOREIGNT = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail9 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXRLOSSFOREIGNT = New DevExpress.XtraReports.UI.XRLine()
@@ -539,11 +549,13 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_EXRLOSSFOREIGNT = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_OTHER_EXRLOSSFOREIGNT = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter4 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine56 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel143 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel142 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel279 = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPREALLOSSFETRADE_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPREALLOSSFETRADE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXURLOSSFOREIGN = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail11 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXURLOSSFOREIGN = New DevExpress.XtraReports.UI.XRLine()
@@ -571,10 +583,12 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader7 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel285 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter5 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine55 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel141 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel140 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel296 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPUNREALLOSSFE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.EXPUNREALLOSSFE_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXFAWRITTENOFF = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail13 = New DevExpress.XtraReports.UI.DetailBand()
@@ -604,10 +618,12 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXFAWRITTENOFF = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPFAWRITTENOFF_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ReportFooter6 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine54 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel137 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel136 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel313 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPFAWRITTENOFF_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXLEAVEPASSAGE = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail15 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXLEAVEPASSAGE = New DevExpress.XtraReports.UI.XRLine()
@@ -636,10 +652,12 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXLEAVEPASSAGE = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPLEAVEPASSAGE_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ReportFooter7 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine53 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel133 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel130 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel330 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPLEAVEPASSAGE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXPROVISIONACC = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail17 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXPROVISIONACC = New DevExpress.XtraReports.UI.XRLine()
@@ -668,10 +686,12 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_EXPROVISIONACC = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPPROVISION_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ReportFooter8 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXPROVISIONACC = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine52 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel129 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel128 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel347 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPPROVISION_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXPENALTY = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail19 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXPENALTY = New DevExpress.XtraReports.UI.XRLine()
@@ -700,10 +720,12 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXPENALTY = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPCOMPAUNDPENALTY_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ReportFooter9 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXPENALTY = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine50 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel124 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel121 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel364 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_ENTERTAINSTAFF = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail21 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_ENTERTAINSTAFF = New DevExpress.XtraReports.UI.XRLine()
@@ -721,6 +743,7 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader12 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel370 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter10 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine51 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel120 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel119 = New DevExpress.XtraReports.UI.XRLabel()
@@ -736,6 +759,7 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_ENTERTAINSTAFF = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_OTHER_ENTERTAINSTAFF = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPENTERTAINSTAFF_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPENTERTAINSTAFF_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_ENTERTAINNSTAFF = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail23 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_ENTERTAINNSTAFF = New DevExpress.XtraReports.UI.XRLine()
@@ -751,6 +775,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel383 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel385 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter11 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine49 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel114 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel113 = New DevExpress.XtraReports.UI.XRLabel()
@@ -768,6 +793,7 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_ENTERTAINNSTAFF = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_OTHER_ENTERTAINNSTAFF = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPENTERTAINNONSTAFF_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXLOSSDISPOSALFA = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail25 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXLOSSDISPOSALFA = New DevExpress.XtraReports.UI.XRLine()
@@ -783,6 +809,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel402 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel403 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter12 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine48 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel110 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel109 = New DevExpress.XtraReports.UI.XRLabel()
@@ -800,6 +827,7 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXLOSSDISPOSALFA = New DevExpress.XtraReports.UI.XRLabel()
         Me.txtTotal_OTHER_EXLOSSDISPOSALFA = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPLOSSDISPFA_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPLOSSDISPFA_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXZAKAT = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail27 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXZAKAT = New DevExpress.XtraReports.UI.XRLine()
@@ -815,6 +843,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel417 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel419 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter13 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXZAKAT = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine47 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel106 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel105 = New DevExpress.XtraReports.UI.XRLabel()
@@ -832,6 +861,7 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_EXZAKAT = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_OTHER_EXZAKAT = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPZAKAT_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPZAKAT_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXNAPPRDONATION = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail29 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXNAPPRDONATION = New DevExpress.XtraReports.UI.XRLine()
@@ -847,6 +877,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel436 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel437 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter14 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXNAPPRDONATION = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine46 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel102 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel101 = New DevExpress.XtraReports.UI.XRLabel()
@@ -864,6 +895,7 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXNAPPRDONATION = New DevExpress.XtraReports.UI.XRLabel()
         Me.txtTotal_OTHER_EXNAPPRDONATION = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPDONATIONNONAPPR_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPDONATIONNONAPPR_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXAPPRDONATION = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail31 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXAPPRDONATION = New DevExpress.XtraReports.UI.XRLine()
@@ -879,6 +911,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel451 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel453 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter15 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXAPPRDONATION = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine45 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel98 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel97 = New DevExpress.XtraReports.UI.XRLabel()
@@ -896,6 +929,7 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_EXAPPRDONATION = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_OTHER_EXAPPRDONATION = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPDONATIONAPPR_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPDONATIONAPPR_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.OTHER_EXDEPRECIATION = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail33 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_OTHER_EXDEPRECIATION = New DevExpress.XtraReports.UI.XRLine()
@@ -911,6 +945,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel470 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel471 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter16 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_EXDEPRECIATION = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine44 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel96 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel93 = New DevExpress.XtraReports.UI.XRLabel()
@@ -928,6 +963,7 @@ Partial Public Class rptPNL_Details
         Me.perTotal_OTHER_EXDEPRECIATION = New DevExpress.XtraReports.UI.XRLabel()
         Me.txtTotal_OTHER_EXDEPRECIATION = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPDEPRECIATION_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPDEPRECIATION_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.EXPENSES_JKDM = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail35 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_EXPENSES_JKDM = New DevExpress.XtraReports.UI.XRLine()
@@ -943,6 +979,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel485 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel487 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter17 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_JKDM = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine42 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel90 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel89 = New DevExpress.XtraReports.UI.XRLabel()
@@ -960,6 +997,7 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_EXPENSES_JKDM = New DevExpress.XtraReports.UI.XRLabel()
         Me.perTotal_EXPENSES_JKDM = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPJKDM_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPJKDM_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.EXPENSES_TRAVEL = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail37 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_EXPENSES_TRAVEL = New DevExpress.XtraReports.UI.XRLine()
@@ -975,6 +1013,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel504 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel505 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter18 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_TRAVEL = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine41 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel88 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel87 = New DevExpress.XtraReports.UI.XRLabel()
@@ -992,6 +1031,7 @@ Partial Public Class rptPNL_Details
         Me.perTotal_EXPENSES_TRAVEL = New DevExpress.XtraReports.UI.XRLabel()
         Me.txtTotal_EXPENSES_TRAVEL = New DevExpress.XtraReports.UI.XRLabel()
         Me.EXPTRAVEL_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPTRAVEL_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         Me.EXPENSES_PROMOTE = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail39 = New DevExpress.XtraReports.UI.DetailBand()
         Me.line_EXPENSES_PROMOTE = New DevExpress.XtraReports.UI.XRLine()
@@ -1007,6 +1047,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel519 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel521 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter19 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_PROMOTE = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine38 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel82 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel81 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1039,6 +1080,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel538 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel539 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter20 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_RESEARCH = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine40 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel80 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel77 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1071,6 +1113,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel553 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel555 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter21 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_REPAIR = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine39 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel74 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel73 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1105,6 +1148,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel572 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel573 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter22 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_RENTAL = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine37 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel70 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel69 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1138,6 +1182,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel587 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel589 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter23 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_ROYALTY = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine36 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel68 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel67 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1181,6 +1226,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel606 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel607 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter24 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_EMPL_STOCK = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine35 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel62 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel61 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1202,6 +1248,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel621 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel623 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter25 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_SALARY = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine34 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel60 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel59 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1234,6 +1281,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel640 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel641 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter26 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine33 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel56 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel55 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1277,6 +1325,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel655 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel657 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter27 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_CONTRACT = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine32 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel52 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel51 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1309,6 +1358,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel674 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel675 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter28 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_TECH_FEE = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine31 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel48 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel47 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1341,6 +1391,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel689 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel691 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter29 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_LEGAL = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine30 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel44 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel41 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1373,6 +1424,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel708 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel709 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter30 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_INTEREST = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine29 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel40 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel39 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1400,6 +1452,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel725 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel726 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter31 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_NON_TAXABLE_INCOME = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine27 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel35 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel734 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1426,6 +1479,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel736 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel738 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter32 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NTUREALFENT = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine26 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel34 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel747 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1452,6 +1506,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel750 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel751 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter33 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NTUREALFET = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine25 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel33 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel760 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1479,6 +1534,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel763 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel764 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter34 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NTREALFE = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine24 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel32 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel773 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1505,6 +1561,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel776 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel777 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter35 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine23 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel31 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel786 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1524,6 +1581,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel789 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel790 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter36 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXEMPT_DIVIDEND = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine22 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLine21 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel30 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1551,6 +1609,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel800 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel801 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter37 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine20 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel29 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel811 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1577,6 +1636,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel814 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel815 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter38 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NTDISPOSALFA = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine19 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel28 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel824 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1603,6 +1663,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel826 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel827 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter39 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_OTHER_INCOME = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine18 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel27 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel837 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1629,6 +1690,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel840 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel841 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter40 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NBROYALTY = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine17 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel26 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel850 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1651,6 +1713,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel853 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel854 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter41 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_RENTAL_INCOME = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLabel25 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel859 = New DevExpress.XtraReports.UI.XRLabel()
         Me.GroupHeader43 = New DevExpress.XtraReports.UI.GroupHeaderBand()
@@ -1678,6 +1741,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel867 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel868 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter42 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_NBINTEREST = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine16 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel24 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel878 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1699,6 +1763,7 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader45 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel886 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter43 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_DIVIDEND_INCOME = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLabel23 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLine15 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLine14 = New DevExpress.XtraReports.UI.XRLine()
@@ -1724,6 +1789,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel895 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel896 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter44 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_INCOME_REALFET = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine13 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel22 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel905 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1750,6 +1816,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel907 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel908 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter45 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine8 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel21 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel918 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1778,6 +1845,7 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader48 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel923 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter46 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_PLFST_CLOSESTOCK = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine9 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel20 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel931 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1807,6 +1875,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel933 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel934 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter47 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_NONALLOW = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine6 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel19 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel14 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1839,6 +1908,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel951 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel952 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter48 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_ALLOW = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine7 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel13 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel12 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1871,6 +1941,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel968 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel969 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter49 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_DEPRECIATION = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLabel11 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLine3 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1879,25 +1950,32 @@ Partial Public Class rptPNL_Details
         Me.XrLabel971 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PLFST_PURCHASE = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail98 = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel160 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.PURCHASE_DETAIL_INVT = New DevExpress.XtraReports.UI.FormattingRule()
         Me.line_PLFST_PURCHASE = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel988 = New DevExpress.XtraReports.UI.XRLabel()
         Me.txt_PLFST_PURCHASE = New DevExpress.XtraReports.UI.XRLabel()
-        Me.PURCHASE_DETAIL_INVT = New DevExpress.XtraReports.UI.FormattingRule()
         Me.txtRUN_PLFST_PURCHASE = New DevExpress.XtraReports.UI.XRLabel()
         Me.DetailReport98 = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail99 = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel161 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel992 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel993 = New DevExpress.XtraReports.UI.XRLabel()
         Me.GroupFooter49 = New DevExpress.XtraReports.UI.GroupFooterBand()
+        Me.XrLabel162 = New DevExpress.XtraReports.UI.XRLabel()
         Me.lineTotal_PLFST_PURCHASE_bot = New DevExpress.XtraReports.UI.XRLine()
         Me.lineTotal_PLFST_PURCHASE_top = New DevExpress.XtraReports.UI.XRLine()
         Me.txtTotal_PLFST_PURCHASE = New DevExpress.XtraReports.UI.XRLabel()
         Me.PURCHASE_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
         Me.ReportHeader51 = New DevExpress.XtraReports.UI.ReportHeaderBand()
+        Me.XrLabel158 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.XrLabel159 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel983 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel984 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel985 = New DevExpress.XtraReports.UI.XRLabel()
         Me.RF_PLFST_PURCHASE = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_PLST_PURCHASE = New DevExpress.XtraReports.UI.XRSubreport()
+        Me.XrLabel163 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLine2 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel995 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1919,6 +1997,7 @@ Partial Public Class rptPNL_Details
         Me.XrLabel998 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel999 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PF_PLFST_OPENSTOCK = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_PLST_OPENSTOCK = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine4 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel6 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1008 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1931,12 +2010,14 @@ Partial Public Class rptPNL_Details
         Me.OPENSTOCK_DETAIL_INVT = New DevExpress.XtraReports.UI.FormattingRule()
         Me.PLFST_SALES = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.PLST_SALES_DETAIL = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel164 = New DevExpress.XtraReports.UI.XRLabel()
         Me.line_PLFST_SALES = New DevExpress.XtraReports.UI.XRLine()
         Me.txtRUN_PLST_SALES = New DevExpress.XtraReports.UI.XRLabel()
         Me.txt_PLFST_SALES = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1016 = New DevExpress.XtraReports.UI.XRLabel()
         Me.PLST_SALES_DETAIL_SUB = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail103 = New DevExpress.XtraReports.UI.DetailBand()
+        Me.XrLabel165 = New DevExpress.XtraReports.UI.XRLabel()
         Me.txtDetails_PLFST_SALES = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1019 = New DevExpress.XtraReports.UI.XRLabel()
         Me.SALES_DETAIL = New DevExpress.XtraReports.UI.FormattingRule()
@@ -1947,6 +2028,7 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader54 = New DevExpress.XtraReports.UI.GroupHeaderBand()
         Me.XrLabel1013 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter50 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_PLST_SALES = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine1 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel2 = New DevExpress.XtraReports.UI.XRLabel()
@@ -1986,12 +2068,23 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1039 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1041 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportFooter53 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT = New DevExpress.XtraReports.UI.XRSubreport()
         Me.XrLine28 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel36 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1046 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel1043 = New DevExpress.XtraReports.UI.XRLabel()
         Me.CalculatedField1 = New DevExpress.XtraReports.UI.CalculatedField()
-        Me.EXPOTHERINTEREST_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.FORECURREXLOSS_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPADVERTISEMENT_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPRND_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPROYALTY_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPSALARY_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPDIRECTORFEE_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPCONTRACTPAY_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPTECHNICAL_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.EXPLEGAL_RPT_EXCLUDE = New DevExpress.XtraReports.UI.FormattingRule()
         CType(Me.DsPNL1,System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me,System.ComponentModel.ISupportInitialize).BeginInit
         '
@@ -2446,6 +2539,7 @@ Partial Public Class rptPNL_Details
         'PageHeader
         '
         Me.PageHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel125, Me.XrLabel208, Me.XrLabel207})
+        Me.PageHeader.Expanded = false
         Me.PageHeader.HeightF = 79.00002!
         Me.PageHeader.Name = "PageHeader"
         '
@@ -2567,6 +2661,7 @@ Partial Public Class rptPNL_Details
         Me.OTHER_EXPENSES.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail3, Me.GroupHeader2, Me.DetailReport3, Me.ReportHeader1, Me.ReportFooter, Me.GF_OTHER_EXPENSES})
         Me.OTHER_EXPENSES.DataMember = "OTHER_EXPENSES"
         Me.OTHER_EXPENSES.DataSource = Me.DsPNL1
+        Me.OTHER_EXPENSES.Expanded = false
         Me.OTHER_EXPENSES.FormattingRules.Add(Me.EXPOTHERSEXPENSES)
         Me.OTHER_EXPENSES.FormattingRules.Add(Me.EXPOTHERINTEREST_RPT_EXCLUDE)
         Me.OTHER_EXPENSES.Level = 53
@@ -2749,10 +2844,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter
         '
-        Me.ReportFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine5, Me.XrLabel7, Me.XrLabel5, Me.XrLabel229})
-        Me.ReportFooter.HeightF = 71.45831!
+        Me.ReportFooter.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXPENSES, Me.XrLine5, Me.XrLabel7, Me.XrLabel5, Me.XrLabel229})
+        Me.ReportFooter.HeightF = 129.7916!
         Me.ReportFooter.KeepTogether = true
         Me.ReportFooter.Name = "ReportFooter"
+        '
+        'rptSubNote_OTHER_EXPENSES
+        '
+        Me.rptSubNote_OTHER_EXPENSES.CanShrink = true
+        Me.rptSubNote_OTHER_EXPENSES.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 70.06226!)
+        Me.rptSubNote_OTHER_EXPENSES.Name = "rptSubNote_OTHER_EXPENSES"
+        Me.rptSubNote_OTHER_EXPENSES.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXPENSES.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXPENSES.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_OTHERS"))
+        Me.rptSubNote_OTHER_EXPENSES.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXPENSES.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine5
         '
@@ -2872,6 +2978,14 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_OTHER_EXPENSES.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.txtTotal_OTHER_EXPENSES.Visible = false
         '
+        'EXPOTHERINTEREST_RPT_EXCLUDE
+        '
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_OTHERS]) == False And [PL_OTHER_EXP_OTHERS]== False"
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Name = "EXPOTHERINTEREST_RPT_EXCLUDE"
+        '
         'AddBack_Details
         '
         Me.AddBack_Details.DataMember = "OTHER_EXPENSES.FK_OTHER_EXPENSES_OTHER_EXPENSES_DETAIL"
@@ -2912,7 +3026,9 @@ Partial Public Class rptPNL_Details
         Me.OTHER_EXCAPITALEXP.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail1, Me.ReportHeader2, Me.GroupHeader3, Me.DetailReport1, Me.ReportFooter1})
         Me.OTHER_EXCAPITALEXP.DataMember = "OTHER_EXCAPITALEXP"
         Me.OTHER_EXCAPITALEXP.DataSource = Me.DsPNL1
+        Me.OTHER_EXCAPITALEXP.Expanded = false
         Me.OTHER_EXCAPITALEXP.FormattingRules.Add(Me.EXPCAPITALEXPENDITURE)
+        Me.OTHER_EXCAPITALEXP.FormattingRules.Add(Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE)
         Me.OTHER_EXCAPITALEXP.Level = 52
         Me.OTHER_EXCAPITALEXP.Name = "OTHER_EXCAPITALEXP"
         '
@@ -3189,9 +3305,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter1
         '
-        Me.ReportFooter1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine61, Me.XrLabel157, Me.XrLabel156, Me.XrLabel204})
-        Me.ReportFooter1.HeightF = 67.70834!
+        Me.ReportFooter1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXCAPITALEXP, Me.XrLine61, Me.XrLabel157, Me.XrLabel156, Me.XrLabel204})
+        Me.ReportFooter1.HeightF = 115.625!
         Me.ReportFooter1.Name = "ReportFooter1"
+        '
+        'rptSubNote_OTHER_EXCAPITALEXP
+        '
+        Me.rptSubNote_OTHER_EXCAPITALEXP.CanShrink = true
+        Me.rptSubNote_OTHER_EXCAPITALEXP.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 68.18848!)
+        Me.rptSubNote_OTHER_EXCAPITALEXP.Name = "rptSubNote_OTHER_EXCAPITALEXP"
+        Me.rptSubNote_OTHER_EXCAPITALEXP.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXCAPITALEXP.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXCAPITALEXP.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_CAP_EXP"))
+        Me.rptSubNote_OTHER_EXCAPITALEXP.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXCAPITALEXP.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine61
         '
@@ -3249,12 +3376,23 @@ Partial Public Class rptPNL_Details
         Me.XrLabel204.Summary = XrSummary13
         Me.XrLabel204.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPCAPITALEXPENDITURE_RPT_EXCLUDE
+        '
+        Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_CAP_EXP]) == False And [PL_OTHER_EXP_CAP_EXP]== False"& _ 
+    ""
+        Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE.Name = "EXPCAPITALEXPENDITURE_RPT_EXCLUDE"
+        '
         'OTHER_EXINITIALSUB
         '
         Me.OTHER_EXINITIALSUB.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail5, Me.ReportHeader3, Me.GroupHeader4, Me.DetailReport5, Me.ReportFooter2})
         Me.OTHER_EXINITIALSUB.DataMember = "OTHER_EXINITIALSUB"
         Me.OTHER_EXINITIALSUB.DataSource = Me.DsPNL1
+        Me.OTHER_EXINITIALSUB.Expanded = false
         Me.OTHER_EXINITIALSUB.FormattingRules.Add(Me.EXPINITIALSUBSCRIPT)
+        Me.OTHER_EXINITIALSUB.FormattingRules.Add(Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE)
         Me.OTHER_EXINITIALSUB.Level = 51
         Me.OTHER_EXINITIALSUB.Name = "OTHER_EXINITIALSUB"
         '
@@ -3532,9 +3670,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter2
         '
-        Me.ReportFooter2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine60, Me.XrLabel153, Me.XrLabel152, Me.XrLabel245})
-        Me.ReportFooter2.HeightF = 67.70834!
+        Me.ReportFooter2.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXINITIALSUB, Me.XrLine60, Me.XrLabel153, Me.XrLabel152, Me.XrLabel245})
+        Me.ReportFooter2.HeightF = 114.5833!
         Me.ReportFooter2.Name = "ReportFooter2"
+        '
+        'rptSubNote_OTHER_EXINITIALSUB
+        '
+        Me.rptSubNote_OTHER_EXINITIALSUB.CanShrink = true
+        Me.rptSubNote_OTHER_EXINITIALSUB.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 66.62598!)
+        Me.rptSubNote_OTHER_EXINITIALSUB.Name = "rptSubNote_OTHER_EXINITIALSUB"
+        Me.rptSubNote_OTHER_EXINITIALSUB.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXINITIALSUB.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXINITIALSUB.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_INI_SUB"))
+        Me.rptSubNote_OTHER_EXINITIALSUB.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXINITIALSUB.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine60
         '
@@ -3593,6 +3742,15 @@ Partial Public Class rptPNL_Details
         Me.XrLabel245.Summary = XrSummary19
         Me.XrLabel245.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPINITIALSUBSCRIPT_RPT_EXCLUDE
+        '
+        Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_INI_SUB]) == False And [PL_OTHER_EXP_INI_SUB]== False"& _ 
+    ""
+        Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE.Name = "EXPINITIALSUBSCRIPT_RPT_EXCLUDE"
+        '
         'EXPINITIALSUBSCRIPT_DETAIL
         '
         Me.EXPINITIALSUBSCRIPT_DETAIL.Condition = "[DataSource.RowCount] = 0"
@@ -3612,7 +3770,9 @@ Partial Public Class rptPNL_Details
         Me.OTHER_EXRLOSSFOREIGN.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail7, Me.ReportHeader4, Me.DetailReport7, Me.GroupHeader5, Me.ReportFooter3})
         Me.OTHER_EXRLOSSFOREIGN.DataMember = "OTHER_EXRLOSSFOREIGN"
         Me.OTHER_EXRLOSSFOREIGN.DataSource = Me.DsPNL1
+        Me.OTHER_EXRLOSSFOREIGN.Expanded = false
         Me.OTHER_EXRLOSSFOREIGN.FormattingRules.Add(Me.EXPREALLOSSFENONTRADE)
+        Me.OTHER_EXRLOSSFOREIGN.FormattingRules.Add(Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE)
         Me.OTHER_EXRLOSSFOREIGN.Level = 50
         Me.OTHER_EXRLOSSFOREIGN.Name = "OTHER_EXRLOSSFOREIGN"
         '
@@ -3890,9 +4050,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter3
         '
-        Me.ReportFooter3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine57, Me.XrLabel149, Me.XrLabel148, Me.XrLabel262})
-        Me.ReportFooter3.HeightF = 67.70834!
+        Me.ReportFooter3.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXRLOSSFOREIGN, Me.XrLine57, Me.XrLabel149, Me.XrLabel148, Me.XrLabel262})
+        Me.ReportFooter3.HeightF = 128.125!
         Me.ReportFooter3.Name = "ReportFooter3"
+        '
+        'rptSubNote_OTHER_EXRLOSSFOREIGN
+        '
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.CanShrink = true
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 71.31348!)
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.Name = "rptSubNote_OTHER_EXRLOSSFOREIGN"
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_UNREALOSS"))
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGN.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine57
         '
@@ -3951,12 +4122,23 @@ Partial Public Class rptPNL_Details
         Me.XrLabel262.Summary = XrSummary25
         Me.XrLabel262.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPREALLOSSFENONTRADE_RPT_EXCLUDE
+        '
+        Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXRLOSSFOREIGNT]) == False And [PL_OTHER_EXRLOSSFOREIGNT]"& _ 
+    "== False"
+        Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE.Name = "EXPREALLOSSFENONTRADE_RPT_EXCLUDE"
+        '
         'OTHER_EXRLOSSFOREIGNT
         '
         Me.OTHER_EXRLOSSFOREIGNT.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail9, Me.ReportHeader5, Me.GroupHeader6, Me.DetailReport9})
         Me.OTHER_EXRLOSSFOREIGNT.DataMember = "OTHER_EXRLOSSFOREIGNT"
         Me.OTHER_EXRLOSSFOREIGNT.DataSource = Me.DsPNL1
+        Me.OTHER_EXRLOSSFOREIGNT.Expanded = false
         Me.OTHER_EXRLOSSFOREIGNT.FormattingRules.Add(Me.EXPREALLOSSFETRADE)
+        Me.OTHER_EXRLOSSFOREIGNT.FormattingRules.Add(Me.EXPREALLOSSFETRADE_RPT_EXCLUDE)
         Me.OTHER_EXRLOSSFOREIGNT.Level = 49
         Me.OTHER_EXRLOSSFOREIGNT.Name = "OTHER_EXRLOSSFOREIGNT"
         '
@@ -4245,9 +4427,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter4
         '
-        Me.ReportFooter4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine56, Me.XrLabel143, Me.XrLabel142, Me.XrLabel279})
-        Me.ReportFooter4.HeightF = 67.70834!
+        Me.ReportFooter4.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXRLOSSFOREIGNT, Me.XrLine56, Me.XrLabel143, Me.XrLabel142, Me.XrLabel279})
+        Me.ReportFooter4.HeightF = 144.7917!
         Me.ReportFooter4.Name = "ReportFooter4"
+        '
+        'rptSubNote_OTHER_EXRLOSSFOREIGNT
+        '
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.CanShrink = true
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 76.52181!)
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.Name = "rptSubNote_OTHER_EXRLOSSFOREIGNT"
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXRLOSSFOREIGNT"))
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXRLOSSFOREIGNT.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine56
         '
@@ -4313,12 +4506,23 @@ Partial Public Class rptPNL_Details
         Me.EXPREALLOSSFETRADE_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPREALLOSSFETRADE_DETAIL.Name = "EXPREALLOSSFETRADE_DETAIL"
         '
+        'EXPREALLOSSFETRADE_RPT_EXCLUDE
+        '
+        Me.EXPREALLOSSFETRADE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_REALOSS]) == False And [PL_OTHER_EXP_REALOSS]== False"& _ 
+    ""
+        Me.EXPREALLOSSFETRADE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPREALLOSSFETRADE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPREALLOSSFETRADE_RPT_EXCLUDE.Name = "EXPREALLOSSFETRADE_RPT_EXCLUDE"
+        '
         'OTHER_EXURLOSSFOREIGN
         '
         Me.OTHER_EXURLOSSFOREIGN.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail11, Me.ReportHeader6, Me.DetailReport11, Me.GroupHeader7, Me.ReportFooter5})
         Me.OTHER_EXURLOSSFOREIGN.DataMember = "OTHER_EXURLOSSFOREIGN"
         Me.OTHER_EXURLOSSFOREIGN.DataSource = Me.DsPNL1
+        Me.OTHER_EXURLOSSFOREIGN.Expanded = false
         Me.OTHER_EXURLOSSFOREIGN.FormattingRules.Add(Me.EXPUNREALLOSSFE)
+        Me.OTHER_EXURLOSSFOREIGN.FormattingRules.Add(Me.EXPUNREALLOSSFE_RPT_EXCLUDE)
         Me.OTHER_EXURLOSSFOREIGN.Level = 48
         Me.OTHER_EXURLOSSFOREIGN.Name = "OTHER_EXURLOSSFOREIGN"
         '
@@ -4607,9 +4811,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter5
         '
-        Me.ReportFooter5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine55, Me.XrLabel141, Me.XrLabel140, Me.XrLabel296})
-        Me.ReportFooter5.HeightF = 67.70834!
+        Me.ReportFooter5.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXURLOSSFOREIGN, Me.XrLine55, Me.XrLabel141, Me.XrLabel140, Me.XrLabel296})
+        Me.ReportFooter5.HeightF = 122.9167!
         Me.ReportFooter5.Name = "ReportFooter5"
+        '
+        'rptSubNote_OTHER_EXURLOSSFOREIGN
+        '
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.CanShrink = true
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 73.91764!)
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.Name = "rptSubNote_OTHER_EXURLOSSFOREIGN"
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_UNREALOSS"))
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXURLOSSFOREIGN.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine55
         '
@@ -4668,6 +4883,15 @@ Partial Public Class rptPNL_Details
         Me.XrLabel296.Summary = XrSummary37
         Me.XrLabel296.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPUNREALLOSSFE_RPT_EXCLUDE
+        '
+        Me.EXPUNREALLOSSFE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_UNREALOSS]) == False And [PL_OTHER_EXP_UNREALOSS]== F"& _ 
+    "alse"
+        Me.EXPUNREALLOSSFE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPUNREALLOSSFE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPUNREALLOSSFE_RPT_EXCLUDE.Name = "EXPUNREALLOSSFE_RPT_EXCLUDE"
+        '
         'EXPUNREALLOSSFE_DETAIL
         '
         Me.EXPUNREALLOSSFE_DETAIL.Condition = "[DataSource.RowCount] = 0"
@@ -4680,7 +4904,9 @@ Partial Public Class rptPNL_Details
         Me.OTHER_EXFAWRITTENOFF.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail13, Me.ReportHeader7, Me.GroupHeader8, Me.DetailReport13, Me.ReportFooter6})
         Me.OTHER_EXFAWRITTENOFF.DataMember = "OTHER_EXFAWRITTENOFF"
         Me.OTHER_EXFAWRITTENOFF.DataSource = Me.DsPNL1
+        Me.OTHER_EXFAWRITTENOFF.Expanded = false
         Me.OTHER_EXFAWRITTENOFF.FormattingRules.Add(Me.EXPFAWRITTENOFF)
+        Me.OTHER_EXFAWRITTENOFF.FormattingRules.Add(Me.EXPFAWRITTENOFF_RPT_EXCLUDE)
         Me.OTHER_EXFAWRITTENOFF.Level = 47
         Me.OTHER_EXFAWRITTENOFF.Name = "OTHER_EXFAWRITTENOFF"
         '
@@ -4976,9 +5202,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter6
         '
-        Me.ReportFooter6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine54, Me.XrLabel137, Me.XrLabel136, Me.XrLabel313})
-        Me.ReportFooter6.HeightF = 67.70834!
+        Me.ReportFooter6.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXFAWRITTENOFF, Me.XrLine54, Me.XrLabel137, Me.XrLabel136, Me.XrLabel313})
+        Me.ReportFooter6.HeightF = 136.4583!
         Me.ReportFooter6.Name = "ReportFooter6"
+        '
+        'rptSubNote_OTHER_EXFAWRITTENOFF
+        '
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.CanShrink = true
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 69.23014!)
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.Name = "rptSubNote_OTHER_EXFAWRITTENOFF"
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_FA_WO"))
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXFAWRITTENOFF.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine54
         '
@@ -5037,12 +5274,22 @@ Partial Public Class rptPNL_Details
         Me.XrLabel313.Summary = XrSummary43
         Me.XrLabel313.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPFAWRITTENOFF_RPT_EXCLUDE
+        '
+        Me.EXPFAWRITTENOFF_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_FA_WO]) == False And [PL_OTHER_EXP_FA_WO]== False"
+        Me.EXPFAWRITTENOFF_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPFAWRITTENOFF_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPFAWRITTENOFF_RPT_EXCLUDE.Name = "EXPFAWRITTENOFF_RPT_EXCLUDE"
+        '
         'OTHER_EXLEAVEPASSAGE
         '
         Me.OTHER_EXLEAVEPASSAGE.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail15, Me.ReportHeader8, Me.GroupHeader9, Me.DetailReport15, Me.ReportFooter7})
         Me.OTHER_EXLEAVEPASSAGE.DataMember = "OTHER_EXLEAVEPASSAGE"
         Me.OTHER_EXLEAVEPASSAGE.DataSource = Me.DsPNL1
+        Me.OTHER_EXLEAVEPASSAGE.Expanded = false
         Me.OTHER_EXLEAVEPASSAGE.FormattingRules.Add(Me.EXPLEAVEPASSAGE)
+        Me.OTHER_EXLEAVEPASSAGE.FormattingRules.Add(Me.EXPLEAVEPASSAGE_RPT_EXCLUDE)
         Me.OTHER_EXLEAVEPASSAGE.Level = 46
         Me.OTHER_EXLEAVEPASSAGE.Name = "OTHER_EXLEAVEPASSAGE"
         '
@@ -5338,9 +5585,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter7
         '
-        Me.ReportFooter7.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine53, Me.XrLabel133, Me.XrLabel130, Me.XrLabel330})
-        Me.ReportFooter7.HeightF = 67.70834!
+        Me.ReportFooter7.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXLEAVEPASSAGE, Me.XrLine53, Me.XrLabel133, Me.XrLabel130, Me.XrLabel330})
+        Me.ReportFooter7.HeightF = 129.1667!
         Me.ReportFooter7.Name = "ReportFooter7"
+        '
+        'rptSubNote_OTHER_EXLEAVEPASSAGE
+        '
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.CanShrink = true
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 72.87598!)
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.Name = "rptSubNote_OTHER_EXLEAVEPASSAGE"
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_LEAVE"))
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXLEAVEPASSAGE.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine53
         '
@@ -5399,12 +5657,22 @@ Partial Public Class rptPNL_Details
         Me.XrLabel330.Summary = XrSummary49
         Me.XrLabel330.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPLEAVEPASSAGE_RPT_EXCLUDE
+        '
+        Me.EXPLEAVEPASSAGE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_LEAVE]) == False And [PL_OTHER_EXP_LEAVE]== False"
+        Me.EXPLEAVEPASSAGE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPLEAVEPASSAGE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPLEAVEPASSAGE_RPT_EXCLUDE.Name = "EXPLEAVEPASSAGE_RPT_EXCLUDE"
+        '
         'OTHER_EXPROVISIONACC
         '
         Me.OTHER_EXPROVISIONACC.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail17, Me.ReportHeader9, Me.GroupHeader10, Me.DetailReport17, Me.ReportFooter8})
         Me.OTHER_EXPROVISIONACC.DataMember = "OTHER_EXPROVISIONACC"
         Me.OTHER_EXPROVISIONACC.DataSource = Me.DsPNL1
+        Me.OTHER_EXPROVISIONACC.Expanded = false
         Me.OTHER_EXPROVISIONACC.FormattingRules.Add(Me.EXPPROVISION)
+        Me.OTHER_EXPROVISIONACC.FormattingRules.Add(Me.EXPPROVISION_RPT_EXCLUDE)
         Me.OTHER_EXPROVISIONACC.Level = 45
         Me.OTHER_EXPROVISIONACC.Name = "OTHER_EXPROVISIONACC"
         '
@@ -5700,9 +5968,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter8
         '
-        Me.ReportFooter8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine52, Me.XrLabel129, Me.XrLabel128, Me.XrLabel347})
-        Me.ReportFooter8.HeightF = 67.70834!
+        Me.ReportFooter8.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXPROVISIONACC, Me.XrLine52, Me.XrLabel129, Me.XrLabel128, Me.XrLabel347})
+        Me.ReportFooter8.HeightF = 105.2083!
         Me.ReportFooter8.Name = "ReportFooter8"
+        '
+        'rptSubNote_OTHER_EXPROVISIONACC
+        '
+        Me.rptSubNote_OTHER_EXPROVISIONACC.CanShrink = true
+        Me.rptSubNote_OTHER_EXPROVISIONACC.LocationFloat = New DevExpress.Utils.PointFloat(24.51004!, 72.20834!)
+        Me.rptSubNote_OTHER_EXPROVISIONACC.Name = "rptSubNote_OTHER_EXPROVISIONACC"
+        Me.rptSubNote_OTHER_EXPROVISIONACC.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXPROVISIONACC.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXPROVISIONACC.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_PROV_ACC"))
+        Me.rptSubNote_OTHER_EXPROVISIONACC.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXPROVISIONACC.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine52
         '
@@ -5761,12 +6040,24 @@ Partial Public Class rptPNL_Details
         Me.XrLabel347.Summary = XrSummary55
         Me.XrLabel347.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPPROVISION_RPT_EXCLUDE
+        '
+        Me.EXPPROVISION_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_PROV_ACC]) == False And [PL_OTHER_EXP_PROV_ACC]== Fal"& _ 
+    "se"
+        Me.EXPPROVISION_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPPROVISION_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPPROVISION_RPT_EXCLUDE.Name = "EXPPROVISION_RPT_EXCLUDE"
+        '
         'OTHER_EXPENALTY
         '
+        Me.OTHER_EXPENALTY.BackColor = System.Drawing.Color.Transparent
         Me.OTHER_EXPENALTY.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail19, Me.ReportHeader10, Me.GroupHeader11, Me.DetailReport19, Me.ReportFooter9})
         Me.OTHER_EXPENALTY.DataMember = "OTHER_EXPENALTY"
         Me.OTHER_EXPENALTY.DataSource = Me.DsPNL1
+        Me.OTHER_EXPENALTY.Expanded = false
         Me.OTHER_EXPENALTY.FormattingRules.Add(Me.EXPCOMPAUNDPENALTY)
+        Me.OTHER_EXPENALTY.FormattingRules.Add(Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE)
         Me.OTHER_EXPENALTY.Level = 44
         Me.OTHER_EXPENALTY.Name = "OTHER_EXPENALTY"
         '
@@ -6059,9 +6350,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter9
         '
-        Me.ReportFooter9.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine50, Me.XrLabel124, Me.XrLabel121, Me.XrLabel364})
-        Me.ReportFooter9.HeightF = 67.70834!
+        Me.ReportFooter9.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXPENALTY, Me.XrLine50, Me.XrLabel124, Me.XrLabel121, Me.XrLabel364})
+        Me.ReportFooter9.HeightF = 134.375!
         Me.ReportFooter9.Name = "ReportFooter9"
+        '
+        'rptSubNote_OTHER_EXPENALTY
+        '
+        Me.rptSubNote_OTHER_EXPENALTY.CanShrink = true
+        Me.rptSubNote_OTHER_EXPENALTY.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 77.56348!)
+        Me.rptSubNote_OTHER_EXPENALTY.Name = "rptSubNote_OTHER_EXPENALTY"
+        Me.rptSubNote_OTHER_EXPENALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXPENALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXPENALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_PENALTY"))
+        Me.rptSubNote_OTHER_EXPENALTY.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXPENALTY.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine50
         '
@@ -6120,12 +6422,23 @@ Partial Public Class rptPNL_Details
         Me.XrLabel364.Summary = XrSummary61
         Me.XrLabel364.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
+        'EXPCOMPAUNDPENALTY_RPT_EXCLUDE
+        '
+        Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_PENALTY]) == False And [PL_OTHER_EXP_PENALTY]== False"& _ 
+    ""
+        Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE.Name = "EXPCOMPAUNDPENALTY_RPT_EXCLUDE"
+        '
         'OTHER_ENTERTAINSTAFF
         '
         Me.OTHER_ENTERTAINSTAFF.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail21, Me.ReportHeader11, Me.GroupHeader12, Me.ReportFooter10, Me.DetailReport21})
         Me.OTHER_ENTERTAINSTAFF.DataMember = "OTHER_ENTERTAINSTAFF"
         Me.OTHER_ENTERTAINSTAFF.DataSource = Me.DsPNL1
+        Me.OTHER_ENTERTAINSTAFF.Expanded = false
         Me.OTHER_ENTERTAINSTAFF.FormattingRules.Add(Me.EXPENTERTAINSTAFF)
+        Me.OTHER_ENTERTAINSTAFF.FormattingRules.Add(Me.EXPENTERTAINSTAFF_RPT_EXCLUDE)
         Me.OTHER_ENTERTAINSTAFF.Level = 43
         Me.OTHER_ENTERTAINSTAFF.Name = "OTHER_ENTERTAINSTAFF"
         '
@@ -6303,9 +6616,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter10
         '
-        Me.ReportFooter10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine51, Me.XrLabel120, Me.XrLabel119, Me.XrLabel381})
-        Me.ReportFooter10.HeightF = 67.70834!
+        Me.ReportFooter10.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_ENTERTAINSTAFF, Me.XrLine51, Me.XrLabel120, Me.XrLabel119, Me.XrLabel381})
+        Me.ReportFooter10.HeightF = 113.5417!
         Me.ReportFooter10.Name = "ReportFooter10"
+        '
+        'rptSubNote_OTHER_ENTERTAINSTAFF
+        '
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.CanShrink = true
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 65.06348!)
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.Name = "rptSubNote_OTHER_ENTERTAINSTAFF"
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ENTM_STFF"))
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_ENTERTAINSTAFF.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine51
         '
@@ -6482,12 +6806,23 @@ Partial Public Class rptPNL_Details
         Me.EXPENTERTAINSTAFF_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPENTERTAINSTAFF_DETAIL.Name = "EXPENTERTAINSTAFF_DETAIL"
         '
+        'EXPENTERTAINSTAFF_RPT_EXCLUDE
+        '
+        Me.EXPENTERTAINSTAFF_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_ENTM_STFF]) == False And [PL_OTHER_EXP_ENTM_STFF]== F"& _ 
+    "alse"
+        Me.EXPENTERTAINSTAFF_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPENTERTAINSTAFF_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPENTERTAINSTAFF_RPT_EXCLUDE.Name = "EXPENTERTAINSTAFF_RPT_EXCLUDE"
+        '
         'OTHER_ENTERTAINNSTAFF
         '
         Me.OTHER_ENTERTAINNSTAFF.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail23, Me.ReportHeader12, Me.ReportFooter11, Me.GroupHeader13, Me.DetailReport23})
         Me.OTHER_ENTERTAINNSTAFF.DataMember = "OTHER_ENTERTAINNSTAFF"
         Me.OTHER_ENTERTAINNSTAFF.DataSource = Me.DsPNL1
+        Me.OTHER_ENTERTAINNSTAFF.Expanded = false
         Me.OTHER_ENTERTAINNSTAFF.FormattingRules.Add(Me.EXPENTERTAINNONSTAFF)
+        Me.OTHER_ENTERTAINNSTAFF.FormattingRules.Add(Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE)
         Me.OTHER_ENTERTAINNSTAFF.Level = 42
         Me.OTHER_ENTERTAINNSTAFF.Name = "OTHER_ENTERTAINNSTAFF"
         '
@@ -6646,9 +6981,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter11
         '
-        Me.ReportFooter11.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine49, Me.XrLabel114, Me.XrLabel113, Me.XrLabel398})
-        Me.ReportFooter11.HeightF = 67.70834!
+        Me.ReportFooter11.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_ENTERTAINNSTAFF, Me.XrLine49, Me.XrLabel114, Me.XrLabel113, Me.XrLabel398})
+        Me.ReportFooter11.HeightF = 112.5!
         Me.ReportFooter11.Name = "ReportFooter11"
+        '
+        'rptSubNote_OTHER_ENTERTAINNSTAFF
+        '
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.CanShrink = true
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 67.66764!)
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.Name = "rptSubNote_OTHER_ENTERTAINNSTAFF"
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ENTM_CLNT"))
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_ENTERTAINNSTAFF.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine49
         '
@@ -6844,12 +7190,23 @@ Partial Public Class rptPNL_Details
         Me.EXPENTERTAINNONSTAFF_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPENTERTAINNONSTAFF_DETAIL.Name = "EXPENTERTAINNONSTAFF_DETAIL"
         '
+        'EXPENTERTAINNONSTAFF_RPT_EXCLUDE
+        '
+        Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_ENTM_CLNT]) == False And [PL_OTHER_EXP_ENTM_CLNT]== F"& _ 
+    "alse"
+        Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE.Name = "EXPENTERTAINNONSTAFF_RPT_EXCLUDE"
+        '
         'OTHER_EXLOSSDISPOSALFA
         '
         Me.OTHER_EXLOSSDISPOSALFA.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail25, Me.ReportHeader13, Me.ReportFooter12, Me.GroupHeader14, Me.DetailReport25})
         Me.OTHER_EXLOSSDISPOSALFA.DataMember = "OTHER_EXLOSSDISPOSALFA"
         Me.OTHER_EXLOSSDISPOSALFA.DataSource = Me.DsPNL1
+        Me.OTHER_EXLOSSDISPOSALFA.Expanded = false
         Me.OTHER_EXLOSSDISPOSALFA.FormattingRules.Add(Me.EXPLOSSDISPFA)
+        Me.OTHER_EXLOSSDISPOSALFA.FormattingRules.Add(Me.EXPLOSSDISPFA_RPT_EXCLUDE)
         Me.OTHER_EXLOSSDISPOSALFA.Level = 41
         Me.OTHER_EXLOSSDISPOSALFA.Name = "OTHER_EXLOSSDISPOSALFA"
         '
@@ -7008,9 +7365,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter12
         '
-        Me.ReportFooter12.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine48, Me.XrLabel110, Me.XrLabel109, Me.XrLabel415})
-        Me.ReportFooter12.HeightF = 67.70834!
+        Me.ReportFooter12.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXLOSSDISPOSALFA, Me.XrLine48, Me.XrLabel110, Me.XrLabel109, Me.XrLabel415})
+        Me.ReportFooter12.HeightF = 138.5417!
         Me.ReportFooter12.Name = "ReportFooter12"
+        '
+        'rptSubNote_OTHER_EXLOSSDISPOSALFA
+        '
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.CanShrink = true
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 68.70931!)
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.Name = "rptSubNote_OTHER_EXLOSSDISPOSALFA"
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_FA_DISP"))
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXLOSSDISPOSALFA.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine48
         '
@@ -7207,12 +7575,23 @@ Partial Public Class rptPNL_Details
         Me.EXPLOSSDISPFA_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPLOSSDISPFA_DETAIL.Name = "EXPLOSSDISPFA_DETAIL"
         '
+        'EXPLOSSDISPFA_RPT_EXCLUDE
+        '
+        Me.EXPLOSSDISPFA_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_FA_DISP]) == False And [PL_OTHER_EXP_FA_DISP]== False"& _ 
+    ""
+        Me.EXPLOSSDISPFA_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPLOSSDISPFA_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPLOSSDISPFA_RPT_EXCLUDE.Name = "EXPLOSSDISPFA_RPT_EXCLUDE"
+        '
         'OTHER_EXZAKAT
         '
         Me.OTHER_EXZAKAT.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail27, Me.ReportHeader14, Me.ReportFooter13, Me.GroupHeader15, Me.DetailReport27})
         Me.OTHER_EXZAKAT.DataMember = "OTHER_EXZAKAT"
         Me.OTHER_EXZAKAT.DataSource = Me.DsPNL1
+        Me.OTHER_EXZAKAT.Expanded = false
         Me.OTHER_EXZAKAT.FormattingRules.Add(Me.EXPZAKAT)
+        Me.OTHER_EXZAKAT.FormattingRules.Add(Me.EXPZAKAT_RPT_EXCLUDE)
         Me.OTHER_EXZAKAT.Level = 40
         Me.OTHER_EXZAKAT.Name = "OTHER_EXZAKAT"
         '
@@ -7371,9 +7750,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter13
         '
-        Me.ReportFooter13.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine47, Me.XrLabel106, Me.XrLabel105, Me.XrLabel432})
-        Me.ReportFooter13.HeightF = 67.70834!
+        Me.ReportFooter13.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXZAKAT, Me.XrLine47, Me.XrLabel106, Me.XrLabel105, Me.XrLabel432})
+        Me.ReportFooter13.HeightF = 113.5417!
         Me.ReportFooter13.Name = "ReportFooter13"
+        '
+        'rptSubNote_OTHER_EXZAKAT
+        '
+        Me.rptSubNote_OTHER_EXZAKAT.CanShrink = true
+        Me.rptSubNote_OTHER_EXZAKAT.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 66.10514!)
+        Me.rptSubNote_OTHER_EXZAKAT.Name = "rptSubNote_OTHER_EXZAKAT"
+        Me.rptSubNote_OTHER_EXZAKAT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXZAKAT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXZAKAT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_ZAKAT"))
+        Me.rptSubNote_OTHER_EXZAKAT.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXZAKAT.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine47
         '
@@ -7566,12 +7956,22 @@ Partial Public Class rptPNL_Details
         Me.EXPZAKAT_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPZAKAT_DETAIL.Name = "EXPZAKAT_DETAIL"
         '
+        'EXPZAKAT_RPT_EXCLUDE
+        '
+        Me.EXPZAKAT_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_ZAKAT]) == False And [PL_OTHER_EXP_ZAKAT]== False"
+        Me.EXPZAKAT_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPZAKAT_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPZAKAT_RPT_EXCLUDE.Name = "EXPZAKAT_RPT_EXCLUDE"
+        '
         'OTHER_EXNAPPRDONATION
         '
         Me.OTHER_EXNAPPRDONATION.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail29, Me.ReportHeader15, Me.ReportFooter14, Me.GroupHeader16, Me.DetailReport29})
         Me.OTHER_EXNAPPRDONATION.DataMember = "OTHER_EXNAPPRDONATION"
         Me.OTHER_EXNAPPRDONATION.DataSource = Me.DsPNL1
+        Me.OTHER_EXNAPPRDONATION.Expanded = false
         Me.OTHER_EXNAPPRDONATION.FormattingRules.Add(Me.EXPDONATIONNONAPPR)
+        Me.OTHER_EXNAPPRDONATION.FormattingRules.Add(Me.EXPDONATIONNONAPPR_RPT_EXCLUDE)
         Me.OTHER_EXNAPPRDONATION.Level = 39
         Me.OTHER_EXNAPPRDONATION.Name = "OTHER_EXNAPPRDONATION"
         '
@@ -7730,9 +8130,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter14
         '
-        Me.ReportFooter14.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine46, Me.XrLabel102, Me.XrLabel101, Me.XrLabel449})
-        Me.ReportFooter14.HeightF = 67.70834!
+        Me.ReportFooter14.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXNAPPRDONATION, Me.XrLine46, Me.XrLabel102, Me.XrLabel101, Me.XrLabel449})
+        Me.ReportFooter14.HeightF = 113.5417!
         Me.ReportFooter14.Name = "ReportFooter14"
+        '
+        'rptSubNote_OTHER_EXNAPPRDONATION
+        '
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.CanShrink = true
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 64.02181!)
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.Name = "rptSubNote_OTHER_EXNAPPRDONATION"
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DNT_NAPP"))
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXNAPPRDONATION.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine46
         '
@@ -7928,12 +8339,23 @@ Partial Public Class rptPNL_Details
         Me.EXPDONATIONNONAPPR_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPDONATIONNONAPPR_DETAIL.Name = "EXPDONATIONNONAPPR_DETAIL"
         '
+        'EXPDONATIONNONAPPR_RPT_EXCLUDE
+        '
+        Me.EXPDONATIONNONAPPR_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_DNT_NAPP]) == False And [PL_OTHER_EXP_DNT_NAPP]== Fal"& _ 
+    "se"
+        Me.EXPDONATIONNONAPPR_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPDONATIONNONAPPR_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPDONATIONNONAPPR_RPT_EXCLUDE.Name = "EXPDONATIONNONAPPR_RPT_EXCLUDE"
+        '
         'OTHER_EXAPPRDONATION
         '
         Me.OTHER_EXAPPRDONATION.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail31, Me.ReportHeader16, Me.ReportFooter15, Me.GroupHeader17, Me.DetailReport31})
         Me.OTHER_EXAPPRDONATION.DataMember = "OTHER_EXAPPRDONATION"
         Me.OTHER_EXAPPRDONATION.DataSource = Me.DsPNL1
+        Me.OTHER_EXAPPRDONATION.Expanded = false
         Me.OTHER_EXAPPRDONATION.FormattingRules.Add(Me.EXPDONATIONAPPR)
+        Me.OTHER_EXAPPRDONATION.FormattingRules.Add(Me.EXPDONATIONAPPR_RPT_EXCLUDE)
         Me.OTHER_EXAPPRDONATION.Level = 38
         Me.OTHER_EXAPPRDONATION.Name = "OTHER_EXAPPRDONATION"
         '
@@ -8092,9 +8514,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter15
         '
-        Me.ReportFooter15.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine45, Me.XrLabel98, Me.XrLabel97, Me.XrLabel466})
-        Me.ReportFooter15.HeightF = 67.70834!
+        Me.ReportFooter15.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXAPPRDONATION, Me.XrLine45, Me.XrLabel98, Me.XrLabel97, Me.XrLabel466})
+        Me.ReportFooter15.HeightF = 121.875!
         Me.ReportFooter15.Name = "ReportFooter15"
+        '
+        'rptSubNote_OTHER_EXAPPRDONATION
+        '
+        Me.rptSubNote_OTHER_EXAPPRDONATION.CanShrink = true
+        Me.rptSubNote_OTHER_EXAPPRDONATION.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 64.02181!)
+        Me.rptSubNote_OTHER_EXAPPRDONATION.Name = "rptSubNote_OTHER_EXAPPRDONATION"
+        Me.rptSubNote_OTHER_EXAPPRDONATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXAPPRDONATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXAPPRDONATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DNT_APP"))
+        Me.rptSubNote_OTHER_EXAPPRDONATION.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXAPPRDONATION.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine45
         '
@@ -8290,12 +8723,23 @@ Partial Public Class rptPNL_Details
         Me.EXPDONATIONAPPR_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPDONATIONAPPR_DETAIL.Name = "EXPDONATIONAPPR_DETAIL"
         '
+        'EXPDONATIONAPPR_RPT_EXCLUDE
+        '
+        Me.EXPDONATIONAPPR_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_DNT_APP]) == False And [PL_OTHER_EXP_DNT_APP]== False"& _ 
+    ""
+        Me.EXPDONATIONAPPR_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPDONATIONAPPR_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPDONATIONAPPR_RPT_EXCLUDE.Name = "EXPDONATIONAPPR_RPT_EXCLUDE"
+        '
         'OTHER_EXDEPRECIATION
         '
         Me.OTHER_EXDEPRECIATION.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail33, Me.ReportHeader17, Me.ReportFooter16, Me.GroupHeader18, Me.DetailReport33})
         Me.OTHER_EXDEPRECIATION.DataMember = "OTHER_EXDEPRECIATION"
         Me.OTHER_EXDEPRECIATION.DataSource = Me.DsPNL1
+        Me.OTHER_EXDEPRECIATION.Expanded = false
         Me.OTHER_EXDEPRECIATION.FormattingRules.Add(Me.EXPDEPRECIATION)
+        Me.OTHER_EXDEPRECIATION.FormattingRules.Add(Me.EXPDEPRECIATION_RPT_EXCLUDE)
         Me.OTHER_EXDEPRECIATION.Level = 37
         Me.OTHER_EXDEPRECIATION.Name = "OTHER_EXDEPRECIATION"
         '
@@ -8454,9 +8898,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter16
         '
-        Me.ReportFooter16.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine44, Me.XrLabel96, Me.XrLabel93, Me.XrLabel483})
-        Me.ReportFooter16.HeightF = 68.45816!
+        Me.ReportFooter16.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_EXDEPRECIATION, Me.XrLine44, Me.XrLabel96, Me.XrLabel93, Me.XrLabel483})
+        Me.ReportFooter16.HeightF = 117.4165!
         Me.ReportFooter16.Name = "ReportFooter16"
+        '
+        'rptSubNote_OTHER_EXDEPRECIATION
+        '
+        Me.rptSubNote_OTHER_EXDEPRECIATION.CanShrink = true
+        Me.rptSubNote_OTHER_EXDEPRECIATION.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 65.95866!)
+        Me.rptSubNote_OTHER_EXDEPRECIATION.Name = "rptSubNote_OTHER_EXDEPRECIATION"
+        Me.rptSubNote_OTHER_EXDEPRECIATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_EXDEPRECIATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_EXDEPRECIATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_OTHER_EXP_DPC"))
+        Me.rptSubNote_OTHER_EXDEPRECIATION.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_EXDEPRECIATION.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine44
         '
@@ -8652,12 +9107,22 @@ Partial Public Class rptPNL_Details
         Me.EXPDEPRECIATION_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPDEPRECIATION_DETAIL.Name = "EXPDEPRECIATION_DETAIL"
         '
+        'EXPDEPRECIATION_RPT_EXCLUDE
+        '
+        Me.EXPDEPRECIATION_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_DPC]) == False And [PL_OTHER_EXP_DPC]== False"
+        Me.EXPDEPRECIATION_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPDEPRECIATION_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPDEPRECIATION_RPT_EXCLUDE.Name = "EXPDEPRECIATION_RPT_EXCLUDE"
+        '
         'EXPENSES_JKDM
         '
         Me.EXPENSES_JKDM.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail35, Me.ReportHeader18, Me.ReportFooter17, Me.GroupHeader19, Me.DetailReport35})
         Me.EXPENSES_JKDM.DataMember = "EXPENSES_JKDM"
         Me.EXPENSES_JKDM.DataSource = Me.DsPNL1
+        Me.EXPENSES_JKDM.Expanded = false
         Me.EXPENSES_JKDM.FormattingRules.Add(Me.EXPJKDM)
+        Me.EXPENSES_JKDM.FormattingRules.Add(Me.EXPJKDM_RPT_EXCLUDE)
         Me.EXPENSES_JKDM.Level = 36
         Me.EXPENSES_JKDM.Name = "EXPENSES_JKDM"
         '
@@ -8816,9 +9281,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter17
         '
-        Me.ReportFooter17.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine42, Me.XrLabel90, Me.XrLabel89, Me.XrLabel500})
-        Me.ReportFooter17.HeightF = 67.70834!
+        Me.ReportFooter17.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_JKDM, Me.XrLine42, Me.XrLabel90, Me.XrLabel89, Me.XrLabel500})
+        Me.ReportFooter17.HeightF = 143.75!
         Me.ReportFooter17.Name = "ReportFooter17"
+        '
+        'rptSubNote_EXPENSES_JKDM
+        '
+        Me.rptSubNote_EXPENSES_JKDM.CanShrink = true
+        Me.rptSubNote_EXPENSES_JKDM.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 74.95931!)
+        Me.rptSubNote_EXPENSES_JKDM.Name = "rptSubNote_EXPENSES_JKDM"
+        Me.rptSubNote_EXPENSES_JKDM.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_JKDM.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_JKDM.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_JKDM"))
+        Me.rptSubNote_EXPENSES_JKDM.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_JKDM.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine42
         '
@@ -9011,12 +9487,22 @@ Partial Public Class rptPNL_Details
         Me.EXPJKDM_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPJKDM_DETAIL.Name = "EXPJKDM_DETAIL"
         '
+        'EXPJKDM_RPT_EXCLUDE
+        '
+        Me.EXPJKDM_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_JKDM]) == False And [PL_JKDM]== False"
+        Me.EXPJKDM_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPJKDM_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPJKDM_RPT_EXCLUDE.Name = "EXPJKDM_RPT_EXCLUDE"
+        '
         'EXPENSES_TRAVEL
         '
         Me.EXPENSES_TRAVEL.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail37, Me.ReportHeader19, Me.ReportFooter18, Me.GroupHeader20, Me.DetailReport37})
         Me.EXPENSES_TRAVEL.DataMember = "EXPENSES_TRAVEL"
         Me.EXPENSES_TRAVEL.DataSource = Me.DsPNL1
+        Me.EXPENSES_TRAVEL.Expanded = false
         Me.EXPENSES_TRAVEL.FormattingRules.Add(Me.EXPTRAVEL)
+        Me.EXPENSES_TRAVEL.FormattingRules.Add(Me.EXPTRAVEL_RPT_EXCLUDE)
         Me.EXPENSES_TRAVEL.Level = 35
         Me.EXPENSES_TRAVEL.Name = "EXPENSES_TRAVEL"
         '
@@ -9175,9 +9661,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter18
         '
-        Me.ReportFooter18.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine41, Me.XrLabel88, Me.XrLabel87, Me.XrLabel517})
-        Me.ReportFooter18.HeightF = 67.70834!
+        Me.ReportFooter18.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_TRAVEL, Me.XrLine41, Me.XrLabel88, Me.XrLabel87, Me.XrLabel517})
+        Me.ReportFooter18.HeightF = 107.2917!
         Me.ReportFooter18.Name = "ReportFooter18"
+        '
+        'rptSubNote_EXPENSES_TRAVEL
+        '
+        Me.rptSubNote_EXPENSES_TRAVEL.CanShrink = true
+        Me.rptSubNote_EXPENSES_TRAVEL.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 64.02181!)
+        Me.rptSubNote_EXPENSES_TRAVEL.Name = "rptSubNote_EXPENSES_TRAVEL"
+        Me.rptSubNote_EXPENSES_TRAVEL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_TRAVEL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_TRAVEL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TRAVEL"))
+        Me.rptSubNote_EXPENSES_TRAVEL.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_TRAVEL.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine41
         '
@@ -9370,12 +9867,22 @@ Partial Public Class rptPNL_Details
         Me.EXPTRAVEL_DETAIL.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
         Me.EXPTRAVEL_DETAIL.Name = "EXPTRAVEL_DETAIL"
         '
+        'EXPTRAVEL_RPT_EXCLUDE
+        '
+        Me.EXPTRAVEL_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_TRAVEL]) == False And [PL_TRAVEL]== False"
+        Me.EXPTRAVEL_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPTRAVEL_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPTRAVEL_RPT_EXCLUDE.Name = "EXPTRAVEL_RPT_EXCLUDE"
+        '
         'EXPENSES_PROMOTE
         '
         Me.EXPENSES_PROMOTE.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail39, Me.ReportHeader20, Me.ReportFooter19, Me.GroupHeader21, Me.DetailReport39})
         Me.EXPENSES_PROMOTE.DataMember = "EXPENSES_PROMOTE"
         Me.EXPENSES_PROMOTE.DataSource = Me.DsPNL1
+        Me.EXPENSES_PROMOTE.Expanded = false
         Me.EXPENSES_PROMOTE.FormattingRules.Add(Me.EXPADVERTISEMENT)
+        Me.EXPENSES_PROMOTE.FormattingRules.Add(Me.EXPADVERTISEMENT_RPT_EXCLUDE)
         Me.EXPENSES_PROMOTE.Level = 34
         Me.EXPENSES_PROMOTE.Name = "EXPENSES_PROMOTE"
         '
@@ -9534,9 +10041,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter19
         '
-        Me.ReportFooter19.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine38, Me.XrLabel82, Me.XrLabel81, Me.XrLabel534})
-        Me.ReportFooter19.HeightF = 67.70834!
+        Me.ReportFooter19.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_PROMOTE, Me.XrLine38, Me.XrLabel82, Me.XrLabel81, Me.XrLabel534})
+        Me.ReportFooter19.HeightF = 116.6667!
         Me.ReportFooter19.Name = "ReportFooter19"
+        '
+        'rptSubNote_EXPENSES_PROMOTE
+        '
+        Me.rptSubNote_EXPENSES_PROMOTE.CanShrink = true
+        Me.rptSubNote_EXPENSES_PROMOTE.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 67.66764!)
+        Me.rptSubNote_EXPENSES_PROMOTE.Name = "rptSubNote_EXPENSES_PROMOTE"
+        Me.rptSubNote_EXPENSES_PROMOTE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_PROMOTE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_PROMOTE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_ADVERT"))
+        Me.rptSubNote_EXPENSES_PROMOTE.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_PROMOTE.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine38
         '
@@ -9734,7 +10252,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_RESEARCH.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail41, Me.ReportHeader21, Me.ReportFooter20, Me.GroupHeader22, Me.DetailReport41})
         Me.EXPENSES_RESEARCH.DataMember = "EXPENSES_RESEARCH"
         Me.EXPENSES_RESEARCH.DataSource = Me.DsPNL1
+        Me.EXPENSES_RESEARCH.Expanded = false
         Me.EXPENSES_RESEARCH.FormattingRules.Add(Me.EXPRND)
+        Me.EXPENSES_RESEARCH.FormattingRules.Add(Me.EXPRND_RPT_EXCLUDE)
         Me.EXPENSES_RESEARCH.Level = 33
         Me.EXPENSES_RESEARCH.Name = "EXPENSES_RESEARCH"
         '
@@ -9893,9 +10413,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter20
         '
-        Me.ReportFooter20.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine40, Me.XrLabel80, Me.XrLabel77, Me.XrLabel551})
-        Me.ReportFooter20.HeightF = 67.70834!
+        Me.ReportFooter20.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_RESEARCH, Me.XrLine40, Me.XrLabel80, Me.XrLabel77, Me.XrLabel551})
+        Me.ReportFooter20.HeightF = 116.6667!
         Me.ReportFooter20.Name = "ReportFooter20"
+        '
+        'rptSubNote_EXPENSES_RESEARCH
+        '
+        Me.rptSubNote_EXPENSES_RESEARCH.CanShrink = true
+        Me.rptSubNote_EXPENSES_RESEARCH.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 71.83431!)
+        Me.rptSubNote_EXPENSES_RESEARCH.Name = "rptSubNote_EXPENSES_RESEARCH"
+        Me.rptSubNote_EXPENSES_RESEARCH.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_RESEARCH.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_RESEARCH.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_RND"))
+        Me.rptSubNote_EXPENSES_RESEARCH.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_RESEARCH.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine40
         '
@@ -10093,7 +10624,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_REPAIR.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail43, Me.ReportHeader22, Me.ReportFooter21, Me.GroupHeader23, Me.DetailReport43})
         Me.EXPENSES_REPAIR.DataMember = "EXPENSES_REPAIR"
         Me.EXPENSES_REPAIR.DataSource = Me.DsPNL1
+        Me.EXPENSES_REPAIR.Expanded = false
         Me.EXPENSES_REPAIR.FormattingRules.Add(Me.EXPREPAIRMAINTENANCE)
+        Me.EXPENSES_REPAIR.FormattingRules.Add(Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE)
         Me.EXPENSES_REPAIR.Level = 32
         Me.EXPENSES_REPAIR.Name = "EXPENSES_REPAIR"
         '
@@ -10252,9 +10785,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter21
         '
-        Me.ReportFooter21.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine39, Me.XrLabel74, Me.XrLabel73, Me.XrLabel568})
-        Me.ReportFooter21.HeightF = 67.70834!
+        Me.ReportFooter21.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_REPAIR, Me.XrLine39, Me.XrLabel74, Me.XrLabel73, Me.XrLabel568})
+        Me.ReportFooter21.HeightF = 134.375!
         Me.ReportFooter21.Name = "ReportFooter21"
+        '
+        'rptSubNote_EXPENSES_REPAIR
+        '
+        Me.rptSubNote_EXPENSES_REPAIR.CanShrink = true
+        Me.rptSubNote_EXPENSES_REPAIR.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 66.10413!)
+        Me.rptSubNote_EXPENSES_REPAIR.Name = "rptSubNote_EXPENSES_REPAIR"
+        Me.rptSubNote_EXPENSES_REPAIR.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_REPAIR.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_REPAIR.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_MAINTENANCE"))
+        Me.rptSubNote_EXPENSES_REPAIR.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_REPAIR.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine39
         '
@@ -10452,7 +10996,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_RENTAL.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail45, Me.ReportHeader23, Me.ReportFooter22, Me.GroupHeader24, Me.DetailReport45})
         Me.EXPENSES_RENTAL.DataMember = "EXPENSES_RENTAL"
         Me.EXPENSES_RENTAL.DataSource = Me.DsPNL1
+        Me.EXPENSES_RENTAL.Expanded = false
         Me.EXPENSES_RENTAL.FormattingRules.Add(Me.EXPRENTAL)
+        Me.EXPENSES_RENTAL.FormattingRules.Add(Me.EXPRENTAL_DETAIL_INVT)
         Me.EXPENSES_RENTAL.Level = 31
         Me.EXPENSES_RENTAL.Name = "EXPENSES_RENTAL"
         '
@@ -10632,9 +11178,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter22
         '
-        Me.ReportFooter22.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine37, Me.XrLabel70, Me.XrLabel69, Me.XrLabel585})
-        Me.ReportFooter22.HeightF = 67.70834!
+        Me.ReportFooter22.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_RENTAL, Me.XrLine37, Me.XrLabel70, Me.XrLabel69, Me.XrLabel585})
+        Me.ReportFooter22.HeightF = 119.7917!
         Me.ReportFooter22.Name = "ReportFooter22"
+        '
+        'rptSubNote_EXPENSES_RENTAL
+        '
+        Me.rptSubNote_EXPENSES_RENTAL.CanShrink = true
+        Me.rptSubNote_EXPENSES_RENTAL.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 75.47913!)
+        Me.rptSubNote_EXPENSES_RENTAL.Name = "rptSubNote_EXPENSES_RENTAL"
+        Me.rptSubNote_EXPENSES_RENTAL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_RENTAL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_RENTAL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_RENT"))
+        Me.rptSubNote_EXPENSES_RENTAL.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_RENTAL.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine37
         '
@@ -10849,7 +11406,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_ROYALTY.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail47, Me.ReportHeader24, Me.ReportFooter23, Me.GroupHeader25, Me.DetailReport47})
         Me.EXPENSES_ROYALTY.DataMember = "EXPENSES_ROYALTY"
         Me.EXPENSES_ROYALTY.DataSource = Me.DsPNL1
+        Me.EXPENSES_ROYALTY.Expanded = false
         Me.EXPENSES_ROYALTY.FormattingRules.Add(Me.EXPROYALTY)
+        Me.EXPENSES_ROYALTY.FormattingRules.Add(Me.EXPROYALTY_RPT_EXCLUDE)
         Me.EXPENSES_ROYALTY.Level = 30
         Me.EXPENSES_ROYALTY.Name = "EXPENSES_ROYALTY"
         '
@@ -11008,9 +11567,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter23
         '
-        Me.ReportFooter23.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine36, Me.XrLabel68, Me.XrLabel67, Me.XrLabel602})
-        Me.ReportFooter23.HeightF = 67.70834!
+        Me.ReportFooter23.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_ROYALTY, Me.XrLine36, Me.XrLabel68, Me.XrLabel67, Me.XrLabel602})
+        Me.ReportFooter23.HeightF = 122.9167!
         Me.ReportFooter23.Name = "ReportFooter23"
+        '
+        'rptSubNote_EXPENSES_ROYALTY
+        '
+        Me.rptSubNote_EXPENSES_ROYALTY.CanShrink = true
+        Me.rptSubNote_EXPENSES_ROYALTY.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 71.16667!)
+        Me.rptSubNote_EXPENSES_ROYALTY.Name = "rptSubNote_EXPENSES_ROYALTY"
+        Me.rptSubNote_EXPENSES_ROYALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_ROYALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_ROYALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_ROYALTY"))
+        Me.rptSubNote_EXPENSES_ROYALTY.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_ROYALTY.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine36
         '
@@ -11208,7 +11778,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_EMPL_STOCK.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail49, Me.DetailReport49, Me.ReportHeader25, Me.ReportFooter24, Me.GroupHeader26})
         Me.EXPENSES_EMPL_STOCK.DataMember = "EXPENSES_EMPL_STOCK"
         Me.EXPENSES_EMPL_STOCK.DataSource = Me.DsPNL1
+        Me.EXPENSES_EMPL_STOCK.Expanded = false
         Me.EXPENSES_EMPL_STOCK.FormattingRules.Add(Me.EXPEMPLOYEESTOCK)
+        Me.EXPENSES_EMPL_STOCK.FormattingRules.Add(Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE)
         Me.EXPENSES_EMPL_STOCK.Level = 29
         Me.EXPENSES_EMPL_STOCK.Name = "EXPENSES_EMPL_STOCK"
         '
@@ -11484,9 +12056,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter24
         '
-        Me.ReportFooter24.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine35, Me.XrLabel62, Me.XrLabel61, Me.XrLabel619})
-        Me.ReportFooter24.HeightF = 67.70834!
+        Me.ReportFooter24.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_EMPL_STOCK, Me.XrLine35, Me.XrLabel62, Me.XrLabel61, Me.XrLabel619})
+        Me.ReportFooter24.HeightF = 111.4583!
         Me.ReportFooter24.Name = "ReportFooter24"
+        '
+        'rptSubNote_EXPENSES_EMPL_STOCK
+        '
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.CanShrink = true
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 63.87532!)
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.Name = "rptSubNote_EXPENSES_EMPL_STOCK"
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EMPL_STOCK"))
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_EMPL_STOCK.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine35
         '
@@ -11569,7 +12152,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_SALARY.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail51, Me.ReportHeader26, Me.ReportFooter25, Me.GroupHeader27, Me.DetailReport51})
         Me.EXPENSES_SALARY.DataMember = "EXPENSES_SALARY"
         Me.EXPENSES_SALARY.DataSource = Me.DsPNL1
+        Me.EXPENSES_SALARY.Expanded = false
         Me.EXPENSES_SALARY.FormattingRules.Add(Me.EXPSALARY)
+        Me.EXPENSES_SALARY.FormattingRules.Add(Me.EXPSALARY_RPT_EXCLUDE)
         Me.EXPENSES_SALARY.Level = 28
         Me.EXPENSES_SALARY.Name = "EXPENSES_SALARY"
         '
@@ -11728,9 +12313,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter25
         '
-        Me.ReportFooter25.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine34, Me.XrLabel60, Me.XrLabel59, Me.XrLabel636})
-        Me.ReportFooter25.HeightF = 67.70834!
+        Me.ReportFooter25.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_SALARY, Me.XrLine34, Me.XrLabel60, Me.XrLabel59, Me.XrLabel636})
+        Me.ReportFooter25.HeightF = 109.375!
         Me.ReportFooter25.Name = "ReportFooter25"
+        '
+        'rptSubNote_EXPENSES_SALARY
+        '
+        Me.rptSubNote_EXPENSES_SALARY.CanShrink = true
+        Me.rptSubNote_EXPENSES_SALARY.LocationFloat = New DevExpress.Utils.PointFloat(34.51016!, 63.87532!)
+        Me.rptSubNote_EXPENSES_SALARY.Name = "rptSubNote_EXPENSES_SALARY"
+        Me.rptSubNote_EXPENSES_SALARY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_SALARY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_SALARY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_EXP_SALARY"))
+        Me.rptSubNote_EXPENSES_SALARY.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_SALARY.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine34
         '
@@ -11928,7 +12524,9 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_DIRECTORS_FEE.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail53, Me.ReportHeader27, Me.ReportFooter26, Me.GroupHeader28, Me.DetailReport53})
         Me.EXPENSES_DIRECTORS_FEE.DataMember = "EXPENSES_DIRECTORS_FEE"
         Me.EXPENSES_DIRECTORS_FEE.DataSource = Me.DsPNL1
+        Me.EXPENSES_DIRECTORS_FEE.Expanded = false
         Me.EXPENSES_DIRECTORS_FEE.FormattingRules.Add(Me.EXPDIRECTORFEE)
+        Me.EXPENSES_DIRECTORS_FEE.FormattingRules.Add(Me.EXPDIRECTORFEE_RPT_EXCLUDE)
         Me.EXPENSES_DIRECTORS_FEE.Level = 27
         Me.EXPENSES_DIRECTORS_FEE.Name = "EXPENSES_DIRECTORS_FEE"
         '
@@ -12087,9 +12685,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter26
         '
-        Me.ReportFooter26.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine33, Me.XrLabel56, Me.XrLabel55, Me.XrLabel653})
-        Me.ReportFooter26.HeightF = 67.70834!
+        Me.ReportFooter26.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_DIRECTORS_FEE, Me.XrLine33, Me.XrLabel56, Me.XrLabel55, Me.XrLabel653})
+        Me.ReportFooter26.HeightF = 126.0417!
         Me.ReportFooter26.Name = "ReportFooter26"
+        '
+        'rptSubNote_EXPENSES_DIRECTORS_FEE
+        '
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.CanShrink = true
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.LocationFloat = New DevExpress.Utils.PointFloat(34.51011!, 72.35413!)
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.Name = "rptSubNote_EXPENSES_DIRECTORS_FEE"
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_DIRECTORS_FEE"))
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_DIRECTORS_FEE.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine33
         '
@@ -12292,6 +12901,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_CONTRACT.DataSource = Me.DsPNL1
         Me.EXPENSES_CONTRACT.Expanded = false
         Me.EXPENSES_CONTRACT.FormattingRules.Add(Me.EXPCONTRACTPAY)
+        Me.EXPENSES_CONTRACT.FormattingRules.Add(Me.EXPCONTRACTPAY_RPT_EXCLUDE)
         Me.EXPENSES_CONTRACT.Level = 26
         Me.EXPENSES_CONTRACT.Name = "EXPENSES_CONTRACT"
         '
@@ -12565,9 +13175,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter27
         '
-        Me.ReportFooter27.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine32, Me.XrLabel52, Me.XrLabel51, Me.XrLabel670})
-        Me.ReportFooter27.HeightF = 67.70834!
+        Me.ReportFooter27.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_CONTRACT, Me.XrLine32, Me.XrLabel52, Me.XrLabel51, Me.XrLabel670})
+        Me.ReportFooter27.HeightF = 133.3333!
         Me.ReportFooter27.Name = "ReportFooter27"
+        '
+        'rptSubNote_EXPENSES_CONTRACT
+        '
+        Me.rptSubNote_EXPENSES_CONTRACT.CanShrink = true
+        Me.rptSubNote_EXPENSES_CONTRACT.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 73.91663!)
+        Me.rptSubNote_EXPENSES_CONTRACT.Name = "rptSubNote_EXPENSES_CONTRACT"
+        Me.rptSubNote_EXPENSES_CONTRACT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_CONTRACT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_CONTRACT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_CONTRACT_EXP"))
+        Me.rptSubNote_EXPENSES_CONTRACT.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_CONTRACT.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine32
         '
@@ -12652,6 +13273,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_TECH_FEE.DataSource = Me.DsPNL1
         Me.EXPENSES_TECH_FEE.Expanded = false
         Me.EXPENSES_TECH_FEE.FormattingRules.Add(Me.EXPTECHNICAL)
+        Me.EXPENSES_TECH_FEE.FormattingRules.Add(Me.EXPTECHNICAL_RPT_EXCLUDE)
         Me.EXPENSES_TECH_FEE.Level = 25
         Me.EXPENSES_TECH_FEE.Name = "EXPENSES_TECH_FEE"
         '
@@ -12925,9 +13547,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter28
         '
-        Me.ReportFooter28.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine31, Me.XrLabel48, Me.XrLabel47, Me.XrLabel687})
-        Me.ReportFooter28.HeightF = 67.70834!
+        Me.ReportFooter28.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_TECH_FEE, Me.XrLine31, Me.XrLabel48, Me.XrLabel47, Me.XrLabel687})
+        Me.ReportFooter28.HeightF = 131.25!
         Me.ReportFooter28.Name = "ReportFooter28"
+        '
+        'rptSubNote_EXPENSES_TECH_FEE
+        '
+        Me.rptSubNote_EXPENSES_TECH_FEE.CanShrink = true
+        Me.rptSubNote_EXPENSES_TECH_FEE.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 75.99996!)
+        Me.rptSubNote_EXPENSES_TECH_FEE.Name = "rptSubNote_EXPENSES_TECH_FEE"
+        Me.rptSubNote_EXPENSES_TECH_FEE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_TECH_FEE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_TECH_FEE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_TECH_FEE"))
+        Me.rptSubNote_EXPENSES_TECH_FEE.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_TECH_FEE.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine31
         '
@@ -13012,6 +13645,7 @@ Partial Public Class rptPNL_Details
         Me.EXPENSES_LEGAL.DataSource = Me.DsPNL1
         Me.EXPENSES_LEGAL.Expanded = false
         Me.EXPENSES_LEGAL.FormattingRules.Add(Me.EXPLEGAL)
+        Me.EXPENSES_LEGAL.FormattingRules.Add(Me.EXPLEGAL_RPT_EXCLUDE)
         Me.EXPENSES_LEGAL.Level = 24
         Me.EXPENSES_LEGAL.Name = "EXPENSES_LEGAL"
         '
@@ -13285,9 +13919,20 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter29
         '
-        Me.ReportFooter29.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine30, Me.XrLabel44, Me.XrLabel41, Me.XrLabel704})
-        Me.ReportFooter29.HeightF = 67.70834!
+        Me.ReportFooter29.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_LEGAL, Me.XrLine30, Me.XrLabel44, Me.XrLabel41, Me.XrLabel704})
+        Me.ReportFooter29.HeightF = 119.7917!
         Me.ReportFooter29.Name = "ReportFooter29"
+        '
+        'rptSubNote_EXPENSES_LEGAL
+        '
+        Me.rptSubNote_EXPENSES_LEGAL.CanShrink = true
+        Me.rptSubNote_EXPENSES_LEGAL.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 69.22913!)
+        Me.rptSubNote_EXPENSES_LEGAL.Name = "rptSubNote_EXPENSES_LEGAL"
+        Me.rptSubNote_EXPENSES_LEGAL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_LEGAL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_LEGAL.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.PL_LAWYER_COST"))
+        Me.rptSubNote_EXPENSES_LEGAL.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_LEGAL.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine30
         '
@@ -13646,9 +14291,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter30
         '
-        Me.ReportFooter30.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine29, Me.XrLabel40, Me.XrLabel39, Me.XrLabel721})
-        Me.ReportFooter30.HeightF = 67.70834!
+        Me.ReportFooter30.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_INTEREST, Me.XrLine29, Me.XrLabel40, Me.XrLabel39, Me.XrLabel721})
+        Me.ReportFooter30.HeightF = 128.125!
         Me.ReportFooter30.Name = "ReportFooter30"
+        '
+        'rptSubNote_EXPENSES_INTEREST
+        '
+        Me.rptSubNote_EXPENSES_INTEREST.CanShrink = true
+        Me.rptSubNote_EXPENSES_INTEREST.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 67.14579!)
+        Me.rptSubNote_EXPENSES_INTEREST.Name = "rptSubNote_EXPENSES_INTEREST"
+        Me.rptSubNote_EXPENSES_INTEREST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_INTEREST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_INTEREST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_EXP_INT"))
+        Me.rptSubNote_EXPENSES_INTEREST.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_INTEREST.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine29
         '
@@ -13939,9 +14596,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter31
         '
-        Me.ReportFooter31.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine27, Me.XrLabel35, Me.XrLabel734})
-        Me.ReportFooter31.HeightF = 67.70834!
+        Me.ReportFooter31.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_NON_TAXABLE_INCOME, Me.XrLine27, Me.XrLabel35, Me.XrLabel734})
+        Me.ReportFooter31.HeightF = 109.375!
         Me.ReportFooter31.Name = "ReportFooter31"
+        '
+        'rptSubNote_NON_TAXABLE_INCOME
+        '
+        Me.rptSubNote_NON_TAXABLE_INCOME.CanShrink = true
+        Me.rptSubNote_NON_TAXABLE_INCOME.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 65.06246!)
+        Me.rptSubNote_NON_TAXABLE_INCOME.Name = "rptSubNote_NON_TAXABLE_INCOME"
+        Me.rptSubNote_NON_TAXABLE_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_NON_TAXABLE_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_NON_TAXABLE_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_INSU_COMP"))
+        Me.rptSubNote_NON_TAXABLE_INCOME.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_NON_TAXABLE_INCOME.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine27
         '
@@ -14215,9 +14884,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter32
         '
-        Me.ReportFooter32.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine26, Me.XrLabel34, Me.XrLabel747})
-        Me.ReportFooter32.HeightF = 67.70834!
+        Me.ReportFooter32.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NTUREALFENT, Me.XrLine26, Me.XrLabel34, Me.XrLabel747})
+        Me.ReportFooter32.HeightF = 123.9583!
         Me.ReportFooter32.Name = "ReportFooter32"
+        '
+        'rptSubNote_INCOME_NTUREALFENT
+        '
+        Me.rptSubNote_INCOME_NTUREALFENT.CanShrink = true
+        Me.rptSubNote_INCOME_NTUREALFENT.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 68.70829!)
+        Me.rptSubNote_INCOME_NTUREALFENT.Name = "rptSubNote_INCOME_NTUREALFENT"
+        Me.rptSubNote_INCOME_NTUREALFENT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NTUREALFENT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NTUREALFENT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_UNREALG"))
+        Me.rptSubNote_INCOME_NTUREALFENT.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NTUREALFENT.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine26
         '
@@ -14490,9 +15171,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter33
         '
-        Me.ReportFooter33.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine25, Me.XrLabel33, Me.XrLabel760})
-        Me.ReportFooter33.HeightF = 67.70834!
+        Me.ReportFooter33.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NTUREALFET, Me.XrLine25, Me.XrLabel33, Me.XrLabel760})
+        Me.ReportFooter33.HeightF = 119.7917!
         Me.ReportFooter33.Name = "ReportFooter33"
+        '
+        'rptSubNote_INCOME_NTUREALFET
+        '
+        Me.rptSubNote_INCOME_NTUREALFET.CanShrink = true
+        Me.rptSubNote_INCOME_NTUREALFET.LocationFloat = New DevExpress.Utils.PointFloat(34.51008!, 69.74996!)
+        Me.rptSubNote_INCOME_NTUREALFET.Name = "rptSubNote_INCOME_NTUREALFET"
+        Me.rptSubNote_INCOME_NTUREALFET.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NTUREALFET.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NTUREALFET.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_UNREALG"))
+        Me.rptSubNote_INCOME_NTUREALFET.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NTUREALFET.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine25
         '
@@ -14778,9 +15471,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter34
         '
-        Me.ReportFooter34.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine24, Me.XrLabel32, Me.XrLabel773})
-        Me.ReportFooter34.HeightF = 67.70834!
+        Me.ReportFooter34.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NTREALFE, Me.XrLine24, Me.XrLabel32, Me.XrLabel773})
+        Me.ReportFooter34.HeightF = 103.125!
         Me.ReportFooter34.Name = "ReportFooter34"
+        '
+        'rptSubNote_INCOME_NTREALFE
+        '
+        Me.rptSubNote_INCOME_NTREALFE.CanShrink = true
+        Me.rptSubNote_INCOME_NTREALFE.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 59.85006!)
+        Me.rptSubNote_INCOME_NTREALFE.Name = "rptSubNote_INCOME_NTREALFE"
+        Me.rptSubNote_INCOME_NTREALFE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NTREALFE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NTREALFE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_REALG"))
+        Me.rptSubNote_INCOME_NTREALFE.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NTREALFE.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine24
         '
@@ -15055,9 +15760,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter35
         '
-        Me.ReportFooter35.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine23, Me.XrLabel31, Me.XrLabel786})
-        Me.ReportFooter35.HeightF = 67.70834!
+        Me.ReportFooter35.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NTFOREIGNINCREM, Me.XrLine23, Me.XrLabel31, Me.XrLabel786})
+        Me.ReportFooter35.HeightF = 108.3333!
         Me.ReportFooter35.Name = "ReportFooter35"
+        '
+        'rptSubNote_INCOME_NTFOREIGNINCREM
+        '
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.CanShrink = true
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 63.49996!)
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.Name = "rptSubNote_INCOME_NTFOREIGNINCREM"
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_FIR"))
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NTFOREIGNINCREM.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine23
         '
@@ -15287,9 +16004,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter36
         '
-        Me.ReportFooter36.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine22, Me.XrLine21, Me.XrLabel30, Me.XrLabel798})
-        Me.ReportFooter36.HeightF = 67.70834!
+        Me.ReportFooter36.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXEMPT_DIVIDEND, Me.XrLine22, Me.XrLine21, Me.XrLabel30, Me.XrLabel798})
+        Me.ReportFooter36.HeightF = 113.5417!
         Me.ReportFooter36.Name = "ReportFooter36"
+        '
+        'rptSubNote_EXEMPT_DIVIDEND
+        '
+        Me.rptSubNote_EXEMPT_DIVIDEND.CanShrink = true
+        Me.rptSubNote_EXEMPT_DIVIDEND.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 64.91648!)
+        Me.rptSubNote_EXEMPT_DIVIDEND.Name = "rptSubNote_EXEMPT_DIVIDEND"
+        Me.rptSubNote_EXEMPT_DIVIDEND.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXEMPT_DIVIDEND.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXEMPT_DIVIDEND.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_EXM_DIV"))
+        Me.rptSubNote_EXEMPT_DIVIDEND.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXEMPT_DIVIDEND.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine22
         '
@@ -15573,9 +16302,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter37
         '
-        Me.ReportFooter37.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine20, Me.XrLabel29, Me.XrLabel811})
-        Me.ReportFooter37.HeightF = 67.70834!
+        Me.ReportFooter37.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NTDISPOSALINVEST, Me.XrLine20, Me.XrLabel29, Me.XrLabel811})
+        Me.ReportFooter37.HeightF = 114.5833!
         Me.ReportFooter37.Name = "ReportFooter37"
+        '
+        'rptSubNote_INCOME_NTDISPOSALINVEST
+        '
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.CanShrink = true
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 63.49996!)
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.Name = "rptSubNote_INCOME_NTDISPOSALINVEST"
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_INV_DISP"))
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NTDISPOSALINVEST.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine20
         '
@@ -15850,9 +16591,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter38
         '
-        Me.ReportFooter38.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine19, Me.XrLabel28, Me.XrLabel824})
-        Me.ReportFooter38.HeightF = 67.70834!
+        Me.ReportFooter38.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NTDISPOSALFA, Me.XrLine19, Me.XrLabel28, Me.XrLabel824})
+        Me.ReportFooter38.HeightF = 103.125!
         Me.ReportFooter38.Name = "ReportFooter38"
+        '
+        'rptSubNote_INCOME_NTDISPOSALFA
+        '
+        Me.rptSubNote_INCOME_NTDISPOSALFA.CanShrink = true
+        Me.rptSubNote_INCOME_NTDISPOSALFA.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 58.66648!)
+        Me.rptSubNote_INCOME_NTDISPOSALFA.Name = "rptSubNote_INCOME_NTDISPOSALFA"
+        Me.rptSubNote_INCOME_NTDISPOSALFA.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NTDISPOSALFA.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NTDISPOSALFA.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_NONTAX_IN_FA_DISP"))
+        Me.rptSubNote_INCOME_NTDISPOSALFA.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NTDISPOSALFA.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine19
         '
@@ -16125,9 +16878,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter39
         '
-        Me.ReportFooter39.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine18, Me.XrLabel27, Me.XrLabel837})
-        Me.ReportFooter39.HeightF = 67.70834!
+        Me.ReportFooter39.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_OTHER_INCOME, Me.XrLine18, Me.XrLabel27, Me.XrLabel837})
+        Me.ReportFooter39.HeightF = 107.2917!
         Me.ReportFooter39.Name = "ReportFooter39"
+        '
+        'rptSubNote_OTHER_INCOME
+        '
+        Me.rptSubNote_OTHER_INCOME.CanShrink = true
+        Me.rptSubNote_OTHER_INCOME.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 64.02079!)
+        Me.rptSubNote_OTHER_INCOME.Name = "rptSubNote_OTHER_INCOME"
+        Me.rptSubNote_OTHER_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_OTHER_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_OTHER_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_IN_OTHER"))
+        Me.rptSubNote_OTHER_INCOME.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_OTHER_INCOME.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine18
         '
@@ -16400,9 +17165,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter40
         '
-        Me.ReportFooter40.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine17, Me.XrLabel26, Me.XrLabel850})
-        Me.ReportFooter40.HeightF = 67.70834!
+        Me.ReportFooter40.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NBROYALTY, Me.XrLine17, Me.XrLabel26, Me.XrLabel850})
+        Me.ReportFooter40.HeightF = 95.83334!
         Me.ReportFooter40.Name = "ReportFooter40"
+        '
+        'rptSubNote_INCOME_NBROYALTY
+        '
+        Me.rptSubNote_INCOME_NBROYALTY.CanShrink = true
+        Me.rptSubNote_INCOME_NBROYALTY.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 62.83334!)
+        Me.rptSubNote_INCOME_NBROYALTY.Name = "rptSubNote_INCOME_NBROYALTY"
+        Me.rptSubNote_INCOME_NBROYALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NBROYALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NBROYALTY.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_IN_ROYALTY"))
+        Me.rptSubNote_INCOME_NBROYALTY.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NBROYALTY.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine17
         '
@@ -16660,9 +17437,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter41
         '
-        Me.ReportFooter41.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel25, Me.XrLabel859})
-        Me.ReportFooter41.HeightF = 67.70834!
+        Me.ReportFooter41.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_RENTAL_INCOME, Me.XrLabel25, Me.XrLabel859})
+        Me.ReportFooter41.HeightF = 85.41666!
         Me.ReportFooter41.Name = "ReportFooter41"
+        '
+        'rptSubNote_RENTAL_INCOME
+        '
+        Me.rptSubNote_RENTAL_INCOME.CanShrink = true
+        Me.rptSubNote_RENTAL_INCOME.LocationFloat = New DevExpress.Utils.PointFloat(34.51008!, 52.41668!)
+        Me.rptSubNote_RENTAL_INCOME.Name = "rptSubNote_RENTAL_INCOME"
+        Me.rptSubNote_RENTAL_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_RENTAL_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_RENTAL_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_IN_RENTAL"))
+        Me.rptSubNote_RENTAL_INCOME.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_RENTAL_INCOME.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLabel25
         '
@@ -16715,6 +17504,7 @@ Partial Public Class rptPNL_Details
         '
         'INCOME_NBINTEREST
         '
+        Me.INCOME_NBINTEREST.BackColor = System.Drawing.Color.Transparent
         Me.INCOME_NBINTEREST.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail83, Me.DetailReport83, Me.GroupHeader44, Me.ReportHeader43, Me.ReportFooter42})
         Me.INCOME_NBINTEREST.DataMember = "INCOME_NBINTEREST"
         Me.INCOME_NBINTEREST.DataSource = Me.DsPNL1
@@ -16945,9 +17735,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter42
         '
-        Me.ReportFooter42.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine16, Me.XrLabel24, Me.XrLabel878})
-        Me.ReportFooter42.HeightF = 67.70834!
+        Me.ReportFooter42.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_NBINTEREST, Me.XrLine16, Me.XrLabel24, Me.XrLabel878})
+        Me.ReportFooter42.HeightF = 102.0833!
         Me.ReportFooter42.Name = "ReportFooter42"
+        '
+        'rptSubNote_INCOME_NBINTEREST
+        '
+        Me.rptSubNote_INCOME_NBINTEREST.CanShrink = true
+        Me.rptSubNote_INCOME_NBINTEREST.LocationFloat = New DevExpress.Utils.PointFloat(34.51008!, 69.08334!)
+        Me.rptSubNote_INCOME_NBINTEREST.Name = "rptSubNote_INCOME_NBINTEREST"
+        Me.rptSubNote_INCOME_NBINTEREST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_NBINTEREST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_NBINTEREST.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_IN_INTEREST"))
+        Me.rptSubNote_INCOME_NBINTEREST.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_NBINTEREST.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine16
         '
@@ -17186,9 +17988,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter43
         '
-        Me.ReportFooter43.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel23, Me.XrLine15, Me.XrLine14, Me.XrLabel892})
-        Me.ReportFooter43.HeightF = 67.70834!
+        Me.ReportFooter43.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_DIVIDEND_INCOME, Me.XrLabel23, Me.XrLine15, Me.XrLine14, Me.XrLabel892})
+        Me.ReportFooter43.HeightF = 102.0833!
         Me.ReportFooter43.Name = "ReportFooter43"
+        '
+        'rptSubNote_DIVIDEND_INCOME
+        '
+        Me.rptSubNote_DIVIDEND_INCOME.CanShrink = true
+        Me.rptSubNote_DIVIDEND_INCOME.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 64.49998!)
+        Me.rptSubNote_DIVIDEND_INCOME.Name = "rptSubNote_DIVIDEND_INCOME"
+        Me.rptSubNote_DIVIDEND_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_DIVIDEND_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_DIVIDEND_INCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_IN_DIVIDEND"))
+        Me.rptSubNote_DIVIDEND_INCOME.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_DIVIDEND_INCOME.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLabel23
         '
@@ -17448,9 +18262,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter44
         '
-        Me.ReportFooter44.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine13, Me.XrLabel22, Me.XrLabel905})
-        Me.ReportFooter44.HeightF = 67.70834!
+        Me.ReportFooter44.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_INCOME_REALFET, Me.XrLine13, Me.XrLabel22, Me.XrLabel905})
+        Me.ReportFooter44.HeightF = 96.875!
         Me.ReportFooter44.Name = "ReportFooter44"
+        '
+        'rptSubNote_INCOME_REALFET
+        '
+        Me.rptSubNote_INCOME_REALFET.CanShrink = true
+        Me.rptSubNote_INCOME_REALFET.LocationFloat = New DevExpress.Utils.PointFloat(34.51008!, 63.87501!)
+        Me.rptSubNote_INCOME_REALFET.Name = "rptSubNote_INCOME_REALFET"
+        Me.rptSubNote_INCOME_REALFET.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_INCOME_REALFET.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_INCOME_REALFET.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_BSIN_REALGT"))
+        Me.rptSubNote_INCOME_REALFET.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_INCOME_REALFET.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine13
         '
@@ -17728,9 +18554,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter45
         '
-        Me.ReportFooter45.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine8, Me.XrLabel21, Me.XrLabel918})
-        Me.ReportFooter45.HeightF = 67.70834!
+        Me.ReportFooter45.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_NONSOURCE_BUSINESSINCOME, Me.XrLine8, Me.XrLabel21, Me.XrLabel918})
+        Me.ReportFooter45.HeightF = 91.66666!
         Me.ReportFooter45.Name = "ReportFooter45"
+        '
+        'rptSubNote_NONSOURCE_BUSINESSINCOME
+        '
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.CanShrink = true
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.LocationFloat = New DevExpress.Utils.PointFloat(34.51008!, 58.66668!)
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.Name = "rptSubNote_NONSOURCE_BUSINESSINCOME"
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OTH_BSIN"))
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_NONSOURCE_BUSINESSINCOME.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine8
         '
@@ -18022,9 +18860,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter46
         '
-        Me.ReportFooter46.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine9, Me.XrLabel20, Me.XrLabel931})
-        Me.ReportFooter46.HeightF = 67.70834!
+        Me.ReportFooter46.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_PLFST_CLOSESTOCK, Me.XrLine9, Me.XrLabel20, Me.XrLabel931})
+        Me.ReportFooter46.HeightF = 102.0833!
         Me.ReportFooter46.Name = "ReportFooter46"
+        '
+        'rptSubNote_PLFST_CLOSESTOCK
+        '
+        Me.rptSubNote_PLFST_CLOSESTOCK.CanShrink = true
+        Me.rptSubNote_PLFST_CLOSESTOCK.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 57.62507!)
+        Me.rptSubNote_PLFST_CLOSESTOCK.Name = "rptSubNote_PLFST_CLOSESTOCK"
+        Me.rptSubNote_PLFST_CLOSESTOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_PLFST_CLOSESTOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_PLFST_CLOSESTOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_CLS_STK"))
+        Me.rptSubNote_PLFST_CLOSESTOCK.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_PLFST_CLOSESTOCK.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine9
         '
@@ -18346,9 +19196,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter47
         '
-        Me.ReportFooter47.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine6, Me.XrLabel19, Me.XrLabel14, Me.XrLabel944})
-        Me.ReportFooter47.HeightF = 67.70834!
+        Me.ReportFooter47.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_NONALLOW, Me.XrLine6, Me.XrLabel19, Me.XrLabel14, Me.XrLabel944})
+        Me.ReportFooter47.HeightF = 95.83334!
         Me.ReportFooter47.Name = "ReportFooter47"
+        '
+        'rptSubNote_EXPENSES_NONALLOW
+        '
+        Me.rptSubNote_EXPENSES_NONALLOW.CanShrink = true
+        Me.rptSubNote_EXPENSES_NONALLOW.LocationFloat = New DevExpress.Utils.PointFloat(34.51008!, 62.83334!)
+        Me.rptSubNote_EXPENSES_NONALLOW.Name = "rptSubNote_EXPENSES_NONALLOW"
+        Me.rptSubNote_EXPENSES_NONALLOW.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_NONALLOW.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_NONALLOW.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_DISALLOWED_EXP"))
+        Me.rptSubNote_EXPENSES_NONALLOW.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_NONALLOW.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine6
         '
@@ -18708,9 +19570,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter48
         '
-        Me.ReportFooter48.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine7, Me.XrLabel13, Me.XrLabel12, Me.XrLabel965})
-        Me.ReportFooter48.HeightF = 67.70834!
+        Me.ReportFooter48.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_ALLOW, Me.XrLine7, Me.XrLabel13, Me.XrLabel12, Me.XrLabel965})
+        Me.ReportFooter48.HeightF = 108.3333!
         Me.ReportFooter48.Name = "ReportFooter48"
+        '
+        'rptSubNote_EXPENSES_ALLOW
+        '
+        Me.rptSubNote_EXPENSES_ALLOW.CanShrink = true
+        Me.rptSubNote_EXPENSES_ALLOW.LocationFloat = New DevExpress.Utils.PointFloat(34.51005!, 61.41663!)
+        Me.rptSubNote_EXPENSES_ALLOW.Name = "rptSubNote_EXPENSES_ALLOW"
+        Me.rptSubNote_EXPENSES_ALLOW.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_ALLOW.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_ALLOW.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_PRO_COST_OAE"))
+        Me.rptSubNote_EXPENSES_ALLOW.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_ALLOW.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine7
         '
@@ -19072,9 +19946,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter49
         '
-        Me.ReportFooter49.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel11, Me.XrLine3, Me.XrLabel1, Me.XrLabel982})
-        Me.ReportFooter49.HeightF = 67.70834!
+        Me.ReportFooter49.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_DEPRECIATION, Me.XrLabel11, Me.XrLine3, Me.XrLabel1, Me.XrLabel982})
+        Me.ReportFooter49.HeightF = 98.95834!
         Me.ReportFooter49.Name = "ReportFooter49"
+        '
+        'rptSubNote_EXPENSES_DEPRECIATION
+        '
+        Me.rptSubNote_EXPENSES_DEPRECIATION.CanShrink = true
+        Me.rptSubNote_EXPENSES_DEPRECIATION.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 65.95834!)
+        Me.rptSubNote_EXPENSES_DEPRECIATION.Name = "rptSubNote_EXPENSES_DEPRECIATION"
+        Me.rptSubNote_EXPENSES_DEPRECIATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_DEPRECIATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_DEPRECIATION.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_PRO_COST_DPC"))
+        Me.rptSubNote_EXPENSES_DEPRECIATION.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_DEPRECIATION.SizeF = New System.Drawing.SizeF(753.4949!, 23!)
         '
         'XrLabel11
         '
@@ -19164,10 +20050,34 @@ Partial Public Class rptPNL_Details
         '
         'Detail98
         '
-        Me.Detail98.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line_PLFST_PURCHASE, Me.XrLabel988, Me.txt_PLFST_PURCHASE, Me.txtRUN_PLFST_PURCHASE})
+        Me.Detail98.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel160, Me.line_PLFST_PURCHASE, Me.XrLabel988, Me.txt_PLFST_PURCHASE, Me.txtRUN_PLFST_PURCHASE})
         Me.Detail98.HeightF = 28.04807!
         Me.Detail98.Name = "Detail98"
         Me.Detail98.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("PLFPUR_SOURCENO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending), New DevExpress.XtraReports.UI.GroupField("RowIndex", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
+        '
+        'XrLabel160
+        '
+        Me.XrLabel160.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel160.CanShrink = true
+        Me.XrLabel160.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_PURCHASE.PecentageAmount", "{0:#,# ;(#,#);0 }")})
+        Me.XrLabel160.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.XrLabel160.FormattingRules.Add(Me.PURCHASE_DETAIL_INVT)
+        Me.XrLabel160.LocationFloat = New DevExpress.Utils.PointFloat(626.627!, 0!)
+        Me.XrLabel160.Name = "XrLabel160"
+        Me.XrLabel160.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel160.SizeF = New System.Drawing.SizeF(89.03644!, 23!)
+        Me.XrLabel160.StylePriority.UseBorders = false
+        Me.XrLabel160.StylePriority.UseFont = false
+        Me.XrLabel160.StylePriority.UseTextAlignment = false
+        Me.XrLabel160.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.XrLabel160.Visible = false
+        '
+        'PURCHASE_DETAIL_INVT
+        '
+        Me.PURCHASE_DETAIL_INVT.Condition = "[DataSource.RowCount] = 0"
+        Me.PURCHASE_DETAIL_INVT.DataMember = "PLFST_PURCHASE.FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL"
+        Me.PURCHASE_DETAIL_INVT.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[True]
+        Me.PURCHASE_DETAIL_INVT.Name = "PURCHASE_DETAIL_INVT"
         '
         'line_PLFST_PURCHASE
         '
@@ -19175,7 +20085,7 @@ Partial Public Class rptPNL_Details
         Me.line_PLFST_PURCHASE.LineWidth = 2
         Me.line_PLFST_PURCHASE.LocationFloat = New DevExpress.Utils.PointFloat(537.5885!, 26.04807!)
         Me.line_PLFST_PURCHASE.Name = "line_PLFST_PURCHASE"
-        Me.line_PLFST_PURCHASE.SizeF = New System.Drawing.SizeF(89.03799!, 2!)
+        Me.line_PLFST_PURCHASE.SizeF = New System.Drawing.SizeF(178.06!, 2!)
         Me.line_PLFST_PURCHASE.StylePriority.UseBorderWidth = false
         '
         'XrLabel988
@@ -19207,13 +20117,6 @@ Partial Public Class rptPNL_Details
         Me.txt_PLFST_PURCHASE.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.txt_PLFST_PURCHASE.Visible = false
         '
-        'PURCHASE_DETAIL_INVT
-        '
-        Me.PURCHASE_DETAIL_INVT.Condition = "[DataSource.RowCount] = 0"
-        Me.PURCHASE_DETAIL_INVT.DataMember = "PLFST_PURCHASE.FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL"
-        Me.PURCHASE_DETAIL_INVT.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[True]
-        Me.PURCHASE_DETAIL_INVT.Name = "PURCHASE_DETAIL_INVT"
-        '
         'txtRUN_PLFST_PURCHASE
         '
         Me.txtRUN_PLFST_PURCHASE.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_PURCHASE.PLFPUR_PLFPURKEY")})
@@ -19242,10 +20145,22 @@ Partial Public Class rptPNL_Details
         '
         'Detail99
         '
-        Me.Detail99.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel992, Me.XrLabel993})
+        Me.Detail99.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel161, Me.XrLabel992, Me.XrLabel993})
         Me.Detail99.HeightF = 23!
         Me.Detail99.Name = "Detail99"
         Me.Detail99.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("RowIndex", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
+        '
+        'XrLabel161
+        '
+        Me.XrLabel161.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_PURCHASE.FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL.PecentageAmount", "{0:#,# ;(#,#);0 }")})
+        Me.XrLabel161.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.XrLabel161.LocationFloat = New DevExpress.Utils.PointFloat(626.6247!, 0!)
+        Me.XrLabel161.Name = "XrLabel161"
+        Me.XrLabel161.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel161.SizeF = New System.Drawing.SizeF(89.03748!, 23!)
+        Me.XrLabel161.StylePriority.UseFont = false
+        Me.XrLabel161.StylePriority.UseTextAlignment = false
+        Me.XrLabel161.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'XrLabel992
         '
@@ -19277,9 +20192,23 @@ Partial Public Class rptPNL_Details
         '
         'GroupFooter49
         '
-        Me.GroupFooter49.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lineTotal_PLFST_PURCHASE_bot, Me.lineTotal_PLFST_PURCHASE_top, Me.txtTotal_PLFST_PURCHASE})
+        Me.GroupFooter49.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel162, Me.lineTotal_PLFST_PURCHASE_bot, Me.lineTotal_PLFST_PURCHASE_top, Me.txtTotal_PLFST_PURCHASE})
         Me.GroupFooter49.HeightF = 61.87505!
         Me.GroupFooter49.Name = "GroupFooter49"
+        '
+        'XrLabel162
+        '
+        Me.XrLabel162.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_PURCHASE.FK_PLFST_PURCHASE_PLFST_PURCHASE_DETAIL.PecentageAmount")})
+        Me.XrLabel162.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.XrLabel162.LocationFloat = New DevExpress.Utils.PointFloat(626.6251!, 2!)
+        Me.XrLabel162.Name = "XrLabel162"
+        Me.XrLabel162.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel162.SizeF = New System.Drawing.SizeF(89.03748!, 23!)
+        Me.XrLabel162.StylePriority.UseFont = false
+        Me.XrLabel162.StylePriority.UseTextAlignment = false
+        XrSummary268.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.XrLabel162.Summary = XrSummary268
+        Me.XrLabel162.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'lineTotal_PLFST_PURCHASE_bot
         '
@@ -19287,14 +20216,14 @@ Partial Public Class rptPNL_Details
         Me.lineTotal_PLFST_PURCHASE_bot.LineWidth = 2
         Me.lineTotal_PLFST_PURCHASE_bot.LocationFloat = New DevExpress.Utils.PointFloat(537.5885!, 24.99997!)
         Me.lineTotal_PLFST_PURCHASE_bot.Name = "lineTotal_PLFST_PURCHASE_bot"
-        Me.lineTotal_PLFST_PURCHASE_bot.SizeF = New System.Drawing.SizeF(89.03799!, 2!)
+        Me.lineTotal_PLFST_PURCHASE_bot.SizeF = New System.Drawing.SizeF(178.06!, 2!)
         Me.lineTotal_PLFST_PURCHASE_bot.StylePriority.UseBorderWidth = false
         '
         'lineTotal_PLFST_PURCHASE_top
         '
         Me.lineTotal_PLFST_PURCHASE_top.LocationFloat = New DevExpress.Utils.PointFloat(537.5852!, 0!)
         Me.lineTotal_PLFST_PURCHASE_top.Name = "lineTotal_PLFST_PURCHASE_top"
-        Me.lineTotal_PLFST_PURCHASE_top.SizeF = New System.Drawing.SizeF(89.03799!, 2!)
+        Me.lineTotal_PLFST_PURCHASE_top.SizeF = New System.Drawing.SizeF(178.0626!, 2!)
         Me.lineTotal_PLFST_PURCHASE_top.Visible = false
         '
         'txtTotal_PLFST_PURCHASE
@@ -19320,9 +20249,34 @@ Partial Public Class rptPNL_Details
         '
         'ReportHeader51
         '
-        Me.ReportHeader51.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel983, Me.XrLabel984, Me.XrLabel985})
-        Me.ReportHeader51.HeightF = 102.5!
+        Me.ReportHeader51.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel158, Me.XrLabel159, Me.XrLabel983, Me.XrLabel984, Me.XrLabel985})
+        Me.ReportHeader51.HeightF = 126.4584!
         Me.ReportHeader51.Name = "ReportHeader51"
+        '
+        'XrLabel158
+        '
+        Me.XrLabel158.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel158.LocationFloat = New DevExpress.Utils.PointFloat(626.6247!, 58.00004!)
+        Me.XrLabel158.Multiline = true
+        Me.XrLabel158.Name = "XrLabel158"
+        Me.XrLabel158.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel158.SizeF = New System.Drawing.SizeF(89.03741!, 45.45844!)
+        Me.XrLabel158.StylePriority.UseFont = false
+        Me.XrLabel158.StylePriority.UseTextAlignment = false
+        Me.XrLabel158.Text = "Add back /"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"(Deduct)"
+        Me.XrLabel158.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
+        '
+        'XrLabel159
+        '
+        Me.XrLabel159.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel159.LocationFloat = New DevExpress.Utils.PointFloat(626.6251!, 103.4584!)
+        Me.XrLabel159.Name = "XrLabel159"
+        Me.XrLabel159.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel159.SizeF = New System.Drawing.SizeF(89.03741!, 23!)
+        Me.XrLabel159.StylePriority.UseFont = false
+        Me.XrLabel159.StylePriority.UseTextAlignment = false
+        Me.XrLabel159.Text = "RM"
+        Me.XrLabel159.TextAlignment = DevExpress.XtraPrinting.TextAlignment.BottomCenter
         '
         'XrLabel983
         '
@@ -19334,14 +20288,14 @@ Partial Public Class rptPNL_Details
         Me.XrLabel983.SizeF = New System.Drawing.SizeF(501.9889!, 23!)
         Me.XrLabel983.StylePriority.UseFont = false
         Me.XrLabel983.StylePriority.UseTextAlignment = false
-        XrSummary268.FormatString = "Other -RM{0}"
-        Me.XrLabel983.Summary = XrSummary268
+        XrSummary269.FormatString = "Other -RM{0}"
+        Me.XrLabel983.Summary = XrSummary269
         Me.XrLabel983.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'XrLabel984
         '
         Me.XrLabel984.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel984.LocationFloat = New DevExpress.Utils.PointFloat(537.5867!, 79.50001!)
+        Me.XrLabel984.LocationFloat = New DevExpress.Utils.PointFloat(537.5867!, 103.4584!)
         Me.XrLabel984.Name = "XrLabel984"
         Me.XrLabel984.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
         Me.XrLabel984.SizeF = New System.Drawing.SizeF(89.03741!, 23!)
@@ -19367,9 +20321,38 @@ Partial Public Class rptPNL_Details
         '
         'RF_PLFST_PURCHASE
         '
-        Me.RF_PLFST_PURCHASE.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine2, Me.XrLabel8, Me.XrLabel995})
-        Me.RF_PLFST_PURCHASE.HeightF = 67.70834!
+        Me.RF_PLFST_PURCHASE.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_PLST_PURCHASE, Me.XrLabel163, Me.XrLine2, Me.XrLabel8, Me.XrLabel995})
+        Me.RF_PLFST_PURCHASE.HeightF = 104.1667!
         Me.RF_PLFST_PURCHASE.Name = "RF_PLFST_PURCHASE"
+        '
+        'rptSubNote_PLST_PURCHASE
+        '
+        Me.rptSubNote_PLST_PURCHASE.CanShrink = true
+        Me.rptSubNote_PLST_PURCHASE.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 71.16667!)
+        Me.rptSubNote_PLST_PURCHASE.Name = "rptSubNote_PLST_PURCHASE"
+        Me.rptSubNote_PLST_PURCHASE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_PLST_PURCHASE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_PLST_PURCHASE.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_PURCHASES"))
+        Me.rptSubNote_PLST_PURCHASE.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_PLST_PURCHASE.SizeF = New System.Drawing.SizeF(753.4949!, 23!)
+        '
+        'XrLabel163
+        '
+        Me.XrLabel163.Borders = DevExpress.XtraPrinting.BorderSide.None
+        Me.XrLabel163.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_PURCHASE.PecentageAmount")})
+        Me.XrLabel163.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
+        Me.XrLabel163.LocationFloat = New DevExpress.Utils.PointFloat(626.6287!, 22.34998!)
+        Me.XrLabel163.Name = "XrLabel163"
+        Me.XrLabel163.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel163.SizeF = New System.Drawing.SizeF(89.03735!, 23!)
+        Me.XrLabel163.StylePriority.UseBorders = false
+        Me.XrLabel163.StylePriority.UseFont = false
+        Me.XrLabel163.StylePriority.UseTextAlignment = false
+        XrSummary270.FormatString = "{0:#,# ;(#,#);0}"
+        XrSummary270.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrLabel163.Summary = XrSummary270
+        Me.XrLabel163.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'XrLine2
         '
@@ -19377,7 +20360,7 @@ Partial Public Class rptPNL_Details
         Me.XrLine2.LineWidth = 2
         Me.XrLine2.LocationFloat = New DevExpress.Utils.PointFloat(537.5885!, 45.34998!)
         Me.XrLine2.Name = "XrLine2"
-        Me.XrLine2.SizeF = New System.Drawing.SizeF(89.03799!, 2!)
+        Me.XrLine2.SizeF = New System.Drawing.SizeF(178.06!, 2!)
         Me.XrLine2.StylePriority.UseBorderWidth = false
         '
         'XrLabel8
@@ -19406,8 +20389,8 @@ Partial Public Class rptPNL_Details
         Me.XrLabel995.StylePriority.UseBorders = false
         Me.XrLabel995.StylePriority.UseFont = false
         Me.XrLabel995.StylePriority.UseTextAlignment = false
-        XrSummary269.FormatString = "Other -RM{0}"
-        Me.XrLabel995.Summary = XrSummary269
+        XrSummary271.FormatString = "Other -RM{0}"
+        Me.XrLabel995.Summary = XrSummary271
         Me.XrLabel995.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'GroupHeader52
@@ -19443,6 +20426,7 @@ Partial Public Class rptPNL_Details
         '
         Me.Detail100.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line_PLFST_OPENSTOCK, Me.XrLabel1002, Me.txt_PLFST_OPENSTOCK, Me.txtRUN_PLFST_OPENSTOCK})
         Me.Detail100.HeightF = 33.00001!
+        Me.Detail100.KeepTogether = true
         Me.Detail100.Name = "Detail100"
         Me.Detail100.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("PLFOS_SOURCENO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending), New DevExpress.XtraReports.UI.GroupField("RowIndex", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
         '
@@ -19493,11 +20477,11 @@ Partial Public Class rptPNL_Details
         Me.txtRUN_PLFST_OPENSTOCK.SizeF = New System.Drawing.SizeF(34.50508!, 23!)
         Me.txtRUN_PLFST_OPENSTOCK.StylePriority.UseFont = false
         Me.txtRUN_PLFST_OPENSTOCK.StylePriority.UseTextAlignment = false
-        XrSummary270.FormatString = "{0}."
-        XrSummary270.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary270.IgnoreNullValues = true
-        XrSummary270.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.txtRUN_PLFST_OPENSTOCK.Summary = XrSummary270
+        XrSummary272.FormatString = "{0}."
+        XrSummary272.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary272.IgnoreNullValues = true
+        XrSummary272.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.txtRUN_PLFST_OPENSTOCK.Summary = XrSummary272
         Me.txtRUN_PLFST_OPENSTOCK.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'PLST_OPENSTOCK_DETAIL_SUB
@@ -19539,9 +20523,9 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1005.SizeF = New System.Drawing.SizeF(494.6903!, 23!)
         Me.XrLabel1005.StylePriority.UseFont = false
         Me.XrLabel1005.StylePriority.UseTextAlignment = false
-        XrSummary271.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary271.IgnoreNullValues = true
-        Me.XrLabel1005.Summary = XrSummary271
+        XrSummary273.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary273.IgnoreNullValues = true
+        Me.XrLabel1005.Summary = XrSummary273
         Me.XrLabel1005.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'OPENSTOCK_DETAIL
@@ -19594,15 +20578,28 @@ Partial Public Class rptPNL_Details
         Me.XrLabel999.SizeF = New System.Drawing.SizeF(519.1957!, 23!)
         Me.XrLabel999.StylePriority.UseFont = false
         Me.XrLabel999.StylePriority.UseTextAlignment = false
-        XrSummary272.FormatString = "Other -RM{0}"
-        Me.XrLabel999.Summary = XrSummary272
+        XrSummary274.FormatString = "Other -RM{0}"
+        Me.XrLabel999.Summary = XrSummary274
         Me.XrLabel999.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'PF_PLFST_OPENSTOCK
         '
-        Me.PF_PLFST_OPENSTOCK.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine4, Me.XrLabel6, Me.XrLabel1008})
-        Me.PF_PLFST_OPENSTOCK.HeightF = 67.70834!
+        Me.PF_PLFST_OPENSTOCK.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_PLST_OPENSTOCK, Me.XrLine4, Me.XrLabel6, Me.XrLabel1008})
+        Me.PF_PLFST_OPENSTOCK.HeightF = 119.7917!
+        Me.PF_PLFST_OPENSTOCK.KeepTogether = true
         Me.PF_PLFST_OPENSTOCK.Name = "PF_PLFST_OPENSTOCK"
+        '
+        'rptSubNote_PLST_OPENSTOCK
+        '
+        Me.rptSubNote_PLST_OPENSTOCK.CanShrink = true
+        Me.rptSubNote_PLST_OPENSTOCK.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 62.97913!)
+        Me.rptSubNote_PLST_OPENSTOCK.Name = "rptSubNote_PLST_OPENSTOCK"
+        Me.rptSubNote_PLST_OPENSTOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_PLST_OPENSTOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_PLST_OPENSTOCK.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_OP_STK"))
+        Me.rptSubNote_PLST_OPENSTOCK.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_PLST_OPENSTOCK.SizeF = New System.Drawing.SizeF(753.4949!, 23!)
         '
         'XrLine4
         '
@@ -19639,8 +20636,8 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1008.StylePriority.UseBorders = false
         Me.XrLabel1008.StylePriority.UseFont = false
         Me.XrLabel1008.StylePriority.UseTextAlignment = false
-        XrSummary273.FormatString = "Other -RM{0}"
-        Me.XrLabel1008.Summary = XrSummary273
+        XrSummary275.FormatString = "Other -RM{0}"
+        Me.XrLabel1008.Summary = XrSummary275
         Me.XrLabel1008.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'GroupHeader53
@@ -19648,6 +20645,7 @@ Partial Public Class rptPNL_Details
         Me.GroupHeader53.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel1003})
         Me.GroupHeader53.GroupFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("PLFOS_SOURCENO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
         Me.GroupHeader53.HeightF = 33.00003!
+        Me.GroupHeader53.KeepTogether = true
         Me.GroupHeader53.Name = "GroupHeader53"
         '
         'XrLabel1003
@@ -19666,6 +20664,7 @@ Partial Public Class rptPNL_Details
         '
         Me.GF_PLFST_OPENSTOCK.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lineTotal_PLFST_OPENSTOCK_bot, Me.lineTotal_PLFST_OPENSTOCK_top, Me.txtTotal_PLFST_OPENSTOCK})
         Me.GF_PLFST_OPENSTOCK.HeightF = 61.87505!
+        Me.GF_PLFST_OPENSTOCK.KeepTogether = true
         Me.GF_PLFST_OPENSTOCK.Name = "GF_PLFST_OPENSTOCK"
         '
         'lineTotal_PLFST_OPENSTOCK_bot
@@ -19696,9 +20695,9 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_PLFST_OPENSTOCK.StylePriority.UseBorders = false
         Me.txtTotal_PLFST_OPENSTOCK.StylePriority.UseFont = false
         Me.txtTotal_PLFST_OPENSTOCK.StylePriority.UseTextAlignment = false
-        XrSummary274.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary274.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.txtTotal_PLFST_OPENSTOCK.Summary = XrSummary274
+        XrSummary276.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary276.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.txtTotal_PLFST_OPENSTOCK.Summary = XrSummary276
         Me.txtTotal_PLFST_OPENSTOCK.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         Me.txtTotal_PLFST_OPENSTOCK.Visible = false
         '
@@ -19721,10 +20720,23 @@ Partial Public Class rptPNL_Details
         '
         'PLST_SALES_DETAIL
         '
-        Me.PLST_SALES_DETAIL.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.line_PLFST_SALES, Me.txtRUN_PLST_SALES, Me.txt_PLFST_SALES, Me.XrLabel1016})
+        Me.PLST_SALES_DETAIL.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel164, Me.line_PLFST_SALES, Me.txtRUN_PLST_SALES, Me.txt_PLFST_SALES, Me.XrLabel1016})
         Me.PLST_SALES_DETAIL.HeightF = 32.37499!
         Me.PLST_SALES_DETAIL.Name = "PLST_SALES_DETAIL"
         Me.PLST_SALES_DETAIL.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("PLFS_SOURCENO", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending), New DevExpress.XtraReports.UI.GroupField("RowIndex", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
+        '
+        'XrLabel164
+        '
+        Me.XrLabel164.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_SALES.Note")})
+        Me.XrLabel164.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.XrLabel164.LocationFloat = New DevExpress.Utils.PointFloat(680.7454!, 0!)
+        Me.XrLabel164.Name = "XrLabel164"
+        Me.XrLabel164.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel164.SizeF = New System.Drawing.SizeF(100!, 23!)
+        Me.XrLabel164.StylePriority.UseFont = false
+        Me.XrLabel164.StylePriority.UseTextAlignment = false
+        Me.XrLabel164.Text = "XrLabel164"
+        Me.XrLabel164.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'line_PLFST_SALES
         '
@@ -19747,11 +20759,11 @@ Partial Public Class rptPNL_Details
         Me.txtRUN_PLST_SALES.StylePriority.UseFont = false
         Me.txtRUN_PLST_SALES.StylePriority.UseForeColor = false
         Me.txtRUN_PLST_SALES.StylePriority.UseTextAlignment = false
-        XrSummary275.FormatString = "{0}."
-        XrSummary275.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary275.IgnoreNullValues = true
-        XrSummary275.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.txtRUN_PLST_SALES.Summary = XrSummary275
+        XrSummary277.FormatString = "{0}."
+        XrSummary277.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary277.IgnoreNullValues = true
+        XrSummary277.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.txtRUN_PLST_SALES.Summary = XrSummary277
         Me.txtRUN_PLST_SALES.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'txt_PLFST_SALES
@@ -19796,10 +20808,23 @@ Partial Public Class rptPNL_Details
         '
         'Detail103
         '
-        Me.Detail103.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.txtDetails_PLFST_SALES, Me.XrLabel1019})
+        Me.Detail103.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel165, Me.txtDetails_PLFST_SALES, Me.XrLabel1019})
         Me.Detail103.HeightF = 23!
         Me.Detail103.Name = "Detail103"
         Me.Detail103.SortFields.AddRange(New DevExpress.XtraReports.UI.GroupField() {New DevExpress.XtraReports.UI.GroupField("RowIndex", DevExpress.XtraReports.UI.XRColumnSortOrder.Ascending)})
+        '
+        'XrLabel165
+        '
+        Me.XrLabel165.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "PLFST_SALES.FK_PLFST_SALES_PLFST_SALES_DETAIL.Note")})
+        Me.XrLabel165.Font = New System.Drawing.Font("Arial", 9.75!)
+        Me.XrLabel165.LocationFloat = New DevExpress.Utils.PointFloat(680.7454!, 0!)
+        Me.XrLabel165.Name = "XrLabel165"
+        Me.XrLabel165.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100!)
+        Me.XrLabel165.SizeF = New System.Drawing.SizeF(100!, 23!)
+        Me.XrLabel165.StylePriority.UseFont = false
+        Me.XrLabel165.StylePriority.UseTextAlignment = false
+        Me.XrLabel165.Text = "XrLabel165"
+        Me.XrLabel165.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'txtDetails_PLFST_SALES
         '
@@ -19812,9 +20837,9 @@ Partial Public Class rptPNL_Details
         Me.txtDetails_PLFST_SALES.SizeF = New System.Drawing.SizeF(494.6904!, 23!)
         Me.txtDetails_PLFST_SALES.StylePriority.UseFont = false
         Me.txtDetails_PLFST_SALES.StylePriority.UseTextAlignment = false
-        XrSummary276.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary276.IgnoreNullValues = true
-        Me.txtDetails_PLFST_SALES.Summary = XrSummary276
+        XrSummary278.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary278.IgnoreNullValues = true
+        Me.txtDetails_PLFST_SALES.Summary = XrSummary278
         Me.txtDetails_PLFST_SALES.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'XrLabel1019
@@ -19852,8 +20877,8 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1009.SizeF = New System.Drawing.SizeF(494.6904!, 23!)
         Me.XrLabel1009.StylePriority.UseFont = false
         Me.XrLabel1009.StylePriority.UseTextAlignment = false
-        XrSummary277.FormatString = "Other -RM{0}"
-        Me.XrLabel1009.Summary = XrSummary277
+        XrSummary279.FormatString = "Other -RM{0}"
+        Me.XrLabel1009.Summary = XrSummary279
         Me.XrLabel1009.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'XrLabel1010
@@ -19904,9 +20929,21 @@ Partial Public Class rptPNL_Details
         '
         'ReportFooter50
         '
-        Me.ReportFooter50.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine1, Me.XrLabel3, Me.XrLabel2})
-        Me.ReportFooter50.HeightF = 66.66666!
+        Me.ReportFooter50.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_PLST_SALES, Me.XrLine1, Me.XrLabel3, Me.XrLabel2})
+        Me.ReportFooter50.HeightF = 104.1666!
         Me.ReportFooter50.Name = "ReportFooter50"
+        '
+        'rptSubNote_PLST_SALES
+        '
+        Me.rptSubNote_PLST_SALES.CanShrink = true
+        Me.rptSubNote_PLST_SALES.LocationFloat = New DevExpress.Utils.PointFloat(34.50504!, 57.29167!)
+        Me.rptSubNote_PLST_SALES.Name = "rptSubNote_PLST_SALES"
+        Me.rptSubNote_PLST_SALES.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_PLST_SALES.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_PLST_SALES.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_SALES"))
+        Me.rptSubNote_PLST_SALES.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_PLST_SALES.SizeF = New System.Drawing.SizeF(753.4949!, 23!)
         '
         'XrLine1
         '
@@ -19943,8 +20980,8 @@ Partial Public Class rptPNL_Details
         Me.XrLabel2.StylePriority.UseBorders = false
         Me.XrLabel2.StylePriority.UseFont = false
         Me.XrLabel2.StylePriority.UseTextAlignment = false
-        XrSummary278.FormatString = "{0:#,# ;(#,#);0 }"
-        Me.XrLabel2.Summary = XrSummary278
+        XrSummary280.FormatString = "{0:#,# ;(#,#);0 }"
+        Me.XrLabel2.Summary = XrSummary280
         Me.XrLabel2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'GF_PLST_SALES
@@ -19981,9 +21018,9 @@ Partial Public Class rptPNL_Details
         Me.txtTotal_PLFST_SALES.StylePriority.UseBorders = false
         Me.txtTotal_PLFST_SALES.StylePriority.UseFont = false
         Me.txtTotal_PLFST_SALES.StylePriority.UseTextAlignment = false
-        XrSummary279.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary279.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
-        Me.txtTotal_PLFST_SALES.Summary = XrSummary279
+        XrSummary281.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary281.Running = DevExpress.XtraReports.UI.SummaryRunning.Group
+        Me.txtTotal_PLFST_SALES.Summary = XrSummary281
         Me.txtTotal_PLFST_SALES.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'SALES_DETAIL_INVT
@@ -20058,11 +21095,11 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1027.SizeF = New System.Drawing.SizeF(34.50508!, 23!)
         Me.XrLabel1027.StylePriority.UseFont = false
         Me.XrLabel1027.StylePriority.UseTextAlignment = false
-        XrSummary280.FormatString = "{0})"
-        XrSummary280.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary280.IgnoreNullValues = true
-        XrSummary280.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrLabel1027.Summary = XrSummary280
+        XrSummary282.FormatString = "{0})"
+        XrSummary282.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary282.IgnoreNullValues = true
+        XrSummary282.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrLabel1027.Summary = XrSummary282
         Me.XrLabel1027.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'XrLabel1026
@@ -20172,10 +21209,10 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1031.SizeF = New System.Drawing.SizeF(19.16006!, 23!)
         Me.XrLabel1031.StylePriority.UseFont = false
         Me.XrLabel1031.StylePriority.UseTextAlignment = false
-        XrSummary281.FormatString = "{0}."
-        XrSummary281.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
-        XrSummary281.IgnoreNullValues = true
-        Me.XrLabel1031.Summary = XrSummary281
+        XrSummary283.FormatString = "{0}."
+        XrSummary283.Func = DevExpress.XtraReports.UI.SummaryFunc.RecordNumber
+        XrSummary283.IgnoreNullValues = true
+        Me.XrLabel1031.Summary = XrSummary283
         Me.XrLabel1031.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'XrLabel1030
@@ -20357,15 +21394,27 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1041.SizeF = New System.Drawing.SizeF(519.1957!, 23!)
         Me.XrLabel1041.StylePriority.UseFont = false
         Me.XrLabel1041.StylePriority.UseTextAlignment = false
-        XrSummary282.FormatString = "Other -RM{0}"
-        Me.XrLabel1041.Summary = XrSummary282
+        XrSummary284.FormatString = "Other -RM{0}"
+        Me.XrLabel1041.Summary = XrSummary284
         Me.XrLabel1041.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft
         '
         'ReportFooter53
         '
-        Me.ReportFooter53.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLine28, Me.XrLabel36, Me.XrLabel1046, Me.XrLabel1043})
-        Me.ReportFooter53.HeightF = 100!
+        Me.ReportFooter53.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.rptSubNote_EXPENSES_INTERESTRESTRICT, Me.XrLine28, Me.XrLabel36, Me.XrLabel1046, Me.XrLabel1043})
+        Me.ReportFooter53.HeightF = 128.125!
         Me.ReportFooter53.Name = "ReportFooter53"
+        '
+        'rptSubNote_EXPENSES_INTERESTRESTRICT
+        '
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.CanShrink = true
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.LocationFloat = New DevExpress.Utils.PointFloat(34.5101!, 78.60413!)
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.Name = "rptSubNote_EXPENSES_INTERESTRESTRICT"
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramYA", Me.paramYA))
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("ParamCompayName", Me.paramCompanyName))
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.ParameterBindings.Add(New DevExpress.XtraReports.UI.ParameterBinding("paramKeyName", Nothing, "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+            "RT_KEYNAME.PL_EXP_INTRESTRICT"))
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.ReportSource = New EasyTemplate_Taxcom.rptpnl_Note()
+        Me.rptSubNote_EXPENSES_INTERESTRESTRICT.SizeF = New System.Drawing.SizeF(753.4899!, 23!)
         '
         'XrLine28
         '
@@ -20402,10 +21451,10 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1046.StylePriority.UseBorders = false
         Me.XrLabel1046.StylePriority.UseFont = false
         Me.XrLabel1046.StylePriority.UseTextAlignment = false
-        XrSummary283.FormatString = "{0:#,# ;(#,#);0 }"
-        XrSummary283.IgnoreNullValues = true
-        XrSummary283.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
-        Me.XrLabel1046.Summary = XrSummary283
+        XrSummary285.FormatString = "{0:#,# ;(#,#);0 }"
+        XrSummary285.IgnoreNullValues = true
+        XrSummary285.Running = DevExpress.XtraReports.UI.SummaryRunning.Report
+        Me.XrLabel1046.Summary = XrSummary285
         Me.XrLabel1046.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'XrLabel1043
@@ -20420,8 +21469,8 @@ Partial Public Class rptPNL_Details
         Me.XrLabel1043.StylePriority.UseBorders = false
         Me.XrLabel1043.StylePriority.UseFont = false
         Me.XrLabel1043.StylePriority.UseTextAlignment = false
-        XrSummary284.FormatString = "Other -RM{0}"
-        Me.XrLabel1043.Summary = XrSummary284
+        XrSummary286.FormatString = "Other -RM{0}"
+        Me.XrLabel1043.Summary = XrSummary286
         Me.XrLabel1043.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
         '
         'CalculatedField1
@@ -20430,13 +21479,94 @@ Partial Public Class rptPNL_Details
         Me.CalculatedField1.Expression = "[PLFS_SOURCENO].Count()"
         Me.CalculatedField1.Name = "CalculatedField1"
         '
-        'EXPOTHERINTEREST_RPT_EXCLUDE
+        'FORECURREXLOSS_RPT_EXCLUDE
         '
-        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_OTHERS]) == False And [PL_OTHER_EXP_OTHERS]== False"
-        Me.EXPOTHERINTEREST_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+        Me.FORECURREXLOSS_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_OTHER_EXP_UNREALOSS]) == False And [PL_OTHER_EXP_UNREALOSS]== F"& _ 
+    "alse"
+        Me.FORECURREXLOSS_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
     "RT_EXCLUDE_REPORT"
-        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
-        Me.EXPOTHERINTEREST_RPT_EXCLUDE.Name = "EXPOTHERINTEREST_RPT_EXCLUDE"
+        Me.FORECURREXLOSS_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.FORECURREXLOSS_RPT_EXCLUDE.Name = "FORECURREXLOSS_RPT_EXCLUDE"
+        '
+        'EXPADVERTISEMENT_RPT_EXCLUDE
+        '
+        Me.EXPADVERTISEMENT_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_ADVERT]) == False And [PL_ADVERT]== False"
+        Me.EXPADVERTISEMENT_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPADVERTISEMENT_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPADVERTISEMENT_RPT_EXCLUDE.Name = "EXPADVERTISEMENT_RPT_EXCLUDE"
+        '
+        'EXPRND_RPT_EXCLUDE
+        '
+        Me.EXPRND_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_RND]) == False And [PL_RND]== False"
+        Me.EXPRND_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPRND_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPRND_RPT_EXCLUDE.Name = "EXPRND_RPT_EXCLUDE"
+        '
+        'EXPREPAIRMAINTENANCE_RPT_EXCLUDE
+        '
+        Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_EXP_MAINTENANCE]) == False And [PL_EXP_MAINTENANCE]== False"
+        Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE.Name = "EXPREPAIRMAINTENANCE_RPT_EXCLUDE"
+        '
+        'EXPROYALTY_RPT_EXCLUDE
+        '
+        Me.EXPROYALTY_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_ROYALTY]) == False And [PL_ROYALTY]== False"
+        Me.EXPROYALTY_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPROYALTY_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPROYALTY_RPT_EXCLUDE.Name = "EXPROYALTY_RPT_EXCLUDE"
+        '
+        'EXPEMPLOYEESTOCK_RPT_EXCLUDE
+        '
+        Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_EMPL_STOCK]) == False And [PL_EMPL_STOCK]== False"
+        Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE.Name = "EXPEMPLOYEESTOCK_RPT_EXCLUDE"
+        '
+        'EXPSALARY_RPT_EXCLUDE
+        '
+        Me.EXPSALARY_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_EXP_SALARY]) == False And [PL_EXP_SALARY]== False"
+        Me.EXPSALARY_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPSALARY_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPSALARY_RPT_EXCLUDE.Name = "EXPSALARY_RPT_EXCLUDE"
+        '
+        'EXPDIRECTORFEE_RPT_EXCLUDE
+        '
+        Me.EXPDIRECTORFEE_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_DIRECTORS_FEE]) == False And [PL_DIRECTORS_FEE]== False"
+        Me.EXPDIRECTORFEE_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPDIRECTORFEE_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPDIRECTORFEE_RPT_EXCLUDE.Name = "EXPDIRECTORFEE_RPT_EXCLUDE"
+        '
+        'EXPCONTRACTPAY_RPT_EXCLUDE
+        '
+        Me.EXPCONTRACTPAY_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_CONTRACT_EXP]) == False And [PL_CONTRACT_EXP]== False"
+        Me.EXPCONTRACTPAY_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPCONTRACTPAY_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPCONTRACTPAY_RPT_EXCLUDE.Name = "EXPCONTRACTPAY_RPT_EXCLUDE"
+        '
+        'EXPTECHNICAL_RPT_EXCLUDE
+        '
+        Me.EXPTECHNICAL_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_TECH_FEE]) == False And [PL_TECH_FEE]== False"
+        Me.EXPTECHNICAL_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPTECHNICAL_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPTECHNICAL_RPT_EXCLUDE.Name = "EXPTECHNICAL_RPT_EXCLUDE"
+        '
+        'EXPLEGAL_RPT_EXCLUDE
+        '
+        Me.EXPLEGAL_RPT_EXCLUDE.Condition = "IsNullOrEmpty([PL_LAWYER_COST]) == False And [PL_LAWYER_COST]== False"
+        Me.EXPLEGAL_RPT_EXCLUDE.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT.FK_PROFIT_LOSS_ACCOUNT_REPORT_PROFIT_LOSS_ACCOUNT_REPO"& _ 
+    "RT_EXCLUDE_REPORT"
+        Me.EXPLEGAL_RPT_EXCLUDE.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.EXPLEGAL_RPT_EXCLUDE.Name = "EXPLEGAL_RPT_EXCLUDE"
         '
         'rptPNL_Details
         '
@@ -20445,7 +21575,7 @@ Partial Public Class rptPNL_Details
         Me.DataMember = "PROFIT_LOSS_ACCOUNT_REPORT"
         Me.DataSource = Me.DsPNL1
         Me.Font = New System.Drawing.Font("Segoe UI", 9!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
-        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SALES, Me.OPENSTOCK, Me.PURCHASE, Me.DEPRECIATION, Me.OTHERALLOWEXP, Me.OTHERNONALLOWEXP, Me.CLOSESTOCK, Me.OTHERBUSINC, Me.REALFETRADE, Me.DIVIDENDINC, Me.INTERESTINC, Me.RENTALINC, Me.ROYALTYINC, Me.OTHERINC, Me.PDFIXASSET, Me.PDINVEST, Me.EXEMDIV, Me.FORINCREMIT, Me.REALFE, Me.UNREALFENONTRADE, Me.UNREALFETRADE, Me.OTHERNONTAXINC, Me.INTERESTRESTRICT, Me.EXPOTHERINTEREST, Me.EXPLEGAL, Me.EXPTECHNICAL, Me.EXPCONTRACTPAY, Me.EXPDIRECTORFEE, Me.EXPSALARY, Me.EXPEMPLOYEESTOCK, Me.EXPROYALTY, Me.EXPRENTAL, Me.EXPREPAIRMAINTENANCE, Me.EXPRND, Me.EXPADVERTISEMENT, Me.EXPTRAVEL, Me.EXPDEPRECIATION, Me.EXPDONATIONAPPR, Me.EXPDONATIONNONAPPR, Me.EXPZAKAT, Me.EXPLOSSDISPFA, Me.EXPENTERTAINNONSTAFF, Me.EXPENTERTAINSTAFF, Me.EXPCOMPAUNDPENALTY, Me.EXPPROVISION, Me.EXPLEAVEPASSAGE, Me.EXPFAWRITTENOFF, Me.EXPUNREALLOSSFE, Me.EXPREALLOSSFETRADE, Me.EXPREALLOSSFENONTRADE, Me.EXPINITIALSUBSCRIPT, Me.EXPCAPITALEXPENDITURE, Me.EXPOTHERSEXPENSES, Me.EXPJKDM, Me.LESSCLOSINGSTOCK, Me.TOTALCOS, Me.OTHERINCOME, Me.NONTAXABLEINCOME, Me.TITLE_COS, Me.TITLE_NONBIZINCOME, Me.TITLE_NONTAXABLEINCOME, Me.TITLE_EXPENDITURE, Me.TITLE_OTHEREXPENDITURE, Me.OTHER_EXPENSES_DETAILS, Me.OTHER_EXPENSES_DETAILS_INVT, Me.OTHER_EXCAPITALEXP_DETAIL, Me.OTHER_EXCAPITALEXP_DETAIL_INVT, Me.EXPINITIALSUBSCRIPT_DETAIL, Me.EXPINITIALSUBSCRIPT_DETAIL_INVT, Me.EXPREALLOSSFENONTRADE_DETAIL, Me.EXPREALLOSSFENONTRADE_DETAIL_INVT, Me.EXPREALLOSSFETRADE_DETAIL, Me.EXPREALLOSSFETRADE_DETAIL_INVT, Me.EXPUNREALLOSSFE_DETAIL, Me.EXPUNREALLOSSFE_DETAIL_INVT, Me.EXPFAWRITTENOFF_DETAIL, Me.EXPFAWRITTENOFF_DETAIL_INVT, Me.EXPLEAVEPASSAGE_DETAIL, Me.EXPLEAVEPASSAGE_DETAIL_INVT, Me.EXPPROVISION_DETAIL, Me.EXPPROVISION_DETAIL_INVT, Me.EXPCOMPAUNDPENALTY_DETAIL, Me.EXPCOMPAUNDPENALTY_DETAIL_INVT, Me.EXPENTERTAINSTAFF_DETAIL, Me.EXPENTERTAINSTAFF_DETAIL_INVT, Me.EXPENTERTAINNONSTAFF_DETAIL, Me.EXPENTERTAINNONSTAFF_DETAIL_INVT, Me.EXPLOSSDISPFA_DETAIL, Me.EXPLOSSDISPFA_DETAIL_INVT, Me.EXPZAKAT_DETAIL, Me.EXPZAKAT_DETAIL_INVT, Me.EXPDONATIONNONAPPR_DETAIL, Me.EXPDONATIONNONAPPR_DETAIL_INVT, Me.EXPDONATIONAPPR_DETAIL, Me.EXPDONATIONAPPR_DETAIL_INVT, Me.EXPDEPRECIATION_DETAIL, Me.EXPDEPRECIATION_DETAIL_INVT, Me.EXPJKDM_DETAIL, Me.EXPJKDM_DETAIL_INVT, Me.EXPTRAVEL_DETAIL, Me.EXPTRAVEL_DETAIL_INVT, Me.EXPADVERTISEMENT_DETAIL, Me.EXPADVERTISEMENT_DETAIL_INVT, Me.EXPRND_DETAIL, Me.EXPRND_DETAIL_INVY, Me.EXPREPAIRMAINTENANCE_DETAIL, Me.EXPREPAIRMAINTENANCE_DETAIL_INVT, Me.EXPRENTAL_DETAIL, Me.EXPRENTAL_DETAIL_INVT, Me.EXPROYALTY_DETAIL, Me.EXPROYALTY_DETAIL_INVT, Me.EXPEMPLOYEESTOCK_DETAIL, Me.EXPEMPLOYEESTOCK_DETAIL_INVT, Me.EXPSALARY_DETAIL, Me.EXPSALARY_DETAIL_INVT, Me.EXPDIRECTORFEE_DETAIL, Me.EXPDIRECTORFEE_DETAIL_INVT, Me.EXPCONTRACTPAY_DETAIL, Me.EXPCONTRACTPAY_DETAIL_INVT, Me.EXPTECHNICAL_DETAIL, Me.EXPTECHNICAL_DETAIL_INVT, Me.EXPLEGAL_DETAIL, Me.EXPLEGAL_DETAIL_INVT, Me.EXPOTHERINTEREST_DETAIL, Me.EXPOTHERINTEREST_DETAIL_INVT, Me.OTHERNONTAXINC_DETAIL, Me.OTHERNONTAXINC_DETAIL_INVT, Me.UNREALFETRADE_DETAIL, Me.UNREALFETRADE_DETAIL_INVT, Me.UNREALFENONTRADE_DETAIL, Me.UNREALFENONTRADE_DETAIL_INVT, Me.REALFE_DETAIL, Me.REALFE_DETAIL_INVT, Me.FORINCREMIT_DETAIL, Me.FORINCREMIT_DETAIL_INVT, Me.PDINVEST_DETAIL, Me.PDINVEST_DETAIL_INVT, Me.PDFIXASSET_DETAIL, Me.PDFIXASSET_DETAIL_INVT, Me.OTHERINC_DETAIL, Me.OTHERINC_DETAIL_INVT, Me.ROYALTYINC_DETAIL, Me.ROYALTYINC_DETAIL_INVT, Me.INTERESTINC_DETAIL, Me.INTERESTINC_DETAIL_INVT, Me.REALFETRADE_DETAIL, Me.REALFETRADE_DETAIL_INVT, Me.OTHERBUSINC_DETAIL, Me.OTHERBUSINC_DETAIL_INVT, Me.CLOSESTOCK_DETAIL, Me.CLOSESTOCK_DETAIL_INVT, Me.OTHERNONALLOWEXP_DETAIL, Me.OTHERNONALLOWEXP_DETAIL_INVT, Me.OTHERALLOWEXP_DETAIL, Me.OTHERALLOWEXP_DETAIL_INVT, Me.DEPRECIATION_DETAIL, Me.DEPRECIATION_DETAIL_INVT, Me.PURCHASE_DETAIL, Me.PURCHASE_DETAIL_INVT, Me.OPENSTOCK_DETAIL, Me.OPENSTOCK_DETAIL_INVT, Me.SALES_DETAIL, Me.SALES_DETAIL_INVT, Me.INTERESTRESTRICT_DETAIL, Me.EXPUNREALLOSSFE_NONTRICOR, Me.EXPOTHERINTEREST_RPT_EXCLUDE})
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SALES, Me.OPENSTOCK, Me.PURCHASE, Me.DEPRECIATION, Me.OTHERALLOWEXP, Me.OTHERNONALLOWEXP, Me.CLOSESTOCK, Me.OTHERBUSINC, Me.REALFETRADE, Me.DIVIDENDINC, Me.INTERESTINC, Me.RENTALINC, Me.ROYALTYINC, Me.OTHERINC, Me.PDFIXASSET, Me.PDINVEST, Me.EXEMDIV, Me.FORINCREMIT, Me.REALFE, Me.UNREALFENONTRADE, Me.UNREALFETRADE, Me.OTHERNONTAXINC, Me.INTERESTRESTRICT, Me.EXPOTHERINTEREST, Me.EXPLEGAL, Me.EXPTECHNICAL, Me.EXPCONTRACTPAY, Me.EXPDIRECTORFEE, Me.EXPSALARY, Me.EXPEMPLOYEESTOCK, Me.EXPROYALTY, Me.EXPRENTAL, Me.EXPREPAIRMAINTENANCE, Me.EXPRND, Me.EXPADVERTISEMENT, Me.EXPTRAVEL, Me.EXPDEPRECIATION, Me.EXPDONATIONAPPR, Me.EXPDONATIONNONAPPR, Me.EXPZAKAT, Me.EXPLOSSDISPFA, Me.EXPENTERTAINNONSTAFF, Me.EXPENTERTAINSTAFF, Me.EXPCOMPAUNDPENALTY, Me.EXPPROVISION, Me.EXPLEAVEPASSAGE, Me.EXPFAWRITTENOFF, Me.EXPUNREALLOSSFE, Me.EXPREALLOSSFETRADE, Me.EXPREALLOSSFENONTRADE, Me.EXPINITIALSUBSCRIPT, Me.EXPCAPITALEXPENDITURE, Me.EXPOTHERSEXPENSES, Me.EXPJKDM, Me.LESSCLOSINGSTOCK, Me.TOTALCOS, Me.OTHERINCOME, Me.NONTAXABLEINCOME, Me.TITLE_COS, Me.TITLE_NONBIZINCOME, Me.TITLE_NONTAXABLEINCOME, Me.TITLE_EXPENDITURE, Me.TITLE_OTHEREXPENDITURE, Me.OTHER_EXPENSES_DETAILS, Me.OTHER_EXPENSES_DETAILS_INVT, Me.OTHER_EXCAPITALEXP_DETAIL, Me.OTHER_EXCAPITALEXP_DETAIL_INVT, Me.EXPINITIALSUBSCRIPT_DETAIL, Me.EXPINITIALSUBSCRIPT_DETAIL_INVT, Me.EXPREALLOSSFENONTRADE_DETAIL, Me.EXPREALLOSSFENONTRADE_DETAIL_INVT, Me.EXPREALLOSSFETRADE_DETAIL, Me.EXPREALLOSSFETRADE_DETAIL_INVT, Me.EXPUNREALLOSSFE_DETAIL, Me.EXPUNREALLOSSFE_DETAIL_INVT, Me.EXPFAWRITTENOFF_DETAIL, Me.EXPFAWRITTENOFF_DETAIL_INVT, Me.EXPLEAVEPASSAGE_DETAIL, Me.EXPLEAVEPASSAGE_DETAIL_INVT, Me.EXPPROVISION_DETAIL, Me.EXPPROVISION_DETAIL_INVT, Me.EXPCOMPAUNDPENALTY_DETAIL, Me.EXPCOMPAUNDPENALTY_DETAIL_INVT, Me.EXPENTERTAINSTAFF_DETAIL, Me.EXPENTERTAINSTAFF_DETAIL_INVT, Me.EXPENTERTAINNONSTAFF_DETAIL, Me.EXPENTERTAINNONSTAFF_DETAIL_INVT, Me.EXPLOSSDISPFA_DETAIL, Me.EXPLOSSDISPFA_DETAIL_INVT, Me.EXPZAKAT_DETAIL, Me.EXPZAKAT_DETAIL_INVT, Me.EXPDONATIONNONAPPR_DETAIL, Me.EXPDONATIONNONAPPR_DETAIL_INVT, Me.EXPDONATIONAPPR_DETAIL, Me.EXPDONATIONAPPR_DETAIL_INVT, Me.EXPDEPRECIATION_DETAIL, Me.EXPDEPRECIATION_DETAIL_INVT, Me.EXPJKDM_DETAIL, Me.EXPJKDM_DETAIL_INVT, Me.EXPTRAVEL_DETAIL, Me.EXPTRAVEL_DETAIL_INVT, Me.EXPADVERTISEMENT_DETAIL, Me.EXPADVERTISEMENT_DETAIL_INVT, Me.EXPRND_DETAIL, Me.EXPRND_DETAIL_INVY, Me.EXPREPAIRMAINTENANCE_DETAIL, Me.EXPREPAIRMAINTENANCE_DETAIL_INVT, Me.EXPRENTAL_DETAIL, Me.EXPRENTAL_DETAIL_INVT, Me.EXPROYALTY_DETAIL, Me.EXPROYALTY_DETAIL_INVT, Me.EXPEMPLOYEESTOCK_DETAIL, Me.EXPEMPLOYEESTOCK_DETAIL_INVT, Me.EXPSALARY_DETAIL, Me.EXPSALARY_DETAIL_INVT, Me.EXPDIRECTORFEE_DETAIL, Me.EXPDIRECTORFEE_DETAIL_INVT, Me.EXPCONTRACTPAY_DETAIL, Me.EXPCONTRACTPAY_DETAIL_INVT, Me.EXPTECHNICAL_DETAIL, Me.EXPTECHNICAL_DETAIL_INVT, Me.EXPLEGAL_DETAIL, Me.EXPLEGAL_DETAIL_INVT, Me.EXPOTHERINTEREST_DETAIL, Me.EXPOTHERINTEREST_DETAIL_INVT, Me.OTHERNONTAXINC_DETAIL, Me.OTHERNONTAXINC_DETAIL_INVT, Me.UNREALFETRADE_DETAIL, Me.UNREALFETRADE_DETAIL_INVT, Me.UNREALFENONTRADE_DETAIL, Me.UNREALFENONTRADE_DETAIL_INVT, Me.REALFE_DETAIL, Me.REALFE_DETAIL_INVT, Me.FORINCREMIT_DETAIL, Me.FORINCREMIT_DETAIL_INVT, Me.PDINVEST_DETAIL, Me.PDINVEST_DETAIL_INVT, Me.PDFIXASSET_DETAIL, Me.PDFIXASSET_DETAIL_INVT, Me.OTHERINC_DETAIL, Me.OTHERINC_DETAIL_INVT, Me.ROYALTYINC_DETAIL, Me.ROYALTYINC_DETAIL_INVT, Me.INTERESTINC_DETAIL, Me.INTERESTINC_DETAIL_INVT, Me.REALFETRADE_DETAIL, Me.REALFETRADE_DETAIL_INVT, Me.OTHERBUSINC_DETAIL, Me.OTHERBUSINC_DETAIL_INVT, Me.CLOSESTOCK_DETAIL, Me.CLOSESTOCK_DETAIL_INVT, Me.OTHERNONALLOWEXP_DETAIL, Me.OTHERNONALLOWEXP_DETAIL_INVT, Me.OTHERALLOWEXP_DETAIL, Me.OTHERALLOWEXP_DETAIL_INVT, Me.DEPRECIATION_DETAIL, Me.DEPRECIATION_DETAIL_INVT, Me.PURCHASE_DETAIL, Me.PURCHASE_DETAIL_INVT, Me.OPENSTOCK_DETAIL, Me.OPENSTOCK_DETAIL_INVT, Me.SALES_DETAIL, Me.SALES_DETAIL_INVT, Me.INTERESTRESTRICT_DETAIL, Me.EXPUNREALLOSSFE_NONTRICOR, Me.EXPOTHERINTEREST_RPT_EXCLUDE, Me.EXPCAPITALEXPENDITURE_RPT_EXCLUDE, Me.EXPINITIALSUBSCRIPT_RPT_EXCLUDE, Me.EXPREALLOSSFENONTRADE_RPT_EXCLUDE, Me.EXPREALLOSSFETRADE_RPT_EXCLUDE, Me.EXPUNREALLOSSFE_RPT_EXCLUDE, Me.EXPFAWRITTENOFF_RPT_EXCLUDE, Me.EXPLEAVEPASSAGE_RPT_EXCLUDE, Me.EXPPROVISION_RPT_EXCLUDE, Me.EXPCOMPAUNDPENALTY_RPT_EXCLUDE, Me.EXPENTERTAINSTAFF_RPT_EXCLUDE, Me.EXPENTERTAINNONSTAFF_RPT_EXCLUDE, Me.EXPLOSSDISPFA_RPT_EXCLUDE, Me.EXPZAKAT_RPT_EXCLUDE, Me.EXPDONATIONNONAPPR_RPT_EXCLUDE, Me.EXPDONATIONAPPR_RPT_EXCLUDE, Me.EXPDEPRECIATION_RPT_EXCLUDE, Me.EXPJKDM_RPT_EXCLUDE, Me.FORECURREXLOSS_RPT_EXCLUDE, Me.EXPTRAVEL_RPT_EXCLUDE, Me.EXPADVERTISEMENT_RPT_EXCLUDE, Me.EXPRND_RPT_EXCLUDE, Me.EXPREPAIRMAINTENANCE_RPT_EXCLUDE, Me.EXPROYALTY_RPT_EXCLUDE, Me.EXPEMPLOYEESTOCK_RPT_EXCLUDE, Me.EXPSALARY_RPT_EXCLUDE, Me.EXPDIRECTORFEE_RPT_EXCLUDE, Me.EXPCONTRACTPAY_RPT_EXCLUDE, Me.EXPTECHNICAL_RPT_EXCLUDE, Me.EXPLEGAL_RPT_EXCLUDE})
         Me.Margins = New System.Drawing.Printing.Margins(31, 31, 20, 100)
         Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA})
         Me.RequestParameters = false
@@ -22143,4 +23273,95 @@ End Sub
     Friend WithEvents lineTotal_OTHER_EXINITIALSUB_bot As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents XrLine60 As DevExpress.XtraReports.UI.XRLine
     Friend WithEvents EXPOTHERINTEREST_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents XrLabel160 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel161 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel162 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel158 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel159 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel163 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel164 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents XrLabel165 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents rptSubNote_PLST_SALES As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_PLST_OPENSTOCK As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_PLST_PURCHASE As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_DEPRECIATION As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_ALLOW As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_NONALLOW As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_PLFST_CLOSESTOCK As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_NONSOURCE_BUSINESSINCOME As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_REALFET As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_DIVIDEND_INCOME As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NBINTEREST As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_RENTAL_INCOME As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NBROYALTY As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_INCOME As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NTDISPOSALFA As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NTDISPOSALINVEST As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXEMPT_DIVIDEND As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NTFOREIGNINCREM As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NTREALFE As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NTUREALFET As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_INCOME_NTUREALFENT As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_NON_TAXABLE_INCOME As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_INTERESTRESTRICT As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_INTEREST As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_LEGAL As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_TECH_FEE As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_CONTRACT As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_DIRECTORS_FEE As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_EMPL_STOCK As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_SALARY As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_ROYALTY As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_RENTAL As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_RESEARCH As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_REPAIR As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_PROMOTE As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_TRAVEL As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_EXPENSES_JKDM As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXDEPRECIATION As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXAPPRDONATION As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXNAPPRDONATION As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXZAKAT As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXLOSSDISPOSALFA As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_ENTERTAINNSTAFF As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_ENTERTAINSTAFF As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXPENALTY As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXPROVISIONACC As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXLEAVEPASSAGE As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXFAWRITTENOFF As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXURLOSSFOREIGN As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXRLOSSFOREIGN As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXRLOSSFOREIGNT As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXINITIALSUB As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXCAPITALEXP As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents rptSubNote_OTHER_EXPENSES As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents EXPCAPITALEXPENDITURE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPINITIALSUBSCRIPT_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPREALLOSSFENONTRADE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPREALLOSSFETRADE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPUNREALLOSSFE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPFAWRITTENOFF_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPLEAVEPASSAGE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPPROVISION_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPCOMPAUNDPENALTY_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPENTERTAINSTAFF_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPENTERTAINNONSTAFF_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPLOSSDISPFA_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPZAKAT_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPDONATIONNONAPPR_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPDONATIONAPPR_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPDEPRECIATION_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPJKDM_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents FORECURREXLOSS_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPTRAVEL_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPADVERTISEMENT_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPRND_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPREPAIRMAINTENANCE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPROYALTY_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPEMPLOYEESTOCK_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPSALARY_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPDIRECTORFEE_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPCONTRACTPAY_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPTECHNICAL_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
+    Friend WithEvents EXPLEGAL_RPT_EXCLUDE As DevExpress.XtraReports.UI.FormattingRule
 End Class

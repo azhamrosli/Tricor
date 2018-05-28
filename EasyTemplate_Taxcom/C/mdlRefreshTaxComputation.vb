@@ -2311,6 +2311,253 @@ Module mdlRefreshTaxComputation
 #Region "TAXCOM"
 
 #End Region
+
+    Public Function RefreshInvestmentHolding(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dtIH As DataTable = Nothing
+            Dim dtPL As DataTable = Nothing
+            Dim dtIHInsert As DataTable = Nothing
+            Dim dtIHOtherIn As DataTable = Nothing
+
+            Dim PL_NONTAX_IN_EXM_DIV As Decimal = 0
+            Dim PL_TREGROSS As Decimal = 0
+            Dim PL_OTH_IN_INTEREST As Decimal = 0
+            Dim IH_INTEREST_EXEMPT As Decimal = 0
+            Dim IH_INTEREST_EXP As Decimal = 0
+            Dim IH_INT_TOTAL As Decimal = 0
+            Dim InterestIn As Decimal = 0
+            Dim IH_RENTIBA_IN As Decimal = 0
+            Dim IH_RENTAL_ATTR As Decimal = 0
+            Dim IH_RENTAL_ASSESS As Decimal = 0
+            Dim IH_RENTAL_QUIT As Decimal = 0
+            Dim IH_RENTAL_INSUR As Decimal = 0
+            Dim IH_RENTAL_REPAIR As Decimal = 0
+            Dim IH_RENTAL_RENEW As Decimal = 0
+            Dim IH_RENTIBA_INSUR As Decimal = 0
+            Dim IH_RENTIBA_EXP As Decimal = 0
+            Dim IH_RENTIBA_IBA As Decimal = 0
+            Dim IH_GAIN_REAL_INVEST As Decimal = 0
+            Dim IH_PE_TOTAL As Decimal = 0
+            '   Dim IH_RENTAL_NET As Decimal = 0
+
+            Dim PL_OTH_IN_RENTAL As Decimal = 0
+            Dim dblRental As Decimal = 0
+            Dim dblRentalIBA As Decimal = 0
+
+            Dim NONEXEMPT As Decimal = 0
+            dtIH = ADO.Load_InvestmentHolding(RefNo, YA)
+            dtPL = ADO.LoadPNL_Search(RefNo, YA)
+
+            If dtIH IsNot Nothing AndAlso dtPL IsNot Nothing Then
+
+                If IsDBNull(dtIH.Rows(0)("IH_KEY")) = False Then
+                    dtIHInsert = ADO.Load_InvestmentHoldingInterest(dtIH.Rows(0)("IH_KEY"), Errorlog)
+                    dtIHOtherIn = ADO.Load_InvestmentHoldingOtherIn(dtIH.Rows(0)("IH_KEY"), Errorlog)
+                    If IsDBNull(dtPL.Rows(0).Item("PL_NONTAX_IN_EXM_DIV")) = False AndAlso IsNumeric(dtPL.Rows(0).Item("PL_NONTAX_IN_EXM_DIV")) Then
+                        PL_NONTAX_IN_EXM_DIV = dtPL.Rows(0).Item("PL_NONTAX_IN_EXM_DIV")
+                    End If
+
+                    If IsDBNull(dtPL.Rows(0).Item("PL_TREGROSS")) = False AndAlso IsNumeric(dtPL.Rows(0).Item("PL_TREGROSS")) Then
+                        PL_TREGROSS = dtPL.Rows(0).Item("PL_TREGROSS")
+                    End If
+
+                    If IsDBNull(dtPL.Rows(0).Item("PL_OTH_IN_INTEREST")) = False AndAlso IsNumeric(dtPL.Rows(0).Item("PL_OTH_IN_INTEREST")) Then
+                        PL_OTH_IN_INTEREST = dtPL.Rows(0).Item("PL_OTH_IN_INTEREST")
+                    End If
+
+                    If dtIHInsert IsNot Nothing Then
+                        If IsDBNull(dtIHInsert.Rows(0).Item("IH_INT_TOTAL")) = False AndAlso IsNumeric(dtIHInsert.Rows(0).Item("IH_INT_TOTAL")) Then
+                            IH_INT_TOTAL = dtIHInsert.Rows(0).Item("IH_INT_TOTAL")
+                        End If
+                    End If
+                    InterestIn = PL_OTH_IN_INTEREST + IH_INT_TOTAL
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_INTEREST_EXEMPT")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_INTEREST_EXEMPT")) Then
+                        PL_OTH_IN_INTEREST = dtIH.Rows(0).Item("IH_INTEREST_EXEMPT")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_INTEREST_EXP")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_INTEREST_EXP")) Then
+                        IH_INTEREST_EXP = dtIH.Rows(0).Item("IH_INTEREST_EXP")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTIBA_IN")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTIBA_IN")) Then
+                        IH_RENTIBA_IN = dtIH.Rows(0).Item("IH_RENTIBA_IN")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("PL_OTH_IN_RENTAL")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("PL_OTH_IN_RENTAL")) Then
+                        PL_OTH_IN_RENTAL = dtIH.Rows(0).Item("PL_OTH_IN_RENTAL")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTAL_ATTR")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTAL_ATTR")) Then
+                        IH_RENTAL_ATTR = dtIH.Rows(0).Item("IH_RENTAL_ATTR")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTAL_ASSESS")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTAL_ASSESS")) Then
+                        IH_RENTAL_ASSESS = dtIH.Rows(0).Item("IH_RENTAL_ASSESS")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTAL_QUIT")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTAL_QUIT")) Then
+                        IH_RENTAL_QUIT = dtIH.Rows(0).Item("IH_RENTAL_QUIT")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTAL_INSUR")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTAL_INSUR")) Then
+                        IH_RENTAL_INSUR = dtIH.Rows(0).Item("IH_RENTAL_INSUR")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTAL_REPAIR")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTAL_REPAIR")) Then
+                        IH_RENTAL_REPAIR = dtIH.Rows(0).Item("IH_RENTAL_REPAIR")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTAL_RENEW")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTAL_RENEW")) Then
+                        IH_RENTAL_RENEW = dtIH.Rows(0).Item("IH_RENTAL_RENEW")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTIBA_INSUR")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTIBA_INSUR")) Then
+                        IH_RENTIBA_INSUR = dtIH.Rows(0).Item("IH_RENTIBA_INSUR")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTIBA_EXP")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTIBA_EXP")) Then
+                        IH_RENTIBA_EXP = dtIH.Rows(0).Item("IH_RENTIBA_EXP")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTIBA_IBA")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTIBA_IBA")) Then
+                        IH_RENTIBA_IBA = dtIH.Rows(0).Item("IH_RENTIBA_IBA")
+                    End If
+
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_RENTIBA_IBA")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_RENTIBA_IBA")) Then
+                        IH_RENTIBA_IBA = dtIH.Rows(0).Item("IH_RENTIBA_IBA")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_GAIN_REAL_INVEST")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_GAIN_REAL_INVEST")) Then
+                        IH_GAIN_REAL_INVEST = dtIH.Rows(0).Item("IH_GAIN_REAL_INVEST")
+                    End If
+
+                    If IsDBNull(dtIH.Rows(0).Item("IH_PE_TOTAL")) = False AndAlso IsNumeric(dtIH.Rows(0).Item("IH_PE_TOTAL")) Then
+                        IH_PE_TOTAL = dtIH.Rows(0).Item("IH_PE_TOTAL")
+                    End If
+
+                    'DIVIDEND ==============================================================================================  
+                    If PL_NONTAX_IN_EXM_DIV <= PL_NONTAX_IN_EXM_DIV Then
+                        dtIH.Rows(0)("IH_DIVIDEND_NET") = "0"
+                    ElseIf PL_TREGROSS > PL_NONTAX_IN_EXM_DIV Then
+                        dtIH.Rows(0)("IH_DIVIDEND_NET") = PL_NONTAX_IN_EXM_DIV - PL_NONTAX_IN_EXM_DIV
+                    End If
+                    'DIVIDEND ==============================================================================================
+
+                    'INTEREST ==============================================================================================
+                    NONEXEMPT = InterestIn - PL_OTH_IN_INTEREST
+
+                    If NONEXEMPT >= 0 Then
+                        dtIH.Rows(0)("IH_INTEREST_NONEXEMPT") = NONEXEMPT
+                    Else
+                        PL_OTH_IN_INTEREST = "0"
+                        dtIH.Rows(0)("IH_INTEREST_NONEXEMPT") = InterestIn
+                    End If
+
+                    If CDec(dtIH.Rows(0)("IH_INTEREST_NONEXEMPT")) <= IH_INTEREST_EXP Then
+                        dtIH.Rows(0)("IH_INTEREST_NET") = "0"
+                    ElseIf CDec(dtIH.Rows(0)("IH_INTEREST_NONEXEMPT")) > IH_INTEREST_EXP Then
+                        dtIH.Rows(0)("IH_INTEREST_NET") = CDec(dtIH.Rows(0)("IH_INTEREST_NONEXEMPT")) - IH_INTEREST_EXP
+                    Else
+                        dtIH.Rows(0)("IH_INTEREST_NET") = "0"
+                    End If
+                    'INTEREST ==============================================================================================
+                    'RENTAL ================================================================================================
+                    If PL_OTH_IN_RENTAL < PL_OTH_IN_RENTAL Then
+                        PL_OTH_IN_RENTAL = 0
+                    Else
+                        PL_OTH_IN_RENTAL = PL_OTH_IN_RENTAL - PL_OTH_IN_RENTAL
+                    End If
+
+                    dblRentalIBA = PL_OTH_IN_RENTAL - IH_RENTAL_ATTR - IH_RENTAL_ASSESS - IH_RENTAL_QUIT - IH_RENTIBA_INSUR - IH_RENTAL_REPAIR - IH_RENTAL_RENEW - IH_RENTIBA_EXP - IH_RENTIBA_IBA
+
+                    If dblRentalIBA <= 0 Then dblRentalIBA = 0
+
+
+                    If (dblRental + dblRentalIBA) <= 0 Then
+                        dtIH.Rows(0)("IH_RENTAL_NET") = "0"
+                    ElseIf (dblRental + dblRentalIBA) > 0 Then
+                        dtIH.Rows(0)("IH_RENTAL_NET") = FormatNumber(dblRental + dblRentalIBA, 0)
+                    End If
+                    'RENTAL =================================================================================================
+                    'NET TOTAL ==============================================================================================
+                    ' FormatNumber(CDbl(dicInvestmentHolding("txtNetDividend")) + CDbl(dicInvestmentHolding("txtNetInterest")) + CDbl(dicInvestmentHolding("txtNetRental")), 0)
+                    dtIH.Rows(0)("IH_NET_TOTAL") = CDec(dtIH.Rows(0)("IH_DIVIDEND_NET")) + CDec(dtIH.Rows(0)("IH_INTEREST_NET")) + CDec(dtIH.Rows(0)("IH_RENTAL_NET"))
+                    dtIH.Rows(0)("IH_NET_EXDIV_TOTAL") = CDec(dtIH.Rows(0)("IH_INTEREST_NET")) + CDec(dtIH.Rows(0)("IH_RENTAL_NET"))
+
+                    If CInt(YA) >= 2008 Then
+                        dtIH.Rows(0)("IH_STAT_DIVIDEND") = CDec(dtIH.Rows(0)("IH_DIVIDEND_NET"))
+                    End If
+                    'NET TOTAL ==============================================================================================
+                    'Calc5P GROSS============================================================================================
+                    'dicInvestmentHolding("txt5PGrossIn") = FormatNumber((CDbl(dicInvestmentHolding("txtDividendNonExempt")) + CDbl(dicInvestmentHolding("txtInterestIn")) + CDbl(dicInvestmentHolding("txtRentalIn")) + CDbl(dicInvestmentHolding("txtRentalIBA"))) * 0.05, 0)
+                    Dim SingleTier As Decimal = ADO.Get_TotalExemptDivSingleTier(RefNo, YA, Errorlog)
+                    dtIH.Rows(0)("IH_5P_GROSS_IN") = FormatNumber((PL_TREGROSS + InterestIn + PL_OTH_IN_RENTAL + IH_RENTIBA_IN) * 0.05, 0)
+                    'If CDbl(dicInvestmentHolding("txtDividendExempt")) + CDbl(dicInvestmentHolding("txtDividendNonExempt")) + CDbl(dicInvestmentHolding("txtInterestIn")) + CDbl(dicInvestmentHolding("txtRentalIn")) + CDbl(dicInvestmentHolding("txtRentalIBA")) + CDbl(dicInvestmentHolding("txtGainRealInvest")) - CDbl(GetTotalExemptDiv_SingleTier()) > 0 Then
+                    If PL_NONTAX_IN_EXM_DIV + PL_TREGROSS + InterestIn + PL_OTH_IN_RENTAL + IH_RENTIBA_IN + IH_RENTIBA_IBA + IH_GAIN_REAL_INVEST + SingleTier Then
+                        '(CDbl(dicInvestmentHolding("txtDividendNonExempt")) + CDbl(dicInvestmentHolding("txtInterestIn")) + CDbl(dicInvestmentHolding("txtRentalIn")) + CDbl(dicInvestmentHolding("txtRentalIBA"))) 
+
+                        Dim TotalSub As Decimal = (PL_NONTAX_IN_EXM_DIV + PL_TREGROSS + InterestIn + IH_RENTIBA_IN + IH_RENTIBA_IBA + IH_GAIN_REAL_INVEST + SingleTier)
+                        IH_PE_TOTAL = IH_PE_TOTAL - ((IH_PE_TOTAL * SingleTier) / TotalSub)
+                        dtIH.Rows(0)("IH_PE_TOTAL") = IH_PE_TOTAL
+                        dtIH.Rows(0)("IH_CALC_EXP") = IH_PE_TOTAL * (PL_NONTAX_IN_EXM_DIV + PL_TREGROSS + InterestIn + IH_RENTIBA_IN + IH_RENTIBA_IBA) / (4 * (PL_NONTAX_IN_EXM_DIV + PL_TREGROSS + InterestIn + IH_RENTIBA_IN + IH_RENTIBA_IBA + IH_GAIN_REAL_INVEST + SingleTier))
+                    End If
+                    If CDec(dtIH.Rows(0)("IH_5P_GROSS_IN")) <= CDec(dtIH.Rows(0)("IH_CALC_EXP")) Then
+                        dtIH.Rows(0)("IH_EXP_ALLOWED") = CDec(dtIH.Rows(0)("IH_5P_GROSS_IN"))
+                    Else
+                        dtIH.Rows(0)("IH_EXP_ALLOWED") = CDec(dtIH.Rows(0)("IH_CALC_EXP"))
+                    End If
+                    'Calc5P GROSS============================================================================================
+                    'AGG INCOME==============================================================================================
+                    'IH_TP_AGGR_IN
+                    If CInt(YA) < 2008 Then
+                        dtIH.Rows(0)("IH_EXP_ALLOWED") = CDec(dtIH.Rows(0)("IH_NET_TOTAL")) + CDec(dtIH.Rows(0)("PL_OTH_IN_ROYALTY")) + CDec(dtIH.Rows(0)("PL_OTH_IN_OTHER")) + CDec(dtIH.Rows(0)("IH_OTHER_EXPENSES")) + CDec(dtIH.Rows(0)("IH_ADDITION"))
+                    Else
+                        dtIH.Rows(0)("IH_EXP_ALLOWED") = CDec(dtIH.Rows(0)("IH_NET_EXDIV_TOTAL")) + CDec(dtIH.Rows(0)("PL_OTH_IN_ROYALTY")) + CDec(dtIH.Rows(0)("PL_OTH_IN_OTHER")) + CDec(dtIH.Rows(0)("IH_OTHER_EXPENSES")) + CDec(dtIH.Rows(0)("IH_ADDITION"))
+                    End If
+                    'AGG INCOME==============================================================================================
+                    'TOTAL EXPENSES==========================================================================================
+                    If CDec(dtIH.Rows(0)("IH_EXP_ALLOWED")) < CDec(dtIH.Rows(0)("IH_NET_EXDIV_TOTAL")) Then
+                        dtIH.Rows(0)("IH_TOTAL_OTH_EXP") = "0"
+                    ElseIf CDec(dtIH.Rows(0)("IH_EXP_ALLOWED")) >= CDec(dtIH.Rows(0)("IH_NET_EXDIV_TOTAL")) Then
+                        dtIH.Rows(0)("IH_TOTAL_OTH_EXP") = CDec(dtIH.Rows(0)("IH_EXP_ALLOWED")) - CDec(dtIH.Rows(0)("IH_NET_EXDIV_TOTAL"))
+                    End If
+                    'TOTAL EXPENSES==========================================================================================
+
+                    If IsDBNull(dtPL.Rows(0)("PL_TOTALY")) Then
+                        If Not String.IsNullOrEmpty(dtPL.Rows(0).Item("PL_TOTALY").ToString) Then
+                            dtIH.Rows(0)("IH_ITP_SETOFF") = dtPL.Rows(0)("PL_TOTALY").ToString
+                        End If
+                    End If
+                    dtIH.Rows(0)("IH_ITP_SETOFF") = dtPL.Rows(0)("PL_TTAXDEDUCTION").ToString
+
+                    ADO.LoadLessApprDonationInvest(RefNo, YA, dtIH.Rows(0))
+                    ADO.Investment_CalculateZakat(dtPL.Rows(0)("PL_KEY"), dtIH.Rows(0), Errorlog)
+                    'TotalIncome==========================================================================================
+                    'FormatNumber(CDbl(dicInvestmentHolding("txtTotalOthExp")) - (CDbl(dicInvestmentHolding("txtApprDonation")) + CDbl(dicInvestmentHolding("txtZakat")) + CDbl(dicInvestmentHolding("txtClaim"))), 0)
+                    dtIH.Rows(0)("IH_TOTAL_INCOME") = CDec(dtIH.Rows(0)("IH_TOTAL_OTH_EXP")) - (CDec(dtIH.Rows(0)("IH_APPR_DONATION")) + CDec(dtIH.Rows(0)("IH_ZAKAT")) + CDec(dtIH.Rows(0)("IH_CLAIM")))
+                    ADO.Investment_chargeable_apportionment(RefNo, YA, dtIH.Rows(0))
+
+                    Return ADO.Update_InvestmentHolding(dtIH, RefNo, YA, Errorlog)
+                End If
+            End If
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return False
+        End Try
+    End Function
+    
     Public Function RefreshTaxcom(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
         Try
             Dim TC_AI_DIVIDEND As Decimal = 0
@@ -2422,11 +2669,11 @@ Module mdlRefreshTaxComputation
                         TC_AI_TOT_BS_IN = IncomeTotal
 
                         TC_AI_ADJ_BS_IN_TAX_IN = mdlRefreshTaxComputation.GetTotalTaxableIncome(RefNo, YA, SourceNo)
-                        TC_AI_ADJ_BS_IN_TAX_IN += GetTaxableIncome_Movement(RefNo, YA, 2, SourceNo, Errorlog)
+                        TC_AI_ADJ_BS_IN_TAX_IN += GetTaxableIncome_Movement(RefNo, YA, 2, Errorlog)
 
                         TC_AI_ADJ_BS_EXP_INT = mdlRefreshTaxComputation.GetAJDTotalExpInterestRestrict(RefNo, SourceNo, "")
                         TC_AI_ADJ_BS_EXP_RV_EXP = mdlRefreshTaxComputation.GetAJDTotalRevenueExpenditure(RefNo, YA, SourceNo)
-                        TC_AI_ADJ_BS_EXP_RV_EXP += GetRevenueExpenditure_Movement(RefNo, YA, 3, SourceNo, Errorlog)
+                        TC_AI_ADJ_BS_EXP_RV_EXP += GetRevenueExpenditure_Movement(RefNo, YA, 3, Errorlog)
 
                         TC_AI_ADJ_BS_EXP_CLAIM = mdlRefreshTaxComputation.GetAJDTotalOtherExpenditure(RefNo, YA, SourceNo)
 
@@ -2477,19 +2724,19 @@ Module mdlRefreshTaxComputation
             Return True
         End Try
     End Function
-    Public Function GetTaxableIncome_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, ByVal SourceNo As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
+    Public Function GetTaxableIncome_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
         Try
             Dim dtMovement As DataTable = Nothing
             Dim dtData As DataTable = Nothing
             Dim tmpMovement As Decimal = 0
             Dim Amount As Decimal = 0
             'Normal movement
-
+            Dim ListofCmd As New List(Of SqlCommand)
             dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
 
+            Dim Key As Integer = ADO.Load_GetTaxableIncome_Key(Nothing)
+            ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
             If dtMovement IsNot Nothing Then
-                Dim ListofCmd As New List(Of SqlCommand)
-                ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
                 For i As Integer = 0 To dtMovement.Rows.Count - 1
                     If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
                         If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
@@ -2507,17 +2754,19 @@ Module mdlRefreshTaxComputation
                                     ' ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
 
                                 Next
-
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
+                                End If
+                                Key += 1
+                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
                             Else
                                 If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
                                     tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
+                                Key += 1
+                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
+                            End If
 
-                                ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-                            End If
-                            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                                Return False
-                            End If
                         End If
                     End If
                 Next
@@ -2530,9 +2779,9 @@ Module mdlRefreshTaxComputation
             dtMovement = ADO.Load_MovementComplex(RefNo, YA, ErrorLog)
 
             If dtMovement IsNot Nothing Then
-                Dim ListofCmd As New List(Of SqlCommand)
-                ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
                 For i As Integer = 0 To dtMovement.Rows.Count - 1
+
+                    Dim tmpAmount As Decimal = 0
                     If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
                         If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
                             Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
@@ -2542,7 +2791,7 @@ Module mdlRefreshTaxComputation
 
                             If dtData IsNot Nothing Then
 
-                                Dim tmpAmount As Decimal = 0
+
                                 For Each row As DataRow In dtData.Rows
 
                                     If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
@@ -2555,17 +2804,25 @@ Module mdlRefreshTaxComputation
                                 If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
                                     tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
+                                Key += 1
+                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
 
-                                ADO.Save_TaxableIncome(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-
-                                If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                                    Return False
+                            Else
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
-
+                                Key += 1
+                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
                             End If
                         End If
                     End If
+
                 Next
+            End If
+
+
+            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                Return False
             End If
 
             Return Amount
@@ -2573,7 +2830,7 @@ Module mdlRefreshTaxComputation
             Return 0
         End Try
     End Function
-    Public Function GetRevenueExpenditure_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, ByVal SourceNo As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
+    Public Function GetRevenueExpenditure_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
         Try
             Dim dtMovement As DataTable = Nothing
             Dim dtData As DataTable = Nothing
@@ -2582,45 +2839,44 @@ Module mdlRefreshTaxComputation
             'Normal movement
 
             dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
-
+            Dim ListofCmd As New List(Of SqlCommand)
+            ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
             If dtMovement IsNot Nothing Then
-                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
-                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
-                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                For i As Integer = 0 To dtMovement.Rows.Count - 1
+                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+                        If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
+                            Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
 
-                        Dim ListofCmd As New List(Of SqlCommand)
-                        dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
-                        Dim tmpAmount As Integer = 0
-                        If dtData IsNot Nothing Then
-                            ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
 
-                            For Each row As DataRow In dtData.Rows
+                            dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
+                            Dim tmpAmount As Integer = 0
+                            If dtData IsNot Nothing Then
 
-                                If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
-                                    tmpAmount = row("RE_AMOUNT")
+
+                                For Each row As DataRow In dtData.Rows
+
+                                    If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
+                                        tmpAmount = row("RE_AMOUNT")
+                                    End If
+                                    '  ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                                Next
+
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
-                                '  ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
 
-                            Next
-
-                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+                            Else
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
+                                End If
+                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
                             End If
-                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-                          
-                        Else
-                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
-                            End If
-                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-                        End If
-
-
-                        If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                            Return False
                         End If
                     End If
-                End If
+                Next
+
             End If
             Application.DoEvents()
 
@@ -2629,46 +2885,47 @@ Module mdlRefreshTaxComputation
             dtMovement = ADO.Load_MovementComplex(RefNo, YA, ErrorLog)
 
             If dtMovement IsNot Nothing Then
-                If IsDBNull(dtMovement.Rows(0)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(0)("MM_TYPE_PASS") <> 0 Then
-                    If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(0)("MM_TYPE_PASS")) Then
-                        Amount += CDec(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                For i As Integer = 0 To dtMovement.Rows.Count - 1
 
-                        Dim ListofCmd As New List(Of SqlCommand)
-                        dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
-                        Dim tmpAmount As Integer = 0
-                        ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
-                        If dtData IsNot Nothing Then
+                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+                        If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
+                            Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
 
-                            For Each row As DataRow In dtData.Rows
 
-                                If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
-                                    tmpAmount = row("RE_AMOUNT")
+                            dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
+                            Dim tmpAmount As Integer = 0
+                            If dtData IsNot Nothing Then
+
+                                For Each row As DataRow In dtData.Rows
+
+                                    If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
+                                        tmpAmount = row("RE_AMOUNT")
+                                    End If
+                                    ' ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
+
+                                Next
+
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
                                 End If
-                                ' ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
 
-                            Next
+                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
 
-                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
+
+                            Else
+                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
+                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
+                                End If
+
+                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
                             End If
-
-                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-
-                            
-                        Else
-                            If IsDBNull(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                tmpAmount = dtMovement.Rows(0)("MM_ADD_DEDUCT_AMOUNT")
-                            End If
-
-                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(0)("MM_TITLE"), tmpAmount, SourceNo, ListofCmd)
-                        End If
-                        If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
-                            Return False
                         End If
                     End If
-                End If
+                Next
             End If
-
+            If ADO.Save_ListExecute(ListofCmd, ErrorLog) = False Then
+                Return False
+            End If
             Return Amount
         Catch ex As Exception
             Return 0

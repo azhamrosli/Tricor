@@ -85,6 +85,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="CP_TagID" msprop:Generator_ColumnVarNameInTable="columnCP_TagID" msprop:Generator_ColumnPropNameInRow="CP_TagID" msprop:Generator_ColumnPropNameInTable="CP_TagIDColumn" msprop:Generator_UserColumnName="CP_TagID" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -311,10 +312,176 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="CP_TOTAL_INSTALLMENT" msprop:Generator_ColumnVarNameInTable="columnCP_TOTAL_INSTALLMENT" msprop:Generator_ColumnPropNameInRow="CP_TOTAL_INSTALLMENT" msprop:Generator_ColumnPropNameInTable="CP_TOTAL_INSTALLMENTColumn" msprop:Generator_UserColumnName="CP_TOTAL_INSTALLMENT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CP_TagID" msprop:Generator_ColumnVarNameInTable="columnCP_TagID" msprop:Generator_ColumnPropNameInRow="CP_TagID" msprop:Generator_ColumnPropNameInTable="CP_TagIDColumn" msprop:Generator_UserColumnName="CP_TagID" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BORANG_CP204_NOTE" msprop:Generator_TableClassName="BORANG_CP204_NOTEDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_NOTE" msprop:Generator_RowChangedName="BORANG_CP204_NOTERowChanged" msprop:Generator_TablePropName="BORANG_CP204_NOTE" msprop:Generator_RowDeletingName="BORANG_CP204_NOTERowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_NOTERowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_NOTERowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_NOTERowDeleted" msprop:Generator_RowClassName="BORANG_CP204_NOTERow" msprop:Generator_UserTableName="BORANG_CP204_NOTE" msprop:Generator_RowEvArgName="BORANG_CP204_NOTERowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:decimal" />
+              <xs:element name="Title" msprop:Generator_ColumnVarNameInTable="columnTitle" msprop:Generator_ColumnPropNameInRow="Title" msprop:Generator_ColumnPropNameInTable="TitleColumn" msprop:Generator_UserColumnName="Title" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="RefNo" msprop:Generator_ColumnVarNameInTable="columnRefNo" msprop:Generator_ColumnPropNameInRow="RefNo" msprop:Generator_ColumnPropNameInTable="RefNoColumn" msprop:Generator_UserColumnName="RefNo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YA" msprop:Generator_ColumnVarNameInTable="columnYA" msprop:Generator_ColumnPropNameInRow="YA" msprop:Generator_ColumnPropNameInTable="YAColumn" msprop:Generator_UserColumnName="YA" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Parent_KEY" msprop:Generator_ColumnVarNameInTable="columnParent_KEY" msprop:Generator_ColumnPropNameInRow="Parent_KEY" msprop:Generator_ColumnPropNameInTable="Parent_KEYColumn" msprop:Generator_UserColumnName="Parent_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="DataID" msprop:Generator_ColumnVarNameInTable="columnDataID" msprop:Generator_ColumnPropNameInRow="DataID" msprop:Generator_ColumnPropNameInTable="DataIDColumn" msprop:Generator_UserColumnName="DataID" type="xs:int" minOccurs="0" />
+              <xs:element name="TypeNote" msprop:Generator_ColumnVarNameInTable="columnTypeNote" msprop:Generator_ColumnPropNameInRow="TypeNote" msprop:Generator_ColumnPropNameInTable="TypeNoteColumn" msprop:Generator_UserColumnName="TypeNote" type="xs:int" minOccurs="0" />
+              <xs:element name="TagID" msprop:Generator_ColumnVarNameInTable="columnTagID" msprop:Generator_ColumnPropNameInRow="TagID" msprop:Generator_ColumnPropNameInTable="TagIDColumn" msprop:Generator_UserColumnName="TagID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Note" msprop:Generator_ColumnVarNameInTable="columnNote" msprop:Generator_ColumnPropNameInRow="Note" msprop:Generator_ColumnPropNameInTable="NoteColumn" msprop:Generator_UserColumnName="Note" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BORANG_CP204_NOTE_COLUMN" msprop:Generator_TableClassName="BORANG_CP204_NOTE_COLUMNDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_NOTE_COLUMN" msprop:Generator_RowChangedName="BORANG_CP204_NOTE_COLUMNRowChanged" msprop:Generator_TablePropName="BORANG_CP204_NOTE_COLUMN" msprop:Generator_RowDeletingName="BORANG_CP204_NOTE_COLUMNRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_NOTE_COLUMNRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_NOTE_COLUMNRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_NOTE_COLUMNRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_NOTE_COLUMNRow" msprop:Generator_UserTableName="BORANG_CP204_NOTE_COLUMN" msprop:Generator_RowEvArgName="BORANG_CP204_NOTE_COLUMNRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:decimal" />
+              <xs:element name="ParentID" msprop:Generator_ColumnVarNameInTable="columnParentID" msprop:Generator_ColumnPropNameInRow="ParentID" msprop:Generator_ColumnPropNameInTable="ParentIDColumn" msprop:Generator_UserColumnName="ParentID" type="xs:decimal" />
+              <xs:element name="Col1_Name" msprop:Generator_ColumnVarNameInTable="columnCol1_Name" msprop:Generator_ColumnPropNameInRow="Col1_Name" msprop:Generator_ColumnPropNameInTable="Col1_NameColumn" msprop:Generator_UserColumnName="Col1_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col1_Val" msprop:Generator_ColumnVarNameInTable="columnCol1_Val" msprop:Generator_ColumnPropNameInRow="Col1_Val" msprop:Generator_ColumnPropNameInTable="Col1_ValColumn" msprop:Generator_UserColumnName="Col1_Val" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="250" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col2_Name" msprop:Generator_ColumnVarNameInTable="columnCol2_Name" msprop:Generator_ColumnPropNameInRow="Col2_Name" msprop:Generator_ColumnPropNameInTable="Col2_NameColumn" msprop:Generator_UserColumnName="Col2_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col2_Val" msprop:Generator_ColumnVarNameInTable="columnCol2_Val" msprop:Generator_ColumnPropNameInRow="Col2_Val" msprop:Generator_ColumnPropNameInTable="Col2_ValColumn" msprop:Generator_UserColumnName="Col2_Val" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col3_Name" msprop:Generator_ColumnVarNameInTable="columnCol3_Name" msprop:Generator_ColumnPropNameInRow="Col3_Name" msprop:Generator_ColumnPropNameInTable="Col3_NameColumn" msprop:Generator_UserColumnName="Col3_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col3_Val" msprop:Generator_ColumnVarNameInTable="columnCol3_Val" msprop:Generator_ColumnPropNameInRow="Col3_Val" msprop:Generator_ColumnPropNameInTable="Col3_ValColumn" msprop:Generator_UserColumnName="Col3_Val" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col4_Name" msprop:Generator_ColumnVarNameInTable="columnCol4_Name" msprop:Generator_ColumnPropNameInRow="Col4_Name" msprop:Generator_ColumnPropNameInTable="Col4_NameColumn" msprop:Generator_UserColumnName="Col4_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col4_Val" msprop:Generator_ColumnVarNameInTable="columnCol4_Val" msprop:Generator_ColumnPropNameInRow="Col4_Val" msprop:Generator_ColumnPropNameInTable="Col4_ValColumn" msprop:Generator_UserColumnName="Col4_Val" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col5_Name" msprop:Generator_ColumnVarNameInTable="columnCol5_Name" msprop:Generator_ColumnPropNameInRow="Col5_Name" msprop:Generator_ColumnPropNameInTable="Col5_NameColumn" msprop:Generator_UserColumnName="Col5_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col5_Val" msprop:Generator_ColumnVarNameInTable="columnCol5_Val" msprop:Generator_ColumnPropNameInRow="Col5_Val" msprop:Generator_ColumnPropNameInTable="Col5_ValColumn" msprop:Generator_UserColumnName="Col5_Val" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col6_Name" msprop:Generator_ColumnVarNameInTable="columnCol6_Name" msprop:Generator_ColumnPropNameInRow="Col6_Name" msprop:Generator_ColumnPropNameInTable="Col6_NameColumn" msprop:Generator_UserColumnName="Col6_Name" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Col6_Val" msprop:Generator_ColumnVarNameInTable="columnCol6_Val" msprop:Generator_ColumnPropNameInRow="Col6_Val" msprop:Generator_ColumnPropNameInTable="Col6_ValColumn" msprop:Generator_UserColumnName="Col6_Val" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BORANG_CP204_NOTE_ATTACHMENT" msprop:Generator_TableClassName="BORANG_CP204_NOTE_ATTACHMENTDataTable" msprop:Generator_TableVarName="tableBORANG_CP204_NOTE_ATTACHMENT" msprop:Generator_RowChangedName="BORANG_CP204_NOTE_ATTACHMENTRowChanged" msprop:Generator_TablePropName="BORANG_CP204_NOTE_ATTACHMENT" msprop:Generator_RowDeletingName="BORANG_CP204_NOTE_ATTACHMENTRowDeleting" msprop:Generator_RowChangingName="BORANG_CP204_NOTE_ATTACHMENTRowChanging" msprop:Generator_RowEvHandlerName="BORANG_CP204_NOTE_ATTACHMENTRowChangeEventHandler" msprop:Generator_RowDeletedName="BORANG_CP204_NOTE_ATTACHMENTRowDeleted" msprop:Generator_RowClassName="BORANG_CP204_NOTE_ATTACHMENTRow" msprop:Generator_UserTableName="BORANG_CP204_NOTE_ATTACHMENT" msprop:Generator_RowEvArgName="BORANG_CP204_NOTE_ATTACHMENTRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:decimal" />
+              <xs:element name="ParentID" msprop:Generator_ColumnVarNameInTable="columnParentID" msprop:Generator_ColumnPropNameInRow="ParentID" msprop:Generator_ColumnPropNameInTable="ParentIDColumn" msprop:Generator_UserColumnName="ParentID" type="xs:decimal" />
+              <xs:element name="Attachment" msprop:Generator_ColumnVarNameInTable="columnAttachment" msprop:Generator_ColumnPropNameInRow="Attachment" msprop:Generator_ColumnPropNameInTable="AttachmentColumn" msprop:Generator_UserColumnName="Attachment" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="Extension" msprop:Generator_ColumnVarNameInTable="columnExtension" msprop:Generator_ColumnPropNameInRow="Extension" msprop:Generator_ColumnPropNameInTable="ExtensionColumn" msprop:Generator_UserColumnName="Extension" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:BORANG_CP204_NOTE" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+    <xs:keyref name="FK_BORANG_CP204_NOTE_BORANG_CP204_NOTE_ATTACHMENT" refer="Constraint1" msprop:rel_Generator_UserChildTable="BORANG_CP204_NOTE_ATTACHMENT" msprop:rel_Generator_ChildPropName="GetBORANG_CP204_NOTE_ATTACHMENTRows" msprop:rel_Generator_UserRelationName="FK_BORANG_CP204_NOTE_BORANG_CP204_NOTE_ATTACHMENT" msprop:rel_Generator_RelationVarName="relationFK_BORANG_CP204_NOTE_BORANG_CP204_NOTE_ATTACHMENT" msprop:rel_Generator_UserParentTable="BORANG_CP204_NOTE" msprop:rel_Generator_ParentPropName="BORANG_CP204_NOTERow">
+      <xs:selector xpath=".//mstns:BORANG_CP204_NOTE_ATTACHMENT" />
+      <xs:field xpath="mstns:ParentID" />
+    </xs:keyref>
+    <xs:keyref name="FK_BORANG_CP204_NOTE_BORANG_CP204_NOTE_COLUMN" refer="Constraint1" msprop:rel_Generator_UserChildTable="BORANG_CP204_NOTE_COLUMN" msprop:rel_Generator_ChildPropName="GetBORANG_CP204_NOTE_COLUMNRows" msprop:rel_Generator_UserRelationName="FK_BORANG_CP204_NOTE_BORANG_CP204_NOTE_COLUMN" msprop:rel_Generator_RelationVarName="relationFK_BORANG_CP204_NOTE_BORANG_CP204_NOTE_COLUMN" msprop:rel_Generator_UserParentTable="BORANG_CP204_NOTE" msprop:rel_Generator_ParentPropName="BORANG_CP204_NOTERow">
+      <xs:selector xpath=".//mstns:BORANG_CP204_NOTE_COLUMN" />
+      <xs:field xpath="mstns:ParentID" />
+    </xs:keyref>
   </xs:element>
 </xs:schema>

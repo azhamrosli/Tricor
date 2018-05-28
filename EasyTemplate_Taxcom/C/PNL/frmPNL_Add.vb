@@ -11,6 +11,25 @@ Public Class frmPNL_Add
     Dim isReplacePNL As Boolean = False
     Dim ListofCmd As List(Of SqlCommand)
 
+    Dim dtPNLInfo As DataTable = Nothing
+    Property PNLKEY As Decimal
+        Set(value As Decimal)
+            ID = value
+        End Set
+        Get
+            Return ID
+        End Get
+    End Property
+
+    Property PNL_INFO As DataTable
+        Set(value As DataTable)
+            dtPNLInfo = value
+        End Set
+        Get
+            Return dtPNLInfo
+        End Get
+    End Property
+
     Sub New()
 
         ' This call is required by the designer.
@@ -55,6 +74,13 @@ Public Class frmPNL_Add
             End If
             Application.DoEvents()
 
+            dtPNLInfo = ADO.Load_PNLINFO()
+
+            If dtPNLInfo Is Nothing Then
+                MsgBox("Failed to load PNL Info.", MsgBoxStyle.Critical)
+                Me.Close()
+            End If
+
             LoadData()
         Catch ex As Exception
 
@@ -63,22 +89,19 @@ Public Class frmPNL_Add
     End Sub
     Private Sub InitDockingSystem(ByVal CurrentProgress As Integer)
         Try
+            Dim lbl As DevExpress.XtraEditors.LabelControl
+            Dim KeyNameEnum As TaxComPNLEnuItem
+            For Each rowx As DataRow In dtPNLInfo.Rows
+                KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowx("KeyName")), "", rowx("KeyName")))
+                lbl = GetLabel(KeyNameEnum)
+                DetailsClick(lbl, rowx, KeyNameEnum)
 
-            Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
-
-            If listoflabelname IsNot Nothing Then
-                Dim lbl As DevExpress.XtraEditors.LabelControl
-                For Each tmp As clsPNL_LabelName In listoflabelname
-                    lbl = GetLabel(tmp.Type)
-                    DetailsClick(lbl, tmp.Type)
-                    CurrentProgress += 0.8
-                    Progress(CurrentProgress, "Initialize " & tmp.LabelTricor & " data...")
-                    Application.DoEvents()
-
-                Next
+                CurrentProgress += 0.8
+                Progress(CurrentProgress, "Initialize " & IIf(IsDBNull(rowx("LabelNameTricor")), "", rowx("LabelNameTricor")) & " data...")
                 Application.DoEvents()
-                DocumentManager1.View.Controller.CloseAll()
-            End If
+            Next
+            DocumentManager1.View.Controller.CloseAll()
+
         Catch ex As Exception
 
         End Try
@@ -214,55 +237,50 @@ Public Class frmPNL_Add
             GC.Collect()
             Application.DoEvents()
 
-            Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
+            'Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
 
-            If listoflabelname Is Nothing Then
-                MsgBox("Failed to retrive profit and loss label name." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
-                Me.Close()
-            End If
+            'If listoflabelname Is Nothing Then
+            '    MsgBox("Failed to retrive profit and loss label name." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
+            '    Me.Close()
+            'End If
 
             Dim controls() As Control
             Dim controls_text() As Control
             Dim tmpControl As DevExpress.XtraEditors.LabelControl
             Dim tmpControl_txt As DevExpress.XtraEditors.TextEdit
-            For i As Integer = 0 To listoflabelname.Count - 1
+            Dim lblID As String = Nothing
+            Dim lbltxt As String = Nothing
+            Dim lblName As String = Nothing
+            Dim lblType As String = Nothing
+            For i As Integer = 0 To dtPNLInfo.Rows.Count - 1
 
+                lblID = "lbl_" & IIf(IsDBNull(dtPNLInfo.Rows(i)("LabelID")), "", dtPNLInfo.Rows(i)("LabelID"))
+                lbltxt = "txt_" & IIf(IsDBNull(dtPNLInfo.Rows(i)("LabelID")), "", dtPNLInfo.Rows(i)("LabelID"))
+                lblType = IIf(IsDBNull(dtPNLInfo.Rows(i)("KeyName")), "", dtPNLInfo.Rows(i)("KeyName"))
+                If mdlProcess.isVersionLicenseType = VersionLicenseType.Normal Then
+                    lblName = IIf(IsDBNull(dtPNLInfo.Rows(i)("LabelName")), "", dtPNLInfo.Rows(i)("LabelName"))
+                Else
+                    lblName = IIf(IsDBNull(dtPNLInfo.Rows(i)("LabelNameTricor")), "", dtPNLInfo.Rows(i)("LabelNameTricor"))
+                End If
 
-                controls = Me.Controls.Find(listoflabelname(i).LabelName, True)
+                controls = Me.Controls.Find(lblID, True)
                 If controls.Length > 0 AndAlso TypeOf controls(0) Is DevExpress.XtraEditors.LabelControl Then
                     tmpControl = CType(controls(0), DevExpress.XtraEditors.LabelControl)
 
-                    If mdlProcess.isVersionLicenseType = VersionLicenseType.Normal Then
-                        tmpControl.Text = listoflabelname(i).LabelText
-                        If listoflabelname(i).LabelText = "" Then
-                            tmpControl.Visible = False
+                    tmpControl.Text = lblName
+                    If lblName = "" Then
+                        tmpControl.Visible = False
 
-                            controls_text = Me.Controls.Find(listoflabelname(i).LabelName.Replace("lbl", "txt"), True)
+                        controls_text = Me.Controls.Find(lbltxt, True)
 
-                            If controls_text.Length > 0 AndAlso TypeOf controls_text(0) Is DevExpress.XtraEditors.TextEdit Then
-                                tmpControl_txt = CType(controls_text(0), DevExpress.XtraEditors.TextEdit)
-                                tmpControl_txt.Visible = False
-                            End If
-                        Else
-                            tmpControl.Visible = True
+                        If controls_text.Length > 0 AndAlso TypeOf controls_text(0) Is DevExpress.XtraEditors.TextEdit Then
+                            tmpControl_txt = CType(controls_text(0), DevExpress.XtraEditors.TextEdit)
+                            tmpControl_txt.Visible = False
                         End If
                     Else
-                        tmpControl.Text = listoflabelname(i).LabelTricor
-                        If listoflabelname(i).LabelTricor = "" Then
-                            tmpControl.Visible = False
-
-                            controls_text = Me.Controls.Find(listoflabelname(i).LabelName.Replace("lbl", "txt"), True)
-
-                            If controls_text.Length > 0 AndAlso TypeOf controls_text(0) Is DevExpress.XtraEditors.TextEdit Then
-                                tmpControl_txt = CType(controls_text(0), DevExpress.XtraEditors.TextEdit)
-                                tmpControl_txt.Visible = False
-                            End If
-                        Else
-                            tmpControl.Visible = True
-                        End If
+                        tmpControl.Visible = True
                     End If
-
-                    tmpControl.Tag = listoflabelname(i).Type.ToString
+                    tmpControl.Tag = lblType
 
 
                 End If
@@ -281,6 +299,8 @@ Public Class frmPNL_Add
                 cboRefNo.Edit.ReadOnly = False
                 cboYA.Edit.ReadOnly = False
                 cboMainSource.Edit.ReadOnly = False
+                cboS60F.Edit.ReadOnly = False
+                cboS60FA.Edit.ReadOnly = False
 
                 InitDockingSystem(0)
                 Application.DoEvents()
@@ -288,17 +308,22 @@ Public Class frmPNL_Add
                 Dim dtPNL As DataTable = ADO.Load_PNL_ByKey(ID)
 
                 If dtPNL Is Nothing Then
-                    cboRefNo.Enabled = True
-                    cboYA.Enabled = True
-                    cboMainSource.Enabled = True
+                    cboRefNo.Edit.ReadOnly = False
+                    cboYA.Edit.ReadOnly = False
+                    cboMainSource.Edit.ReadOnly = False
+                    cboS60F.Edit.ReadOnly = False
+                    cboS60FA.Edit.ReadOnly = False
+
                     isEdit = False
                     cboRefNo.EditValue = mdlProcess.ArgParam2
                     cboYA.EditValue = mdlProcess.ArgParam3
                     Exit Sub
                 Else
-                    cboRefNo.Enabled = False
-                    cboYA.Enabled = False
-                    cboMainSource.Enabled = False
+                    cboRefNo.Edit.ReadOnly = True
+                    cboYA.Edit.ReadOnly = True
+                    cboMainSource.Edit.ReadOnly = True
+                    cboS60F.Edit.ReadOnly = True
+                    cboS60FA.Edit.ReadOnly = True
                 End If
 
                 Dim CurrentProgress As Decimal = 5
@@ -327,97 +352,26 @@ Public Class frmPNL_Add
 
                 txtLastModified.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("ModifiedBy")), "", dtPNL.Rows(0)("ModifiedBy")) & " | " & IIf(IsDBNull(dtPNL.Rows(0)("ModifiedDateTime")), "", dtPNL.Rows(0)("ModifiedDateTime"))
                 cboPNLStatus.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PNL_STATUS")), "", dtPNL.Rows(0)("PNL_STATUS"))
-
-                '==================================================================================================
-
-                'txt_p1Sales.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_SALES")), 0, dtPNL.Rows(0)("PL_SALES"))
-                'txt_p1OpenStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OP_STK")), 0, dtPNL.Rows(0)("PL_OP_STK"))
-                'txt_p1Purchase.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES")), 0, dtPNL.Rows(0)("PL_PURCHASES"))
-                'txt_p1COP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST")), 0, dtPNL.Rows(0)("PL_PRO_COST")) '///
-                'txt_p1Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_DPC")), 0, dtPNL.Rows(0)("PL_PRO_COST_DPC"))
-                'txt_p1AllowanceExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_OAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_OAE"))
-                'txt_p1NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PRO_COST_ONAE")), 0, dtPNL.Rows(0)("PL_PRO_COST_ONAE"))
-                'txt_p1PCP.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")), 0, dtPNL.Rows(0)("PL_PURCHASES_PRO_COST")) '///
-                'txt_p1CloseStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CLS_STK")), 0, dtPNL.Rows(0)("PL_CLS_STK"))
-                'txt_p1COS.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_COGS")), 0, dtPNL.Rows(0)("PL_COGS"))
-                'txt_p1GrossProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_GROSS_PROFIT")), 0, dtPNL.Rows(0)("PL_GROSS_PROFIT"))
-                'txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN")), 0, dtPNL.Rows(0)("PL_OTH_BSIN"))
-                'txt_p2UnreaGainForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_UNREALGT"))
-                'txt_p2ForeignCurrExGain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_REALGT")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_REALGT"))
-                'txt_p2NonBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN")), 0, dtPNL.Rows(0)("PL_OTH_IN"))
-                'txt_p2DivIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND")), 0, dtPNL.Rows(0)("PL_OTH_IN_DIVIDEND"))
-                'txt_p2InterestIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_INTEREST")), 0, dtPNL.Rows(0)("PL_OTH_IN_INTEREST"))
-                'txt_p2RentalIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_RENTAL")), 0, dtPNL.Rows(0)("PL_OTH_IN_RENTAL"))
-                'txt_p2RoyaltyIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_ROYALTY")), 0, dtPNL.Rows(0)("PL_OTH_IN_ROYALTY"))
-                'txt_p2OtherIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_IN_OTHER")), 0, dtPNL.Rows(0)("PL_OTH_IN_OTHER"))
-                'txt_p2NonTaxProfit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN")), 0, dtPNL.Rows(0)("PL_NONTAX_IN"))
-                'txt_p2ProDispPlantEq.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FA_DISP"))
-                'txt_p2ProDisInvestment.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INV_DISP"))
-                'txt_p2ExemptDividend.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_EXM_DIV"))
-                'txt_p2ForeIncomeRemmit.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_FIR")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_FIR"))
-                'txt_p2ReaForeExGainNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_REALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_REALG"))
-                'txt_p2UnreaGainForeExNon.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_UNREALG"))
-                'txt_p2Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP")), 0, dtPNL.Rows(0)("PL_NONTAX_IN_INSU_COMP"))
-                'txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INT")), 0, dtPNL.Rows(0)("PL_EXP_INT")) '///
-                'txt_p3ProTechManLeganFees.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_LAWYER_COST")), 0, dtPNL.Rows(0)("PL_LAWYER_COST"))
-                'txt_p3ContractPay.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_CONTRACT_EXP")), 0, dtPNL.Rows(0)("PL_CONTRACT_EXP"))
-                'txt_p3Salary.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_SALARY")), 0, dtPNL.Rows(0)("PL_EXP_SALARY"))
-                'txt_p3Royalty.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ROYALTY")), 0, dtPNL.Rows(0)("PL_ROYALTY"))
-                'txt_p3Rental.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_RENT")), 0, dtPNL.Rows(0)("PL_EXP_RENT"))
-                'txt_p3RepairMain.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_MAINTENANCE")), 0, dtPNL.Rows(0)("PL_EXP_MAINTENANCE"))
-                'txt_p3ResearchDev.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_RND")), 0, dtPNL.Rows(0)("PL_RND"))
-                'txt_p3PromotionAds.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_ADVERT")), 0, dtPNL.Rows(0)("PL_ADVERT"))
-                'txt_p3Travelling.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TRAVEL")), 0, dtPNL.Rows(0)("PL_TRAVEL"))
-                'txt_p4TotalOtherExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP"))
-                'txt_p3Depreciation.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DPC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DPC"))
-                'txt_p3DonationApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_APP"))
-                'txt_p3DonationNonApp.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_DNT_NAPP"))
-                'txt_p4LossDispFA.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_DISP"))
-                'txt_p4EntNonStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_CLNT"))
-                'txt_p4EntStaff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ENTM_STFF"))
-                'txt_p4Compound.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PENALTY"))
-                'txt_p4ProvisionAcc.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_PROV_ACC"))
-                'txt_p4LeavePass.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_LEAVE"))
-                'txt_p4FAWrittenOff.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_FA_WO"))
-                'txt_p4UnreaLossForeEx.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_UNREALOSS"))
-                'txt_p4ReaLossForeExTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_REALOSS"))
-                'txt_p4InitSub.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_INI_SUB"))
-                'txt_p4CAExpenditure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_CAP_EXP"))
-                'txt_p4Other.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_OTHERS"))
-                'txt_p4TotalExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
-                'txt_p4NetProfitLoss.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_NET_PROFIT_LOSS")), 0, dtPNL.Rows(0)("PL_NET_PROFIT_LOSS"))
-                ''txt_p4NonAllowableExpenses.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DISALLOWED_EXP")), 0, dtPNL.Rows(0)("PL_DISALLOWED_EXP"))
-                'txt_p3InterestResPurS33.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EXP_INTRESTRICT")), 0, dtPNL.Rows(0)("PL_EXP_INTRESTRICT")) '///
-                'txt_p2OtherBizIncome.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE")), 0, dtPNL.Rows(0)("PL_OTH_BSIN_NONSOURCE"))
-                'txt_p3Zakat.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_ZAKAT"))
-                'txt_p3TechPayNonResis.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_TECH_FEE")), 0, dtPNL.Rows(0)("PL_TECH_FEE"))
-                'txt_p3COEStock.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_EMPL_STOCK")), 0, dtPNL.Rows(0)("PL_EMPL_STOCK"))
-                'txt_p4OtherBalacingFigure.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE")), 0, dtPNL.Rows(0)("PL_OTHER_EXP_BALANCE"))
-                'txt_p4ReaLossForeExNonTrade.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT")), 0, dtPNL.Rows(0)("PL_OTHER_EXRLOSSFOREIGNT"))
-                'txt_p3DirectorFee.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_DIRECTORS_FEE")), 0, dtPNL.Rows(0)("PL_DIRECTORS_FEE"))
-                'txt_p3JKDM.EditValue = IIf(IsDBNull(dtPNL.Rows(0)("PL_JKDM")), 0, dtPNL.Rows(0)("PL_JKDM"))
                 txt_p4ExpectedExpenses.EditValue = 0 ' IIf(IsDBNull(dtPNL.Rows(0)("PL_TOT_EXP")), 0, dtPNL.Rows(0)("PL_TOT_EXP"))
                 CurrentProgress += 5
-                Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
-
-                If listofclsPNLLabel IsNot Nothing Then
-                    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
-                        'If mdlProcess.isVersionLicenseType = VersionLicenseType.Tricor Then
-                        '    Progress(CurrentProgress, "Getting " & tmp.LabelTricor & " data...")
-                        'Else
-                        '    Progress(CurrentProgress, "Getting " & tmp.LabelText & " data...")
-                        'End If
-                        If tmp.Type = TaxComPNLEnuItem.EXPOTHERSEXPENSES Then
-                            Dim x As String = Nothing
-
-                        End If
+                ' Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+                Dim KeyNameEnum As TaxComPNLEnuItem
+                If dtPNLInfo IsNot Nothing Then
+                    For Each rowInfo As DataRow In dtPNLInfo.Rows
+                        KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
                         CurrentProgress += 1
-                        mdlPNL2.PNL_GetData(ID, tmp.Type, txtRefNo.EditValue, cboYA.EditValue, dsDataSet, ErrorLog)
-                        Progress(CurrentProgress, "Loading " & tmp.LabelTricor & " data...")
+                        mdlPNL2.PNL_GetData(ID, KeyNameEnum, txtRefNo.EditValue, cboYA.EditValue, dsDataSet, ErrorLog)
+
+                        If mdlProcess.isVersionLicenseType = VersionLicenseType.Tricor Then
+                            Progress(CurrentProgress, "Loading " & IIf(IsDBNull(rowInfo("LabelNameTricor")), "", rowInfo("LabelNameTricor")).ToString & " data...")
+                        Else
+                            Progress(CurrentProgress, "Loading " & IIf(IsDBNull(rowInfo("LabelName")), "", rowInfo("LabelName")).ToString & " data...")
+                        End If
+
                         Application.DoEvents()
 
-
                     Next
+
                 End If
 
                 dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Clear()
@@ -434,18 +388,46 @@ Public Class frmPNL_Add
                 InitDockingSystem(CurrentProgress)
                 Application.DoEvents()
 
-                If listofclsPNLLabel IsNot Nothing Then
+                If dtPNLInfo IsNot Nothing Then
                     Dim txtamount As DevExpress.XtraEditors.TextEdit
                     Dim isIncludeInReport As Boolean = False
-                    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
-                        GetTxtAmount(tmp.Type, txtamount)
-                        mdlPNL2.PNL_ReCalcAll_Amount(tmp.Type, dsDataSet, txtamount, ErrorLog)
-                        'CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+
+                    For Each rowInfo As DataRow In dtPNLInfo.Rows
+                        KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
+                        GetTxtAmount(KeyNameEnum, txtamount)
+                        mdlPNL2.PNL_ReCalcAll_Amount(KeyNameEnum, dsDataSet, txtamount, ErrorLog)
                     Next
                 End If
 
 
+                Dim dtPNLINFOisDeduct As DataTable = ADO.Load_PNLINFO(True, ErrorLog)
 
+                If dtPNLINFOisDeduct IsNot Nothing Then
+
+                    For Each rowx As DataRow In dtPNLINFOisDeduct.Rows
+                        If rowx("KeyName") <> "INTERESTRESTRICT" Then
+                            Select Case CInt(IIf(IsDBNull(rowx("Type")), 1, rowx("Type")))
+                                Case 2
+                                    CalcPercentageAmount_Expenses(dsDataSet, IIf(IsDBNull(rowx("TableName")), "", rowx("TableName")), IIf(IsDBNull(rowx("TableName_Details")), "", rowx("TableName_Details")), _
+                                                 IIf(IsDBNull(rowx("ColumnTable")), "", rowx("ColumnTable")), IIf(IsDBNull(rowx("ColumnTable_Details")), "", rowx("ColumnTable_Details")), _
+                                                 IIf(IsDBNull(rowx("ColumnAddBack")), "", rowx("ColumnAddBack")), IIf(IsDBNull(rowx("ColumnDeduct")), "", rowx("ColumnDeduct")), _
+                                                 IIf(IsDBNull(rowx("ColumnAddBack_Details")), "", rowx("ColumnAddBack_Details")), IIf(IsDBNull(rowx("ColumnDeduct_Details")), "", rowx("ColumnDeduct_Details")), _
+                                                 IIf(IsDBNull(rowx("ColumnAmount")), "", rowx("ColumnAmount")), IIf(IsDBNull(rowx("ColumnAmount_Details")), "", rowx("ColumnAmount_Details")), _
+                                                 "PecentageAmount", ErrorLog)
+                                Case 3
+                                    CalcPercentageAmount(dsDataSet, IIf(IsDBNull(rowx("TableName")), "", rowx("TableName")), IIf(IsDBNull(rowx("TableName_Details")), "", rowx("TableName_Details")), _
+                                                 IIf(IsDBNull(rowx("ColumnTable")), "", rowx("ColumnTable")), IIf(IsDBNull(rowx("ColumnTable_Details")), "", rowx("ColumnTable_Details")), _
+                                                 IIf(IsDBNull(rowx("ColumnAddBack")), "", rowx("ColumnAddBack")), IIf(IsDBNull(rowx("ColumnDeduct")), "", rowx("ColumnDeduct")), _
+                                                 IIf(IsDBNull(rowx("ColumnAddBack_Details")), "", rowx("ColumnAddBack_Details")), IIf(IsDBNull(rowx("ColumnDeduct_Details")), "", rowx("ColumnDeduct_Details")), _
+                                                 IIf(IsDBNull(rowx("ColumnAmount")), "", rowx("ColumnAmount")), IIf(IsDBNull(rowx("ColumnAmount_Details")), "", rowx("ColumnAmount_Details")), _
+                                                 "Pecentage", "PecentageAmount", ErrorLog)
+                            End Select
+
+                        End If
+                       
+                    Next
+
+                End If
 
                 txt_p4NonAllowableExpenses.EditValue = mdlPNL.GetNonAllowanbleExpenses(dsDataSet, cboRefNo.EditValue, cboYA.EditValue, _
                                                                                        cboMainSource, ErrorLog)
@@ -454,7 +436,16 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
-
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
         Finally
             RibbonControl1.Enabled = True
             XtraTabControl1.Enabled = True
@@ -462,7 +453,8 @@ Public Class frmPNL_Add
             pnlProgress.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         End Try
     End Sub
-    Private Sub DetailsClick(ByVal lbl As DevExpress.XtraEditors.LabelControl, Optional ByVal Type As mdlEnum.TaxComPNLEnuItem = TaxComPNLEnuItem.SALES)
+    Private Sub DetailsClick(ByVal lbl As DevExpress.XtraEditors.LabelControl, ByVal RowInfo As DataRow, _
+                             Optional ByVal Type As mdlEnum.TaxComPNLEnuItem = TaxComPNLEnuItem.SALES)
         Try
             Dim doc As New DevExpress.XtraBars.Docking.DockPanel
             Dim txtamount As DevExpress.XtraEditors.TextEdit
@@ -475,7 +467,8 @@ Public Class frmPNL_Add
             End If
 
             Application.DoEvents()
-            mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, cboYA.EditValue, ErrorLog, txt_p1Sales, cboMainSource.EditValue, cboMainSource)
+            mdlPNL.ViewPNL(Type, Me.DockManager1, Me.DocumentManager1, lbl, txtamount, TabbedView1, cboRefNo.EditValue, _
+                           cboYA.EditValue, RowInfo, ErrorLog, txt_p1Sales, cboMainSource.EditValue, cboMainSource)
             Application.DoEvents()
             '.View.AddDocument(doc)
 
@@ -634,9 +627,14 @@ Public Class frmPNL_Add
 
                 Dim lbl As DevExpress.XtraEditors.LabelControl = CType(sender, DevExpress.XtraEditors.LabelControl)
 
-                Dim val As mdlEnum.TaxComPNLEnuItem = DirectCast([Enum].Parse(GetType(mdlEnum.TaxComPNLEnuItem), lbl.Tag.ToString), mdlEnum.TaxComPNLEnuItem)
+                Dim type As mdlEnum.TaxComPNLEnuItem = DirectCast([Enum].Parse(GetType(mdlEnum.TaxComPNLEnuItem), lbl.Tag.ToString), mdlEnum.TaxComPNLEnuItem)
 
-                DetailsClick(lbl, val)
+                Dim dtTmpPNLInfo As DataTable = ADO.Load_PNLINFO(lbl.Tag.ToString)
+
+                If dtTmpPNLInfo IsNot Nothing Then
+                    DetailsClick(lbl, dtTmpPNLInfo.Rows(0), type)
+                End If
+
             End If
         Catch ex As Exception
 
@@ -770,7 +768,7 @@ Public Class frmPNL_Add
                 dtrow("PL_TRAVEL") = IIf(IsDBNull(txt_p3Travelling.EditValue), 0, txt_p3Travelling.EditValue)
                 dtrow("PL_OTHER_EXP") = IIf(IsDBNull(txt_p4TotalOtherExpenses.EditValue), 0, txt_p4TotalOtherExpenses.EditValue)
                 dtrow("PL_OTHER_EXP_DPC") = IIf(IsDBNull(txt_p3Depreciation.EditValue), 0, txt_p3Depreciation.EditValue)
-                dtrow("PL_OTHER_EXP_DNT") = GetTotalDonaiton(ErrorLog)
+                dtrow("PL_OTHER_EXP_DNT") = GetTotalDonation(ErrorLog)
                 dtrow("PL_OTHER_EXP_DNT_APP") = IIf(IsDBNull(txt_p3DonationApp.EditValue), 0, txt_p3DonationApp.EditValue)
                 dtrow("PL_OTHER_EXP_DNT_NAPP") = IIf(IsDBNull(txt_p3DonationNonApp.EditValue), 0, txt_p3DonationNonApp.EditValue)
                 dtrow("PL_OTHER_EXP_FA_DISP") = IIf(IsDBNull(txt_p4LossDispFA.EditValue), 0, txt_p4LossDispFA.EditValue)
@@ -880,7 +878,7 @@ Public Class frmPNL_Add
                 dtrow("PL_TRAVEL") = IIf(IsDBNull(txt_p3Travelling.EditValue), 0, txt_p3Travelling.EditValue)
                 dtrow("PL_OTHER_EXP") = IIf(IsDBNull(txt_p4TotalOtherExpenses.EditValue), 0, txt_p4TotalOtherExpenses.EditValue)
                 dtrow("PL_OTHER_EXP_DPC") = IIf(IsDBNull(txt_p3Depreciation.EditValue), 0, txt_p3Depreciation.EditValue)
-                dtrow("PL_OTHER_EXP_DNT") = GetTotalDonaiton(ErrorLog)
+                dtrow("PL_OTHER_EXP_DNT") = GetTotalDonation(ErrorLog)
                 dtrow("PL_OTHER_EXP_DNT_APP") = IIf(IsDBNull(txt_p3DonationApp.EditValue), 0, txt_p3DonationApp.EditValue)
                 dtrow("PL_OTHER_EXP_DNT_NAPP") = IIf(IsDBNull(txt_p3DonationNonApp.EditValue), 0, txt_p3DonationNonApp.EditValue)
                 dtrow("PL_OTHER_EXP_FA_DISP") = IIf(IsDBNull(txt_p4LossDispFA.EditValue), 0, txt_p4LossDispFA.EditValue)
@@ -937,32 +935,46 @@ Public Class frmPNL_Add
 
             ADO.Delete_PNLItem(ListofCmd, tmpID, ErrorLog)
 
-            Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+            ' Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
             CurrentProgress = 6
             Dim isIncludeInReport As Boolean = True
-            If listofclsPNLLabel IsNot Nothing Then
+            If dtPNLInfo IsNot Nothing Then
                 dtrow = Nothing
 
                 dtrow = dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").NewRow
 
                 dtrow("PL_KEY") = tmpID
 
-                For Each tmp As clsPNL_LabelName In listofclsPNLLabel
+                Dim KeyNameEnum As TaxComPNLEnuItem
+                For Each rowInfo As DataRow In dtPNLInfo.Rows
                     CurrentProgress += 1
+                    KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
+
                     If mdlProcess.isVersionLicenseType = VersionLicenseType.Tricor Then
-                        Progress(CurrentProgress, "Getting " & tmp.LabelTricor & " data...")
+                        Progress(CurrentProgress, "Getting " & IIf(IsDBNull(rowInfo("LabelNameTricor")), "", rowInfo("LabelNameTricor")).ToString & " data...")
                     Else
-                        Progress(CurrentProgress, "Getting " & tmp.LabelText & " data...")
+                        Progress(CurrentProgress, "Getting " & IIf(IsDBNull(rowInfo("LabelName")), "", rowInfo("LabelName")).ToString & " data...")
                     End If
 
-                    If tmp.Type = TaxComPNLEnuItem.DIVIDENDINC Then
-                        Dim x As Integer = 0
-                    End If
 
-                    mdlPNL2.PNL_GetSaveData(tmpID, tmp.Type, Nothing, ListofCmd, txtRefNo.EditValue, cboYA.EditValue, isIncludeInReport, ErrorLog)
+                    mdlPNL2.PNL_GetSaveData(tmpID, KeyNameEnum, Nothing, ListofCmd, txtRefNo.EditValue, cboYA.EditValue, isIncludeInReport, ErrorLog)
                     Application.DoEvents()
-                    Me.InsertIncludeInReport(isIncludeInReport, tmp.Type, dtrow)
+
+                    If IsDBNull(rowInfo("ColumnName")) = False AndAlso IsDBNull(rowInfo("Type")) = False Then
+                        If CInt(rowInfo("Type")) = 2 Or CInt(rowInfo("Type")) = 3 Then
+
+                            Select Case KeyNameEnum
+                                Case TaxComPNLEnuItem.PURCHASE, TaxComPNLEnuItem.DEPRECIATION, TaxComPNLEnuItem.OTHERALLOWEXP, TaxComPNLEnuItem.OTHERNONALLOWEXP
+                                Case Else
+                                    dtrow(rowInfo("ColumnName")) = isIncludeInReport
+                            End Select
+
+                        End If
+
+                    End If
+
+                    ' Me.InsertIncludeInReport(isIncludeInReport, KeyNameEnum, dtrow)
 
                 Next
 
@@ -970,6 +982,7 @@ Public Class frmPNL_Add
                 Application.DoEvents()
                 ADO.Save_PNL_ExcludeInReport(dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE"), ListofCmd, ErrorLog)
             End If
+
             CurrentProgress += 1
             Progress(CurrentProgress, "Ready to saving " & ListofCmd.Count & " data(s)...")
 
@@ -979,8 +992,14 @@ Public Class frmPNL_Add
                     isEdit = True
                     Application.DoEvents()
                     isSuccessfullySaved(tmpID)
-                    If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
-                        MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+                    If cboS60F.EditValue = "Yes" Then
+                        If mdlRefreshTaxComputation.RefreshInvestmentHolding(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                            MsgBox("Error to recalculate tax computation investment holding.", MsgBoxStyle.Critical)
+                        End If
+                    Else
+                        If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
+                            MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
+                        End If
                     End If
                 Else
                     Progress(100, "Failed to saving " & ListofCmd.Count & " data(s)...")
@@ -993,6 +1012,17 @@ Public Class frmPNL_Add
         Catch ex As Exception
             If ErrorLog IsNot Nothing Then
                 MsgBox(ErrorLog.ErrorMessage)
+
+                If ErrorLog Is Nothing Then
+                    ErrorLog = New clsError
+                End If
+                With ErrorLog
+                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                    .ErrorCode = ex.GetHashCode.ToString
+                    .ErrorDateTime = Now
+                    .ErrorMessage = ex.Message
+                End With
+                AddListOfError(ErrorLog)
             End If
         End Try
     End Sub
@@ -1096,7 +1126,7 @@ Public Class frmPNL_Add
     End Function
 
 
-    Public Function GetTotalDonaiton(Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function GetTotalDonation(Optional ByRef Errorlog As clsError = Nothing) As Decimal
         Try
             Dim Total As Decimal = 0
 
@@ -1507,7 +1537,7 @@ Public Class frmPNL_Add
                     Exit Sub
                 End If
 
-
+                DsPNL2.Tables("ExportPNL").Rows.Clear()
 
                 If System.IO.File.Exists(Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & ".xlsx") Then
                     Path = Path & "\ExportPNL_" & cboRefNo.EditValue.ToString & "_" & cboYA.EditValue.ToString & "_& " & Format(Now, "ddMMMyyyyHHmmss") & ".xlsx"
@@ -1518,86 +1548,34 @@ Public Class frmPNL_Add
                 Dim contrl As Control = Nothing
                 Dim ds As DataSet = Nothing
                 Dim dtRow As DataRow = Nothing
+                Dim dockPnl As DevExpress.XtraBars.Docking.DockPanel
+                Dim tableName As String = Nothing
+                Dim tableName_details As String = Nothing
+                Dim decription As String = Nothing
+                Dim decription_details As String = Nothing
+                Dim amount As String = Nothing
+                Dim amount_details As String = Nothing
+                For Each rowInfo As DataRow In dtPNLInfo.Rows
+                    tableName = IIf(IsDBNull(rowInfo("TableName")), "", rowInfo("TableName"))
+                    tableName_details = IIf(IsDBNull(rowInfo("TableName_Details")), "", rowInfo("TableName_Details"))
+                    decription = IIf(IsDBNull(rowInfo("ColumnDescription")), "", rowInfo("ColumnDescription"))
+                    decription_details = IIf(IsDBNull(rowInfo("ColumnDescription_Details")), "", rowInfo("ColumnDescription_Details"))
+                    amount = IIf(IsDBNull(rowInfo("ColumnAmount")), "", rowInfo("ColumnAmount"))
+                    amount_details = IIf(IsDBNull(rowInfo("ColumnAmount_Details")), "", rowInfo("ColumnAmount_Details"))
 
-                Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
-                DsPNL2.Tables("ExportPNL").Rows.Clear()
+                    For Each rowx As DataRow In dsDataSet.Tables(tableName).Rows
+                        dtRow = DsPNL2.Tables("ExportPNL").NewRow
+                        ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
+                        dtRow("No") = ParentNo
+                        dtRow("Type") = IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName"))
+                        dtRow("Description") = IIf(IsDBNull(rowx(decription)), "", rowx(decription))
+                        dtRow("LeftAmount") = 0
+                        dtRow("RightAmount") = IIf(IsDBNull(rowx(amount)), 0, rowx(amount))
+                        DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
 
-
-                If P1_docDepreciation IsNot Nothing AndAlso P1_docDepreciation.Controls.Count > 0 Then
-                    contrl = P1_docDepreciation.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Depreciation = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1Depreciation = CType(contrl, ucPNL_p1Depreciation)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.DEPRECIATION.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.DEPRECIATION.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
-                    contrl = P1_docSales.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1Sales = CType(contrl, ucPNL_p1Sales)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.SALES.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
+                        If IsDBNull(rowInfo("TableName_Details")) = False AndAlso rowInfo("TableName_Details") <> "EXPENSES_INTERESTRESTRICT_DETAIL" Then
+                            If dsDataSet Is Nothing OrElse dsDataSet.Tables(tableName_details) Is Nothing OrElse dsDataSet.Tables(tableName_details).Rows.Count > 0 Then
+                                obj = dsDataSet.Tables(tableName_details).Select(IIf(IsDBNull(rowInfo("ColumnTable_Details")), "", rowInfo("ColumnTable_Details")) & " = " & rowx(IIf(IsDBNull(rowInfo("ColumnTable")), "", rowInfo("ColumnTable"))))
 
                                 If obj IsNot Nothing AndAlso obj.Length > 0 Then
 
@@ -1607,10 +1585,10 @@ Public Class frmPNL_Add
                                             dtRow = DsPNL2.Tables("ExportPNL").NewRow
                                             dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
                                             dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.SALES.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
+                                            dtRow("Type") = IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName"))
+                                            dtRow("Description") = IIf(IsDBNull(rowchild(decription_details)), "", rowchild(decription_details))
                                             dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
+                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(amount_details)), 0, rowchild(amount_details))
                                             DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
                                         End If
 
@@ -1618,2651 +1596,38 @@ Public Class frmPNL_Add
 
                                 End If
 
-
                             End If
-                        Next
-                    End If
+                        End If
+                        
+                    Next
 
-                End If
+                Next
+                ' Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
-
-                If P1_docOpeningStock IsNot Nothing AndAlso P1_docOpeningStock.Controls.Count > 0 Then
-                    contrl = P1_docOpeningStock.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1OpeningStock = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1OpeningStock = CType(contrl, ucPNL_p1OpeningStock)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.OPENSTOCK.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.OPENSTOCK.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P1_docPurchase IsNot Nothing AndAlso P1_docPurchase.Controls.Count > 0 Then
-                    contrl = P1_docPurchase.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Purchase = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1Purchase = CType(contrl, ucPNL_p1Purchase)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.PURCHASE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.PURCHASE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P1_docAllowanceExpenses IsNot Nothing AndAlso P1_docAllowanceExpenses.Controls.Count > 0 Then
-                    contrl = P1_docAllowanceExpenses.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1AllowanceExpenses = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1AllowanceExpenses = CType(contrl, ucPNL_p1AllowanceExpenses)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-
-                If P1_docNonAllowableExpenses IsNot Nothing AndAlso P1_docNonAllowableExpenses.Controls.Count > 0 Then
-                    contrl = P1_docNonAllowableExpenses.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1NonAllowableExpenses = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1NonAllowableExpenses = CType(contrl, ucPNL_p1NonAllowableExpenses)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P1_docCloseStock IsNot Nothing AndAlso P1_docCloseStock.Controls.Count > 0 Then
-                    contrl = P1_docCloseStock.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1CloseStock = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p1CloseStock = CType(contrl, ucPNL_p1CloseStock)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.CLOSESTOCK.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.CLOSESTOCK.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P2_docOtherBizIncome IsNot Nothing AndAlso P2_docOtherBizIncome.Controls.Count > 0 Then
-                    contrl = P2_docOtherBizIncome.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2OtherBizIncome = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2OtherBizIncome = CType(contrl, ucPNL_p2OtherBizIncome)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.OTHERBUSINC.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.OTHERBUSINC.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P2_docForeignCurrExGain IsNot Nothing AndAlso P2_docForeignCurrExGain.Controls.Count > 0 Then
-                    contrl = P2_docForeignCurrExGain.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ForeignCurrExGain = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2ForeignCurrExGain = CType(contrl, ucPNL_p2ForeignCurrExGain)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.REALFETRADE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.REALFETRADE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P2_docInterestIncome IsNot Nothing AndAlso P2_docInterestIncome.Controls.Count > 0 Then
-                    contrl = P2_docInterestIncome.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2InterestIncome = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2InterestIncome = CType(contrl, ucPNL_p2InterestIncome)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.INTERESTINC.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.INTERESTINC.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-
-                If P2_docRentalIncome IsNot Nothing AndAlso P2_docRentalIncome.Controls.Count > 0 Then
-                    contrl = P2_docRentalIncome.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2RentalIncome = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2RentalIncome = CType(contrl, ucPNL_p2RentalIncome)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("Type") = TaxComPNLEnuItem.RENTALINC.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                        Next
-                    End If
-
-                End If
-
-
-                If P2_docRoyaltyIncome IsNot Nothing AndAlso P2_docRoyaltyIncome.Controls.Count > 0 Then
-                    contrl = P2_docRoyaltyIncome.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2RoyaltyIncome = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2RoyaltyIncome = CType(contrl, ucPNL_p2RoyaltyIncome)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.ROYALTYINC.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.ROYALTYINC.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P2_docOtherIncome IsNot Nothing AndAlso P2_docOtherIncome.Controls.Count > 0 Then
-                    contrl = P2_docOtherIncome.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2OtherIncome = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2OtherIncome = CType(contrl, ucPNL_p2OtherIncome)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.OTHERINC.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.OTHERINC.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-
-                If P2_docProDispPlantEq IsNot Nothing AndAlso P2_docProDispPlantEq.Controls.Count > 0 Then
-                    contrl = P2_docProDispPlantEq.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ProDispPlantEq = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2ProDispPlantEq = CType(contrl, ucPNL_p2ProDispPlantEq)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.PDFIXASSET.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.PDFIXASSET.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-                If P2_docProDisInvestment IsNot Nothing AndAlso P2_docProDisInvestment.Controls.Count > 0 Then
-                    contrl = P2_docProDisInvestment.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ProDisInvestment = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2ProDisInvestment = CType(contrl, ucPNL_p2ProDisInvestment)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.PDINVEST.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.PDINVEST.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If P2_docExemptDividend IsNot Nothing AndAlso P2_docExemptDividend.Controls.Count > 0 Then
-                    contrl = P2_docExemptDividend.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ExemptDividend = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2ExemptDividend = CType(contrl, ucPNL_p2ExemptDividend)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("Type") = TaxComPNLEnuItem.EXEMDIV.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            dtRow("RightAmount") = 0
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                        Next
-                    End If
-
-
-                End If
-
-
-
-                If P2_docForeIncomeRemmit IsNot Nothing AndAlso P2_docForeIncomeRemmit.Controls.Count > 0 Then
-                    contrl = P2_docForeIncomeRemmit.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ForeIncomeRemmit = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2ForeIncomeRemmit = CType(contrl, ucPNL_p2ForeIncomeRemmit)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.FORINCREMIT.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.FORINCREMIT.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If P2_docUnreaGainForeEx IsNot Nothing AndAlso P2_docUnreaGainForeEx.Controls.Count > 0 Then
-                    contrl = P2_docUnreaGainForeEx.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2UnreaGainForeEx = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2UnreaGainForeEx = CType(contrl, ucPNL_p2UnreaGainForeEx)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.REALFE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.REALFE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If P2_docReaForeExGainNonTrade IsNot Nothing AndAlso P2_docReaForeExGainNonTrade.Controls.Count > 0 Then
-                    contrl = P2_docReaForeExGainNonTrade.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ReaForeExGainNonTrade = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2ReaForeExGainNonTrade = CType(contrl, ucPNL_p2ReaForeExGainNonTrade)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If P2_docUnreaGainForeExNon IsNot Nothing AndAlso P2_docUnreaGainForeExNon.Controls.Count > 0 Then
-                    contrl = P2_docUnreaGainForeExNon.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2UnreaGainForeExNon = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2UnreaGainForeExNon = CType(contrl, ucPNL_p2UnreaGainForeExNon)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.UNREALFETRADE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.UNREALFETRADE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If P2_docOther IsNot Nothing AndAlso P2_docOther.Controls.Count > 0 Then
-                    contrl = P2_docOther.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2Other = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p2Other = CType(contrl, ucPNL_p2Other)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If P3_docInterestResPurS33 IsNot Nothing AndAlso P3_docInterestResPurS33.Controls.Count > 0 Then
-                    contrl = P3_docInterestResPurS33.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3InterestResPurS33 = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3InterestResPurS33 = CType(contrl, ucPNL_p3InterestResPurS33)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docOtherInterestExHirePur IsNot Nothing AndAlso P3_docOtherInterestExHirePur.Controls.Count > 0 Then
-                    contrl = P3_docOtherInterestExHirePur.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3OtherInterestExHirePur = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3OtherInterestExHirePur = CType(contrl, ucPNL_p3OtherInterestExHirePur)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docProTechManLeganFees IsNot Nothing AndAlso P3_docProTechManLeganFees.Controls.Count > 0 Then
-                    contrl = P3_docProTechManLeganFees.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ProTechManLeganFees = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3ProTechManLeganFees = CType(contrl, ucPNL_p3ProTechManLeganFees)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPLEGAL.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPLEGAL.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docTechPayNonResis IsNot Nothing AndAlso P3_docTechPayNonResis.Controls.Count > 0 Then
-                    contrl = P3_docTechPayNonResis.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3TechPayNonResis = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3TechPayNonResis = CType(contrl, ucPNL_p3TechPayNonResis)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPTECHNICAL.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPTECHNICAL.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docContractPay IsNot Nothing AndAlso P3_docContractPay.Controls.Count > 0 Then
-                    contrl = P3_docContractPay.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ContractPay = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3ContractPay = CType(contrl, ucPNL_p3ContractPay)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docDirectorFee IsNot Nothing AndAlso P3_docDirectorFee.Controls.Count > 0 Then
-                    contrl = P3_docDirectorFee.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DirectorFee = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3DirectorFee = CType(contrl, ucPNL_p3DirectorFee)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docSalary IsNot Nothing AndAlso P3_docSalary.Controls.Count > 0 Then
-                    contrl = P3_docSalary.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Salary = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3Salary = CType(contrl, ucPNL_p3Salary)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPSALARY.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPSALARY.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docCOEStock IsNot Nothing AndAlso P3_docCOEStock.Controls.Count > 0 Then
-                    contrl = P3_docCOEStock.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3COEStock = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3COEStock = CType(contrl, ucPNL_p3COEStock)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docRoyalty IsNot Nothing AndAlso P3_docRoyalty.Controls.Count > 0 Then
-                    contrl = P3_docRoyalty.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Royalty = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3Royalty = CType(contrl, ucPNL_p3Royalty)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPROYALTY.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPROYALTY.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docRental IsNot Nothing AndAlso P3_docRental.Controls.Count > 0 Then
-                    contrl = P3_docRental.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Rental = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3Rental = CType(contrl, ucPNL_p3Rental)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPRENTAL.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPRENTAL.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docRepairMain IsNot Nothing AndAlso P3_docRepairMain.Controls.Count > 0 Then
-                    contrl = P3_docRepairMain.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3RepairMain = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3RepairMain = CType(contrl, ucPNL_p3RepairMain)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-
-                If P3_docResearchDev IsNot Nothing AndAlso P3_docResearchDev.Controls.Count > 0 Then
-                    contrl = P3_docResearchDev.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ResearchDev = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3ResearchDev = CType(contrl, ucPNL_p3ResearchDev)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPRND.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPRND.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docPromotionAds IsNot Nothing AndAlso P3_docPromotionAds.Controls.Count > 0 Then
-                    contrl = P3_docPromotionAds.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3PromotionAds = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3PromotionAds = CType(contrl, ucPNL_p3PromotionAds)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docTravelling IsNot Nothing AndAlso P3_docTravelling.Controls.Count > 0 Then
-                    contrl = P3_docTravelling.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Travelling = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3Travelling = CType(contrl, ucPNL_p3Travelling)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPTRAVEL.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPTRAVEL.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docJKDM IsNot Nothing AndAlso P3_docJKDM.Controls.Count > 0 Then
-                    contrl = P3_docJKDM.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3JKDM = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3JKDM = CType(contrl, ucPNL_p3JKDM)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPJKDM.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPJKDM.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docDepreciation IsNot Nothing AndAlso P3_docDepreciation.Controls.Count > 0 Then
-                    contrl = P3_docDepreciation.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Depreciation = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3Depreciation = CType(contrl, ucPNL_p3Depreciation)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docDonationApp IsNot Nothing AndAlso P3_docDonationApp.Controls.Count > 0 Then
-                    contrl = P3_docDonationApp.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DonationApp = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3DonationApp = CType(contrl, ucPNL_p3DonationApp)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If P3_docDonationNonApp IsNot Nothing AndAlso P3_docDonationNonApp.Controls.Count > 0 Then
-                    contrl = P3_docDonationNonApp.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DonationNonApp = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3DonationNonApp = CType(contrl, ucPNL_p3DonationNonApp)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p3_docZakat IsNot Nothing AndAlso p3_docZakat.Controls.Count > 0 Then
-                    contrl = p3_docZakat.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Zakat = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p3Zakat = CType(contrl, ucPNL_p3Zakat)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPZAKAT.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPZAKAT.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-                End If
-
-
-                If p4_docLossDispFA IsNot Nothing AndAlso p4_docLossDispFA.Controls.Count > 0 Then
-                    contrl = p4_docLossDispFA.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4LossDispFA = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4LossDispFA = CType(contrl, ucPNL_p4LossDispFA)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-
-                If p4_docEntNonStaff IsNot Nothing AndAlso p4_docEntNonStaff.Controls.Count > 0 Then
-                    contrl = p4_docEntNonStaff.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4EntNonStaff = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4EntNonStaff = CType(contrl, ucPNL_p4EntNonStaff)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docEntStaff IsNot Nothing AndAlso p4_docEntStaff.Controls.Count > 0 Then
-                    contrl = p4_docEntStaff.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4EntStaff = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4EntStaff = CType(contrl, ucPNL_p4EntStaff)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docCompound IsNot Nothing AndAlso p4_docCompound.Controls.Count > 0 Then
-                    contrl = p4_docCompound.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4Compound = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4Compound = CType(contrl, ucPNL_p4Compound)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If p4_docProvisionAcc IsNot Nothing AndAlso p4_docProvisionAcc.Controls.Count > 0 Then
-                    contrl = p4_docProvisionAcc.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ProvisionAcc = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4ProvisionAcc = CType(contrl, ucPNL_p4ProvisionAcc)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPPROVISION.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPPROVISION.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If p4_docLeavePass IsNot Nothing AndAlso p4_docLeavePass.Controls.Count > 0 Then
-                    contrl = p4_docLeavePass.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4LeavePass = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4LeavePass = CType(contrl, ucPNL_p4LeavePass)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If p4_docFAWrittenOff IsNot Nothing AndAlso p4_docFAWrittenOff.Controls.Count > 0 Then
-                    contrl = p4_docFAWrittenOff.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4FAWrittenOff = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4FAWrittenOff = CType(contrl, ucPNL_p4FAWrittenOff)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docUnreaLossForeEx IsNot Nothing AndAlso p4_docUnreaLossForeEx.Controls.Count > 0 Then
-                    contrl = p4_docUnreaLossForeEx.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4UnreaLossForeEx = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4UnreaLossForeEx = CType(contrl, ucPNL_p4UnreaLossForeEx)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docReaLossForeExTrade IsNot Nothing AndAlso p4_docReaLossForeExTrade.Controls.Count > 0 Then
-                    contrl = p4_docReaLossForeExTrade.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ReaLossForeExTrade = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4ReaLossForeExTrade = CType(contrl, ucPNL_p4ReaLossForeExTrade)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docReaLossForeExNonTrade IsNot Nothing AndAlso p4_docReaLossForeExNonTrade.Controls.Count > 0 Then
-                    contrl = p4_docReaLossForeExNonTrade.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ReaLossForeExNonTrade = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4ReaLossForeExNonTrade = CType(contrl, ucPNL_p4ReaLossForeExNonTrade)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docInitSub IsNot Nothing AndAlso p4_docInitSub.Controls.Count > 0 Then
-                    contrl = p4_docInitSub.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4InitSub = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4InitSub = CType(contrl, ucPNL_p4InitSub)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-
-                If p4_docCAExpenditure IsNot Nothing AndAlso p4_docCAExpenditure.Controls.Count > 0 Then
-                    contrl = p4_docCAExpenditure.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4CAExpenditure = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4CAExpenditure = CType(contrl, ucPNL_p4CAExpenditure)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-                    End If
-
-
-                End If
-
-                If p4_docOther IsNot Nothing AndAlso p4_docOther.Controls.Count > 0 Then
-                    contrl = p4_docOther.Controls(0)
-
-                    If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4Other = False Then
-                        Exit Sub
-                    End If
-                    Dim uc As ucPNL_p4Other = CType(contrl, ucPNL_p4Other)
-
-                    ds = uc.DataView_Main
-
-                    If ds Is Nothing OrElse ds.Tables(uc.MainTable) Is Nothing OrElse ds.Tables(uc.MainTable).Rows.Count > 0 Then
-                        For Each rowx As DataRow In ds.Tables(uc.MainTable).Rows
-                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                            ParentNo = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                            dtRow("No") = ParentNo
-                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
-                            dtRow("Description") = IIf(IsDBNull(rowx(uc.Main_Desc)), "", rowx(uc.Main_Desc))
-                            dtRow("LeftAmount") = 0
-                            dtRow("RightAmount") = IIf(IsDBNull(rowx(uc.MainAmount)), 0, rowx(uc.MainAmount))
-                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-
-
-                            If ds Is Nothing OrElse ds.Tables(uc.MainTable_Details) Is Nothing OrElse ds.Tables(uc.MainTable_Details).Rows.Count > 0 Then
-                                obj = ds.Tables(uc.MainTable_Details).Select(uc.MainKey_Details & " = " & rowx(uc.MainKey))
-
-                                If obj IsNot Nothing AndAlso obj.Length > 0 Then
-
-                                    For i As Integer = 0 To obj.Length - 1
-                                        rowchild = CType(obj(i), DataRow)
-                                        If rowchild IsNot Nothing Then
-                                            dtRow = DsPNL2.Tables("ExportPNL").NewRow
-                                            dtRow("No") = DsPNL2.Tables("ExportPNL").Rows.Count + 1
-                                            dtRow("No2") = ParentNo
-                                            dtRow("Type") = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
-                                            dtRow("Description") = IIf(IsDBNull(rowchild(uc.MainDetails_Desc)), "", rowchild(uc.MainDetails_Desc))
-                                            dtRow("LeftAmount") = 0
-                                            dtRow("RightAmount") = IIf(IsDBNull(rowchild(uc.MainAmount_Details)), 0, rowchild(uc.MainAmount_Details))
-                                            DsPNL2.Tables("ExportPNL").Rows.Add(dtRow)
-                                        End If
-
-                                    Next
-
-                                End If
-
-
-                            End If
-                        Next
-
-                    End If
-
-                End If
+                Application.DoEvents()
                 If DsPNL2.Tables("ExportPNL").Rows.Count > 0 Then
                     dgvExport.BeginInit()
                     ExportPNLBindingSource.DataSource = DsPNL2.Tables("ExportPNL")
                     dgvExport.EndInit()
 
                     Application.DoEvents()
-                    System.Threading.Thread.Sleep(500)
+                    System.Threading.Thread.Sleep(1000)
 
                     dgvExport.ExportToXlsx(Path)
-
+                    MsgBox("Successfully export profit and loss at :" & vbCrLf & Path)
                 End If
-
-
-
-
             End If
-
-
-
         Catch ex As Exception
-
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
         Finally
 
         End Try
@@ -4418,1972 +1783,58 @@ Public Class frmPNL_Add
             If txtSearch.EditValue Is Nothing OrElse txtSearch.EditValue = "" Then
                 Exit Sub
             End If
-            Dim Listoflabel As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
 
-            If Listoflabel IsNot Nothing Then
+            '    Dim Listoflabel As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName(ErrorLog)
+
+            If dtPNLInfo IsNot Nothing Then
                 Dim dtRow As DataRow = Nothing
-                For i As Integer = 0 To Listoflabel.Count - 1
+                ' Dim KeyNameEnum As TaxComPNLEnuItem                
+                For Each rowInfo As DataRow In dtPNLInfo.Rows
+                    'KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), )
+                    If IsDBNull(rowInfo("TableName")) = False Then
+                        For Each rowx As DataRow In dsDataSet.Tables(rowInfo("TableName")).Rows
+                            For Each colx As DataColumn In dsDataSet.Tables(IIf(IsDBNull(rowInfo("TableName")), "", rowInfo("TableName"))).Columns
 
-                    Select Case Listoflabel(i).Type
-                        Case TaxComPNLEnuItem.SALES
+                                If colx.ColumnName = IIf(IsDBNull(rowInfo("ColumnDescription")), "", rowInfo("ColumnDescription")) Or colx.ColumnName = IIf(IsDBNull(rowInfo("ColumnAmount")), "", rowInfo("ColumnAmount")) Then
 
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Sales.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Sales.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1Sales.Main_Desc Or colx.ColumnName = ucPNL_p1Sales.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1Sales.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Sales.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Sales.MainTable_Details).Columns
-
-                                    If colx.ColumnName = ucPNL_p1Sales.MainDetails_Desc Or colx.ColumnName = ucPNL_p1Sales.MainAmount_Details Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1Sales.MainKey_Details)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-
-                        Case TaxComPNLEnuItem.OPENSTOCK
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1OpeningStock.Main_Desc Or colx.ColumnName = ucPNL_p1OpeningStock.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1OpeningStock.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1OpeningStock.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p1OpeningStock.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p1OpeningStock.MainDetails_Desc Or colx.ColumnName = ucPNL_p1OpeningStock.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p1OpeningStock.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.PURCHASE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Purchase.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Purchase.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1Purchase.Main_Desc Or colx.ColumnName = ucPNL_p1Purchase.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1Purchase.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Purchase.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Purchase.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p1Purchase.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p1Purchase.MainDetails_Desc Or colx.ColumnName = ucPNL_p1Purchase.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p1Purchase.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.DEPRECIATION
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1Depreciation.Main_Desc Or colx.ColumnName = ucPNL_p1Depreciation.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1Depreciation.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1Depreciation.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p1Depreciation.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p1Depreciation.MainDetails_Desc Or colx.ColumnName = ucPNL_p1Depreciation.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p1Depreciation.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.OTHERALLOWEXP
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1AllowanceExpenses.Main_Desc Or colx.ColumnName = ucPNL_p1AllowanceExpenses.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1AllowanceExpenses.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1AllowanceExpenses.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p1AllowanceExpenses.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p1AllowanceExpenses.MainDetails_Desc Or colx.ColumnName = ucPNL_p1AllowanceExpenses.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p1AllowanceExpenses.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1NonAllowableExpenses.Main_Desc Or colx.ColumnName = ucPNL_p1NonAllowableExpenses.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1NonAllowableExpenses.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1NonAllowableExpenses.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p1NonAllowableExpenses.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p1NonAllowableExpenses.MainDetails_Desc Or colx.ColumnName = ucPNL_p1NonAllowableExpenses.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p1NonAllowableExpenses.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.CLOSESTOCK
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p1CloseStock.Main_Desc Or colx.ColumnName = ucPNL_p1CloseStock.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p1CloseStock.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p1CloseStock.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p1CloseStock.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p1CloseStock.MainDetails_Desc Or colx.ColumnName = ucPNL_p1CloseStock.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p1CloseStock.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.OTHERBUSINC
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2OtherBizIncome.Main_Desc Or colx.ColumnName = ucPNL_p2OtherBizIncome.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2OtherBizIncome.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherBizIncome.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2OtherBizIncome.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2OtherBizIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2OtherBizIncome.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2OtherBizIncome.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.REALFETRADE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2ForeignCurrExGain.Main_Desc Or colx.ColumnName = ucPNL_p2ForeignCurrExGain.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2ForeignCurrExGain.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeignCurrExGain.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2ForeignCurrExGain.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2ForeignCurrExGain.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ForeignCurrExGain.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2ForeignCurrExGain.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.DIVIDENDINC
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2DivIncome.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2DivIncome.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2DivIncome.Main_Desc Or colx.ColumnName = ucPNL_p2DivIncome.MainAmount_DI_GROSS Or colx.ColumnName = ucPNL_p2DivIncome.MainAmount_DI_NET Or colx.ColumnName = ucPNL_p2DivIncome.MainAmount_DI_TAX Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2DivIncome.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.INTERESTINC
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2InterestIncome.Main_Desc Or colx.ColumnName = ucPNL_p2InterestIncome.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2InterestIncome.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2InterestIncome.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2InterestIncome.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2InterestIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2InterestIncome.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2InterestIncome.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.RENTALINC
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2RentalIncome.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2RentalIncome.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2RentalIncome.Main_Desc Or colx.ColumnName = ucPNL_p2RentalIncome.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2RentalIncome.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.ROYALTYINC
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2RoyaltyIncome.Main_Desc Or colx.ColumnName = ucPNL_p2RoyaltyIncome.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2RoyaltyIncome.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2RoyaltyIncome.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2RoyaltyIncome.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2RoyaltyIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2RoyaltyIncome.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2RoyaltyIncome.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.OTHERINC
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2OtherIncome.Main_Desc Or colx.ColumnName = ucPNL_p2OtherIncome.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2OtherIncome.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2OtherIncome.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2OtherIncome.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2OtherIncome.MainDetails_Desc Or colx.ColumnName = ucPNL_p2OtherIncome.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2OtherIncome.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.PDFIXASSET
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2ProDispPlantEq.Main_Desc Or colx.ColumnName = ucPNL_p2ProDispPlantEq.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2ProDispPlantEq.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDispPlantEq.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2ProDispPlantEq.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2ProDispPlantEq.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ProDispPlantEq.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2ProDispPlantEq.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.PDINVEST
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2ProDisInvestment.Main_Desc Or colx.ColumnName = ucPNL_p2ProDisInvestment.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2ProDisInvestment.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ProDisInvestment.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2ProDisInvestment.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2ProDisInvestment.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ProDisInvestment.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2ProDisInvestment.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXEMDIV
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ExemptDividend.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ExemptDividend.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2ExemptDividend.Main_Desc Or colx.ColumnName = ucPNL_p2ExemptDividend.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2ExemptDividend.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.FORINCREMIT
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2ForeIncomeRemmit.Main_Desc Or colx.ColumnName = ucPNL_p2ForeIncomeRemmit.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2ForeIncomeRemmit.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ForeIncomeRemmit.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2ForeIncomeRemmit.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2ForeIncomeRemmit.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ForeIncomeRemmit.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2ForeIncomeRemmit.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.REALFE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.Main_Desc Or colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2ReaForeExGainNonTrade.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2ReaForeExGainNonTrade.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2ReaForeExGainNonTrade.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.MainDetails_Desc Or colx.ColumnName = ucPNL_p2ReaForeExGainNonTrade.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2ReaForeExGainNonTrade.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.UNREALFETRADE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p2UnreaGainForeEx.Main_Desc Or colx.ColumnName = ucPNL_p2UnreaGainForeEx.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p2UnreaGainForeEx.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p2UnreaGainForeEx.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p2UnreaGainForeEx.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p2UnreaGainForeEx.MainDetails_Desc Or colx.ColumnName = ucPNL_p2UnreaGainForeEx.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p2UnreaGainForeEx.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.INTERESTRESTRICT
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3InterestResPurS33.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3InterestResPurS33.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3InterestResPurS33.Main_Desc Or colx.ColumnName = ucPNL_p3InterestResPurS33.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3InterestResPurS33.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPOTHERINTEREST
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3OtherInterestExHirePur.Main_Desc Or colx.ColumnName = ucPNL_p3OtherInterestExHirePur.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3OtherInterestExHirePur.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3OtherInterestExHirePur.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3OtherInterestExHirePur.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3OtherInterestExHirePur.MainDetails_Desc Or colx.ColumnName = ucPNL_p3OtherInterestExHirePur.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3OtherInterestExHirePur.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPLEGAL
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3ProTechManLeganFees.Main_Desc Or colx.ColumnName = ucPNL_p3ProTechManLeganFees.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3ProTechManLeganFees.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ProTechManLeganFees.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3ProTechManLeganFees.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3ProTechManLeganFees.MainDetails_Desc Or colx.ColumnName = ucPNL_p3ProTechManLeganFees.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3ProTechManLeganFees.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPTECHNICAL
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3TechPayNonResis.Main_Desc Or colx.ColumnName = ucPNL_p3TechPayNonResis.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3TechPayNonResis.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3TechPayNonResis.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3TechPayNonResis.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3TechPayNonResis.MainDetails_Desc Or colx.ColumnName = ucPNL_p3TechPayNonResis.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3TechPayNonResis.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPCONTRACTPAY
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3ContractPay.Main_Desc Or colx.ColumnName = ucPNL_p3ContractPay.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3ContractPay.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ContractPay.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3ContractPay.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3ContractPay.MainDetails_Desc Or colx.ColumnName = ucPNL_p3ContractPay.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3ContractPay.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPDIRECTORFEE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3DirectorFee.Main_Desc Or colx.ColumnName = ucPNL_p3DirectorFee.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3DirectorFee.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DirectorFee.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3DirectorFee.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3DirectorFee.MainDetails_Desc Or colx.ColumnName = ucPNL_p3DirectorFee.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3DirectorFee.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPSALARY
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Salary.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Salary.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3Salary.Main_Desc Or colx.ColumnName = ucPNL_p3Salary.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3Salary.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Salary.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Salary.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3Salary.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3Salary.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Salary.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3Salary.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3COEStock.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3COEStock.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3COEStock.Main_Desc Or colx.ColumnName = ucPNL_p3COEStock.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3COEStock.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3COEStock.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3COEStock.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3COEStock.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3COEStock.MainDetails_Desc Or colx.ColumnName = ucPNL_p3COEStock.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3COEStock.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPROYALTY
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Royalty.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Royalty.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3Royalty.Main_Desc Or colx.ColumnName = ucPNL_p3Royalty.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3Royalty.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Royalty.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Royalty.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3Royalty.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3Royalty.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Royalty.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3Royalty.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPRENTAL
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Rental.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Rental.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3Rental.Main_Desc Or colx.ColumnName = ucPNL_p3Rental.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3Rental.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Rental.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Rental.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3Rental.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3Rental.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Rental.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3Rental.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3RepairMain.Main_Desc Or colx.ColumnName = ucPNL_p3RepairMain.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3RepairMain.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3RepairMain.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3RepairMain.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3RepairMain.MainDetails_Desc Or colx.ColumnName = ucPNL_p3RepairMain.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3RepairMain.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPRND
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3ResearchDev.Main_Desc Or colx.ColumnName = ucPNL_p3ResearchDev.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3ResearchDev.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3ResearchDev.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3ResearchDev.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3ResearchDev.MainDetails_Desc Or colx.ColumnName = ucPNL_p3ResearchDev.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3ResearchDev.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPADVERTISEMENT
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3PromotionAds.Main_Desc Or colx.ColumnName = ucPNL_p3PromotionAds.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3PromotionAds.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3PromotionAds.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3PromotionAds.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3PromotionAds.MainDetails_Desc Or colx.ColumnName = ucPNL_p3PromotionAds.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3PromotionAds.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPTRAVEL
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Travelling.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Travelling.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3Travelling.Main_Desc Or colx.ColumnName = ucPNL_p3Travelling.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3Travelling.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Travelling.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Travelling.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3Travelling.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3Travelling.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Travelling.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3Travelling.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPJKDM
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3JKDM.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3JKDM.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3JKDM.Main_Desc Or colx.ColumnName = ucPNL_p3JKDM.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3JKDM.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3JKDM.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3JKDM.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3JKDM.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3JKDM.MainDetails_Desc Or colx.ColumnName = ucPNL_p3JKDM.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3JKDM.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPDEPRECIATION
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3Depreciation.Main_Desc Or colx.ColumnName = ucPNL_p3Depreciation.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3Depreciation.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Depreciation.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3Depreciation.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3Depreciation.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Depreciation.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3Depreciation.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3DonationApp.Main_Desc Or colx.ColumnName = ucPNL_p3DonationApp.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3DonationApp.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3DonationApp.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3DonationApp.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3DonationApp.MainDetails_Desc Or colx.ColumnName = ucPNL_p3DonationApp.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3DonationApp.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPZAKAT
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Zakat.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Zakat.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p3Zakat.Main_Desc Or colx.ColumnName = ucPNL_p3Zakat.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p3Zakat.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p3Zakat.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p3Zakat.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p3Zakat.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p3Zakat.MainDetails_Desc Or colx.ColumnName = ucPNL_p3Zakat.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p3Zakat.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPLOSSDISPFA
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4LossDispFA.Main_Desc Or colx.ColumnName = ucPNL_p4LossDispFA.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4LossDispFA.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LossDispFA.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4LossDispFA.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4LossDispFA.MainDetails_Desc Or colx.ColumnName = ucPNL_p4LossDispFA.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4LossDispFA.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4EntNonStaff.Main_Desc Or colx.ColumnName = ucPNL_p4EntNonStaff.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4EntNonStaff.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntNonStaff.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4EntNonStaff.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4EntNonStaff.MainDetails_Desc Or colx.ColumnName = ucPNL_p4EntNonStaff.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4EntNonStaff.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4EntStaff.Main_Desc Or colx.ColumnName = ucPNL_p4EntStaff.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4EntStaff.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
+                                    If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                        dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                        dtRow("KeyName") = IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName"))
+                                        dtRow("ColumnName") = colx.ColumnName
+                                        dtRow("ParentID") = rowx(IIf(IsDBNull(rowInfo("ColumnTable")), "", rowInfo("ColumnTable")))
+                                        dtRow("Value") = rowx(colx.ColumnName).ToString
+                                        dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
                                     End If
 
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4EntStaff.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4EntStaff.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4EntStaff.MainDetails_Desc Or colx.ColumnName = ucPNL_p4EntStaff.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4EntStaff.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Compound.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Compound.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4Compound.Main_Desc Or colx.ColumnName = ucPNL_p4Compound.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4Compound.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Compound.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Compound.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4Compound.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4Compound.MainDetails_Desc Or colx.ColumnName = ucPNL_p4Compound.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4Compound.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPPROVISION
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4ProvisionAcc.Main_Desc Or colx.ColumnName = ucPNL_p4ProvisionAcc.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4ProvisionAcc.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ProvisionAcc.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4ProvisionAcc.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4ProvisionAcc.MainDetails_Desc Or colx.ColumnName = ucPNL_p4ProvisionAcc.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4ProvisionAcc.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4LeavePass.Main_Desc Or colx.ColumnName = ucPNL_p4LeavePass.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4LeavePass.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4LeavePass.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4LeavePass.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4LeavePass.MainDetails_Desc Or colx.ColumnName = ucPNL_p4LeavePass.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4LeavePass.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4FAWrittenOff.Main_Desc Or colx.ColumnName = ucPNL_p4FAWrittenOff.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4FAWrittenOff.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4FAWrittenOff.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4FAWrittenOff.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4FAWrittenOff.MainDetails_Desc Or colx.ColumnName = ucPNL_p4FAWrittenOff.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4FAWrittenOff.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4UnreaLossForeEx.Main_Desc Or colx.ColumnName = ucPNL_p4UnreaLossForeEx.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4UnreaLossForeEx.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
+                                End If
 
-                                Next
                             Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4UnreaLossForeEx.MainTable_Details).Columns
+                        Next
+                    End If
 
-                                    If colx.ColumnName <> ucPNL_p4UnreaLossForeEx.MainKey_Details Then
+                    If IsDBNull(rowInfo("TableName_Details")) = False AndAlso rowInfo("TableName_Details") <> "EXPENSES_INTERESTRESTRICT_DETAIL" Then
+                        For Each rowx As DataRow In dsDataSet.Tables(rowInfo("TableName_Details")).Rows
+                            For Each colx As DataColumn In dsDataSet.Tables(IIf(IsDBNull(rowInfo("TableName_Details")), "", rowInfo("TableName_Details"))).Columns
 
-                                        If colx.ColumnName = ucPNL_p4UnreaLossForeEx.MainDetails_Desc Or colx.ColumnName = ucPNL_p4UnreaLossForeEx.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                If colx.ColumnName = IIf(IsDBNull(rowInfo("ColumnDescription_Details")), "", rowInfo("ColumnDescription_Details")) Or colx.ColumnName = IIf(IsDBNull(rowInfo("ColumnAmount_Details")), "", rowInfo("ColumnAmount_Details")) Then
 
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4UnreaLossForeEx.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4ReaLossForeExTrade.Main_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExTrade.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExTrade.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExTrade.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4ReaLossForeExTrade.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4ReaLossForeExTrade.MainDetails_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExTrade.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExTrade.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.Main_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExNonTrade.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4ReaLossForeExNonTrade.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4ReaLossForeExNonTrade.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.MainDetails_Desc Or colx.ColumnName = ucPNL_p4ReaLossForeExNonTrade.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4ReaLossForeExNonTrade.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4InitSub.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4InitSub.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4InitSub.Main_Desc Or colx.ColumnName = ucPNL_p4InitSub.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4InitSub.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4InitSub.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4InitSub.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4InitSub.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4InitSub.MainDetails_Desc Or colx.ColumnName = ucPNL_p4InitSub.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4InitSub.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4CAExpenditure.Main_Desc Or colx.ColumnName = ucPNL_p4CAExpenditure.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4CAExpenditure.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4CAExpenditure.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4CAExpenditure.MainKey_Details Then
-
-                                        If colx.ColumnName = ucPNL_p4CAExpenditure.MainDetails_Desc Or colx.ColumnName = ucPNL_p4CAExpenditure.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4CAExpenditure.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
-
-                                Next
-                            Next
-                        Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Other.MainTable).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Other.MainTable).Columns
-
-                                    If colx.ColumnName = ucPNL_p4Other.Main_Desc Or colx.ColumnName = ucPNL_p4Other.MainAmount Then
-
-                                        If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-                                            dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                            dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                            dtRow("ColumnName") = colx.ColumnName
-                                            dtRow("ParentID") = rowx(ucPNL_p4Other.MainKey)
-                                            dtRow("Value") = rowx(colx.ColumnName).ToString
-                                            dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                        End If
-
+                                    If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
+                                        dtRow = dsDataSet.Tables("DataSearch").NewRow
+                                        dtRow("KeyName") = IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName"))
+                                        dtRow("ColumnName") = colx.ColumnName
+                                        dtRow("ParentID") = rowx(IIf(IsDBNull(rowInfo("ColumnTable_Details")), "", rowInfo("ColumnTable_Details")))
+                                        dtRow("Value") = rowx(colx.ColumnName).ToString
+                                        dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
                                     End If
-
-                                Next
-                            Next
-                            For Each rowx As DataRow In dsDataSet.Tables(ucPNL_p4Other.MainTable_Details).Rows
-                                For Each colx As DataColumn In dsDataSet.Tables(ucPNL_p4Other.MainTable_Details).Columns
-
-                                    If colx.ColumnName <> ucPNL_p4Other.MainKey_Details Then
 
-                                        If colx.ColumnName = ucPNL_p4Other.MainDetails_Desc Or colx.ColumnName = ucPNL_p4Other.MainAmount_Details Then
-                                            If rowx(colx.ColumnName).ToString.ToUpper.Contains(txtSearch.EditValue.ToString.ToUpper) Then
-
-                                                dtRow = dsDataSet.Tables("DataSearch").NewRow
-                                                dtRow("KeyName") = Listoflabel(i).Type.ToString
-                                                dtRow("ColumnName") = colx.ColumnName
-                                                dtRow("ParentID") = rowx(ucPNL_p4Other.MainKey_Details)
-                                                dtRow("Value") = rowx(colx.ColumnName).ToString
-                                                dsDataSet.Tables("DataSearch").Rows.Add(dtRow)
-                                            End If
-                                        End If
-
-                                    End If
+                                End If
 
-                                Next
                             Next
-                    End Select
+                        Next
+                    End If
 
+                   
                 Next
-
                 DataSearchBindingSource.DataSource = dsDataSet.Tables("DataSearch")
             End If
 
@@ -6417,7 +1868,11 @@ Public Class frmPNL_Add
 
                 lbl = GetLabel(val)
 
-                DetailsClick(lbl, val)
+                Dim dtTmpPNLInfo As DataTable = ADO.Load_PNLINFO(KeyName)
+
+                If dtTmpPNLInfo IsNot Nothing Then
+                    DetailsClick(lbl, dtTmpPNLInfo.Rows(0), val)
+                End If
 
             End If
 

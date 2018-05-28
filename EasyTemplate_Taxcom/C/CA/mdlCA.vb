@@ -23,6 +23,34 @@ Module mdlCA
     Private drGetDTApprDonation As DataTable = Nothing
     Private drGetDTApprDonationDetail As DataTable = Nothing
     Private drBusinessSource As DataTable = Nothing
+#Region "GENERAL"
+    Public Function Get_ListofAA(Optional includeAA_0 As Boolean = False) As List(Of String)
+        Try
+            Dim ListofAA As New List(Of String)
+            If includeAA_0 Then
+                ListofAA.Add("AA_0")
+            End If
+            ListofAA.Add("AA_2")
+            ListofAA.Add("AA_3")
+            ListofAA.Add("AA_8")
+            ListofAA.Add("AA_10")
+            ListofAA.Add("AA_12")
+            ListofAA.Add("AA_14")
+            ListofAA.Add("AA_16")
+            ListofAA.Add("AA_20")
+            ListofAA.Add("AA_40")
+            ListofAA.Add("AA_50")
+            ListofAA.Add("AA_60")
+            ListofAA.Add("AA_80")
+            ListofAA.Add("AA_90")
+            ListofAA.Add("AA_100")
+
+            Return ListofAA
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
+#End Region
 #Region "LOAD"
 
     Private Function GetBoolPLS60FA(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
@@ -1729,7 +1757,7 @@ Module mdlCA
 
                                 If drGetDTApprDonationDetail IsNot Nothing AndAlso drGetDTApprDonationDetail.Rows.Count > 0 Then
                                     For Each dtrowAppDonationDetail As DataRow In drGetDTApprDonationDetail.Rows
-                                        Select Case dtrowAppDonationDetail("EXOADD_TYPE")
+                                        Select Case IIf(IsDBNull(dtrowAppDonationDetail("EXOADD_TYPE")), "", dtrowAppDonationDetail("EXOADD_TYPE"))
                                             Case "Gifts of Money to Government"
                                                 TotalAmount1 = TotalAmount1 + FormatNumber(CDbl(dtrowAppDonationDetail("EXOADD_AMOUNT")), 0)
                                             Case "Gifts of Money to Approved institutions"
@@ -1748,7 +1776,7 @@ Module mdlCA
                                     Next
                                 End If
                             Else
-                                Select Case dtrowAppDonation("EXOAD_TYPE")
+                                Select Case IIf(IsDBNull(dtrowAppDonation("EXOAD_TYPE")), "", dtrowAppDonation("EXOAD_TYPE"))
                                     Case "Gifts of Money to Government"
                                         TotalAmount1 = TotalAmount1 + FormatNumber(CDbl(dtrowAppDonation("EXOAD_AMOUNT")), 0)
                                     Case "Gifts of Money to Approved institutions"
@@ -1942,11 +1970,9 @@ Module mdlCA
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-
-
-
 
 End Module

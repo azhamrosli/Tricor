@@ -37,6 +37,8 @@ Partial Class frmMovementComplex_Add
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote_Add = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote_Less = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -49,6 +51,10 @@ Partial Class frmMovementComplex_Add
         Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
         Me.MOVEMENTCOMPLEXDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.XtraScrollableControl1 = New DevExpress.XtraEditors.XtraScrollableControl()
+        Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.cboType = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.dtEnded = New DevExpress.XtraEditors.DateEdit()
         Me.RGType = New DevExpress.XtraEditors.RadioGroup()
         Me.txtTotal_AddBackDeduct = New DevExpress.XtraEditors.TextEdit()
         Me.cboRefNo = New DevExpress.XtraEditors.SearchLookUpEdit()
@@ -131,8 +137,6 @@ Partial Class frmMovementComplex_Add
         Me.txtTitle = New DevExpress.XtraEditors.TextEdit()
         Me.LabelControl4 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl1 = New DevExpress.XtraEditors.LabelControl()
-        Me.cboType = New DevExpress.XtraEditors.ComboBoxEdit()
-        Me.dtEnded = New DevExpress.XtraEditors.DateEdit()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -142,6 +146,10 @@ Partial Class frmMovementComplex_Add
         CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.XtraScrollableControl1.SuspendLayout()
+        CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtEnded.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dtEnded.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RGType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -181,9 +189,6 @@ Partial Class frmMovementComplex_Add
         CType(Me.dtBalanceStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtBalanceStart.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtTitle.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtEnded.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dtEnded.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -194,8 +199,8 @@ Partial Class frmMovementComplex_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown})
-        Me.BarManager1.MaxItemId = 11
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown, Me.btnNote_Add, Me.btnNote_Less})
+        Me.BarManager1.MaxItemId = 13
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -205,7 +210,7 @@ Partial Class frmMovementComplex_Add
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(271, 130)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Add), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Less)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -277,6 +282,24 @@ Partial Class frmMovementComplex_Add
         Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote_Add
+        '
+        Me.btnNote_Add.Caption = "Note Add"
+        Me.btnNote_Add.Id = 11
+        Me.btnNote_Add.ImageOptions.Image = CType(resources.GetObject("btnNote_Add.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote_Add.ImageOptions.LargeImage = CType(resources.GetObject("btnNote_Add.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote_Add.Name = "btnNote_Add"
+        Me.btnNote_Add.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote_Less
+        '
+        Me.btnNote_Less.Caption = "Note Less"
+        Me.btnNote_Less.Id = 12
+        Me.btnNote_Less.ImageOptions.Image = CType(resources.GetObject("btnNote_Less.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote_Less.ImageOptions.LargeImage = CType(resources.GetObject("btnNote_Less.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote_Less.Name = "btnNote_Less"
+        Me.btnNote_Less.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'barDockControlTop
         '
@@ -350,6 +373,8 @@ Partial Class frmMovementComplex_Add
         '
         'XtraScrollableControl1
         '
+        Me.XtraScrollableControl1.Controls.Add(Me.cboSourceCode)
+        Me.XtraScrollableControl1.Controls.Add(Me.LabelControl2)
         Me.XtraScrollableControl1.Controls.Add(Me.cboType)
         Me.XtraScrollableControl1.Controls.Add(Me.dtEnded)
         Me.XtraScrollableControl1.Controls.Add(Me.RGType)
@@ -378,6 +403,43 @@ Partial Class frmMovementComplex_Add
         Me.XtraScrollableControl1.Name = "XtraScrollableControl1"
         Me.XtraScrollableControl1.Size = New System.Drawing.Size(1323, 746)
         Me.XtraScrollableControl1.TabIndex = 210
+        '
+        'cboSourceCode
+        '
+        Me.cboSourceCode.Location = New System.Drawing.Point(96, 84)
+        Me.cboSourceCode.Name = "cboSourceCode"
+        Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboSourceCode.Size = New System.Drawing.Size(280, 20)
+        Me.cboSourceCode.TabIndex = 237
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(12, 87)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(68, 13)
+        Me.LabelControl2.TabIndex = 238
+        Me.LabelControl2.Text = "Source Code :"
+        '
+        'cboType
+        '
+        Me.cboType.Location = New System.Drawing.Point(482, 9)
+        Me.cboType.MenuManager = Me.BarManager1
+        Me.cboType.Name = "cboType"
+        Me.cboType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboType.Properties.Items.AddRange(New Object() {"Year Ended", "Period Ended"})
+        Me.cboType.Size = New System.Drawing.Size(171, 20)
+        Me.cboType.TabIndex = 236
+        '
+        'dtEnded
+        '
+        Me.dtEnded.EditValue = Nothing
+        Me.dtEnded.Location = New System.Drawing.Point(482, 32)
+        Me.dtEnded.MenuManager = Me.BarManager1
+        Me.dtEnded.Name = "dtEnded"
+        Me.dtEnded.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtEnded.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.dtEnded.Size = New System.Drawing.Size(171, 20)
+        Me.dtEnded.TabIndex = 235
         '
         'RGType
         '
@@ -509,7 +571,7 @@ Partial Class frmMovementComplex_Add
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainerControl1.CollapsePanel = DevExpress.XtraEditors.SplitCollapsePanel.Panel1
         Me.SplitContainerControl1.Horizontal = False
-        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 221)
+        Me.SplitContainerControl1.Location = New System.Drawing.Point(12, 238)
         Me.SplitContainerControl1.Name = "SplitContainerControl1"
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.GridControl1)
         Me.SplitContainerControl1.Panel1.Controls.Add(Me.PanelControl3)
@@ -517,7 +579,7 @@ Partial Class frmMovementComplex_Add
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.GridControl2)
         Me.SplitContainerControl1.Panel2.Controls.Add(Me.PanelControl4)
         Me.SplitContainerControl1.Panel2.Text = "Panel2"
-        Me.SplitContainerControl1.Size = New System.Drawing.Size(1293, 450)
+        Me.SplitContainerControl1.Size = New System.Drawing.Size(1293, 433)
         Me.SplitContainerControl1.SplitterPosition = 162
         Me.SplitContainerControl1.TabIndex = 232
         Me.SplitContainerControl1.Text = "SplitContainerControl1"
@@ -685,8 +747,6 @@ Partial Class frmMovementComplex_Add
         Me.colMM_NOTE.ColumnEdit = Me.txtNote
         Me.colMM_NOTE.FieldName = "MM_NOTE"
         Me.colMM_NOTE.Name = "colMM_NOTE"
-        Me.colMM_NOTE.Visible = True
-        Me.colMM_NOTE.VisibleIndex = 9
         Me.colMM_NOTE.Width = 350
         '
         'PanelControl3
@@ -717,7 +777,7 @@ Partial Class frmMovementComplex_Add
         Me.GridControl2.MenuManager = Me.BarManager1
         Me.GridControl2.Name = "GridControl2"
         Me.GridControl2.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemMemoEdit1, Me.RepositoryItemTextEdit3, Me.RepositoryItemCheckEdit1})
-        Me.GridControl2.Size = New System.Drawing.Size(1293, 260)
+        Me.GridControl2.Size = New System.Drawing.Size(1293, 243)
         Me.GridControl2.TabIndex = 11
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -871,8 +931,6 @@ Partial Class frmMovementComplex_Add
         Me.colMM_NOTE1.ColumnEdit = Me.RepositoryItemMemoEdit1
         Me.colMM_NOTE1.FieldName = "MM_NOTE"
         Me.colMM_NOTE1.Name = "colMM_NOTE1"
-        Me.colMM_NOTE1.Visible = True
-        Me.colMM_NOTE1.VisibleIndex = 9
         Me.colMM_NOTE1.Width = 350
         '
         'PanelControl4
@@ -1030,7 +1088,7 @@ Partial Class frmMovementComplex_Add
         '
         Me.LabelControl8.Appearance.Font = New System.Drawing.Font("Tahoma", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LabelControl8.Appearance.Options.UseFont = True
-        Me.LabelControl8.Location = New System.Drawing.Point(12, 120)
+        Me.LabelControl8.Location = New System.Drawing.Point(12, 139)
         Me.LabelControl8.Name = "LabelControl8"
         Me.LabelControl8.Size = New System.Drawing.Size(52, 16)
         Me.LabelControl8.TabIndex = 222
@@ -1046,7 +1104,7 @@ Partial Class frmMovementComplex_Add
         Me.PanelControl1.Controls.Add(Me.txtAmountSpecificAllow)
         Me.PanelControl1.Controls.Add(Me.LabelControl7)
         Me.PanelControl1.Controls.Add(Me.txtAmountGeneral)
-        Me.PanelControl1.Location = New System.Drawing.Point(12, 165)
+        Me.PanelControl1.Location = New System.Drawing.Point(12, 179)
         Me.PanelControl1.Name = "PanelControl1"
         Me.PanelControl1.Size = New System.Drawing.Size(1293, 50)
         Me.PanelControl1.TabIndex = 221
@@ -1182,7 +1240,7 @@ Partial Class frmMovementComplex_Add
         'dtBalanceStart
         '
         Me.dtBalanceStart.EditValue = Nothing
-        Me.dtBalanceStart.Location = New System.Drawing.Point(96, 139)
+        Me.dtBalanceStart.Location = New System.Drawing.Point(96, 153)
         Me.dtBalanceStart.MenuManager = Me.BarManager1
         Me.dtBalanceStart.Name = "dtBalanceStart"
         Me.dtBalanceStart.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
@@ -1192,7 +1250,7 @@ Partial Class frmMovementComplex_Add
         '
         'txtTitle
         '
-        Me.txtTitle.Location = New System.Drawing.Point(96, 84)
+        Me.txtTitle.Location = New System.Drawing.Point(96, 110)
         Me.txtTitle.MenuManager = Me.BarManager1
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(557, 20)
@@ -1200,7 +1258,7 @@ Partial Class frmMovementComplex_Add
         '
         'LabelControl4
         '
-        Me.LabelControl4.Location = New System.Drawing.Point(12, 142)
+        Me.LabelControl4.Location = New System.Drawing.Point(12, 156)
         Me.LabelControl4.Name = "LabelControl4"
         Me.LabelControl4.Size = New System.Drawing.Size(71, 13)
         Me.LabelControl4.TabIndex = 215
@@ -1208,32 +1266,11 @@ Partial Class frmMovementComplex_Add
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(12, 87)
+        Me.LabelControl1.Location = New System.Drawing.Point(12, 113)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(27, 13)
         Me.LabelControl1.TabIndex = 210
         Me.LabelControl1.Text = "Title :"
-        '
-        'cboType
-        '
-        Me.cboType.Location = New System.Drawing.Point(482, 9)
-        Me.cboType.MenuManager = Me.BarManager1
-        Me.cboType.Name = "cboType"
-        Me.cboType.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.cboType.Properties.Items.AddRange(New Object() {"Year Ended", "Period Ended"})
-        Me.cboType.Size = New System.Drawing.Size(171, 20)
-        Me.cboType.TabIndex = 236
-        '
-        'dtEnded
-        '
-        Me.dtEnded.EditValue = Nothing
-        Me.dtEnded.Location = New System.Drawing.Point(482, 32)
-        Me.dtEnded.MenuManager = Me.BarManager1
-        Me.dtEnded.Name = "dtEnded"
-        Me.dtEnded.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtEnded.Properties.CalendarTimeProperties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
-        Me.dtEnded.Size = New System.Drawing.Size(171, 20)
-        Me.dtEnded.TabIndex = 235
         '
         'frmMovementComplex_Add
         '
@@ -1259,6 +1296,10 @@ Partial Class frmMovementComplex_Add
         CType(Me.MOVEMENTCOMPLEXDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.XtraScrollableControl1.ResumeLayout(False)
         Me.XtraScrollableControl1.PerformLayout()
+        CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtEnded.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dtEnded.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RGType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTotal_AddBackDeduct.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboRefNo.Properties, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1302,9 +1343,6 @@ Partial Class frmMovementComplex_Add
         CType(Me.dtBalanceStart.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtBalanceStart.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtTitle.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtEnded.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dtEnded.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1412,4 +1450,8 @@ Partial Class frmMovementComplex_Add
     Friend WithEvents RGType As DevExpress.XtraEditors.RadioGroup
     Friend WithEvents cboType As DevExpress.XtraEditors.ComboBoxEdit
     Friend WithEvents dtEnded As DevExpress.XtraEditors.DateEdit
+    Friend WithEvents cboSourceCode As DevExpress.XtraEditors.ComboBoxEdit
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents btnNote_Add As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnNote_Less As DevExpress.XtraBars.BarButtonItem
 End Class

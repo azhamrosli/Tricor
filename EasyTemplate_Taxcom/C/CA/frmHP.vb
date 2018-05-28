@@ -10,7 +10,7 @@
         If My.Settings.ThemeName <> "" Then
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
         Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
         End If
         InitializeComponent()
     End Sub

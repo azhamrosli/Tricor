@@ -28,11 +28,21 @@ Public Class ucPNL_p3RepairMain
     Public Const MainDetails_Deduct As String = "EXREPD_DEDUCTIBLE_ADD"  'PLFSD_DESC
     Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -56,8 +66,15 @@ Public Class ucPNL_p3RepairMain
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             EXPENSESREPAIRBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
-            If isEdit Then
+            Application.DoEvents()
 
+            CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                               MainAmount_Details, MainColumn_PercentageAmount, Errorlog)
+
+            If dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE") IsNot Nothing AndAlso dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Count > 0 AndAlso mdlPNL2.GetIncludeInReport(TaxComPNLEnuItem.EXPOTHERSEXPENSES, dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE")) Then
+                chkIncludeInReport.EditValue = True
+            Else
+                chkIncludeInReport.EditValue = False
             End If
 
         Catch ex As Exception
@@ -70,12 +87,13 @@ Public Class ucPNL_p3RepairMain
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
 
 
-    Private Sub BarButtonItem1_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
+    Private Sub BarButtonItem1_ItemClick_1(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick, BarButtonItem1.ItemClick
         Try
             GridView1.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
             GridView1.FocusedColumn = GridView1.VisibleColumns(0)
@@ -84,7 +102,7 @@ Public Class ucPNL_p3RepairMain
         End Try
     End Sub
 
-    Private Sub btnAddChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddChild.ItemClick
+    Private Sub btnAddChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddChild.ItemClick, BarButtonItem2.ItemClick
         Try
             GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
             Application.DoEvents()
@@ -97,7 +115,7 @@ Public Class ucPNL_p3RepairMain
         End Try
     End Sub
 
-    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
+    Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick, BarButtonItem3.ItemClick
         Try
             Dim rslt As DialogResult = MessageBox.Show("Are sure want to remove this item?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -111,7 +129,7 @@ Public Class ucPNL_p3RepairMain
         End Try
     End Sub
 
-    Private Sub btnDeleteChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDeleteChild.ItemClick
+    Private Sub btnDeleteChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDeleteChild.ItemClick, BarButtonItem4.ItemClick
         Try
             Dim rslt As DialogResult = MessageBox.Show("Are sure want to remove this item?", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
@@ -248,7 +266,7 @@ Public Class ucPNL_p3RepairMain
     End Sub
 
 
-    Private Sub btnExpand_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExpand.ItemClick
+    Private Sub btnExpand_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExpand.ItemClick, BarButtonItem5.ItemClick
         Try
             GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
         Catch ex As Exception
@@ -266,7 +284,7 @@ Public Class ucPNL_p3RepairMain
         End Try
     End Sub
 
-    Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveUp.ItemClick
+    Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveUp.ItemClick, BarButtonItem6.ItemClick
         Try
             mdlPNL.MoveItemsInListView(True, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL1, ErrorLog)
         Catch ex As Exception
@@ -274,7 +292,7 @@ Public Class ucPNL_p3RepairMain
         End Try
     End Sub
 
-    Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveDown.ItemClick
+    Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveDown.ItemClick, BarButtonItem7.ItemClick
         Try
             mdlPNL.MoveItemsInListView(False, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL1, ErrorLog)
         Catch ex As Exception
@@ -282,4 +300,16 @@ Public Class ucPNL_p3RepairMain
         End Try
     End Sub
 
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
+
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

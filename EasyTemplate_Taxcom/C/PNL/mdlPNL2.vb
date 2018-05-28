@@ -140,8 +140,8 @@ Module mdlPNL2
             Select Case Type
 
                 Case TaxComPNLEnuItem.DEPRECIATION
-                    If P1_docDepreciation IsNot Nothing AndAlso P1_docDepreciation.Controls.Count > 0 Then
-                        contrl = P1_docDepreciation.Controls(0)
+                    If doc_p1Depreciation IsNot Nothing AndAlso doc_p1Depreciation.Controls.Count > 0 Then
+                        contrl = doc_p1Depreciation.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Depreciation = False Then
                             Return False
@@ -157,8 +157,8 @@ Module mdlPNL2
                         ADO.Save_EXPENSES_DEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.SALES
-                    If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
-                        contrl = P1_docSales.Controls(0)
+                    If doc_p1Sales IsNot Nothing AndAlso doc_p1Sales.Controls.Count > 0 Then
+                        contrl = doc_p1Sales.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
                             Return False
@@ -175,8 +175,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.OPENSTOCK
-                    If P1_docOpeningStock IsNot Nothing AndAlso P1_docOpeningStock.Controls.Count > 0 Then
-                        contrl = P1_docOpeningStock.Controls(0)
+                    If doc_p1OpeningStock IsNot Nothing AndAlso doc_p1OpeningStock.Controls.Count > 0 Then
+                        contrl = doc_p1OpeningStock.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1OpeningStock = False Then
                             Return False
@@ -193,8 +193,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.PURCHASE
-                    If P1_docPurchase IsNot Nothing AndAlso P1_docPurchase.Controls.Count > 0 Then
-                        contrl = P1_docPurchase.Controls(0)
+                    If doc_p1Purchase IsNot Nothing AndAlso doc_p1Purchase.Controls.Count > 0 Then
+                        contrl = doc_p1Purchase.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Purchase = False Then
                             Return False
@@ -210,8 +210,8 @@ Module mdlPNL2
                         ADO.Save_PLFST_PURCHASE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
-                    If P1_docAllowanceExpenses IsNot Nothing AndAlso P1_docAllowanceExpenses.Controls.Count > 0 Then
-                        contrl = P1_docAllowanceExpenses.Controls(0)
+                    If doc_p1AllowanceExpenses IsNot Nothing AndAlso doc_p1AllowanceExpenses.Controls.Count > 0 Then
+                        contrl = doc_p1AllowanceExpenses.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1AllowanceExpenses = False Then
                             Return False
@@ -228,8 +228,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                    If P1_docNonAllowableExpenses IsNot Nothing AndAlso P1_docNonAllowableExpenses.Controls.Count > 0 Then
-                        contrl = P1_docNonAllowableExpenses.Controls(0)
+                    If doc_p1NonAllowableExpenses IsNot Nothing AndAlso doc_p1NonAllowableExpenses.Controls.Count > 0 Then
+                        contrl = doc_p1NonAllowableExpenses.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1NonAllowableExpenses = False Then
                             Return False
@@ -246,8 +246,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.CLOSESTOCK
-                    If P1_docCloseStock IsNot Nothing AndAlso P1_docCloseStock.Controls.Count > 0 Then
-                        contrl = P1_docCloseStock.Controls(0)
+                    If doc_p1CloseStock IsNot Nothing AndAlso doc_p1CloseStock.Controls.Count > 0 Then
+                        contrl = doc_p1CloseStock.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1CloseStock = False Then
                             Return False
@@ -263,8 +263,8 @@ Module mdlPNL2
                         ADO.Save_PLFST_CLOSESTOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERBUSINC
-                    If P2_docOtherBizIncome IsNot Nothing AndAlso P2_docOtherBizIncome.Controls.Count > 0 Then
-                        contrl = P2_docOtherBizIncome.Controls(0)
+                    If doc_p2OtherBizIncome IsNot Nothing AndAlso doc_p2OtherBizIncome.Controls.Count > 0 Then
+                        contrl = doc_p2OtherBizIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2OtherBizIncome = False Then
                             Return False
@@ -280,8 +280,8 @@ Module mdlPNL2
                         ADO.Save_NONSOURCE_BUSINESSINCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.REALFETRADE
-                    If P2_docForeignCurrExGain IsNot Nothing AndAlso P2_docForeignCurrExGain.Controls.Count > 0 Then
-                        contrl = P2_docForeignCurrExGain.Controls(0)
+                    If doc_p2ForeignCurrExGain IsNot Nothing AndAlso doc_p2ForeignCurrExGain.Controls.Count > 0 Then
+                        contrl = doc_p2ForeignCurrExGain.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ForeignCurrExGain = False Then
                             Return False
@@ -297,8 +297,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_REALFET(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.INTERESTINC
-                    If P2_docInterestIncome IsNot Nothing AndAlso P2_docInterestIncome.Controls.Count > 0 Then
-                        contrl = P2_docInterestIncome.Controls(0)
+                    If doc_p2InterestIncome IsNot Nothing AndAlso doc_p2InterestIncome.Controls.Count > 0 Then
+                        contrl = doc_p2InterestIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2InterestIncome = False Then
                             Return False
@@ -315,8 +315,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.RENTALINC
-                    If P2_docRentalIncome IsNot Nothing AndAlso P2_docRentalIncome.Controls.Count > 0 Then
-                        contrl = P2_docRentalIncome.Controls(0)
+                    If doc_p2RentalIncome IsNot Nothing AndAlso doc_p2RentalIncome.Controls.Count > 0 Then
+                        contrl = doc_p2RentalIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2RentalIncome = False Then
                             Return False
@@ -333,8 +333,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.ROYALTYINC
-                    If P2_docRoyaltyIncome IsNot Nothing AndAlso P2_docRoyaltyIncome.Controls.Count > 0 Then
-                        contrl = P2_docRoyaltyIncome.Controls(0)
+                    If doc_p2RoyaltyIncome IsNot Nothing AndAlso doc_p2RoyaltyIncome.Controls.Count > 0 Then
+                        contrl = doc_p2RoyaltyIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2RoyaltyIncome = False Then
                             Return False
@@ -350,8 +350,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_NBROYALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERINC
-                    If P2_docOtherIncome IsNot Nothing AndAlso P2_docOtherIncome.Controls.Count > 0 Then
-                        contrl = P2_docOtherIncome.Controls(0)
+                    If doc_p2OtherIncome IsNot Nothing AndAlso doc_p2OtherIncome.Controls.Count > 0 Then
+                        contrl = doc_p2OtherIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2OtherIncome = False Then
                             Return False
@@ -368,8 +368,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.PDFIXASSET
-                    If P2_docProDispPlantEq IsNot Nothing AndAlso P2_docProDispPlantEq.Controls.Count > 0 Then
-                        contrl = P2_docProDispPlantEq.Controls(0)
+                    If doc_p2ProDispPlantEq IsNot Nothing AndAlso doc_p2ProDispPlantEq.Controls.Count > 0 Then
+                        contrl = doc_p2ProDispPlantEq.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ProDispPlantEq = False Then
                             Return False
@@ -385,8 +385,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_NTDISPOSALFA(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.PDINVEST
-                    If P2_docProDisInvestment IsNot Nothing AndAlso P2_docProDisInvestment.Controls.Count > 0 Then
-                        contrl = P2_docProDisInvestment.Controls(0)
+                    If doc_p2ProDisInvestment IsNot Nothing AndAlso doc_p2ProDisInvestment.Controls.Count > 0 Then
+                        contrl = doc_p2ProDisInvestment.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ProDisInvestment = False Then
                             Return False
@@ -402,8 +402,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_NTDISPOSALINVEST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXEMDIV
-                    If P2_docExemptDividend IsNot Nothing AndAlso P2_docExemptDividend.Controls.Count > 0 Then
-                        contrl = P2_docExemptDividend.Controls(0)
+                    If doc_p2ExemptDividend IsNot Nothing AndAlso doc_p2ExemptDividend.Controls.Count > 0 Then
+                        contrl = doc_p2ExemptDividend.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ExemptDividend = False Then
                             Return False
@@ -421,8 +421,8 @@ Module mdlPNL2
 
 
                 Case TaxComPNLEnuItem.FORINCREMIT
-                    If P2_docForeIncomeRemmit IsNot Nothing AndAlso P2_docForeIncomeRemmit.Controls.Count > 0 Then
-                        contrl = P2_docForeIncomeRemmit.Controls(0)
+                    If doc_p2ForeIncomeRemmit IsNot Nothing AndAlso doc_p2ForeIncomeRemmit.Controls.Count > 0 Then
+                        contrl = doc_p2ForeIncomeRemmit.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ForeIncomeRemmit = False Then
                             Return False
@@ -438,8 +438,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_NTFOREIGNINCREM(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.REALFE
-                    If P2_docUnreaGainForeEx IsNot Nothing AndAlso P2_docUnreaGainForeEx.Controls.Count > 0 Then
-                        contrl = P2_docUnreaGainForeEx.Controls(0)
+                    If doc_p2UnreaGainForeEx IsNot Nothing AndAlso doc_p2UnreaGainForeEx.Controls.Count > 0 Then
+                        contrl = doc_p2UnreaGainForeEx.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2UnreaGainForeEx = False Then
                             Return False
@@ -456,8 +456,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
-                    If P2_docReaForeExGainNonTrade IsNot Nothing AndAlso P2_docReaForeExGainNonTrade.Controls.Count > 0 Then
-                        contrl = P2_docReaForeExGainNonTrade.Controls(0)
+                    If doc_p2ReaForeExGainNonTrade IsNot Nothing AndAlso doc_p2ReaForeExGainNonTrade.Controls.Count > 0 Then
+                        contrl = doc_p2ReaForeExGainNonTrade.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2ReaForeExGainNonTrade = False Then
                             Return False
@@ -473,8 +473,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_NTREALFE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.UNREALFETRADE
-                    If P2_docUnreaGainForeExNon IsNot Nothing AndAlso P2_docUnreaGainForeExNon.Controls.Count > 0 Then
-                        contrl = P2_docUnreaGainForeExNon.Controls(0)
+                    If doc_p2UnreaGainForeExNon IsNot Nothing AndAlso doc_p2UnreaGainForeExNon.Controls.Count > 0 Then
+                        contrl = doc_p2UnreaGainForeExNon.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2UnreaGainForeExNon = False Then
                             Return False
@@ -490,8 +490,8 @@ Module mdlPNL2
                         ADO.Save_INCOME_NTUREALFENT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
-                    If P2_docOther IsNot Nothing AndAlso P2_docOther.Controls.Count > 0 Then
-                        contrl = P2_docOther.Controls(0)
+                    If doc_p2Other IsNot Nothing AndAlso doc_p2Other.Controls.Count > 0 Then
+                        contrl = doc_p2Other.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2Other = False Then
                             Return False
@@ -507,8 +507,8 @@ Module mdlPNL2
                         ADO.Save_NON_TAXABLE_INCOME(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
-                    If P3_docInterestResPurS33 IsNot Nothing AndAlso P3_docInterestResPurS33.Controls.Count > 0 Then
-                        contrl = P3_docInterestResPurS33.Controls(0)
+                    If doc_p3InterestResPurS33 IsNot Nothing AndAlso doc_p3InterestResPurS33.Controls.Count > 0 Then
+                        contrl = doc_p3InterestResPurS33.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3InterestResPurS33 = False Then
                             Return False
@@ -525,8 +525,8 @@ Module mdlPNL2
                     End If
 
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
-                    If P3_docOtherInterestExHirePur IsNot Nothing AndAlso P3_docOtherInterestExHirePur.Controls.Count > 0 Then
-                        contrl = P3_docOtherInterestExHirePur.Controls(0)
+                    If doc_p3OtherInterestExHirePur IsNot Nothing AndAlso doc_p3OtherInterestExHirePur.Controls.Count > 0 Then
+                        contrl = doc_p3OtherInterestExHirePur.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3OtherInterestExHirePur = False Then
                             Return False
@@ -539,12 +539,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_INTEREST(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPLEGAL
-                    If P3_docProTechManLeganFees IsNot Nothing AndAlso P3_docProTechManLeganFees.Controls.Count > 0 Then
-                        contrl = P3_docProTechManLeganFees.Controls(0)
+                    If doc_p3ProTechManLeganFees IsNot Nothing AndAlso doc_p3ProTechManLeganFees.Controls.Count > 0 Then
+                        contrl = doc_p3ProTechManLeganFees.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ProTechManLeganFees = False Then
                             Return False
@@ -557,12 +563,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_LEGAL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPTECHNICAL
-                    If P3_docTechPayNonResis IsNot Nothing AndAlso P3_docTechPayNonResis.Controls.Count > 0 Then
-                        contrl = P3_docTechPayNonResis.Controls(0)
+                    If doc_p3TechPayNonResis IsNot Nothing AndAlso doc_p3TechPayNonResis.Controls.Count > 0 Then
+                        contrl = doc_p3TechPayNonResis.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3TechPayNonResis = False Then
                             Return False
@@ -575,12 +587,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_TECH_FEE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
-                    If P3_docContractPay IsNot Nothing AndAlso P3_docContractPay.Controls.Count > 0 Then
-                        contrl = P3_docContractPay.Controls(0)
+                    If doc_p3ContractPay IsNot Nothing AndAlso doc_p3ContractPay.Controls.Count > 0 Then
+                        contrl = doc_p3ContractPay.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ContractPay = False Then
                             Return False
@@ -593,12 +611,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_CONTRACT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
-                    If P3_docDirectorFee IsNot Nothing AndAlso P3_docDirectorFee.Controls.Count > 0 Then
-                        contrl = P3_docDirectorFee.Controls(0)
+                    If doc_p3DirectorFee IsNot Nothing AndAlso doc_p3DirectorFee.Controls.Count > 0 Then
+                        contrl = doc_p3DirectorFee.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DirectorFee = False Then
                             Return False
@@ -611,12 +635,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_DIRECTORS_FEE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPSALARY
-                    If P3_docSalary IsNot Nothing AndAlso P3_docSalary.Controls.Count > 0 Then
-                        contrl = P3_docSalary.Controls(0)
+                    If doc_p3Salary IsNot Nothing AndAlso doc_p3Salary.Controls.Count > 0 Then
+                        contrl = doc_p3Salary.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Salary = False Then
                             Return False
@@ -629,12 +659,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_SALARY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-                    If P3_docCOEStock IsNot Nothing AndAlso P3_docCOEStock.Controls.Count > 0 Then
-                        contrl = P3_docCOEStock.Controls(0)
+                    If doc_p3COEStock IsNot Nothing AndAlso doc_p3COEStock.Controls.Count > 0 Then
+                        contrl = doc_p3COEStock.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3COEStock = False Then
                             Return False
@@ -647,12 +683,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+
+                        End If
                         ADO.Save_EXPENSES_EMPL_STOCK(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPROYALTY
-                    If P3_docRoyalty IsNot Nothing AndAlso P3_docRoyalty.Controls.Count > 0 Then
-                        contrl = P3_docRoyalty.Controls(0)
+                    If doc_p3Royalty IsNot Nothing AndAlso doc_p3Royalty.Controls.Count > 0 Then
+                        contrl = doc_p3Royalty.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Royalty = False Then
                             Return False
@@ -665,12 +707,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_ROYALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPRENTAL
-                    If P3_docRental IsNot Nothing AndAlso P3_docRental.Controls.Count > 0 Then
-                        contrl = P3_docRental.Controls(0)
+                    If doc_p3Rental IsNot Nothing AndAlso doc_p3Rental.Controls.Count > 0 Then
+                        contrl = doc_p3Rental.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Rental = False Then
                             Return False
@@ -683,12 +731,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_RENTAL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-                    If P3_docRepairMain IsNot Nothing AndAlso P3_docRepairMain.Controls.Count > 0 Then
-                        contrl = P3_docRepairMain.Controls(0)
+                    If doc_p3RepairMain IsNot Nothing AndAlso doc_p3RepairMain.Controls.Count > 0 Then
+                        contrl = doc_p3RepairMain.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3RepairMain = False Then
                             Return False
@@ -701,12 +755,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_REPAIR(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPRND
-                    If P3_docResearchDev IsNot Nothing AndAlso P3_docResearchDev.Controls.Count > 0 Then
-                        contrl = P3_docResearchDev.Controls(0)
+                    If doc_p3ResearchDev IsNot Nothing AndAlso doc_p3ResearchDev.Controls.Count > 0 Then
+                        contrl = doc_p3ResearchDev.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3ResearchDev = False Then
                             Return False
@@ -719,12 +779,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_RESEARCH(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
-                    If P3_docPromotionAds IsNot Nothing AndAlso P3_docPromotionAds.Controls.Count > 0 Then
-                        contrl = P3_docPromotionAds.Controls(0)
+                    If doc_p3PromotionAds IsNot Nothing AndAlso doc_p3PromotionAds.Controls.Count > 0 Then
+                        contrl = doc_p3PromotionAds.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3PromotionAds = False Then
                             Return False
@@ -737,12 +803,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_PROMOTE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPTRAVEL
-                    If P3_docTravelling IsNot Nothing AndAlso P3_docTravelling.Controls.Count > 0 Then
-                        contrl = P3_docTravelling.Controls(0)
+                    If doc_p3Travelling IsNot Nothing AndAlso doc_p3Travelling.Controls.Count > 0 Then
+                        contrl = doc_p3Travelling.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Travelling = False Then
                             Return False
@@ -755,12 +827,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_TRAVEL(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPJKDM
-                    If P3_docJKDM IsNot Nothing AndAlso P3_docJKDM.Controls.Count > 0 Then
-                        contrl = P3_docJKDM.Controls(0)
+                    If doc_p3JKDM IsNot Nothing AndAlso doc_p3JKDM.Controls.Count > 0 Then
+                        contrl = doc_p3JKDM.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3JKDM = False Then
                             Return False
@@ -773,12 +851,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_EXPENSES_JKDM(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
-                    If P3_docDepreciation IsNot Nothing AndAlso P3_docDepreciation.Controls.Count > 0 Then
-                        contrl = P3_docDepreciation.Controls(0)
+                    If doc_p3Depreciation IsNot Nothing AndAlso doc_p3Depreciation.Controls.Count > 0 Then
+                        contrl = doc_p3Depreciation.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Depreciation = False Then
                             Return False
@@ -791,12 +875,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXDEPRECIATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                    If P3_docDonationApp IsNot Nothing AndAlso P3_docDonationApp.Controls.Count > 0 Then
-                        contrl = P3_docDonationApp.Controls(0)
+                    If doc_p3DonationApp IsNot Nothing AndAlso doc_p3DonationApp.Controls.Count > 0 Then
+                        contrl = doc_p3DonationApp.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DonationApp = False Then
                             Return False
@@ -809,12 +899,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXAPPRDONATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
-                    If P3_docDonationNonApp IsNot Nothing AndAlso P3_docDonationNonApp.Controls.Count > 0 Then
-                        contrl = P3_docDonationNonApp.Controls(0)
+                    If doc_p3DonationNonApp IsNot Nothing AndAlso doc_p3DonationNonApp.Controls.Count > 0 Then
+                        contrl = doc_p3DonationNonApp.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3DonationNonApp = False Then
                             Return False
@@ -827,12 +923,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXNAPPRDONATION(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPZAKAT
-                    If p3_docZakat IsNot Nothing AndAlso p3_docZakat.Controls.Count > 0 Then
-                        contrl = p3_docZakat.Controls(0)
+                    If doc_p3Zakat IsNot Nothing AndAlso doc_p3Zakat.Controls.Count > 0 Then
+                        contrl = doc_p3Zakat.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p3Zakat = False Then
                             Return False
@@ -845,12 +947,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXZAKAT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
-                    If p4_docLossDispFA IsNot Nothing AndAlso p4_docLossDispFA.Controls.Count > 0 Then
-                        contrl = p4_docLossDispFA.Controls(0)
+                    If doc_p4LossDispFA IsNot Nothing AndAlso doc_p4LossDispFA.Controls.Count > 0 Then
+                        contrl = doc_p4LossDispFA.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4LossDispFA = False Then
                             Return False
@@ -863,13 +971,19 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXLOSSDISPOSALFA(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
 
                 Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-                    If p4_docEntNonStaff IsNot Nothing AndAlso p4_docEntNonStaff.Controls.Count > 0 Then
-                        contrl = p4_docEntNonStaff.Controls(0)
+                    If doc_p4EntNonStaff IsNot Nothing AndAlso doc_p4EntNonStaff.Controls.Count > 0 Then
+                        contrl = doc_p4EntNonStaff.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4EntNonStaff = False Then
                             Return False
@@ -882,12 +996,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_ENTERTAINNSTAFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-                    If p4_docEntStaff IsNot Nothing AndAlso p4_docEntStaff.Controls.Count > 0 Then
-                        contrl = p4_docEntStaff.Controls(0)
+                    If doc_p4EntStaff IsNot Nothing AndAlso doc_p4EntStaff.Controls.Count > 0 Then
+                        contrl = doc_p4EntStaff.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4EntStaff = False Then
                             Return False
@@ -900,12 +1020,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_ENTERTAINSTAFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-                    If p4_docCompound IsNot Nothing AndAlso p4_docCompound.Controls.Count > 0 Then
-                        contrl = p4_docCompound.Controls(0)
+                    If doc_p4Compound IsNot Nothing AndAlso doc_p4Compound.Controls.Count > 0 Then
+                        contrl = doc_p4Compound.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4Compound = False Then
                             Return False
@@ -918,11 +1044,17 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXPENALTY(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXPPROVISION
-                    If p4_docProvisionAcc IsNot Nothing AndAlso p4_docProvisionAcc.Controls.Count > 0 Then
-                        contrl = p4_docProvisionAcc.Controls(0)
+                    If doc_p4ProvisionAcc IsNot Nothing AndAlso doc_p4ProvisionAcc.Controls.Count > 0 Then
+                        contrl = doc_p4ProvisionAcc.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ProvisionAcc = False Then
                             Return False
@@ -935,11 +1067,17 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXPROVISIONACC(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-                    If p4_docLeavePass IsNot Nothing AndAlso p4_docLeavePass.Controls.Count > 0 Then
-                        contrl = p4_docLeavePass.Controls(0)
+                    If doc_p4LeavePass IsNot Nothing AndAlso doc_p4LeavePass.Controls.Count > 0 Then
+                        contrl = doc_p4LeavePass.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4LeavePass = False Then
                             Return False
@@ -952,11 +1090,17 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXLEAVEPASSAGE(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-                    If p4_docFAWrittenOff IsNot Nothing AndAlso p4_docFAWrittenOff.Controls.Count > 0 Then
-                        contrl = p4_docFAWrittenOff.Controls(0)
+                    If doc_p4FAWrittenOff IsNot Nothing AndAlso doc_p4FAWrittenOff.Controls.Count > 0 Then
+                        contrl = doc_p4FAWrittenOff.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4FAWrittenOff = False Then
                             Return False
@@ -969,12 +1113,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXFAWRITTENOFF(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                    If p4_docUnreaLossForeEx IsNot Nothing AndAlso p4_docUnreaLossForeEx.Controls.Count > 0 Then
-                        contrl = p4_docUnreaLossForeEx.Controls(0)
+                    If doc_p4UnreaLossForeEx IsNot Nothing AndAlso doc_p4UnreaLossForeEx.Controls.Count > 0 Then
+                        contrl = doc_p4UnreaLossForeEx.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4UnreaLossForeEx = False Then
                             Return False
@@ -987,12 +1137,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXURLOSSFOREIGN(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-                    If p4_docReaLossForeExTrade IsNot Nothing AndAlso p4_docReaLossForeExTrade.Controls.Count > 0 Then
-                        contrl = p4_docReaLossForeExTrade.Controls(0)
+                    If doc_p4ReaLossForeExTrade IsNot Nothing AndAlso doc_p4ReaLossForeExTrade.Controls.Count > 0 Then
+                        contrl = doc_p4ReaLossForeExTrade.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ReaLossForeExTrade = False Then
                             Return False
@@ -1005,12 +1161,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXRLOSSFOREIGNT(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-                    If p4_docReaLossForeExNonTrade IsNot Nothing AndAlso p4_docReaLossForeExNonTrade.Controls.Count > 0 Then
-                        contrl = p4_docReaLossForeExNonTrade.Controls(0)
+                    If doc_p4ReaLossForeExNonTrade IsNot Nothing AndAlso doc_p4ReaLossForeExNonTrade.Controls.Count > 0 Then
+                        contrl = doc_p4ReaLossForeExNonTrade.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4ReaLossForeExNonTrade = False Then
                             Return False
@@ -1023,12 +1185,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXRLOSSFOREIGN(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-                    If p4_docInitSub IsNot Nothing AndAlso p4_docInitSub.Controls.Count > 0 Then
-                        contrl = p4_docInitSub.Controls(0)
+                    If doc_p4InitSub IsNot Nothing AndAlso doc_p4InitSub.Controls.Count > 0 Then
+                        contrl = doc_p4InitSub.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4InitSub = False Then
                             Return False
@@ -1041,12 +1209,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXINITIALSUB(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-                    If p4_docCAExpenditure IsNot Nothing AndAlso p4_docCAExpenditure.Controls.Count > 0 Then
-                        contrl = p4_docCAExpenditure.Controls(0)
+                    If doc_p4CAExpenditure IsNot Nothing AndAlso doc_p4CAExpenditure.Controls.Count > 0 Then
+                        contrl = doc_p4CAExpenditure.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4CAExpenditure = False Then
                             Return False
@@ -1059,12 +1233,18 @@ Module mdlPNL2
                             Return False
                         End If
 
+                        If uc.chkIncludeInReport IsNot Nothing AndAlso uc.chkIncludeInReport.EditValue = True Then
+                            isIncludeInReport = True
+                        Else
+                            isIncludeInReport = False
+                        End If
+
                         ADO.Save_OTHER_EXCAPITALEXP(PNL_Key, ds.Tables(uc.MainTable), ds.Tables(uc.MainTable_Details), oConn, ListofCmd, Errorlog)
                     End If
 
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                    If p4_docOther IsNot Nothing AndAlso p4_docOther.Controls.Count > 0 Then
-                        contrl = p4_docOther.Controls(0)
+                    If doc_p4Other IsNot Nothing AndAlso doc_p4Other.Controls.Count > 0 Then
+                        contrl = doc_p4Other.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p4Other = False Then
                             Return False
@@ -1088,8 +1268,8 @@ Module mdlPNL2
 
                     End If
                 Case TaxComPNLEnuItem.DIVIDENDINC
-                    If P2_docDivIncome IsNot Nothing AndAlso P2_docDivIncome.Controls.Count > 0 Then
-                        contrl = P2_docDivIncome.Controls(0)
+                    If doc_p2DivIncome IsNot Nothing AndAlso doc_p2DivIncome.Controls.Count > 0 Then
+                        contrl = doc_p2DivIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2DivIncome = False Then
                             Return False
@@ -1162,9 +1342,9 @@ Module mdlPNL2
                     CalcTotalofView(txtAmount, ds, ucPNL_p2ForeignCurrExGain.MainTable, ucPNL_p2ForeignCurrExGain.MainAmount, 0, Errorlog)
                 Case TaxComPNLEnuItem.DIVIDENDINC
 
-                    If P2_docDivIncome IsNot Nothing AndAlso P2_docDivIncome.Controls.Count > 0 Then
+                    If doc_p2DivIncome IsNot Nothing AndAlso doc_p2DivIncome.Controls.Count > 0 Then
                         Dim contrl As Control
-                        contrl = P2_docDivIncome.Controls(0)
+                        contrl = doc_p2DivIncome.Controls(0)
 
                         If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p2DivIncome = False Then
                             Return False
@@ -1288,7 +1468,8 @@ Module mdlPNL2
     End Function
     Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                     ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, _
-                                    Optional ByRef Errorlog As clsError = Nothing, Optional ByRef isHaveData As Boolean = False, Optional ByVal isPrint As Boolean = False) As Boolean
+                                    Optional ByRef Errorlog As clsError = Nothing, Optional ByRef isHaveData As Boolean = False, _
+                                    Optional ByVal isPrint As Boolean = False, Optional clsNote As clsNote_PNL = Nothing) As Boolean
         Dim strError As String = Nothing
         Try
 
@@ -1296,6 +1477,9 @@ Module mdlPNL2
             Dim dtChild As DataTable = Nothing
             Dim dtRow As DataRow = Nothing
             Dim TmpID As Integer = 0
+            Dim NoteOrder As Integer = 0
+            Dim dtNote As DataTable = Nothing
+            Dim dtNoteColumn As DataTable = Nothing
             strError = Type.ToString
             Select Case Type
                 Case TaxComPNLEnuItem.SALES
@@ -1319,6 +1503,16 @@ Module mdlPNL2
                             dtRow("PLFS_DETAIL") = rowx("PLFS_DETAIL")
                             dtRow("TotalSourceNo") = ADO.Load_PLFST_SALES_TOTAL_SOURCENO(PNL_KEY, Errorlog)
                             dtRow("RowIndex") = rowx("RowIndex")
+
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.SALES.ToString, True, rowx("PLFS_PLFSKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("PLFST_SALES").Rows.Add(dtRow)
                         Next
                         dt = Nothing
@@ -1337,6 +1531,16 @@ Module mdlPNL2
                                 dtRow("PLFSD_AMOUNT") = rowx("PLFSD_AMOUNT")
                                 dtRow("PLFSD_NOTE") = rowx("PLFSD_NOTE")
                                 dtRow("RowIndex") = rowx("RowIndex")
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.SALES.ToString, False, rowx("PLFSD_PLFSKEY"), rowx("PLFSD_PLFSDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("PLFST_SALES_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -5429,6 +5633,7 @@ Module mdlPNL2
 
         Try
             Dim dtPNL As DataTable = ADO.Load_PNL(RefNo, YA, Errorlog)
+            Dim dtPNLInfo As DataTable = ADO.Load_PNLINFO(Errorlog)
 
             If dtPNL Is Nothing Then
                 If Errorlog Is Nothing Then
@@ -5453,9 +5658,9 @@ Module mdlPNL2
                 ID = "PNL_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
             End While
 
-            Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName_Report(Errorlog)
+            '   Dim listoflabelname As List(Of clsPNL_LabelName) = mdlPNL.GetPNLLabelName_Report(Errorlog)
 
-            If listoflabelname IsNot Nothing Then
+            If dtPNLInfo IsNot Nothing Then
                 Dim ParentID As Integer = 0
                 Dim IDData As Integer = 0
                 Dim indexNo As Integer = 0
@@ -5463,62 +5668,11 @@ Module mdlPNL2
                 Dim AlignAmountLeft As Boolean = True
                 Dim TypeRow As PNL_REPORT_TypeRow = PNL_REPORT_TypeRow.NORMAL
                 Dim SubStatus As Boolean = False
-                For Each lbl As clsPNL_LabelName In listoflabelname
 
-                    Select Case lbl.Type
-                        Case TaxComPNLEnuItem.SALES
-                            ColumnName = "PL_SALES"
-                            AlignAmountLeft = False
-                            TypeRow = PNL_REPORT_TypeRow.TITLE
-                        Case TaxComPNLEnuItem.LESSCOSTSALES_TITLEONLY
-                            ColumnName = ""
-                            AlignAmountLeft = True
-                            TypeRow = PNL_REPORT_TypeRow.TITLE
-                        Case TaxComPNLEnuItem.OPENSTOCK
-                            ColumnName = "PL_OP_STK"
-                            AlignAmountLeft = True
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                        Case TaxComPNLEnuItem.PURCHASE
-                            ColumnName = "PL_PURCHASES"
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.DEPRECIATION
-                            ColumnName = "PL_PRO_COST_DPC"
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.OTHERALLOWEXP
-                            ColumnName = "PL_PRO_COST_OAE"
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                            ColumnName = "PL_PRO_COST_ONAE"
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.COSTPRODUCT_TITLEONLY
-                            ColumnName = ""
-                            TypeRow = PNL_REPORT_TypeRow.TITLE
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.COSTPRODUCT
-                            ColumnName = "PL_PURCHASES_PRO_COST"
-                            TypeRow = PNL_REPORT_TypeRow.SUBTOTAL
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.CLOSESTOCK
-                            ColumnName = "PL_CLS_STK"
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                            AlignAmountLeft = True
-                        Case TaxComPNLEnuItem.COSTOFSALES
-                            ColumnName = "PL_COGS"
-                            TypeRow = PNL_REPORT_TypeRow.SUBTOTAL
-                            AlignAmountLeft = False
-                        Case TaxComPNLEnuItem.GROSSPROFIT
-                            ColumnName = "PL_GROSS_PROFIT"
-                            TypeRow = PNL_REPORT_TypeRow.TOTAL
-                            AlignAmountLeft = False
-                        Case Else
-                            ColumnName = ""
-                            TypeRow = PNL_REPORT_TypeRow.NORMAL
-                            AlignAmountLeft = False
-                    End Select
+                Dim KeyNameEnum As TaxComPNLEnuItem
+                For Each rowInfo As DataRow In dtPNLInfo.Rows
+                    KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
+                    ColumnName = IIf(IsDBNull(rowInfo("ColumnName")), "", rowInfo("ColumnName"))
 
                     If ColumnName <> "" AndAlso IsDBNull(dtPNL.Rows(0)(ColumnName)) = False AndAlso IsNumeric(dtPNL.Rows(0)(ColumnName)) = True AndAlso CDec(dtPNL.Rows(0)(ColumnName)) <> 0 Then
                         SubStatus = True
@@ -5542,9 +5696,9 @@ Module mdlPNL2
 
                         If TypeRow <> PNL_REPORT_TypeRow.SUBTOTAL Then
                             If isVersionLicenseType = VersionLicenseType.Tricor Then
-                                dtRow("Caption") = lbl.LabelTricor
+                                dtRow("Caption") = IIf(IsDBNull(rowInfo("LabelNameTricor")), "", rowInfo("LabelNameTricor"))
                             Else
-                                dtRow("Caption") = lbl.LabelName
+                                dtRow("Caption") = IIf(IsDBNull(rowInfo("LabelName")), "", rowInfo("LabelName"))
                             End If
                         Else
                             dtRow("Caption") = ""
@@ -5572,7 +5726,6 @@ Module mdlPNL2
                     End If
 
                 Next
-
                 Return ADO.Save_PNL_Report_TEMP(dsDataSet.Tables(TableName), Errorlog)
             End If
 
@@ -5596,12 +5749,13 @@ Module mdlPNL2
         Try
 
             Dim dtPNL As DataTable = ADO.Load_PNL(RefNo, YA, Errorlog)
-
+            Dim dtPNLInfo As DataTable = ADO.Load_PNLINFO(Errorlog)
 
             If ds Is Nothing Then
                 ds = New dsPNL
             End If
 
+            ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_KEYNAME").Rows.Clear()
             ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Clear()
             ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT").Rows.Clear()
 
@@ -5621,12 +5775,24 @@ Module mdlPNL2
 
             Dim tmpDt As DataTable = Nothing
             Dim dtRow As DataRow = Nothing
+            Dim dtRowKeyName As DataRow = Nothing
             Dim dtExclude As DataTable
             Dim PNL_KEY As Integer = 0
             Dim ScheduleInt As Integer = 0
             Dim ColumnName As String = Nothing
             Dim isHaveData As Boolean = False
-            Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+            Dim dtNote As DataTable = Nothing
+            Dim dtNoteColumn As DataTable = Nothing
+            Dim dtNoteAttch As DataTable = Nothing
+            Dim clsNote As clsNote_PNL = Nothing
+
+            If clsNote Is Nothing Then
+                clsNote = New clsNote_PNL
+            End If
+
+            ' Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+            ds.Tables("PROFIT_LOSS_ACCOUNT_NOTE_COLUMN").Rows.Clear()
+            ds.Tables("PROFIT_LOSS_ACCOUNT_NOTE").Rows.Clear()
 
             ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE_REPORT").Rows.Clear()
             ClearMemoryDataset()
@@ -5640,188 +5806,98 @@ Module mdlPNL2
                 dtRow = ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").NewRow
                 dtRow("PL_KEY") = PNL_KEY
 
-                If listofclsPNLLabel IsNot Nothing Then
-                    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
+                dtRowKeyName = Nothing
+                dtRowKeyName = ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_KEYNAME").NewRow
+                dtRowKeyName("PL_KEY") = PNL_KEY
 
-                        mdlPNL2.PNL_GetData(PNL_KEY, tmp.Type, RefNo, YA, ds, Errorlog, isHaveData, True)
+                If dtPNLInfo IsNot Nothing Then
+                    Dim KeyNameEnum As TaxComPNLEnuItem
+                    For Each rowInfo As DataRow In dtPNLInfo.Rows
 
-                        Select Case tmp.Type
-                            Case TaxComPNLEnuItem.SALES
-                                ColumnName = "PL_SALES"
+                        KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
+                        mdlPNL2.PNL_GetData(PNL_KEY, KeyNameEnum, RefNo, YA, ds, Errorlog, isHaveData, True, clsNote)
 
-                            Case TaxComPNLEnuItem.OPENSTOCK
-                                ColumnName = "PL_OP_STK"
-                            Case TaxComPNLEnuItem.PURCHASE
-                                ColumnName = "PL_PURCHASES"
+                        ColumnName = IIf(IsDBNull(rowInfo("ColumnName")), "", rowInfo("ColumnName"))
+                        If ColumnName <> "" Then
+                            If isHaveData Then
+                                ScheduleInt += 1
+                                dtRow(ColumnName) = ScheduleInt
+                                dtRowKeyName(ColumnName) = KeyNameEnum.ToString
 
-                            Case TaxComPNLEnuItem.DEPRECIATION
-                                ColumnName = "PL_PRO_COST_DPC"
+                                dtNote = Nothing
+                                dtNote = clsNote.Load_Note(PNL_KEY, IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
 
-                            Case TaxComPNLEnuItem.OTHERALLOWEXP
-                                ColumnName = "PL_PRO_COST_OAE"
+                                If dtNote IsNot Nothing Then
+                                    Dim dtRowAtt As Byte() = Nothing
+                                    Dim Ext As String = Nothing
+                                    For Each rowx As DataRow In dtNote.Rows
+                                        ds.Tables("PROFIT_LOSS_ACCOUNT_NOTE").ImportRow(rowx)
 
-                            Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-                                ColumnName = "PL_DISALLOWED_EXP"
+                                        If IsDBNull(rowx("TypeNote")) = False Then
+                                            Select Case rowx("TypeNote")
+                                                Case 2
+                                                    'Column
+                                                    dtNoteColumn = clsNote.Load_Note_Column(rowx("ID"), Errorlog)
 
-                            Case TaxComPNLEnuItem.CLOSESTOCK
-                                ColumnName = "PL_CLS_STK"
+                                                    If dtNoteColumn IsNot Nothing Then
+                                                        For Each rowy As DataRow In dtNoteColumn.Rows
+                                                            ds.Tables("PROFIT_LOSS_ACCOUNT_NOTE_COLUMN").ImportRow(rowy)
+                                                        Next
 
-                            Case TaxComPNLEnuItem.OTHERBUSINC
-                                ColumnName = "PL_OTH_BSIN"
+                                                    End If
+                                                Case 1
+                                                    'Attachment
+                                                    dtNoteAttch = clsNote.Load_Note_Attachment(rowx("ID"), Errorlog)
 
-                            Case TaxComPNLEnuItem.REALFETRADE
-                                ColumnName = "PL_OTH_BSIN_REALGT"
+                                                    If dtNoteAttch IsNot Nothing Then
 
-                            Case TaxComPNLEnuItem.INTERESTINC
-                                ColumnName = "PL_OTH_IN_INTEREST"
+                                                        For Each rowy As DataRow In dtNoteAttch.Rows
+                                                            dtRowAtt = Nothing
+                                                            Ext = Nothing
+                                                            dtRowAtt = IIf(IsDBNull(rowy("Attachment")), Nothing, rowy("Attachment"))
+                                                            Ext = IIf(IsDBNull(rowy("Extension")), Nothing, rowy("Extension"))
 
-                            Case TaxComPNLEnuItem.ROYALTYINC
-                                ColumnName = "PL_OTH_IN_ROYALTY"
+                                                            If dtRowAtt IsNot Nothing Then
+                                                                Dim frmnote As New frmNote_AttachmentView
+                                                                Select Case Ext.ToLower
+                                                                    Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                                        frmnote.Type = 0
+                                                                    Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                                        frmnote.Type = 1
+                                                                    Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                                        frmnote.Type = 2
+                                                                    Case ".pdf"
+                                                                        frmnote.Type = 3
+                                                                End Select
+                                                                frmnote.Title = IIf(IsDBNull(rowx("Title")), Nothing, rowx("Title"))
+                                                                frmnote.Extension = Ext
+                                                                frmnote.dataArr = dtRowAtt
+                                                                frmnote.Show()
 
-                            Case TaxComPNLEnuItem.OTHERINC
-                                ColumnName = "PL_OTH_IN_OTHER"
+                                                            End If
+                                                        Next
 
-                            Case TaxComPNLEnuItem.PDFIXASSET
-                                ColumnName = "PL_NONTAX_IN_FA_DISP"
-
-                            Case TaxComPNLEnuItem.PDINVEST
-                                ColumnName = "PL_NONTAX_IN_INV_DISP"
-
-                            Case TaxComPNLEnuItem.FORINCREMIT
-                                ColumnName = "PL_NONTAX_IN_FIR"
-
-                            Case TaxComPNLEnuItem.REALFE
-                                ColumnName = "PL_OTH_BSIN_UNREALGT"
-
-                            Case TaxComPNLEnuItem.UNREALFETRADE
-                                ColumnName = "PL_NONTAX_IN_UNREALG"
-
-                            Case TaxComPNLEnuItem.UNREALFENONTRADE
-                                ColumnName = "PL_NONTAX_IN_REALG"
-
-                            Case TaxComPNLEnuItem.EXPOTHERINTEREST
-                                ColumnName = "PL_EXP_INT"
-
-                            Case TaxComPNLEnuItem.EXPLEGAL
-                                ColumnName = "PL_LAWYER_COST"
-
-                            Case TaxComPNLEnuItem.EXPTECHNICAL
-                                ColumnName = "PL_TECH_FEE"
-
-                            Case TaxComPNLEnuItem.EXPCONTRACTPAY
-                                ColumnName = "PL_CONTRACT_EXP"
-
-                            Case TaxComPNLEnuItem.EXPDIRECTORFEE
-                                ColumnName = "PL_DIRECTORS_FEE"
-
-                            Case TaxComPNLEnuItem.EXPSALARY
-                                ColumnName = "PL_EXP_SALARY"
-
-                            Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-                                ColumnName = "PL_EMPL_STOCK"
-
-                            Case TaxComPNLEnuItem.EXPROYALTY
-                                ColumnName = "PL_ROYALTY"
-
-                            Case TaxComPNLEnuItem.EXPRENTAL
-                                ColumnName = "PL_EXP_RENT"
-
-                            Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-                                ColumnName = "PL_EXP_MAINTENANCE"
-
-                            Case TaxComPNLEnuItem.EXPRND
-                                ColumnName = "PL_RND"
-
-                            Case TaxComPNLEnuItem.EXPADVERTISEMENT
-                                ColumnName = "PL_ADVERT"
-
-                            Case TaxComPNLEnuItem.EXPTRAVEL
-                                ColumnName = "PL_TRAVEL"
-
-                            Case TaxComPNLEnuItem.EXPJKDM
-                                ColumnName = "PL_JKDM"
-
-                            Case TaxComPNLEnuItem.EXPDEPRECIATION
-                                ColumnName = "PL_OTHER_EXP_DPC"
-
-                            Case TaxComPNLEnuItem.EXPDONATIONAPPR
-                                ColumnName = "PL_OTHER_EXP_DNT_APP"
-
-                            Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
-                                ColumnName = "PL_OTHER_EXP_DNT_NAPP"
-
-                            Case TaxComPNLEnuItem.EXPZAKAT
-                                ColumnName = "PL_OTHER_EXP_ZAKAT"
-
-                            Case TaxComPNLEnuItem.EXPLOSSDISPFA
-                                ColumnName = "PL_OTHER_EXP_FA_DISP"
-
-                            Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-                                ColumnName = "PL_OTHER_EXP_ENTM_CLNT"
-
-                            Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-                                ColumnName = "PL_OTHER_EXP_ENTM_STFF"
-
-                            Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-                                ColumnName = "PL_OTHER_EXP_PENALTY"
-
-                            Case TaxComPNLEnuItem.EXPPROVISION
-                                ColumnName = "PL_OTHER_EXP_PROV_ACC"
-
-                            Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-                                ColumnName = "PL_OTHER_EXP_LEAVE"
-
-                            Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-                                ColumnName = "PL_OTHER_EXP_FA_WO"
-
-                            Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-                                ColumnName = "PL_OTHER_EXP_UNREALOSS"
-
-                            Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-                                ColumnName = "PL_OTHER_EXP_REALOSS"
-
-                            Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-                                ColumnName = "PL_OTHER_EXRLOSSFOREIGNT"
-
-                            Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-                                ColumnName = "PL_OTHER_EXP_INI_SUB"
-
-                            Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-                                ColumnName = "PL_OTHER_EXP_CAP_EXP"
-
-                            Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-                                ColumnName = "PL_OTHER_EXP_OTHERS"
-
-                            Case TaxComPNLEnuItem.RENTALINC
-                                ColumnName = "PL_OTH_IN_RENTAL"
-
-                            Case TaxComPNLEnuItem.OTHERNONTAXINC
-                                ColumnName = "PL_NONTAX_IN_INSU_COMP"
-
-                            Case TaxComPNLEnuItem.EXEMDIV
-                                ColumnName = "PL_NONTAX_IN_EXM_DIV"
-
-                            Case TaxComPNLEnuItem.INTERESTRESTRICT
-                                ColumnName = "PL_EXP_INTRESTRICT"
-                            Case TaxComPNLEnuItem.DIVIDENDINC
-                                ColumnName = "PL_OTH_IN_DIVIDEND"
-
-                        End Select
+                                                    End If
 
 
-                        If isHaveData Then
-                            ScheduleInt += 1
-                            dtRow(ColumnName) = ScheduleInt
+                                            End Select
 
-                        Else
-                            dtRow(ColumnName) = DBNull.Value
+                                        End If
+                                    Next
+                                End If
+                            Else
+                                dtRow(ColumnName) = DBNull.Value
+                                dtRowKeyName(ColumnName) = DBNull.Value
+                            End If
                         End If
+                     
 
                         Application.DoEvents()
                     Next
                 End If
 
                 ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
+                ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_KEYNAME").Rows.Add(dtRowKeyName)
 
                 dtExclude = ADO.Load_PNL_IncludeInReport(PNL_KEY, Errorlog)
 

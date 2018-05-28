@@ -465,6 +465,8 @@ Partial Public Class rptPNL
         Me.DetailReport105 = New DevExpress.XtraReports.UI.DetailReportBand()
         Me.Detail106 = New DevExpress.XtraReports.UI.DetailBand()
         Me.XrSubreport1 = New DevExpress.XtraReports.UI.XRSubreport()
+        Me.ParamSch = New DevExpress.XtraReports.Parameters.Parameter()
+        Me.XrLabel125 = New DevExpress.XtraReports.UI.XRLabel()
         CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -3747,14 +3749,14 @@ Partial Public Class rptPNL
         '
         'ReportHeader
         '
-        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel195, Me.XrLabel194, Me.XrLabel193, Me.XrLabel208, Me.XrLabel207})
-        Me.ReportHeader.HeightF = 119.4167!
+        Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel125, Me.XrLabel195, Me.XrLabel194, Me.XrLabel193, Me.XrLabel208, Me.XrLabel207})
+        Me.ReportHeader.HeightF = 151.7084!
         Me.ReportHeader.Name = "ReportHeader"
         '
         'XrLabel195
         '
         Me.XrLabel195.Font = New System.Drawing.Font("Arial", 10.2!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel195.LocationFloat = New DevExpress.Utils.PointFloat(685.496!, 92.66672!)
+        Me.XrLabel195.LocationFloat = New DevExpress.Utils.PointFloat(685.496!, 128.7084!)
         Me.XrLabel195.Name = "XrLabel195"
         Me.XrLabel195.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel195.SizeF = New System.Drawing.SizeF(98.50403!, 23.0!)
@@ -3766,7 +3768,7 @@ Partial Public Class rptPNL
         'XrLabel194
         '
         Me.XrLabel194.Font = New System.Drawing.Font("Arial", 10.2!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel194.LocationFloat = New DevExpress.Utils.PointFloat(531.3796!, 92.66672!)
+        Me.XrLabel194.LocationFloat = New DevExpress.Utils.PointFloat(531.3796!, 128.7084!)
         Me.XrLabel194.Name = "XrLabel194"
         Me.XrLabel194.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel194.SizeF = New System.Drawing.SizeF(154.1166!, 23.0!)
@@ -3778,7 +3780,7 @@ Partial Public Class rptPNL
         'XrLabel193
         '
         Me.XrLabel193.Font = New System.Drawing.Font("Arial", 10.2!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel193.LocationFloat = New DevExpress.Utils.PointFloat(376.1713!, 92.66669!)
+        Me.XrLabel193.LocationFloat = New DevExpress.Utils.PointFloat(376.1713!, 128.7084!)
         Me.XrLabel193.Name = "XrLabel193"
         Me.XrLabel193.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel193.SizeF = New System.Drawing.SizeF(154.6625!, 23.0!)
@@ -3791,7 +3793,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel208.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramYA, "Text", "Detailed Income Statement")})
         Me.XrLabel208.Font = New System.Drawing.Font("Arial", 9.75!)
-        Me.XrLabel208.LocationFloat = New DevExpress.Utils.PointFloat(54.79139!, 32.99998!)
+        Me.XrLabel208.LocationFloat = New DevExpress.Utils.PointFloat(54.79139!, 75.70833!)
         Me.XrLabel208.Name = "XrLabel208"
         Me.XrLabel208.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel208.SizeF = New System.Drawing.SizeF(661.7086!, 23.0!)
@@ -3804,7 +3806,7 @@ Partial Public Class rptPNL
         '
         Me.XrLabel207.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramCompanyName, "Text", "")})
         Me.XrLabel207.Font = New System.Drawing.Font("Arial", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel207.LocationFloat = New DevExpress.Utils.PointFloat(54.79139!, 10.0!)
+        Me.XrLabel207.LocationFloat = New DevExpress.Utils.PointFloat(54.79139!, 52.70834!)
         Me.XrLabel207.Name = "XrLabel207"
         Me.XrLabel207.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
         Me.XrLabel207.SizeF = New System.Drawing.SizeF(661.7086!, 23.0!)
@@ -4599,6 +4601,24 @@ Partial Public Class rptPNL
         Me.XrSubreport1.ReportSource = New EasyTemplate_Taxcom.rptPNL_Details()
         Me.XrSubreport1.SizeF = New System.Drawing.SizeF(783.9993!, 23.0!)
         '
+        'ParamSch
+        '
+        Me.ParamSch.Description = "ParamSch"
+        Me.ParamSch.Name = "ParamSch"
+        Me.ParamSch.ValueInfo = "Schedule"
+        '
+        'XrLabel125
+        '
+        Me.XrLabel125.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.ParamSch, "Text", "")})
+        Me.XrLabel125.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel125.LocationFloat = New DevExpress.Utils.PointFloat(569.4158!, 0.0!)
+        Me.XrLabel125.Name = "XrLabel125"
+        Me.XrLabel125.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
+        Me.XrLabel125.SizeF = New System.Drawing.SizeF(214.5834!, 23.0!)
+        Me.XrLabel125.StylePriority.UseFont = False
+        Me.XrLabel125.StylePriority.UseTextAlignment = False
+        Me.XrLabel125.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        '
         'rptPNL
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.PageHeader, Me.GroupHeader1, Me.DetailReport105})
@@ -4608,14 +4628,14 @@ Partial Public Class rptPNL
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.SALES, Me.OPENSTOCK, Me.PURCHASE, Me.DEPRECIATION, Me.OTHERALLOWEXP, Me.OTHERNONALLOWEXP, Me.CLOSESTOCK, Me.OTHERBUSINC, Me.REALFETRADE, Me.DIVIDENDINC, Me.INTERESTINC, Me.RENTALINC, Me.ROYALTYINC, Me.OTHERINC, Me.PDFIXASSET, Me.PDINVEST, Me.EXEMDIV, Me.FORINCREMIT, Me.REALFE, Me.UNREALFENONTRADE, Me.UNREALFETRADE, Me.OTHERNONTAXINC, Me.INTERESTRESTRICT, Me.EXPOTHERINTEREST, Me.EXPLEGAL, Me.EXPTECHNICAL, Me.EXPCONTRACTPAY, Me.EXPDIRECTORFEE, Me.EXPSALARY, Me.EXPEMPLOYEESTOCK, Me.EXPROYALTY, Me.EXPRENTAL, Me.EXPREPAIRMAINTENANCE, Me.EXPRND, Me.EXPADVERTISEMENT, Me.EXPTRAVEL, Me.EXPDEPRECIATION, Me.EXPDONATIONAPPR, Me.EXPDONATIONNONAPPR, Me.EXPZAKAT, Me.EXPLOSSDISPFA, Me.EXPENTERTAINNONSTAFF, Me.EXPENTERTAINSTAFF, Me.EXPCOMPAUNDPENALTY, Me.EXPPROVISION, Me.EXPLEAVEPASSAGE, Me.EXPFAWRITTENOFF, Me.EXPUNREALLOSSFE, Me.EXPREALLOSSFETRADE, Me.EXPREALLOSSFENONTRADE, Me.EXPINITIALSUBSCRIPT, Me.EXPCAPITALEXPENDITURE, Me.EXPOTHERSEXPENSES, Me.EXPJKDM, Me.LESSCLOSINGSTOCK, Me.TOTALCOS, Me.OTHERINCOME, Me.NONTAXABLEINCOME, Me.TITLE_COS, Me.TITLE_NONBIZINCOME, Me.TITLE_NONTAXABLEINCOME, Me.TITLE_EXPENDITURE, Me.TITLE_OTHEREXPENDITURE, Me.OTHER_EXPENSES_DETAILS, Me.OTHER_EXPENSES_DETAILS_INVT, Me.OTHER_EXCAPITALEXP_DETAIL, Me.OTHER_EXCAPITALEXP_DETAIL_INVT, Me.EXPINITIALSUBSCRIPT_DETAIL, Me.EXPINITIALSUBSCRIPT_DETAIL_INVT, Me.EXPREALLOSSFENONTRADE_DETAIL, Me.EXPREALLOSSFENONTRADE_DETAIL_INVT, Me.EXPREALLOSSFETRADE_DETAIL, Me.EXPREALLOSSFETRADE_DETAIL_INVT, Me.EXPUNREALLOSSFE_DETAIL, Me.EXPUNREALLOSSFE_DETAIL_INVT, Me.EXPFAWRITTENOFF_DETAIL, Me.EXPFAWRITTENOFF_DETAIL_INVT, Me.EXPLEAVEPASSAGE_DETAIL, Me.EXPLEAVEPASSAGE_DETAIL_INVT, Me.EXPPROVISION_DETAIL, Me.EXPPROVISION_DETAIL_INVT, Me.EXPCOMPAUNDPENALTY_DETAIL, Me.EXPCOMPAUNDPENALTY_DETAIL_INVT, Me.EXPENTERTAINSTAFF_DETAIL, Me.EXPENTERTAINSTAFF_DETAIL_INVT, Me.EXPENTERTAINNONSTAFF_DETAIL, Me.EXPENTERTAINNONSTAFF_DETAIL_INVT, Me.EXPLOSSDISPFA_DETAIL, Me.EXPLOSSDISPFA_DETAIL_INVT, Me.EXPZAKAT_DETAIL, Me.EXPZAKAT_DETAIL_INVT, Me.EXPDONATIONNONAPPR_DETAIL, Me.EXPDONATIONNONAPPR_DETAIL_INVT, Me.EXPDONATIONAPPR_DETAIL, Me.EXPDONATIONAPPR_DETAIL_INVT, Me.EXPDEPRECIATION_DETAIL, Me.EXPDEPRECIATION_DETAIL_INVT, Me.EXPJKDM_DETAIL, Me.EXPJKDM_DETAIL_INVT, Me.EXPTRAVEL_DETAIL, Me.EXPTRAVEL_DETAIL_INVT, Me.EXPADVERTISEMENT_DETAIL, Me.EXPADVERTISEMENT_DETAIL_INVT, Me.EXPRND_DETAIL, Me.EXPRND_DETAIL_INVY, Me.EXPREPAIRMAINTENANCE_DETAIL, Me.EXPREPAIRMAINTENANCE_DETAIL_INVT, Me.EXPRENTAL_DETAIL, Me.EXPRENTAL_DETAIL_INVT, Me.EXPROYALTY_DETAIL, Me.EXPROYALTY_DETAIL_INVT, Me.EXPEMPLOYEESTOCK_DETAIL, Me.EXPEMPLOYEESTOCK_DETAIL_INVT, Me.EXPSALARY_DETAIL, Me.EXPSALARY_DETAIL_INVT, Me.EXPDIRECTORFEE_DETAIL, Me.EXPDIRECTORFEE_DETAIL_INVT, Me.EXPCONTRACTPAY_DETAIL, Me.EXPCONTRACTPAY_DETAIL_INVT, Me.EXPTECHNICAL_DETAIL, Me.EXPTECHNICAL_DETAIL_INVT, Me.EXPLEGAL_DETAIL, Me.EXPLEGAL_DETAIL_INVT, Me.EXPOTHERINTEREST_DETAIL, Me.EXPOTHERINTEREST_DETAIL_INVT, Me.OTHERNONTAXINC_DETAIL, Me.OTHERNONTAXINC_DETAIL_INVT, Me.UNREALFETRADE_DETAIL, Me.UNREALFETRADE_DETAIL_INVT, Me.UNREALFENONTRADE_DETAIL, Me.UNREALFENONTRADE_DETAIL_INVT, Me.REALFE_DETAIL, Me.REALFE_DETAIL_INVT, Me.FORINCREMIT_DETAIL, Me.FORINCREMIT_DETAIL_INVT, Me.PDINVEST_DETAIL, Me.PDINVEST_DETAIL_INVT, Me.PDFIXASSET_DETAIL, Me.PDFIXASSET_DETAIL_INVT, Me.OTHERINC_DETAIL, Me.OTHERINC_DETAIL_INVT, Me.ROYALTYINC_DETAIL, Me.ROYALTYINC_DETAIL_INVT, Me.INTERESTINC_DETAIL, Me.INTERESTINC_DETAIL_INVT, Me.REALFETRADE_DETAIL, Me.REALFETRADE_DETAIL_INVT, Me.OTHERBUSINC_DETAIL, Me.OTHERBUSINC_DETAIL_INVT, Me.CLOSESTOCK_DETAIL, Me.CLOSESTOCK_DETAIL_INVT, Me.OTHERNONALLOWEXP_DETAIL, Me.OTHERNONALLOWEXP_DETAIL_INVT, Me.OTHERALLOWEXP_DETAIL, Me.OTHERALLOWEXP_DETAIL_INVT, Me.DEPRECIATION_DETAIL, Me.DEPRECIATION_DETAIL_INVT, Me.PURCHASE_DETAIL, Me.PURCHASE_DETAIL_INVT, Me.OPENSTOCK_DETAIL, Me.OPENSTOCK_DETAIL_INVT, Me.SALES_DETAIL, Me.SALES_DETAIL_INVT, Me.INTERESTRESTRICT_DETAIL, Me.EXPUNREALLOSSFE_NONTRICOR})
         Me.Margins = New System.Drawing.Printing.Margins(31, 35, 20, 16)
-        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA})
-        Me.RequestParameters = false
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramCompanyName, Me.paramYA, Me.ParamSch})
+        Me.RequestParameters = False
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "17.1"
-        CType(Me.DsPNL1,System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.DsPNL1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me, System.ComponentModel.ISupportInitialize).EndInit()
 
-End Sub
+    End Sub
     Friend WithEvents Detail As DevExpress.XtraReports.UI.DetailBand
     Friend WithEvents TopMargin As DevExpress.XtraReports.UI.TopMarginBand
     Friend WithEvents BottomMargin As DevExpress.XtraReports.UI.BottomMarginBand
@@ -5061,4 +5081,6 @@ End Sub
     Friend WithEvents DetailReport105 As DevExpress.XtraReports.UI.DetailReportBand
     Friend WithEvents Detail106 As DevExpress.XtraReports.UI.DetailBand
     Friend WithEvents XrSubreport1 As DevExpress.XtraReports.UI.XRSubreport
+    Friend WithEvents XrLabel125 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents ParamSch As DevExpress.XtraReports.Parameters.Parameter
 End Class

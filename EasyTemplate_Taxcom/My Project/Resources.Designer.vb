@@ -71,16 +71,11 @@ Namespace My.Resources
         
         '''<summary>
         '''  Looks up a localized string similar to Adding new feature
-        '''1. [My note] - You can add you own note.
-        '''2. [Default connection] - Now you can switch server connection without typing now instance.
-        '''3. [File Compare] - For administartor check difference file between orginal and old.
-        '''4. [Capital Allowance] - Improve user control and searching engine.
-        '''5. [Disposal] - Improve user control and searching engine.
-        '''6. [Table of content] - Adding table of content configuration
-        '''7. [SourceNo PNL] - Adding auto detect source number in PNL
+        '''1. [Note] - Each Report has own note.
+        '''2. [Table of Content] - Adding table of content but only for few report only.
         '''
         '''Fixed Bug
-        '''1. [C [rest of string was truncated]&quot;;.
+        '''1. [CP204 - Edit] - Stack overflow.
         '''</summary>
         Friend ReadOnly Property UpdateNo() As String
             Get

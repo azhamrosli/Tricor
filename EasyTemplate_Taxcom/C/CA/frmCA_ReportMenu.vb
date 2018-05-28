@@ -1,6 +1,7 @@
 ﻿Public Class frmCA_ReportMenu 
     Dim ErrorLog As clsError = Nothing
-    Public TypeReport As Integer = 0
+    Public TypeReport As Integer = 1
+    Dim ListofIndexNo As List(Of Integer)
     Private Sub frmCA_ReportMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData()
@@ -25,7 +26,45 @@
                 Exit Sub
             End If
 
-            cboType.SelectedIndex = TypeReport
+            Dim TypeLicense As Integer = 0
+            If isVersionLicenseType = VersionLicenseType.Tricor Then
+                TypeLicense = 2
+            Else
+                TypeLicense = 1
+            End If
+            Dim dt As DataTable = ADO.Load_CA_ReportMenu(TypeLicense, ErrorLog)
+
+            If dt IsNot Nothing Then
+                Dim SelectedTypeIndex As Integer = 2
+                Dim i As Integer = -1
+                cboType.Properties.Items.Clear()
+
+                If ListofIndexNo Is Nothing Then
+                    ListofIndexNo = New List(Of Integer)
+                End If
+
+                ListofIndexNo.Clear()
+
+                For Each rowx As DataRow In dt.Rows
+                    i += 1
+                    If IsDBNull(rowx("Description")) = False Then
+
+                        cboType.Properties.Items.Add(rowx("Description"))
+                        ListofIndexNo.Add(IIf(IsDBNull(rowx("IndexNo")), 0, rowx("IndexNo")))
+
+                        If IIf(IsDBNull(rowx("IndexNo")), 0, rowx("IndexNo")) = TypeReport Then
+                            SelectedTypeIndex = i
+                        End If
+
+                    End If
+
+                Next
+
+                cboType.SelectedIndex = SelectedTypeIndex
+            Else
+                MsgBox("Failed to load report menu.", MsgBoxStyle.Critical)
+                Me.Close()
+            End If
 
             If mdlProcess.ArgParam2 <> "" Then
                 cboRefNo.EditValue = mdlProcess.ArgParam2
@@ -119,17 +158,17 @@
                     RateTo = CInt(cboRateTo.EditValue)
                 End If
             End If
-           
+
             If chkAllCategory.Checked = False Then
                 Category = cboCategory.EditValue
             End If
             Dim Status As Boolean = False
-            Select Case cboType.SelectedIndex
+            Select Case ListofIndexNo(cboType.SelectedIndex)
                 Case 0, 1, 2
                     Status = mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
-                   
+
                 Case 3, 4, 5
-                    Status = mdlReport_CA.Report_CA_Summary(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, cboType.SelectedIndex, ErrorLog)
+                    Status = mdlReport_CA.Report_CA_Summary(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ListofIndexNo(cboType.SelectedIndex), ErrorLog)
 
                 Case 6
                     Status = mdlReport_CA.Report_CA_FAConciliation(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
@@ -149,15 +188,21 @@
                 Case 11
                     'Hire Purchase
                     Status = mdlReport_CA.Report_HP(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+                Case 12
+                    'Summary QE
+                    Status = mdlReport_CA.Report_CA_SummaryQE(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
+                Case 13
+                    'Analysis
+                    Status = mdlReport_CA.Report_CA_Analysis(cboRefNo.EditValue, cboYA.EditValue, ID, RateFrom, RateTo, Category, ErrorLog)
             End Select
 
             If Status = False Then
                 MsgBox("Failed to generate report", MsgBoxStyle.Critical)
             Else
-                Select Case cboType.SelectedIndex
+                Select Case ListofIndexNo(cboType.SelectedIndex)
                     Case 0, 1, 2, 3, 4, 5
                         Dim frm As New frmCA_Report
-                        frm.TypeReport = cboType.SelectedIndex
+                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
                         frm.ID = ID
                         frm.RefNo = cboRefNo.EditValue
                         frm.YA = cboYA.EditValue
@@ -166,7 +211,7 @@
 
                     Case 6
                         Dim frm As New frmCA_Report_FA_Reconciliation
-                        frm.TypeReport = cboType.SelectedIndex
+                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
                         frm.ID = ID
                         frm.RefNo = cboRefNo.EditValue
                         frm.YA = cboYA.EditValue
@@ -176,7 +221,7 @@
                     Case 7
                         'control transfer
                         Dim frm As New frmCA_Report_ControlTransfer
-                        frm.TypeReport = cboType.SelectedIndex
+                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
                         frm.ID = ID
                         frm.RefNo = cboRefNo.EditValue
                         frm.YA = cboYA.EditValue
@@ -188,10 +233,10 @@
                         'control transfer out
 
                         Dim frm As New frmCA_Report_Disposal
-                        frm.TypeReport = cboType.SelectedIndex
+                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
                         frm.ID = ID
 
-                        Select Case cboType.SelectedIndex
+                        Select Case ListofIndexNo(cboType.SelectedIndex)
                             Case 8
                                 frm.Type = 0
                             Case 9
@@ -214,9 +259,26 @@
                         frm.YA = cboYA.EditValue
                         frm.ComName = cboRefNo.Text
                         frm.Show()
-
+                    Case 12
+                        'Summary QE
+                        Dim frm As New frmCA_Report_SummaryQE
+                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
+                        frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
+                    Case 13
+                        'Analysis
+                        Dim frm As New frmCA_Report_Analysis
+                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
+                        frm.ID = ID
+                        frm.RefNo = cboRefNo.EditValue
+                        frm.YA = cboYA.EditValue
+                        frm.ComName = cboRefNo.Text
+                        frm.Show()
                 End Select
-                
+
             End If
         Catch ex As Exception
 

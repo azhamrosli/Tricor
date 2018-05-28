@@ -1,6 +1,18 @@
 ﻿Imports DevExpress.XtraReports.UI
 Public Class ucCP204
+    Dim clsCP204_Note As clsNote_CP204
     Dim ErrorLog As clsError = Nothing
+
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        If clsCP204_Note Is Nothing Then
+            clsCP204_Note = New clsNote_CP204
+        End If
+    End Sub
     Private Sub frmCP204_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
@@ -186,73 +198,16 @@ Public Class ucCP204
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
-
-            If GridView1.SelectedRowsCount = 0 Then
-                Exit Sub
-            End If
-
-            Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_KEY")
-
-            Dim dt As DataTable = ADO.Load_CP204_BreakDown_ByParentID(ID)
-
-            DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Clear()
-            If dt Is Nothing Then
-                MsgBox("Record not found.", MsgBoxStyle.Critical)
-                Exit Sub
+            Dim rpt As rpt_CP204_Breakdown
+            If mdlProcess.PrintReport_CP204(DsCP204, GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_REF_NO"), _
+                                            GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_YA"), _
+                                            GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_KEY"), rpt, ErrorLog) Then
+                rpt.ShowPreview()
+            Else
+                MsgBox("Failed to load CP204 report.", MsgBoxStyle.Critical)
             End If
 
 
-            Dim dtRow As DataRow = Nothing
-
-
-            For i As Integer = 0 To dt.Rows.Count - 1
-                dtRow = Nothing
-                dtRow = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").NewRow
-                dtRow("CP_ID") = IIf(IsDBNull(dt.Rows(i)("CP_ID")), 0, dt.Rows(i)("CP_ID"))
-                dtRow("CP_PARENTID") = IIf(IsDBNull(dt.Rows(i)("CP_PARENTID")), 0, dt.Rows(i)("CP_PARENTID"))
-                dtRow("CP_INSTALL_NO") = i + 1
-                dtRow("CP_PAYMENT_DUE") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DUE")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DUE"))
-                dtRow("CP_INSTALLMENT_AMOUNT") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
-                dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_1")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_1"))
-                dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_1")), 0, dt.Rows(i)("CP_AMOUNT_PAID_1"))
-                '  dtRow("CP_TOTAL_INSTALLMENT") = IIf(IsDBNull(dt.Rows(i)("BCP_ESTIMATED_TAX")), 0, dt.Rows(i)("BCP_ESTIMATED_TAX"))
-
-                If IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")) = False AndAlso IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")) = False AndAlso CDec(dt.Rows(i)("CP_AMOUNT_PAID_2")) <> 0 Then
-                    dtRow("CP_PENALTY") = 0
-                Else
-                    dtRow("CP_PENALTY") = IIf(IsDBNull(dt.Rows(i)("CP_PENALTY")), 0, dt.Rows(i)("CP_PENALTY"))
-                End If
-
-                DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Add(dtRow)
-
-
-                If IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")) = False AndAlso IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")) = False AndAlso CDec(dt.Rows(i)("CP_AMOUNT_PAID_2")) <> 0 Then
-                    dtRow = Nothing
-
-                    dtRow = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").NewRow
-                    dtRow("CP_ID") = IIf(IsDBNull(dt.Rows(i)("CP_ID")), 0, dt.Rows(i)("CP_ID"))
-                    dtRow("CP_PARENTID") = IIf(IsDBNull(dt.Rows(i)("CP_PARENTID")), 0, dt.Rows(i)("CP_PARENTID"))
-                    dtRow("CP_INSTALL_NO") = IIf(IsDBNull(dt.Rows(i)("CP_INSTALL_NO")), 0, dt.Rows(i)("CP_INSTALL_NO"))
-                    dtRow("CP_PAYMENT_DUE") = DBNull.Value 'IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DUE")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DUE"))
-                    dtRow("CP_INSTALLMENT_AMOUNT") = DBNull.Value 'IIf(IsDBNull(dt.Rows(i)("CP_INSTALLMENT_AMOUNT")), 0, dt.Rows(i)("CP_INSTALLMENT_AMOUNT"))
-                    dtRow("CP_PAYMENT_DATE_1") = IIf(IsDBNull(dt.Rows(i)("CP_PAYMENT_DATE_2")), DBNull.Value, dt.Rows(i)("CP_PAYMENT_DATE_2"))
-                    dtRow("CP_AMOUNT_PAID_1") = IIf(IsDBNull(dt.Rows(i)("CP_AMOUNT_PAID_2")), 0, dt.Rows(i)("CP_AMOUNT_PAID_2"))
-                    '  dtRow("CP_TOTAL_INSTALLMENT") = IIf(IsDBNull(dt.Rows(i)("BCP_ESTIMATED_TAX")), 0, dt.Rows(i)("BCP_ESTIMATED_TAX"))
-                    dtRow("CP_PENALTY") = IIf(IsDBNull(dt.Rows(i)("CP_PENALTY")), 0, dt.Rows(i)("CP_PENALTY"))
-                    DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Add(dtRow)
-
-                End If
-
-            Next
-
-            Dim rpt As New rpt_CP204_Breakdown
-            ' Dim ComName As String = GridView1
-            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_REF_NO"))
-            '  rpt.paramCompanyName.Value =' .ToString.ToUpper
-            rpt.paramYA.Value = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BCP_YA")
-            rpt.paramApendix.Value = "APPENDIX"
-            rpt.DataSource = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT")
-            rpt.ShowPreview()
         Catch ex As Exception
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError

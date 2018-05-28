@@ -10,6 +10,8 @@ Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 
 Public Class frmCA_Report_Disposal
+    Dim clsNote As clsNote_CA = Nothing
+    Dim ErrorLog As clsError = Nothing
     Public ID As String = ""
     Public RefNo As String = ""
     Public YA As String = ""
@@ -19,6 +21,16 @@ Public Class frmCA_Report_Disposal
     Dim link As PrintableComponentLink
     Dim isFirstTime As Boolean = False
     Dim ds As dsCA
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        If clsNote Is Nothing Then
+            clsNote = New clsNote_CA
+        End If
+    End Sub
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
             ADO.Delete_CA_Report_TEMP(ID)
@@ -108,69 +120,68 @@ Public Class frmCA_Report_Disposal
                 End If
 
 
+                Dim dtNote As DataTable = Nothing
+                Dim dtNote_Child As DataTable = Nothing
+                Dim tmpNoteID As Integer = 0
+                Dim Ext As String = Nothing
+                Dim dtRowAtt As Byte() = Nothing
+                Dim i As Integer = -1
+
+                DsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+                DsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
+                DsCA.Tables("CA_NOTE").Rows.Clear()
+
                 Select Case TypeReport
                     Case 8
                         'Disposal
-                        Dim rpt As New rpt_CADisposal
+                        Dim rpt As rpt_Disposal
 
-                        rpt.paramCompanyName.Value = ComName
-                        rpt.paramYA.Value = CInt(YA)
+                        If mdlProcess.PrintReport_Disposal(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            If isExport Then
+                                rpt.ExportToXlsx(Path)
 
-
-                        rpt.Landscape = True
-                        rpt.DataSource = DsCA.Tables("CA_REPORT_DISPOSAL_TEMP")
-
-
-                        If isExport Then
-                            rpt.ExportToXlsx(Path)
-
+                            Else
+                                rpt.ShowPreview()
+                            End If
                         Else
-                            rpt.ShowPreview()
+                            MsgBox("Failed to load disposal report.", MsgBoxStyle.Critical)
                         End If
 
                     Case 9
                         'Written Off
-                        Dim rpt As New rpt_CAWrittenOff
+                        Dim rpt As rpt_CAWrittenOff
 
-                        rpt.paramCompanyName.Value = ComName
-                        rpt.paramYA.Value = CInt(YA)
+                        If mdlProcess.PrintReport_WrittenOff(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            If isExport Then
+                                rpt.ExportToXlsx(Path)
 
-
-                        rpt.Landscape = True
-                        rpt.DataSource = DsCA.Tables("CA_REPORT_DISPOSAL_TEMP")
-
-
-                        If isExport Then
-                            rpt.ExportToXlsx(Path)
-
+                            Else
+                                rpt.ShowPreview()
+                            End If
                         Else
-                            rpt.ShowPreview()
+                            MsgBox("Failed to load written off report.", MsgBoxStyle.Critical)
                         End If
+                        
 
                     Case 10
+
                         'Control Transfer Out
-                        Dim rpt As New rpt_CAControlTransfer_Out
+                        Dim rpt As rpt_CAControlTransfer_Out
+                        If mdlProcess.PrintReport_ControlTransferOut(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            If isExport Then
+                                rpt.ExportToXlsx(Path)
 
-                        rpt.paramCompanyName.Value = ComName
-                        rpt.paramYA.Value = CInt(YA)
-
-
-                        rpt.Landscape = True
-                        rpt.DataSource = DsCA.Tables("CA_REPORT_DISPOSAL_TEMP")
-
-
-                        If isExport Then
-                            rpt.ExportToXlsx(Path)
-
+                            Else
+                                rpt.ShowPreview()
+                            End If
                         Else
-                            rpt.ShowPreview()
+                            MsgBox("Failed to load control transfer out report.", MsgBoxStyle.Critical)
                         End If
 
                 End Select
 
                 If isExport Then
                     MsgBox("Succesfully export report to " & vbCrLf & Path, MsgBoxStyle.Information)
-
                 End If
 
 

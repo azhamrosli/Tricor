@@ -70,12 +70,13 @@ Partial Public Class rpt_RA
         Me.CalcRA_Less_Withdrawal = New DevExpress.XtraReports.UI.CalculatedField()
         Me.CalcRA_Plus_Withdrawal = New DevExpress.XtraReports.UI.CalculatedField()
         Me.ReportFooter3 = New DevExpress.XtraReports.UI.ReportFooterBand()
+        Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLine5 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLine4 = New DevExpress.XtraReports.UI.XRLine()
         Me.XrLabel22 = New DevExpress.XtraReports.UI.XRLabel()
         Me.SUM_WITHDRAWAL = New DevExpress.XtraReports.UI.CalculatedField()
         Me.TOTAL = New DevExpress.XtraReports.UI.CalculatedField()
-        Me.XrLabel5 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramSch = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.DsRA_ITA1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -144,6 +145,7 @@ Partial Public Class rpt_RA
         '
         'XrLabel3
         '
+        Me.XrLabel3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramSch, "Text", "")})
         Me.XrLabel3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(648.9586!, 10.00001!)
         Me.XrLabel3.Name = "XrLabel3"
@@ -510,6 +512,17 @@ Partial Public Class rpt_RA
         Me.ReportFooter3.HeightF = 100.1251!
         Me.ReportFooter3.Name = "ReportFooter3"
         '
+        'XrLabel5
+        '
+        Me.XrLabel5.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TOTAL", "{0:#,# ;(#,#);0; }")})
+        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(601.0834!, 10.00004!)
+        Me.XrLabel5.Name = "XrLabel5"
+        Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
+        Me.XrLabel5.SizeF = New System.Drawing.SizeF(100.0!, 23.0!)
+        Me.XrLabel5.StylePriority.UseTextAlignment = False
+        Me.XrLabel5.Text = "XrLabel5"
+        Me.XrLabel5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        '
         'XrLine5
         '
         Me.XrLine5.LocationFloat = New DevExpress.Utils.PointFloat(601.0834!, 4.791641!)
@@ -545,16 +558,11 @@ Partial Public Class rpt_RA
         Me.TOTAL.DataMember = "TAX_COMPUTATION"
         Me.TOTAL.Name = "TOTAL"
         '
-        'XrLabel5
+        'paramSch
         '
-        Me.XrLabel5.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TOTAL", "{0:#,# ;(#,#);0; }")})
-        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(601.0834!, 10.00004!)
-        Me.XrLabel5.Name = "XrLabel5"
-        Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
-        Me.XrLabel5.SizeF = New System.Drawing.SizeF(100.0!, 23.0!)
-        Me.XrLabel5.StylePriority.UseTextAlignment = False
-        Me.XrLabel5.Text = "XrLabel5"
-        Me.XrLabel5.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        Me.paramSch.Description = "paramSch"
+        Me.paramSch.Name = "paramSch"
+        Me.paramSch.ValueInfo = "Schedule"
         '
         'rpt_RA
         '
@@ -565,6 +573,7 @@ Partial Public Class rpt_RA
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.IFWithDrawalYES, Me.IFWithDrawalNO})
         Me.Margins = New System.Drawing.Printing.Margins(26, 39, 21, 100)
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramSch})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "17.1"
         CType(Me.DsRA_ITA1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -627,4 +636,5 @@ Partial Public Class rpt_RA
     Friend WithEvents XrLabel21 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents XrLabel5 As DevExpress.XtraReports.UI.XRLabel
     Friend WithEvents TOTAL As DevExpress.XtraReports.UI.CalculatedField
+    Friend WithEvents paramSch As DevExpress.XtraReports.Parameters.Parameter
 End Class

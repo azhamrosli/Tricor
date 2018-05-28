@@ -28,11 +28,21 @@ Public Class ucPNL_p3Travelling
     Public Const MainDetails_Deduct As String = "EXTD_DEDUCTIBLE_ADD"  'PLFSD_DESC
     Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -56,8 +66,15 @@ Public Class ucPNL_p3Travelling
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             EXPENSESTRAVELBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
-            If isEdit Then
+            Application.DoEvents()
 
+            CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                               MainAmount_Details, MainColumn_PercentageAmount, Errorlog)
+
+            If dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE") IsNot Nothing AndAlso dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE").Rows.Count > 0 AndAlso mdlPNL2.GetIncludeInReport(TaxComPNLEnuItem.EXPOTHERSEXPENSES, dsDataSet.Tables("PROFIT_LOSS_ACCOUNT_REPORT_EXCLUDE")) Then
+                chkIncludeInReport.EditValue = True
+            Else
+                chkIncludeInReport.EditValue = False
             End If
 
         Catch ex As Exception
@@ -70,6 +87,7 @@ Public Class ucPNL_p3Travelling
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -277,6 +295,18 @@ Public Class ucPNL_p3Travelling
     Private Sub btnMoveDown_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveDown.ItemClick
         Try
             mdlPNL.MoveItemsInListView(False, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL1, ErrorLog)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
+
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
         Catch ex As Exception
 
         End Try

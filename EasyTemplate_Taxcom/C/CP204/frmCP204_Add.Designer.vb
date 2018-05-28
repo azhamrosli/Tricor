@@ -31,6 +31,7 @@ Partial Class frmCP204_Add
         Me.btnRefreshMonthlyBreakdown = New DevExpress.XtraBars.BarButtonItem()
         Me.btnExport = New DevExpress.XtraBars.BarButtonItem()
         Me.btnPrint = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -145,6 +146,7 @@ Partial Class frmCP204_Add
         Me.colCP_PENALTY = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCP_NOTE_TITLE = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.colCP_NOTE = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colCP_TagID = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.chkAddBack = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
@@ -230,8 +232,8 @@ Partial Class frmCP204_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnPrint, Me.btnExport, Me.btnRefresh, Me.btnRefreshMonthlyBreakdown})
-        Me.BarManager1.MaxItemId = 15
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnPrint, Me.btnExport, Me.btnRefresh, Me.btnRefreshMonthlyBreakdown, Me.btnNote})
+        Me.BarManager1.MaxItemId = 16
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -241,7 +243,7 @@ Partial Class frmCP204_Add
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(271, 130)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnRefresh), New DevExpress.XtraBars.LinkPersistInfo(Me.btnRefreshMonthlyBreakdown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnRefresh), New DevExpress.XtraBars.LinkPersistInfo(Me.btnRefreshMonthlyBreakdown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnExport), New DevExpress.XtraBars.LinkPersistInfo(Me.btnPrint), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -299,6 +301,15 @@ Partial Class frmCP204_Add
         Me.btnPrint.ImageOptions.LargeImage = CType(resources.GetObject("btnPrint.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote
+        '
+        Me.btnNote.Caption = "Note"
+        Me.btnNote.Id = 15
+        Me.btnNote.ImageOptions.Image = CType(resources.GetObject("btnNote.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote.ImageOptions.LargeImage = CType(resources.GetObject("btnNote.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote.Name = "btnNote"
+        Me.btnNote.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'barDockControlTop
         '
@@ -1248,7 +1259,7 @@ Partial Class frmCP204_Add
         '
         'GridView1
         '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCP_ID, Me.colCP_PARENTID, Me.colCP_INSTALL_NO, Me.colCP_PAYMENT_DUE, Me.colCP_INSTALLMENT_AMOUNT, Me.colCP_PAYMENT_DATE_1, Me.colCP_AMOUNT_PAID_1, Me.colCP_PAYMENT_DATE_2, Me.colCP_AMOUNT_PAID_2, Me.colCP_PENALTY, Me.colCP_NOTE_TITLE, Me.colCP_NOTE})
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colCP_ID, Me.colCP_PARENTID, Me.colCP_INSTALL_NO, Me.colCP_PAYMENT_DUE, Me.colCP_INSTALLMENT_AMOUNT, Me.colCP_PAYMENT_DATE_1, Me.colCP_AMOUNT_PAID_1, Me.colCP_PAYMENT_DATE_2, Me.colCP_AMOUNT_PAID_2, Me.colCP_PENALTY, Me.colCP_NOTE_TITLE, Me.colCP_NOTE, Me.colCP_TagID})
         Me.GridView1.GridControl = Me.GridControl1
         Me.GridView1.Name = "GridView1"
         Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
@@ -1395,6 +1406,13 @@ Partial Class frmCP204_Add
         Me.colCP_NOTE.Visible = True
         Me.colCP_NOTE.VisibleIndex = 9
         Me.colCP_NOTE.Width = 350
+        '
+        'colCP_TagID
+        '
+        Me.colCP_TagID.FieldName = "CP_TagID"
+        Me.colCP_TagID.Name = "colCP_TagID"
+        Me.colCP_TagID.Visible = True
+        Me.colCP_TagID.VisibleIndex = 10
         '
         'txtNote
         '
@@ -1626,4 +1644,6 @@ Partial Class frmCP204_Add
     Friend WithEvents ReportGenerator1 As DevExpress.XtraReports.ReportGeneration.ReportGenerator
     Friend WithEvents btnRefreshMonthlyBreakdown As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents SaveFileDialog1 As System.Windows.Forms.SaveFileDialog
+    Friend WithEvents btnNote As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents colCP_TagID As DevExpress.XtraGrid.Columns.GridColumn
 End Class

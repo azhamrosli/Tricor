@@ -42,17 +42,28 @@ Public Class frmMovementComplex_Add
                     cboYA.EditValue = mdlProcess.ArgParam3
                 End If
 
+                cboRefNo.Enabled = True
+                cboYA.Enabled = True
                 Me.Text = "Movement Complex - Add"
-            Else
 
+                btnNote_Add.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                btnNote_Less.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+            Else
+                btnNote_Add.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+                btnNote_Less.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
 
                 Dim dt As DataTable = ADO.Load_MovementComplex(ID, ErrorLog)
 
                 If dt Is Nothing Then
+                    cboRefNo.Enabled = True
+                    cboYA.Enabled = True
                     Me.Text = "Movement Complex - Add"
                     isEdit = False
                     Exit Sub
                 End If
+
+                cboRefNo.Enabled = False
+                cboYA.Enabled = False
 
                 Me.Text = "Movement Complex - Edit"
                 Application.DoEvents()
@@ -89,6 +100,7 @@ Public Class frmMovementComplex_Add
                 '    chkTaxPositive.Checked = False
                 '    chkTaxNegative.Checked = False
                 'End If
+                cboSourceCode.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SOURCENO")), 0, dt.Rows(0)("MM_SOURCENO"))
 
                 DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
@@ -101,26 +113,29 @@ Public Class frmMovementComplex_Add
                     Next
                 End If
 
-                dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
-
-
-                If dt IsNot Nothing Then
-                    For Each rowx As DataRow In dt.Rows
-                        rowx("MM_ID") = DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count + 1
-                        DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").ImportRow(rowx)
-                    Next
-                End If
 
                 dt = ADO.Load_MovementComplex_Add(ID, ErrorLog)
 
                 DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
                 If dt IsNot Nothing Then
                     For Each rowx As DataRow In dt.Rows
-                        rowx("MM_ID") = DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count + 1
-                        Application.DoEvents()
+                        ' rowx("MM_ID") = DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Count + 1
+                        ' Application.DoEvents()
                         DsMovement.Tables("MOVEMENT_COMPLEX_ADD").ImportRow(rowx)
                     Next
                 End If
+
+                dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
+
+
+                If dt IsNot Nothing Then
+                    For Each rowx As DataRow In dt.Rows
+                        '  rowx("MM_ID") = DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Count + 1
+                        DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").ImportRow(rowx)
+                    Next
+                End If
+
+                
 
                 Application.DoEvents()
                 CalcVal()
@@ -450,13 +465,15 @@ Public Class frmMovementComplex_Add
                 If isEdit Then
                     If ADO.Update_MovementComplex(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, DsMovement, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, cboSourceCode.EditValue, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
                         If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
                             MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
 
                         End If
+
+                        Me.LoadData()
                     Else
                         MsgBox("Unsuccessfully update movement.", MsgBoxStyle.Critical)
                     End If
@@ -464,7 +481,7 @@ Public Class frmMovementComplex_Add
                     Dim tmpID As Integer = 0
                     If ADO.Save_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountGeneral.EditValue, txtAmountSpecificAllow.EditValue, txtAmountSpecificNonAllow.EditValue, _
-                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, DsMovement, tmpID, ErrorLog) Then
+                                                      txtNoteStart.EditValue, txtNoteEnd.EditValue, txtAmountGeneral_End.EditValue, txtAmountSpecificAllow_End.EditValue, txtAmountSpecificNonAllow_End.EditValue, txtTotal_AddBackDeduct.EditValue, TypePass, cboSourceCode.EditValue, DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
@@ -504,6 +521,12 @@ Public Class frmMovementComplex_Add
                 Return False
             End If
 
+            If cboSourceCode.EditValue Is Nothing OrElse IsNumeric(cboSourceCode.EditValue) = False Then
+                MsgBox("Please select source no.", MsgBoxStyle.Exclamation)
+                cboSourceCode.Focus()
+                Return False
+            End If
+
             If dtEnded.EditValue Is Nothing OrElse IsDate(dtEnded.EditValue) = False Then
                 dtEnded.EditValue = Now
             End If
@@ -512,14 +535,14 @@ Public Class frmMovementComplex_Add
             End If
 
 
-            If isEdit = False Then
+            'If isEdit = False Then
 
-                If ADO.CheckExist_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
-                    MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
-                    Return False
-                End If
+            '    If ADO.CheckExist_MovementComplex(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) Then
+            '        MsgBox("Movement for this company and ya " & cboYA.EditValue.ToString & " already exist.", MsgBoxStyle.Exclamation)
+            '        Return False
+            '    End If
 
-            End If
+            'End If
 
             Return True
         Catch ex As Exception
@@ -550,12 +573,78 @@ Public Class frmMovementComplex_Add
                     dtEnded.EditValue = IIf(IsDBNull(dt.Rows(0)("TP_ACC_PERIOD_TO")), Now, dt.Rows(0)("TP_ACC_PERIOD_TO"))
 
 
-
+                    SearchSourceNO()
                 End If
             End If
         Catch ex As Exception
 
         End Try
     End Sub
+    Private Sub SearchSourceNO()
+        Try
+            If mdlProcess.CreateLookUpSourceNO(cboSourceCode, cboRefNo.EditValue.ToString, cboYA.EditValue.ToString, ErrorLog) = False Then
+                cboSourceCode.EditValue = ""
+            Else
+                cboSourceCode.SelectedIndex = 0
+            End If
+        Catch ex As Exception
 
+        End Try
+    End Sub
+
+    Private Sub cboYA_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged
+        Try
+            SearchSourceNO()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnNote_Less_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote_Less.ItemClick
+        Try
+            If isEdit = False Then
+                MsgBox("Please save this data first before proceed to insert note.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+
+            Dim frm As New frmNote_Movement
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.MM_ID = ID
+            frm.Data_SubID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_ID")
+            frm.Type_Movement = 1
+            frm.Type_Addless = 1
+            frm.TagID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("TagID")
+            frm.DsMovement = DsMovement
+            frm.RowDescription = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_Description")
+            frm.ShowDialog()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnNote_Add_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote_Add.ItemClick
+        Try
+            If isEdit = False Then
+                MsgBox("Please save this data first before proceed to insert note.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+
+            Dim frm As New frmNote_Movement
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.MM_ID = ID
+            frm.Data_SubID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
+            frm.Type_Movement = 1
+            frm.Type_Addless = 0
+            frm.TagID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("TagID")
+            frm.DsMovement = DsMovement
+            frm.RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_Description")
+            frm.ShowDialog()
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

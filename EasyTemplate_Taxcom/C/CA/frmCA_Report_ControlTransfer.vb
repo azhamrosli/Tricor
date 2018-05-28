@@ -10,6 +10,8 @@ Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 
 Public Class frmCA_Report_ControlTransfer
+    Dim clsNote As clsNote_CA = Nothing
+
     Public ID As String = ""
     Public RefNo As String = ""
     Public YA As String = ""
@@ -18,6 +20,17 @@ Public Class frmCA_Report_ControlTransfer
     Dim link As PrintableComponentLink
     Dim isFirstTime As Boolean = False
     Dim ds As dsCA
+
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        If clsNote Is Nothing Then
+            clsNote = New clsNote_CA
+        End If
+    End Sub
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
             ADO.Delete_CA_Report_TEMP(ID)
@@ -47,11 +60,19 @@ Public Class frmCA_Report_ControlTransfer
             Dim dtTable As New DataTable("CA_REPORT_CONTROLTRANSFER_TEMP_2")
             Dim col As DataColumn
 
+            col = Nothing
             col = New DataColumn
             col.ColumnName = "CA_ASSET"
             col.Caption = "Asset Name"
             col.DataType = System.Type.GetType("System.String")
             col.MaxLength = 255
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn
+            col.ColumnName = "CA_KEY"
+            col.Caption = "KEY"
+            col.DataType = System.Type.GetType("System.Int32")
             dtTable.Columns.Add(col)
 
             col = Nothing
@@ -108,22 +129,7 @@ Public Class frmCA_Report_ControlTransfer
             col.Caption = "No Claim"
             col.DataType = System.Type.GetType("System.Decimal")
             dtTable.Columns.Add(col)
-
-            Dim ListofAA As New List(Of String)
-            ListofAA.Add("AA_2")
-            ListofAA.Add("AA_3")
-            ListofAA.Add("AA_8")
-            ListofAA.Add("AA_10")
-            ListofAA.Add("AA_12")
-            ListofAA.Add("AA_14")
-            ListofAA.Add("AA_16")
-            ListofAA.Add("AA_20")
-            ListofAA.Add("AA_40")
-            ListofAA.Add("AA_50")
-            ListofAA.Add("AA_60")
-            ListofAA.Add("AA_80")
-            ListofAA.Add("AA_90")
-            ListofAA.Add("AA_100")
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
 
             Dim tmpStatus As Boolean = False
             For i As Integer = 0 To ListofAA.Count - 1
@@ -172,7 +178,7 @@ Public Class frmCA_Report_ControlTransfer
             Dim colAsset As GridColumn = GridView1.Columns("CA_ASSET")
 
             GridView1.ClearGrouping()
-            col1.GroupIndex = 0  
+            col1.GroupIndex = 0
             col2.GroupIndex = 1
             col3.GroupIndex = 2
             GridView1.EndSort()
@@ -203,10 +209,99 @@ Public Class frmCA_Report_ControlTransfer
                     End If
                 End If
 
-          
                 Dim rpt As New rpt_CAControlTransfer
-                rpt.DataSource = ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP_2")
+                Dim dtNote As DataTable = Nothing
+                Dim dtNote_Child As DataTable = Nothing
+                Dim tmpNoteID As Integer = 0
+
+                Dim Ext As String = Nothing
+                Dim dtRowAtt As Byte() = Nothing
+                Dim i As Integer = -1
+
+                ds.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+                ds.Tables("CA_NOTE_COLUMN").Rows.Clear()
+                ds.Tables("CA_NOTE").Rows.Clear()
+
+                ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Clear()
+
+                'rpt.DsCA1.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Clear()
+
+                '   rpt.DataSource = ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP")
+                For Each rowx As DataRow In ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP_2").Rows
+                    ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").ImportRow(rowx)
+                    'rpt.DsCA1.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").ImportRow(rowx)
+                Next
+                rpt.paramID.Value = ID
+                rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+                rpt.paramYA.Value = YA
                 rpt.Landscape = True
+
+
+                For Each rowx As DataRow In ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Rows
+                    If IsDBNull(rowx("CA_KEY")) = False Then
+
+                        dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
+
+                        If dtNote IsNot Nothing Then
+                            i = -1
+                            For Each rownote As DataRow In dtNote.Rows
+                                i += 1
+                                ds.Tables("CA_NOTE").ImportRow(rownote)
+
+                                tmpNoteID = rownote("ID")
+                                dtNote_Child = Nothing
+                                dtNote_Child = clsNote.Load_Note_Column(tmpNoteID)
+
+                                If dtNote_Child IsNot Nothing Then
+                                    For Each rownote_child As DataRow In dtNote_Child.Rows
+                                        rownote_child("ParentID") = tmpNoteID
+                                        Application.DoEvents()
+                                        ds.Tables("CA_NOTE_COLUMN").ImportRow(rownote_child)
+                                    Next
+                                End If
+                                dtNote_Child = Nothing
+                                dtNote_Child = clsNote.Load_Note_Attachment(tmpNoteID)
+
+                                If dtNote_Child IsNot Nothing Then
+                                    For Each rownote_child As DataRow In dtNote_Child.Rows
+                                        rownote_child("ParentID") = tmpNoteID
+                                        Application.DoEvents()
+                                        ds.Tables("CA_NOTE_ATTACHMENT").ImportRow(rownote_child)
+
+
+                                        Ext = Nothing
+                                        dtRowAtt = IIf(IsDBNull(rownote_child("Attachment")), Nothing, rownote_child("Attachment"))
+                                        Ext = IIf(IsDBNull(rownote_child("Extension")), Nothing, rownote_child("Extension"))
+
+                                        If dtRowAtt IsNot Nothing Then
+                                            Dim frmnote As New frmNote_AttachmentView
+                                            Select Case Ext.ToLower
+                                                Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                    frmnote.Type = 0
+                                                Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                    frmnote.Type = 1
+                                                Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                    frmnote.Type = 2
+                                                Case ".pdf"
+                                                    frmnote.Type = 3
+                                            End Select
+                                            frmnote.Title = ds.Tables("CA_NOTE").Rows(i)("Title")
+                                            frmnote.Extension = Ext
+                                            frmnote.dataArr = dtRowAtt
+                                            frmnote.Show()
+                                        End If
+                                    Next
+                                End If
+                            Next
+
+                        End If
+
+                    End If
+                Next
+                rpt.DataSource = ds
+                rpt.XrSubreport1.ReportSource.DataSource = ds
+                rpt.FontSize.Value = 10
+
                 rpt.ShowPreview()
                 'Dim rpt As XtraReport
 
@@ -356,8 +451,6 @@ Public Class frmCA_Report_ControlTransfer
 
     '    End Try
     'End Sub
-
-
     Public Sub InitBands(ByVal rep As XtraReport)
         ' Create bands
         Dim detail As New DetailBand()

@@ -33,6 +33,24 @@
                 lblStatus.Text = "Status : Good"
             End If
 
+
+            If YGLClient IsNot Nothing Then
+                lblCompanyID.Text = "License Key : " & IIf(IsDBNull(YGLClient("ID")), "", YGLClient("ID"))
+                lblCompanyRegister.Text = "Company : " & IIf(IsDBNull(YGLClient("RefID")), "", YGLClient("RefID")) & " - " & IIf(IsDBNull(YGLClient("CompanyName")), "", YGLClient("CompanyName"))
+
+                If mdlProcess.CheckForInternetConnection() Then
+
+                    Dim dt As DataTable = ADO.LoadYGLClient_ByCompanyID(IIf(IsDBNull(YGLClient("ID")), "", YGLClient("ID")))
+
+                    If dt IsNot Nothing Then
+
+                        lblExpiredOn.Text = "Expired / Renew : " & IIf(IsDBNull(dt.Rows(0)("ExpireOn")), "never", Format(CDate(dt.Rows(0)("ExpireOn")), "dd-MMM-yyyy"))
+                        lblOutstandingAmount.Text = "Outstanding Amount : " & CDec(IIf(IsDBNull(dt.Rows(0)("OutStandingAmount")), 0, dt.Rows(0)("OutStandingAmount"))).ToString("N2")
+                    End If
+
+                End If
+            End If
+           
         Catch ex As Exception
 
         End Try

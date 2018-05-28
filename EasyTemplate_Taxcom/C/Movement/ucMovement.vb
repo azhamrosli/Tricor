@@ -2,19 +2,24 @@
 Imports DevExpress.XtraReports.UI
 Public Class ucMovement
     Dim ErrorLog As clsError = Nothing
+    Dim clsMovement_Note As clsNote_Movement
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        If My.Settings.ThemeName <> "" Then
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
-        Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
-        End If
+        'If My.Settings.ThemeName <> "" Then
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        'Else
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
+        'End If
 
         If clsMoveNormal Is Nothing Then
             clsMoveNormal = New clsMovementNormal
+        End If
+
+        If clsMovement_Note Is Nothing Then
+            clsMovement_Note = New clsNote_Movement
         End If
         InitializeComponent()
     End Sub
@@ -155,7 +160,9 @@ Public Class ucMovement
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If clsMoveNormal.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
+                    If clsMoveNormal.Delete_MovementNormal(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), _
+                                                           CStr(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_REFNO")), _
+                                                           CStr(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_YA")), ErrorLog) = False Then
                         tmpSts = False
 
                     End If
@@ -184,50 +191,13 @@ Public Class ucMovement
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
 
-            Dim dt As DataTable = Nothing
-            Dim dtChild As DataTable = Nothing
             Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
-
-            dt = clsMoveNormal.Load_MovementNormal(ID, ErrorLog)
-
-            DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
-            DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
-            DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
-
-            If dt Is Nothing Then
-                MsgBox("Data not found.", MsgBoxStyle.Critical)
-                Exit Sub
+            Dim rpt As rptMovementNormal = Nothing
+            If mdlProcess.PrintReport_MovementNormal(DsMovement, ID, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, ErrorLog) Then
+                rpt.ShowPreview()
+            Else
+                MsgBox("Failed to load movement normal report.", MsgBoxStyle.Critical)
             End If
-
-            For i As Integer = 0 To dt.Rows.Count - 1
-                dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the " & IIf(IsDBNull(dt.Rows(i)("MM_TYPE")), "Year Ended", dt.Rows(i)("MM_TYPE")) & " " & Format(IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), Now, dt.Rows(i)("MM_YEAR_ENDED")), "dd.MM.yyyy")
-                Application.DoEvents()
-                DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(i))
-            Next
-
-            dt = clsMoveNormal.Load_MovementNormal_Add(ID, ErrorLog)
-
-            If dt IsNot Nothing Then
-                For i As Integer = 0 To dt.Rows.Count - 1
-                    DsMovement.Tables("MOVEMENT_ADD").ImportRow(dt.Rows(i))
-                Next
-            End If
-            Application.DoEvents()
-            dt = clsMoveNormal.Load_MovementNormal_Deduct(ID, ErrorLog)
-
-            If dt IsNot Nothing Then
-                For i As Integer = 0 To dt.Rows.Count - 1
-                    DsMovement.Tables("MOVEMENT_DEDUCT").ImportRow(dt.Rows(i))
-                Next
-            End If
-
-            Dim rpt As New rptMovementNormal
-            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
-            rpt.paramParentID.Value = ID
-            rpt.DataSource = DsMovement.Tables("MOVEMENT_NORMAL")
-
-            rpt.ShowPreview()
-
 
         Catch ex As Exception
             If ErrorLog Is Nothing Then

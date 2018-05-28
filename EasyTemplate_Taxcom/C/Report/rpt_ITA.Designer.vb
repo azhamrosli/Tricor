@@ -78,6 +78,7 @@ Partial Public Class rpt_ITA
         Me.TOTAL = New DevExpress.XtraReports.UI.CalculatedField()
         Me.SUM_WITHDRAWAL_ITA = New DevExpress.XtraReports.UI.CalculatedField()
         Me.SUM_ADJUSTMENT_ITA = New DevExpress.XtraReports.UI.CalculatedField()
+        Me.paramSch = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.DsRA_ITA1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -146,11 +147,12 @@ Partial Public Class rpt_ITA
         '
         'XrLabel3
         '
+        Me.XrLabel3.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding(Me.paramSch, "Text", "")})
         Me.XrLabel3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(648.9586!, 10.00001!)
+        Me.XrLabel3.LocationFloat = New DevExpress.Utils.PointFloat(553.1252!, 10.00001!)
         Me.XrLabel3.Name = "XrLabel3"
         Me.XrLabel3.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
-        Me.XrLabel3.SizeF = New System.Drawing.SizeF(126.0416!, 23.0!)
+        Me.XrLabel3.SizeF = New System.Drawing.SizeF(221.875!, 23.0!)
         Me.XrLabel3.StylePriority.UseFont = False
         Me.XrLabel3.StylePriority.UseTextAlignment = False
         Me.XrLabel3.Text = "Schedule "
@@ -563,6 +565,12 @@ Partial Public Class rpt_ITA
         Me.SUM_ADJUSTMENT_ITA.Expression = "Sum([ITAADJ_AMOUNT])"
         Me.SUM_ADJUSTMENT_ITA.Name = "SUM_ADJUSTMENT_ITA"
         '
+        'paramSch
+        '
+        Me.paramSch.Description = "paramSch"
+        Me.paramSch.Name = "paramSch"
+        Me.paramSch.ValueInfo = "Schedule"
+        '
         'rpt_ITA
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.PageHeader, Me.ReportHeader, Me.DetailReport, Me.DetailReport1, Me.DetailReport2, Me.ReportFooter3})
@@ -572,6 +580,7 @@ Partial Public Class rpt_ITA
         Me.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.IFWithDrawalYES, Me.IFWithDrawalNO})
         Me.Margins = New System.Drawing.Printing.Margins(26, 39, 21, 100)
+        Me.Parameters.AddRange(New DevExpress.XtraReports.Parameters.Parameter() {Me.paramSch})
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "17.1"
         CType(Me.DsRA_ITA1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -636,4 +645,5 @@ Partial Public Class rpt_ITA
     Friend WithEvents TOTAL As DevExpress.XtraReports.UI.CalculatedField
     Friend WithEvents SUM_WITHDRAWAL_ITA As DevExpress.XtraReports.UI.CalculatedField
     Friend WithEvents SUM_ADJUSTMENT_ITA As DevExpress.XtraReports.UI.CalculatedField
+    Friend WithEvents paramSch As DevExpress.XtraReports.Parameters.Parameter
 End Class

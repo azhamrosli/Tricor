@@ -21,10 +21,10 @@ Partial Class frmPNL_Add
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPNL_Add))
-        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim PushTransition1 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
+        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim PushTransition2 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
         Me.DockManager1 = New DevExpress.XtraBars.Docking.DockManager(Me.components)
         Me.hideContainerRight = New DevExpress.XtraBars.Docking.AutoHideContainer()
         Me.pnlDocImport = New DevExpress.XtraBars.Docking.DockPanel()
@@ -427,7 +427,7 @@ Partial Class frmPNL_Add
         Me.pnlDocImport.Controls.Add(Me.DockPanel2_Container)
         Me.pnlDocImport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocImport.ID = New System.Guid("be65f503-51a1-4e68-b6dd-9904920f171e")
-        Me.pnlDocImport.Location = New System.Drawing.Point(820, 141)
+        Me.pnlDocImport.Location = New System.Drawing.Point(0, 0)
         Me.pnlDocImport.Name = "pnlDocImport"
         Me.pnlDocImport.OriginalSize = New System.Drawing.Size(476, 198)
         Me.pnlDocImport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
@@ -439,9 +439,9 @@ Partial Class frmPNL_Add
         'DockPanel2_Container
         '
         Me.DockPanel2_Container.Controls.Add(Me.UcPNL_Import1)
-        Me.DockPanel2_Container.Location = New System.Drawing.Point(5, 24)
+        Me.DockPanel2_Container.Location = New System.Drawing.Point(5, 23)
         Me.DockPanel2_Container.Name = "DockPanel2_Container"
-        Me.DockPanel2_Container.Size = New System.Drawing.Size(467, 555)
+        Me.DockPanel2_Container.Size = New System.Drawing.Size(467, 556)
         Me.DockPanel2_Container.TabIndex = 0
         '
         'UcPNL_Import1
@@ -451,7 +451,7 @@ Partial Class frmPNL_Add
         Me.UcPNL_Import1.MainData = Nothing
         Me.UcPNL_Import1.Margin = New System.Windows.Forms.Padding(3, 4, 3, 4)
         Me.UcPNL_Import1.Name = "UcPNL_Import1"
-        Me.UcPNL_Import1.Size = New System.Drawing.Size(467, 555)
+        Me.UcPNL_Import1.Size = New System.Drawing.Size(467, 556)
         Me.UcPNL_Import1.TabIndex = 0
         '
         'pnlDocExport
@@ -459,7 +459,7 @@ Partial Class frmPNL_Add
         Me.pnlDocExport.Controls.Add(Me.ControlContainer1)
         Me.pnlDocExport.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocExport.ID = New System.Guid("745323fa-419a-4730-bb91-2039d9d9de58")
-        Me.pnlDocExport.Location = New System.Drawing.Point(1037, 141)
+        Me.pnlDocExport.Location = New System.Drawing.Point(0, 0)
         Me.pnlDocExport.Name = "pnlDocExport"
         Me.pnlDocExport.OriginalSize = New System.Drawing.Size(259, 200)
         Me.pnlDocExport.SavedDock = DevExpress.XtraBars.Docking.DockingStyle.Right
@@ -472,9 +472,9 @@ Partial Class frmPNL_Add
         'ControlContainer1
         '
         Me.ControlContainer1.Controls.Add(Me.dgvExport)
-        Me.ControlContainer1.Location = New System.Drawing.Point(5, 24)
+        Me.ControlContainer1.Location = New System.Drawing.Point(5, 23)
         Me.ControlContainer1.Name = "ControlContainer1"
-        Me.ControlContainer1.Size = New System.Drawing.Size(250, 555)
+        Me.ControlContainer1.Size = New System.Drawing.Size(250, 556)
         Me.ControlContainer1.TabIndex = 0
         '
         'dgvExport
@@ -487,7 +487,7 @@ Partial Class frmPNL_Add
         Me.dgvExport.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.dgvExport.MenuManager = Me.BarManager1
         Me.dgvExport.Name = "dgvExport"
-        Me.dgvExport.Size = New System.Drawing.Size(250, 555)
+        Me.dgvExport.Size = New System.Drawing.Size(250, 556)
         Me.dgvExport.TabIndex = 61
         Me.dgvExport.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
         '
@@ -658,7 +658,7 @@ Partial Class frmPNL_Add
         Me.pnlDocAdvanceSearch.Controls.Add(Me.ControlContainer2)
         Me.pnlDocAdvanceSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right
         Me.pnlDocAdvanceSearch.ID = New System.Guid("2e49734a-7050-4a84-9e9a-349ee37f771d")
-        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(879, 141)
+        Me.pnlDocAdvanceSearch.Location = New System.Drawing.Point(0, 0)
         Me.pnlDocAdvanceSearch.Name = "pnlDocAdvanceSearch"
         Me.pnlDocAdvanceSearch.Options.ShowCloseButton = False
         Me.pnlDocAdvanceSearch.OriginalSize = New System.Drawing.Size(417, 200)
@@ -672,9 +672,9 @@ Partial Class frmPNL_Add
         '
         Me.ControlContainer2.Controls.Add(Me.GCSearch)
         Me.ControlContainer2.Controls.Add(Me.PanelControl1)
-        Me.ControlContainer2.Location = New System.Drawing.Point(5, 24)
+        Me.ControlContainer2.Location = New System.Drawing.Point(5, 23)
         Me.ControlContainer2.Name = "ControlContainer2"
-        Me.ControlContainer2.Size = New System.Drawing.Size(408, 555)
+        Me.ControlContainer2.Size = New System.Drawing.Size(408, 556)
         Me.ControlContainer2.TabIndex = 0
         '
         'GCSearch
@@ -685,7 +685,7 @@ Partial Class frmPNL_Add
         Me.GCSearch.MainView = Me.GridView2
         Me.GCSearch.MenuManager = Me.BarManager1
         Me.GCSearch.Name = "GCSearch"
-        Me.GCSearch.Size = New System.Drawing.Size(408, 498)
+        Me.GCSearch.Size = New System.Drawing.Size(408, 499)
         Me.GCSearch.TabIndex = 1
         Me.GCSearch.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
@@ -3239,12 +3239,12 @@ Partial Class frmPNL_Add
         Me.btnRefresh.ImageOptions.LargeImage = CType(resources.GetObject("btnRefresh.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnRefresh.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F5)
         Me.btnRefresh.Name = "btnRefresh"
-        ToolTipTitleItem1.Text = "Refresh Data"
-        ToolTipItem1.LeftIndent = 6
-        ToolTipItem1.Text = "Refresh Profit and Loss Data"
-        SuperToolTip1.Items.Add(ToolTipTitleItem1)
-        SuperToolTip1.Items.Add(ToolTipItem1)
-        Me.btnRefresh.SuperTip = SuperToolTip1
+        ToolTipTitleItem2.Text = "Refresh Data"
+        ToolTipItem2.LeftIndent = 6
+        ToolTipItem2.Text = "Refresh Profit and Loss Data"
+        SuperToolTip2.Items.Add(ToolTipTitleItem2)
+        SuperToolTip2.Items.Add(ToolTipItem2)
+        Me.btnRefresh.SuperTip = SuperToolTip2
         '
         'BarSubItem1
         '
@@ -3492,7 +3492,7 @@ Partial Class frmPNL_Add
         'WorkspaceManager1
         '
         Me.WorkspaceManager1.TargetControl = Me.RibbonControl1
-        Me.WorkspaceManager1.TransitionType = PushTransition1
+        Me.WorkspaceManager1.TransitionType = PushTransition2
         '
         'OpenFileDialog1
         '

@@ -10,13 +10,26 @@ Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 
 Public Class frmCA_Report
+    Dim clsNote As clsNote_CA = Nothing
+    Dim ErrorLog As clsError = Nothing
     Public ID As String = ""
     Public RefNo As String = ""
     Public YA As String = ""
     Public ComName As String = ""
     Public TypeReport As Integer = 0
+    Public isDirectPrint As Boolean = True
     Dim link As PrintableComponentLink
 
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        If clsNote Is Nothing Then
+            clsNote = New clsNote_CA
+        End If
+    End Sub
     Private Sub frmCA_Report_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
             ADO.Delete_CA_Report_TEMP(ID)
@@ -120,6 +133,14 @@ Public Class frmCA_Report
                     col3.GroupIndex = 2
             End Select
             BandedGridView1.EndSort()
+
+
+            If isDirectPrint Then
+                PrintExport(False)
+                Application.DoEvents()
+
+                Me.Close()
+            End If
         Catch ex As Exception
 
         End Try
@@ -143,68 +164,66 @@ Public Class frmCA_Report
                     End If
                 End If
 
+                Dim dtNote As DataTable = Nothing
+                Dim dtNote_Child As DataTable = Nothing
+                Dim tmpNoteID As Integer = 0
+
+                Dim Ext As String = Nothing
+                Dim dtRowAtt As Byte() = Nothing
+                Dim i As Integer = -1
+
+
+                DsCA.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+                DsCA.Tables("CA_NOTE_COLUMN").Rows.Clear()
+                DsCA.Tables("CA_NOTE").Rows.Clear()
 
 
                 Select Case TypeReport
                     Case 0, 3
                         'Capital Allowance Details By Rate
-                        Dim rpt As New rpt_CAByRate
+                        Dim rpt As rpt_CAByRate
 
-                        rpt.paramCompanyName.Value = ComName
-                        rpt.paramYA.Value = CInt(YA)
-
-
-                        rpt.Landscape = True
-                        rpt.DataSource = DsCA.Tables("CA_REPORT_TEMP")
-
-                        If isExport Then
-                            rpt.ExportToXlsx(Path)
+                        If mdlProcess.PrintReport_CAByRate(DsCA, ComName, YA, rpt, errorlog) Then
+                            If isExport Then
+                                rpt.ExportToXlsx(Path)
+                            Else
+                                rpt.ShowPreview()
+                            End If
                         Else
-                            rpt.ShowPreview()
+                            MsgBox("Failed to load capital allowance report.", MsgBoxStyle.Critical)
                         End If
 
                     Case 1, 4
                         'Capital Allowance Details By Category
-                        Dim rpt As New rpt_CAByCategory
+                        Dim rpt As rpt_CAByCategory
 
-                        rpt.paramCompanyName.Value = ComName
-                        rpt.paramYA.Value = CInt(YA)
-
-
-                        rpt.Landscape = True
-                        rpt.DataSource = DsCA.Tables("CA_REPORT_TEMP")
-
-
-                        If isExport Then
-                            rpt.ExportToXlsx(Path)
+                        If mdlProcess.PrintReport_CAByCategory(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            If isExport Then
+                                rpt.ExportToXlsx(Path)
+                            Else
+                                rpt.ShowPreview()
+                            End If
                         Else
-                            rpt.ShowPreview()
+                            MsgBox("Failed to load capital allowance report.", MsgBoxStyle.Critical)
                         End If
 
                     Case 2, 5
                         'Capital Allowance Details By Asset
-                        Dim rpt As New rptCAReport
+                        Dim rpt As rptCAReport
 
-                        rpt.paramCompanyName.Value = ComName
-                        rpt.paramYA.Value = CInt(YA)
-
-
-                        rpt.Landscape = True
-                        rpt.DataSource = DsCA.Tables("CA_REPORT_TEMP")
-
-
-                        If isExport Then
-                            rpt.ExportToXlsx(Path)
-
+                        If mdlProcess.PrintReport_CAByAsset(DsCA, ComName, YA, rpt, ErrorLog) Then
+                            If isExport Then
+                                rpt.ExportToXlsx(Path)
+                            Else
+                                rpt.ShowPreview()
+                            End If
                         Else
-                            rpt.ShowPreview()
+                            MsgBox("Failed to load capital allowance report.", MsgBoxStyle.Critical)
                         End If
-
                 End Select
 
                 If isExport Then
                     MsgBox("Succesfully export report to " & vbCrLf & Path, MsgBoxStyle.Information)
-
                 End If
 
 
@@ -218,7 +237,7 @@ Public Class frmCA_Report
     Private Sub btnExport_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnExport.ItemClick
         Try
             PrintExport(True)
-           
+
         Catch ex As Exception
 
         End Try
@@ -271,6 +290,8 @@ Public Class frmCA_Report
     Private Sub btnCollepase_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnCollepase.ItemClick
         Try
             BandedGridView1.CollapseAllGroups()
+
+
         Catch ex As Exception
 
         End Try

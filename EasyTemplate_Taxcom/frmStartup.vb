@@ -14,7 +14,7 @@ Partial Public Class frmStartup
         If My.Settings.ThemeName <> "" Then
             DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
         Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
         End If
         InitializeComponent()
     End Sub
@@ -41,7 +41,14 @@ Partial Public Class frmStartup
                     Me.Close()
                 End If
             End If
-            frmHome.Show()
+
+            If LicenseChecking() Then
+                frmHome.Show()
+            Else
+                MsgBox("Failed to validate license key, please contact support team.", MsgBoxStyle.Critical)
+                Me.Close()
+            End If
+
 
         Catch ex As Exception
 

@@ -49,7 +49,7 @@ Public Class frmPNL_Import
                 cboYA.EditValue = mdlProcess.ArgParam3
             End If
 
-            Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
+            '  Dim listofclsPNLLabel As List(Of clsPNL_LabelName) = GetPNLLabelName()
 
             'If listofclsPNLLabel IsNot Nothing Then
             '    For Each tmp As clsPNL_LabelName In listofclsPNLLabel
@@ -144,6 +144,7 @@ Public Class frmPNL_Import
         End Try
     End Sub
     Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
+
         Try
             If cboRefNo IsNot Nothing AndAlso cboRefNo.EditValue.ToString <> "" AndAlso cboYA IsNot Nothing AndAlso cboYA.EditValue.ToString <> "" Then
                 txtRefNo.EditValue = cboRefNo.EditValue
@@ -157,12 +158,11 @@ Public Class frmPNL_Import
                     End If
                 Next
             End If
-           
+
         Catch ex As Exception
 
         End Try
     End Sub
-
     Private Sub SimpleButton1_Click(sender As Object, e As EventArgs) Handles SimpleButton1.Click
         Import_Data()
     End Sub

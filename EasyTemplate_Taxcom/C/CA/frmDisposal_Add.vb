@@ -15,11 +15,11 @@
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        If My.Settings.ThemeName <> "" Then
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
-        Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
-        End If
+        'If My.Settings.ThemeName <> "" Then
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        'Else
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
+        'End If
         InitializeComponent()
     End Sub
     Private Sub frmHP_Add_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -674,6 +674,26 @@
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             DefaultTaxPayer(sender)
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If isEdit = False Then
+                Exit Sub
+            End If
+
+            Dim frm As New frmNote_CA
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.CA_ID = ID_CA
+            frm.TagID = ID
+            frm.Type_CA = 2
+            frm.RowDescription = txtAsset.EditValue
+            frm.ShowDialog()
+
         Catch ex As Exception
 
         End Try

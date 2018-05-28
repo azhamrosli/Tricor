@@ -109,6 +109,7 @@
                 Dim CA_CATEGORY_CODE As String = Nothing
                 Dim CA_CAEEO As Boolean = False
                 Dim CA_QUALIFYING_COST As Decimal = 0
+                Dim DISP_KEY As Integer = 0
                 Dim DISP_DEPRECIATION As Decimal = 0
                 Dim DISP_WDV As Decimal = 0
                 Dim DISP_DISPOSAL_VALUE As Decimal = 0
@@ -144,12 +145,13 @@
 
                         DISP_WDV = CA_QUALIFYING_COST - DISP_DEPRECIATION
 
+                        DISP_KEY = IIf(IsDBNull(dt.Rows(0)("CA_DISP_KEY")), 0, dt.Rows(0)("CA_DISP_KEY"))
                         DISP_DISPOSAL_VALUE = CDec(IIf(IsDBNull(dt.Rows(i)("CA_DISP_SPROCEED")), 0, dt.Rows(i)("CA_DISP_SPROCEED")))
                         DISP_PNL = DISP_WDV - DISP_DISPOSAL_VALUE
                         DISP_TWDV = CDec(IIf(IsDBNull(dt.Rows(i)("CA_DISP_TWDV")), 0, dt.Rows(i)("CA_DISP_TWDV")))
                         DISP_BABC = CDec(IIf(IsDBNull(dt.Rows(i)("CA_DISP_BABC")), 0, dt.Rows(i)("CA_DISP_BABC")))
 
-                        If ADO.Save_Disposal_Report_TEMP(ID, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, _
+                        If ADO.Save_Disposal_Report_TEMP(ID, RefNo, YA, CA_KEY, DISP_KEY, CA_NAME, CA_SOURCENO, _
                                                                 CA_YA, HP_CODE, CA_ASSET_NAME, CA_CATEGORY_CODE, CA_MODE, _
                                                                 CA_TRANSFERROR_NAME, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, _
                                                                 CA_RATE_AA, CA_CAEEO, DISP_DEPRECIATION, DISP_WDV, DISP_DISPOSAL_VALUE, DISP_PNL, _
@@ -243,6 +245,7 @@
 
                     Dim TmpID As Integer = 0
                     Dim tmpDT As DataTable = Nothing
+                    Dim dtCategory As DataTable = Nothing
                     For i As Integer = 0 To dtData.Rows.Count - 1
 
                         CurrentYA = IIf(IsDBNull(dtData.Rows(i)("YA")), 0, dtData.Rows(i)("YA"))
@@ -260,7 +263,16 @@
                         CA_YA = IIf(IsDBNull(dtData.Rows(i)("CA_YA")), 0, dtData.Rows(i)("CA_YA"))
                         HP_CODE = IIf(IsDBNull(dtData.Rows(i)("HP_CODE")), "", dtData.Rows(i)("HP_CODE"))
                         CA_ASSET = IIf(IsDBNull(dtData.Rows(i)("CA_ASSET")), "", dtData.Rows(i)("CA_ASSET"))
-                        CA_CATEGORY_CODE = IIf(IsDBNull(dtData.Rows(i)("CA_CATEGORY_CODE")), "", dtData.Rows(i)("CA_CATEGORY_CODE"))
+
+                        dtCategory = ADO.LoadCategory(CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE"))), Errorlog)
+
+                        If dtCategory IsNot Nothing Then
+                            CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dtCategory.Rows(0)("CA_CATEGORY")), "", dtCategory.Rows(0)("CA_CATEGORY")))
+
+                        Else
+                            CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
+                        End If
+                        'CA_CATEGORY_CODE = IIf(IsDBNull(dtData.Rows(i)("CA_CATEGORY_CODE")), "", dtData.Rows(i)("CA_CATEGORY_CODE"))
 
                         CA_PURCHASE_AMOUNT = IIf(IsDBNull(tmpDT.Rows(0)("CA_PURCHASE_AMOUNT")), 0, tmpDT.Rows(0)("CA_PURCHASE_AMOUNT"))
 
@@ -315,6 +327,548 @@
                         End If
                     Next
 
+                End If
+
+            End If
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return True
+        End Try
+    End Function
+
+    Public Function Report_CA_Analysis(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
+                             ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
+                             Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
+
+            If dt IsNot Nothing Then
+
+                ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+
+                While ADO.Validate_CA_TEMP_REPORTID(ID)
+                    ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+                End While
+
+
+                For y As Integer = 0 To dt.Rows.Count - 1
+                    If IsDBNull(dt.Rows(y)("CA_KEY")) = False Then
+                        If mdlReport_CA.GenerateCA_Schudule(RefNo, YA, ID, CInt(dt.Rows(y)("CA_KEY")), Errorlog) = False Then
+                            Return False
+                        End If
+                    End If
+                Next
+
+                Dim dtData As DataTable = ADO.Load_CAReport_Temp(ID, YA)
+
+                If dtData IsNot Nothing Then
+
+                    Dim CA_KEY As Integer = 0
+                    Dim CA_DESCRIPTION As String = Nothing
+                    Dim CA_CATEGORY As String = Nothing
+                    Dim CA_QC As Decimal = 0
+                    Dim CA_REC As Decimal = 0
+                    Dim CA_RAITA As Decimal = 0
+                    Dim CA_RAITA_TITLE As String = Nothing
+                    Dim CA_DEFERRED As Decimal = 0
+                    Dim i As Integer = 0
+                    Dim dtCA_Ana As DataTable = Nothing
+                    Dim CA_RATE_AA As Integer = 0
+                    Dim AA_0 As Decimal = 0
+                    Dim AA_2 As Decimal = 0
+                    Dim AA_3 As Decimal = 0
+                    Dim AA_8 As Decimal = 0
+                    Dim AA_10 As Decimal = 0
+                    Dim AA_12 As Decimal = 0
+                    Dim AA_14 As Decimal = 0
+                    Dim AA_16 As Decimal = 0
+                    Dim AA_20 As Decimal = 0
+                    Dim AA_40 As Decimal = 0
+                    Dim AA_50 As Decimal = 0
+                    Dim AA_60 As Decimal = 0
+                    Dim AA_80 As Decimal = 0
+                    Dim AA_90 As Decimal = 0
+                    Dim AA_100 As Decimal = 0
+                    Dim Total As Decimal = 0
+                    Dim tmpTotal As Object = Nothing
+                    For Each rowx As DataRow In dtData.Rows
+
+                        AA_0 = 0
+                        AA_2 = 0
+                        AA_3 = 0
+                        AA_8 = 0
+                        AA_10 = 0
+                        AA_12 = 0
+                        AA_14 = 0
+                        AA_16 = 0
+                        AA_20 = 0
+                        AA_40 = 0
+                        AA_50 = 0
+                        AA_60 = 0
+                        AA_80 = 0
+                        AA_90 = 0
+                        AA_100 = 0
+                        Total = 0
+
+                        CA_RATE_AA = IIf(IsDBNull(rowx("CA_RATE_AA")), 0, rowx("CA_RATE_AA"))
+                        CA_KEY = IIf(IsDBNull(rowx("CA_KEY")), 0, rowx("CA_KEY"))
+                        CA_DESCRIPTION = IIf(IsDBNull(rowx("CA_ASSET")), "", rowx("CA_ASSET"))
+                        CA_CATEGORY = IIf(IsDBNull(rowx("CA_CATEGORY_CODE")), "", rowx("CA_CATEGORY_CODE"))
+                        CA_QC = IIf(IsDBNull(rowx("CA_QUALIFYING_COST")), 0, rowx("CA_QUALIFYING_COST"))
+
+                        dtCA_Ana = ADO.Load_CAReport_Analysis(CA_KEY, Errorlog)
+
+                        If dtCA_Ana IsNot Nothing Then
+                            If IsDBNull(dtCA_Ana.Rows(0)("CA_REC")) = False AndAlso CBool(dtCA_Ana.Rows(0)("CA_REC")) Then
+                                CA_REC = CA_QC
+                            Else
+                                CA_REC = 0
+                            End If
+                            If IsDBNull(dtCA_Ana.Rows(0)("CA_DEFERREDCLAIM")) = False AndAlso CBool(dtCA_Ana.Rows(0)("CA_DEFERREDCLAIM")) Then
+                                CA_DEFERRED = CA_QC
+                            Else
+                                CA_DEFERRED = 0
+                            End If
+                            If IsDBNull(dtCA_Ana.Rows(0)("CA_INCENTIVE")) = False AndAlso dtCA_Ana.Rows(0)("CA_INCENTIVE") <> "" Then
+                                CA_RAITA = CA_QC
+                                CA_RAITA_TITLE = IIf(IsDBNull(dtCA_Ana.Rows(0)("CA_INCENTIVE")), 0, dtCA_Ana.Rows(0)("CA_INCENTIVE"))
+                            Else
+                                CA_RAITA_TITLE = ""
+                                CA_RAITA = 0
+                            End If
+                        Else
+                            CA_REC = 0
+                            CA_RAITA = 0
+                            CA_DEFERRED = 0
+                        End If
+
+                        Select Case CA_RATE_AA
+                            Case 2
+                                AA_2 = CA_QC
+                            Case 3
+                                AA_3 = CA_QC
+                            Case 8
+                                AA_8 = CA_QC
+                            Case 10
+                                AA_10 = CA_QC
+                            Case 12
+                                AA_12 = CA_QC
+                            Case 14
+                                AA_14 = CA_QC
+                            Case 16
+                                AA_16 = CA_QC
+                            Case 20
+                                AA_20 = CA_QC
+                            Case 40
+                                AA_40 = CA_QC
+                            Case 50
+                                AA_50 = CA_QC
+                            Case 60
+                                AA_60 = CA_QC
+                            Case 80
+                                AA_80 = CA_QC
+                            Case 90
+                                AA_90 = CA_QC
+                            Case 100
+                                AA_100 = CA_QC
+                            Case Else
+                                AA_0 = CA_QC
+                        End Select
+                        tmpTotal = dtData.Compute("SUM(CA_QUALIFYING_COST)", "CA_CATEGORY_CODE ='" & CA_CATEGORY & "'")
+
+                        If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                            Total = CDec(tmpTotal)
+                        Else
+                            Total = 0
+                        End If
+
+                        i += 1
+
+                        If ADO.Save_CA_Analysis(ID, RefNo, CInt(YA), CA_KEY, CA_DESCRIPTION, CA_CATEGORY, CA_QC, CA_REC, CA_DEFERRED, CA_RAITA, CA_RAITA_TITLE, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, _
+                                                            AA_60, AA_80, AA_90, AA_100, Total, i, 0, Errorlog) = False Then
+                            Return False
+                        End If
+                    Next
+
+                End If
+            End If
+
+            Return True
+        Catch ex As Exception
+            If Errorlog Is Nothing Then
+                Errorlog = New clsError
+            End If
+            With Errorlog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(Errorlog)
+            Return True
+        End Try
+    End Function
+    Public Function Report_CA_SummaryQE(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
+                             ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
+                             Optional ByRef Errorlog As clsError = Nothing) As Boolean
+        Try
+            Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
+
+            If dt IsNot Nothing Then
+
+                ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+
+                While ADO.Validate_CA_TEMP_REPORTID(ID)
+                    ID = "CA_" & Format(Now, "ddMMMyyyyHHmmss") & RandomKey(5)
+                End While
+
+
+                For y As Integer = 0 To dt.Rows.Count - 1
+                    If IsDBNull(dt.Rows(y)("CA_KEY")) = False Then
+                        If mdlReport_CA.GenerateCA_Schudule(RefNo, YA, ID, CInt(dt.Rows(y)("CA_KEY")), Errorlog) = False Then
+                            Return False
+                        End If
+                    End If
+                Next
+
+                Dim dtData As DataTable = ADO.Load_CAReport_SummaryQEStep1_Temp(ID, YA)
+
+                Dim CA_DESCRIPTION As String = Nothing
+                Dim CA_CATEGORY As String = Nothing
+                Dim CA_SOURCENO As Integer = 0
+                Dim CA_AMOUNT As Decimal = 0
+                Dim CA_RATE_AA As Integer = 0
+                Dim AA_0 As Decimal = 0
+                Dim AA_2 As Decimal = 0
+                Dim AA_3 As Decimal = 0
+                Dim AA_8 As Decimal = 0
+                Dim AA_10 As Decimal = 0
+                Dim AA_12 As Decimal = 0
+                Dim AA_14 As Decimal = 0
+                Dim AA_16 As Decimal = 0
+                Dim AA_20 As Decimal = 0
+                Dim AA_40 As Decimal = 0
+                Dim AA_50 As Decimal = 0
+                Dim AA_60 As Decimal = 0
+                Dim AA_80 As Decimal = 0
+                Dim AA_90 As Decimal = 0
+                Dim AA_100 As Decimal = 0
+                Dim dtCategory As DataTable = Nothing
+                Dim tmpTotal As Object = Nothing
+                Dim tmpCategory As String = ""
+                Dim TmpID As Integer = 0
+                Dim i As Integer = 0
+                Dim tmpObj As DataRow() = Nothing
+                If dtData IsNot Nothing Then
+
+                    For Each rowx As DataRow In dtData.Rows
+                        tmpTotal = Nothing
+                   
+
+                        If tmpCategory <> IIf(IsDBNull(rowx("CA_CATEGORY_CODE")), "", rowx("CA_CATEGORY_CODE")) Then
+                            AA_0 = 0
+                            AA_2 = 0
+                            AA_3 = 0
+                            AA_8 = 0
+                            AA_10 = 0
+                            AA_12 = 0
+                            AA_14 = 0
+                            AA_16 = 0
+                            AA_20 = 0
+                            AA_40 = 0
+                            AA_50 = 0
+                            AA_60 = 0
+                            AA_80 = 0
+                            AA_90 = 0
+                            AA_100 = 0
+
+                            tmpCategory = IIf(IsDBNull(rowx("CA_CATEGORY_CODE")), "", rowx("CA_CATEGORY_CODE"))
+                            CA_DESCRIPTION = tmpCategory
+                            tmpTotal = dtData.Compute("SUM(sumx)", "CA_CATEGORY_CODE ='" & tmpCategory & "'")
+                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                CA_AMOUNT = CDec(tmpTotal)
+                            Else
+                                CA_AMOUNT = 0
+                            End If
+                            CA_CATEGORY = ""
+
+
+                            tmpObj = dtData.Select("CA_CATEGORY_CODE ='" & tmpCategory & "'")
+
+                            If tmpObj IsNot Nothing AndAlso tmpObj.Length > 0 Then
+                                For Each tmpRow As DataRow In tmpObj
+
+
+                                    CA_RATE_AA = IIf(IsDBNull(tmpRow("CA_RATE_AA")), 0, tmpRow("CA_RATE_AA"))
+                                    tmpTotal = dtData.Compute("SUM(sumx)", "CA_CATEGORY_CODE ='" & tmpCategory & "' AND CA_RATE_AA =" & CA_RATE_AA)
+
+                                    Select Case CA_RATE_AA
+                                        Case 2
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_2 = CDec(tmpTotal)
+                                            Else
+                                                AA_2 = 0
+                                            End If
+
+                                        Case 3
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_3 = CDec(tmpTotal)
+                                            Else
+                                                AA_3 = 0
+                                            End If
+                                        Case 8
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_8 = CDec(tmpTotal)
+                                            Else
+                                                AA_8 = 0
+                                            End If
+
+                                        Case 10
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_10 = CDec(tmpTotal)
+                                            Else
+                                                AA_10 = 0
+                                            End If
+
+                                        Case 12
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_12 = CDec(tmpTotal)
+                                            Else
+                                                AA_12 = 0
+                                            End If
+
+                                        Case 14
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_14 = CDec(tmpTotal)
+                                            Else
+                                                AA_14 = 0
+                                            End If
+
+                                        Case 16
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_16 = CDec(tmpTotal)
+                                            Else
+                                                AA_16 = 0
+                                            End If
+
+                                        Case 20
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_16 = CDec(tmpTotal)
+                                            Else
+                                                AA_16 = 0
+                                            End If
+
+                                        Case 40
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_40 = CDec(tmpTotal)
+                                            Else
+                                                AA_40 = 0
+                                            End If
+
+                                        Case 50
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_50 = CDec(tmpTotal)
+                                            Else
+                                                AA_50 = 0
+                                            End If
+
+                                        Case 60
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_60 = CDec(tmpTotal)
+                                            Else
+                                                AA_60 = 0
+                                            End If
+
+                                        Case 80
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_80 = CDec(tmpTotal)
+                                            Else
+                                                AA_80 = 0
+                                            End If
+
+                                        Case 90
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_90 = CDec(tmpTotal)
+                                            Else
+                                                AA_90 = 0
+                                            End If
+
+                                        Case 100
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_100 = CDec(tmpTotal)
+                                            Else
+                                                AA_100 = 0
+                                            End If
+
+                                        Case Else
+                                            If tmpTotal IsNot Nothing AndAlso IsNumeric(tmpTotal) Then
+                                                AA_0 = CDec(tmpTotal)
+                                            Else
+                                                AA_0 = 0
+                                            End If
+
+                                    End Select
+                                Next
+                            End If
+
+                            i += 1
+                            If ADO.Save_CA_Summary_QE(ID, RefNo, CInt(YA), CA_DESCRIPTION, CA_CATEGORY, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, _
+                                                            AA_60, AA_80, AA_90, AA_100, CA_AMOUNT, i, 0, TmpID, Errorlog) = False Then
+                                Return False
+                            End If
+
+                        End If
+                    Next
+
+                End If
+
+                dtData = Nothing
+                dtData = ADO.Load_CAReport_SummaryQEStep2_Temp(ID, YA)
+
+                If dtData IsNot Nothing Then
+
+                    For Each rowx As DataRow In dtData.Rows
+                        AA_0 = 0
+                        AA_2 = 0
+                        AA_3 = 0
+                        AA_8 = 0
+                        AA_10 = 0
+                        AA_12 = 0
+                        AA_14 = 0
+                        AA_16 = 0
+                        AA_20 = 0
+                        AA_40 = 0
+                        AA_50 = 0
+                        AA_60 = 0
+                        AA_80 = 0
+                        AA_90 = 0
+                        AA_100 = 0
+
+                        CA_DESCRIPTION = IIf(IsDBNull(rowx("CA_ASSET")), "", rowx("CA_ASSET")) & " - " & IIf(IsDBNull(rowx("HP_CODE")), "", rowx("HP_CODE"))
+                        CA_AMOUNT = IIf(IsDBNull(rowx("CA_QUALIFYING_COST")), 0, rowx("CA_QUALIFYING_COST"))
+                        CA_CATEGORY = "Motor Vechiles under Hire Purchase"
+                        CA_RATE_AA = IIf(IsDBNull(rowx("CA_RATE_AA")), 0, rowx("CA_RATE_AA"))
+
+                        Select Case CA_RATE_AA
+                            Case 2
+                                AA_2 = CA_AMOUNT
+                            Case 3
+                                AA_3 = CA_AMOUNT
+                            Case 8
+                                AA_8 = CA_AMOUNT
+                            Case 10
+                                AA_10 = CA_AMOUNT
+                            Case 12
+                                AA_12 = CA_AMOUNT
+                            Case 14
+                                AA_14 = CA_AMOUNT
+                            Case 16
+                                AA_16 = CA_AMOUNT
+                            Case 20
+                                AA_20 = CA_AMOUNT
+                            Case 40
+                                AA_40 = CA_AMOUNT
+                            Case 50
+                                AA_50 = CA_AMOUNT
+                            Case 60
+                                AA_60 = CA_AMOUNT
+                            Case 80
+                                AA_80 = CA_AMOUNT
+                            Case 90
+                                AA_90 = CA_AMOUNT
+                            Case 100
+                                AA_100 = CA_AMOUNT
+                            Case Else
+                                AA_0 = CA_AMOUNT
+                        End Select
+
+                        i += 1
+                        If ADO.Save_CA_Summary_QE(ID, RefNo, CInt(YA), CA_DESCRIPTION, CA_CATEGORY, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, _
+                                                           AA_60, AA_80, AA_90, AA_100, CA_AMOUNT, i, 1, TmpID, Errorlog) = False Then
+                            Return False
+                        End If
+
+                    Next
+                End If
+
+                dtData = Nothing
+                dtData = ADO.Load_CAReport_SummaryQEStep3_Temp(ID, YA)
+
+                If dtData IsNot Nothing Then
+
+                    For Each rowx As DataRow In dtData.Rows
+                        AA_0 = 0
+                        AA_2 = 0
+                        AA_3 = 0
+                        AA_8 = 0
+                        AA_10 = 0
+                        AA_12 = 0
+                        AA_14 = 0
+                        AA_16 = 0
+                        AA_20 = 0
+                        AA_40 = 0
+                        AA_50 = 0
+                        AA_60 = 0
+                        AA_80 = 0
+                        AA_90 = 0
+                        AA_100 = 0
+
+                        CA_DESCRIPTION = IIf(IsDBNull(rowx("CA_ASSET")), "", rowx("CA_ASSET")) & " - " & IIf(IsDBNull(rowx("HP_CODE")), "", rowx("HP_CODE"))
+                        CA_AMOUNT = IIf(IsDBNull(rowx("CA_QUALIFYING_COST")), 0, rowx("CA_QUALIFYING_COST"))
+                        CA_CATEGORY = "Capital Expenditure Expensed - Off in the Income Statement"
+                        CA_RATE_AA = IIf(IsDBNull(rowx("CA_RATE_AA")), 0, rowx("CA_RATE_AA"))
+
+                        Select Case CA_RATE_AA
+                            Case 2
+                                AA_2 = CA_AMOUNT
+                            Case 3
+                                AA_3 = CA_AMOUNT
+                            Case 8
+                                AA_8 = CA_AMOUNT
+                            Case 10
+                                AA_10 = CA_AMOUNT
+                            Case 12
+                                AA_12 = CA_AMOUNT
+                            Case 14
+                                AA_14 = CA_AMOUNT
+                            Case 16
+                                AA_16 = CA_AMOUNT
+                            Case 20
+                                AA_20 = CA_AMOUNT
+                            Case 40
+                                AA_40 = CA_AMOUNT
+                            Case 50
+                                AA_50 = CA_AMOUNT
+                            Case 60
+                                AA_60 = CA_AMOUNT
+                            Case 80
+                                AA_80 = CA_AMOUNT
+                            Case 90
+                                AA_90 = CA_AMOUNT
+                            Case 100
+                                AA_100 = CA_AMOUNT
+                            Case Else
+                                AA_0 = CA_AMOUNT
+                        End Select
+
+                        i += 1
+                        If ADO.Save_CA_Summary_QE(ID, RefNo, CInt(YA), CA_DESCRIPTION, CA_CATEGORY, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, _
+                                                           AA_60, AA_80, AA_90, AA_100, CA_AMOUNT, i, 2, TmpID, Errorlog) = False Then
+                            Return False
+                        End If
+
+                    Next
                 End If
 
             End If
@@ -434,6 +988,7 @@
                     Dim TWDV_CF As Decimal = 0
                     Dim TWDV_TOTAL As Decimal = 0
                     Dim IndexNo As Integer = 0
+                    Dim dtCategory As DataTable = Nothing
                     For i As Integer = 0 To dt.Rows.Count - 1
 
 
@@ -449,7 +1004,15 @@
                                 CA_RATE_AA = CInt(IIf(IsDBNull(dt.Rows(i)("CA_RATE_AA")), 0, dt.Rows(i)("CA_RATE_AA")))
                             Case CAReport_Type.CA_REPORT_SUMMARY_BYCATEGORY
                                 CurrentYA = 0
-                                CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dt.Rows(i)("CA_CATEGORY_CODE")), "", dt.Rows(i)("CA_CATEGORY_CODE")))
+                                dtCategory = ADO.LoadCategory(CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE"))), Errorlog)
+
+                                If dtCategory IsNot Nothing Then
+                                    CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dtCategory.Rows(0)("CA_CATEGORY")), "", dtCategory.Rows(0)("CA_CATEGORY")))
+
+                                Else
+                                    CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
+                                End If
+                                'CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dt.Rows(i)("CA_CATEGORY_CODE")), "", dt.Rows(i)("CA_CATEGORY_CODE")))
                                 CA_RATE_IA = 0
                                 CA_RATE_AA = CInt(IIf(IsDBNull(dt.Rows(i)("CA_RATE_AA")), 0, dt.Rows(i)("CA_RATE_AA")))
                             Case Else
@@ -690,6 +1253,7 @@
             Dim dtDisposal As DataTable = Nothing
             Dim DISP_AMOUNT As Decimal = 0
             Dim IndexNo As Integer = 0
+            Dim dtCategory As DataTable = Nothing
             Dim dt As DataTable = ADO.Load_CA(CA_KEY)
 
             If dt Is Nothing Then
@@ -716,7 +1280,15 @@
                 CA_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("CA_NAME")), "", dt.Rows(0)("CA_NAME")))
                 CA_TRANSFERROR_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("CA_TRANSFERROR_NAME")), "", dt.Rows(0)("CA_TRANSFERROR_NAME")))
                 CA_ASSET_NAME = CStr(IIf(IsDBNull(dt.Rows(0)("CA_ASSET")), "", dt.Rows(0)("CA_ASSET")))
-                CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
+                dtCategory = ADO.LoadCategory(CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE"))), Errorlog)
+
+                If dtCategory IsNot Nothing Then
+                    CA_CATEGORY = CStr(IIf(IsDBNull(dtCategory.Rows(0)("CA_CATEGORY")), "", dtCategory.Rows(0)("CA_CATEGORY")))
+
+                Else
+                    CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
+                End If
+                'CA_CATEGORY = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
                 HP_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("HP_CODE")), "", dt.Rows(0)("HP_CODE")))
                 CA_SOURCENO = CInt(IIf(IsDBNull(dt.Rows(0)("CA_SOURCENO")), 0, dt.Rows(0)("CA_SOURCENO")))
                 CA_YA = CInt(IIf(IsDBNull(dt.Rows(0)("CA_YA")), 0, dt.Rows(0)("CA_YA")))

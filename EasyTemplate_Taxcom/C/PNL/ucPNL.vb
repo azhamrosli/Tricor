@@ -10,11 +10,11 @@ Public Class ucPNL
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        If My.Settings.ThemeName <> "" Then
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
-        Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
-        End If
+        'If My.Settings.ThemeName <> "" Then
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        'Else
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
+        'End If
 
         If dsDataSet Is Nothing Then
             dsDataSet = New dsPNL
@@ -289,44 +289,19 @@ Public Class ucPNL
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
+            Dim rpt As rptPNL
+            Dim rpt_details As rptPNL_Details
+            Dim rpt_interest As rptPNL_InterestResict
+
             If GridView1.GetFocusedDataRow() Is Nothing Then
                 GridView1.FocusedRowHandle = 0
                 Application.DoEvents()
-
             End If
+
             Dim RefNo As String = GridView1.GetFocusedDataRow()("PL_REF_NO")
             Dim YA As String = GridView1.GetFocusedDataRow()("PL_YA")
 
-            If RefNo Is Nothing OrElse YA Is Nothing OrElse IsNumeric(YA) = False Then
-                Exit Sub
-            End If
-
-
-            Dim rpt As New rptPNL
-
-            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
-            rpt.paramYA.Value = CInt(YA)
-
-
-
-            If mdlPNL2.PNL_Report(RefNo, YA, rpt.DsPNL1, ErrorLog) Then
-
-                Dim rpt_details As New rptPNL_Details
-                rpt_details.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
-                rpt_details.paramYA.Value = CInt(YA)
-                rpt_details.DataSource = rpt.DsPNL1
-                rpt.XrSubreport1.ReportSource = rpt_details
-                rpt.CreateDocument()
-                Application.DoEvents()
-
-                Dim rpt_interest As New rptPNL_InterestResict
-                rpt_interest.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
-                rpt_interest.paramYA.Value = CInt(YA)
-                rpt_interest.DataSource = rpt.DsPNL1
-                rpt_interest.CreateDocument()
-                Application.DoEvents()
-
-
+            If mdlProcess.PrintReport_PNL(RefNo, YA, rpt, rpt_details, rpt_interest, ErrorLog) Then
                 Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
 
                 Dim x As Integer = 0
@@ -335,50 +310,37 @@ Public Class ucPNL
                     rpt.Pages.Add(pg)
                 Next
 
-                ''Do While x < minPageCount
-                ''    rpt.Pages.Insert(x * 2 + 1, rpt2.Pages(x))
-                ''    '  rpt1.Pages.Insert(x * 2 + 1, rpt3.Pages(x))
-                ''    x += 1
-                ''Loop
-
-                'If rpt_interest.Pages.Count <> minPageCount Then
-                '    x = minPageCount
-                '    Do While x < rpt_interest.Pages.Count
-                '        rpt1.Pages.Add(rpt2.Pages(x))
-                '        x += 1
-                '    Loop
-                'End If
-
-                'If rpt3.Pages.Count <> minPageCount Then
-                '    x = minPageCount
-                '    Do While x < rpt3.Pages.Count
-                '        rpt1.Pages.Add(rpt3.Pages(x))
-                '        x += 1
-                '    Loop
-                'End If
-
-                ' Reset all page numbers in the resulting document. 
-                ' rpt1.PrintingSystem.ContinuousPageNumbering = True
-
-                ' Show the Print Preview form (in a WinForms application). 
                 Dim printTool As New ReportPrintTool(rpt)
-                printTool.ShowPreviewDialog()
-
-
+                printTool.ShowPreview()
             Else
-                rpt = Nothing
-                MsgBox("Failed to load report.", MsgBoxStyle.Critical)
+                MsgBox("Failed to load profit and loss report.", MsgBoxStyle.Critical)
             End If
-
-
+         
         Catch ex As Exception
 
         End Try
     End Sub
 
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
-        Dim frm As New frmNote
-        frm.ShowDialog()
+        Try
+            Dim x As Integer = 0
+            Dim y As Integer = 1
+            x = y / x
 
+        Catch ex As Exception
+
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+        End Try
     End Sub
 End Class

@@ -37,6 +37,7 @@ Public Class ucPNL_p4NonAllowableExpenses
     Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
         Try
             Dim ds As DataSet = DsPNL1
+
             txtAmount.EditValue = mdlPNL.GetNonAllowanbleExpenses(ds, RefNo, YA, SourceNo, Errorlog)
 
 
@@ -52,6 +53,7 @@ Public Class ucPNL_p4NonAllowableExpenses
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 

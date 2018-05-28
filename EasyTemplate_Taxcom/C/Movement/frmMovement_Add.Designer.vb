@@ -21,15 +21,15 @@ Partial Class frmMovement_Add
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMovement_Add))
-        Dim SuperToolTip4 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem4 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem4 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip5 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem5 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem5 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim SuperToolTip6 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem6 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem6 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim SuperToolTip3 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem3 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem3 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
         Me.BarManager1 = New DevExpress.XtraBars.BarManager(Me.components)
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnAdd = New DevExpress.XtraBars.BarButtonItem()
@@ -37,6 +37,8 @@ Partial Class frmMovement_Add
         Me.btnDelete = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMoveUp = New DevExpress.XtraBars.BarButtonItem()
         Me.btnMoveDown = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote_Add = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote_Less = New DevExpress.XtraBars.BarButtonItem()
         Me.barDockControlTop = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlBottom = New DevExpress.XtraBars.BarDockControl()
         Me.barDockControlLeft = New DevExpress.XtraBars.BarDockControl()
@@ -52,21 +54,7 @@ Partial Class frmMovement_Add
         Me.dtBalanceEnd = New DevExpress.XtraEditors.DateEdit()
         Me.LabelControl8 = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl9 = New DevExpress.XtraEditors.LabelControl()
-        Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
-        Me.MOVEMENTADDBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
-        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
-        Me.colMM_ID = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.colMM_Description = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.txtAutoComplete = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.colMM_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.txtAmount = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
-        Me.colMM_AddBack = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.chkAddBack = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
-        Me.colMM_AddBack_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
-        Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
         Me.GridControl2 = New DevExpress.XtraGrid.GridControl()
-        Me.MOVEMENTDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.GridView2 = New DevExpress.XtraGrid.Views.Grid.GridView()
         Me.GridColumn1 = New DevExpress.XtraGrid.Columns.GridColumn()
         Me.GridColumn2 = New DevExpress.XtraGrid.Columns.GridColumn()
@@ -107,6 +95,30 @@ Partial Class frmMovement_Add
         Me.LabelControl7 = New DevExpress.XtraEditors.LabelControl()
         Me.RGType = New DevExpress.XtraEditors.RadioGroup()
         Me.cboType = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.cboSourceCode = New DevExpress.XtraEditors.ComboBoxEdit()
+        Me.LabelControl2 = New DevExpress.XtraEditors.LabelControl()
+        Me.DsMovement = New EasyTemplate_Taxcom.dsMovement()
+        Me.MOVEMENTADDBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.GridControl1 = New DevExpress.XtraGrid.GridControl()
+        Me.GridView1 = New DevExpress.XtraGrid.Views.Grid.GridView()
+        Me.colMM_ID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_Description = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtAutoComplete = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.colMM_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtAmount = New DevExpress.XtraEditors.Repository.RepositoryItemTextEdit()
+        Me.colMM_AddBack = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.chkAddBack = New DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit()
+        Me.colMM_AddBack_Amount = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.txtNote = New DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit()
+        Me.colMM_PARENTID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_Sequence = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colNote = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTagID = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.MOVEMENTDEDUCTBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.colMM_PARENTID1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colMM_Sequence1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colNote1 = New DevExpress.XtraGrid.Columns.GridColumn()
+        Me.colTagID1 = New DevExpress.XtraGrid.Columns.GridColumn()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -117,16 +129,7 @@ Partial Class frmMovement_Add
         CType(Me.dtBalanceStart.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtBalanceEnd.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dtBalanceEnd.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAutoComplete_Deduct, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -151,6 +154,16 @@ Partial Class frmMovement_Add
         Me.PanelControl2.SuspendLayout()
         CType(Me.RGType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'BarManager1
@@ -161,8 +174,8 @@ Partial Class frmMovement_Add
         Me.BarManager1.DockControls.Add(Me.barDockControlLeft)
         Me.BarManager1.DockControls.Add(Me.barDockControlRight)
         Me.BarManager1.Form = Me
-        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown})
-        Me.BarManager1.MaxItemId = 11
+        Me.BarManager1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.btnAdd, Me.btnAddChild, Me.btnDelete, Me.btnMoveUp, Me.btnMoveDown, Me.btnNote_Add, Me.btnNote_Less})
+        Me.BarManager1.MaxItemId = 13
         Me.BarManager1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.RepositoryItemTextEdit1, Me.RepositoryItemTextEdit2})
         '
         'Bar1
@@ -172,7 +185,7 @@ Partial Class frmMovement_Add
         Me.Bar1.DockRow = 0
         Me.Bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top
         Me.Bar1.FloatLocation = New System.Drawing.Point(271, 130)
-        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown)})
+        Me.Bar1.LinksPersistInfo.AddRange(New DevExpress.XtraBars.LinkPersistInfo() {New DevExpress.XtraBars.LinkPersistInfo(Me.btnAdd), New DevExpress.XtraBars.LinkPersistInfo(Me.btnAddChild), New DevExpress.XtraBars.LinkPersistInfo(Me.btnDelete), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveUp), New DevExpress.XtraBars.LinkPersistInfo(Me.btnMoveDown), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Add), New DevExpress.XtraBars.LinkPersistInfo(Me.btnNote_Less)})
         Me.Bar1.OptionsBar.AllowQuickCustomization = False
         Me.Bar1.OptionsBar.DisableClose = True
         Me.Bar1.OptionsBar.DisableCustomization = True
@@ -188,12 +201,12 @@ Partial Class frmMovement_Add
         Me.btnAdd.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.R))
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem4.Text = "Add new record"
-        ToolTipItem4.LeftIndent = 6
-        ToolTipItem4.Text = "Add new record Ctrl + R"
-        SuperToolTip4.Items.Add(ToolTipTitleItem4)
-        SuperToolTip4.Items.Add(ToolTipItem4)
-        Me.btnAdd.SuperTip = SuperToolTip4
+        ToolTipTitleItem1.Text = "Add new record"
+        ToolTipItem1.LeftIndent = 6
+        ToolTipItem1.Text = "Add new record Ctrl + R"
+        SuperToolTip1.Items.Add(ToolTipTitleItem1)
+        SuperToolTip1.Items.Add(ToolTipItem1)
+        Me.btnAdd.SuperTip = SuperToolTip1
         '
         'btnAddChild
         '
@@ -204,12 +217,12 @@ Partial Class frmMovement_Add
         Me.btnAddChild.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.T))
         Me.btnAddChild.Name = "btnAddChild"
         Me.btnAddChild.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem5.Text = "Add new record"
-        ToolTipItem5.LeftIndent = 6
-        ToolTipItem5.Text = "Add new record Ctrl + T"
-        SuperToolTip5.Items.Add(ToolTipTitleItem5)
-        SuperToolTip5.Items.Add(ToolTipItem5)
-        Me.btnAddChild.SuperTip = SuperToolTip5
+        ToolTipTitleItem2.Text = "Add new record"
+        ToolTipItem2.LeftIndent = 6
+        ToolTipItem2.Text = "Add new record Ctrl + T"
+        SuperToolTip2.Items.Add(ToolTipTitleItem2)
+        SuperToolTip2.Items.Add(ToolTipItem2)
+        Me.btnAddChild.SuperTip = SuperToolTip2
         '
         'btnDelete
         '
@@ -220,12 +233,12 @@ Partial Class frmMovement_Add
         Me.btnDelete.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.Delete)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
-        ToolTipTitleItem6.Text = "Delete record"
-        ToolTipItem6.LeftIndent = 6
-        ToolTipItem6.Text = "Delete record Ctrl + Y"
-        SuperToolTip6.Items.Add(ToolTipTitleItem6)
-        SuperToolTip6.Items.Add(ToolTipItem6)
-        Me.btnDelete.SuperTip = SuperToolTip6
+        ToolTipTitleItem3.Text = "Delete record"
+        ToolTipItem3.LeftIndent = 6
+        ToolTipItem3.Text = "Delete record Ctrl + Y"
+        SuperToolTip3.Items.Add(ToolTipTitleItem3)
+        SuperToolTip3.Items.Add(ToolTipItem3)
+        Me.btnDelete.SuperTip = SuperToolTip3
         '
         'btnMoveUp
         '
@@ -244,6 +257,24 @@ Partial Class frmMovement_Add
         Me.btnMoveDown.ImageOptions.LargeImage = CType(resources.GetObject("btnMoveDown.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnMoveDown.Name = "btnMoveDown"
         Me.btnMoveDown.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote_Add
+        '
+        Me.btnNote_Add.Caption = "Note Add"
+        Me.btnNote_Add.Id = 11
+        Me.btnNote_Add.ImageOptions.Image = CType(resources.GetObject("btnNote_Add.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote_Add.ImageOptions.LargeImage = CType(resources.GetObject("btnNote_Add.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote_Add.Name = "btnNote_Add"
+        Me.btnNote_Add.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote_Less
+        '
+        Me.btnNote_Less.Caption = "Note Less"
+        Me.btnNote_Less.Id = 12
+        Me.btnNote_Less.ImageOptions.Image = CType(resources.GetObject("btnNote_Less.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote_Less.ImageOptions.LargeImage = CType(resources.GetObject("btnNote_Less.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote_Less.Name = "btnNote_Less"
+        Me.btnNote_Less.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'barDockControlTop
         '
@@ -292,7 +323,7 @@ Partial Class frmMovement_Add
         '
         'LabelControl1
         '
-        Me.LabelControl1.Location = New System.Drawing.Point(10, 120)
+        Me.LabelControl1.Location = New System.Drawing.Point(10, 145)
         Me.LabelControl1.Name = "LabelControl1"
         Me.LabelControl1.Size = New System.Drawing.Size(27, 13)
         Me.LabelControl1.TabIndex = 4
@@ -317,7 +348,7 @@ Partial Class frmMovement_Add
         '
         'txtTitle
         '
-        Me.txtTitle.Location = New System.Drawing.Point(94, 117)
+        Me.txtTitle.Location = New System.Drawing.Point(94, 142)
         Me.txtTitle.MenuManager = Me.BarManager1
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(557, 20)
@@ -375,114 +406,6 @@ Partial Class frmMovement_Add
         Me.LabelControl9.TabIndex = 18
         Me.LabelControl9.Text = "Balance as at :"
         '
-        'GridControl1
-        '
-        Me.GridControl1.DataSource = Me.MOVEMENTADDBindingSource
-        Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.GridControl1.Location = New System.Drawing.Point(0, 26)
-        Me.GridControl1.MainView = Me.GridView1
-        Me.GridControl1.MenuManager = Me.BarManager1
-        Me.GridControl1.Name = "GridControl1"
-        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.txtAmount, Me.chkAddBack, Me.txtAutoComplete})
-        Me.GridControl1.Size = New System.Drawing.Size(1161, 112)
-        Me.GridControl1.TabIndex = 8
-        Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
-        '
-        'MOVEMENTADDBindingSource
-        '
-        Me.MOVEMENTADDBindingSource.DataMember = "MOVEMENT_ADD"
-        Me.MOVEMENTADDBindingSource.DataSource = Me.DsMovement
-        '
-        'DsMovement
-        '
-        Me.DsMovement.DataSetName = "dsMovement"
-        Me.DsMovement.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'GridView1
-        '
-        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_Description, Me.colMM_Amount, Me.colMM_AddBack, Me.colMM_AddBack_Amount})
-        Me.GridView1.GridControl = Me.GridControl1
-        Me.GridView1.Name = "GridView1"
-        Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
-        Me.GridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[True]
-        Me.GridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.[True]
-        Me.GridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom
-        Me.GridView1.OptionsView.RowAutoHeight = True
-        '
-        'colMM_ID
-        '
-        Me.colMM_ID.FieldName = "MM_ID"
-        Me.colMM_ID.Name = "colMM_ID"
-        '
-        'colMM_Description
-        '
-        Me.colMM_Description.Caption = "Description"
-        Me.colMM_Description.ColumnEdit = Me.txtAutoComplete
-        Me.colMM_Description.FieldName = "MM_Description"
-        Me.colMM_Description.Name = "colMM_Description"
-        Me.colMM_Description.Visible = True
-        Me.colMM_Description.VisibleIndex = 0
-        Me.colMM_Description.Width = 400
-        '
-        'txtAutoComplete
-        '
-        Me.txtAutoComplete.AutoHeight = False
-        Me.txtAutoComplete.Name = "txtAutoComplete"
-        '
-        'colMM_Amount
-        '
-        Me.colMM_Amount.Caption = "Amount"
-        Me.colMM_Amount.ColumnEdit = Me.txtAmount
-        Me.colMM_Amount.FieldName = "MM_Amount"
-        Me.colMM_Amount.Name = "colMM_Amount"
-        Me.colMM_Amount.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "MM_Amount", "SUM={0:0.##}")})
-        Me.colMM_Amount.Visible = True
-        Me.colMM_Amount.VisibleIndex = 1
-        Me.colMM_Amount.Width = 209
-        '
-        'txtAmount
-        '
-        Me.txtAmount.AutoHeight = False
-        Me.txtAmount.DisplayFormat.FormatString = "n0"
-        Me.txtAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtAmount.EditFormat.FormatString = "n0"
-        Me.txtAmount.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtAmount.Mask.EditMask = "n0"
-        Me.txtAmount.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
-        Me.txtAmount.Name = "txtAmount"
-        '
-        'colMM_AddBack
-        '
-        Me.colMM_AddBack.Caption = "Add  Back"
-        Me.colMM_AddBack.ColumnEdit = Me.chkAddBack
-        Me.colMM_AddBack.FieldName = "MM_AddBack"
-        Me.colMM_AddBack.Name = "colMM_AddBack"
-        Me.colMM_AddBack.Visible = True
-        Me.colMM_AddBack.VisibleIndex = 2
-        Me.colMM_AddBack.Width = 211
-        '
-        'chkAddBack
-        '
-        Me.chkAddBack.AutoHeight = False
-        Me.chkAddBack.Caption = "Add Back"
-        Me.chkAddBack.Name = "chkAddBack"
-        Me.chkAddBack.ValueGrayed = True
-        '
-        'colMM_AddBack_Amount
-        '
-        Me.colMM_AddBack_Amount.Caption = "AddBack Amount"
-        Me.colMM_AddBack_Amount.ColumnEdit = Me.txtAmount
-        Me.colMM_AddBack_Amount.FieldName = "MM_ADDBACK_AMOUNT"
-        Me.colMM_AddBack_Amount.Name = "colMM_AddBack_Amount"
-        Me.colMM_AddBack_Amount.OptionsColumn.TabStop = False
-        Me.colMM_AddBack_Amount.Visible = True
-        Me.colMM_AddBack_Amount.VisibleIndex = 3
-        '
-        'txtNote
-        '
-        Me.txtNote.MaxLength = 3000
-        Me.txtNote.Name = "txtNote"
-        '
         'GridControl2
         '
         Me.GridControl2.DataSource = Me.MOVEMENTDEDUCTBindingSource
@@ -496,15 +419,9 @@ Partial Class frmMovement_Add
         Me.GridControl2.TabIndex = 9
         Me.GridControl2.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView2})
         '
-        'MOVEMENTDEDUCTBindingSource
-        '
-        Me.MOVEMENTDEDUCTBindingSource.AllowNew = True
-        Me.MOVEMENTDEDUCTBindingSource.DataMember = "MOVEMENT_DEDUCT"
-        Me.MOVEMENTDEDUCTBindingSource.DataSource = Me.DsMovement
-        '
         'GridView2
         '
-        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4, Me.colMM_DEDUCT_AMOUNT})
+        Me.GridView2.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.GridColumn1, Me.GridColumn2, Me.GridColumn3, Me.GridColumn4, Me.colMM_DEDUCT_AMOUNT, Me.colMM_PARENTID1, Me.colMM_Sequence1, Me.colNote1, Me.colTagID1})
         Me.GridView2.GridControl = Me.GridControl2
         Me.GridView2.Name = "GridView2"
         Me.GridView2.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.[True]
@@ -899,11 +816,182 @@ Partial Class frmMovement_Add
         Me.cboType.Size = New System.Drawing.Size(171, 20)
         Me.cboType.TabIndex = 217
         '
+        'cboSourceCode
+        '
+        Me.cboSourceCode.Location = New System.Drawing.Point(94, 116)
+        Me.cboSourceCode.Name = "cboSourceCode"
+        Me.cboSourceCode.Properties.Buttons.AddRange(New DevExpress.XtraEditors.Controls.EditorButton() {New DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)})
+        Me.cboSourceCode.Size = New System.Drawing.Size(280, 20)
+        Me.cboSourceCode.TabIndex = 222
+        '
+        'LabelControl2
+        '
+        Me.LabelControl2.Location = New System.Drawing.Point(10, 119)
+        Me.LabelControl2.Name = "LabelControl2"
+        Me.LabelControl2.Size = New System.Drawing.Size(68, 13)
+        Me.LabelControl2.TabIndex = 223
+        Me.LabelControl2.Text = "Source Code :"
+        '
+        'DsMovement
+        '
+        Me.DsMovement.DataSetName = "dsMovement"
+        Me.DsMovement.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'MOVEMENTADDBindingSource
+        '
+        Me.MOVEMENTADDBindingSource.DataMember = "MOVEMENT_ADD"
+        Me.MOVEMENTADDBindingSource.DataSource = Me.DsMovement
+        '
+        'GridControl1
+        '
+        Me.GridControl1.DataSource = Me.MOVEMENTADDBindingSource
+        Me.GridControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.GridControl1.Location = New System.Drawing.Point(0, 26)
+        Me.GridControl1.MainView = Me.GridView1
+        Me.GridControl1.MenuManager = Me.BarManager1
+        Me.GridControl1.Name = "GridControl1"
+        Me.GridControl1.RepositoryItems.AddRange(New DevExpress.XtraEditors.Repository.RepositoryItem() {Me.txtNote, Me.txtAmount, Me.chkAddBack, Me.txtAutoComplete})
+        Me.GridControl1.Size = New System.Drawing.Size(1161, 112)
+        Me.GridControl1.TabIndex = 11
+        Me.GridControl1.ViewCollection.AddRange(New DevExpress.XtraGrid.Views.Base.BaseView() {Me.GridView1})
+        '
+        'GridView1
+        '
+        Me.GridView1.Columns.AddRange(New DevExpress.XtraGrid.Columns.GridColumn() {Me.colMM_ID, Me.colMM_Description, Me.colMM_Amount, Me.colMM_AddBack, Me.colMM_AddBack_Amount, Me.colMM_PARENTID, Me.colMM_Sequence, Me.colNote, Me.colTagID})
+        Me.GridView1.GridControl = Me.GridControl1
+        Me.GridView1.Name = "GridView1"
+        Me.GridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.[True]
+        Me.GridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.[True]
+        Me.GridView1.OptionsView.ColumnHeaderAutoHeight = DevExpress.Utils.DefaultBoolean.[True]
+        Me.GridView1.OptionsView.NewItemRowPosition = DevExpress.XtraGrid.Views.Grid.NewItemRowPosition.Bottom
+        Me.GridView1.OptionsView.RowAutoHeight = True
+        '
+        'colMM_ID
+        '
+        Me.colMM_ID.FieldName = "MM_ID"
+        Me.colMM_ID.Name = "colMM_ID"
+        '
+        'colMM_Description
+        '
+        Me.colMM_Description.Caption = "Description"
+        Me.colMM_Description.ColumnEdit = Me.txtAutoComplete
+        Me.colMM_Description.FieldName = "MM_Description"
+        Me.colMM_Description.Name = "colMM_Description"
+        Me.colMM_Description.Visible = True
+        Me.colMM_Description.VisibleIndex = 0
+        Me.colMM_Description.Width = 400
+        '
+        'txtAutoComplete
+        '
+        Me.txtAutoComplete.AutoHeight = False
+        Me.txtAutoComplete.Name = "txtAutoComplete"
+        '
+        'colMM_Amount
+        '
+        Me.colMM_Amount.Caption = "Amount"
+        Me.colMM_Amount.ColumnEdit = Me.txtAmount
+        Me.colMM_Amount.FieldName = "MM_Amount"
+        Me.colMM_Amount.Name = "colMM_Amount"
+        Me.colMM_Amount.Summary.AddRange(New DevExpress.XtraGrid.GridSummaryItem() {New DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "MM_Amount", "SUM={0:0.##}")})
+        Me.colMM_Amount.Visible = True
+        Me.colMM_Amount.VisibleIndex = 1
+        Me.colMM_Amount.Width = 209
+        '
+        'txtAmount
+        '
+        Me.txtAmount.AutoHeight = False
+        Me.txtAmount.DisplayFormat.FormatString = "n0"
+        Me.txtAmount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtAmount.EditFormat.FormatString = "n0"
+        Me.txtAmount.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric
+        Me.txtAmount.Mask.EditMask = "n0"
+        Me.txtAmount.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
+        Me.txtAmount.Name = "txtAmount"
+        '
+        'colMM_AddBack
+        '
+        Me.colMM_AddBack.Caption = "Add  Back"
+        Me.colMM_AddBack.ColumnEdit = Me.chkAddBack
+        Me.colMM_AddBack.FieldName = "MM_AddBack"
+        Me.colMM_AddBack.Name = "colMM_AddBack"
+        Me.colMM_AddBack.Visible = True
+        Me.colMM_AddBack.VisibleIndex = 2
+        Me.colMM_AddBack.Width = 211
+        '
+        'chkAddBack
+        '
+        Me.chkAddBack.AutoHeight = False
+        Me.chkAddBack.Caption = "Add Back"
+        Me.chkAddBack.Name = "chkAddBack"
+        Me.chkAddBack.ValueGrayed = True
+        '
+        'colMM_AddBack_Amount
+        '
+        Me.colMM_AddBack_Amount.Caption = "AddBack Amount"
+        Me.colMM_AddBack_Amount.ColumnEdit = Me.txtAmount
+        Me.colMM_AddBack_Amount.FieldName = "MM_ADDBACK_AMOUNT"
+        Me.colMM_AddBack_Amount.Name = "colMM_AddBack_Amount"
+        Me.colMM_AddBack_Amount.OptionsColumn.TabStop = False
+        Me.colMM_AddBack_Amount.Visible = True
+        Me.colMM_AddBack_Amount.VisibleIndex = 3
+        '
+        'txtNote
+        '
+        Me.txtNote.MaxLength = 3000
+        Me.txtNote.Name = "txtNote"
+        '
+        'colMM_PARENTID
+        '
+        Me.colMM_PARENTID.FieldName = "MM_PARENTID"
+        Me.colMM_PARENTID.Name = "colMM_PARENTID"
+        '
+        'colMM_Sequence
+        '
+        Me.colMM_Sequence.FieldName = "MM_Sequence"
+        Me.colMM_Sequence.Name = "colMM_Sequence"
+        '
+        'colNote
+        '
+        Me.colNote.FieldName = "Note"
+        Me.colNote.Name = "colNote"
+        '
+        'colTagID
+        '
+        Me.colTagID.FieldName = "TagID"
+        Me.colTagID.Name = "colTagID"
+        '
+        'MOVEMENTDEDUCTBindingSource
+        '
+        Me.MOVEMENTDEDUCTBindingSource.DataMember = "MOVEMENT_DEDUCT"
+        Me.MOVEMENTDEDUCTBindingSource.DataSource = Me.DsMovement
+        '
+        'colMM_PARENTID1
+        '
+        Me.colMM_PARENTID1.FieldName = "MM_PARENTID"
+        Me.colMM_PARENTID1.Name = "colMM_PARENTID1"
+        '
+        'colMM_Sequence1
+        '
+        Me.colMM_Sequence1.FieldName = "MM_Sequence"
+        Me.colMM_Sequence1.Name = "colMM_Sequence1"
+        '
+        'colNote1
+        '
+        Me.colNote1.FieldName = "Note"
+        Me.colNote1.Name = "colNote1"
+        '
+        'colTagID1
+        '
+        Me.colTagID1.FieldName = "TagID"
+        Me.colTagID1.Name = "colTagID1"
+        '
         'frmMovement_Add
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1187, 569)
+        Me.Controls.Add(Me.cboSourceCode)
+        Me.Controls.Add(Me.LabelControl2)
         Me.Controls.Add(Me.cboType)
         Me.Controls.Add(Me.RGType)
         Me.Controls.Add(Me.SplitContainerControl1)
@@ -946,16 +1034,7 @@ Partial Class frmMovement_Add
         CType(Me.dtBalanceStart.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtBalanceEnd.Properties.CalendarTimeProperties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dtBalanceEnd.Properties, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridControl2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GridView2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAutoComplete_Deduct, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RepositoryItemTextEdit3, System.ComponentModel.ISupportInitialize).EndInit()
@@ -982,6 +1061,16 @@ Partial Class frmMovement_Add
         Me.PanelControl2.PerformLayout()
         CType(Me.RGType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.cboType.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.cboSourceCode.Properties, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DsMovement, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MOVEMENTADDBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridControl1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.GridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAutoComplete, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtAmount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.chkAddBack, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.txtNote, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.MOVEMENTDEDUCTBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1008,17 +1097,6 @@ Partial Class frmMovement_Add
     Friend WithEvents LabelControl1 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents RepositoryItemTextEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents RepositoryItemTextEdit2 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
-    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
-    Friend WithEvents MOVEMENTADDBindingSource As System.Windows.Forms.BindingSource
-    Friend WithEvents DsMovement As EasyTemplate_Taxcom.dsMovement
-    Friend WithEvents colMM_ID As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_Description As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents txtNote As DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit
-    Friend WithEvents colMM_Amount As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents txtAmount As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
-    Friend WithEvents colMM_AddBack As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents chkAddBack As DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit
     Friend WithEvents GridControl2 As DevExpress.XtraGrid.GridControl
     Friend WithEvents GridView2 As DevExpress.XtraGrid.Views.Grid.GridView
     Friend WithEvents GridColumn1 As DevExpress.XtraGrid.Columns.GridColumn
@@ -1028,7 +1106,6 @@ Partial Class frmMovement_Add
     Friend WithEvents RepositoryItemTextEdit3 As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents GridColumn4 As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents RepositoryItemCheckEdit1 As DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit
-    Friend WithEvents MOVEMENTDEDUCTBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents LabelControl10 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents txtRefNo As DevExpress.XtraEditors.TextEdit
     Friend WithEvents LabelControl11 As DevExpress.XtraEditors.LabelControl
@@ -1052,7 +1129,6 @@ Partial Class frmMovement_Add
     Friend WithEvents colCountry As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colCompanyCode As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents colMM_DEDUCT_AMOUNT As DevExpress.XtraGrid.Columns.GridColumn
-    Friend WithEvents colMM_AddBack_Amount As DevExpress.XtraGrid.Columns.GridColumn
     Friend WithEvents txtTotalAmount_AddbackDeduct As DevExpress.XtraEditors.TextEdit
     Friend WithEvents SplitContainerControl1 As DevExpress.XtraEditors.SplitContainerControl
     Friend WithEvents LabelControl6 As DevExpress.XtraEditors.LabelControl
@@ -1060,7 +1136,32 @@ Partial Class frmMovement_Add
     Friend WithEvents PanelControl2 As DevExpress.XtraEditors.PanelControl
     Friend WithEvents LabelControl7 As DevExpress.XtraEditors.LabelControl
     Friend WithEvents RGType As DevExpress.XtraEditors.RadioGroup
-    Friend WithEvents txtAutoComplete As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents txtAutoComplete_Deduct As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
     Friend WithEvents cboType As DevExpress.XtraEditors.ComboBoxEdit
+    Friend WithEvents cboSourceCode As DevExpress.XtraEditors.ComboBoxEdit
+    Friend WithEvents LabelControl2 As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents btnNote_Add As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents btnNote_Less As DevExpress.XtraBars.BarButtonItem
+    Friend WithEvents GridControl1 As DevExpress.XtraGrid.GridControl
+    Friend WithEvents MOVEMENTADDBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents DsMovement As EasyTemplate_Taxcom.dsMovement
+    Friend WithEvents GridView1 As DevExpress.XtraGrid.Views.Grid.GridView
+    Friend WithEvents colMM_ID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_Description As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents txtAutoComplete As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents colMM_Amount As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents txtAmount As DevExpress.XtraEditors.Repository.RepositoryItemTextEdit
+    Friend WithEvents colMM_AddBack As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents chkAddBack As DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit
+    Friend WithEvents colMM_AddBack_Amount As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_PARENTID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_Sequence As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colNote As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTagID As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents txtNote As DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit
+    Friend WithEvents MOVEMENTDEDUCTBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents colMM_PARENTID1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colMM_Sequence1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colNote1 As DevExpress.XtraGrid.Columns.GridColumn
+    Friend WithEvents colTagID1 As DevExpress.XtraGrid.Columns.GridColumn
 End Class

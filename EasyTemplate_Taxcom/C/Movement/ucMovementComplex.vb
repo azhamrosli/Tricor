@@ -2,6 +2,19 @@
 Imports DevExpress.XtraReports.UI
 Public Class ucMovementComplex
     Dim ErrorLog As clsError = Nothing
+    Dim clsMovement_Note As clsNote_Movement
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+
+        If clsMovement_Note Is Nothing Then
+            clsMovement_Note = New clsNote_Movement
+        End If
+
+    End Sub
     Private Sub frmMovement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData(0)
@@ -153,9 +166,10 @@ Public Class ucMovementComplex
                 Dim tmpSts As Boolean = True
                 For i As Integer = 0 To GridView1.SelectedRowsCount - 1
 
-                    If ADO.Delete_MovementComplex(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), ErrorLog) = False Then
+                    If ADO.Delete_MovementComplex(CInt(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_ID")), _
+                                                          CStr(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_REFNO")), _
+                                                          CStr(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("MM_YA")), ErrorLog) = False Then
                         tmpSts = False
-
                     End If
                     'MsgBox(GridView1.GetDataRow(GridView1.GetSelectedRows(i))("CA_KEY"))
                 Next
@@ -188,73 +202,33 @@ Public Class ucMovementComplex
     End Sub
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
+
         Try
-            Try
+            Dim rpt As rptMovementComplex
 
-                Dim dt As DataTable = Nothing
-                Dim dtChild As DataTable = Nothing
-                Dim ID As Integer = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
-
-                dt = ADO.Load_MovementComplex(ID, ErrorLog)
-
-                DsMovement.Tables("MOVEMENT_COMPLEX_ADD").Rows.Clear()
-                DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").Rows.Clear()
-                DsMovement.Tables("MOVEMENT_COMPLEX").Rows.Clear()
-
-                If dt Is Nothing Then
-                    MsgBox("Data not found.", MsgBoxStyle.Critical)
-                    Exit Sub
-                End If
-
-                For i As Integer = 0 To dt.Rows.Count - 1
-                    dt.Rows(i)("MM_TITLE") = "Movements in " & IIf(IsDBNull(dt.Rows(i)("MM_TITLE")), "", dt.Rows(i)("MM_TITLE")) & " for the " & IIf(IsDBNull(dt.Rows(i)("MM_TYPE")), "Year Ended", dt.Rows(i)("MM_TYPE")) & " " & Format(IIf(IsDBNull(dt.Rows(i)("MM_YEAR_ENDED")), Now, dt.Rows(i)("MM_YEAR_ENDED")), "dd.MM.yyyy")
-                    Application.DoEvents()
-                    DsMovement.Tables("MOVEMENT_COMPLEX").ImportRow(dt.Rows(i))
-                Next
-
-                dt = ADO.Load_MovementComplex_Add(ID, ErrorLog)
-
-                If dt IsNot Nothing Then
-                    For i As Integer = 0 To dt.Rows.Count - 1
-                        DsMovement.Tables("MOVEMENT_COMPLEX_ADD").ImportRow(dt.Rows(i))
-                    Next
-                End If
-                Application.DoEvents()
-                dt = ADO.Load_MovementComplex_Deduct(ID, ErrorLog)
-
-                If dt IsNot Nothing Then
-                    For i As Integer = 0 To dt.Rows.Count - 1
-                        DsMovement.Tables("MOVEMENT_COMPLEX_DEDUCT").ImportRow(dt.Rows(i))
-                    Next
-                End If
-
-                Dim rpt As New rptMovementComplex
-                rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"))
-                rpt.paramParentID.Value = ID
-                rpt.DataSource = DsMovement.Tables("MOVEMENT_COMPLEX")
-
+            If mdlProcess.PrintReport_MovementComplex(DsMovement, GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID"), _
+                                                      GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_REFNO"), rpt, ErrorLog) Then
                 rpt.ShowPreview()
-
-
-            Catch ex As Exception
-                If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
-                End If
-                With ErrorLog
-                    .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-                    .ErrorCode = "C1001"
-                    .ErrorDateTime = Now
-                    .ErrorMessage = ex.Message
-                End With
-
-                AddListOfError(ErrorLog)
-            Finally
-                pnlLoading.Visible = False
-                Application.DoEvents()
-            End Try
+            Else
+                MsgBox("Failed to load movement complex report.", MsgBoxStyle.Critical)
+            End If
 
         Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
 
+            AddListOfError(ErrorLog)
+        Finally
+            pnlLoading.Visible = False
+            Application.DoEvents()
         End Try
+
     End Sub
 End Class

@@ -35,7 +35,7 @@ Public Class clsMovementNormal
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "SELECT TOP 1000 MM_Description FROM MOVEMENT_ADD ORDER BY MM_ID DESC UNION SELECT TOP 1000 MM_Description FROM MOVEMENT_DEDUCT ORDER BY MM_ID DESC"
+            Dim StrSQL As String = "SELECT TOP 1000 MM_Description FROM MOVEMENT_ADD UNION SELECT TOP 1000 MM_Description FROM MOVEMENT_DEDUCT"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
 
@@ -75,11 +75,12 @@ Public Class clsMovementNormal
         Try
             Dim dt As DataTable = Me.Load_MovementNormal_Search(RefNo, YA, ErrorLog)
 
+            Me.ClearData(ds)
             If dt Is Nothing Then
                 Exit Sub
             End If
 
-            Me.ClearData(ds)
+
 
             For i As Integer = 0 To dt.Rows.Count - 1
                 ds.Tables(TableName).ImportRow(dt.Rows(i))
@@ -106,7 +107,7 @@ Public Class clsMovementNormal
             ds.Tables(TableName_ADD).Rows.Clear()
             If dt IsNot Nothing Then
                 For Each rowx As DataRow In dt.Rows
-                    rowx("MM_ID") = ds.Tables(TableName_ADD).Rows.Count + 1
+                    '  rowx("MM_ID") = ds.Tables(TableName_ADD).Rows.Count + 1
                     ds.Tables(TableName_ADD).ImportRow(rowx)
                 Next
             End If
@@ -116,7 +117,7 @@ Public Class clsMovementNormal
             ds.Tables(TableName_Deduct).Rows.Clear()
             If dt IsNot Nothing Then
                 For Each rowx As DataRow In dt.Rows
-                    rowx("MM_ID") = ds.Tables(TableName_Deduct).Rows.Count + 1
+                    ' rowx("MM_ID") = ds.Tables(TableName_Deduct).Rows.Count + 1
                     Application.DoEvents()
                     ds.Tables(TableName_Deduct).ImportRow(rowx)
                 Next
@@ -137,6 +138,81 @@ Public Class clsMovementNormal
         End Try
     End Sub
 #Region "LOAD"
+
+    Public Function Check_MovementNormalAdd_TagID(ByVal TagID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM MOVEMENT_ADD WHERE TagID=@TagID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function Check_MovementNormalDeduct_TagID(ByVal TagID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+        Try
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM MOVEMENT_DEDUCT WHERE TagID=@TagID"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+
+
     Public Function CheckExist_MovementNormal(ByVal MM_REFNO As String, ByVal MM_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
@@ -322,6 +398,38 @@ Public Class clsMovementNormal
             Return Nothing
         End Try
     End Function
+    Public Function Load_MovementNormal_Add(ByVal ID As Integer, ByVal MM_PARENTID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_ADD WHERE MM_ID=@MM_ID AND MM_PARENTID=@MM_PARENTID ORDER BY MM_Sequence"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
+            SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_PARENTID
+
+            Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
     Public Function Load_MovementNormal_Deduct(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
         Try
 
@@ -353,18 +461,52 @@ Public Class clsMovementNormal
             Return Nothing
         End Try
     End Function
+    Public Function Load_MovementNormal_Deduct(ByVal ID As Integer, ByVal MM_PARENTID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+        Try
+
+            Dim SqlCon As SqlConnection
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return Nothing
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT * FROM MOVEMENT_DEDUCT WHERE MM_ID=@MM_ID AND MM_PARENTID=@MM_PARENTID ORDER BY MM_Sequence"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
+            SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_PARENTID
+
+            Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+        Catch ex As Exception
+            If ErrorLog Is Nothing Then
+                ErrorLog = New clsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = "C1001"
+                .ErrorDateTime = Now
+                .ErrorMessage = ex.Message
+            End With
+
+            AddListOfError(ErrorLog)
+            Return Nothing
+        End Try
+    End Function
 #End Region
 #Region "SAVE"
     Public Function Save_MovementNormal(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
                                         ByVal TypeDate As String, ByVal YearEnded As DateTime, _
                                         ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                         ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, ByVal TypePass As Integer, _
+                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, _
+                                        ByVal TypePass As Integer, ByVal SourceNO As Integer, _
                                         ByVal ds As DataSet, _
                                         ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
             Dim SqlCon As SqlConnection
+            Dim tmpTagID As String = Nothing
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -373,7 +515,7 @@ Public Class clsMovementNormal
             Dim SQLcmd As SqlCommand
             Dim tmpID As Decimal = 0
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_TYPE,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_TYPE,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS)"
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_TYPE,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS,MM_SOURCENO) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_TYPE,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS,@MM_SOURCENO)"
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
@@ -391,6 +533,7 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddBackDeduct
             SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
+            SQLcmd.Parameters.Add("@MM_SOURCENO", SqlDbType.Int).Value = SourceNO
 
 
             Me.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
@@ -405,11 +548,19 @@ Public Class clsMovementNormal
             If ds IsNot Nothing AndAlso ds.Tables(TableName_ADD).Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables(TableName_ADD).Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT)"
+                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT,@TagID)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
+
+                    tmpTagID = "NMLADD" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+
+                    While Me.Check_MovementNormalAdd_TagID(tmpTagID, ErrorLog)
+                        tmpTagID = "NMLADD" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+                    End While
+
                     SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = tmpID
+                    SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = tmpTagID
                     SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables(TableName_ADD).Rows(i)("MM_Description")), "", ds.Tables(TableName_ADD).Rows(i)("MM_Description"))
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables(TableName_ADD).Rows(i)("MM_Amount")), 0, ds.Tables(TableName_ADD).Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
@@ -421,11 +572,19 @@ Public Class clsMovementNormal
             If ds IsNot Nothing AndAlso ds.Tables(TableName_Deduct).Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables(TableName_Deduct).Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT)"
+                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT,@TagID)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
+
+                    tmpTagID = "NMLLES" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+
+                    While Me.Check_MovementNormalDeduct_TagID(tmpTagID, ErrorLog)
+                        tmpTagID = "NMLLES" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+                    End While
+
                     SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = tmpID
+                    SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = tmpTagID
                     SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables(TableName_Deduct).Rows(i)("MM_Description")), "", ds.Tables(TableName_Deduct).Rows(i)("MM_Description"))
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables(TableName_Deduct).Rows(i)("MM_Amount")), 0, ds.Tables(TableName_Deduct).Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
@@ -462,7 +621,8 @@ Public Class clsMovementNormal
                                       ByVal TypeDate As String, ByVal YearEnded As DateTime, _
                                       ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
                                       ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                      ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, ByVal TypePass As Integer, _
+                                      ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, _
+                                      ByVal TypePass As Integer, ByVal SourceNO As Integer, _
                                       ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
@@ -473,10 +633,11 @@ Public Class clsMovementNormal
             End If
 
             Dim SQLcmd As SqlCommand
+            Dim tmpTagID As String = Nothing
             Dim tmpID As Decimal = 0
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_TYPE=@MM_TYPE,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS WHERE MM_ID=@MM_ID"
+            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_TYPE=@MM_TYPE,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS,MM_SOURCENO=@MM_SOURCENO WHERE MM_ID=@MM_ID"
 
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
@@ -496,6 +657,7 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@ModifiedDateTime", SqlDbType.DateTime).Value = Now
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddbackDeduct
             SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
+            SQLcmd.Parameters.Add("@MM_SOURCENO", SqlDbType.Int).Value = SourceNO
 
             ListofCmd.Add(SQLcmd)
 
@@ -516,11 +678,24 @@ Public Class clsMovementNormal
             If ds IsNot Nothing AndAlso ds.Tables(TableName_ADD).Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables(TableName_ADD).Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT)"
+                    StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT,@TagID)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
+
+
+                    If IsDBNull(ds.Tables(TableName_ADD).Rows(i)("TagID")) OrElse ds.Tables(TableName_ADD).Rows(i)("TagID") Is Nothing Then
+                        tmpTagID = "NMLADD" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+
+                        While Me.Check_MovementNormalAdd_TagID(tmpTagID, ErrorLog)
+                            tmpTagID = "NMLADD" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+                        End While
+                    Else
+                        tmpTagID = ds.Tables(TableName_ADD).Rows(i)("TagID")
+                    End If
+
                     SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = ID
+                    SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = tmpTagID
                     SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables(TableName_ADD).Rows(i)("MM_Description")), "", ds.Tables(TableName_ADD).Rows(i)("MM_Description"))
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables(TableName_ADD).Rows(i)("MM_Amount")), 0, ds.Tables(TableName_ADD).Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
@@ -532,11 +707,23 @@ Public Class clsMovementNormal
             If ds IsNot Nothing AndAlso ds.Tables(TableName_Deduct).Rows.Count > 0 Then
                 For i As Integer = 0 To ds.Tables(TableName_Deduct).Rows.Count - 1
                     SQLcmd = Nothing
-                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT)"
+                    StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT,@TagID)"
 
                     SQLcmd = New SqlCommand
                     SQLcmd.CommandText = StrSQL
+
+                    If IsDBNull(ds.Tables(TableName_Deduct).Rows(i)("TagID")) OrElse ds.Tables(TableName_Deduct).Rows(i)("TagID") Is Nothing Then
+                        tmpTagID = "NMLLES" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+
+                        While Me.Check_MovementNormalDeduct_TagID(tmpTagID, ErrorLog)
+                            tmpTagID = "NMLLES" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+                        End While
+                    Else
+                        tmpTagID = ds.Tables(TableName_Deduct).Rows(i)("TagID")
+                    End If
+
                     SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = ID
+                    SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = tmpTagID
                     SQLcmd.Parameters.Add("@MM_Description", SqlDbType.NVarChar, 3000).Value = IIf(IsDBNull(ds.Tables(TableName_Deduct).Rows(i)("MM_Description")), "", ds.Tables(TableName_Deduct).Rows(i)("MM_Description"))
                     SQLcmd.Parameters.Add("@MM_Amount", SqlDbType.Decimal).Value = IIf(IsDBNull(ds.Tables(TableName_Deduct).Rows(i)("MM_Amount")), 0, ds.Tables(TableName_Deduct).Rows(i)("MM_Amount"))
                     SQLcmd.Parameters.Add("@MM_Sequence", SqlDbType.Int).Value = i
@@ -569,7 +756,7 @@ Public Class clsMovementNormal
     End Function
 #End Region
 #Region "DELETE"
-    Public Function Delete_MovementNormal(ByVal MM_ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Delete_MovementNormal(ByVal MM_ID As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
         Try
 
             Dim SqlCon As SqlConnection
@@ -599,6 +786,24 @@ Public Class clsMovementNormal
             SQLcmd = New SqlCommand
             SQLcmd.CommandText = StrSQL
             SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_ID
+            ListofCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM TAXABLE_INCOME WHERE TI_REF_NO=@TI_REF_NO AND TI_YA=@TI_YA AND TI_TYPE=@TI_TYPE"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@TI_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@TI_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@TI_TYPE", SqlDbType.Int).Value = MM_ID
+            ListofCmd.Add(SQLcmd)
+
+            SQLcmd = Nothing
+            StrSQL = "DELETE FROM REVENUE_EXPENDITURE WHERE RE_REF_NO=@RE_REF_NO AND RE_YA=@RE_YA AND RE_TYPE=@RE_TYPE"
+            SQLcmd = New SqlCommand
+            SQLcmd.CommandText = StrSQL
+            SQLcmd.Parameters.Add("@RE_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
+            SQLcmd.Parameters.Add("@RE_YA", SqlDbType.NVarChar, 5).Value = YA
+            SQLcmd.Parameters.Add("@RE_TYPE", SqlDbType.Int).Value = MM_ID
             ListofCmd.Add(SQLcmd)
 
             Return Me.ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)

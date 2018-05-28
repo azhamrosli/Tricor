@@ -29,6 +29,10 @@ Partial Class frmAbout
         Me.lblStatus = New DevExpress.XtraEditors.LabelControl()
         Me.lblStorage = New DevExpress.XtraEditors.LabelControl()
         Me.lblRAM = New DevExpress.XtraEditors.LabelControl()
+        Me.lblCompanyRegister = New DevExpress.XtraEditors.LabelControl()
+        Me.lblCompanyID = New DevExpress.XtraEditors.LabelControl()
+        Me.lblExpiredOn = New DevExpress.XtraEditors.LabelControl()
+        Me.lblOutstandingAmount = New DevExpress.XtraEditors.LabelControl()
         CType(Me.txtUpdateLog.Properties, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -37,10 +41,10 @@ Partial Class frmAbout
         Me.txtUpdateLog.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtUpdateLog.Location = New System.Drawing.Point(12, 107)
+        Me.txtUpdateLog.Location = New System.Drawing.Point(12, 183)
         Me.txtUpdateLog.Name = "txtUpdateLog"
         Me.txtUpdateLog.Properties.ReadOnly = True
-        Me.txtUpdateLog.Size = New System.Drawing.Size(651, 322)
+        Me.txtUpdateLog.Size = New System.Drawing.Size(981, 389)
         Me.txtUpdateLog.TabIndex = 0
         '
         'lblVersion
@@ -115,11 +119,47 @@ Partial Class frmAbout
         Me.lblRAM.TabIndex = 7
         Me.lblRAM.Text = "V.1.1.1.1 R.1"
         '
+        'lblCompanyRegister
+        '
+        Me.lblCompanyRegister.Location = New System.Drawing.Point(12, 107)
+        Me.lblCompanyRegister.Name = "lblCompanyRegister"
+        Me.lblCompanyRegister.Size = New System.Drawing.Size(66, 13)
+        Me.lblCompanyRegister.TabIndex = 10
+        Me.lblCompanyRegister.Text = "V.1.1.1.1 R.1"
+        '
+        'lblCompanyID
+        '
+        Me.lblCompanyID.Location = New System.Drawing.Point(12, 126)
+        Me.lblCompanyID.Name = "lblCompanyID"
+        Me.lblCompanyID.Size = New System.Drawing.Size(66, 13)
+        Me.lblCompanyID.TabIndex = 11
+        Me.lblCompanyID.Text = "V.1.1.1.1 R.1"
+        '
+        'lblExpiredOn
+        '
+        Me.lblExpiredOn.Location = New System.Drawing.Point(12, 145)
+        Me.lblExpiredOn.Name = "lblExpiredOn"
+        Me.lblExpiredOn.Size = New System.Drawing.Size(66, 13)
+        Me.lblExpiredOn.TabIndex = 12
+        Me.lblExpiredOn.Text = "V.1.1.1.1 R.1"
+        '
+        'lblOutstandingAmount
+        '
+        Me.lblOutstandingAmount.Location = New System.Drawing.Point(12, 164)
+        Me.lblOutstandingAmount.Name = "lblOutstandingAmount"
+        Me.lblOutstandingAmount.Size = New System.Drawing.Size(66, 13)
+        Me.lblOutstandingAmount.TabIndex = 13
+        Me.lblOutstandingAmount.Text = "V.1.1.1.1 R.1"
+        '
         'frmAbout
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(675, 441)
+        Me.ClientSize = New System.Drawing.Size(1005, 584)
+        Me.Controls.Add(Me.lblOutstandingAmount)
+        Me.Controls.Add(Me.lblExpiredOn)
+        Me.Controls.Add(Me.lblCompanyID)
+        Me.Controls.Add(Me.lblCompanyRegister)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.lblStorage)
         Me.Controls.Add(Me.lblRAM)
@@ -148,4 +188,8 @@ Partial Class frmAbout
     Friend WithEvents lblStatus As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lblStorage As DevExpress.XtraEditors.LabelControl
     Friend WithEvents lblRAM As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblCompanyRegister As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblCompanyID As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblExpiredOn As DevExpress.XtraEditors.LabelControl
+    Friend WithEvents lblOutstandingAmount As DevExpress.XtraEditors.LabelControl
 End Class

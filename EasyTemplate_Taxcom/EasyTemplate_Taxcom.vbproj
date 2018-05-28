@@ -239,6 +239,7 @@
     <Compile Include="C\BalanceSheet\ucBalanceSheet.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="C\CA\clsNote_CA.vb" />
     <Compile Include="C\CA\dsCA1.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -248,6 +249,18 @@
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
     </Compile>
     <Compile Include="C\CA\frmCA_Quick.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\CA\frmCA_Report_Analysis.Designer.vb">
+      <DependentUpon>frmCA_Report_Analysis.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CA\frmCA_Report_Analysis.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\CA\frmCA_Report_SummaryQE.Designer.vb">
+      <DependentUpon>frmCA_Report_SummaryQE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CA\frmCA_Report_SummaryQE.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="C\CA\frmHP_Report.Designer.vb">
@@ -290,6 +303,18 @@
     <Compile Include="C\CA\rptCAReport.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="C\CA\rptCA_Note.Designer.vb">
+      <DependentUpon>rptCA_Note.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CA\rptCA_Note.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\CA\rpt_CAAnalysis.Designer.vb">
+      <DependentUpon>rpt_CAAnalysis.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CA\rpt_CAAnalysis.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="C\CA\rpt_CAByCategory.vb">
       <SubType>Component</SubType>
     </Compile>
@@ -302,7 +327,13 @@
     <Compile Include="C\CA\rpt_CAControlTransfer_Out.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CADisposal.vb">
+    <Compile Include="C\CA\rpt_CASummaryQE.Designer.vb">
+      <DependentUpon>rpt_CASummaryQE.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CA\rpt_CASummaryQE.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\CA\rpt_Disposal.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="C\CA\rpt_CAWrittenOff.vb">
@@ -330,6 +361,60 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="C\clsIODatabase.vb" />
+    <Compile Include="C\CP204\clsNote_CP204.vb" />
+    <Compile Include="C\CP204\rpt_CP204_Note.Designer.vb">
+      <DependentUpon>rpt_CP204_Note.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\CP204\rpt_CP204_Note.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\Movement\clsNote_Movement.vb" />
+    <Compile Include="C\Movement\dsMovement.vb">
+      <DependentUpon>dsMovement.xsd</DependentUpon>
+      <SubType>code</SubType>
+    </Compile>
+    <Compile Include="C\Movement\dsMovement1.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsMovement.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="C\Movement\rptMovement_Note.Designer.vb">
+      <DependentUpon>rptMovement_Note.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Movement\rptMovement_Note.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\Note\frmNote_CA.Designer.vb">
+      <DependentUpon>frmNote_CA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Note\frmNote_CA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\Note\frmNote_CP204.Designer.vb">
+      <DependentUpon>frmNote_CP204.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Note\frmNote_CP204.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL_Note.Designer.vb">
+      <DependentUpon>rptPNL_Note.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL_Note.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="C\Note\frmNote_Movement.Designer.vb">
+      <DependentUpon>frmNote_Movement.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Note\frmNote_Movement.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\Note\frmNote.Designer.vb">
+      <DependentUpon>frmNote.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Note\frmNote.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\PNL\clsNote_PNL.vb" />
     <Compile Include="C\CP204\dsCP204.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -383,10 +468,10 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="C\Movement\clsMovementNormal.vb" />
-    <Compile Include="C\Note\frmNote.Designer.vb">
-      <DependentUpon>frmNote.vb</DependentUpon>
+    <Compile Include="C\Note\frmNote_AttachmentView.Designer.vb">
+      <DependentUpon>frmNote_AttachmentView.vb</DependentUpon>
     </Compile>
-    <Compile Include="C\Note\frmNote.vb">
+    <Compile Include="C\Note\frmNote_AttachmentView.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="C\PNL\dsPNL.Designer.vb">
@@ -447,6 +532,12 @@
     <Compile Include="C\Report\rpt_RA.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="C\Report\rpt_TableofContent.Designer.vb">
+      <DependentUpon>rpt_TableofContent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Report\rpt_TableofContent.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="C\TaxCom\dsTaxcomputation.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -501,6 +592,12 @@
     <Compile Include="frmHome.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmLicense.Designer.vb">
+      <DependentUpon>frmLicense.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmLicense.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmLogin_Administrator.Designer.vb">
       <DependentUpon>frmLogin_Administrator.vb</DependentUpon>
     </Compile>
@@ -526,14 +623,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="C\mdlRefreshTaxComputation.vb" />
-    <Compile Include="C\Movement\dsMovement.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dsMovement.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="C\Movement\dsMovement.vb">
-      <DependentUpon>dsMovement.xsd</DependentUpon>
-    </Compile>
     <Compile Include="C\Movement\frmMovementComplex_Add.Designer.vb">
       <DependentUpon>frmMovementComplex_Add.vb</DependentUpon>
     </Compile>
@@ -1024,12 +1113,6 @@
     </Compile>
     <Compile Include="C\Report\mdlReport.vb" />
     <Compile Include="C\Report\mdlReport_CA.vb" />
-    <Compile Include="C\Report\rptTableofContent.Designer.vb">
-      <DependentUpon>rptTableofContent.vb</DependentUpon>
-    </Compile>
-    <Compile Include="C\Report\rptTableofContent.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="C\Report\ucTableofContent.Designer.vb">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </Compile>
@@ -1067,6 +1150,12 @@
     <EmbeddedResource Include="C\CA\frmCA_Quick.resx">
       <DependentUpon>frmCA_Quick.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\frmCA_Report_Analysis.resx">
+      <DependentUpon>frmCA_Report_Analysis.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\frmCA_Report_SummaryQE.resx">
+      <DependentUpon>frmCA_Report_SummaryQE.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CA\frmHP_Report.resx">
       <DependentUpon>frmHP_Report.vb</DependentUpon>
     </EmbeddedResource>
@@ -1097,6 +1186,12 @@
     <EmbeddedResource Include="C\CA\rptCAReport.resx">
       <DependentUpon>rptCAReport.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\rptCA_Note.resx">
+      <DependentUpon>rptCA_Note.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\rpt_CAAnalysis.resx">
+      <DependentUpon>rpt_CAAnalysis.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CA\rpt_CAByCategory.resx">
       <DependentUpon>rpt_CAByCategory.vb</DependentUpon>
     </EmbeddedResource>
@@ -1109,8 +1204,11 @@
     <EmbeddedResource Include="C\CA\rpt_CAControlTransfer_Out.resx">
       <DependentUpon>rpt_CAControlTransfer_Out.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CADisposal.resx">
-      <DependentUpon>rpt_CADisposal.vb</DependentUpon>
+    <EmbeddedResource Include="C\CA\rpt_CASummaryQE.resx">
+      <DependentUpon>rpt_CASummaryQE.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\CA\rpt_Disposal.resx">
+      <DependentUpon>rpt_Disposal.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\CA\rpt_CAWrittenOff.resx">
       <DependentUpon>rpt_CAWrittenOff.vb</DependentUpon>
@@ -1133,6 +1231,9 @@
     <EmbeddedResource Include="C\CP204\frmCP204_PenaltyLate.resx">
       <DependentUpon>frmCP204_PenaltyLate.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\CP204\rpt_CP204_Note.resx">
+      <DependentUpon>rpt_CP204_Note.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\CP204\rpt_CP204_Breakdown.resx">
       <DependentUpon>rpt_CP204_Breakdown.vb</DependentUpon>
     </EmbeddedResource>
@@ -1148,8 +1249,26 @@
     <EmbeddedResource Include="C\DeemedInterest\ucDeemedInterest.resx">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\Movement\rptMovement_Note.resx">
+      <DependentUpon>rptMovement_Note.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Note\frmNote_CA.resx">
+      <DependentUpon>frmNote_CA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Note\frmNote_CP204.resx">
+      <DependentUpon>frmNote_CP204.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\PNL\Report\rptPNL_Note.resx">
+      <DependentUpon>rptPNL_Note.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Note\frmNote_Movement.resx">
+      <DependentUpon>frmNote_Movement.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\Note\frmNote.resx">
       <DependentUpon>frmNote.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Note\frmNote_AttachmentView.resx">
+      <DependentUpon>frmNote_AttachmentView.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\Report1.rdlc" />
     <EmbeddedResource Include="C\PNL\Report\rptPNL.resx">
@@ -1170,6 +1289,9 @@
     <EmbeddedResource Include="C\Report\rpt_RA.resx">
       <DependentUpon>rpt_RA.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\Report\rpt_TableofContent.resx">
+      <DependentUpon>rpt_TableofContent.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </EmbeddedResource>
@@ -1181,6 +1303,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHome.resx">
       <DependentUpon>frmHome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLicense.resx">
+      <DependentUpon>frmLicense.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLogin_Administrator.resx">
       <DependentUpon>frmLogin_Administrator.vb</DependentUpon>
@@ -1439,9 +1564,6 @@
     <EmbeddedResource Include="C\Report\frmTableofContent_Add.resx">
       <DependentUpon>frmTableofContent_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\Report\rptTableofContent.resx">
-      <DependentUpon>rptTableofContent.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="C\Report\ucTableofContent.resx">
       <DependentUpon>ucTableofContent.vb</DependentUpon>
     </EmbeddedResource>
@@ -1508,7 +1630,7 @@
     <None Include="C\Movement\dsMovement.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsMovement.Designer.vb</LastGenOutput>
+      <LastGenOutput>dsMovement1.Designer.vb</LastGenOutput>
     </None>
     <None Include="C\Movement\dsMovement.xss">
       <DependentUpon>dsMovement.xsd</DependentUpon>
@@ -1546,7 +1668,9 @@
     <None Include="C\TaxCom\dsTaxcomputation.xss">
       <DependentUpon>dsTaxcomputation.xsd</DependentUpon>
     </None>
-    <None Include="My Project\app.manifest" />
+    <None Include="My Project\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>

@@ -6,11 +6,11 @@
         DevExpress.Skins.SkinManager.EnableFormSkins()
     End Sub
     Public Sub New()
-        If My.Settings.ThemeName <> "" Then
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
-        Else
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style" ' "Office 2013"
-        End If
+        'If My.Settings.ThemeName <> "" Then
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = My.Settings.ThemeName
+        'Else
+        '    DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "Office 2013" ' "Office 2013"
+        'End If
         InitializeComponent()
     End Sub
     Private Sub LoadData(Optional Type As Integer = 0)

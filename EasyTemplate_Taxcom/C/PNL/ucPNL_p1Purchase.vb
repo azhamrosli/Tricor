@@ -22,12 +22,27 @@ Public Class ucPNL_p1Purchase
     Public Const MainDetail As String = "PLFPUR_DETAIL"  'PLFS_DETAIL
     Public Const MainDetails_Desc As String = "PLFPURD_DESC"  'PLFSD_DESC
     Public Const Main_Desc As String = "PLFPUR_DESC"  'PLFSD_DESC
+    Public Const Main_Addback As String = "PLFPUR_DEDUCTIBLE"  'PLFSD_DESC
+    Public Const MainDetails_Addback As String = "PLFPURD_DEDUCTIBLE"  'PLFSD_DESC
+    Public Const Main_Deduct As String = ""  'PLFSD_DESC
+    Public Const MainDetails_Deduct As String = ""  'PLFSD_DESC
+    Public Const MainColumn_PercentageAmount As String = "PecentageAmount"
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -50,10 +65,10 @@ Public Class ucPNL_p1Purchase
         Try
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             PLFSTPURCHASEBindingSource.DataSource = DsPNL1.Tables(MainTable)
+            Application.DoEvents()
 
-            If isEdit Then
-
-            End If
+            CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                               MainAmount_Details, MainColumn_PercentageAmount, Errorlog)
 
         Catch ex As Exception
             If Errorlog Is Nothing Then
@@ -65,6 +80,7 @@ Public Class ucPNL_p1Purchase
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -134,6 +150,8 @@ Public Class ucPNL_p1Purchase
                 MsgBox("Failed to delete." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
             Else
                 CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                              MainAmount_Details, MainColumn_PercentageAmount, ErrorLog)
             End If
 
 
@@ -216,6 +234,8 @@ Public Class ucPNL_p1Purchase
                     MsgBox("Failed to update." & vbCrLf & ErrorLog.ErrorName & vbCrLf & ErrorLog.ErrorMessage, MsgBoxStyle.Critical)
                 Else
                     CalcTotalofView(txtAmount, DsPNL1, MainTable, MainAmount, 0, ErrorLog)
+                    CalcPercentageAmount_Expenses(DsPNL1, MainTable, MainTable_Details, MainKey, MainKey_Details, Main_Addback, Main_Deduct, MainDetails_Addback, MainDetails_Deduct, MainAmount, _
+                                 MainAmount_Details, MainColumn_PercentageAmount, ErrorLog)
                 End If
             End If
         Catch ex As Exception
@@ -275,4 +295,16 @@ Public Class ucPNL_p1Purchase
         End Try
     End Sub
 
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
+
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

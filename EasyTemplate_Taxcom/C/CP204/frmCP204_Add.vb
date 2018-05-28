@@ -187,6 +187,7 @@ Public Class frmCP204_Add
                             dtRow("CP_PENALTY") = IIf(IsDBNull(.Rows(i)("CP_PENALTY")), 0, .Rows(i)("CP_PENALTY"))
                             dtRow("CP_NOTE_TITLE") = IIf(IsDBNull(.Rows(i)("CP_NOTE_TITLE")), "", .Rows(i)("CP_NOTE_TITLE"))
                             dtRow("CP_NOTE") = IIf(IsDBNull(.Rows(i)("CP_NOTE")), "", .Rows(i)("CP_NOTE"))
+                            dtRow("CP_TagID") = IIf(IsDBNull(.Rows(i)("CP_TagID")), "", .Rows(i)("CP_TagID"))
                             DsCP204.Tables(MainTable_Details).Rows.Add(dtRow)
                         End With
 
@@ -348,6 +349,7 @@ Public Class frmCP204_Add
                 dtRow("CP_PENALTY") = 0
                 dtRow("CP_NOTE_TITLE") = ""
                 dtRow("CP_NOTE") = ""
+                dtRow("CP_TagID") = ""
                 DsCP204.Tables(MainTable_Details).Rows.Add(dtRow)
             Next
             Application.DoEvents()
@@ -699,7 +701,7 @@ Public Class frmCP204_Add
             Dim rpt As New rpt_CP204_Breakdown
             rpt.paramCompanyName.Value = txtRefNo.EditValue
             rpt.paramYA.Value = cboYA.EditValue
-            rpt.paramApendix.Value = "APPENDIX"
+            rpt.paramSch.Value = "APPENDIX"
             rpt.DataSource = DsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT")
 
             If isExport Then
@@ -929,6 +931,27 @@ Public Class frmCP204_Add
             If rlst = MsgBoxResult.Yes Then
                 CalcEstimationPercent()
             End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If isEdit = False Then
+                MsgBox("Please save this data first before proceed to insert note.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+            Dim frm As New frmNote_CP204
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.Parent_KEY = ID
+            frm.DataID = DsCP204.Tables(MainTable_Details).Rows(GridView1.FocusedRowHandle)("CP_ID")
+            frm.Ds_CP204 = DsCP204
+            frm.TagID = DsCP204.Tables(MainTable_Details).Rows(GridView1.FocusedRowHandle)("CP_TagID")
+            frm.RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("CP_PAYMENT_DUE") & " (" & GridView1.GetDataRow(GridView1.FocusedRowHandle)("CP_INSTALLMENT_AMOUNT") & ")"
+            frm.ShowDialog()
         Catch ex As Exception
 
         End Try

@@ -54,14 +54,29 @@ Public Class frmMovement_Add
                     cboYA.EditValue = mdlProcess.ArgParam3
                 End If
 
+                cboRefNo.Enabled = True
+                cboYA.Enabled = True
+
+                btnNote_Add.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+                btnNote_Less.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
             Else
+                btnNote_Add.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+                btnNote_Less.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
+
                 Dim dt As DataTable = clsMoveNormal.Load_MovementNormal(ID, ErrorLog)
 
+                DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
+                DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_NORMAL").Rows.Clear()
                 If dt Is Nothing Then
+                    cboRefNo.Enabled = True
+                    cboYA.Enabled = True
                     isEdit = False
                     Exit Sub
                 End If
+
+                cboRefNo.Enabled = False
+                cboYA.Enabled = False
 
                 cboRefNo.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_REFNO")), "", dt.Rows(0)("MM_REFNO"))
                 cboYA.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_YA")), "", dt.Rows(0)("MM_YA"))
@@ -95,18 +110,18 @@ Public Class frmMovement_Add
                 '    chkTaxNegative.Checked = False
                 'End If
 
+                cboSourceCode.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_SOURCENO")), 0, dt.Rows(0)("MM_SOURCENO"))
 
                 DsMovement.Tables("MOVEMENT_NORMAL").ImportRow(dt.Rows(0))
                 clsMoveNormal.StoreDataToDataset(ID, DsMovement)
             End If
 
             MOVEMENTADDBindingSource.DataSource = DsMovement.Tables("MOVEMENT_ADD")
-            MOVEMENTDEDUCTBindingSource.DataSource = DsMovement.Tables("MOVEMENT_DEDUCT")
+            '    MOVEMENTDEDUCTBindingSource.DataSource = DsMovement.Tables("MOVEMENT_DEDUCT")
         Catch ex As Exception
 
         End Try
     End Sub
-
     Private Sub GridView1_CellValueChanged(sender As Object, e As DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs) Handles GridView1.CellValueChanged
         Try
             If e.Column.FieldName = "MM_AddBack" Then
@@ -183,24 +198,19 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
-    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs)
+    Private Sub cboRefNo_EditValueChanged(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
 
         End Try
     End Sub
-
-
     Private Sub txtAmountStart_EditValueChanged(sender As Object, e As EventArgs) Handles txtAmountStart.EditValueChanged
         clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
     End Sub
-
     Private Sub GridView1_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView1.RowDeleted
         clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
     End Sub
-
     Private Sub GridView1_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView1.RowUpdated
         Try
             clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
@@ -209,7 +219,6 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
     Private Sub GridView1_ShownEditor(sender As Object, e As EventArgs) Handles GridView1.ShownEditor
         Try
             If GridView1.FocusedColumn.FieldName.Equals("MM_Description") Then
@@ -240,40 +249,6 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
-    Private Sub GridView1_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView1.ValidateRow
-        Try
-            If TypeOf sender Is GridView Then
-                Dim view As GridView = CType(sender, GridView)
-                Dim row As DataRow = view.GetDataRow(e.RowHandle)
-
-                If IsDBNull(row("MM_Description")) = True Then
-                    e.ErrorText = "Please put description."
-                    e.Valid = False
-                ElseIf IsDBNull(row("MM_Amount")) = True Then
-                    e.ErrorText = "Please put amount."
-                    e.Valid = False
-                Else
-                    If IsDBNull(row("MM_AddBack")) = False AndAlso CBool(row("MM_AddBack")) = True Then
-                        row("MM_ADDBACK_AMOUNT") = row("MM_Amount")
-                    Else
-                        row("MM_ADDBACK_AMOUNT") = 0
-                    End If
-
-                    If IsDBNull(row("MM_Deduct")) = False AndAlso CBool(row("MM_Deduct")) = True Then
-                        row("MM_DEDUCT_AMOUNT") = row("MM_Amount")
-                    Else
-                        row("MM_DEDUCT_AMOUNT") = 0
-                    End If
-
-                    Application.DoEvents()
-                    clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
     Private Sub GridView2_RowUpdated(sender As Object, e As DevExpress.XtraGrid.Views.Base.RowObjectEventArgs) Handles GridView2.RowUpdated
         Try
 
@@ -287,7 +262,6 @@ Public Class frmMovement_Add
     Private Sub GridView2_RowDeleted(sender As Object, e As DevExpress.Data.RowDeletedEventArgs) Handles GridView2.RowDeleted
         clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
     End Sub
-
     Private Sub GridView2_ValidateRow(sender As Object, e As DevExpress.XtraGrid.Views.Base.ValidateRowEventArgs) Handles GridView2.ValidateRow
         Try
             If TypeOf sender Is GridView Then
@@ -311,7 +285,6 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
     Private Sub dtBalanceStart_EditValueChanged(sender As Object, e As EventArgs) Handles dtBalanceStart.EditValueChanged
         Try
             Dim dt As DateTime = Now
@@ -329,14 +302,13 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
             If isValid() Then
 
                 Dim TypePass As Integer = RGType.SelectedIndex
 
-               
+
                 'If chkNonAllowableExpenses.Checked Then
                 '    TypePass = 1
                 'ElseIf chkTaxPositive.Checked Then
@@ -348,7 +320,8 @@ Public Class frmMovement_Add
                 If isEdit Then
                     If clsMoveNormal.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
-                                                     txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, TypePass, _
+                                                     txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, _
+                                                     txtTotalAmount_AddbackDeduct.EditValue, TypePass, cboSourceCode.EditValue, _
                                                      DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
@@ -356,6 +329,8 @@ Public Class frmMovement_Add
                             MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
 
                         End If
+
+                        Me.LoadData()
                     Else
                         MsgBox("Unsuccessfully update movement.", MsgBoxStyle.Critical)
                     End If
@@ -363,7 +338,8 @@ Public Class frmMovement_Add
                     Dim tmpID As Integer = 0
                     If clsMoveNormal.Save_MovementNormal(cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                       dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
-                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue, TypePass, _
+                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, _
+                                                      txtTotalAmount_AddbackDeduct.EditValue, TypePass, cboSourceCode.EditValue, _
                                                       DsMovement, tmpID, ErrorLog) Then
                         ID = tmpID
                         isEdit = True
@@ -373,6 +349,7 @@ Public Class frmMovement_Add
                             MsgBox("Error to recalculate tax computation.", MsgBoxStyle.Critical)
 
                         End If
+                        Me.LoadData()
                     Else
                         MsgBox("Unsuccessfully save movement.", MsgBoxStyle.Critical)
                     End If
@@ -403,6 +380,12 @@ Public Class frmMovement_Add
                 Return False
             End If
 
+            If cboSourceCode.EditValue Is Nothing OrElse IsNumeric(cboSourceCode.EditValue) = False Then
+                MsgBox("Please select source no.", MsgBoxStyle.Exclamation)
+                cboSourceCode.Focus()
+                Return False
+            End If
+
             'If dtStart.EditValue Is Nothing OrElse IsDate(dtStart.EditValue) = False Then
             '    dtStart.EditValue = Now
             'End If
@@ -430,7 +413,6 @@ Public Class frmMovement_Add
             Return False
         End Try
     End Function
-
     Private Sub btnDelete_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnDelete.ItemClick
         Try
             If GridControl1.IsFocused Then
@@ -448,7 +430,6 @@ Public Class frmMovement_Add
             DsMovement.Tables("MOVEMENT_DEDUCT").AcceptChanges()
         End Try
     End Sub
-
     Private Sub btnMoveUp_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnMoveUp.ItemClick
         Try
             If GridControl1.IsFocused Then
@@ -476,7 +457,6 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
     Private Sub btnAddChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddChild.ItemClick
         Try
             If GridControl1.IsFocused Then
@@ -492,7 +472,6 @@ Public Class frmMovement_Add
 
         End Try
     End Sub
-
     Private Sub cboRefNo_EditValueChanged_1(sender As Object, e As EventArgs) Handles cboRefNo.EditValueChanged
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
@@ -515,10 +494,76 @@ Public Class frmMovement_Add
                     End If
                     dtEnded.EditValue = IIf(IsDBNull(dt.Rows(0)("TP_ACC_PERIOD_TO")), Now, dt.Rows(0)("TP_ACC_PERIOD_TO"))
 
-
-
                 End If
+
+                SearchSourceNO()
             End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Sub SearchSourceNO()
+        Try
+            If mdlProcess.CreateLookUpSourceNO(cboSourceCode, cboRefNo.EditValue.ToString, cboYA.EditValue.ToString, ErrorLog) = False Then
+                cboSourceCode.EditValue = ""
+            Else
+                cboSourceCode.SelectedIndex = 0
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub cboYA_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged
+        Try
+            SearchSourceNO()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote_Add.ItemClick
+        Try
+            If isEdit = False Then
+                MsgBox("Please save this data first before proceed to insert note.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+            Dim frm As New frmNote_Movement
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.MM_ID = ID
+            frm.Data_SubID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
+            frm.Type_Movement = 0
+            frm.Type_Addless = 0
+            frm.DsMovement = DsMovement
+            frm.TagID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("TagID")
+            frm.RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_Description")
+            frm.ShowDialog()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub btnNote_Less_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote_Less.ItemClick
+        Try
+            If isEdit = False Then
+                MsgBox("Please save this data first before proceed to insert note.", MsgBoxStyle.Exclamation)
+                Exit Sub
+            End If
+
+
+            Dim frm As New frmNote_Movement
+            frm.RefNo = cboRefNo.EditValue
+            frm.YA = cboYA.EditValue
+            frm.MM_ID = ID
+            frm.Data_SubID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_ID")
+            frm.Type_Movement = 0
+            frm.Type_Addless = 1
+            frm.DsMovement = DsMovement
+            frm.TagID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("TagID")
+            frm.RowDescription = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_Description")
+            frm.ShowDialog()
         Catch ex As Exception
 
         End Try

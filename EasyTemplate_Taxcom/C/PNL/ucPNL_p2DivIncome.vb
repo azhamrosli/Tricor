@@ -20,11 +20,21 @@ Public Class ucPNL_p2DivIncome
     Public Const MainSourceNo As String = "DI_SOURCENO" 'PLFS_SOURCENO
     Public Const Main_Desc As String = "DI_COMPANY"  'PLFSD_DESC
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property GetDiscloseNet() As Boolean
         Get
             Return chkDiscloseNet.EditValue
@@ -90,6 +100,7 @@ Public Class ucPNL_p2DivIncome
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -283,9 +294,9 @@ Public Class ucPNL_p2DivIncome
             Next
             dsDataSet.Tables("DIVIDEND_INCOME").AcceptChanges()
 
-            If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
+            If doc_p1Sales IsNot Nothing AndAlso doc_p1Sales.Controls.Count > 0 Then
                 Dim contrl As Control = Nothing
-                contrl = P1_docSales.Controls(0)
+                contrl = doc_p1Sales.Controls(0)
 
                 If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
                     Exit Sub
@@ -378,5 +389,16 @@ Public Class ucPNL_p2DivIncome
 
         End Try
     End Sub
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
 
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
 End Class

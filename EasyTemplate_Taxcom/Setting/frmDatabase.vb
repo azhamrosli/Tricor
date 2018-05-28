@@ -43,6 +43,10 @@ Public Class frmDatabase
                 My.Settings.ServerName = txtServerName2.EditValue
                 My.Settings.UserID = txtUser2.EditValue
                 My.Settings.Password = txtPassword2.EditValue
+
+                My.Settings.ServerName_backup = txtServerName.EditValue
+                My.Settings.UserID_backup = txtUser.EditValue
+                My.Settings.Password_backup = txtPassword.EditValue
             Else
                 If txtServerName2.EditValue Is Nothing OrElse txtServerName2.EditValue.ToString = "" Then
                     txtServerName2.Focus()
@@ -78,6 +82,10 @@ Public Class frmDatabase
                 My.Settings.ServerName = txtServerName.EditValue
                 My.Settings.UserID = txtUser.EditValue
                 My.Settings.Password = txtPassword.EditValue
+
+                My.Settings.ServerName_backup = txtServerName2.EditValue
+                My.Settings.UserID_backup = txtUser2.EditValue
+                My.Settings.Password_backup = txtPassword2.EditValue
             End If
 
 
@@ -117,23 +125,24 @@ Public Class frmDatabase
             chkDefault.Checked = True
 
 
-            If My.Settings.ServerName IsNot Nothing Then
-                txtServerName2.EditValue = My.Settings.ServerName
+            If My.Settings.ServerName_backup IsNot Nothing Then
+                txtServerName2.EditValue = My.Settings.ServerName_backup
             Else
                 txtServerName2.EditValue = ""
             End If
 
-            If My.Settings.ServerName IsNot Nothing Then
-                txtUser2.EditValue = My.Settings.UserID
+            If My.Settings.UserID_backup IsNot Nothing Then
+                txtUser2.EditValue = My.Settings.UserID_backup
             Else
                 txtUser2.EditValue = ""
             End If
 
-            If My.Settings.ServerName IsNot Nothing Then
-                txtPassword2.EditValue = My.Settings.Password
+            If My.Settings.Password_backup IsNot Nothing Then
+                txtPassword2.EditValue = My.Settings.Password_backup
             Else
                 txtPassword2.EditValue = ""
             End If
+
 
         Catch ex As Exception
 

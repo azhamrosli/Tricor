@@ -18,11 +18,21 @@ Public Class ucPNL_p2RentalIncome
     Public Const MainSourceNo As String = "RI_SOURCENO" 'PLFS_SOURCENO
     Public Const Main_Desc As String = "RI_ADDRESS"
 
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -61,6 +71,7 @@ Public Class ucPNL_p2RentalIncome
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -86,9 +97,9 @@ Public Class ucPNL_p2RentalIncome
                 Dim tmpDs As DataSet = New dsPNL
                 Dim ds As DataSet = Nothing
 
-                If P1_docSales IsNot Nothing AndAlso P1_docSales.Controls.Count > 0 Then
+                If doc_p1Sales IsNot Nothing AndAlso doc_p1Sales.Controls.Count > 0 Then
                     Dim contrl As Control = Nothing
-                    contrl = P1_docSales.Controls(0)
+                    contrl = doc_p1Sales.Controls(0)
 
                     If contrl Is Nothing OrElse TypeOf contrl Is ucPNL_p1Sales = False Then
                         Exit Sub
@@ -223,5 +234,18 @@ Public Class ucPNL_p2RentalIncome
     End Sub
     Private Sub btnAddChild_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAddChild.ItemClick
 
+    End Sub
+
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
+
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class

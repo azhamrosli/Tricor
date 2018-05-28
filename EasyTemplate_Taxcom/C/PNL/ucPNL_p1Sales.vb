@@ -23,12 +23,21 @@ Public Class ucPNL_p1Sales
     Public Const Main_Desc As String = "PLFS_DESC"  'PLFSD_DESC
     Public Const MainDetails_Desc As String = "PLFSD_DESC"  'PLFSD_DESC
 
-
+    Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
     Dim ErrorLog As clsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
+
+    Public Property RowInfo As DataRow
+        Set(value As DataRow)
+            _RowInfo = value
+        End Set
+        Get
+            Return _RowInfo
+        End Get
+    End Property
     Public Property DataView_Main() As DataSet
         Get
             Return DsPNL1
@@ -74,6 +83,7 @@ Public Class ucPNL_p1Sales
                 .ErrorDateTime = Now
                 .ErrorMessage = ex.Message
             End With
+            AddListOfError(Errorlog)
         End Try
     End Sub
 
@@ -291,4 +301,17 @@ Public Class ucPNL_p1Sales
     End Sub
     
 
+    Private Sub btnNote_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnNote.ItemClick
+        Try
+            If _RowInfo Is Nothing Then
+                Exit Sub
+            End If
+
+            mdlPNL.OpenNoteForm(GridView1, _RowInfo)
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    
 End Class
