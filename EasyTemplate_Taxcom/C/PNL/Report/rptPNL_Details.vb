@@ -1,4 +1,6 @@
-﻿Public Class rptPNL_Details
+﻿Imports System.Drawing.Printing
+
+Public Class rptPNL_Details
     '#Region "PLST_SALES"
     '    Private Sub txtTotal_PLST_SALES_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_PLST_SALES.BeforePrint
     '        Try
@@ -25,7 +27,6 @@
     '                End If
 
     '            End If
-    '        Catch ex As Exception
 
     '        End Try
     '    End Sub
@@ -182,6 +183,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -195,6 +198,8 @@
             txt_PLFST_SALES.Visible = Me.GetVisibility_PLFST_SALES(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -207,6 +212,8 @@
             Me.GetVisibility_PLFST_SALES(PL_KEY, ParentID, SourceNo, LineStatus)
             line_PLFST_SALES.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -227,6 +234,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -258,6 +267,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -271,6 +282,8 @@
             txt_PLFST_OPENSTOCK.Visible = Me.GetVisibility_PLFST_OPENSTOCK(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -283,6 +296,8 @@
             Me.GetVisibility_PLFST_OPENSTOCK(PL_KEY, ParentID, SourceNo, LineStatus)
             line_PLFST_OPENSTOCK.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -303,6 +318,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -334,6 +351,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -347,6 +366,8 @@
             txt_PLFST_PURCHASE.Visible = Me.GetVisibility_PLFST_PURCHASE(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -359,6 +380,8 @@
             Me.GetVisibility_PLFST_PURCHASE(PL_KEY, ParentID, SourceNo, LineStatus)
             line_PLFST_PURCHASE.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -379,9 +402,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_PLFST_PURCHASE_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_PLFST_PURCHASE_top.BeforePrint,
+        lineTotal_PLFST_PURCHASE_bot.BeforePrint,
+        lineTotal_PLFST_PURCHASE_TOTAL.BeforePrint,
+        line_PLFST_PURCHASE.BeforePrint,
+        perTotal_PLFST_PURCHASE_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = PLFST_PURCHASE.GetCurrentColumnValue("PLFPUR_KEY")
+        Dim TableName As String = "PLFST_PURCHASE"
+        Dim ColumnName As String = "PLFPUR_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_PLFST_PURCHASE_top.WidthF = txtTotal_PLFST_PURCHASE.WidthF
+            lineTotal_PLFST_PURCHASE_bot.WidthF = txtTotal_PLFST_PURCHASE.WidthF
+            line_PLFST_PURCHASE.WidthF = txt_PLFST_PURCHASE.WidthF
+            lineTotal_PLFST_PURCHASE_TOTAL.WidthF = txtTotal_PLFST_PURCHASE_TOTAL.WidthF
+        Else
+            lineTotal_PLFST_PURCHASE_top.WidthF = txtTotal_PLFST_PURCHASE.WidthF + per_PLFST_PURCHASE.WidthF
+            lineTotal_PLFST_PURCHASE_bot.WidthF = txtTotal_PLFST_PURCHASE.WidthF + per_PLFST_PURCHASE.WidthF
+            line_PLFST_PURCHASE.WidthF = txt_PLFST_PURCHASE.WidthF + per_PLFST_PURCHASE.WidthF
+            lineTotal_PLFST_PURCHASE_TOTAL.WidthF = txtTotal_PLFST_PURCHASE_TOTAL.WidthF + per_PLFST_PURCHASE.WidthF
+        End If
+    End Sub
 #End Region
 #Region "PLFST_CLOSESTOCK"
     Private Sub txtTotal_PLFST_CLOSESTOCK_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_PLFST_CLOSESTOCK.BeforePrint
@@ -410,6 +457,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -423,6 +472,8 @@
             txt_PLFST_CLOSESTOCK.Visible = Me.GetVisibility_PLFST_CLOSESTOCK(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -435,6 +486,8 @@
             Me.GetVisibility_PLFST_CLOSESTOCK(PL_KEY, ParentID, SourceNo, LineStatus)
             line_PLFST_CLOSESTOCK.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -455,6 +508,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -486,6 +541,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -499,6 +556,8 @@
             txt_NONSOURCE_BUSINESSINCOME.Visible = Me.GetVisibility_NONSOURCE_BUSINESSINCOME(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -511,6 +570,8 @@
             Me.GetVisibility_NONSOURCE_BUSINESSINCOME(PL_KEY, ParentID, SourceNo, LineStatus)
             line_NONSOURCE_BUSINESSINCOME.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -531,6 +592,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -562,6 +625,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -575,6 +640,8 @@
             txt_INCOME_REALFET.Visible = Me.GetVisibility_INCOME_REALFET(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -587,6 +654,8 @@
             Me.GetVisibility_INCOME_REALFET(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_REALFET.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -607,6 +676,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -715,6 +786,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -728,6 +801,8 @@
             txt_INCOME_NBINTEREST.Visible = Me.GetVisibility_INCOME_NBINTEREST(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -740,6 +815,8 @@
             Me.GetVisibility_INCOME_NBINTEREST(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NBINTEREST.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -760,6 +837,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -805,6 +884,7 @@
 
     '        Catch ex As Exception
 
+
     '        End Try
     '    End Sub
     '    Private Sub line_RENTAL_INCOME_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles line_RENTAL_INCOME.BeforePrint
@@ -816,6 +896,7 @@
     '            Me.GetVisibility_RENTAL_INCOME(PL_KEY, ParentID, SourceNo, LineStatus)
     '            line_RENTAL_INCOME.Visible = LineStatus
     '        Catch ex As Exception
+
 
     '        End Try
     '    End Sub
@@ -836,6 +917,7 @@
     '                Return False
     '            End If
     '        Catch ex As Exception
+
     '            Return False
     '        End Try
     '    End Function
@@ -867,6 +949,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -880,6 +964,8 @@
             txt_INCOME_NBROYALTY.Visible = Me.GetVisibility_INCOME_NBROYALTY(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -892,6 +978,8 @@
             Me.GetVisibility_INCOME_NBROYALTY(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NBROYALTY.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -912,6 +1000,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -943,6 +1033,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -956,6 +1048,8 @@
             txt_OTHER_INCOME.Visible = Me.GetVisibility_OTHER_INCOME(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -968,6 +1062,8 @@
             Me.GetVisibility_OTHER_INCOME(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_INCOME.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -988,6 +1084,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1019,6 +1117,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1032,6 +1132,8 @@
             txt_INCOME_NTDISPOSALFA.Visible = Me.GetVisibility_INCOME_NTDISPOSALFA(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1044,6 +1146,8 @@
             Me.GetVisibility_INCOME_NTDISPOSALFA(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NTDISPOSALFA.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1064,6 +1168,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1095,6 +1201,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1108,6 +1216,8 @@
             txt_INCOME_NTDISPOSALINVEST.Visible = Me.GetVisibility_INCOME_NTDISPOSALINVEST(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1120,6 +1230,8 @@
             Me.GetVisibility_INCOME_NTDISPOSALINVEST(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NTDISPOSALINVEST.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1140,6 +1252,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1172,6 +1286,7 @@
     '            End If
     '        Catch ex As Exception
 
+
     '        End Try
     '    End Sub
     '    Private Sub txt_EXEMPT_DIVIDEND_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txt_EXEMPT_DIVIDEND.BeforePrint
@@ -1185,6 +1300,7 @@
 
     '        Catch ex As Exception
 
+
     '        End Try
     '    End Sub
     '    Private Sub line_EXEMPT_DIVIDEND_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles line_EXEMPT_DIVIDEND.BeforePrint
@@ -1196,6 +1312,7 @@
     '            Me.GetVisibility_EXEMPT_DIVIDEND(PL_KEY, ParentID, SourceNo, LineStatus)
     '            line_EXEMPT_DIVIDEND.Visible = LineStatus
     '        Catch ex As Exception
+
 
     '        End Try
     '    End Sub
@@ -1247,6 +1364,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1260,6 +1379,8 @@
             txt_INCOME_NTFOREIGNINCREM.Visible = Me.GetVisibility_INCOME_NTFOREIGNINCREM(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1272,6 +1393,8 @@
             Me.GetVisibility_INCOME_NTFOREIGNINCREM(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NTFOREIGNINCREM.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1292,6 +1415,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1323,6 +1448,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1336,6 +1463,8 @@
             txt_INCOME_NTREALFE.Visible = Me.GetVisibility_INCOME_NTREALFE(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1348,6 +1477,8 @@
             Me.GetVisibility_INCOME_NTREALFE(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NTREALFE.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1368,6 +1499,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1399,6 +1532,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1412,6 +1547,8 @@
             txt_INCOME_NTUREALFET.Visible = Me.GetVisibility_INCOME_NTUREALFET(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1424,6 +1561,8 @@
             Me.GetVisibility_INCOME_NTUREALFET(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NTUREALFET.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1444,6 +1583,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1475,6 +1616,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1488,6 +1631,8 @@
             txt_INCOME_NTUREALFENT.Visible = Me.GetVisibility_INCOME_NTUREALFENT(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1500,6 +1645,8 @@
             Me.GetVisibility_INCOME_NTUREALFENT(PL_KEY, ParentID, SourceNo, LineStatus)
             line_INCOME_NTUREALFENT.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1520,6 +1667,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1551,6 +1700,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1564,6 +1715,8 @@
             txt_NON_TAXABLE_INCOME.Visible = Me.GetVisibility_NON_TAXABLE_INCOME(PL_KEY, ParentID, SourceNo, LineStatus)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1576,6 +1729,8 @@
             Me.GetVisibility_NON_TAXABLE_INCOME(PL_KEY, ParentID, SourceNo, LineStatus)
             line_NON_TAXABLE_INCOME.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1596,6 +1751,8 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -1633,6 +1790,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1647,6 +1806,8 @@
             per_EXPENSES_DEPRECIATION.Visible = txt_EXPENSES_DEPRECIATION.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1658,7 +1819,10 @@
             Dim LineStatus As Boolean = False
             Me.GetVisibility_EXPENSES_DEPRECIATION(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_DEPRECIATION.Visible = LineStatus
+
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1679,9 +1843,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_DEPRECIATION_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_DEPRECIATION_top.BeforePrint,
+        lineTotal_EXPENSES_DEPRECIATION_bot.BeforePrint,
+        lineTotal_EXPENSES_DEPRECIATION_TOTAL.BeforePrint,
+        line_EXPENSES_DEPRECIATION.BeforePrint,
+        perTotal_EXPENSES_DEPRECIATION_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_DEPRECIATION.GetCurrentColumnValue("EXDEP_KEY")
+        Dim TableName As String = "EXPENSES_DEPRECIATION"
+        Dim ColumnName As String = "EXDEP_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_DEPRECIATION_top.WidthF = txtTotal_EXPENSES_DEPRECIATION.WidthF
+            lineTotal_EXPENSES_DEPRECIATION_bot.WidthF = txtTotal_EXPENSES_DEPRECIATION.WidthF
+            line_EXPENSES_DEPRECIATION.WidthF = txt_EXPENSES_DEPRECIATION.WidthF
+            lineTotal_EXPENSES_DEPRECIATION_TOTAL.WidthF = txtTotal_EXPENSES_DEPRECIATION_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_DEPRECIATION_top.WidthF = txtTotal_EXPENSES_DEPRECIATION.WidthF + per_EXPENSES_DEPRECIATION.WidthF
+            lineTotal_EXPENSES_DEPRECIATION_bot.WidthF = txtTotal_EXPENSES_DEPRECIATION.WidthF + per_EXPENSES_DEPRECIATION.WidthF
+            line_EXPENSES_DEPRECIATION.WidthF = txt_EXPENSES_DEPRECIATION.WidthF + per_EXPENSES_DEPRECIATION.WidthF
+            lineTotal_EXPENSES_DEPRECIATION_TOTAL.WidthF = txtTotal_EXPENSES_DEPRECIATION_TOTAL.WidthF + per_EXPENSES_DEPRECIATION.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_ALLOW"
     Private Sub txtTotal_EXPENSES_ALLOW_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_ALLOW.BeforePrint, perTotal_EXPENSES_ALLOW.BeforePrint
@@ -1713,6 +1901,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1727,6 +1917,8 @@
             per_EXPENSES_ALLOW.Visible = txt_EXPENSES_ALLOW.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1739,6 +1931,8 @@
             Me.GetVisibility_EXPENSES_ALLOW(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_ALLOW.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1759,9 +1953,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_ALLOW_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_ALLOW_top.BeforePrint,
+       lineTotal_EXPENSES_ALLOW_bot.BeforePrint,
+       lineTotal_EXPENSES_ALLOW_TOTAL.BeforePrint,
+       line_EXPENSES_ALLOW.BeforePrint,
+       perTotal_EXPENSES_ALLOW_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_ALLOW.GetCurrentColumnValue("EXA_KEY")
+        Dim TableName As String = "EXPENSES_ALLOW"
+        Dim ColumnName As String = "EXA_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_ALLOW_top.WidthF = txtTotal_EXPENSES_ALLOW.WidthF
+            lineTotal_EXPENSES_ALLOW_bot.WidthF = txtTotal_EXPENSES_ALLOW.WidthF
+            line_EXPENSES_ALLOW.WidthF = txt_EXPENSES_ALLOW.WidthF
+            lineTotal_EXPENSES_ALLOW_TOTAL.WidthF = txtTotal_EXPENSES_ALLOW_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_ALLOW_top.WidthF = txtTotal_EXPENSES_ALLOW.WidthF + per_EXPENSES_ALLOW.WidthF
+            lineTotal_EXPENSES_ALLOW_bot.WidthF = txtTotal_EXPENSES_ALLOW.WidthF + per_EXPENSES_ALLOW.WidthF
+            line_EXPENSES_ALLOW.WidthF = txt_EXPENSES_ALLOW.WidthF + per_EXPENSES_ALLOW.WidthF
+            lineTotal_EXPENSES_ALLOW_TOTAL.WidthF = txtTotal_EXPENSES_ALLOW_TOTAL.WidthF + per_EXPENSES_ALLOW.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_NONALLOW"
     Private Sub txtTotal_EXPENSES_NONALLOW_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_NONALLOW.BeforePrint, perTotal_EXPENSES_NONALLOW.BeforePrint
@@ -1793,6 +2011,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1807,6 +2027,8 @@
             per_EXPENSES_NONALLOW.Visible = txt_EXPENSES_NONALLOW.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1819,6 +2041,8 @@
             Me.GetVisibility_EXPENSES_NONALLOW(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_NONALLOW.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1839,9 +2063,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_NONALLOW_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_NONALLOW_top.BeforePrint,
+        lineTotal_EXPENSES_NONALLOW_bot.BeforePrint,
+        lineTotal_EXPENSES_NONALLOW_TOTAL.BeforePrint,
+        line_EXPENSES_NONALLOW.BeforePrint,
+        perTotal_EXPENSES_NONALLOW_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_NONALLOW.GetCurrentColumnValue("EXNA_KEY")
+        Dim TableName As String = "EXPENSES_NONALLOW"
+        Dim ColumnName As String = "EXNA_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_NONALLOW_top.WidthF = txtTotal_EXPENSES_NONALLOW.WidthF
+            lineTotal_EXPENSES_NONALLOW_bot.WidthF = txtTotal_EXPENSES_NONALLOW.WidthF
+            line_EXPENSES_NONALLOW.WidthF = txt_EXPENSES_NONALLOW.WidthF
+            lineTotal_EXPENSES_NONALLOW_TOTAL.WidthF = txtTotal_EXPENSES_NONALLOW_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_NONALLOW_top.WidthF = txtTotal_EXPENSES_NONALLOW.WidthF + per_EXPENSES_NONALLOW.WidthF
+            lineTotal_EXPENSES_NONALLOW_bot.WidthF = txtTotal_EXPENSES_NONALLOW.WidthF + per_EXPENSES_NONALLOW.WidthF
+            line_EXPENSES_NONALLOW.WidthF = txt_EXPENSES_NONALLOW.WidthF + per_EXPENSES_NONALLOW.WidthF
+            lineTotal_EXPENSES_NONALLOW_TOTAL.WidthF = txtTotal_EXPENSES_NONALLOW_TOTAL.WidthF + per_EXPENSES_NONALLOW.WidthF
+        End If
+    End Sub
 #End Region
     '#Region "EXPENSES_INTERESTRESTRICT"
     '    Private Sub txtTotal_EXPENSES_INTERESTRESTRICT_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_INTERESTRESTRICT.BeforePrint, perTotal_EXPENSES_INTERESTRESTRICT.BeforePrint
@@ -1874,6 +2122,7 @@
     '            End If
     '        Catch ex As Exception
 
+
     '        End Try
     '    End Sub
     '    Private Sub txt_EXPENSES_INTERESTRESTRICT_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txt_EXPENSES_INTERESTRESTRICT.BeforePrint, per_EXPENSES_INTERESTRESTRICT.BeforePrint
@@ -1898,7 +2147,7 @@
     '            Dim LineStatus As Boolean = False
     '            Me.GetVisibility_EXPENSES_INTERESTRESTRICT(PL_KEY, ParentID, SourceNo, LineStatus)
     '            line_EXPENSES_INTERESTRESTRICT.Visible = LineStatus
-    '        Catch ex As Exception
+
 
     '        End Try
     '    End Sub
@@ -1953,6 +2202,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1967,6 +2218,8 @@
             per_EXPENSES_INTEREST.Visible = txt_EXPENSES_INTEREST.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1979,6 +2232,8 @@
             Me.GetVisibility_EXPENSES_INTEREST(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_INTEREST.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1999,9 +2254,34 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_INTEREST_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_INTEREST_top.BeforePrint,
+        lineTotal_EXPENSES_INTEREST_bot.BeforePrint,
+        lineTotal_EXPENSES_INTEREST_TOTAL.BeforePrint,
+         line_EXPENSES_INTEREST.BeforePrint,
+        perTotal_EXPENSES_INTEREST_TOTAL.BeforePrint
+
+
+        Dim PL_KEY As Integer = EXPENSES_INTEREST.GetCurrentColumnValue("EXI_KEY")
+        Dim TableName As String = "EXPENSES_INTEREST"
+        Dim ColumnName As String = "EXI_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_INTEREST_top.WidthF = txtTotal_EXPENSES_INTEREST.WidthF
+            lineTotal_EXPENSES_INTEREST_bot.WidthF = txtTotal_EXPENSES_INTEREST.WidthF
+            line_EXPENSES_INTEREST.WidthF = txt_EXPENSES_INTEREST.WidthF
+            lineTotal_EXPENSES_INTEREST_TOTAL.WidthF = txtTotal_EXPENSES_INTEREST_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_INTEREST_top.WidthF = txtTotal_EXPENSES_INTEREST.WidthF + per_EXPENSES_INTEREST.WidthF
+            lineTotal_EXPENSES_INTEREST_bot.WidthF = txtTotal_EXPENSES_INTEREST.WidthF + per_EXPENSES_INTEREST.WidthF
+            line_EXPENSES_INTEREST.WidthF = txt_EXPENSES_INTEREST.WidthF + per_EXPENSES_INTEREST.WidthF
+            lineTotal_EXPENSES_INTEREST_TOTAL.WidthF = txtTotal_EXPENSES_INTEREST_TOTAL.WidthF + per_EXPENSES_INTEREST.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_LEGAL"
     Private Sub txtTotal_EXPENSES_LEGAL_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_LEGAL.BeforePrint, perTotal_EXPENSES_LEGAL.BeforePrint
@@ -2033,6 +2313,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2047,6 +2329,8 @@
             per_EXPENSES_LEGAL.Visible = txt_EXPENSES_LEGAL.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2059,6 +2343,8 @@
             Me.GetVisibility_EXPENSES_LEGAL(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_LEGAL.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2079,9 +2365,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_LEGAL_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_LEGAL_top.BeforePrint,
+        lineTotal_EXPENSES_LEGAL_bot.BeforePrint,
+        lineTotal_EXPENSES_LEGAL_TOTAL.BeforePrint,
+        line_EXPENSES_LEGAL.BeforePrint,
+        perTotal_EXPENSES_LEGAL_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_LEGAL.GetCurrentColumnValue("EXL_KEY")
+        Dim TableName As String = "EXPENSES_LEGAL"
+        Dim ColumnName As String = "EXL_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_LEGAL_top.WidthF = txtTotal_EXPENSES_LEGAL.WidthF
+            lineTotal_EXPENSES_LEGAL_bot.WidthF = txtTotal_EXPENSES_LEGAL.WidthF
+            line_EXPENSES_LEGAL.WidthF = txt_EXPENSES_LEGAL.WidthF
+            lineTotal_EXPENSES_LEGAL_TOTAL.WidthF = txtTotal_EXPENSES_LEGAL_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_LEGAL_top.WidthF = txtTotal_EXPENSES_LEGAL.WidthF + per_EXPENSES_LEGAL.WidthF
+            lineTotal_EXPENSES_LEGAL_bot.WidthF = txtTotal_EXPENSES_LEGAL.WidthF + per_EXPENSES_LEGAL.WidthF
+            line_EXPENSES_LEGAL.WidthF = txt_EXPENSES_LEGAL.WidthF + per_EXPENSES_LEGAL.WidthF
+            lineTotal_EXPENSES_LEGAL_TOTAL.WidthF = txtTotal_EXPENSES_LEGAL_TOTAL.WidthF + per_EXPENSES_LEGAL.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_TECH_FEE"
     Private Sub txtTotal_EXPENSES_TECH_FEE_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_TECH_FEE.BeforePrint, perTotal_EXPENSES_TECH_FEE.BeforePrint
@@ -2113,6 +2423,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2127,6 +2439,8 @@
             per_EXPENSES_TECH_FEE.Visible = txt_EXPENSES_TECH_FEE.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2139,6 +2453,8 @@
             Me.GetVisibility_EXPENSES_TECH_FEE(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_TECH_FEE.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2159,9 +2475,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_TECH_FEE_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_TECH_FEE_top.BeforePrint,
+        lineTotal_EXPENSES_TECH_FEE_bot.BeforePrint,
+        lineTotal_EXPENSES_TECH_FEE_TOTAL.BeforePrint,
+        line_EXPENSES_TECH_FEE.BeforePrint,
+        perTotal_EXPENSES_TECH_FEE_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_TECH_FEE.GetCurrentColumnValue("EXTF_KEY")
+        Dim TableName As String = "EXPENSES_TECH_FEE"
+        Dim ColumnName As String = "EXTF_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_TECH_FEE_top.WidthF = txtTotal_EXPENSES_TECH_FEE.WidthF
+            lineTotal_EXPENSES_TECH_FEE_bot.WidthF = txtTotal_EXPENSES_TECH_FEE.WidthF
+            line_EXPENSES_TECH_FEE.WidthF = txt_EXPENSES_TECH_FEE.WidthF
+            lineTotal_EXPENSES_TECH_FEE_TOTAL.WidthF = txtTotal_EXPENSES_TECH_FEE_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_TECH_FEE_top.WidthF = txtTotal_EXPENSES_TECH_FEE.WidthF + per_EXPENSES_TECH_FEE.WidthF
+            lineTotal_EXPENSES_TECH_FEE_bot.WidthF = txtTotal_EXPENSES_TECH_FEE.WidthF + per_EXPENSES_TECH_FEE.WidthF
+            line_EXPENSES_TECH_FEE.WidthF = txt_EXPENSES_TECH_FEE.WidthF + per_EXPENSES_TECH_FEE.WidthF
+            lineTotal_EXPENSES_TECH_FEE_TOTAL.WidthF = txtTotal_EXPENSES_TECH_FEE_TOTAL.WidthF + per_EXPENSES_TECH_FEE.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_CONTRACT"
     Private Sub txtTotal_EXPENSES_CONTRACT_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_CONTRACT.BeforePrint, perTotal_EXPENSES_CONTRACT.BeforePrint
@@ -2193,6 +2533,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2207,6 +2549,8 @@
             per_EXPENSES_CONTRACT.Visible = txt_EXPENSES_CONTRACT.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2219,6 +2563,8 @@
             Me.GetVisibility_EXPENSES_CONTRACT(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_CONTRACT.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2239,9 +2585,34 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_CONTRACT_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_CONTRACT_top.BeforePrint,
+        lineTotal_EXPENSES_CONTRACT_bot.BeforePrint,
+        lineTotal_EXPENSES_CONTRACT_TOTAL.BeforePrint,
+        line_EXPENSES_CONTRACT.BeforePrint,
+        perTotal_EXPENSES_CONTRACT_TOTAL.BeforePrint
+
+
+        Dim PL_KEY As Integer = EXPENSES_CONTRACT.GetCurrentColumnValue("EXC_KEY")
+        Dim TableName As String = "EXPENSES_CONTRACT"
+        Dim ColumnName As String = "EXC_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_CONTRACT_top.WidthF = txtTotal_EXPENSES_CONTRACT.WidthF
+            lineTotal_EXPENSES_CONTRACT_bot.WidthF = txtTotal_EXPENSES_CONTRACT.WidthF
+            line_EXPENSES_CONTRACT.WidthF = txt_EXPENSES_CONTRACT.WidthF
+            lineTotal_EXPENSES_CONTRACT_TOTAL.WidthF = txtTotal_EXPENSES_CONTRACT_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_CONTRACT_top.WidthF = txtTotal_EXPENSES_CONTRACT.WidthF + per_EXPENSES_CONTRACT.WidthF
+            lineTotal_EXPENSES_CONTRACT_bot.WidthF = txtTotal_EXPENSES_CONTRACT.WidthF + per_EXPENSES_CONTRACT.WidthF
+            line_EXPENSES_CONTRACT.WidthF = txt_EXPENSES_CONTRACT.WidthF + per_EXPENSES_CONTRACT.WidthF
+            lineTotal_EXPENSES_CONTRACT_TOTAL.WidthF = txtTotal_EXPENSES_CONTRACT_TOTAL.WidthF + per_EXPENSES_CONTRACT.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_DIRECTORS_FEE"
     Private Sub txtTotal_EXPENSES_DIRECTORS_FEE_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_DIRECTORS_FEE.BeforePrint, perTotal_EXPENSES_DIRECTORS_FEE.BeforePrint
@@ -2273,6 +2644,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2287,6 +2660,8 @@
             per_EXPENSES_DIRECTORS_FEE.Visible = txt_EXPENSES_DIRECTORS_FEE.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2299,6 +2674,8 @@
             Me.GetVisibility_EXPENSES_DIRECTORS_FEE(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_DIRECTORS_FEE.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2319,9 +2696,34 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_DIRECTORS_FEE_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_DIRECTORS_FEE_top.BeforePrint,
+        lineTotal_EXPENSES_DIRECTORS_FEE_bot.BeforePrint,
+        lineTotal_EXPENSES_DIRECTORS_FEE_TOTAL.BeforePrint,
+        line_EXPENSES_DIRECTORS_FEE.BeforePrint,
+        perTotal_EXPENSES_DIRECTORS_FEE_TOTAL.BeforePrint
+
+
+        Dim PL_KEY As Integer = EXPENSES_DIRECTORS_FEE.GetCurrentColumnValue("EXDF_KEY")
+        Dim TableName As String = "EXPENSES_DIRECTORS_FEE"
+        Dim ColumnName As String = "EXDF_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_DIRECTORS_FEE_top.WidthF = txtTotal_EXPENSES_DIRECTORS_FEE.WidthF
+            lineTotal_EXPENSES_DIRECTORS_FEE_bot.WidthF = txtTotal_EXPENSES_DIRECTORS_FEE.WidthF
+            line_EXPENSES_DIRECTORS_FEE.WidthF = txt_EXPENSES_DIRECTORS_FEE.WidthF
+            lineTotal_EXPENSES_DIRECTORS_FEE_TOTAL.WidthF = txtTotal_EXPENSES_DIRECTORS_FEE_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_DIRECTORS_FEE_top.WidthF = txtTotal_EXPENSES_DIRECTORS_FEE.WidthF + per_EXPENSES_DIRECTORS_FEE.WidthF
+            lineTotal_EXPENSES_DIRECTORS_FEE_bot.WidthF = txtTotal_EXPENSES_DIRECTORS_FEE.WidthF + per_EXPENSES_DIRECTORS_FEE.WidthF
+            line_EXPENSES_DIRECTORS_FEE.WidthF = txt_EXPENSES_DIRECTORS_FEE.WidthF + per_EXPENSES_DIRECTORS_FEE.WidthF
+            lineTotal_EXPENSES_DIRECTORS_FEE_TOTAL.WidthF = txtTotal_EXPENSES_DIRECTORS_FEE_TOTAL.WidthF + per_EXPENSES_DIRECTORS_FEE.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_SALARY"
     Private Sub txtTotal_EXPENSES_SALARY_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_SALARY.BeforePrint, perTotal_EXPENSES_SALARY.BeforePrint
@@ -2353,6 +2755,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2367,6 +2771,8 @@
             per_EXPENSES_SALARY.Visible = txt_EXPENSES_SALARY.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2379,6 +2785,8 @@
             Me.GetVisibility_EXPENSES_SALARY(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_SALARY.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2399,9 +2807,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_SALARY_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_SALARY_top.BeforePrint,
+        lineTotal_EXPENSES_SALARY_bot.BeforePrint,
+        lineTotal_EXPENSES_SALARY_TOTAL.BeforePrint,
+        line_EXPENSES_SALARY.BeforePrint,
+        perTotal_EXPENSES_SALARY_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_SALARY.GetCurrentColumnValue("EXS_KEY")
+        Dim TableName As String = "EXPENSES_SALARY"
+        Dim ColumnName As String = "EXS_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_SALARY_top.WidthF = txtTotal_EXPENSES_SALARY.WidthF
+            lineTotal_EXPENSES_SALARY_bot.WidthF = txtTotal_EXPENSES_SALARY.WidthF
+            line_EXPENSES_SALARY.WidthF = txt_EXPENSES_SALARY.WidthF
+            lineTotal_EXPENSES_SALARY_TOTAL.WidthF = txtTotal_EXPENSES_SALARY_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_SALARY_top.WidthF = txtTotal_EXPENSES_SALARY.WidthF + per_EXPENSES_SALARY.WidthF
+            lineTotal_EXPENSES_SALARY_bot.WidthF = txtTotal_EXPENSES_SALARY.WidthF + per_EXPENSES_SALARY.WidthF
+            line_EXPENSES_SALARY.WidthF = txt_EXPENSES_SALARY.WidthF + per_EXPENSES_SALARY.WidthF
+            lineTotal_EXPENSES_SALARY_TOTAL.WidthF = txtTotal_EXPENSES_SALARY_TOTAL.WidthF + per_EXPENSES_SALARY.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_EMPL_STOCK"
     Private Sub txtTotal_EXPENSES_EMPL_STOCK_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_EMPL_STOCK.BeforePrint, perTotal_EXPENSES_EMPL_STOCK.BeforePrint
@@ -2433,6 +2865,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2447,6 +2881,8 @@
             per_EXPENSES_EMPL_STOCK.Visible = txt_EXPENSES_EMPL_STOCK.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2459,6 +2895,8 @@
             Me.GetVisibility_EXPENSES_EMPL_STOCK(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_EMPL_STOCK.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2479,9 +2917,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_EMPL_STOCK_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_EMPL_STOCK_top.BeforePrint,
+        lineTotal_EXPENSES_EMPL_STOCK_bot.BeforePrint,
+        lineTotal_EXPENSES_EMPL_STOCK_TOTAL.BeforePrint,
+        line_EXPENSES_EMPL_STOCK.BeforePrint,
+        perTotal_EXPENSES_EMPL_STOCK_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_EMPL_STOCK.GetCurrentColumnValue("EXES_KEY")
+        Dim TableName As String = "EXPENSES_EMPL_STOCK"
+        Dim ColumnName As String = "EXES_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_EMPL_STOCK_top.WidthF = txtTotal_EXPENSES_EMPL_STOCK.WidthF
+            lineTotal_EXPENSES_EMPL_STOCK_bot.WidthF = txtTotal_EXPENSES_EMPL_STOCK.WidthF
+            line_EXPENSES_EMPL_STOCK.WidthF = txt_EXPENSES_EMPL_STOCK.WidthF
+            lineTotal_EXPENSES_EMPL_STOCK_TOTAL.WidthF = txtTotal_EXPENSES_EMPL_STOCK_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_EMPL_STOCK_top.WidthF = txtTotal_EXPENSES_EMPL_STOCK.WidthF + per_EXPENSES_EMPL_STOCK.WidthF
+            lineTotal_EXPENSES_EMPL_STOCK_bot.WidthF = txtTotal_EXPENSES_EMPL_STOCK.WidthF + per_EXPENSES_EMPL_STOCK.WidthF
+            line_EXPENSES_EMPL_STOCK.WidthF = txt_EXPENSES_EMPL_STOCK.WidthF + per_EXPENSES_EMPL_STOCK.WidthF
+            lineTotal_EXPENSES_EMPL_STOCK_TOTAL.WidthF = txtTotal_EXPENSES_EMPL_STOCK_TOTAL.WidthF + per_EXPENSES_EMPL_STOCK.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_ROYALTY"
     Private Sub txtTotal_EXPENSES_ROYALTY_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_ROYALTY.BeforePrint, perTotal_EXPENSES_ROYALTY.BeforePrint
@@ -2513,6 +2975,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2527,6 +2991,8 @@
             per_EXPENSES_ROYALTY.Visible = txt_EXPENSES_ROYALTY.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2539,6 +3005,8 @@
             Me.GetVisibility_EXPENSES_ROYALTY(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_ROYALTY.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2559,9 +3027,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_ROYALTY_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_ROYALTY_top.BeforePrint,
+        lineTotal_EXPENSES_ROYALTY_bot.BeforePrint,
+        lineTotal_EXPENSES_ROYALTY_TOTAL.BeforePrint,
+        line_EXPENSES_ROYALTY.BeforePrint,
+        perTotal_EXPENSES_ROYALTY_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_ROYALTY.GetCurrentColumnValue("EXRO_KEY")
+        Dim TableName As String = "EXPENSES_ROYALTY"
+        Dim ColumnName As String = "EXRO_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_ROYALTY_top.WidthF = txtTotal_EXPENSES_ROYALTY.WidthF
+            lineTotal_EXPENSES_ROYALTY_bot.WidthF = txtTotal_EXPENSES_ROYALTY.WidthF
+            line_EXPENSES_ROYALTY.WidthF = txt_EXPENSES_ROYALTY.WidthF
+            lineTotal_EXPENSES_ROYALTY_TOTAL.WidthF = txtTotal_EXPENSES_ROYALTY_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_ROYALTY_top.WidthF = txtTotal_EXPENSES_ROYALTY.WidthF + per_EXPENSES_ROYALTY.WidthF
+            lineTotal_EXPENSES_ROYALTY_bot.WidthF = txtTotal_EXPENSES_ROYALTY.WidthF + per_EXPENSES_ROYALTY.WidthF
+            line_EXPENSES_ROYALTY.WidthF = txt_EXPENSES_ROYALTY.WidthF + per_EXPENSES_ROYALTY.WidthF
+            lineTotal_EXPENSES_ROYALTY_TOTAL.WidthF = txtTotal_EXPENSES_ROYALTY_TOTAL.WidthF + per_EXPENSES_ROYALTY.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_RENTAL"
     Private Sub txtTotal_EXPENSES_RENTAL_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_RENTAL.BeforePrint, perTotal_EXPENSES_RENTAL.BeforePrint
@@ -2593,6 +3085,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2607,6 +3101,8 @@
             per_EXPENSES_RENTAL.Visible = txt_EXPENSES_RENTAL.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2619,6 +3115,8 @@
             Me.GetVisibility_EXPENSES_RENTAL(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_RENTAL.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2639,9 +3137,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_RENTAL_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_RENTAL_top.BeforePrint,
+        lineTotal_EXPENSES_RENTAL_bot.BeforePrint,
+        lineTotal_EXPENSES_RENTAL_TOTAL.BeforePrint,
+        line_EXPENSES_RENTAL.BeforePrint,
+        perTotal_EXPENSES_RENTAL_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_RENTAL.GetCurrentColumnValue("EXRENT_KEY")
+        Dim TableName As String = "EXPENSES_RENTAL"
+        Dim ColumnName As String = "EXRENT_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_RENTAL_top.WidthF = txtTotal_EXPENSES_RENTAL.WidthF
+            lineTotal_EXPENSES_RENTAL_bot.WidthF = txtTotal_EXPENSES_RENTAL.WidthF
+            line_EXPENSES_RENTAL.WidthF = txt_EXPENSES_RENTAL.WidthF
+            lineTotal_EXPENSES_RENTAL_TOTAL.WidthF = txtTotal_EXPENSES_RENTAL_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_RENTAL_top.WidthF = txtTotal_EXPENSES_RENTAL.WidthF + per_EXPENSES_RENTAL.WidthF
+            lineTotal_EXPENSES_RENTAL_bot.WidthF = txtTotal_EXPENSES_RENTAL.WidthF + per_EXPENSES_RENTAL.WidthF
+            line_EXPENSES_RENTAL.WidthF = txt_EXPENSES_RENTAL.WidthF + per_EXPENSES_RENTAL.WidthF
+            lineTotal_EXPENSES_RENTAL_TOTAL.WidthF = txtTotal_EXPENSES_RENTAL_TOTAL.WidthF + per_EXPENSES_RENTAL.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_REPAIR"
     Private Sub txtTotal_EXPENSES_REPAIR_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_REPAIR.BeforePrint, perTotal_EXPENSES_REPAIR.BeforePrint
@@ -2673,6 +3195,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2687,6 +3211,8 @@
             per_EXPENSES_REPAIR.Visible = txt_EXPENSES_REPAIR.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2699,6 +3225,8 @@
             Me.GetVisibility_EXPENSES_REPAIR(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_REPAIR.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2719,9 +3247,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_REPAIR_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_REPAIR_top.BeforePrint,
+        lineTotal_EXPENSES_REPAIR_bot.BeforePrint,
+        lineTotal_EXPENSES_REPAIR_TOTAL.BeforePrint,
+        line_EXPENSES_REPAIR.BeforePrint,
+        perTotal_EXPENSES_REPAIR_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_REPAIR.GetCurrentColumnValue("EXREP_KEY")
+        Dim TableName As String = "EXPENSES_REPAIR"
+        Dim ColumnName As String = "EXREP_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_REPAIR_top.WidthF = txtTotal_EXPENSES_REPAIR.WidthF
+            lineTotal_EXPENSES_REPAIR_bot.WidthF = txtTotal_EXPENSES_REPAIR.WidthF
+            line_EXPENSES_REPAIR.WidthF = txt_EXPENSES_REPAIR.WidthF
+            lineTotal_EXPENSES_REPAIR_TOTAL.WidthF = txtTotal_EXPENSES_REPAIR_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_REPAIR_top.WidthF = txtTotal_EXPENSES_REPAIR.WidthF + per_EXPENSES_REPAIR.WidthF
+            lineTotal_EXPENSES_REPAIR_bot.WidthF = txtTotal_EXPENSES_REPAIR.WidthF + per_EXPENSES_REPAIR.WidthF
+            line_EXPENSES_REPAIR.WidthF = txt_EXPENSES_REPAIR.WidthF + per_EXPENSES_REPAIR.WidthF
+            lineTotal_EXPENSES_REPAIR_TOTAL.WidthF = txtTotal_EXPENSES_REPAIR_TOTAL.WidthF + per_EXPENSES_REPAIR.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_RESEARCH"
     Private Sub txtTotal_EXPENSES_RESEARCH_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_RESEARCH.BeforePrint, perTotal_EXPENSES_RESEARCH.BeforePrint
@@ -2753,6 +3305,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2767,6 +3321,8 @@
             per_EXPENSES_RESEARCH.Visible = txt_EXPENSES_RESEARCH.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2779,6 +3335,8 @@
             Me.GetVisibility_EXPENSES_RESEARCH(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_RESEARCH.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2799,9 +3357,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_RESEARCH_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_RESEARCH_top.BeforePrint,
+        lineTotal_EXPENSES_RESEARCH_bot.BeforePrint,
+        lineTotal_EXPENSES_RESEARCH_TOTAL.BeforePrint,
+         line_EXPENSES_RESEARCH.BeforePrint,
+        perTotal_EXPENSES_RESEARCH_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_RESEARCH.GetCurrentColumnValue("EXRES_KEY")
+        Dim TableName As String = "EXPENSES_RESEARCH"
+        Dim ColumnName As String = "EXRES_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_RESEARCH_top.WidthF = txtTotal_EXPENSES_RESEARCH.WidthF
+            lineTotal_EXPENSES_RESEARCH_bot.WidthF = txtTotal_EXPENSES_RESEARCH.WidthF
+            line_EXPENSES_RESEARCH.WidthF = txt_EXPENSES_RESEARCH.WidthF
+            lineTotal_EXPENSES_RESEARCH_TOTAL.WidthF = txtTotal_EXPENSES_RESEARCH_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_RESEARCH_top.WidthF = txtTotal_EXPENSES_RESEARCH.WidthF + per_EXPENSES_RESEARCH.WidthF
+            lineTotal_EXPENSES_RESEARCH_bot.WidthF = txtTotal_EXPENSES_RESEARCH.WidthF + per_EXPENSES_RESEARCH.WidthF
+            line_EXPENSES_RESEARCH.WidthF = txt_EXPENSES_RESEARCH.WidthF + per_EXPENSES_RESEARCH.WidthF
+            lineTotal_EXPENSES_RESEARCH_TOTAL.WidthF = txtTotal_EXPENSES_RESEARCH_TOTAL.WidthF + per_EXPENSES_RESEARCH.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_PROMOTE"
     Private Sub txtTotal_EXPENSES_PROMOTE_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_PROMOTE.BeforePrint, perTotal_EXPENSES_PROMOTE.BeforePrint
@@ -2833,6 +3415,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2847,6 +3431,8 @@
             per_EXPENSES_PROMOTE.Visible = txt_EXPENSES_PROMOTE.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2859,6 +3445,8 @@
             Me.GetVisibility_EXPENSES_PROMOTE(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_PROMOTE.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2879,9 +3467,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_PROMOTE_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_PROMOTE_top.BeforePrint,
+        lineTotal_EXPENSES_PROMOTE_bot.BeforePrint,
+        lineTotal_EXPENSES_PROMOTE_TOTAL.BeforePrint,
+        line_EXPENSES_PROMOTE.BeforePrint,
+        perTotal_EXPENSES_PROMOTE_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_RESEARCH.GetCurrentColumnValue("EXP_KEY")
+        Dim TableName As String = "EXPENSES_PROMOTE"
+        Dim ColumnName As String = "EXP_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_PROMOTE_top.WidthF = txtTotal_EXPENSES_PROMOTE.WidthF
+            lineTotal_EXPENSES_PROMOTE_bot.WidthF = txtTotal_EXPENSES_PROMOTE.WidthF
+            line_EXPENSES_PROMOTE.WidthF = txt_EXPENSES_PROMOTE.WidthF
+            lineTotal_EXPENSES_PROMOTE_TOTAL.WidthF = txtTotal_EXPENSES_PROMOTE_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_PROMOTE_top.WidthF = txtTotal_EXPENSES_PROMOTE.WidthF + per_EXPENSES_PROMOTE.WidthF
+            lineTotal_EXPENSES_PROMOTE_bot.WidthF = txtTotal_EXPENSES_PROMOTE.WidthF + per_EXPENSES_PROMOTE.WidthF
+            line_EXPENSES_PROMOTE.WidthF = txt_EXPENSES_PROMOTE.WidthF + per_EXPENSES_PROMOTE.WidthF
+            lineTotal_EXPENSES_PROMOTE_TOTAL.WidthF = txtTotal_EXPENSES_PROMOTE_TOTAL.WidthF + per_EXPENSES_PROMOTE.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_TRAVEL"
     Private Sub txtTotal_EXPENSES_TRAVEL_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_TRAVEL.BeforePrint, perTotal_EXPENSES_TRAVEL.BeforePrint
@@ -2913,6 +3525,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2927,6 +3541,8 @@
             per_EXPENSES_TRAVEL.Visible = txt_EXPENSES_TRAVEL.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2939,6 +3555,8 @@
             Me.GetVisibility_EXPENSES_TRAVEL(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_TRAVEL.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -2959,9 +3577,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_TRAVEL_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_TRAVEL_top.BeforePrint,
+        lineTotal_EXPENSES_TRAVEL_bot.BeforePrint,
+        lineTotal_EXPENSES_TRAVEL_TOTAL.BeforePrint,
+        line_EXPENSES_TRAVEL.BeforePrint,
+        perTotal_EXPENSES_TRAVEL_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_TRAVEL.GetCurrentColumnValue("EXT_KEY")
+        Dim TableName As String = "EXPENSES_TRAVEL"
+        Dim ColumnName As String = "EXT_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_TRAVEL_top.WidthF = txtTotal_EXPENSES_TRAVEL.WidthF
+            lineTotal_EXPENSES_TRAVEL_bot.WidthF = txtTotal_EXPENSES_TRAVEL.WidthF
+            line_EXPENSES_TRAVEL.WidthF = txt_EXPENSES_TRAVEL.WidthF
+            lineTotal_EXPENSES_TRAVEL_TOTAL.WidthF = txtTotal_EXPENSES_TRAVEL_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_TRAVEL_top.WidthF = txtTotal_EXPENSES_TRAVEL.WidthF + per_EXPENSES_TRAVEL.WidthF
+            lineTotal_EXPENSES_TRAVEL_bot.WidthF = txtTotal_EXPENSES_TRAVEL.WidthF + per_EXPENSES_TRAVEL.WidthF
+            line_EXPENSES_TRAVEL.WidthF = txt_EXPENSES_TRAVEL.WidthF + per_EXPENSES_TRAVEL.WidthF
+            lineTotal_EXPENSES_TRAVEL_TOTAL.WidthF = txtTotal_EXPENSES_TRAVEL_TOTAL.WidthF + per_EXPENSES_TRAVEL.WidthF
+        End If
+    End Sub
 #End Region
 #Region "EXPENSES_JKDM"
     Private Sub txtTotal_EXPENSES_JKDM_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_EXPENSES_JKDM.BeforePrint, perTotal_EXPENSES_JKDM.BeforePrint
@@ -2993,6 +3635,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3007,6 +3651,8 @@
             per_EXPENSES_JKDM.Visible = txt_EXPENSES_JKDM.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3019,6 +3665,8 @@
             Me.GetVisibility_EXPENSES_JKDM(PL_KEY, ParentID, SourceNo, LineStatus)
             line_EXPENSES_JKDM.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3039,9 +3687,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_EXPENSES_JKDM_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_EXPENSES_JKDM_top.BeforePrint,
+        lineTotal_EXPENSES_JKDM_bot.BeforePrint,
+        lineTotal_EXPENSES_JKDM_TOTAL.BeforePrint,
+        line_EXPENSES_JKDM.BeforePrint,
+        perTotal_EXPENSES_JKDM_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = EXPENSES_JKDM.GetCurrentColumnValue("EXJK_KEY")
+        Dim TableName As String = "EXPENSES_JKDM"
+        Dim ColumnName As String = "EXJK_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_EXPENSES_JKDM_top.WidthF = txtTotal_EXPENSES_JKDM.WidthF
+            lineTotal_EXPENSES_JKDM_bot.WidthF = txtTotal_EXPENSES_JKDM.WidthF
+            line_EXPENSES_JKDM.WidthF = txt_EXPENSES_JKDM.WidthF
+            lineTotal_EXPENSES_JKDM_TOTAL.WidthF = txtTotal_EXPENSES_JKDM_TOTAL.WidthF
+        Else
+            lineTotal_EXPENSES_JKDM_top.WidthF = txtTotal_EXPENSES_JKDM.WidthF + per_EXPENSES_JKDM.WidthF
+            lineTotal_EXPENSES_JKDM_bot.WidthF = txtTotal_EXPENSES_JKDM.WidthF + per_EXPENSES_JKDM.WidthF
+            line_EXPENSES_JKDM.WidthF = txt_EXPENSES_JKDM.WidthF + per_EXPENSES_JKDM.WidthF
+            lineTotal_EXPENSES_JKDM_TOTAL.WidthF = txtTotal_EXPENSES_JKDM_TOTAL.WidthF + per_EXPENSES_JKDM.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXDEPRECIATION"
     Private Sub txtTotal_OTHER_EXDEPRECIATION_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXDEPRECIATION.BeforePrint, perTotal_OTHER_EXDEPRECIATION.BeforePrint
@@ -3073,6 +3745,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3087,6 +3761,8 @@
             per_OTHER_EXDEPRECIATION.Visible = txt_OTHER_EXDEPRECIATION.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3099,6 +3775,8 @@
             Me.GetVisibility_OTHER_EXDEPRECIATION(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXDEPRECIATION.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3119,9 +3797,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXDEPRECIATION_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXDEPRECIATION_top.BeforePrint,
+        lineTotal_OTHER_EXDEPRECIATION_bot.BeforePrint,
+        lineTotal_OTHER_EXDEPRECIATION_TOTAL.BeforePrint,
+        line_OTHER_EXDEPRECIATION.BeforePrint,
+        perTotal_OTHER_EXDEPRECIATION_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXDEPRECIATION.GetCurrentColumnValue("EXODEP_KEY")
+        Dim TableName As String = "OTHER_EXDEPRECIATION"
+        Dim ColumnName As String = "EXODEP_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXDEPRECIATION_top.WidthF = txtTotal_OTHER_EXDEPRECIATION.WidthF
+            lineTotal_OTHER_EXDEPRECIATION_bot.WidthF = txtTotal_OTHER_EXDEPRECIATION.WidthF
+            line_OTHER_EXDEPRECIATION.WidthF = txt_OTHER_EXDEPRECIATION.WidthF
+            lineTotal_OTHER_EXDEPRECIATION_TOTAL.WidthF = txtTotal_OTHER_EXDEPRECIATION_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXDEPRECIATION_top.WidthF = txtTotal_OTHER_EXDEPRECIATION.WidthF + per_OTHER_EXDEPRECIATION.WidthF
+            lineTotal_OTHER_EXDEPRECIATION_bot.WidthF = txtTotal_OTHER_EXDEPRECIATION.WidthF + per_OTHER_EXDEPRECIATION.WidthF
+            line_OTHER_EXDEPRECIATION.WidthF = txt_OTHER_EXDEPRECIATION.WidthF + per_OTHER_EXDEPRECIATION.WidthF
+            lineTotal_OTHER_EXDEPRECIATION_TOTAL.WidthF = txtTotal_OTHER_EXDEPRECIATION_TOTAL.WidthF + per_OTHER_EXDEPRECIATION.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXAPPRDONATION"
     Private Sub txtTotal_OTHER_EXAPPRDONATION_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXAPPRDONATION.BeforePrint, perTotal_OTHER_EXAPPRDONATION.BeforePrint
@@ -3153,6 +3855,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3167,6 +3871,8 @@
             per_OTHER_EXAPPRDONATION.Visible = txt_OTHER_EXAPPRDONATION.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3179,6 +3885,8 @@
             Me.GetVisibility_OTHER_EXAPPRDONATION(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXAPPRDONATION.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3199,9 +3907,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXAPPRDONATION_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXAPPRDONATION_top.BeforePrint,
+        lineTotal_OTHER_EXAPPRDONATION_bot.BeforePrint,
+        lineTotal_OTHER_EXAPPRDONATION_TOTAL.BeforePrint,
+        line_OTHER_EXAPPRDONATION.BeforePrint,
+        perTotal_OTHER_EXAPPRDONATION_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXAPPRDONATION.GetCurrentColumnValue("EXOAD_KEY")
+        Dim TableName As String = "OTHER_EXAPPRDONATION"
+        Dim ColumnName As String = "EXOAD_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXAPPRDONATION_top.WidthF = txtTotal_OTHER_EXAPPRDONATION.WidthF
+            lineTotal_OTHER_EXAPPRDONATION_bot.WidthF = txtTotal_OTHER_EXAPPRDONATION.WidthF
+            line_OTHER_EXAPPRDONATION.WidthF = txt_OTHER_EXAPPRDONATION.WidthF
+            lineTotal_OTHER_EXAPPRDONATION_TOTAL.WidthF = txtTotal_OTHER_EXAPPRDONATION_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXAPPRDONATION_top.WidthF = txtTotal_OTHER_EXAPPRDONATION.WidthF + per_OTHER_EXAPPRDONATION.WidthF
+            lineTotal_OTHER_EXAPPRDONATION_bot.WidthF = txtTotal_OTHER_EXAPPRDONATION.WidthF + per_OTHER_EXAPPRDONATION.WidthF
+            line_OTHER_EXAPPRDONATION.WidthF = txt_OTHER_EXAPPRDONATION.WidthF + per_OTHER_EXAPPRDONATION.WidthF
+            lineTotal_OTHER_EXAPPRDONATION_TOTAL.WidthF = txtTotal_OTHER_EXAPPRDONATION_TOTAL.WidthF + per_OTHER_EXAPPRDONATION.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXNAPPRDONATION"
     Private Sub txtTotal_OTHER_EXNAPPRDONATION_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXNAPPRDONATION.BeforePrint, perTotal_OTHER_EXNAPPRDONATION.BeforePrint
@@ -3233,6 +3965,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3247,6 +3981,8 @@
             per_OTHER_EXNAPPRDONATION.Visible = txt_OTHER_EXNAPPRDONATION.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3259,6 +3995,8 @@
             Me.GetVisibility_OTHER_EXNAPPRDONATION(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXNAPPRDONATION.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3279,9 +4017,34 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXNAPPRDONATION_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXNAPPRDONATION_top.BeforePrint,
+        lineTotal_OTHER_EXNAPPRDONATION_bot.BeforePrint,
+        lineTotal_OTHER_EXNAPPRDONATION_Total.BeforePrint,
+        line_OTHER_EXNAPPRDONATION.BeforePrint,
+        perTotal_OTHER_EXNAPPRDONATION_TOTAL.BeforePrint
+
+
+        Dim PL_KEY As Integer = OTHER_EXNAPPRDONATION.GetCurrentColumnValue("EXONAD_KEY")
+        Dim TableName As String = "OTHER_EXNAPPRDONATION"
+        Dim ColumnName As String = "EXONAD_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXNAPPRDONATION_top.WidthF = txtTotal_OTHER_EXNAPPRDONATION.WidthF
+            lineTotal_OTHER_EXNAPPRDONATION_bot.WidthF = txtTotal_OTHER_EXNAPPRDONATION.WidthF
+            line_OTHER_EXNAPPRDONATION.WidthF = txt_OTHER_EXNAPPRDONATION.WidthF
+            lineTotal_OTHER_EXNAPPRDONATION_Total.WidthF = txtTotal_OTHER_EXNAPPRDONATION_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXNAPPRDONATION_top.WidthF = txtTotal_OTHER_EXNAPPRDONATION.WidthF + per_OTHER_EXNAPPRDONATION.WidthF
+            lineTotal_OTHER_EXNAPPRDONATION_bot.WidthF = txtTotal_OTHER_EXNAPPRDONATION.WidthF + per_OTHER_EXNAPPRDONATION.WidthF
+            line_OTHER_EXNAPPRDONATION.WidthF = txt_OTHER_EXNAPPRDONATION.WidthF + per_OTHER_EXNAPPRDONATION.WidthF
+            lineTotal_OTHER_EXNAPPRDONATION_Total.WidthF = txtTotal_OTHER_EXNAPPRDONATION_TOTAL.WidthF + per_OTHER_EXNAPPRDONATION.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXZAKAT"
     Private Sub txtTotal_OTHER_EXZAKAT_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXZAKAT.BeforePrint, perTotal_OTHER_EXZAKAT.BeforePrint
@@ -3313,6 +4076,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3327,6 +4092,8 @@
             per_OTHER_EXZAKAT.Visible = txt_OTHER_EXZAKAT.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3339,6 +4106,8 @@
             Me.GetVisibility_OTHER_EXZAKAT(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXZAKAT.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3359,9 +4128,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXZAKAT_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXZAKAT_top.BeforePrint,
+        lineTotal_OTHER_EXZAKAT_bot.BeforePrint,
+        lineTotal_OTHER_EXZAKAT_TOTAL.BeforePrint,
+        line_OTHER_EXZAKAT.BeforePrint,
+        perTotal_OTHER_EXZAKAT_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXZAKAT.GetCurrentColumnValue("EXOZ_KEY")
+        Dim TableName As String = "OTHER_EXZAKAT"
+        Dim ColumnName As String = "EXOZ_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXZAKAT_top.WidthF = txtTotal_OTHER_EXZAKAT.WidthF
+            lineTotal_OTHER_EXZAKAT_bot.WidthF = txtTotal_OTHER_EXZAKAT.WidthF
+            line_OTHER_EXZAKAT.WidthF = txt_OTHER_EXZAKAT.WidthF
+            lineTotal_OTHER_EXZAKAT_TOTAL.WidthF = txtTotal_OTHER_EXZAKAT_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXZAKAT_top.WidthF = txtTotal_OTHER_EXZAKAT.WidthF + per_OTHER_EXZAKAT.WidthF
+            lineTotal_OTHER_EXZAKAT_bot.WidthF = txtTotal_OTHER_EXZAKAT.WidthF + per_OTHER_EXZAKAT.WidthF
+            line_OTHER_EXZAKAT.WidthF = txt_OTHER_EXZAKAT.WidthF + per_OTHER_EXZAKAT.WidthF
+            lineTotal_OTHER_EXZAKAT_TOTAL.WidthF = txtTotal_OTHER_EXZAKAT_TOTAL.WidthF + per_OTHER_EXZAKAT.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXLOSSDISPOSALFA"
     Private Sub txtTotal_OTHER_EXLOSSDISPOSALFA_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXLOSSDISPOSALFA.BeforePrint, perTotal_OTHER_EXLOSSDISPOSALFA.BeforePrint
@@ -3393,6 +4186,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3407,6 +4202,8 @@
             per_OTHER_EXLOSSDISPOSALFA.Visible = txt_OTHER_EXLOSSDISPOSALFA.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3419,6 +4216,8 @@
             Me.GetVisibility_OTHER_EXLOSSDISPOSALFA(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXLOSSDISPOSALFA.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3439,9 +4238,45 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXLOSSDISPOSALFA_TOTAL_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXLOSSDISPOSALFA_top.BeforePrint, lineTotal_OTHER_EXLOSSDISPOSALFA_bot.BeforePrint, lineTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.BeforePrint
+        Try
+            If (IsNumeric(perTotal_OTHER_EXLOSSDISPOSALFA.Text) = True AndAlso CInt(perTotal_OTHER_EXLOSSDISPOSALFA.Text) = 0) Or perTotal_OTHER_EXLOSSDISPOSALFA.Text = "" Then
+                lineTotal_OTHER_EXLOSSDISPOSALFA_top.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA.WidthF
+                lineTotal_OTHER_EXLOSSDISPOSALFA_bot.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA.WidthF
+                lineTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.WidthF
+            End If
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+        End Try
+    End Sub
+    Private Sub lineTotal_OTHER_EXLOSSDISPOSALFA_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXLOSSDISPOSALFA_top.BeforePrint,
+        lineTotal_OTHER_EXLOSSDISPOSALFA_bot.BeforePrint,
+        lineTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.BeforePrint,
+        line_OTHER_EXLOSSDISPOSALFA.BeforePrint,
+        perTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXLOSSDISPOSALFA.GetCurrentColumnValue("EXOLD_KEY")
+        Dim TableName As String = "OTHER_EXLOSSDISPOSALFA"
+        Dim ColumnName As String = "EXOLD_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXLOSSDISPOSALFA_top.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA.WidthF
+            lineTotal_OTHER_EXLOSSDISPOSALFA_bot.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA.WidthF
+            line_OTHER_EXLOSSDISPOSALFA.WidthF = txt_OTHER_EXLOSSDISPOSALFA.WidthF
+            lineTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXLOSSDISPOSALFA_top.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA.WidthF + per_OTHER_EXLOSSDISPOSALFA.WidthF
+            lineTotal_OTHER_EXLOSSDISPOSALFA_bot.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA.WidthF + per_OTHER_EXLOSSDISPOSALFA.WidthF
+            line_OTHER_EXLOSSDISPOSALFA.WidthF = txt_OTHER_EXLOSSDISPOSALFA.WidthF + per_OTHER_EXLOSSDISPOSALFA.WidthF
+            lineTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.WidthF = txtTotal_OTHER_EXLOSSDISPOSALFA_TOTAL.WidthF + per_OTHER_EXLOSSDISPOSALFA.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_ENTERTAINNSTAFF"
     Private Sub txtTotal_OTHER_ENTERTAINNSTAFF_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_ENTERTAINNSTAFF.BeforePrint, perTotal_OTHER_ENTERTAINNSTAFF.BeforePrint
@@ -3473,6 +4308,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3487,6 +4324,8 @@
             per_OTHER_ENTERTAINNSTAFF.Visible = txt_OTHER_ENTERTAINNSTAFF.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3499,6 +4338,8 @@
             Me.GetVisibility_OTHER_ENTERTAINNSTAFF(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_ENTERTAINNSTAFF.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3519,9 +4360,34 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_ENTERTAINNSTAFF_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_ENTERTAINNSTAFF_top.BeforePrint,
+        lineTotal_OTHER_ENTERTAINNSTAFF_bot.BeforePrint,
+        lineTotal_OTHER_ENTERTAINNSTAFF_TOTAL.BeforePrint,
+        line_OTHER_ENTERTAINNSTAFF.BeforePrint,
+        perTotal_OTHER_ENTERTAINNSTAFF_TOTAL.BeforePrint
+
+
+        Dim PL_KEY As Integer = OTHER_ENTERTAINNSTAFF.GetCurrentColumnValue("EXOENS_KEY")
+        Dim TableName As String = "OTHER_ENTERTAINNSTAFF"
+        Dim ColumnName As String = "EXOENS_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_ENTERTAINNSTAFF_top.WidthF = txtTotal_OTHER_ENTERTAINNSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINNSTAFF_bot.WidthF = txtTotal_OTHER_ENTERTAINNSTAFF.WidthF
+            line_OTHER_ENTERTAINNSTAFF.WidthF = txt_OTHER_ENTERTAINNSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINNSTAFF_TOTAL.WidthF = txtTotal_OTHER_ENTERTAINNSTAFF_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_ENTERTAINNSTAFF_top.WidthF = txtTotal_OTHER_ENTERTAINNSTAFF.WidthF + per_OTHER_ENTERTAINNSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINNSTAFF_bot.WidthF = txtTotal_OTHER_ENTERTAINNSTAFF.WidthF + per_OTHER_ENTERTAINNSTAFF.WidthF
+            line_OTHER_ENTERTAINNSTAFF.WidthF = txt_OTHER_ENTERTAINNSTAFF.WidthF + per_OTHER_ENTERTAINNSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINNSTAFF_TOTAL.WidthF = txtTotal_OTHER_ENTERTAINNSTAFF_TOTAL.WidthF + per_OTHER_ENTERTAINNSTAFF.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_ENTERTAINSTAFF"
     Private Sub txtTotal_OTHER_ENTERTAINSTAFF_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_ENTERTAINSTAFF.BeforePrint, perTotal_OTHER_ENTERTAINSTAFF.BeforePrint
@@ -3553,6 +4419,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3567,6 +4435,8 @@
             per_OTHER_ENTERTAINSTAFF.Visible = txt_OTHER_ENTERTAINSTAFF.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3579,6 +4449,8 @@
             Me.GetVisibility_OTHER_ENTERTAINSTAFF(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_ENTERTAINSTAFF.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3599,9 +4471,45 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_ENTERTAINSTAFF_TOTAL_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_ENTERTAINSTAFF_top.BeforePrint, lineTotal_OTHER_ENTERTAINSTAFF_bot.BeforePrint, lineTotal_OTHER_ENTERTAINSTAFF_TOTAL.BeforePrint
+        Try
+            If (IsNumeric(perTotal_OTHER_ENTERTAINSTAFF.Text) = True AndAlso CInt(perTotal_OTHER_ENTERTAINSTAFF.Text) = 0) Or perTotal_OTHER_ENTERTAINSTAFF.Text = "" Then
+                lineTotal_OTHER_ENTERTAINSTAFF_top.WidthF = txtTotal_OTHER_ENTERTAINSTAFF.WidthF
+                lineTotal_OTHER_ENTERTAINSTAFF_bot.WidthF = txtTotal_OTHER_ENTERTAINSTAFF.WidthF
+                lineTotal_OTHER_ENTERTAINSTAFF_TOTAL.WidthF = txtTotal_OTHER_ENTERTAINSTAFF_TOTAL.WidthF
+            End If
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+        End Try
+    End Sub
+    Private Sub lineTotal_OTHER_ENTERTAINSTAFF_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_ENTERTAINSTAFF_top.BeforePrint,
+        lineTotal_OTHER_ENTERTAINSTAFF_bot.BeforePrint,
+        lineTotal_OTHER_ENTERTAINSTAFF_TOTAL.BeforePrint,
+        line_OTHER_ENTERTAINSTAFF.BeforePrint,
+        perTotal_OTHER_ENTERTAINSTAFF_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_ENTERTAINSTAFF.GetCurrentColumnValue("EXOES_KEY")
+        Dim TableName As String = "OTHER_ENTERTAINSTAFF"
+        Dim ColumnName As String = "EXOES_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_ENTERTAINSTAFF_top.WidthF = txtTotal_OTHER_ENTERTAINSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINSTAFF_bot.WidthF = txtTotal_OTHER_ENTERTAINSTAFF.WidthF
+            line_OTHER_ENTERTAINSTAFF.WidthF = txt_OTHER_ENTERTAINSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINSTAFF_TOTAL.WidthF = txtTotal_OTHER_ENTERTAINSTAFF_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_ENTERTAINSTAFF_top.WidthF = txtTotal_OTHER_ENTERTAINSTAFF.WidthF + per_OTHER_ENTERTAINSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINSTAFF_bot.WidthF = txtTotal_OTHER_ENTERTAINSTAFF.WidthF + per_OTHER_ENTERTAINSTAFF.WidthF
+            line_OTHER_ENTERTAINSTAFF.WidthF = txt_OTHER_ENTERTAINSTAFF.WidthF + per_OTHER_ENTERTAINSTAFF.WidthF
+            lineTotal_OTHER_ENTERTAINSTAFF_TOTAL.WidthF = txtTotal_OTHER_ENTERTAINSTAFF_TOTAL.WidthF + per_OTHER_ENTERTAINSTAFF.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXPENALTY"
     Private Sub txtTotal_OTHER_EXPENALTY_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXPENALTY.BeforePrint, perTotal_OTHER_EXPENALTY.BeforePrint
@@ -3633,6 +4541,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3647,6 +4557,8 @@
             per_OTHER_EXPENALTY.Visible = txt_OTHER_EXPENALTY.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3659,6 +4571,8 @@
             Me.GetVisibility_OTHER_EXPENALTY(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXPENALTY.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3679,9 +4593,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXPENALTY_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXPENALTY_top.BeforePrint,
+        lineTotal_OTHER_EXPENALTY_bot.BeforePrint,
+        lineTotal_OTHER_EXPENALTY_TOTAL.BeforePrint,
+        line_OTHER_EXPENALTY.BeforePrint,
+        perTotal_OTHER_EXPENALTY_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXPENALTY.GetCurrentColumnValue("EXOP_KEY")
+        Dim TableName As String = "OTHER_EXPENALTY"
+        Dim ColumnName As String = "EXOP_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXPENALTY_top.WidthF = txtTotal_OTHER_EXPENALTY.WidthF
+            lineTotal_OTHER_EXPENALTY_bot.WidthF = txtTotal_OTHER_EXPENALTY.WidthF
+            line_OTHER_EXPENALTY.WidthF = txt_OTHER_EXPENALTY.WidthF
+            lineTotal_OTHER_EXPENALTY_TOTAL.WidthF = txtTotal_OTHER_EXPENALTY_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXPENALTY_top.WidthF = txtTotal_OTHER_EXPENALTY.WidthF + per_OTHER_EXPENALTY.WidthF
+            lineTotal_OTHER_EXPENALTY_bot.WidthF = txtTotal_OTHER_EXPENALTY.WidthF + per_OTHER_EXPENALTY.WidthF
+            line_OTHER_EXPENALTY.WidthF = txt_OTHER_EXPENALTY.WidthF + per_OTHER_EXPENALTY.WidthF
+            lineTotal_OTHER_EXPENALTY_TOTAL.WidthF = txtTotal_OTHER_EXPENALTY_TOTAL.WidthF + per_OTHER_EXPENALTY.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXPROVISIONACC"
     Private Sub txtTotal_OTHER_EXPROVISIONACC_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXPROVISIONACC.BeforePrint, perTotal_OTHER_EXPROVISIONACC.BeforePrint
@@ -3713,6 +4651,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3727,6 +4667,8 @@
             per_OTHER_EXPROVISIONACC.Visible = txt_OTHER_EXPROVISIONACC.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3739,6 +4681,8 @@
             Me.GetVisibility_OTHER_EXPROVISIONACC(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXPROVISIONACC.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3759,9 +4703,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXPROVISIONACC_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXPROVISIONACC_top.BeforePrint,
+        lineTotal_OTHER_EXPROVISIONACC_bot.BeforePrint,
+        lineTotal_OTHER_EXPROVISIONACC_TOTAL.BeforePrint,
+        line_OTHER_EXPROVISIONACC.BeforePrint,
+        perTotal_OTHER_EXPROVISIONACC_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXPROVISIONACC.GetCurrentColumnValue("EXOPA_KEY")
+        Dim TableName As String = "OTHER_EXPROVISIONACC"
+        Dim ColumnName As String = "EXOPA_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXPROVISIONACC_top.WidthF = txtTotal_OTHER_EXPROVISIONACC.WidthF
+            lineTotal_OTHER_EXPROVISIONACC_bot.WidthF = txtTotal_OTHER_EXPROVISIONACC.WidthF
+            line_OTHER_EXPROVISIONACC.WidthF = txt_OTHER_EXPROVISIONACC.WidthF
+            lineTotal_OTHER_EXPROVISIONACC_TOTAL.WidthF = txtTotal_OTHER_EXPROVISIONACC_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXPROVISIONACC_top.WidthF = txtTotal_OTHER_EXPROVISIONACC.WidthF + per_OTHER_EXPROVISIONACC.WidthF
+            lineTotal_OTHER_EXPROVISIONACC_bot.WidthF = txtTotal_OTHER_EXPROVISIONACC.WidthF + per_OTHER_EXPROVISIONACC.WidthF
+            line_OTHER_EXPROVISIONACC.WidthF = txt_OTHER_EXPROVISIONACC.WidthF + per_OTHER_EXPROVISIONACC.WidthF
+            lineTotal_OTHER_EXPROVISIONACC_TOTAL.WidthF = txtTotal_OTHER_EXPROVISIONACC_TOTAL.WidthF + per_OTHER_EXPROVISIONACC.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXLEAVEPASSAGE"
     Private Sub txtTotal_OTHER_EXLEAVEPASSAGE_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXLEAVEPASSAGE.BeforePrint, perTotal_OTHER_EXLEAVEPASSAGE.BeforePrint
@@ -3793,6 +4761,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3807,6 +4777,8 @@
             per_OTHER_EXLEAVEPASSAGE.Visible = txt_OTHER_EXLEAVEPASSAGE.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3819,6 +4791,8 @@
             Me.GetVisibility_OTHER_EXLEAVEPASSAGE(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXLEAVEPASSAGE.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3839,9 +4813,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXLEAVEPASSAGE_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXLEAVEPASSAGE_top.BeforePrint,
+        lineTotal_OTHER_EXLEAVEPASSAGE_bot.BeforePrint,
+        lineTotal_OTHER_EXLEAVEPASSAGE_TOTAL.BeforePrint,
+        line_OTHER_EXLEAVEPASSAGE.BeforePrint,
+        perTotal_OTHER_EXLEAVEPASSAGE_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXLEAVEPASSAGE.GetCurrentColumnValue("EXOLP_KEY")
+        Dim TableName As String = "OTHER_EXLEAVEPASSAGE"
+        Dim ColumnName As String = "EXOLP_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXLEAVEPASSAGE_top.WidthF = txtTotal_OTHER_EXLEAVEPASSAGE.WidthF
+            lineTotal_OTHER_EXLEAVEPASSAGE_bot.WidthF = txtTotal_OTHER_EXLEAVEPASSAGE.WidthF
+            line_OTHER_EXLEAVEPASSAGE.WidthF = txt_OTHER_EXLEAVEPASSAGE.WidthF
+            lineTotal_OTHER_EXLEAVEPASSAGE_TOTAL.WidthF = txtTotal_OTHER_EXLEAVEPASSAGE_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXLEAVEPASSAGE_top.WidthF = txtTotal_OTHER_EXLEAVEPASSAGE.WidthF + per_OTHER_EXLEAVEPASSAGE.WidthF
+            lineTotal_OTHER_EXLEAVEPASSAGE_bot.WidthF = txtTotal_OTHER_EXLEAVEPASSAGE.WidthF + per_OTHER_EXLEAVEPASSAGE.WidthF
+            line_OTHER_EXLEAVEPASSAGE.WidthF = txt_OTHER_EXLEAVEPASSAGE.WidthF + per_OTHER_EXLEAVEPASSAGE.WidthF
+            lineTotal_OTHER_EXLEAVEPASSAGE_TOTAL.WidthF = txtTotal_OTHER_EXLEAVEPASSAGE_TOTAL.WidthF + per_OTHER_EXLEAVEPASSAGE.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXFAWRITTENOFF"
     Private Sub txtTotal_OTHER_EXFAWRITTENOFF_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXFAWRITTENOFF.BeforePrint, perTotal_OTHER_EXFAWRITTENOFF.BeforePrint
@@ -3873,6 +4871,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3887,6 +4887,8 @@
             per_OTHER_EXFAWRITTENOFF.Visible = txt_OTHER_EXFAWRITTENOFF.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3899,6 +4901,8 @@
             Me.GetVisibility_OTHER_EXFAWRITTENOFF(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXFAWRITTENOFF.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3919,9 +4923,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXFAWRITTENOFF_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXFAWRITTENOFF_top.BeforePrint,
+        lineTotal_OTHER_EXFAWRITTENOFF_bot.BeforePrint,
+        lineTotal_OTHER_EXFAWRITTENOFF_TOTAL.BeforePrint,
+        line_OTHER_EXFAWRITTENOFF.BeforePrint,
+        perTotal_OTHER_EXFAWRITTENOFF_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXFAWRITTENOFF.GetCurrentColumnValue("EXOWO_KEY")
+        Dim TableName As String = "OTHER_EXFAWRITTENOFF"
+        Dim ColumnName As String = "EXOWO_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXFAWRITTENOFF_top.WidthF = txtTotal_OTHER_EXFAWRITTENOFF.WidthF
+            lineTotal_OTHER_EXFAWRITTENOFF_bot.WidthF = txtTotal_OTHER_EXFAWRITTENOFF.WidthF
+            line_OTHER_EXFAWRITTENOFF.WidthF = txt_OTHER_EXFAWRITTENOFF.WidthF
+            lineTotal_OTHER_EXFAWRITTENOFF_TOTAL.WidthF = txtTotal_OTHER_EXFAWRITTENOFF_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXFAWRITTENOFF_top.WidthF = txtTotal_OTHER_EXFAWRITTENOFF.WidthF + per_OTHER_EXFAWRITTENOFF.WidthF
+            lineTotal_OTHER_EXFAWRITTENOFF_bot.WidthF = txtTotal_OTHER_EXFAWRITTENOFF.WidthF + per_OTHER_EXFAWRITTENOFF.WidthF
+            line_OTHER_EXFAWRITTENOFF.WidthF = txt_OTHER_EXFAWRITTENOFF.WidthF + per_OTHER_EXFAWRITTENOFF.WidthF
+            lineTotal_OTHER_EXFAWRITTENOFF_TOTAL.WidthF = txtTotal_OTHER_EXFAWRITTENOFF_TOTAL.WidthF + per_OTHER_EXFAWRITTENOFF.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXURLOSSFOREIGN"
     Private Sub txtTotal_OTHER_EXURLOSSFOREIGN_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXURLOSSFOREIGN.BeforePrint, perTotal_OTHER_EXURLOSSFOREIGN.BeforePrint
@@ -3953,6 +4981,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3967,6 +4997,8 @@
             per_OTHER_EXURLOSSFOREIGN.Visible = txt_OTHER_EXURLOSSFOREIGN.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3979,6 +5011,8 @@
             Me.GetVisibility_OTHER_EXURLOSSFOREIGN(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXURLOSSFOREIGN.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -3999,9 +5033,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXURLOSSFOREIGN_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXURLOSSFOREIGN_top.BeforePrint,
+        lineTotal_OTHER_EXURLOSSFOREIGN_bot.BeforePrint,
+        lineTotal_OTHER_EXURLOSSFOREIGN_TOTAL.BeforePrint,
+        line_OTHER_EXURLOSSFOREIGN.BeforePrint,
+        perTotal_OTHER_EXURLOSSFOREIGN_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXURLOSSFOREIGN.GetCurrentColumnValue("EXOUR_KEY")
+        Dim TableName As String = "OTHER_EXURLOSSFOREIGN"
+        Dim ColumnName As String = "EXOUR_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXURLOSSFOREIGN_top.WidthF = txtTotal_OTHER_EXURLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXURLOSSFOREIGN_bot.WidthF = txtTotal_OTHER_EXURLOSSFOREIGN.WidthF
+            line_OTHER_EXURLOSSFOREIGN.WidthF = txt_OTHER_EXURLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXURLOSSFOREIGN_TOTAL.WidthF = txtTotal_OTHER_EXURLOSSFOREIGN_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXURLOSSFOREIGN_top.WidthF = txtTotal_OTHER_EXURLOSSFOREIGN.WidthF + per_OTHER_EXURLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXURLOSSFOREIGN_bot.WidthF = txtTotal_OTHER_EXURLOSSFOREIGN.WidthF + per_OTHER_EXURLOSSFOREIGN.WidthF
+            line_OTHER_EXURLOSSFOREIGN.WidthF = txt_OTHER_EXURLOSSFOREIGN.WidthF + per_OTHER_EXURLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXURLOSSFOREIGN_TOTAL.WidthF = txtTotal_OTHER_EXURLOSSFOREIGN_TOTAL.WidthF + per_OTHER_EXURLOSSFOREIGN.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXRLOSSFOREIGNT"
     Private Sub txtTotal_OTHER_EXRLOSSFOREIGNT_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXRLOSSFOREIGNT.BeforePrint, perTotal_OTHER_EXRLOSSFOREIGNT.BeforePrint
@@ -4033,6 +5091,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4047,6 +5107,8 @@
             per_OTHER_EXRLOSSFOREIGNT.Visible = txt_OTHER_EXRLOSSFOREIGNT.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4059,6 +5121,8 @@
             Me.GetVisibility_OTHER_EXRLOSSFOREIGNT(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXRLOSSFOREIGNT.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4079,9 +5143,32 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXRLOSSFOREIGNT_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXRLOSSFOREIGNT_top.BeforePrint,
+        lineTotal_OTHER_EXRLOSSFOREIGNT_bot.BeforePrint,
+        lineTotal_OTHER_EXRLOSSFOREIGNT_TOTAL.BeforePrint,
+        line_OTHER_EXRLOSSFOREIGNT.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXRLOSSFOREIGNT.GetCurrentColumnValue("EXORT_KEY")
+        Dim TableName As String = "OTHER_EXRLOSSFOREIGNT"
+        Dim ColumnName As String = "EXORT_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXRLOSSFOREIGNT_top.WidthF = txtTotal_OTHER_EXRLOSSFOREIGNT.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGNT_bot.WidthF = txtTotal_OTHER_EXRLOSSFOREIGNT.WidthF
+            line_OTHER_EXRLOSSFOREIGNT.WidthF = txt_OTHER_EXRLOSSFOREIGNT.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGNT_TOTAL.WidthF = txtTotal_OTHER_EXRLOSSFOREIGNT_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXRLOSSFOREIGNT_top.WidthF = txtTotal_OTHER_EXRLOSSFOREIGNT.WidthF + per_OTHER_EXRLOSSFOREIGNT.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGNT_bot.WidthF = txtTotal_OTHER_EXRLOSSFOREIGNT.WidthF + per_OTHER_EXRLOSSFOREIGNT.WidthF
+            line_OTHER_EXRLOSSFOREIGNT.WidthF = txt_OTHER_EXRLOSSFOREIGNT.WidthF + per_OTHER_EXRLOSSFOREIGNT.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGNT_TOTAL.WidthF = txtTotal_OTHER_EXRLOSSFOREIGNT_TOTAL.WidthF + per_OTHER_EXRLOSSFOREIGNT.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXRLOSSFOREIGN"
     Private Sub txtTotal_OTHER_EXRLOSSFOREIGN_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXRLOSSFOREIGN.BeforePrint, perTotal_OTHER_EXRLOSSFOREIGN.BeforePrint
@@ -4113,6 +5200,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4127,6 +5216,8 @@
             per_OTHER_EXRLOSSFOREIGN.Visible = txt_OTHER_EXRLOSSFOREIGN.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4139,6 +5230,8 @@
             Me.GetVisibility_OTHER_EXRLOSSFOREIGN(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXRLOSSFOREIGN.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4159,9 +5252,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXRLOSSFOREIGN_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXRLOSSFOREIGN_top.BeforePrint,
+        lineTotal_OTHER_EXRLOSSFOREIGN_bot.BeforePrint,
+        lineTotal_OTHER_EXRLOSSFOREIGN_TOTAL.BeforePrint,
+        line_OTHER_EXRLOSSFOREIGN.BeforePrint,
+        perTotal_OTHER_EXRLOSSFOREIGN_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXRLOSSFOREIGN.GetCurrentColumnValue("EXOR_KEY")
+        Dim TableName As String = "OTHER_EXRLOSSFOREIGN"
+        Dim ColumnName As String = "EXOR_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXRLOSSFOREIGN_top.WidthF = txtTotal_OTHER_EXRLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGN_bot.WidthF = txtTotal_OTHER_EXRLOSSFOREIGN.WidthF
+            line_OTHER_EXRLOSSFOREIGN.WidthF = txt_OTHER_EXRLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGN_TOTAL.WidthF = txtTotal_OTHER_EXRLOSSFOREIGN_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXRLOSSFOREIGN_top.WidthF = txtTotal_OTHER_EXRLOSSFOREIGN.WidthF + per_OTHER_EXRLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGN_bot.WidthF = txtTotal_OTHER_EXRLOSSFOREIGN.WidthF + per_OTHER_EXRLOSSFOREIGN.WidthF
+            line_OTHER_EXRLOSSFOREIGN.WidthF = txt_OTHER_EXRLOSSFOREIGN.WidthF + per_OTHER_EXRLOSSFOREIGN.WidthF
+            lineTotal_OTHER_EXRLOSSFOREIGN_TOTAL.WidthF = txtTotal_OTHER_EXRLOSSFOREIGN_TOTAL.WidthF + per_OTHER_EXRLOSSFOREIGN.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXINITIALSUB"
     Private Sub txtTotal_OTHER_EXINITIALSUB_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXINITIALSUB.BeforePrint, perTotal_OTHER_EXINITIALSUB.BeforePrint
@@ -4193,6 +5310,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4207,6 +5326,8 @@
             per_OTHER_EXINITIALSUB.Visible = txt_OTHER_EXINITIALSUB.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4219,6 +5340,8 @@
             Me.GetVisibility_OTHER_EXINITIALSUB(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXINITIALSUB.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4239,9 +5362,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXINITIALSUB_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXINITIALSUB_top.BeforePrint,
+        lineTotal_OTHER_EXINITIALSUB_bot.BeforePrint,
+        lineTotal_OTHER_EXINITIALSUB_TOTAL.BeforePrint,
+        line_OTHER_EXINITIALSUB.BeforePrint,
+        perTotal_OTHER_EXINITIALSUB_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXINITIALSUB.GetCurrentColumnValue("EXOIS_KEY")
+        Dim TableName As String = "OTHER_EXINITIALSUB"
+        Dim ColumnName As String = "EXOIS_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXINITIALSUB_top.WidthF = txtTotal_OTHER_EXINITIALSUB.WidthF
+            lineTotal_OTHER_EXINITIALSUB_bot.WidthF = txtTotal_OTHER_EXINITIALSUB.WidthF
+            line_OTHER_EXINITIALSUB.WidthF = txt_OTHER_EXINITIALSUB.WidthF
+            lineTotal_OTHER_EXINITIALSUB_TOTAL.WidthF = txtTotal_OTHER_EXINITIALSUB_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXINITIALSUB_top.WidthF = txtTotal_OTHER_EXINITIALSUB.WidthF + per_OTHER_EXINITIALSUB.WidthF
+            lineTotal_OTHER_EXINITIALSUB_bot.WidthF = txtTotal_OTHER_EXINITIALSUB.WidthF + per_OTHER_EXINITIALSUB.WidthF
+            line_OTHER_EXINITIALSUB.WidthF = txt_OTHER_EXINITIALSUB.WidthF + per_OTHER_EXINITIALSUB.WidthF
+            lineTotal_OTHER_EXINITIALSUB_TOTAL.WidthF = txtTotal_OTHER_EXINITIALSUB_TOTAL.WidthF + per_OTHER_EXINITIALSUB.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXCAPITALEXP"
     Private Sub txtTotal_OTHER_EXCAPITALEXP_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXCAPITALEXP.BeforePrint, perTotal_OTHER_EXCAPITALEXP.BeforePrint
@@ -4273,6 +5420,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4287,6 +5436,8 @@
             per_OTHER_EXCAPITALEXP.Visible = txt_OTHER_EXCAPITALEXP.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4299,6 +5450,8 @@
             Me.GetVisibility_OTHER_EXCAPITALEXP(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXCAPITALEXP.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4319,9 +5472,33 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
+    Private Sub lineTotal_OTHER_EXCAPITALEXP_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXCAPITALEXP_top.BeforePrint,
+        lineTotal_OTHER_EXCAPITALEXP_bot.BeforePrint,
+        lineTotal_OTHER_EXCAPITALEXP_TOTAL.BeforePrint,
+        line_OTHER_EXCAPITALEXP.BeforePrint,
+        perTotal_OTHER_EXCAPITALEXP_TOTAL.BeforePrint
+
+        Dim PL_KEY As Integer = OTHER_EXCAPITALEXP.GetCurrentColumnValue("EXOCE_KEY")
+        Dim TableName As String = "OTHER_EXCAPITALEXP"
+        Dim ColumnName As String = "EXOCE_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXCAPITALEXP_top.WidthF = txtTotal_OTHER_EXCAPITALEXP.WidthF
+            lineTotal_OTHER_EXCAPITALEXP_bot.WidthF = txtTotal_OTHER_EXCAPITALEXP.WidthF
+            line_OTHER_EXCAPITALEXP.WidthF = txt_OTHER_EXCAPITALEXP.WidthF
+            lineTotal_OTHER_EXCAPITALEXP_TOTAL.WidthF = txtTotal_OTHER_EXCAPITALEXP_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXCAPITALEXP_top.WidthF = txtTotal_OTHER_EXCAPITALEXP.WidthF + per_OTHER_EXCAPITALEXP.WidthF
+            lineTotal_OTHER_EXCAPITALEXP_bot.WidthF = txtTotal_OTHER_EXCAPITALEXP.WidthF + per_OTHER_EXCAPITALEXP.WidthF
+            line_OTHER_EXCAPITALEXP.WidthF = txt_OTHER_EXCAPITALEXP.WidthF + per_OTHER_EXCAPITALEXP.WidthF
+            lineTotal_OTHER_EXCAPITALEXP_TOTAL.WidthF = txtTotal_OTHER_EXCAPITALEXP_TOTAL.WidthF + per_OTHER_EXCAPITALEXP.WidthF
+        End If
+    End Sub
 #End Region
 #Region "OTHER_EXPENSES"
     Private Sub txtTotal_OTHER_EXPENSES_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtTotal_OTHER_EXPENSES.BeforePrint, perTotal_OTHER_EXPENSES.BeforePrint
@@ -4344,6 +5521,7 @@
                     perTotal_OTHER_EXPENSES.Visible = True
                     lineTotal_OTHER_EXPENSES_top.Visible = True
                     lineTotal_OTHER_EXPENSES_bot.Visible = True
+
                 Else
                     txtTotal_OTHER_EXPENSES.Visible = False
                     perTotal_OTHER_EXPENSES.Visible = False
@@ -4352,7 +5530,10 @@
                 End If
 
             End If
+
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4367,6 +5548,8 @@
             per_OTHER_EXPENSES.Visible = txt_OTHER_EXPENSES.Visible
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4379,6 +5562,8 @@
             Me.GetVisibility_OTHER_EXPENSES(PL_KEY, ParentID, SourceNo, LineStatus)
             line_OTHER_EXPENSES.Visible = LineStatus
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -4399,11 +5584,34 @@
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
-#End Region
+    Private Sub lineTotal_OTHER_EXPENSES_BeforePrint(sender As Object, e As PrintEventArgs) Handles lineTotal_OTHER_EXPENSES_top.BeforePrint,
+        lineTotal_OTHER_EXPENSES_bot.BeforePrint,
+        lineTotal_OTHER_EXPENSES_TOTAL.BeforePrint,
+        line_OTHER_EXPENSES.BeforePrint,
+        perTotal_OTHER_EXPENSES_TOTAL.BeforePrint
 
+        Dim PL_KEY As Integer = OTHER_EXPENSES.GetCurrentColumnValue("EXO_KEY")
+        Dim TableName As String = "OTHER_EXPENSES"
+        Dim ColumnName As String = "EXO_KEY"
+
+        If ADO.Load_SumxOfPercentage(PL_KEY, TableName, ColumnName) = False Then
+            lineTotal_OTHER_EXPENSES_top.WidthF = txtTotal_OTHER_EXPENSES.WidthF
+            lineTotal_OTHER_EXPENSES_bot.WidthF = txtTotal_OTHER_EXPENSES.WidthF
+            line_OTHER_EXPENSES.WidthF = txt_OTHER_EXPENSES.WidthF
+            lineTotal_OTHER_EXPENSES_TOTAL.WidthF = txtTotal_OTHER_EXPENSES_TOTAL.WidthF
+        Else
+            lineTotal_OTHER_EXPENSES_top.WidthF = txtTotal_OTHER_EXPENSES.WidthF + per_OTHER_EXPENSES.WidthF
+            lineTotal_OTHER_EXPENSES_bot.WidthF = txtTotal_OTHER_EXPENSES.WidthF + per_OTHER_EXPENSES.WidthF
+            line_OTHER_EXPENSES.WidthF = txt_OTHER_EXPENSES.WidthF + per_OTHER_EXPENSES.WidthF
+            lineTotal_OTHER_EXPENSES_TOTAL.WidthF = txtTotal_OTHER_EXPENSES_TOTAL.WidthF + per_OTHER_EXPENSES.WidthF
+        End If
+    End Sub
+#End Region
     Private Sub title_Dividend_Income_Transfer_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles title_Dividend_Income_Transfer.BeforePrint
         Try
             Dim TypeofIncome As String = DIVIDEND_INCOME.GetCurrentColumnValue("DI_TRANSFER")
@@ -4416,10 +5624,11 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-
     Private Sub txtDividend_Income_Transfer_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles txtDividend_Income_Transfer.BeforePrint
         Try
             Dim TypeofIncome As String = DIVIDEND_INCOME.GetCurrentColumnValue("DI_TRANSFER")
@@ -4437,28 +5646,29 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-
-    Private Sub rptSubNote_DIVIDEND_INCOME_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles rptSubNote_PLST_SALES.BeforePrint, _
-        rptSubNote_PLST_OPENSTOCK.BeforePrint, rptSubNote_PLST_PURCHASE.BeforePrint, rptSubNote_EXPENSES_DEPRECIATION.BeforePrint, EXPENSES_ALLOW.BeforePrint, _
-        rptSubNote_EXPENSES_NONALLOW.BeforePrint, rptSubNote_PLFST_CLOSESTOCK.BeforePrint, rptSubNote_NONSOURCE_BUSINESSINCOME.BeforePrint, _
-        rptSubNote_INCOME_REALFET.BeforePrint, rptSubNote_DIVIDEND_INCOME.BeforePrint, rptSubNote_INCOME_NBINTEREST.BeforePrint, _
-        rptSubNote_RENTAL_INCOME.BeforePrint, rptSubNote_INCOME_NBROYALTY.BeforePrint, rptSubNote_OTHER_INCOME.BeforePrint, _
-        rptSubNote_INCOME_NTDISPOSALFA.BeforePrint, rptSubNote_INCOME_NTDISPOSALINVEST.BeforePrint, rptSubNote_EXEMPT_DIVIDEND.BeforePrint, _
-        rptSubNote_INCOME_NTFOREIGNINCREM.BeforePrint, rptSubNote_INCOME_NTREALFE.BeforePrint, rptSubNote_INCOME_NTUREALFET.BeforePrint, _
-        rptSubNote_INCOME_NTUREALFENT.BeforePrint, rptSubNote_NON_TAXABLE_INCOME.BeforePrint, rptSubNote_EXPENSES_INTERESTRESTRICT.BeforePrint, _
-        rptSubNote_EXPENSES_INTEREST.BeforePrint, rptSubNote_EXPENSES_LEGAL.BeforePrint, rptSubNote_EXPENSES_TECH_FEE.BeforePrint, _
-        rptSubNote_EXPENSES_CONTRACT.BeforePrint, rptSubNote_EXPENSES_DIRECTORS_FEE.BeforePrint, rptSubNote_EXPENSES_SALARY.BeforePrint, _
-        rptSubNote_EXPENSES_EMPL_STOCK.BeforePrint, rptSubNote_EXPENSES_ROYALTY.BeforePrint, rptSubNote_EXPENSES_RENTAL.BeforePrint, _
-        rptSubNote_EXPENSES_REPAIR.BeforePrint, rptSubNote_EXPENSES_RESEARCH.BeforePrint, rptSubNote_EXPENSES_PROMOTE.BeforePrint, _
-        rptSubNote_EXPENSES_TRAVEL.BeforePrint, rptSubNote_EXPENSES_JKDM.BeforePrint, rptSubNote_OTHER_EXDEPRECIATION.BeforePrint, _
-        rptSubNote_OTHER_EXAPPRDONATION.BeforePrint, rptSubNote_OTHER_EXNAPPRDONATION.BeforePrint, rptSubNote_OTHER_EXZAKAT.BeforePrint, _
-        rptSubNote_OTHER_EXLOSSDISPOSALFA.BeforePrint, rptSubNote_OTHER_ENTERTAINNSTAFF.BeforePrint, rptSubNote_OTHER_ENTERTAINSTAFF.BeforePrint, _
-        rptSubNote_OTHER_EXPENALTY.BeforePrint, rptSubNote_OTHER_EXPROVISIONACC.BeforePrint, rptSubNote_OTHER_EXLEAVEPASSAGE.BeforePrint, _
-        rptSubNote_OTHER_EXFAWRITTENOFF.BeforePrint, rptSubNote_OTHER_EXURLOSSFOREIGN.BeforePrint, rptSubNote_OTHER_EXRLOSSFOREIGNT.BeforePrint, _
-        rptSubNote_OTHER_EXRLOSSFOREIGN.BeforePrint, rptSubNote_OTHER_EXINITIALSUB.BeforePrint, rptSubNote_OTHER_EXCAPITALEXP.BeforePrint, _
+    Private Sub rptSubNote_DIVIDEND_INCOME_BeforePrint(sender As Object, e As Printing.PrintEventArgs) Handles rptSubNote_PLST_SALES.BeforePrint,
+        rptSubNote_PLST_OPENSTOCK.BeforePrint, rptSubNote_PLST_PURCHASE.BeforePrint, rptSubNote_EXPENSES_DEPRECIATION.BeforePrint, EXPENSES_ALLOW.BeforePrint,
+        rptSubNote_EXPENSES_NONALLOW.BeforePrint, rptSubNote_PLFST_CLOSESTOCK.BeforePrint, rptSubNote_NONSOURCE_BUSINESSINCOME.BeforePrint,
+        rptSubNote_INCOME_REALFET.BeforePrint, rptSubNote_DIVIDEND_INCOME.BeforePrint, rptSubNote_INCOME_NBINTEREST.BeforePrint,
+        rptSubNote_RENTAL_INCOME.BeforePrint, rptSubNote_INCOME_NBROYALTY.BeforePrint, rptSubNote_OTHER_INCOME.BeforePrint,
+        rptSubNote_INCOME_NTDISPOSALFA.BeforePrint, rptSubNote_INCOME_NTDISPOSALINVEST.BeforePrint, rptSubNote_EXEMPT_DIVIDEND.BeforePrint,
+        rptSubNote_INCOME_NTFOREIGNINCREM.BeforePrint, rptSubNote_INCOME_NTREALFE.BeforePrint, rptSubNote_INCOME_NTUREALFET.BeforePrint,
+        rptSubNote_INCOME_NTUREALFENT.BeforePrint, rptSubNote_NON_TAXABLE_INCOME.BeforePrint, rptSubNote_EXPENSES_INTERESTRESTRICT.BeforePrint,
+        rptSubNote_EXPENSES_INTEREST.BeforePrint, rptSubNote_EXPENSES_LEGAL.BeforePrint, rptSubNote_EXPENSES_TECH_FEE.BeforePrint,
+        rptSubNote_EXPENSES_CONTRACT.BeforePrint, rptSubNote_EXPENSES_DIRECTORS_FEE.BeforePrint, rptSubNote_EXPENSES_SALARY.BeforePrint,
+        rptSubNote_EXPENSES_EMPL_STOCK.BeforePrint, rptSubNote_EXPENSES_ROYALTY.BeforePrint, rptSubNote_EXPENSES_RENTAL.BeforePrint,
+        rptSubNote_EXPENSES_REPAIR.BeforePrint, rptSubNote_EXPENSES_RESEARCH.BeforePrint, rptSubNote_EXPENSES_PROMOTE.BeforePrint,
+        rptSubNote_EXPENSES_TRAVEL.BeforePrint, rptSubNote_EXPENSES_JKDM.BeforePrint, rptSubNote_OTHER_EXDEPRECIATION.BeforePrint,
+        rptSubNote_OTHER_EXAPPRDONATION.BeforePrint, rptSubNote_OTHER_EXNAPPRDONATION.BeforePrint, rptSubNote_OTHER_EXZAKAT.BeforePrint,
+        rptSubNote_OTHER_EXLOSSDISPOSALFA.BeforePrint, rptSubNote_OTHER_ENTERTAINNSTAFF.BeforePrint, rptSubNote_OTHER_ENTERTAINSTAFF.BeforePrint,
+        rptSubNote_OTHER_EXPENALTY.BeforePrint, rptSubNote_OTHER_EXPROVISIONACC.BeforePrint, rptSubNote_OTHER_EXLEAVEPASSAGE.BeforePrint,
+        rptSubNote_OTHER_EXFAWRITTENOFF.BeforePrint, rptSubNote_OTHER_EXURLOSSFOREIGN.BeforePrint, rptSubNote_OTHER_EXRLOSSFOREIGNT.BeforePrint,
+        rptSubNote_OTHER_EXRLOSSFOREIGN.BeforePrint, rptSubNote_OTHER_EXINITIALSUB.BeforePrint, rptSubNote_OTHER_EXCAPITALEXP.BeforePrint,
         rptSubNote_OTHER_EXPENSES.BeforePrint
 
         Try
@@ -4468,7 +5678,10 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
+
 End Class

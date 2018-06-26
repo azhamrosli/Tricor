@@ -13,7 +13,7 @@ Module mdlReport
                                         Optional BorderRight As DevExpress.Spreadsheet.BorderLineStyle = BorderLineStyle.None, _
                                         Optional BorderBottom As DevExpress.Spreadsheet.BorderLineStyle = BorderLineStyle.None, _
                                         Optional Width As Integer = -1, Optional Height As Integer = -1, _
-                                        Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                        Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds Is Nothing Then
                 ds = New dsReport_Templatexsd
@@ -42,14 +42,16 @@ Module mdlReport
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
@@ -61,7 +63,7 @@ Module mdlReport
                                       Optional BorderRight As DevExpress.Spreadsheet.BorderLineStyle = BorderLineStyle.None, _
                                       Optional BorderBottom As DevExpress.Spreadsheet.BorderLineStyle = BorderLineStyle.None, _
                                       Optional Width As Integer = -1, Optional Height As Integer = -1, _
-                                      Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                      Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds Is Nothing Then
                 ds = New dsReport_Templatexsd
@@ -90,14 +92,16 @@ Module mdlReport
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
@@ -108,7 +112,7 @@ Module mdlReport
                                         Optional isItalic As Boolean = False, _
                                         Optional BackgroundColor As String = "", _
                                         Optional FontColor As String = "", _
-                                        Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                        Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds Is Nothing Then
                 ds = New dsReport_Templatexsd
@@ -137,21 +141,23 @@ Module mdlReport
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function CreateDataSetReport(ByRef ds As DataSet, ByVal Value As String, ByVal Cell As Integer, _
                                         ByVal Row As Integer, _
-                                        Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                        Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds Is Nothing Then
                 ds = New dsReport_Templatexsd
@@ -179,21 +185,23 @@ Module mdlReport
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function CreateDataSetReport(ByRef ds As DataSet, ByVal Value As String, ByVal Caption As String, ByVal Cell As Integer, _
                                         ByVal Row As Integer, Optional ByVal Width As Integer = -1, Optional ByVal Height As Integer = -1, _
-                                        Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                        Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds Is Nothing Then
                 ds = New dsReport_Templatexsd
@@ -221,14 +229,16 @@ Module mdlReport
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
@@ -238,7 +248,7 @@ Module mdlReport
 
 
     Public Function GenerateXlsReport(ByRef workbook As DevExpress.Spreadsheet.Workbook, ByRef ds As DataSet, _
-                                      Optional ByRef TabNo As Integer = 0, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                      Optional ByRef TabNo As Integer = 0, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
             If workbook Is Nothing Then
                 workbook = New Workbook()
@@ -247,7 +257,7 @@ Module mdlReport
 
             If worksheet Is Nothing Then
                 If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
+                    ErrorLog = New ClsError
                 End If
                 With ErrorLog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -295,14 +305,16 @@ Module mdlReport
             Next
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try

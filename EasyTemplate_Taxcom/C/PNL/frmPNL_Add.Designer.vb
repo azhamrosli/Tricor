@@ -21,10 +21,10 @@ Partial Class frmPNL_Add
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPNL_Add))
-        Dim SuperToolTip2 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
-        Dim ToolTipTitleItem2 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
-        Dim ToolTipItem2 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
-        Dim PushTransition2 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
+        Dim SuperToolTip1 As DevExpress.Utils.SuperToolTip = New DevExpress.Utils.SuperToolTip()
+        Dim ToolTipTitleItem1 As DevExpress.Utils.ToolTipTitleItem = New DevExpress.Utils.ToolTipTitleItem()
+        Dim ToolTipItem1 As DevExpress.Utils.ToolTipItem = New DevExpress.Utils.ToolTipItem()
+        Dim PushTransition1 As DevExpress.Utils.Animation.PushTransition = New DevExpress.Utils.Animation.PushTransition()
         Me.DockManager1 = New DevExpress.XtraBars.Docking.DockManager(Me.components)
         Me.hideContainerRight = New DevExpress.XtraBars.Docking.AutoHideContainer()
         Me.pnlDocImport = New DevExpress.XtraBars.Docking.DockPanel()
@@ -218,7 +218,6 @@ Partial Class frmPNL_Add
         Me.TabbedView1 = New DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView(Me.components)
         Me.RibbonControl1 = New DevExpress.XtraBars.Ribbon.RibbonControl()
         Me.btnSave = New DevExpress.XtraBars.BarButtonItem()
-        Me.BarButtonItem2 = New DevExpress.XtraBars.BarButtonItem()
         Me.BarButtonItem3 = New DevExpress.XtraBars.BarButtonItem()
         Me.btnImport = New DevExpress.XtraBars.BarButtonItem()
         Me.btnExport = New DevExpress.XtraBars.BarButtonItem()
@@ -2992,7 +2991,7 @@ Partial Class frmPNL_Add
         '
         Me.RibbonControl1.AllowMinimizeRibbon = False
         Me.RibbonControl1.ExpandCollapseItem.Id = 0
-        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem2, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog, Me.cboRefNo})
+        Me.RibbonControl1.Items.AddRange(New DevExpress.XtraBars.BarItem() {Me.RibbonControl1.ExpandCollapseItem, Me.btnSave, Me.BarButtonItem3, Me.btnImport, Me.btnExport, Me.cboPNLStatus, Me.txtLastModified, Me.cboYA, Me.txtRefNo, Me.txtNetProfit2, Me.txtNonAllowableExpense, Me.cboMainSource, Me.cboS60F, Me.cboS60FA, Me.SkinRibbonGalleryBarItem1, Me.txtBalacingFigure, Me.btnRefresh, Me.BarSubItem1, Me.BarSubItem2, Me.BarSubItem3, Me.BarButtonItem1, Me.BarButtonItem4, Me.BarButtonItem5, Me.btnErrorLog, Me.cboRefNo})
         Me.RibbonControl1.Location = New System.Drawing.Point(0, 0)
         Me.RibbonControl1.MaxItemId = 1
         Me.RibbonControl1.Name = "RibbonControl1"
@@ -3012,15 +3011,6 @@ Partial Class frmPNL_Add
         Me.btnSave.ImageOptions.LargeImage = CType(resources.GetObject("btnSave.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnSave.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S))
         Me.btnSave.Name = "btnSave"
-        '
-        'BarButtonItem2
-        '
-        Me.BarButtonItem2.Caption = "Print"
-        Me.BarButtonItem2.Id = 2
-        Me.BarButtonItem2.ImageOptions.Image = CType(resources.GetObject("BarButtonItem2.ImageOptions.Image"), System.Drawing.Image)
-        Me.BarButtonItem2.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem2.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.BarButtonItem2.ItemShortcut = New DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.P))
-        Me.BarButtonItem2.Name = "BarButtonItem2"
         '
         'BarButtonItem3
         '
@@ -3239,12 +3229,12 @@ Partial Class frmPNL_Add
         Me.btnRefresh.ImageOptions.LargeImage = CType(resources.GetObject("btnRefresh.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnRefresh.ItemShortcut = New DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F5)
         Me.btnRefresh.Name = "btnRefresh"
-        ToolTipTitleItem2.Text = "Refresh Data"
-        ToolTipItem2.LeftIndent = 6
-        ToolTipItem2.Text = "Refresh Profit and Loss Data"
-        SuperToolTip2.Items.Add(ToolTipTitleItem2)
-        SuperToolTip2.Items.Add(ToolTipItem2)
-        Me.btnRefresh.SuperTip = SuperToolTip2
+        ToolTipTitleItem1.Text = "Refresh Data"
+        ToolTipItem1.LeftIndent = 6
+        ToolTipItem1.Text = "Refresh Profit and Loss Data"
+        SuperToolTip1.Items.Add(ToolTipTitleItem1)
+        SuperToolTip1.Items.Add(ToolTipItem1)
+        Me.btnRefresh.SuperTip = SuperToolTip1
         '
         'BarSubItem1
         '
@@ -3417,7 +3407,6 @@ Partial Class frmPNL_Add
         'RibbonPageGroup1
         '
         Me.RibbonPageGroup1.ItemLinks.Add(Me.btnSave)
-        Me.RibbonPageGroup1.ItemLinks.Add(Me.BarButtonItem2)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.BarButtonItem3)
         Me.RibbonPageGroup1.ItemLinks.Add(Me.btnRefresh)
         Me.RibbonPageGroup1.Name = "RibbonPageGroup1"
@@ -3492,7 +3481,7 @@ Partial Class frmPNL_Add
         'WorkspaceManager1
         '
         Me.WorkspaceManager1.TargetControl = Me.RibbonControl1
-        Me.WorkspaceManager1.TransitionType = PushTransition2
+        Me.WorkspaceManager1.TransitionType = PushTransition1
         '
         'OpenFileDialog1
         '
@@ -3718,7 +3707,6 @@ Partial Class frmPNL_Add
     Friend WithEvents lbl_p2OtherBizIncome As DevExpress.XtraEditors.LabelControl
     Friend WithEvents RibbonControl1 As DevExpress.XtraBars.Ribbon.RibbonControl
     Friend WithEvents btnSave As DevExpress.XtraBars.BarButtonItem
-    Friend WithEvents BarButtonItem2 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents BarButtonItem3 As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnImport As DevExpress.XtraBars.BarButtonItem
     Friend WithEvents btnExport As DevExpress.XtraBars.BarButtonItem

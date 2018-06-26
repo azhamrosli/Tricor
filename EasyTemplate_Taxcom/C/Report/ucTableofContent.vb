@@ -2,7 +2,7 @@
 Imports DevExpress.XtraReports.UI
 Public Class ucTableofContent
     Dim ADO As clsIODatabase
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Sub New()       
         ' This call is required by the designer.
         InitializeComponent()
@@ -22,6 +22,8 @@ Public Class ucTableofContent
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -43,6 +45,8 @@ Public Class ucTableofContent
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -78,6 +82,8 @@ Public Class ucTableofContent
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -87,6 +93,8 @@ Public Class ucTableofContent
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -97,6 +105,8 @@ Public Class ucTableofContent
             cboYA.Text = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -111,6 +121,8 @@ Public Class ucTableofContent
             cboRefNo.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -120,6 +132,8 @@ Public Class ucTableofContent
             cboYA.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -128,12 +142,15 @@ Public Class ucTableofContent
         Try
             Dim ID As Decimal = dgvDetails.GetDataRow(dgvDetails.GetSelectedRows(0))("TBL_ID")
 
-            Dim frm As New frmTableofContent_Add
-            frm.isEdit = True
-            frm.ID = ID
+            Dim frm As New frmTableofContent_Add With {
+                .isEdit = True,
+                .ID = ID
+            }
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -142,6 +159,8 @@ Public Class ucTableofContent
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -170,6 +189,8 @@ Public Class ucTableofContent
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -180,6 +201,8 @@ Public Class ucTableofContent
             Application.DoEvents()
             PrintTableOfContent()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -342,7 +365,7 @@ Public Class ucTableofContent
                             End If
                         End If
 
-                    Case "rpt_Disposal", "rpt_CAWrittenOff"
+                    Case "rpt_Disposal", "rpt_CAWrittenOff", "rpt_CAControlTransfer_Out"
 
                         If ReportName = "" Then
                             Status = mdlReport_CA.Report_DISPOSAL(RefNo, YA, ID_CA_TMP, 0, 100, "", 0, ErrorLog)
@@ -388,13 +411,13 @@ Public Class ucTableofContent
                                         dsTOC.Tables("TABLE_CONTENT_LIST").ImportRow(rowx)
                                     End If
                                 End If
-                                
+
                             End If
                         End If
 
                     Case "rpt_CAByRate", "rpt_CAByCategory", "rpt_CAByAsset"
 
-                        Status = mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID_CA_TMP, 0, 100, "", ErrorLog)
+                        Status = mdlReport_CA.Report_CA(RefNo, YA, ID_CA_TMP, 0, 100, "", ErrorLog)
 
                         If Status Then
                             dtTMP = ADO.Load_CAReport_Temp(ID_CA_TMP, CInt(YA))
@@ -434,10 +457,10 @@ Public Class ucTableofContent
                                 End If
                             End If
                         End If
-                        
+
                     Case "rpt_CAByCategory_Summary", "rpt_CAByRate_Summary", "rpt_CAByAsset_Summary"
 
-                        Status = mdlReport_CA.Report_CA(cboRefNo.EditValue, cboYA.EditValue, ID_CA_TMP, 0, 100, "", ErrorLog)
+                        Status = mdlReport_CA.Report_CA(RefNo, YA, ID_CA_TMP, 0, 100, "", ErrorLog)
 
                         If Status Then
                             dtTMP = ADO.Load_CAReportSummary2_Temp(ID_CA_TMP)
@@ -477,7 +500,7 @@ Public Class ucTableofContent
                                 End If
                             End If
                         End If
-                        
+
                     Case "rpt_CP204_Breakdown"
                         Dim rpt As rpt_CP204_Breakdown
 
@@ -553,7 +576,27 @@ Public Class ucTableofContent
                                 End If
                             End If
                         End If
+                    Case "rpt_CAControlTransfer"
+                        Status = mdlReport_CA.Report_CA_ControlTransfer(RefNo, YA, ID_CA_TMP, 0, 100, "", ErrorLog)
 
+                        If Status Then
+                            dtTMP = ADO.Load_CAReport_ControlTransfer_Temp(ID_CA_TMP)
+
+
+
+                            If dtTMP IsNot Nothing Then
+                                If dsCA Is Nothing Then
+                                    dsCA = New dsCA
+                                End If
+                                If mdlProcess.GenerateTable_ControlTransferIn(dtTMP, dsCA, ErrorLog) Then
+                                    Dim rpt As rpt_CAControlTransfer
+                                    If mdlProcess.PrintReport_ControlTransferIn(dsCA, ID_CA_TMP, RefNo, YA, rpt, ErrorLog, SchApx) Then
+                                        ListofRpt.Add(rpt)
+                                        dsTOC.Tables("TABLE_CONTENT_LIST").ImportRow(rowx)
+                                    End If
+                                End If
+                            End If
+                        End If
                 End Select
 
             Next
@@ -565,8 +608,9 @@ Public Class ucTableofContent
                 Dim rptChild As DevExpress.XtraReports.UI.XtraReport = Nothing
 
 
-                Dim rpt_TOC As New rpt_TableofContent
-                rpt_TOC.DataSource = dsTOC.Tables("TABLE_CONTENT_LIST")
+                Dim rpt_TOC As New rpt_TableofContent With {
+                    .DataSource = dsTOC.Tables("TABLE_CONTENT_LIST")
+                }
                 rpt_TOC.paramCompanyName.Value = ComName
                 rpt_TOC.paramYA.Value = IIf(IsNumeric(YA), CInt(YA), 0)
                 rpt_TOC.CreateDocument()
@@ -604,46 +648,15 @@ Public Class ucTableofContent
 
                 rpt.PrintingSystem.ContinuousPageNumbering = True
 
-                Dim printTool As New ReportPrintTool(rpt)
+                Dim printTool As New ReportPrintTool(rpt) With {
+                    .AutoShowParametersPanel = False
+                }
                 printTool.ShowPreviewDialog()
 
-
-
-                'Dim minPageCount As Integer = Math.Min(rpt1.Pages.Count, rpt2.Pages.Count)
-
-                'minPageCount = Math.Min(minPageCount, rpt3.Pages.Count)
-
-                'Dim x As Integer = 0
-                'Do While x < minPageCount
-                '    rpt1.Pages.Insert(x * 2 + 1, rpt2.Pages(x))
-                '    '  rpt1.Pages.Insert(x * 2 + 1, rpt3.Pages(x))
-                '    x += 1
-                'Loop
-
-                'If rpt2.Pages.Count <> minPageCount Then
-                '    x = minPageCount
-                '    Do While x < rpt2.Pages.Count
-                '        rpt1.Pages.Add(rpt2.Pages(x))
-                '        x += 1
-                '    Loop
-                'End If
-
-                'If rpt3.Pages.Count <> minPageCount Then
-                '    x = minPageCount
-                '    Do While x < rpt3.Pages.Count
-                '        rpt1.Pages.Add(rpt3.Pages(x))
-                '        x += 1
-                '    Loop
-                'End If
-
-                '' Reset all page numbers in the resulting document. 
-                'rpt1.PrintingSystem.ContinuousPageNumbering = True
-
-                '' Show the Print Preview form (in a WinForms application). 
-                'Dim printTool As New ReportPrintTool(rpt1)
-                'printTool.ShowPreviewDialog()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -696,22 +709,25 @@ Public Class ucTableofContent
 
                 Next
 
-                Dim rpt As New rpt_RA
-                rpt.DataSource = ds
+                Dim rpt As New rpt_RA With {
+                    .DataSource = ds
+                }
 
                 rpt.ShowPreview()
             End If
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
 
@@ -767,22 +783,25 @@ Public Class ucTableofContent
 
                 Next
 
-                Dim rpt As New rpt_ITA
-                rpt.DataSource = ds
+                Dim rpt As New rpt_ITA With {
+                    .DataSource = ds
+                }
 
                 rpt.ShowPreview()
             End If
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
 

@@ -8,14 +8,18 @@ Public Class frmTestCaller
                 MsgBox("Please enter reference no.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
-            Dim pHelp As New ProcessStartInfo
-            pHelp.FileName = Application.StartupPath & "\ET_Taxcom.exe"
-            pHelp.Arguments = ComboBox1.Text.ToString.ToLower & ",TAXCOM_C," & txtRefNo.Text & "," & txtYA.Text
-            pHelp.UseShellExecute = True
-            pHelp.WindowStyle = ProcessWindowStyle.Normal
+
+            Dim pHelp As New ProcessStartInfo With {
+                .FileName = Application.StartupPath & "\ET_Taxcom.exe",
+                .Arguments = ComboBox1.Text.ToString.ToLower & ",TAXCOM_C," & txtRefNo.Text & "," & txtYA.Text,
+                .UseShellExecute = True,
+                .WindowStyle = ProcessWindowStyle.Normal
+            }
             Dim proc As Process = Process.Start(pHelp)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

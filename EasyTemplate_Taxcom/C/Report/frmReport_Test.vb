@@ -11,10 +11,10 @@ Public Class frmReport_Test
         Me.ReportViewer1.RefreshReport()
     End Sub
     Private Sub LoadData()
-        Dim BindingSource1 As New BindingSource
-
-        BindingSource1.DataSource = ds
-        BindingSource1.DataMember = "REF_INTEREST_RESTRIC_DETAIL_TRICOR_TEMP"
+        Dim BindingSource1 As New BindingSource With {
+            .DataSource = ds,
+            .DataMember = "REF_INTEREST_RESTRIC_DETAIL_TRICOR_TEMP"
+        }
 
 
         ReportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Local

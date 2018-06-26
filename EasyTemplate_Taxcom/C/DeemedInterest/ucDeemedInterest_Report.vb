@@ -1,7 +1,7 @@
 ﻿Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 Public Class ucDeemedInterest_Report
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
         DevExpress.Skins.SkinManager.EnableFormSkins()
@@ -14,6 +14,8 @@ Public Class ucDeemedInterest_Report
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -81,6 +83,8 @@ Public Class ucDeemedInterest_Report
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -91,6 +95,8 @@ Public Class ucDeemedInterest_Report
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -99,6 +105,8 @@ Public Class ucDeemedInterest_Report
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -106,13 +114,16 @@ Public Class ucDeemedInterest_Report
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
             If DsTaxcomputation.Tables("DEEMED_INTEREST").Rows.Count > 0 Then
-                Dim rpt As New rpt_DeemedInterest
-                rpt.DataSource = DsTaxcomputation.Tables("DEEMED_INTEREST")
+                Dim rpt As New rpt_DeemedInterest With {
+                    .DataSource = DsTaxcomputation.Tables("DEEMED_INTEREST")
+                }
 
                 rpt.ShowPreview()
             End If
           
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -128,8 +139,9 @@ Public Class ucDeemedInterest_Report
             Dim path As String = Nothing
             If rslt = Windows.Forms.DialogResult.OK Then
                 path = SaveFileDialog1.FileName
-                Dim rpt As New rpt_DeemedInterest
-                rpt.DataSource = DsTaxcomputation.Tables("DEEMED_INTEREST")
+                Dim rpt As New rpt_DeemedInterest With {
+                    .DataSource = DsTaxcomputation.Tables("DEEMED_INTEREST")
+                }
                 rpt.ExportToXlsx(path)
 
                 MsgBox("Successfully export to " & path, MsgBoxStyle.Information)
@@ -139,6 +151,8 @@ Public Class ucDeemedInterest_Report
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

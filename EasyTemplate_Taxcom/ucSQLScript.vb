@@ -1,7 +1,7 @@
 ﻿Imports DevExpress.XtraEditors.Repository
 Imports System.Data.SqlClient
 Public Class ucSQLScript
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim doc As String = Nothing
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
@@ -20,6 +20,8 @@ Public Class ucSQLScript
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -46,6 +48,8 @@ Public Class ucSQLScript
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -120,9 +124,9 @@ Public Class ucSQLScript
 
             If strSQL.Contains("SELECT") = True Then
 
-                Dim SQLcmd As New SqlCommand
-
-                SQLcmd.CommandText = strSQL
+                Dim SQLcmd As New SqlCommand With {
+                    .CommandText = strSQL
+                }
 
                 Dim dt As DataTable = ADO.Load_SQLCmd(SQLcmd, SQLCOn, ErrorLog)
 
@@ -142,9 +146,9 @@ Public Class ucSQLScript
 
             Else
 
-                Dim SQLcmd As New SqlCommand
-
-                SQLcmd.CommandText = strSQL
+                Dim SQLcmd As New SqlCommand With {
+                    .CommandText = strSQL
+                }
 
                 If ADO.Run_SQLCmd(SQLcmd, SQLCOn, ErrorLog) = False Then
                     If ErrorLog IsNot Nothing Then
@@ -161,6 +165,8 @@ Public Class ucSQLScript
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -193,6 +199,8 @@ Public Class ucSQLScript
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -213,6 +221,8 @@ Public Class ucSQLScript
 
             btnExecute.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -233,6 +243,8 @@ Public Class ucSQLScript
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -252,6 +264,8 @@ Public Class ucSQLScript
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -260,6 +274,8 @@ Public Class ucSQLScript
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -268,6 +284,8 @@ Public Class ucSQLScript
         Try
             SELECTToolStripMenuItem.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

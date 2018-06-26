@@ -52,6 +52,8 @@
             End If
            
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

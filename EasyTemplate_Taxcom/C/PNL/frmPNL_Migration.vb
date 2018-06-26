@@ -1,18 +1,20 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class frmPNL_Migration
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Private Sub frmPNL_Migration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Timer1.Enabled = True
             Timer1.Start()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
-    Public Function LoadData(Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function LoadData(Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
 
             Dim dtListofable As DataTable = ADO.Load_PNL_GETTableList(Errorlog)
@@ -35,8 +37,9 @@ Public Class frmPNL_Migration
 
                     If TableName <> "" Then
                         SQLcmd = Nothing
-                        SQLcmd = New SqlCommand
-                        SQLcmd.CommandText = "SELECT * FROM " & TableName
+                        SQLcmd = New SqlCommand With {
+                            .CommandText = "SELECT * FROM " & TableName
+                        }
 
                         dtData = ADO.Load_SQLCmd(SQLcmd, Errorlog)
 
@@ -49,8 +52,9 @@ Public Class frmPNL_Migration
 
                                 If TableNameDetails <> "" Then
                                     SQLcmd = Nothing
-                                    SQLcmd = New SqlCommand
-                                    SQLcmd.CommandText = "SELECT * FROM " & TableNameDetails & "WHERE " & ColumnNameDetails & "=" & IIf(IsDBNull(dtData(ColumnName)), 0, dtData(ColumnName))
+                                    SQLcmd = New SqlCommand With {
+                                        .CommandText = "SELECT * FROM " & TableNameDetails & "WHERE " & ColumnNameDetails & "=" & IIf(IsDBNull(dtData(ColumnName)), 0, dtData(ColumnName))
+                                    }
 
                                     dtDataDetails = ADO.Load_SQLCmd(SQLcmd, Errorlog)
 
@@ -83,14 +87,16 @@ Public Class frmPNL_Migration
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
@@ -104,6 +110,8 @@ Public Class frmPNL_Migration
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

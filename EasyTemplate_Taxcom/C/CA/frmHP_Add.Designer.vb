@@ -25,6 +25,7 @@ Partial Class frmHP_Add
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnSave = New DevExpress.XtraBars.BarButtonItem()
         Me.btnClose = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDuplicate = New DevExpress.XtraBars.BarButtonItem()
         Me.txtDuplicateNo = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemSpinEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit()
@@ -138,7 +139,6 @@ Partial Class frmHP_Add
         Me.btnSumofDigits = New DevExpress.XtraEditors.SimpleButton()
         Me.lblTypeInstallment = New DevExpress.XtraEditors.LabelControl()
         Me.lblTitleSchedule = New DevExpress.XtraEditors.LabelControl()
-        Me.btnNote = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -238,6 +238,15 @@ Partial Class frmHP_Add
         Me.btnClose.ImageOptions.LargeImage = CType(resources.GetObject("btnClose.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote
+        '
+        Me.btnNote.Caption = "Note"
+        Me.btnNote.Id = 9
+        Me.btnNote.ImageOptions.Image = CType(resources.GetObject("btnNote.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote.ImageOptions.LargeImage = CType(resources.GetObject("btnNote.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote.Name = "btnNote"
+        Me.btnNote.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnDuplicate
         '
@@ -1324,15 +1333,6 @@ Partial Class frmHP_Add
         Me.lblTitleSchedule.Size = New System.Drawing.Size(180, 19)
         Me.lblTitleSchedule.TabIndex = 269
         Me.lblTitleSchedule.Text = "Installments Schedule"
-        '
-        'btnNote
-        '
-        Me.btnNote.Caption = "Note"
-        Me.btnNote.Id = 9
-        Me.btnNote.ImageOptions.Image = CType(resources.GetObject("BarButtonItem1.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnNote.ImageOptions.LargeImage = CType(resources.GetObject("BarButtonItem1.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnNote.Name = "btnNote"
-        Me.btnNote.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'frmHP_Add
         '

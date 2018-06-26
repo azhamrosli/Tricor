@@ -49,6 +49,8 @@ Partial Public Class rpt_CP204_Note
         Me.XrTableCell8 = New DevExpress.XtraReports.UI.XRTableCell()
         Me.DsCP2041 = New EasyTemplate_Taxcom.dsCP204()
         Me.FormattingRule1 = New DevExpress.XtraReports.UI.FormattingRule()
+        Me.XrLabel1 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.FormattingRule2 = New DevExpress.XtraReports.UI.FormattingRule()
         CType(Me.XrTable1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.XrTable2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -58,6 +60,7 @@ Partial Public Class rpt_CP204_Note
         'Detail
         '
         Me.Detail.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable1})
+        Me.Detail.FormattingRules.Add(Me.FormattingRule2)
         Me.Detail.HeightF = 25.0!
         Me.Detail.Name = "Detail"
         Me.Detail.Padding = New DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100.0!)
@@ -83,14 +86,14 @@ Partial Public Class rpt_CP204_Note
         Me.XrTableCell1.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BORANG_CP204_NOTE.Title")})
         Me.XrTableCell1.Name = "XrTableCell1"
         Me.XrTableCell1.Text = "XrTableCell1"
-        Me.XrTableCell1.Weight = 0.10102551468776774R
+        Me.XrTableCell1.Weight = 0.07353994487533945R
         '
         'XrTableCell2
         '
         Me.XrTableCell2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BORANG_CP204_NOTE.Note")})
         Me.XrTableCell2.Name = "XrTableCell2"
         Me.XrTableCell2.Text = "XrTableCell2"
-        Me.XrTableCell2.Weight = 0.36301160828206985R
+        Me.XrTableCell2.Weight = 0.39049717809449813R
         '
         'TopMargin
         '
@@ -109,7 +112,7 @@ Partial Public Class rpt_CP204_Note
         'ReportHeader
         '
         Me.ReportHeader.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.lblTitleNote})
-        Me.ReportHeader.HeightF = 57.99998!
+        Me.ReportHeader.HeightF = 56.95831!
         Me.ReportHeader.Name = "ReportHeader"
         '
         'lblTitleNote
@@ -140,10 +143,10 @@ Partial Public Class rpt_CP204_Note
         'XrTable3
         '
         Me.XrTable3.Font = New System.Drawing.Font("Arial", 9.75!)
-        Me.XrTable3.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrTable3.LocationFloat = New DevExpress.Utils.PointFloat(99.99998!, 0.0!)
         Me.XrTable3.Name = "XrTable3"
         Me.XrTable3.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow3})
-        Me.XrTable3.SizeF = New System.Drawing.SizeF(631.0!, 25.0!)
+        Me.XrTable3.SizeF = New System.Drawing.SizeF(531.0!, 25.0!)
         Me.XrTable3.StylePriority.UseFont = False
         '
         'XrTableRow3
@@ -196,17 +199,17 @@ Partial Public Class rpt_CP204_Note
         '
         'ReportHeader1
         '
-        Me.ReportHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrTable2})
+        Me.ReportHeader1.Controls.AddRange(New DevExpress.XtraReports.UI.XRControl() {Me.XrLabel1, Me.XrTable2})
         Me.ReportHeader1.HeightF = 25.0!
         Me.ReportHeader1.Name = "ReportHeader1"
         '
         'XrTable2
         '
-        Me.XrTable2.Font = New System.Drawing.Font("Arial", 9.75!)
-        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrTable2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrTable2.LocationFloat = New DevExpress.Utils.PointFloat(99.99998!, 0.0!)
         Me.XrTable2.Name = "XrTable2"
         Me.XrTable2.Rows.AddRange(New DevExpress.XtraReports.UI.XRTableRow() {Me.XrTableRow2})
-        Me.XrTable2.SizeF = New System.Drawing.SizeF(631.0!, 25.0!)
+        Me.XrTable2.SizeF = New System.Drawing.SizeF(531.0!, 25.0!)
         Me.XrTable2.StylePriority.UseFont = False
         '
         'XrTableRow2
@@ -269,12 +272,30 @@ Partial Public Class rpt_CP204_Note
         Me.FormattingRule1.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[True]
         Me.FormattingRule1.Name = "FormattingRule1"
         '
+        'XrLabel1
+        '
+        Me.XrLabel1.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BORANG_CP204_NOTE.Title")})
+        Me.XrLabel1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.XrLabel1.LocationFloat = New DevExpress.Utils.PointFloat(0.0!, 0.0!)
+        Me.XrLabel1.Name = "XrLabel1"
+        Me.XrLabel1.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 96.0!)
+        Me.XrLabel1.SizeF = New System.Drawing.SizeF(100.0!, 23.0!)
+        Me.XrLabel1.StylePriority.UseFont = False
+        Me.XrLabel1.Text = "XrLabel1"
+        '
+        'FormattingRule2
+        '
+        Me.FormattingRule2.Condition = "[TypeNote]=2"
+        Me.FormattingRule2.DataMember = "BORANG_CP204_NOTE"
+        Me.FormattingRule2.Formatting.Visible = DevExpress.Utils.DefaultBoolean.[False]
+        Me.FormattingRule2.Name = "FormattingRule2"
+        '
         'rpt_CP204_Note
         '
         Me.Bands.AddRange(New DevExpress.XtraReports.UI.Band() {Me.Detail, Me.TopMargin, Me.BottomMargin, Me.ReportHeader, Me.DetailReport})
         Me.DataMember = "BORANG_CP204_NOTE"
         Me.DataSource = Me.DsCP2041
-        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1})
+        Me.FormattingRuleSheet.AddRange(New DevExpress.XtraReports.UI.FormattingRule() {Me.FormattingRule1, Me.FormattingRule2})
         Me.Margins = New System.Drawing.Printing.Margins(105, 114, 0, 0)
         Me.ScriptLanguage = DevExpress.XtraReports.ScriptLanguage.VisualBasic
         Me.Version = "17.1"
@@ -315,4 +336,6 @@ Partial Public Class rpt_CP204_Note
     Friend WithEvents XrTableCell7 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents XrTableCell8 As DevExpress.XtraReports.UI.XRTableCell
     Friend WithEvents DsCP2041 As EasyTemplate_Taxcom.dsCP204
+    Friend WithEvents XrLabel1 As DevExpress.XtraReports.UI.XRLabel
+    Friend WithEvents FormattingRule2 As DevExpress.XtraReports.UI.FormattingRule
 End Class

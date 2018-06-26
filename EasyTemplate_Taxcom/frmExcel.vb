@@ -1,12 +1,12 @@
 ﻿Public Class frmExcel 
     Public isAutoOpen As Boolean = False
     Public Path As String = Nothing
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Private Sub frmExcel_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData(ErrorLog)
     End Sub
 
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             If isAutoOpen Then
 
@@ -25,14 +25,16 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try

@@ -24,6 +24,8 @@ Public Class rptMovementComplex
         Try
             lblTotal.Text = ((lblGeneral.Text) + CDec(lblSpecifiAllow.Text) + CDec(lblSpecifiAllowNon.Text)).ToString("N0")
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -42,9 +44,13 @@ Public Class rptMovementComplex
 
 
             Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
             End Try
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -60,6 +66,8 @@ Public Class rptMovementComplex
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

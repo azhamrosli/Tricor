@@ -2,11 +2,11 @@
 
 Public Class frmDatabase
     
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public Status As Boolean = False
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim SQLCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If chkDefault.Checked = True Then
                 If txtServerName.EditValue Is Nothing OrElse txtServerName.EditValue.ToString = "" Then
@@ -90,6 +90,8 @@ Public Class frmDatabase
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -98,6 +100,8 @@ Public Class frmDatabase
             frmHome.RefreshData()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -105,6 +109,8 @@ Public Class frmDatabase
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -145,6 +151,8 @@ Public Class frmDatabase
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -157,6 +165,8 @@ Public Class frmDatabase
         Try
             txtPassword.Properties.PasswordChar = ""
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -165,6 +175,8 @@ Public Class frmDatabase
         Try
             txtPassword.Properties.PasswordChar = "*"
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -173,6 +185,8 @@ Public Class frmDatabase
         Try
             txtPassword2.Properties.PasswordChar = ""
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -181,6 +195,8 @@ Public Class frmDatabase
         Try
             txtPassword2.Properties.PasswordChar = "*"
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -211,6 +227,8 @@ Public Class frmDatabase
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -219,7 +237,7 @@ Public Class frmDatabase
         Try
             Application.DoEvents()
             System.Threading.Thread.Sleep(1000)
-            Dim SQLCon As SqlConnection = Nothing
+            Dim SqlCon As SqlConnection = Nothing
 
             If txtIniDir.EditValue Is Nothing OrElse txtIniDir.EditValue = "" Then
                 MsgBox("Please select path to backup database.", MsgBoxStyle.Exclamation)
@@ -381,6 +399,8 @@ Public Class frmDatabase
             Application.DoEvents()
             System.Threading.Thread.Sleep(1000)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -393,6 +413,8 @@ Public Class frmDatabase
                 txtIniDir.Text = FolderBrowserDialog1.SelectedPath
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -405,6 +427,8 @@ Public Class frmDatabase
                 chkDefault2.Checked = True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -416,6 +440,8 @@ Public Class frmDatabase
                 chkDefault.Checked = True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -29,7 +29,7 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
     Public Const Main_TypeofIncome As String = "RIRD_TYPE_INCOME"  'PLFSD_DESC
 
     ' Dim MainDataset As DataSet = Nothing
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -46,12 +46,14 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
 
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
 
             Dim MonthDuration As Integer = 0
@@ -190,14 +192,16 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try
@@ -253,6 +257,8 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -261,6 +267,8 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
             GridView1.GetDataRow(e.RowHandle)(Main_Type) = "Investment"
             GridView1.GetDataRow(e.RowHandle)(Main_TypeofIncome) = "INTEREST INCOME"
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -280,6 +288,8 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -344,6 +354,8 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
 
             SaveData(False)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -357,6 +369,8 @@ Public Class ucPNL_p3InterestResPurS33_Monthly
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

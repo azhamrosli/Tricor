@@ -2,7 +2,7 @@
 
 Public Class frmTableofContent_Add
 
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public ID As Decimal = 0
     Public isEdit As Boolean = False
 
@@ -42,10 +42,12 @@ Public Class frmTableofContent_Add
 
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             Dim dtDefault As DataTable = ADO.Load_TableofContent_Default(Errorlog)
 
@@ -93,14 +95,16 @@ Public Class frmTableofContent_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try
@@ -152,6 +156,8 @@ Public Class frmTableofContent_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -163,6 +169,8 @@ Public Class frmTableofContent_Add
 
             CheckLastYearTOC()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -179,6 +187,8 @@ Public Class frmTableofContent_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -188,6 +198,8 @@ Public Class frmTableofContent_Add
             GridView1.GetDataRow(e.RowHandle)(Default_ParentNo) = 0
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -205,6 +217,8 @@ Public Class frmTableofContent_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -220,19 +234,11 @@ Public Class frmTableofContent_Add
                     e.Valid = False
                 End If
 
-                For Each rowDetailsList As DataRow In DsReport_Templatexsd.Tables(MainTable).Rows
-
-                    If rowDetailsList(Default_ReportName) = row(Default_ReportName) Then
-                        e.ErrorText = "Report already exist. Cannot add same report in one template, report should be unique."
-                        e.Valid = False
-                        Exit Sub
-                    End If
-
-                Next
-
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -245,6 +251,8 @@ Public Class frmTableofContent_Add
             End If
             mdlPNL.MoveItemsInListView_WithoutChild(True, MainTable, cboRefNo.EditValue, MainKey, GridView1, DsReport_Templatexsd, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -257,6 +265,8 @@ Public Class frmTableofContent_Add
             End If
             mdlPNL.MoveItemsInListView_WithoutChild(False, MainTable, cboRefNo.EditValue, MainKey, GridView1, DsReport_Templatexsd, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -268,6 +278,8 @@ Public Class frmTableofContent_Add
     Private Sub btnSave_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnSave.ItemClick
         Try
             If isValid() Then
+                DsReport_Templatexsd.Tables(MainTable).AcceptChanges()
+                Application.DoEvents()
 
                 If isEdit Then
                     If ADO.Update_TableOfContent(ID, cboRefNo.EditValue, cboRefNo.Properties.GetDisplayText(cboRefNo.EditValue), cboYA.EditValue, DsReport_Templatexsd.Tables(MainTable), ErrorLog) Then
@@ -292,6 +304,8 @@ Public Class frmTableofContent_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
 
@@ -316,8 +330,24 @@ Public Class frmTableofContent_Add
                     Return False
                 End If
             End If
+
+            Dim RptName As String = Nothing
+            Dim Countx As Object
+            For Each rowDetailsList As DataRow In DsReport_Templatexsd.Tables(MainTable).Rows
+
+                RptName = rowDetailsList(Default_ReportName)
+
+                Countx = DsReport_Templatexsd.Tables(MainTable).Compute("COUNT(TBL_REPORTNAME)", "TBL_REPORTNAME = '" & RptName & "'")
+
+                If Countx IsNot Nothing AndAlso IsNumeric(Countx) AndAlso CInt(Countx) > 1 Then
+                    MsgBox("Some of report if duplicate. please check back.", MsgBoxStyle.Exclamation)
+                    Return False
+                End If
+            Next
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return False
         End Try
 
@@ -334,6 +364,8 @@ Public Class frmTableofContent_Add
             DsReport_Templatexsd.Tables(MainTable).AcceptChanges()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -341,4 +373,5 @@ Public Class frmTableofContent_Add
     Private Sub GridControl1_Click(sender As Object, e As EventArgs) Handles GridControl1.Click
 
     End Sub
+
 End Class

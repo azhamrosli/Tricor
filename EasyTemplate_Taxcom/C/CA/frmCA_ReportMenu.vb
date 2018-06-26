@@ -1,11 +1,13 @@
 ﻿Public Class frmCA_ReportMenu 
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public TypeReport As Integer = 1
     Dim ListofIndexNo As List(Of Integer)
     Private Sub frmCA_ReportMenu_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -75,6 +77,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -90,6 +94,8 @@
                 gbRate.Enabled = True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -101,6 +107,8 @@
             Dim value As Object = row("CA_CATEGORY")
             txtCategory.Text = value.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -117,6 +125,8 @@
                 txtCategory.Enabled = True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -133,6 +143,8 @@
                 cboRateTo.Enabled = True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -201,40 +213,44 @@
             Else
                 Select Case ListofIndexNo(cboType.SelectedIndex)
                     Case 0, 1, 2, 3, 4, 5
-                        Dim frm As New frmCA_Report
-                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
-                        frm.ID = ID
-                        frm.RefNo = cboRefNo.EditValue
-                        frm.YA = cboYA.EditValue
-                        frm.ComName = cboRefNo.Text
+                        Dim frm As New frmCA_Report With {
+                            .TypeReport = ListofIndexNo(cboType.SelectedIndex),
+                            .ID = ID,
+                            .RefNo = CType(cboRefNo.EditValue, String),
+                            .YA = cboYA.EditValue,
+                            .ComName = cboRefNo.Text
+                        }
                         frm.Show()
 
                     Case 6
-                        Dim frm As New frmCA_Report_FA_Reconciliation
-                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
-                        frm.ID = ID
-                        frm.RefNo = cboRefNo.EditValue
-                        frm.YA = cboYA.EditValue
-                        frm.ComName = cboRefNo.Text
+                        Dim frm As New frmCA_Report_FA_Reconciliation With {
+                            .TypeReport = ListofIndexNo(cboType.SelectedIndex),
+                            .ID = ID,
+                            .RefNo = CType(cboRefNo.EditValue, String),
+                            .YA = cboYA.EditValue,
+                            .ComName = cboRefNo.Text
+                        }
                         frm.Show()
 
                     Case 7
                         'control transfer
-                        Dim frm As New frmCA_Report_ControlTransfer
-                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
-                        frm.ID = ID
-                        frm.RefNo = cboRefNo.EditValue
-                        frm.YA = cboYA.EditValue
-                        frm.ComName = cboRefNo.Text
+                        Dim frm As New frmCA_Report_ControlTransfer With {
+                            .TypeReport = ListofIndexNo(cboType.SelectedIndex),
+                            .ID = ID,
+                            .RefNo = CType(cboRefNo.EditValue, String),
+                            .YA = cboYA.EditValue,
+                            .ComName = cboRefNo.Text
+                        }
                         frm.Show()
                     Case 8, 9, 10
                         'disposal
                         'written off
                         'control transfer out
 
-                        Dim frm As New frmCA_Report_Disposal
-                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
-                        frm.ID = ID
+                        Dim frm As New frmCA_Report_Disposal With {
+                            .TypeReport = ListofIndexNo(cboType.SelectedIndex),
+                            .ID = ID
+                        }
 
                         Select Case ListofIndexNo(cboType.SelectedIndex)
                             Case 8
@@ -246,41 +262,46 @@
                             Case Else
                                 frm.Type = 0
                         End Select
-                        frm.RefNo = cboRefNo.EditValue
+                        frm.RefNo = CType(cboRefNo.EditValue, String)
                         frm.YA = cboYA.EditValue
                         frm.ComName = cboRefNo.Text
                         frm.Show()
                     Case 11
                         'Hire Purchase
 
-                        Dim frm As New frmHP_Report
-                        frm.ID = ID
-                        frm.RefNo = cboRefNo.EditValue
-                        frm.YA = cboYA.EditValue
-                        frm.ComName = cboRefNo.Text
+                        Dim frm As New frmHP_Report With {
+                            .ID = ID,
+                            .RefNo = CType(cboRefNo.EditValue, String),
+                            .YA = cboYA.EditValue,
+                            .ComName = cboRefNo.Text
+                        }
                         frm.Show()
                     Case 12
                         'Summary QE
-                        Dim frm As New frmCA_Report_SummaryQE
-                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
-                        frm.ID = ID
-                        frm.RefNo = cboRefNo.EditValue
-                        frm.YA = cboYA.EditValue
-                        frm.ComName = cboRefNo.Text
+                        Dim frm As New frmCA_Report_SummaryQE With {
+                            .TypeReport = ListofIndexNo(cboType.SelectedIndex),
+                            .ID = ID,
+                            .RefNo = CType(cboRefNo.EditValue, String),
+                            .YA = cboYA.EditValue,
+                            .ComName = cboRefNo.Text
+                        }
                         frm.Show()
                     Case 13
                         'Analysis
-                        Dim frm As New frmCA_Report_Analysis
-                        frm.TypeReport = ListofIndexNo(cboType.SelectedIndex)
-                        frm.ID = ID
-                        frm.RefNo = cboRefNo.EditValue
-                        frm.YA = cboYA.EditValue
-                        frm.ComName = cboRefNo.Text
+                        Dim frm As New frmCA_Report_Analysis With {
+                            .TypeReport = ListofIndexNo(cboType.SelectedIndex),
+                            .ID = ID,
+                            .RefNo = CType(cboRefNo.EditValue, String),
+                            .YA = cboYA.EditValue,
+                            .ComName = cboRefNo.Text
+                        }
                         frm.Show()
                 End Select
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

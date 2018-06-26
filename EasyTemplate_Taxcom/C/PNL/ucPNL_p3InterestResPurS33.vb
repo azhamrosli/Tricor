@@ -31,7 +31,7 @@ Public Class ucPNL_p3InterestResPurS33
 
     Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -57,26 +57,30 @@ Public Class ucPNL_p3InterestResPurS33
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
 
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             EXPENSESINTERESTRESTRICTBindingSource.DataSource = DsPNL1.Tables(MainTable)
 
             SplitContainerControl1.Panel2.Controls.Clear()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try
@@ -86,6 +90,8 @@ Public Class ucPNL_p3InterestResPurS33
         Try
             DoubleClickType()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -94,6 +100,8 @@ Public Class ucPNL_p3InterestResPurS33
         Try
             DoubleClickType()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -102,6 +110,8 @@ Public Class ucPNL_p3InterestResPurS33
         Try
             DoubleClickType()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -111,25 +121,27 @@ Public Class ucPNL_p3InterestResPurS33
 
             If row IsNot Nothing AndAlso IsDBNull(row(MainKey)) = False AndAlso IsDBNull(row(MainSourceNo)) = False Then
                 If row("EXIR_STATUS") = "Yearly" Then
-                    Dim uc As New ucPNL_p3InterestResPurS33_Yearly
-                    uc.DataView_Main = DsPNL1
-                    uc.Dock = DockStyle.Fill
-                    uc.txtAmount = txtAmount
-                    uc.KeyID = row(MainKey)
-                    uc.RefNo = RefNo
-                    uc.YA = YA
-                    uc.SourceNo = CInt(row(MainSourceNo))
+                    Dim uc As New ucPNL_p3InterestResPurS33_Yearly With {
+                        .DataView_Main = DsPNL1,
+                        .Dock = DockStyle.Fill,
+                        .txtAmount = txtAmount,
+                        .KeyID = row(MainKey),
+                        .RefNo = RefNo,
+                        .YA = YA,
+                        .SourceNo = CInt(row(MainSourceNo))
+                    }
                     SplitContainerControl1.Panel2.Controls.Clear()
                     SplitContainerControl1.Panel2.Controls.Add(uc)
                 Else
-                    Dim uc As New ucPNL_p3InterestResPurS33_Monthly_Tricor
-                    uc.DataView_Main = DsPNL1
-                    uc.Dock = DockStyle.Fill
-                    uc.txtAmount = txtAmount
-                    uc.RefNo = RefNo
-                    uc.KeyID = row(MainKey)
-                    uc.YA = YA
-                    uc.SourceNo = CInt(row(MainSourceNo))
+                    Dim uc As New ucPNL_p3InterestResPurS33_Monthly_Tricor With {
+                        .DataView_Main = DsPNL1,
+                        .Dock = DockStyle.Fill,
+                        .txtAmount = txtAmount,
+                        .RefNo = RefNo,
+                        .KeyID = row(MainKey),
+                        .YA = YA,
+                        .SourceNo = CInt(row(MainSourceNo))
+                    }
                     SplitContainerControl1.Panel2.Controls.Clear()
                     SplitContainerControl1.Panel2.Controls.Add(uc)
                 End If
@@ -137,6 +149,8 @@ Public Class ucPNL_p3InterestResPurS33
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -147,6 +161,8 @@ Public Class ucPNL_p3InterestResPurS33
             GridView1.GetDataRow(e.RowHandle)(MainDetail) = "No"
             GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -164,6 +180,8 @@ Public Class ucPNL_p3InterestResPurS33
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -177,6 +195,8 @@ Public Class ucPNL_p3InterestResPurS33
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -218,6 +238,8 @@ Public Class ucPNL_p3InterestResPurS33
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -232,6 +254,8 @@ Public Class ucPNL_p3InterestResPurS33
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -244,20 +268,25 @@ Public Class ucPNL_p3InterestResPurS33
                 GridView1.DeleteSelectedRows()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
     Private Sub BarButtonItem1_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem1.ItemClick
         Try
-            Dim frm As New frmPNL_InterestResPurS33_Monthly
-            frm.DataView_Main = dsDataSet
-            frm.RefNo = RefNo
-            frm.SourceNo = SourceNo.EditValue
-            frm.YA = YA
+            Dim frm As New frmPNL_InterestResPurS33_Monthly With {
+                .DataView_Main = dsDataSet,
+                .RefNo = RefNo,
+                .SourceNo = SourceNo.EditValue,
+                .YA = YA
+            }
             frm.ShowDialog()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -270,6 +299,8 @@ Public Class ucPNL_p3InterestResPurS33
             mdlPNL.OpenNoteForm(GridView1, _RowInfo)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

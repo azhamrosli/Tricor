@@ -25,6 +25,7 @@ Partial Class frmCA_Add3
         Me.Bar1 = New DevExpress.XtraBars.Bar()
         Me.btnSave = New DevExpress.XtraBars.BarButtonItem()
         Me.btnClose = New DevExpress.XtraBars.BarButtonItem()
+        Me.btnNote = New DevExpress.XtraBars.BarButtonItem()
         Me.btnDuplicate = New DevExpress.XtraBars.BarButtonItem()
         Me.txtDuplicateNo = New DevExpress.XtraBars.BarEditItem()
         Me.RepositoryItemSpinEdit1 = New DevExpress.XtraEditors.Repository.RepositoryItemSpinEdit()
@@ -115,7 +116,6 @@ Partial Class frmCA_Add3
         Me.txtIA = New DevExpress.XtraEditors.TextEdit()
         Me.lblTitle_CA = New DevExpress.XtraEditors.LabelControl()
         Me.LabelControl16 = New DevExpress.XtraEditors.LabelControl()
-        Me.btnNote = New DevExpress.XtraBars.BarButtonItem()
         CType(Me.BarManager1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemSpinEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RepositoryItemTextEdit1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -213,6 +213,15 @@ Partial Class frmCA_Add3
         Me.btnClose.ImageOptions.LargeImage = CType(resources.GetObject("btnClose.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        '
+        'btnNote
+        '
+        Me.btnNote.Caption = "Note"
+        Me.btnNote.Id = 9
+        Me.btnNote.ImageOptions.Image = CType(resources.GetObject("btnNote.ImageOptions.Image"), System.Drawing.Image)
+        Me.btnNote.ImageOptions.LargeImage = CType(resources.GetObject("btnNote.ImageOptions.LargeImage"), System.Drawing.Image)
+        Me.btnNote.Name = "btnNote"
+        Me.btnNote.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'btnDuplicate
         '
@@ -761,9 +770,9 @@ Partial Class frmCA_Add3
         '
         Me.txtRestrictedQua.Location = New System.Drawing.Point(148, 232)
         Me.txtRestrictedQua.Name = "txtRestrictedQua"
-        Me.txtRestrictedQua.Properties.DisplayFormat.FormatString = "n"
+        Me.txtRestrictedQua.Properties.DisplayFormat.FormatString = "n0"
         Me.txtRestrictedQua.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtRestrictedQua.Properties.Mask.EditMask = "n"
+        Me.txtRestrictedQua.Properties.Mask.EditMask = "n0"
         Me.txtRestrictedQua.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtRestrictedQua.Properties.NullText = "0"
         Me.txtRestrictedQua.Properties.NullValuePrompt = "0"
@@ -783,9 +792,9 @@ Partial Class frmCA_Add3
         '
         Me.txtDeposit.Location = New System.Drawing.Point(148, 206)
         Me.txtDeposit.Name = "txtDeposit"
-        Me.txtDeposit.Properties.DisplayFormat.FormatString = "n"
+        Me.txtDeposit.Properties.DisplayFormat.FormatString = "n0"
         Me.txtDeposit.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtDeposit.Properties.Mask.EditMask = "n"
+        Me.txtDeposit.Properties.Mask.EditMask = "n0"
         Me.txtDeposit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtDeposit.Properties.NullText = "0"
         Me.txtDeposit.Properties.NullValuePrompt = "0"
@@ -805,9 +814,9 @@ Partial Class frmCA_Add3
         '
         Me.txtPurchaseAmountFA.Location = New System.Drawing.Point(148, 180)
         Me.txtPurchaseAmountFA.Name = "txtPurchaseAmountFA"
-        Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatString = "n"
+        Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatString = "n0"
         Me.txtPurchaseAmountFA.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtPurchaseAmountFA.Properties.Mask.EditMask = "n"
+        Me.txtPurchaseAmountFA.Properties.Mask.EditMask = "n0"
         Me.txtPurchaseAmountFA.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtPurchaseAmountFA.Properties.NullText = "0"
         Me.txtPurchaseAmountFA.Properties.NullValuePrompt = "0"
@@ -918,9 +927,9 @@ Partial Class frmCA_Add3
         '
         Me.txtTWDV.Location = New System.Drawing.Point(733, 257)
         Me.txtTWDV.Name = "txtTWDV"
-        Me.txtTWDV.Properties.DisplayFormat.FormatString = "n"
+        Me.txtTWDV.Properties.DisplayFormat.FormatString = "n0"
         Me.txtTWDV.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtTWDV.Properties.Mask.EditMask = "n"
+        Me.txtTWDV.Properties.Mask.EditMask = "n0"
         Me.txtTWDV.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtTWDV.Properties.NullText = "0"
         Me.txtTWDV.Properties.NullValuePrompt = "0"
@@ -940,9 +949,9 @@ Partial Class frmCA_Add3
         '
         Me.txtRemainingQualifyingCost.Location = New System.Drawing.Point(733, 231)
         Me.txtRemainingQualifyingCost.Name = "txtRemainingQualifyingCost"
-        Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatString = "n"
+        Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
         Me.txtRemainingQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtRemainingQualifyingCost.Properties.Mask.EditMask = "n"
+        Me.txtRemainingQualifyingCost.Properties.Mask.EditMask = "n0"
         Me.txtRemainingQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtRemainingQualifyingCost.Properties.NullText = "0"
         Me.txtRemainingQualifyingCost.Properties.NullValuePrompt = "0"
@@ -963,9 +972,9 @@ Partial Class frmCA_Add3
         '
         Me.txtNonQualifyingCost.Location = New System.Drawing.Point(733, 205)
         Me.txtNonQualifyingCost.Name = "txtNonQualifyingCost"
-        Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatString = "n"
+        Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
         Me.txtNonQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtNonQualifyingCost.Properties.Mask.EditMask = "n"
+        Me.txtNonQualifyingCost.Properties.Mask.EditMask = "n0"
         Me.txtNonQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtNonQualifyingCost.Properties.NullText = "0"
         Me.txtNonQualifyingCost.Properties.NullValuePrompt = "0"
@@ -986,9 +995,9 @@ Partial Class frmCA_Add3
         '
         Me.txtQualifyingCost.Location = New System.Drawing.Point(733, 179)
         Me.txtQualifyingCost.Name = "txtQualifyingCost"
-        Me.txtQualifyingCost.Properties.DisplayFormat.FormatString = "n"
+        Me.txtQualifyingCost.Properties.DisplayFormat.FormatString = "n0"
         Me.txtQualifyingCost.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtQualifyingCost.Properties.Mask.EditMask = "n"
+        Me.txtQualifyingCost.Properties.Mask.EditMask = "n0"
         Me.txtQualifyingCost.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtQualifyingCost.Properties.NullText = "0"
         Me.txtQualifyingCost.Properties.NullValuePrompt = "0"
@@ -1008,9 +1017,9 @@ Partial Class frmCA_Add3
         '
         Me.txtPurchaseAmount.Location = New System.Drawing.Point(733, 153)
         Me.txtPurchaseAmount.Name = "txtPurchaseAmount"
-        Me.txtPurchaseAmount.Properties.DisplayFormat.FormatString = "n"
+        Me.txtPurchaseAmount.Properties.DisplayFormat.FormatString = "n0"
         Me.txtPurchaseAmount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric
-        Me.txtPurchaseAmount.Properties.Mask.EditMask = "n"
+        Me.txtPurchaseAmount.Properties.Mask.EditMask = "n0"
         Me.txtPurchaseAmount.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
         Me.txtPurchaseAmount.Properties.NullText = "0"
         Me.txtPurchaseAmount.Properties.NullValuePrompt = "0"
@@ -1085,15 +1094,6 @@ Partial Class frmCA_Add3
         Me.LabelControl16.Size = New System.Drawing.Size(66, 13)
         Me.LabelControl16.TabIndex = 209
         Me.LabelControl16.Text = "IA Rate (%) :"
-        '
-        'btnNote
-        '
-        Me.btnNote.Caption = "Note"
-        Me.btnNote.Id = 9
-        Me.btnNote.ImageOptions.Image = CType(resources.GetObject("btnNote.ImageOptions.Image"), System.Drawing.Image)
-        Me.btnNote.ImageOptions.LargeImage = CType(resources.GetObject("btnNote.ImageOptions.LargeImage"), System.Drawing.Image)
-        Me.btnNote.Name = "btnNote"
-        Me.btnNote.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
         '
         'frmCA_Add3
         '

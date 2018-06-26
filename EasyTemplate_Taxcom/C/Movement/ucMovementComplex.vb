@@ -1,7 +1,7 @@
 ﻿Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 Public Class ucMovementComplex
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim clsMovement_Note As clsNote_Movement
     Sub New()
 
@@ -19,6 +19,8 @@ Public Class ucMovementComplex
         Try
             Me.LoadData(0)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -72,6 +74,8 @@ Public Class ucMovementComplex
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -81,18 +85,23 @@ Public Class ucMovementComplex
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim frm As New frmMovementComplex_Add
-            frm.isEdit = False
-            frm.ID = 0
+            Dim frm As New frmMovementComplex_Add With {
+                .isEdit = False,
+                .ID = 0
+            }
             frm.ShowDialog()
 
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -104,6 +113,8 @@ Public Class ucMovementComplex
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -112,6 +123,8 @@ Public Class ucMovementComplex
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -121,6 +134,8 @@ Public Class ucMovementComplex
             cboRefNo.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -130,6 +145,8 @@ Public Class ucMovementComplex
             cboYA.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -140,6 +157,8 @@ Public Class ucMovementComplex
             cboYA.EditValue = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -148,12 +167,15 @@ Public Class ucMovementComplex
         Try
             Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("MM_ID")
 
-            Dim frm As New frmMovementComplex_Add
-            frm.isEdit = True
-            frm.ID = ID
+            Dim frm As New frmMovementComplex_Add With {
+                .isEdit = True,
+                .ID = ID
+            }
             frm.ShowDialog()
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -181,6 +203,8 @@ Public Class ucMovementComplex
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -189,6 +213,8 @@ Public Class ucMovementComplex
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -197,6 +223,8 @@ Public Class ucMovementComplex
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -214,14 +242,16 @@ Public Class ucMovementComplex
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)

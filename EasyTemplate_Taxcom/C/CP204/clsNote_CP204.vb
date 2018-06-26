@@ -16,6 +16,8 @@ Public Class clsNote_CP204
         Try
             _Row = Row
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -82,9 +84,9 @@ Public Class clsNote_CP204
 
     End Enum
 #Region "DATABASE"
-    Public Function Load_Note(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note(Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -92,27 +94,30 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note(ByVal ID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note(ByVal ID As Decimal, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -120,28 +125,31 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE WHERE ID=@ID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ID", SqlDbType.Decimal).Value = ID
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note(ByVal RefNo As String, ByVal YA As String, Optional Title As String = "", Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note(ByVal RefNo As String, ByVal YA As String, Optional Title As String = "", Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -185,22 +193,24 @@ Public Class clsNote_CP204
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note(ByVal RefNo As String, ByVal YA As String, ByVal Parent_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note(ByVal RefNo As String, ByVal YA As String, ByVal Parent_KEY As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -217,22 +227,24 @@ Public Class clsNote_CP204
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note(ByVal TagID As String, ByVal Parent_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note(ByVal TagID As String, ByVal Parent_KEY As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -240,29 +252,32 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE WHERE TagID=@TagID AND Parent_KEY=@Parent_KEY"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
             SQLcmd.Parameters.Add("@Parent_KEY", SqlDbType.Int).Value = Parent_KEY
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note_Attachment(ByVal ID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note_Attachment(ByVal ID As Decimal, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -270,28 +285,31 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE_ATTACHMENT WHERE ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note_Attachment(ByVal ID As Decimal, ByVal ParentID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note_Attachment(ByVal ID As Decimal, ByVal ParentID As Decimal, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -299,29 +317,32 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE_ATTACHMENT WHERE Parent_KEY=@Parent_KEY AND ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@Parent_KEY", SqlDbType.Decimal).Value = ID
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ParentID
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note_Column(ByVal ID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note_Column(ByVal ID As Decimal, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -329,28 +350,31 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE_COLUMN WHERE ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_Note_Column(ByVal ID As Decimal, ByVal ParentID As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_Note_Column(ByVal ID As Decimal, ByVal ParentID As Decimal, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -358,43 +382,47 @@ Public Class clsNote_CP204
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM BORANG_CP204_NOTE_COLUMN WHERE Parent_KEY=@Parent_KEY AND ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@Parent_KEY", SqlDbType.Decimal).Value = ID
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ParentID
 
             Return GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Save_Note(ByVal Title As String, ByVal RefNo As String, ByVal YA As String, _
+    Public Function Save_Note(ByVal TitleFront As String, ByVal Title As String, ByVal RefNo As String, ByVal YA As String, _
                               ByVal Parent_KEY As Integer, ByVal DataID As Integer, _
                               ByVal TypeNote As NoteType, _
                               ByVal Note As String, ByVal dtAttachment As DataTable, _
                               ByVal dtColumn As DataTable, ByVal TagID As String, _
-                              ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                              ByRef ReturnID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
             End If
 
             Dim SQLcmd As SqlCommand
-            Dim StrSQL As String = "INSERT INTO BORANG_CP204_NOTE (Title,RefNo,YA,Parent_KEY,DataID,TypeNote,TagID,Note) VALUES (@Title,@RefNo,@YA,@Parent_KEY,@DataID,@TypeNote,@TagID,@Note)"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            Dim StrSQL As String = "INSERT INTO BORANG_CP204_NOTE (Title,RefNo,YA,Parent_KEY,DataID,TypeNote,TagID,Note,TitleFront) VALUES (@Title,@RefNo,@YA,@Parent_KEY,@DataID,@TypeNote,@TagID,@Note,@TitleFront)"
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@Title", SqlDbType.NVarChar, 250).Value = Title
             SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@YA", SqlDbType.NVarChar, 5).Value = YA
@@ -403,6 +431,7 @@ Public Class clsNote_CP204
             SQLcmd.Parameters.Add("@TypeNote", SqlDbType.Int).Value = TypeNote
             SQLcmd.Parameters.Add("@Note", SqlDbType.NVarChar, 4000).Value = Note
             SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
+            SQLcmd.Parameters.Add("@TitleFront", SqlDbType.NVarChar, 50).Value = TitleFront
 
             Dim status As Boolean = ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
 
@@ -419,8 +448,9 @@ Public Class clsNote_CP204
                                 StrSQL = Nothing
                                 SQLcmd = Nothing
                                 StrSQL = "INSERT INTO BORANG_CP204_NOTE_ATTACHMENT(ParentID,Attachment,Extension) VALUES (@ParentID,@Attachment,@Extension)"
-                                SQLcmd = New SqlCommand
-                                SQLcmd.CommandText = StrSQL
+                                SQLcmd = New SqlCommand With {
+                                    .CommandText = StrSQL
+                                }
                                 SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ReturnID
 
                                 If IsDBNull(rowx("Attachment")) = False Then
@@ -444,8 +474,9 @@ Public Class clsNote_CP204
                                 StrSQL = Nothing
                                 SQLcmd = Nothing
                                 StrSQL = "INSERT INTO BORANG_CP204_NOTE_COLUMN(ParentID,Col1_Name,Col1_Val,Col2_Name,Col2_Val,Col3_Name,Col3_Val,Col4_Name,Col4_Val,Col5_Name,Col5_Val,Col6_Name,Col6_Val) VALUES (@ParentID,@Col1_Name,@Col1_Val,@Col2_Name,@Col2_Val,@Col3_Name,@Col3_Val,@Col4_Name,@Col4_Val,@Col5_Name,@Col5_Val,@Col6_Name,@Col6_Val)"
-                                SQLcmd = New SqlCommand
-                                SQLcmd.CommandText = StrSQL
+                                SQLcmd = New SqlCommand With {
+                                    .CommandText = StrSQL
+                                }
                                 SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ReturnID
 
                                 SQLcmd.Parameters.Add("@Col1_Name", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(rowx("Col1_Name")), "", rowx("Col1_Name"))
@@ -487,26 +518,28 @@ Public Class clsNote_CP204
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function Update_Note(ByVal ID As Decimal, ByVal Title As String, ByVal RefNo As String, ByVal YA As String, _
+    Public Function Update_Note(ByVal ID As Decimal, ByVal TitleFront As String, ByVal Title As String, ByVal RefNo As String, ByVal YA As String, _
                               ByVal Parent_KEY As Integer, ByVal DataID As Integer, _
                               ByVal TypeNote As NoteType, _
                               ByVal Note As String, ByVal dtAttachment As DataTable, _
-                              ByVal dtColumn As DataTable, ByVal TagID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                              ByVal dtColumn As DataTable, ByVal TagID As String, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -518,8 +551,9 @@ Public Class clsNote_CP204
             Dim StrSQL As String = ""
 
             StrSQL = "DELETE BORANG_CP204_NOTE_ATTACHMENT WHERE ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
@@ -527,17 +561,19 @@ Public Class clsNote_CP204
             SQLcmd = Nothing
 
             StrSQL = "DELETE BORANG_CP204_NOTE_COLUMN WHERE ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
             StrSQL = Nothing
             SQLcmd = Nothing
 
-            StrSQL = "UPDATE BORANG_CP204_NOTE SET Title=@Title,RefNo=@RefNo,YA=@YA,Parent_KEY=@Parent_KEY,DataID=@DataID,TypeNote=@TypeNote,Note=@Note,TagID=@TagID WHERE ID=@ID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            StrSQL = "UPDATE BORANG_CP204_NOTE SET Title=@Title,RefNo=@RefNo,YA=@YA,Parent_KEY=@Parent_KEY,DataID=@DataID,TypeNote=@TypeNote,Note=@Note,TagID=@TagID,TitleFront=@TitleFront WHERE ID=@ID"
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
             SQLcmd.Parameters.Add("@Title", SqlDbType.NVarChar, 250).Value = Title
             SQLcmd.Parameters.Add("@RefNo", SqlDbType.NVarChar, 20).Value = RefNo
@@ -547,6 +583,7 @@ Public Class clsNote_CP204
             SQLcmd.Parameters.Add("@TypeNote", SqlDbType.Int).Value = TypeNote
             SQLcmd.Parameters.Add("@Note", SqlDbType.NVarChar, 4000).Value = Note
             SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
+            SQLcmd.Parameters.Add("@TitleFront", SqlDbType.NVarChar, 50).Value = TitleFront
 
             ListofSQLCmd.Add(SQLcmd)
 
@@ -559,8 +596,9 @@ Public Class clsNote_CP204
                             StrSQL = Nothing
                             SQLcmd = Nothing
                             StrSQL = "INSERT INTO BORANG_CP204_NOTE_ATTACHMENT(ParentID,Attachment,Extension) VALUES (@ParentID,@Attachment,@Extension)"
-                            SQLcmd = New SqlCommand
-                            SQLcmd.CommandText = StrSQL
+                            SQLcmd = New SqlCommand With {
+                                .CommandText = StrSQL
+                            }
                             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
 
                             If IsDBNull(rowx("Attachment")) = False Then
@@ -584,8 +622,9 @@ Public Class clsNote_CP204
                             StrSQL = Nothing
                             SQLcmd = Nothing
                             StrSQL = "INSERT INTO BORANG_CP204_NOTE_COLUMN(ParentID,Col1_Name,Col1_Val,Col2_Name,Col2_Val,Col3_Name,Col3_Val,Col4_Name,Col4_Val,Col5_Name,Col5_Val,Col6_Name,Col6_Val) VALUES (@ParentID,@Col1_Name,@Col1_Val,@Col2_Name,@Col2_Val,@Col3_Name,@Col3_Val,@Col4_Name,@Col4_Val,@Col5_Name,@Col5_Val,@Col6_Name,@Col6_Val)"
-                            SQLcmd = New SqlCommand
-                            SQLcmd.CommandText = StrSQL
+                            SQLcmd = New SqlCommand With {
+                                .CommandText = StrSQL
+                            }
                             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
 
                             SQLcmd.Parameters.Add("@Col1_Name", SqlDbType.NVarChar, 50).Value = IIf(IsDBNull(rowx("Col1_Name")), "", rowx("Col1_Name"))
@@ -623,23 +662,25 @@ Public Class clsNote_CP204
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function Delete_Note(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Delete_Note(ByVal ID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
             Dim ListofSQLCmd As New List(Of SqlCommand)
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -649,8 +690,9 @@ Public Class clsNote_CP204
 
 
             StrSQL = "DELETE BORANG_CP204_NOTE_ATTACHMENT WHERE ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
@@ -658,8 +700,9 @@ Public Class clsNote_CP204
             SQLcmd = Nothing
 
             StrSQL = "DELETE BORANG_CP204_NOTE_COLUMN WHERE ParentID=@ParentID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ParentID", SqlDbType.Decimal).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
@@ -667,22 +710,25 @@ Public Class clsNote_CP204
             SQLcmd = Nothing
 
             StrSQL = "DELETE BORANG_CP204_NOTE WHERE ID=@ID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ID", SqlDbType.Decimal).Value = ID
             ListofSQLCmd.Add(SQLcmd)
 
 
             Return ExecuteSQLTransactionBySQLCommand_NOReturnID(ListofSQLCmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod.Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False

@@ -3,7 +3,7 @@
 
     Public Function Report_CA(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                              Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                              Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
@@ -28,21 +28,23 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function Report_HP(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                              Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                              Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadHP_Search(RefNo, YA, -1, "", Errorlog)
 
@@ -67,21 +69,23 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function Report_DISPOSAL(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                              ByVal Type As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                              ByVal Type As Integer, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadDisposal_Search_Report(RefNo, YA, RateFrom, RateTo, Category, Type, Errorlog)
 
@@ -118,7 +122,7 @@
                 Dim DISP_BABC As Decimal = 0
                 Dim IndexNo As Integer = 0
                 Dim dtCA As DataTable = Nothing
-
+                Dim dtCategory As DataTable = Nothing
                 For i As Integer = 0 To dt.Rows.Count - 1
                     dtCA = Nothing
 
@@ -133,7 +137,17 @@
                         CA_YA = IIf(IsDBNull(dtCA.Rows(0)("CA_YA")), 0, dtCA.Rows(0)("CA_YA"))
                         HP_CODE = IIf(IsDBNull(dtCA.Rows(0)("HP_CODE")), "", dtCA.Rows(0)("HP_CODE"))
                         CA_ASSET_NAME = IIf(IsDBNull(dtCA.Rows(0)("CA_ASSET")), "", dtCA.Rows(0)("CA_ASSET"))
-                        CA_CATEGORY_CODE = IIf(IsDBNull(dtCA.Rows(0)("CA_CATEGORY_CODE")), "", dtCA.Rows(0)("CA_CATEGORY_CODE"))
+                        ' CA_CATEGORY_CODE = IIf(IsDBNull(dtCA.Rows(0)("CA_CATEGORY_CODE")), "", dtCA.Rows(0)("CA_CATEGORY_CODE"))
+
+                        dtCategory = ADO.LoadCategory(CStr(IIf(IsDBNull(dtCA.Rows(0)("CA_CATEGORY_CODE")), "", dtCA.Rows(0)("CA_CATEGORY_CODE"))), Errorlog)
+
+                        If dtCategory IsNot Nothing Then
+                            CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dtCategory.Rows(0)("CA_CATEGORY")), "", dtCategory.Rows(0)("CA_CATEGORY")))
+
+                        Else
+                            CA_CATEGORY_CODE = CStr(IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE")))
+                        End If
+
                         CA_MODE = IIf(IsDBNull(dtCA.Rows(0)("CA_MODE")), "OPN", dtCA.Rows(0)("CA_MODE"))
                         CA_QUALIFYING_COST = IIf(IsDBNull(dtCA.Rows(0)("CA_QUALIFYING_COST")), 0, dtCA.Rows(0)("CA_QUALIFYING_COST"))
                         CA_TRANSFERROR_NAME = IIf(IsDBNull(dtCA.Rows(0)("CA_TRANSFERROR_NAME")), "", dtCA.Rows(0)("CA_TRANSFERROR_NAME"))
@@ -167,14 +181,16 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
@@ -183,7 +199,7 @@
     End Function
     Public Function Report_CA_ControlTransfer(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                              Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                              Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadCA_Search_Report_ControlTransfer(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
@@ -333,14 +349,16 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
@@ -349,7 +367,7 @@
 
     Public Function Report_CA_Analysis(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                              ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                             Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                             Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
@@ -402,6 +420,7 @@
                     Dim AA_100 As Decimal = 0
                     Dim Total As Decimal = 0
                     Dim tmpTotal As Object = Nothing
+                    Dim dtCategory As DataTable = Nothing
                     For Each rowx As DataRow In dtData.Rows
 
                         AA_0 = 0
@@ -506,14 +525,16 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
@@ -521,7 +542,7 @@
     End Function
     Public Function Report_CA_SummaryQE(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                              ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                             Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                             Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
@@ -574,7 +595,7 @@
 
                     For Each rowx As DataRow In dtData.Rows
                         tmpTotal = Nothing
-                   
+
 
                         If tmpCategory <> IIf(IsDBNull(rowx("CA_CATEGORY_CODE")), "", rowx("CA_CATEGORY_CODE")) Then
                             AA_0 = 0
@@ -875,14 +896,16 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
@@ -890,7 +913,7 @@
     End Function
     Public Function Report_CA_FAConciliation(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, _
-                              Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                              Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
@@ -915,21 +938,23 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function Report_CA_Summary(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
                               ByVal RateFrom As Integer, ByVal RateTo As Integer, ByVal Category As String, ByVal Type As mdlEnum.CAReport_Type, _
-                              Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                              Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dtCA As DataTable = ADO.LoadCA_Search_Report(RefNo, "", RateFrom, RateTo, Category, Errorlog)
 
@@ -1060,19 +1085,21 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
-    Public Function GenerateHP_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal HP_KEY As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function GenerateHP_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal HP_KEY As Integer, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim BF_PRINCIPAL As Decimal = 0
             Dim BF_INTEREST As Decimal = 0
@@ -1104,7 +1131,7 @@
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
-                    Errorlog = New clsError
+                    Errorlog = New ClsError
                 End If
                 With Errorlog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -1204,20 +1231,22 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function GenerateCA_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal CA_KEY As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function GenerateCA_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal CA_KEY As Integer, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim QC_BF As Decimal = 0
             Dim QC_ADD As Decimal = 0
@@ -1258,7 +1287,7 @@
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
-                    Errorlog = New clsError
+                    Errorlog = New ClsError
                 End If
                 With Errorlog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -1436,20 +1465,22 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function GenerateCA_FixedAssetREconliliation_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal CA_KEY As Integer, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function GenerateCA_FixedAssetREconliliation_Schudule(ByVal RefNo As String, ByVal YA As String, ByVal ID As String, ByVal CA_KEY As Integer, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim QC_BF As Decimal = 0
             Dim QC_ADD As Decimal = 0
@@ -1495,7 +1526,7 @@
 
             If dt Is Nothing Then
                 If Errorlog Is Nothing Then
-                    Errorlog = New clsError
+                    Errorlog = New ClsError
                 End If
                 With Errorlog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -1707,14 +1738,16 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return False

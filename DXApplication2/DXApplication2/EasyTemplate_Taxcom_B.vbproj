@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B38EF26D-2843-44F9-9FED-149AD34422A3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EasyTemplate_Taxcom_B</RootNamespace>
+    <AssemblyName>EasyTemplate_Taxcom_B</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MyType>WindowsForms</MyType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>EasyTemplate_Taxcom_B.My.MyApplication</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v17.1" />
+    <Reference Include="DevExpress.Data.v17.1" />
+    <Reference Include="DevExpress.SpellChecker.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v17.1" />
+    <Reference Include="DevExpress.Sparkline.v17.1.Core" />
+    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.1" />
+    <Reference Include="DevExpress.Printing.v17.1.Core" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraSpellChecker.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Speech">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="clsIODatabase.vb" />
+    <Compile Include="dsDefault.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsDefault.vb">
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="frmHome.Designer.vb">
+      <DependentUpon>frmHome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmHome.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStartup.Designer.vb">
+      <DependentUpon>frmStartup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStartup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mdlencrypt.vb" />
+    <Compile Include="mdlProcess.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="PNL\clsPNL.vb" />
+    <Compile Include="PNL\dsPNL.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\dsPNL.vb">
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Add.Designer.vb">
+      <DependentUpon>frmPNL_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\frmPNL_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL.Designer.vb">
+      <DependentUpon>ucPNL.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3EPFStaff.Designer.vb">
+      <DependentUpon>ucPNL_p3EPFStaff.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3EPFStaff.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4CapExp.Designer.vb">
+      <DependentUpon>ucPNL_p4CapExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4CapExp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4AssWritOff.Designer.vb">
+      <DependentUpon>ucPNL_p4AssWritOff.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4AssWritOff.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1Purchase.Designer.vb">
+      <DependentUpon>ucPNL_p1Purchase.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1Purchase.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4PreCessExp.Designer.vb">
+      <DependentUpon>ucPNL_p4PreCessExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4PreCessExp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5MedExp.Designer.vb">
+      <DependentUpon>ucPNL_p5MedExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5MedExp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5OthNonAllowExpCha.Designer.vb">
+      <DependentUpon>ucPNL_p5OthNonAllowExpCha.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5OthNonAllowExpCha.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5Seminar.Designer.vb">
+      <DependentUpon>ucPNL_p5Seminar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5Seminar.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5SubsNotRelBusi.Designer.vb">
+      <DependentUpon>ucPNL_p5SubsNotRelBusi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5SubsNotRelBusi.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5Telephone.Designer.vb">
+      <DependentUpon>ucPNL_p5Telephone.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5Telephone.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5ResBen.Designer.vb">
+      <DependentUpon>ucPNL_p5ResBen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5ResBen.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5MotVehUsage.Designer.vb">
+      <DependentUpon>ucPNL_p5MotVehUsage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p5MotVehUsage.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4ProvDoubDebt.Designer.vb">
+      <DependentUpon>ucPNL_p4ProvDoubDebt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4ProvDoubDebt.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4DrawingPLCash.Designer.vb">
+      <DependentUpon>ucPNL_p4DrawingPLCash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4DrawingPLCash.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4DrawingPLStock.Designer.vb">
+      <DependentUpon>ucPNL_p4DrawingPLStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4DrawingPLStock.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4PenFineComp.Designer.vb">
+      <DependentUpon>ucPNL_p4PenFineComp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4PenFineComp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Donation.Designer.vb">
+      <DependentUpon>ucPNL_p4Donation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Donation.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Gift.Designer.vb">
+      <DependentUpon>ucPNL_p4Gift.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Gift.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Entertainment.Designer.vb">
+      <DependentUpon>ucPNL_p4Entertainment.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Entertainment.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Depreciation.Designer.vb">
+      <DependentUpon>ucPNL_p4Depreciation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Depreciation.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Others.Designer.vb">
+      <DependentUpon>ucPNL_p4Others.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4Others.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4LossInv.Designer.vb">
+      <DependentUpon>ucPNL_p4LossInv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4LossInv.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4LossForeExch.Designer.vb">
+      <DependentUpon>ucPNL_p4LossForeExch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4LossForeExch.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4LossDispFixAss.Designer.vb">
+      <DependentUpon>ucPNL_p4LossDispFixAss.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p4LossDispFixAss.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3OthExpenses.Designer.vb">
+      <DependentUpon>ucPNL_p3OthExpenses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3OthExpenses.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3LegalFee.Designer.vb">
+      <DependentUpon>ucPNL_p3LegalFee.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3LegalFee.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3EPFPersonal.Designer.vb">
+      <DependentUpon>ucPNL_p3EPFPersonal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3EPFPersonal.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3PromAdv.Designer.vb">
+      <DependentUpon>ucPNL_p3PromAdv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3PromAdv.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3InpTaxNotClaimJKDM.Designer.vb">
+      <DependentUpon>ucPNL_p3InpTaxNotClaimJKDM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3InpTaxNotClaimJKDM.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3RepairMaint.Designer.vb">
+      <DependentUpon>ucPNL_p3RepairMaint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3RepairMaint.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3TravTransAccom.Designer.vb">
+      <DependentUpon>ucPNL_p3TravTransAccom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3TravTransAccom.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3BadDebts.Designer.vb">
+      <DependentUpon>ucPNL_p3BadDebts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3BadDebts.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3Commission.Designer.vb">
+      <DependentUpon>ucPNL_p3Commission.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3Commission.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3ContSubCont.Designer.vb">
+      <DependentUpon>ucPNL_p3ContSubCont.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3ContSubCont.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3RentMort.Designer.vb">
+      <DependentUpon>ucPNL_p3RentMort.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3RentMort.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3SalAllowBon.Designer.vb">
+      <DependentUpon>ucPNL_p3SalAllowBon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3SalAllowBon.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3LoanInterest.Designer.vb">
+      <DependentUpon>ucPNL_p3LoanInterest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p3LoanInterest.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2Other.Designer.vb">
+      <DependentUpon>ucPNL_p2Other.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2Other.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2GainInv.Designer.vb">
+      <DependentUpon>ucPNL_p2GainInv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2GainInv.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2GainForeEx.Designer.vb">
+      <DependentUpon>ucPNL_p2GainForeEx.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2GainForeEx.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2OtherIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2OtherIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2OtherIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2GainDispFixAss.Designer.vb">
+      <DependentUpon>ucPNL_p2GainDispFixAss.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2GainDispFixAss.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2RoyaltyIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2RoyaltyIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2RoyaltyIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2RentalIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2RentalIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2RentalIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2InterestIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2InterestIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2InterestIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2DivIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2DivIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2DivIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1CloseStock.Designer.vb">
+      <DependentUpon>ucPNL_p1CloseStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1CloseStock.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1OtherAllowableExpenses.Designer.vb">
+      <DependentUpon>ucPNL_p1OtherAllowableExpenses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1OtherAllowableExpenses.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2OtherBizIncome.Designer.vb">
+      <DependentUpon>ucPNL_p2OtherBizIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p2OtherBizIncome.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1NonAllowableExpenses.Designer.vb">
+      <DependentUpon>ucPNL_p1NonAllowableExpenses.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1NonAllowableExpenses.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1Depreciation.Designer.vb">
+      <DependentUpon>ucPNL_p1Depreciation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1Depreciation.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1OpenStock.Designer.vb">
+      <DependentUpon>ucPNL_p1OpenStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1OpenStock.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1Sales.Designer.vb">
+      <DependentUpon>ucPNL_p1Sales.vb</DependentUpon>
+    </Compile>
+    <Compile Include="PNL\ucPNL_p1Sales.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SQLDataObject.vb" />
+    <EmbeddedResource Include="frmHome.resx">
+      <DependentUpon>frmHome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStartup.resx">
+      <DependentUpon>frmStartup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="PNL\frmPNL_Add.resx">
+      <DependentUpon>frmPNL_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL.resx">
+      <DependentUpon>ucPNL.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3EPFStaff.resx">
+      <DependentUpon>ucPNL_p3EPFStaff.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4CapExp.resx">
+      <DependentUpon>ucPNL_p4CapExp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4AssWritOff.resx">
+      <DependentUpon>ucPNL_p4AssWritOff.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1Purchase.resx">
+      <DependentUpon>ucPNL_p1Purchase.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4PreCessExp.resx">
+      <DependentUpon>ucPNL_p4PreCessExp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5MedExp.resx">
+      <DependentUpon>ucPNL_p5MedExp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5OthNonAllowExpCha.resx">
+      <DependentUpon>ucPNL_p5OthNonAllowExpCha.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5Seminar.resx">
+      <DependentUpon>ucPNL_p5Seminar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5SubsNotRelBusi.resx">
+      <DependentUpon>ucPNL_p5SubsNotRelBusi.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5Telephone.resx">
+      <DependentUpon>ucPNL_p5Telephone.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5ResBen.resx">
+      <DependentUpon>ucPNL_p5ResBen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p5MotVehUsage.resx">
+      <DependentUpon>ucPNL_p5MotVehUsage.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4ProvDoubDebt.resx">
+      <DependentUpon>ucPNL_p4ProvDoubDebt.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4DrawingPLCash.resx">
+      <DependentUpon>ucPNL_p4DrawingPLCash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4DrawingPLStock.resx">
+      <DependentUpon>ucPNL_p4DrawingPLStock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4PenFineComp.resx">
+      <DependentUpon>ucPNL_p4PenFineComp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4Donation.resx">
+      <DependentUpon>ucPNL_p4Donation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4Gift.resx">
+      <DependentUpon>ucPNL_p4Gift.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4Entertainment.resx">
+      <DependentUpon>ucPNL_p4Entertainment.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4Depreciation.resx">
+      <DependentUpon>ucPNL_p4Depreciation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4Others.resx">
+      <DependentUpon>ucPNL_p4Others.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4LossInv.resx">
+      <DependentUpon>ucPNL_p4LossInv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4LossForeExch.resx">
+      <DependentUpon>ucPNL_p4LossForeExch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p4LossDispFixAss.resx">
+      <DependentUpon>ucPNL_p4LossDispFixAss.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3OthExpenses.resx">
+      <DependentUpon>ucPNL_p3OthExpenses.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3LegalFee.resx">
+      <DependentUpon>ucPNL_p3LegalFee.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3EPFPersonal.resx">
+      <DependentUpon>ucPNL_p3EPFPersonal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3PromAdv.resx">
+      <DependentUpon>ucPNL_p3PromAdv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3InpTaxNotClaimJKDM.resx">
+      <DependentUpon>ucPNL_p3InpTaxNotClaimJKDM.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3RepairMaint.resx">
+      <DependentUpon>ucPNL_p3RepairMaint.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3TravTransAccom.resx">
+      <DependentUpon>ucPNL_p3TravTransAccom.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3BadDebts.resx">
+      <DependentUpon>ucPNL_p3BadDebts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3Commission.resx">
+      <DependentUpon>ucPNL_p3Commission.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3ContSubCont.resx">
+      <DependentUpon>ucPNL_p3ContSubCont.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3RentMort.resx">
+      <DependentUpon>ucPNL_p3RentMort.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3SalAllowBon.resx">
+      <DependentUpon>ucPNL_p3SalAllowBon.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p3LoanInterest.resx">
+      <DependentUpon>ucPNL_p3LoanInterest.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2Other.resx">
+      <DependentUpon>ucPNL_p2Other.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2GainInv.resx">
+      <DependentUpon>ucPNL_p2GainInv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2GainForeEx.resx">
+      <DependentUpon>ucPNL_p2GainForeEx.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2OtherIncome.resx">
+      <DependentUpon>ucPNL_p2OtherIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2GainDispFixAss.resx">
+      <DependentUpon>ucPNL_p2GainDispFixAss.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2RoyaltyIncome.resx">
+      <DependentUpon>ucPNL_p2RoyaltyIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2RentalIncome.resx">
+      <DependentUpon>ucPNL_p2RentalIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2InterestIncome.resx">
+      <DependentUpon>ucPNL_p2InterestIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2DivIncome.resx">
+      <DependentUpon>ucPNL_p2DivIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1CloseStock.resx">
+      <DependentUpon>ucPNL_p1CloseStock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1OtherAllowableExpenses.resx">
+      <DependentUpon>ucPNL_p1OtherAllowableExpenses.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p2OtherBizIncome.resx">
+      <DependentUpon>ucPNL_p2OtherBizIncome.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1NonAllowableExpenses.resx">
+      <DependentUpon>ucPNL_p1NonAllowableExpenses.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1Depreciation.resx">
+      <DependentUpon>ucPNL_p1Depreciation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1OpenStock.resx">
+      <DependentUpon>ucPNL_p1OpenStock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PNL\ucPNL_p1Sales.resx">
+      <DependentUpon>ucPNL_p1Sales.vb</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Dictionary\dict-en-20171101.oxt" />
+    <None Include="dsDefault.xsc">
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </None>
+    <None Include="dsDefault.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsDefault.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="dsDefault.xss">
+      <DependentUpon>dsDefault.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="PNL\dsPNL.xsc">
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </None>
+    <None Include="PNL\dsPNL.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPNL.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="PNL\dsPNL.xss">
+      <DependentUpon>dsPNL.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EasyTemplate_Taxcom\EasyTemplate_Taxcom.vbproj">
+      <Project>{7ee2565f-aee3-4632-9175-7e31f146104a}</Project>
+      <Name>EasyTemplate_Taxcom</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

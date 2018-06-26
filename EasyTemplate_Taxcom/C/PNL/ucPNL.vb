@@ -3,7 +3,7 @@ Imports DevExpress.XtraGrid.Views.Base
 Imports DevExpress.XtraReports.UI
 
 Public Class ucPNL
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
@@ -51,6 +51,8 @@ Public Class ucPNL
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -90,6 +92,8 @@ Public Class ucPNL
 
             dgvView.DataSource = DsPNL.Tables("PROFIT_LOSS_ACCOUNT")
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -99,6 +103,8 @@ Public Class ucPNL
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -137,17 +143,22 @@ Public Class ucPNL
             cboYA.EditValue = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim frm As New frmPNL_Add
-            frm.isEdit = False
-            frm.ID = 0
+            Dim frm As New frmPNL_Add With {
+                .isEdit = False,
+                .ID = 0
+            }
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -155,6 +166,8 @@ Public Class ucPNL
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -163,12 +176,15 @@ Public Class ucPNL
         Try
             Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("PL_KEY")
 
-            Dim frm As New frmPNL_Add
-            frm.isEdit = True
-            frm.ID = ID
+            Dim frm As New frmPNL_Add With {
+                .isEdit = True,
+                .ID = ID
+            }
             frm.ShowDialog()
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -202,6 +218,8 @@ Public Class ucPNL
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -210,6 +228,8 @@ Public Class ucPNL
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -218,6 +238,8 @@ Public Class ucPNL
         Try
             cboRefNo.EditValue = ""
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -228,6 +250,8 @@ Public Class ucPNL
             cboYA.EditValue = ""
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -236,6 +260,8 @@ Public Class ucPNL
         Try
             frmPNL_Import_Select.Show()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -262,6 +288,8 @@ Public Class ucPNL
             My.Computer.Clipboard.SetText(RefNo)
             MsgBox("Copy refence number " & RefNo)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -272,6 +300,8 @@ Public Class ucPNL
             My.Computer.Clipboard.SetText(RefNo)
             MsgBox("Copy year assessment " & RefNo)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -283,6 +313,8 @@ Public Class ucPNL
                 LoadData(2)
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -311,12 +343,14 @@ Public Class ucPNL
                 Next
 
                 Dim printTool As New ReportPrintTool(rpt)
-                printTool.ShowPreview()
+                printTool.ShowPreviewDialog()
             Else
                 MsgBox("Failed to load profit and loss report.", MsgBoxStyle.Critical)
             End If
          
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -328,16 +362,18 @@ Public Class ucPNL
             x = y / x
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)

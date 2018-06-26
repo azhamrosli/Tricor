@@ -4,6 +4,8 @@
         Try
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -72,6 +74,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -95,6 +99,8 @@
                 Return 20
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return 0
         End Try
     End Function
@@ -108,6 +114,8 @@
                           txtTotal.EditValue, chkSME.Checked, rgbRate.SelectedIndex)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -47,16 +47,18 @@ Module mdlCA
 
             Return ListofAA
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return Nothing
         End Try
     End Function
 #End Region
 #Region "LOAD"
 
-    Private Function GetBoolPLS60FA(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Private Function GetBoolPLS60FA(Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -64,8 +66,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT PL_S60FA FROM [PROFIT_LOSS_ACCOUNT] WHERE [PL_REF_NO] = @refno AND [PL_YA] = @cya"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -78,22 +81,24 @@ Module mdlCA
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Private Function GetDTCA_SourceNum(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTCA_SourceNum(Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -101,30 +106,33 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT DISTINCT CA_SOURCENO FROM [CA] WHERE [CA_REF_NO]= @refno AND cast([CA_YA] as money) <= @cya ORDER BY [CA_SOURCENO]"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTCA_AA_IARate(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTCA_AA_IARate(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -132,8 +140,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT [CA_KEY], [CA_RATE_AA], [CA_RATE_IA], [CA_QUALIFYING_COST], [CA_YA], [CA_MODE], [CA_PURCHASE_YEAR], [CA_TWDV], [CA_ACCELERATED] FROM [CA] WHERE [CA_REF_NO]= @refno AND cast([CA_YA] as money) <= @cya AND ([CA_SOURCENO]) = @sourceno"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
 
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
@@ -141,22 +150,24 @@ Module mdlCA
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTCADisposal(ByVal strCAKEY As String, ByVal strCAYA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTCADisposal(ByVal strCAKEY As String, ByVal strCAYA As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -164,29 +175,32 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT COUNT(CA_KEY) AS C_CAKEY, SUM(cast(CA_DISP_QC as money)) AS S_CADISPQC, SUM(cast(CA_DISP_TWDV as money)) AS S_CADISPTWDV FROM CA_DISPOSAL where [CA_DISP_YA] = @cya and [CA_KEY]= @cakey"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCAYA
             SQLcmd.Parameters.Add("@cakey", SqlDbType.Int).Value = strCAKEY
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTCADisposalBABCNonHP(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTCADisposalBABCNonHP(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -194,30 +208,33 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT [CA_DISP_BABC] FROM [CA_DISPOSAL] AS [D] WHERE D.CA_KEY IN (SELECT [CA_KEY] FROM CA WHERE [CA_REF_NO]= @refno AND [CA_SOURCENO] = @sourceno AND [HP_CODE] = '') AND [CA_DISP_YA]= @dispya ORDER BY [CA_DISP_KEY]"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@dispya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.Decimal).Value = CInt(strkey_array(I))
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTCADisposalBABCHP(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTCADisposalBABCHP(ByVal strkey_array() As String, ByVal I As Long, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection_CA(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -225,30 +242,33 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT SUM(cast(BABC as money)) AS CA_BABC,  HP_CODE FROM (select ca_disposal.ca_disp_ya as YA, ca_disposal.ca_disp_babc as babc , ca.hp_code as hp_code from ca_disposal inner join ca on ca_disposal.ca_key = ca.ca_key where ca.ca_ref_no=@refno and ca.ca_sourceno=@sourceno ) a WHERE HP_CODE IN (select distinct c.hp_code from ca c) AND HP_CODE <> '' AND YA=@dispya GROUP BY HP_CODE"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@dispya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.Decimal).Value = CInt(strkey_array(I))
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetBoolChkMajorC(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Private Function GetBoolChkMajorC(Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -256,8 +276,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT TC_CB_CHECK FROM [TAX_COMPUTATION] WHERE [TC_REF_NO]= @refno AND [TC_YA]= @cya"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -270,22 +291,24 @@ Module mdlCA
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Private Function Load_PNL(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function Load_PNL(Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -293,29 +316,32 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM [PROFIT_LOSS_ACCOUNT] WHERE [PL_REF_NO]= @refno AND [PL_YA]= @cya"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function Load_INT_AMOUNT_INTEREST_INCOME(ByVal TC_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function Load_INT_AMOUNT_INTEREST_INCOME(ByVal TC_KEY As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -323,28 +349,31 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT isnull(sum(cast([INT_AMOUNT] as money)), '0') as [INT_TOTAL] FROM [INTEREST_INCOME] WHERE [INT_KEY] = @key"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = TC_KEY
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function Load_SUN_AMOUNT_SUN_TOTAL(ByVal TC_KEY As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function Load_SUN_AMOUNT_SUN_TOTAL(ByVal TC_KEY As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -352,28 +381,31 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT isnull(sum(cast([SUN_AMOUNT] as money)), '0') as [SUN_TOTAL] FROM [SUNDRY_INCOME] WHERE [SUN_KEY] = @key"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = TC_KEY
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTTCUnabsorbedBusinessLoss(Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTTCUnabsorbedBusinessLoss(Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -381,29 +413,32 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM [TAX_COMPUTATION] WHERE [TC_REF_NO]= @refno AND [TC_YA]= @cya ORDER BY [TC_BUSINESS]"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetPartnerLoss_LstView(ByVal strKey As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetPartnerLoss_LstView(ByVal strKey As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -411,28 +446,31 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "Select sum(cast(PN_ADJ_LOSS as money)) AS PARTNER_LOSS FROM [INCOME_PARTNERSHIP] WHERE [TCP_KEY] = @strKey"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@strKey", SqlDbType.Int).Value = strKey
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTApprDonation(ByVal strPLKEYs As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTApprDonation(ByVal strPLKEYs As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -440,29 +478,32 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM [OTHER_EXAPPRDONATION] WHERE [EXOAD_KEY] = @plkey"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@plkey", SqlDbType.Int).Value = CInt(strPLKEYs)
 
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTApprDonationDetail(ByVal strPLKEYs As Integer, ByVal strBusiness As String, ByVal strEXOADKEY As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Private Function GetDTApprDonationDetail(ByVal strPLKEYs As Integer, ByVal strBusiness As String, ByVal strEXOADKEY As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -470,30 +511,33 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM [OTHER_EXAPPRDONATION_DETAIL] WHERE [EXOADD_KEY] = @plkey AND [EXOADD_SOURCENO] = @business AND [EXOADD_EXOADKEY]= @exoadkey"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@plkey", SqlDbType.Int).Value = CInt(strPLKEYs)
             SQLcmd.Parameters.Add("@business", SqlDbType.Int).Value = CInt(strBusiness)
             SQLcmd.Parameters.Add("@exoadkey", SqlDbType.Int).Value = CInt(strEXOADKEY)
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Private Function GetDTZakat(ByVal strPLKEYs As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Private Function GetDTZakat(ByVal strPLKEYs As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -501,8 +545,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT EXOZ_AMOUNT FROM [OTHER_EXZAKAT] WHERE [EXOZ_KEY]= @plkey AND [EXOZ_DEDUCTIBLE]='Yes'"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@plkey", SqlDbType.Int).Value = CInt(strPLKEYs)
 
             Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -518,22 +563,24 @@ Module mdlCA
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Private Function GetBoolSME(Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Private Function GetBoolSME(Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -541,8 +588,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT [SME] FROM [BALANCE_SHEET] WHERE [BS_REF_NO]= @refno AND [BS_YA]= @cya"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@cya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -558,14 +606,16 @@ Module mdlCA
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
@@ -573,34 +623,34 @@ Module mdlCA
 
 #End Region
 #Region "UPDATE"
-    Public Function Update_TAXCOMPUTATION(ByVal TC_BUSINESS As Integer, _
-                                                ByVal TC_SI_ADJ_BS_IN As Double, _
-                                                ByVal TC_CB_CA_BAL_BF As Double, _
-                                                ByVal TC_RA_BALANCINGALLOWANCE As Double, _
-                                                ByVal TC_ITA_BALANCINGALLOWANCE As Double, _
-                                                ByVal TC_RA_TOTAL1 As Double, ByVal TC_ITA_TOTAL1 As Double, _
-                                                ByVal TC_CB_RA_BAL_BF As Double, ByVal TC_CB_RA_BAL_CF As Double, _
-                                                ByVal TC_CB_ITA_BAL_BF As Double, _
-                                                ByVal TC_CB_ITA_BAL_CF As Double, ByVal TC_CB_CA_AA As Double, _
-                                                ByVal TC_CB_CA_IA As Double, _
-                                                ByVal TC_CB_CA_BA As Double, _
-                                                ByVal TC_SI_BC As Double, ByVal TC_CB_CA_CURR As Double, _
-                                                ByVal TC_CB_CA_CURR_BA As Double, ByVal TC_CB_CA_UTIL As Double, _
-                                                ByVal TC_SI_CA As Double, ByVal TC_CB_CA_BAL_CF As Double, _
-                                                ByVal TC_CB_CA_DISALLOW As Double, ByVal TC_CB_CA_ABAL_CF As Double, _
-                                                ByVal TC_CB_CA_ACA As Double, ByVal TC_SI_STAT_BS_IN As Double, _
-                                                ByVal TC_SI_NET_STAT_IN As Double, ByVal TC_CB_RA_BAL_BF_CURR As Double, _
-                                                ByVal TC_CB_ITA_BAL_BF_CURR As Double, ByVal TC_NB_DIV As Double, _
-                                                ByVal TC_NB_INT As Double, ByVal TC_NB_RENT As Double, _
-                                                ByVal TC_TP_SEC110 As Double, ByVal TC_NB_ROYALTY As Double, _
-                                                ByVal TC_NB_SUNDRY As Double, ByVal TC_NB_DIV_NET As Double, _
-                                                ByVal TC_NB_INT_NET As Double, ByVal TC_NB_RENT_NET As Double, _
-                                                ByVal TC_NB_OTH_AGGR_STAT As Double, ByVal TC_STAT_DIVIDEND As Double, _
-                                                ByVal TC_CB_LS_BAL_BF As Double, ByVal TC_SI_ADJ_BS_IN_BC As Double, _
-                                                ByVal TC_NB_RENTIBA As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Update_TAXCOMPUTATION(ByVal TC_BUSINESS As Integer,
+                                                ByVal TC_SI_ADJ_BS_IN As Double,
+                                                ByVal TC_CB_CA_BAL_BF As Double,
+                                                ByVal TC_RA_BALANCINGALLOWANCE As Double,
+                                                ByVal TC_ITA_BALANCINGALLOWANCE As Double,
+                                                ByVal TC_RA_TOTAL1 As Double, ByVal TC_ITA_TOTAL1 As Double,
+                                                ByVal TC_CB_RA_BAL_BF As Double, ByVal TC_CB_RA_BAL_CF As Double,
+                                                ByVal TC_CB_ITA_BAL_BF As Double,
+                                                ByVal TC_CB_ITA_BAL_CF As Double, ByVal TC_CB_CA_AA As Double,
+                                                ByVal TC_CB_CA_IA As Double,
+                                                ByVal TC_CB_CA_BA As Double,
+                                                ByVal TC_SI_BC As Double, ByVal TC_CB_CA_CURR As Double,
+                                                ByVal TC_CB_CA_CURR_BA As Double, ByVal TC_CB_CA_UTIL As Double,
+                                                ByVal TC_SI_CA As Double, ByVal TC_CB_CA_BAL_CF As Double,
+                                                ByVal TC_CB_CA_DISALLOW As Double, ByVal TC_CB_CA_ABAL_CF As Double,
+                                                ByVal TC_CB_CA_ACA As Double, ByVal TC_SI_STAT_BS_IN As Double,
+                                                ByVal TC_SI_NET_STAT_IN As Double, ByVal TC_CB_RA_BAL_BF_CURR As Double,
+                                                ByVal TC_CB_ITA_BAL_BF_CURR As Double, ByVal TC_NB_DIV As Double,
+                                                ByVal TC_NB_INT As Double, ByVal TC_NB_RENT As Double,
+                                                ByVal TC_TP_SEC110 As Double, ByVal TC_NB_ROYALTY As Double,
+                                                ByVal TC_NB_SUNDRY As Double, ByVal TC_NB_DIV_NET As Double,
+                                                ByVal TC_NB_INT_NET As Double, ByVal TC_NB_RENT_NET As Double,
+                                                ByVal TC_NB_OTH_AGGR_STAT As Double, ByVal TC_STAT_DIVIDEND As Double,
+                                                ByVal TC_CB_LS_BAL_BF As Double, ByVal TC_SI_ADJ_BS_IN_BC As Double,
+                                                ByVal TC_NB_RENTIBA As Double, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -608,8 +658,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "UPDATE [TAX_COMPUTATION] SET [TC_SI_ADJ_BS_IN]=@TC_SI_ADJ_BS_IN, [TC_CB_CA_BAL_BF]=@TC_CB_CA_BAL_BF, [TC_RA_BALANCINGALLOWANCE]=@TC_RA_BALANCINGALLOWANCE, [TC_ITA_BALANCINGALLOWANCE]=@TC_ITA_BALANCINGALLOWANCE, [TC_RA_TOTAL1]=@TC_RA_TOTAL1, [TC_ITA_TOTAL1]=@TC_ITA_TOTAL1, [TC_CB_RA_BAL_BF]=@TC_CB_RA_BAL_BF, [TC_CB_RA_BAL_CF]=@TC_CB_RA_BAL_CF, [TC_CB_ITA_BAL_BF]=@TC_CB_ITA_BAL_BF, [TC_CB_ITA_BAL_CF]=@TC_CB_ITA_BAL_CF, [TC_CB_CA_AA]=@TC_CB_CA_AA, [TC_CB_CA_IA]=@TC_CB_CA_IA, [TC_CB_CA_BA]=@TC_CB_CA_BA, [TC_SI_BC]=@TC_SI_BC, [TC_CB_CA_CURR]=@TC_CB_CA_CURR, [TC_CB_CA_CURR_BA]=@TC_CB_CA_CURR_BA, [TC_CB_CA_UTIL]=@TC_CB_CA_UTIL, [TC_SI_CA]=@TC_SI_CA, [TC_CB_CA_BAL_CF]=@TC_CB_CA_BAL_CF, [TC_CB_CA_DISALLOW]=@TC_CB_CA_DISALLOW, [TC_CB_CA_ABAL_CF]=@TC_CB_CA_ABAL_CF, [TC_CB_CA_ACA]=@TC_CB_CA_ACA, [TC_SI_STAT_BS_IN]=@TC_SI_STAT_BS_IN, [TC_SI_NET_STAT_IN]=@TC_SI_NET_STAT_IN, [TC_CB_RA_BAL_BF_CURR]=@TC_CB_RA_BAL_BF_CURR, [TC_CB_ITA_BAL_BF_CURR]=@TC_CB_ITA_BAL_BF_CURR, [TC_NB_DIV]=@TC_NB_DIV, [TC_NB_INT]=@TC_NB_INT, [TC_NB_RENT]=@TC_NB_RENT, [TC_TP_SEC110]=@TC_TP_SEC110, [TC_NB_ROYALTY]=@TC_NB_ROYALTY, [TC_NB_SUNDRY]=@TC_NB_SUNDRY, [TC_NB_DIV_NET]=@TC_NB_DIV_NET, [TC_NB_INT_NET]=@TC_NB_INT_NET, [TC_NB_RENT_NET]=@TC_NB_RENT_NET, [TC_NB_OTH_AGGR_STAT]=@TC_NB_OTH_AGGR_STAT, [TC_STAT_DIVIDEND]=@TC_STAT_DIVIDEND, [TC_CB_LS_BAL_BF]=@TC_CB_LS_BAL_BF, [TC_SI_ADJ_BS_IN_BC]=@TC_SI_ADJ_BS_IN_BC, [TC_NB_RENTIBA]=@TC_NB_RENTIBA WHERE [TC_REF_NO]=@refno AND [TC_YA]=@ya AND [TC_BUSINESS]=@sourceno"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
 
             SQLcmd.Parameters.Add("@TC_SI_ADJ_BS_IN", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_SI_ADJ_BS_IN, 0)
             SQLcmd.Parameters.Add("@TC_CB_CA_BAL_BF", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_CB_CA_BAL_BF, 0)
@@ -651,28 +702,30 @@ Module mdlCA
             SQLcmd.Parameters.Add("@TC_CB_LS_BAL_BF", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_CB_LS_BAL_BF, 0)
             SQLcmd.Parameters.Add("@TC_SI_ADJ_BS_IN_BC", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_SI_ADJ_BS_IN_BC, 0)
             SQLcmd.Parameters.Add("@TC_NB_RENTIBA", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_NB_RENTIBA, 0)
-            SQLcmd.Parameters.Add("@refno", strRefNo)
-            SQLcmd.Parameters.Add("@ya", strCYa)
+            SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 25).Value = strRefNo
+            SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 25).Value = strCYa
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.Int).Value = FormatNumber(TC_BUSINESS, 0)
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Public Function Update_OBSchudule(ByVal OB_SCHEDULE_NYA As Double, ByVal TC_BUSINESS As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Update_OBSchudule(ByVal OB_SCHEDULE_NYA As Double, ByVal TC_BUSINESS As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -680,8 +733,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "UPDATE [OPENING_BALANCE] SET [OB_SCHEDULE]=@data WHERE [OB_REF_NO]=@refno AND [OB_YA]=@ya AND [OB_SOURCENO]=@sourceno"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.NVarChar, 25).Value = TC_BUSINESS
             SQLcmd.Parameters.Add("@data", SqlDbType.NVarChar, 3).Value = OB_SCHEDULE_NYA
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
@@ -690,22 +744,24 @@ Module mdlCA
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Public Function Update_TAXCOMPUTATION_TC_SI_TOT(ByVal TC_SI_TOT As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Update_TAXCOMPUTATION_TC_SI_TOT(ByVal TC_SI_TOT As Double, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -713,8 +769,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "UPDATE [TAX_COMPUTATION] SET [TC_SI_TOT]=@TC_SI_TOT WHERE [TC_REF_NO]=@refno AND [TC_YA]=@ya AND [TC_BUSINESS]=@sourceno"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.Int).Value = 1
@@ -722,40 +779,42 @@ Module mdlCA
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Public Function Update_AggregateTAXCOMPATION(ByVal TC_SI_BS_LOSS_BF As Double, _
-                                                ByVal TC_CB_LS_UTIL As Double, _
-                                                ByVal TC_SI_AGGREGATE As Double, _
-                                                ByVal TC_CB_LS_BAL_UTIL As Double, _
-                                                ByVal TC_CB_LS_ADJUST_LOSS As Double, ByVal TC_TP_AGGR_IN As Double, _
-                                                ByVal TC_TP_CURR_LOSS As Double, ByVal TC_CB_LS_UTIL_CURR As Double, _
-                                                ByVal TC_CB_LS_UNABSORBED As Double, ByVal TC_CB_LS_BAL_CF As Double, _
-                                                ByVal TC_CB_LS_BALS_CF As Double, ByVal TC_TP_TOTAL_OTH_EXP As Double, _
-                                                ByVal TC_TP_APRV_DONATION As Double, ByVal TC_TP_ZAKAT As Double, _
-                                                ByVal TC_TP_TOTAL_INCOME As Double, ByVal TC_TP_CHARGEABLE As Double, _
-                                                ByVal TC_TP_APP_CHARGEABLE4A As Double, ByVal TC_TP_APP_CHARGEABLE5 As Double, _
-                                                ByVal TC_TP_RATE4A_CHARGEABLE As Double, ByVal TC_TP_28_CHARGEABLE As Double, _
-                                                ByVal TC_TP_TOT_TAX_CHARGED As Double, ByVal TC_TP_TOT_SETOFF As Double, _
-                                                ByVal TC_TP_PAYABLE As Double, ByVal TC_TP_INCOME_TP2 As Double, _
-                                                ByVal TC_TP_PAYABLE_BAL As Double, ByVal TC_TP_INCOME_TP3 As Double, _
-                                                ByVal TC_TP_ALL_DIFF As Double, _
-                                                ByVal TC_TP_EX_DIFF As Double, ByVal TC_TP_PEN_DIFF As Double, _
-                                                ByVal TC_TP_AGGR_IN_LOSS As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Update_AggregateTAXCOMPATION(ByVal TC_SI_BS_LOSS_BF As Double,
+                                                ByVal TC_CB_LS_UTIL As Double,
+                                                ByVal TC_SI_AGGREGATE As Double,
+                                                ByVal TC_CB_LS_BAL_UTIL As Double,
+                                                ByVal TC_CB_LS_ADJUST_LOSS As Double, ByVal TC_TP_AGGR_IN As Double,
+                                                ByVal TC_TP_CURR_LOSS As Double, ByVal TC_CB_LS_UTIL_CURR As Double,
+                                                ByVal TC_CB_LS_UNABSORBED As Double, ByVal TC_CB_LS_BAL_CF As Double,
+                                                ByVal TC_CB_LS_BALS_CF As Double, ByVal TC_TP_TOTAL_OTH_EXP As Double,
+                                                ByVal TC_TP_APRV_DONATION As Double, ByVal TC_TP_ZAKAT As Double,
+                                                ByVal TC_TP_TOTAL_INCOME As Double, ByVal TC_TP_CHARGEABLE As Double,
+                                                ByVal TC_TP_APP_CHARGEABLE4A As Double, ByVal TC_TP_APP_CHARGEABLE5 As Double,
+                                                ByVal TC_TP_RATE4A_CHARGEABLE As Double, ByVal TC_TP_28_CHARGEABLE As Double,
+                                                ByVal TC_TP_TOT_TAX_CHARGED As Double, ByVal TC_TP_TOT_SETOFF As Double,
+                                                ByVal TC_TP_PAYABLE As Double, ByVal TC_TP_INCOME_TP2 As Double,
+                                                ByVal TC_TP_PAYABLE_BAL As Double, ByVal TC_TP_INCOME_TP3 As Double,
+                                                ByVal TC_TP_ALL_DIFF As Double,
+                                                ByVal TC_TP_EX_DIFF As Double, ByVal TC_TP_PEN_DIFF As Double,
+                                                ByVal TC_TP_AGGR_IN_LOSS As Double, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
 
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -763,8 +822,9 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "UPDATE [TAX_COMPUTATION] SET [TC_SI_BS_LOSS_BF]=@TC_SI_BS_LOSS_BF, [TC_CB_LS_UTIL]=@TC_CB_LS_UTIL, [TC_SI_AGGREGATE]=@TC_SI_AGGREGATE, [TC_CB_LS_BAL_UTIL]=@TC_CB_LS_BAL_UTIL, [TC_CB_LS_ADJUST_LOSS]=@TC_CB_LS_ADJUST_LOSS, [TC_TP_AGGR_IN]=@TC_TP_AGGR_IN, [TC_TP_CURR_LOSS]=@TC_TP_CURR_LOSS, [TC_CB_LS_UTIL_CURR]=@TC_CB_LS_UTIL_CURR, [TC_CB_LS_UNABSORBED]=@TC_CB_LS_UNABSORBED, [TC_CB_LS_BAL_CF]=@TC_CB_LS_BAL_CF, [TC_CB_LS_BALS_CF]=@TC_CB_LS_BALS_CF, [TC_TP_TOTAL_OTH_EXP]=@TC_TP_TOTAL_OTH_EXP, [TC_TP_APRV_DONATION]=@TC_TP_APRV_DONATION, [TC_TP_ZAKAT]=@TC_TP_ZAKAT, [TC_TP_TOTAL_INCOME]=@TC_TP_TOTAL_INCOME, [TC_TP_CHARGEABLE]=@TC_TP_CHARGEABLE, [TC_TP_APP_CHARGEABLE4A]=@TC_TP_APP_CHARGEABLE4A, [TC_TP_APP_CHARGEABLE5]=@TC_TP_APP_CHARGEABLE5, [TC_TP_RATE4A_CHARGEABLE]=@TC_TP_RATE4A_CHARGEABLE, [TC_TP_28_CHARGEABLE]=@TC_TP_28_CHARGEABLE, [TC_TP_TOT_TAX_CHARGED]=@TC_TP_TOT_TAX_CHARGED, [TC_TP_TOT_SETOFF]=@TC_TP_TOT_SETOFF, [TC_TP_PAYABLE]=@TC_TP_PAYABLE, [TC_TP_INCOME_TP2]=@TC_TP_INCOME_TP2, [TC_TP_PAYABLE_BAL]=@TC_TP_PAYABLE_BAL, [TC_TP_INCOME_TP3]=@TC_TP_INCOME_TP3, [TC_TP_ALL_DIFF]=@TC_TP_ALL_DIFF, [TC_TP_EX_DIFF]=@TC_TP_EX_DIFF, [TC_TP_PEN_DIFF]=@TC_TP_PEN_DIFF, [TC_TP_AGGR_IN_LOSS]=@TC_TP_AGGR_IN_LOSS WHERE TC_REF_NO=@refno AND TC_YA=@ya AND TC_BUSINESS=@sourceno"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
 
             SQLcmd.Parameters.Add("@TC_SI_BS_LOSS_BF", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_SI_BS_LOSS_BF, 0)
             SQLcmd.Parameters.Add("@TC_CB_LS_UTIL", SqlDbType.NVarChar, 25).Value = FormatNumber(TC_CB_LS_UTIL, 0)
@@ -802,22 +862,24 @@ Module mdlCA
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Public Function UpdateNonAllowableExpenses(ByVal value As Double, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function UpdateNonAllowableExpenses(ByVal value As Double, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -825,22 +887,25 @@ Module mdlCA
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "update [profit_loss_account] set [pl_disallowed_exp]=@value where [pl_ref_no]=@refno and [pl_ya]=@ya"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@value", SqlDbType.NVarChar, 25).Value = CStr(value)
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
             Return ADO.ExecuteSQLCmd_NOIDReturn(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
@@ -848,7 +913,7 @@ Module mdlCA
 
 #End Region
 
-    Private Function GetTotalNonAllowableExpenses(Optional ByRef Errorlog As clsError = Nothing) As Double
+    Private Function GetTotalNonAllowableExpenses(Optional ByRef Errorlog As ClsError = Nothing) As Double
         Try
             strPNLKey = CInt(ADO.Load_PNL_GetKey(strRefNo, strCYa, Errorlog))
             Dim strDeductible As String = "No"
@@ -907,19 +972,21 @@ Module mdlCA
 
             Return dblTotalNonAllowExpenses
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Public Function RefreshCA(ByVal TC_REF_NO As String, ByVal YA As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function RefreshCA(ByVal TC_REF_NO As String, ByVal YA As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
             strRefNo = TC_REF_NO
             strCYa = YA
@@ -959,20 +1026,22 @@ Module mdlCA
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
 
-    Public Function SetAdjBusinessIn(Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function SetAdjBusinessIn(Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dbltotalstatutory As Double = 0
             Dim TC_SI_ADJ_BS_IN As Double = 0
@@ -1464,9 +1533,9 @@ Module mdlCA
                     End If
 
                     Dim dblExpDirectIBA As Double
-                    dblExpDirectIBA = CDbl(row("TC_NB_RENTIBA_ATT_IN")) + CDbl(row("TC_NB_RENTIBA_ASSESS")) + _
-                    CDbl(row("TC_NB_RENTIBA_QUIT")) + CDbl(row("TC_NB_RENTIBA_INSUR")) + _
-                    CDbl(row("TC_NB_RENTIBA_OTH")) + CDbl(row("TC_NB_RENTIBA_MAIN")) + _
+                    dblExpDirectIBA = CDbl(row("TC_NB_RENTIBA_ATT_IN")) + CDbl(row("TC_NB_RENTIBA_ASSESS")) +
+                    CDbl(row("TC_NB_RENTIBA_QUIT")) + CDbl(row("TC_NB_RENTIBA_INSUR")) +
+                    CDbl(row("TC_NB_RENTIBA_OTH")) + CDbl(row("TC_NB_RENTIBA_MAIN")) +
                     CDbl(row("TC_NB_RENTIBA_AGREE"))
 
                     '//
@@ -1545,19 +1614,21 @@ Module mdlCA
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
     End Function
-    Public Function Aggregate(Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function Aggregate(Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim TC_SI_BS_LOSS_BF As Double = 0
             Dim TC_CB_LS_UTIL As Double = 0
@@ -1961,14 +2032,16 @@ Module mdlCA
             End If
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return False

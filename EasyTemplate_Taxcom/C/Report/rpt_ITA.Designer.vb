@@ -28,6 +28,7 @@ Partial Public Class rpt_ITA
         Me.XrLabel8 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel7 = New DevExpress.XtraReports.UI.XRLabel()
         Me.XrLabel3 = New DevExpress.XtraReports.UI.XRLabel()
+        Me.paramSch = New DevExpress.XtraReports.Parameters.Parameter()
         Me.XrLabel4 = New DevExpress.XtraReports.UI.XRLabel()
         Me.ReportHeader = New DevExpress.XtraReports.UI.ReportHeaderBand()
         Me.DsRA_ITA1 = New EasyTemplate_Taxcom.dsRA_ITA()
@@ -78,7 +79,6 @@ Partial Public Class rpt_ITA
         Me.TOTAL = New DevExpress.XtraReports.UI.CalculatedField()
         Me.SUM_WITHDRAWAL_ITA = New DevExpress.XtraReports.UI.CalculatedField()
         Me.SUM_ADJUSTMENT_ITA = New DevExpress.XtraReports.UI.CalculatedField()
-        Me.paramSch = New DevExpress.XtraReports.Parameters.Parameter()
         CType(Me.DsRA_ITA1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me, System.ComponentModel.ISupportInitialize).BeginInit()
         '
@@ -157,6 +157,12 @@ Partial Public Class rpt_ITA
         Me.XrLabel3.StylePriority.UseTextAlignment = False
         Me.XrLabel3.Text = "Schedule "
         Me.XrLabel3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
+        '
+        'paramSch
+        '
+        Me.paramSch.Description = "paramSch"
+        Me.paramSch.Name = "paramSch"
+        Me.paramSch.ValueInfo = "Schedule"
         '
         'XrLabel4
         '
@@ -265,7 +271,7 @@ Partial Public Class rpt_ITA
         '
         'XrLabel9
         '
-        Me.XrLabel9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TAX_COMPUTATION_CA.CA_QUALIFYING_COST")})
+        Me.XrLabel9.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TAX_COMPUTATION_CA.CA_QUALIFYING_COST", "{0:n0}")})
         Me.XrLabel9.LocationFloat = New DevExpress.Utils.PointFloat(601.0834!, 0.0!)
         Me.XrLabel9.Name = "XrLabel9"
         Me.XrLabel9.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -350,7 +356,7 @@ Partial Public Class rpt_ITA
         '
         'lbl_WithDrawal_Amount
         '
-        Me.lbl_WithDrawal_Amount.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL.ITAW_AMOUNT", "({0:n0})")})
+        Me.lbl_WithDrawal_Amount.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.FK_TAX_COMPUTATION_TAX_ITA_WITHDRAWAL.ITAW_AMOUNT", "{0:#,# ;(#,#);0 }")})
         Me.lbl_WithDrawal_Amount.LocationFloat = New DevExpress.Utils.PointFloat(501.0833!, 0.0!)
         Me.lbl_WithDrawal_Amount.Name = "lbl_WithDrawal_Amount"
         Me.lbl_WithDrawal_Amount.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -383,7 +389,7 @@ Partial Public Class rpt_ITA
         '
         'lbl_TC_CB_RA_BAL_BF
         '
-        Me.lbl_TC_CB_RA_BAL_BF.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TC_CB_ITA_BAL_BF", "{0:n0}")})
+        Me.lbl_TC_CB_RA_BAL_BF.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TC_CB_ITA_BAL_BF", "{0:#,# ;(#,#);0 }")})
         Me.lbl_TC_CB_RA_BAL_BF.FormattingRules.Add(Me.IFWithDrawalNO)
         Me.lbl_TC_CB_RA_BAL_BF.LocationFloat = New DevExpress.Utils.PointFloat(601.0834!, 41.58335!)
         Me.lbl_TC_CB_RA_BAL_BF.Name = "lbl_TC_CB_RA_BAL_BF"
@@ -401,7 +407,7 @@ Partial Public Class rpt_ITA
         '
         'lbl_TC_CB_RA_BAL_BF2
         '
-        Me.lbl_TC_CB_RA_BAL_BF2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TC_CB_ITA_BAL_BF", "{0:n0}")})
+        Me.lbl_TC_CB_RA_BAL_BF2.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TC_CB_ITA_BAL_BF", "{0:#,# ;(#,#);0 }")})
         Me.lbl_TC_CB_RA_BAL_BF2.FormattingRules.Add(Me.IFWithDrawalYES)
         Me.lbl_TC_CB_RA_BAL_BF2.LocationFloat = New DevExpress.Utils.PointFloat(501.0833!, 41.58335!)
         Me.lbl_TC_CB_RA_BAL_BF2.Name = "lbl_TC_CB_RA_BAL_BF2"
@@ -422,7 +428,7 @@ Partial Public Class rpt_ITA
         '
         'lblTC_RA_QUA_AMOUNT
         '
-        Me.lblTC_RA_QUA_AMOUNT.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT", "{0:n0}")})
+        Me.lblTC_RA_QUA_AMOUNT.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "TAX_COMPUTATION.TC_ITA_QUALIFYINGCAPITALEXP_AMOUNT", "{0:#,# ;(#,#);0 }")})
         Me.lblTC_RA_QUA_AMOUNT.LocationFloat = New DevExpress.Utils.PointFloat(601.0834!, 0.0!)
         Me.lblTC_RA_QUA_AMOUNT.Name = "lblTC_RA_QUA_AMOUNT"
         Me.lblTC_RA_QUA_AMOUNT.Padding = New DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100.0!)
@@ -564,12 +570,6 @@ Partial Public Class rpt_ITA
         Me.SUM_ADJUSTMENT_ITA.DataMember = "TAX_COMPUTATION.FK_TAX_COMPUTATION_TAX_ITA_ADJUSTMENT"
         Me.SUM_ADJUSTMENT_ITA.Expression = "Sum([ITAADJ_AMOUNT])"
         Me.SUM_ADJUSTMENT_ITA.Name = "SUM_ADJUSTMENT_ITA"
-        '
-        'paramSch
-        '
-        Me.paramSch.Description = "paramSch"
-        Me.paramSch.Name = "paramSch"
-        Me.paramSch.ValueInfo = "Schedule"
         '
         'rpt_ITA
         '

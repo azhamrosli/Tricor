@@ -570,6 +570,7 @@
               <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
               <xs:element name="CA_TRANSFERROR_NAME" msprop:Generator_ColumnVarNameInTable="columnCA_TRANSFERROR_NAME" msprop:Generator_ColumnPropNameInRow="CA_TRANSFERROR_NAME" msprop:Generator_ColumnPropNameInTable="CA_TRANSFERROR_NAMEColumn" msprop:Generator_UserColumnName="CA_TRANSFERROR_NAME" type="xs:string" minOccurs="0" />
               <xs:element name="TWDV_TOTAL" msprop:Generator_ColumnVarNameInTable="columnTWDV_TOTAL" msprop:Generator_ColumnPropNameInRow="TWDV_TOTAL" msprop:Generator_ColumnPropNameInTable="TWDV_TOTALColumn" msprop:Generator_UserColumnName="TWDV_TOTAL" type="xs:decimal" minOccurs="0" />
+              <xs:element name="CA_NOTE_COLUMN" msprop:Generator_ColumnVarNameInTable="columnCA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInRow="CA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInTable="CA_NOTE_COLUMNColumn" msprop:Generator_UserColumnName="CA_NOTE_COLUMN" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -736,6 +737,7 @@
               <xs:element name="AA_90" msprop:Generator_ColumnVarNameInTable="columnAA_90" msprop:Generator_ColumnPropNameInRow="AA_90" msprop:Generator_ColumnPropNameInTable="AA_90Column" msprop:Generator_UserColumnName="AA_90" type="xs:decimal" minOccurs="0" />
               <xs:element name="AA_100" msprop:Generator_ColumnVarNameInTable="columnAA_100" msprop:Generator_ColumnPropNameInRow="AA_100" msprop:Generator_ColumnPropNameInTable="AA_100Column" msprop:Generator_UserColumnName="AA_100" type="xs:decimal" minOccurs="0" />
               <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_NOTE_COLUMN" msprop:Generator_ColumnVarNameInTable="columnCA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInRow="CA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInTable="CA_NOTE_COLUMNColumn" msprop:Generator_UserColumnName="CA_NOTE_COLUMN" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -817,6 +819,7 @@
               <xs:element name="Type" msprop:Generator_ColumnVarNameInTable="columnType" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_UserColumnName="Type" type="xs:int" minOccurs="0" />
               <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
               <xs:element name="DISP_KEY" msprop:Generator_ColumnVarNameInTable="columnDISP_KEY" msprop:Generator_ColumnPropNameInRow="DISP_KEY" msprop:Generator_ColumnPropNameInTable="DISP_KEYColumn" msprop:Generator_UserColumnName="DISP_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_NOTE_COLUMN" msprop:Generator_ColumnVarNameInTable="columnCA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInRow="CA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInTable="CA_NOTE_COLUMNColumn" msprop:Generator_UserColumnName="CA_NOTE_COLUMN" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -882,6 +885,7 @@
               <xs:element name="CF_PRINCIPAL" msprop:Generator_ColumnVarNameInTable="columnCF_PRINCIPAL" msprop:Generator_ColumnPropNameInRow="CF_PRINCIPAL" msprop:Generator_ColumnPropNameInTable="CF_PRINCIPALColumn" msprop:Generator_UserColumnName="CF_PRINCIPAL" type="xs:decimal" minOccurs="0" />
               <xs:element name="CF_INTEREST" msprop:Generator_ColumnVarNameInTable="columnCF_INTEREST" msprop:Generator_ColumnPropNameInRow="CF_INTEREST" msprop:Generator_ColumnPropNameInTable="CF_INTERESTColumn" msprop:Generator_UserColumnName="CF_INTEREST" type="xs:decimal" minOccurs="0" />
               <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_NOTE_COLUMN" msprop:Generator_ColumnVarNameInTable="columnCA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInRow="CA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInTable="CA_NOTE_COLUMNColumn" msprop:Generator_UserColumnName="CA_NOTE_COLUMN" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1002,6 +1006,7 @@
               <xs:element name="IndexNo" msprop:Generator_ColumnVarNameInTable="columnIndexNo" msprop:Generator_ColumnPropNameInRow="IndexNo" msprop:Generator_ColumnPropNameInTable="IndexNoColumn" msprop:Generator_UserColumnName="IndexNo" type="xs:int" minOccurs="0" />
               <xs:element name="GroupType" msprop:Generator_ColumnVarNameInTable="columnGroupType" msprop:Generator_ColumnPropNameInRow="GroupType" msprop:Generator_ColumnPropNameInTable="GroupTypeColumn" msprop:Generator_UserColumnName="GroupType" type="xs:int" minOccurs="0" />
               <xs:element name="CA_KEY" msprop:Generator_ColumnVarNameInTable="columnCA_KEY" msprop:Generator_ColumnPropNameInRow="CA_KEY" msprop:Generator_ColumnPropNameInTable="CA_KEYColumn" msprop:Generator_UserColumnName="CA_KEY" type="xs:int" minOccurs="0" />
+              <xs:element name="CA_NOTE_COLUMN" msprop:Generator_ColumnVarNameInTable="columnCA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInRow="CA_NOTE_COLUMN" msprop:Generator_ColumnPropNameInTable="CA_NOTE_COLUMNColumn" msprop:Generator_UserColumnName="CA_NOTE_COLUMN" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1047,6 +1052,7 @@
                 </xs:simpleType>
               </xs:element>
               <xs:element name="Type_CA" msprop:Generator_ColumnVarNameInTable="columnType_CA" msprop:Generator_ColumnPropNameInRow="Type_CA" msprop:Generator_ColumnPropNameInTable="Type_CAColumn" msprop:Generator_UserColumnName="Type_CA" type="xs:int" minOccurs="0" />
+              <xs:element name="TitleFront" msprop:Generator_ColumnVarNameInTable="columnTitleFront" msprop:Generator_ColumnPropNameInRow="TitleFront" msprop:Generator_ColumnPropNameInTable="TitleFrontColumn" msprop:Generator_UserColumnName="TitleFront" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

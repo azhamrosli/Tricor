@@ -1,7 +1,7 @@
 ﻿Imports DevExpress.XtraReports.ReportGeneration
 Imports DevExpress.XtraReports.UI
 Public Class ucBalanceSheet
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
         DevExpress.Skins.SkinManager.EnableFormSkins()
@@ -18,6 +18,8 @@ Public Class ucBalanceSheet
         Try
             Me.LoadData(0)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -68,6 +70,8 @@ Public Class ucBalanceSheet
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -77,18 +81,23 @@ Public Class ucBalanceSheet
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
     Private Sub btnAdd_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnAdd.ItemClick
         Try
-            Dim frm As New frmBalanceSheet
-            frm.isEdit = False
-            frm.ID = 0
+            Dim frm As New frmBalanceSheet With {
+                .isEdit = False,
+                .ID = 0
+            }
             frm.ShowDialog()
 
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -100,6 +109,8 @@ Public Class ucBalanceSheet
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -108,6 +119,8 @@ Public Class ucBalanceSheet
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -117,6 +130,8 @@ Public Class ucBalanceSheet
             cboRefNo.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -126,6 +141,8 @@ Public Class ucBalanceSheet
             cboYA.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -136,6 +153,8 @@ Public Class ucBalanceSheet
             cboYA.EditValue = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -144,12 +163,15 @@ Public Class ucBalanceSheet
         Try
             Dim ID As Integer = GridView1.GetDataRow(GridView1.GetSelectedRows(0))("BS_KEY")
 
-            Dim frm As New frmBalanceSheet
-            frm.isEdit = True
-            frm.ID = ID
+            Dim frm As New frmBalanceSheet With {
+                .isEdit = True,
+                .ID = ID
+            }
             frm.ShowDialog()
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -176,6 +198,8 @@ Public Class ucBalanceSheet
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -184,6 +208,8 @@ Public Class ucBalanceSheet
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -192,6 +218,8 @@ Public Class ucBalanceSheet
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

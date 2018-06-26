@@ -1,11 +1,13 @@
 ﻿Public Class frmCA_Quick 
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
 
     Public Const MainTable As String = "CA"
     Private Sub frmCA_Quick_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -38,6 +40,8 @@
              
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -45,6 +49,8 @@
         Try
             DefaultTaxPayer()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -64,6 +70,8 @@
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -73,6 +81,8 @@
         Try
             GridView1.GetDataRow(e.RowHandle)("CA_CTRL_TRANSFER") = 0
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -101,6 +111,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -130,6 +142,8 @@
                
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -159,6 +173,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -169,6 +185,8 @@
             DsCA.Tables(MainTable).AcceptChanges()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -186,6 +204,8 @@
                 MsgBox("Unsuccessfully save capital allowance.", MsgBoxStyle.Critical)
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -203,6 +223,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -216,6 +238,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -234,6 +258,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

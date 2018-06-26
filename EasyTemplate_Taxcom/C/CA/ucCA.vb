@@ -1,7 +1,7 @@
 ﻿Imports DevExpress.XtraGrid.Views.Base
 
 Public Class ucCA
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
@@ -37,6 +37,8 @@ Public Class ucCA
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -101,6 +103,8 @@ Public Class ucCA
             CABindingSource.DataSource = DsCA
             ' dgvView.DataSource = DsCA.Tables("CA")
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -111,6 +115,8 @@ Public Class ucCA
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -123,6 +129,8 @@ Public Class ucCA
             txtFilterValue.Text = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -133,6 +141,8 @@ Public Class ucCA
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -142,6 +152,8 @@ Public Class ucCA
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -150,6 +162,8 @@ Public Class ucCA
         Try
             btnAdd.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -158,6 +172,8 @@ Public Class ucCA
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -166,6 +182,8 @@ Public Class ucCA
         Try
             btnDelete.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -176,6 +194,8 @@ Public Class ucCA
             Clipboard.SetText(ID)
             MsgBox("Copy " & ID)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -186,6 +206,8 @@ Public Class ucCA
             Clipboard.SetText(ID)
             MsgBox("Copy " & ID)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -194,12 +216,15 @@ Public Class ucCA
         Try
             Dim ID As Integer = dgvCA.GetDataRow(dgvCA.GetSelectedRows(0))("CA_KEY")
 
-            Dim frm As New frmCA_Add3
-            frm.isEdit = True
-            frm.ID = ID
+            Dim frm As New frmCA_Add3 With {
+                .isEdit = True,
+                .ID = ID
+            }
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -228,6 +253,8 @@ Public Class ucCA
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -253,6 +280,8 @@ Public Class ucCA
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -265,6 +294,8 @@ Public Class ucCA
         Try
             frmCA_Quick.Show()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -284,13 +315,16 @@ Public Class ucCA
 
                 mdlProcess.ArgParam2 = dgvCA.GetDataRow(dgvCA.GetSelectedRows(0))("CA_REF_NO")
                 mdlProcess.ArgParam3 = dgvCA.GetDataRow(dgvCA.GetSelectedRows(0))("CA_YA")
-                Dim frm As New frmDisposal_Add
-                frm.isEdit = False
-                frm.ID_CA = CA_KEY
-                frm.isFromCA = True
+                Dim frm As New frmDisposal_Add With {
+                    .isEdit = False,
+                    .ID_CA = CA_KEY,
+                    .isFromCA = True
+                }
                 frm.ShowDialog()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -306,6 +340,8 @@ Public Class ucCA
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
        
@@ -315,6 +351,8 @@ Public Class ucCA
             cboRefNo.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -324,6 +362,8 @@ Public Class ucCA
             cboYA.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -333,6 +373,8 @@ Public Class ucCA
             txtFilterValue.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -341,6 +383,8 @@ Public Class ucCA
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -359,6 +403,8 @@ Public Class ucCA
             'End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
 
@@ -370,6 +416,8 @@ Public Class ucCA
             frm.ShowDialog()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

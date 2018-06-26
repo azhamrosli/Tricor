@@ -12,7 +12,7 @@ Imports DevExpress.XtraReports.UI
 Public Class frmHP_Report
     Dim clsNote As clsNote_CA = Nothing
 
-    Dim clsErrorLog As clsError = Nothing
+    Dim clsErrorLog As ClsError = Nothing
 
     Public ID As String = ""
     Public RefNo As String = ""
@@ -34,6 +34,8 @@ Public Class frmHP_Report
         Try
             ADO.Delete_HP_Report_TEMP(ID)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -41,6 +43,8 @@ Public Class frmHP_Report
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -70,6 +74,8 @@ Public Class frmHP_Report
             col1.GroupIndex = 0
             BandedGridView1.EndSort()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -110,6 +116,8 @@ Public Class frmHP_Report
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -118,16 +126,21 @@ Public Class frmHP_Report
             PrintExport(True)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
     Private Sub Grid_CreateReportHeaderArea(ByVal sender As System.Object, ByVal e As DevExpress.XtraPrinting.CreateAreaEventArgs)
         Try
-            Dim pb As PanelBrick = New PanelBrick
-            pb.Rect = New RectangleF(0, 0, 111, 111)
+            Dim pb As PanelBrick = New PanelBrick With {
+                .Rect = New RectangleF(0, 0, 111, 111)
+            }
             e.Graph.DrawBrick(pb)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -162,6 +175,8 @@ Public Class frmHP_Report
             BandedGridView1.ExpandAllGroups()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -170,6 +185,8 @@ Public Class frmHP_Report
         Try
             BandedGridView1.CollapseAllGroups()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -74,8 +74,11 @@ Namespace My.Resources
         '''1. [Note] - Each Report has own note.
         '''2. [Table of Content] - Adding table of content but only for few report only.
         '''
-        '''Fixed Bug
-        '''1. [CP204 - Edit] - Stack overflow.
+        '''Fixed Bug 04-06-2017
+        '''1. [CP204 - Edit] - Stack overflow
+        '''2. [TOC] - Fixed bug Some report cannot print
+        '''3. [Movement Normal] - Fixed bug duplicate TagID
+        '''4. [REPORT CA] - Fixed layout padding problem.
         '''</summary>
         Friend ReadOnly Property UpdateNo() As String
             Get

@@ -11,7 +11,7 @@ Imports DevExpress.XtraReports.UI
 
 Public Class frmCA_Report
     Dim clsNote As clsNote_CA = Nothing
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public ID As String = ""
     Public RefNo As String = ""
     Public YA As String = ""
@@ -34,6 +34,8 @@ Public Class frmCA_Report
         Try
             ADO.Delete_CA_Report_TEMP(ID)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -41,6 +43,8 @@ Public Class frmCA_Report
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -138,10 +142,10 @@ Public Class frmCA_Report
             If isDirectPrint Then
                 PrintExport(False)
                 Application.DoEvents()
-
-                Me.Close()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -181,7 +185,7 @@ Public Class frmCA_Report
                 Select Case TypeReport
                     Case 0, 3
                         'Capital Allowance Details By Rate
-                        Dim rpt As rpt_CAByRate
+                        Dim rpt As rpt_CAByRate = Nothing
 
                         If mdlProcess.PrintReport_CAByRate(DsCA, ComName, YA, rpt, errorlog) Then
                             If isExport Then
@@ -195,7 +199,7 @@ Public Class frmCA_Report
 
                     Case 1, 4
                         'Capital Allowance Details By Category
-                        Dim rpt As rpt_CAByCategory
+                        Dim rpt As rpt_CAByCategory = Nothing
 
                         If mdlProcess.PrintReport_CAByCategory(DsCA, ComName, YA, rpt, ErrorLog) Then
                             If isExport Then
@@ -228,9 +232,13 @@ Public Class frmCA_Report
 
 
             Catch ex As Exception
+                Dim st As New StackTrace(True)
+                st = New StackTrace(ex, True)
 
             End Try
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -239,16 +247,21 @@ Public Class frmCA_Report
             PrintExport(True)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
     Private Sub Grid_CreateReportHeaderArea(ByVal sender As System.Object, ByVal e As DevExpress.XtraPrinting.CreateAreaEventArgs)
         Try
-            Dim pb As PanelBrick = New PanelBrick
-            pb.Rect = New RectangleF(0, 0, 111, 111)
+            Dim pb As PanelBrick = New PanelBrick With {
+                .Rect = New RectangleF(0, 0, 111, 111)
+            }
             e.Graph.DrawBrick(pb)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -283,6 +296,8 @@ Public Class frmCA_Report
             BandedGridView1.ExpandAllGroups()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -293,6 +308,8 @@ Public Class frmCA_Report
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -1,11 +1,11 @@
 ﻿Public Class frmUserNote 
     Public ID As Decimal = 0
     Dim isEdit As Boolean = False
-    Dim Errorlog As clsError = Nothing
+    Dim Errorlog As ClsError = Nothing
     Private Sub frmUserNote_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData(Errorlog)
     End Sub
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
 
             txtPCName.EditValue = My.Computer.Name
@@ -26,14 +26,16 @@
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
@@ -66,6 +68,8 @@
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

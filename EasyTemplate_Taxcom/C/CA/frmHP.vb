@@ -1,6 +1,6 @@
 ﻿Public Class frmHP 
     Inherits DevExpress.XtraEditors.XtraForm
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
@@ -23,6 +23,8 @@
             End If
            
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -35,6 +37,8 @@
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -110,6 +114,8 @@
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -120,6 +126,8 @@
         Try
             LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -132,6 +140,8 @@
             txtFilterValue.Text = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -142,6 +152,8 @@
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -150,12 +162,15 @@
         Try
             Dim ID As Integer = GridView2.GetDataRow(GridView2.GetSelectedRows(0))("HP_KEY")
 
-            Dim frm As New frmHP_Add
-            frm.isEdit = True
-            frm.ID = ID
+            Dim frm As New frmHP_Add With {
+                .isEdit = True,
+                .ID = ID
+            }
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -164,6 +179,8 @@
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -191,6 +208,8 @@
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

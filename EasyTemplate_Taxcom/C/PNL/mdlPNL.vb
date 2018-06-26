@@ -181,311 +181,13 @@ Module mdlPNL
                     Return doc_p4NonAllowableExpenses
             End Select
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             Return Nothing
         End Try
     End Function
-    'Public Function GetVariableUserControl(ByVal Name As String) As class
-    '    Try
-
-    '        Select Case Name
-    '            Case "ucPNL_p1Sales"
-    '                'Return CType(ucPNL_p1Sales, Object)
-    '                Return ucPNL_p1Sales
-    '            Case "ucPNL_p1OpeningStock"
-    '                Return ucPNL_p1OpeningStock
-    '            Case "ucPNL_p1Purchase"
-    '                Return ucPNL_p1Purchase
-    '            Case "ucPNL_p1Depreciation"
-    '                Return ucPNL_p1Depreciation
-    '            Case "ucPNL_p1AllowanceExpenses"
-    '                Return ucPNL_p1AllowanceExpenses
-    '            Case "ucPNL_p1NonAllowableExpenses"
-    '                Return ucPNL_p1NonAllowableExpenses
-    '            Case "ucPNL_p1CloseStock"
-    '                Return ucPNL_p1CloseStock
-    '            Case "ucPNL_p2OtherBizIncome"
-    '                Return ucPNL_p2OtherBizIncome
-    '            Case "ucPNL_p2ForeignCurrExGain"
-    '                Return ucPNL_p2ForeignCurrExGain
-    '            Case "ucPNL_p2InterestIncome"
-    '                Return ucPNL_p2InterestIncome
-    '            Case "ucPNL_p2RentalIncome"
-    '                Return ucPNL_p2RentalIncome
-    '            Case "ucPNL_p2RoyaltyIncome"
-    '                Return ucPNL_p2RoyaltyIncome
-    '            Case "ucPNL_p2OtherIncome"
-    '                Return ucPNL_p2OtherIncome
-    '            Case "ucPNL_p2ProDispPlantEq"
-    '                Return ucPNL_p2ProDispPlantEq
-    '            Case "ucPNL_p2ProDisInvestment"
-    '                Return ucPNL_p2ProDisInvestment
-    '            Case "ucPNL_p2ForeIncomeRemmit"
-    '                Return ucPNL_p2ForeIncomeRemmit
-    '            Case "ucPNL_p2ReaForeExGainNonTrade"
-    '                Return ucPNL_p2ReaForeExGainNonTrade
-    '            Case "ucPNL_p2UnreaGainForeEx"
-    '                Return ucPNL_p2UnreaGainForeEx
-    '            Case "ucPNL_p2UnreaGainForeExNon"
-    '                Return ucPNL_p2UnreaGainForeExNon
-    '            Case "ucPNL_p2Other"
-    '                Return ucPNL_p2Other
-    '            Case "ucPNL_p2ExemptDividend"
-    '                Return ucPNL_p2ExemptDividend
-    '            Case "ucPNL_p2DivIncome"
-    '                Return ucPNL_p2DivIncome
-    '            Case "ucPNL_p3InterestResPurS33"
-    '                Return ucPNL_p3InterestResPurS33
-    '            Case "ucPNL_p3OtherInterestExHirePur"
-    '                Return ucPNL_p3OtherInterestExHirePur
-    '            Case "ucPNL_p3ProTechManLeganFees"
-    '                Return ucPNL_p3ProTechManLeganFees
-    '            Case "ucPNL_p3TechPayNonResis"
-    '                Return ucPNL_p3TechPayNonResis
-    '            Case "ucPNL_p3ContractPay"
-    '                Return ucPNL_p3ContractPay
-    '            Case "ucPNL_p3DirectorFee"
-    '                Return ucPNL_p3DirectorFee
-    '            Case "ucPNL_p3Salary"
-    '                Return ucPNL_p3Salary
-    '            Case "ucPNL_p3COEStock"
-    '                Return ucPNL_p3COEStock
-    '            Case "ucPNL_p3Royalty"
-    '                Return ucPNL_p3Royalty
-    '            Case "ucPNL_p3Rental"
-    '                Return ucPNL_p3Rental
-    '            Case "ucPNL_p3RepairMain"
-    '                Return ucPNL_p3RepairMain
-    '            Case "ucPNL_p3ResearchDev"
-    '                Return ucPNL_p3ResearchDev
-    '            Case "ucPNL_p3PromotionAds"
-    '                Return ucPNL_p3PromotionAds
-    '            Case "ucPNL_p3Travelling"
-    '                Return ucPNL_p3Travelling
-    '            Case "ucPNL_p3JKDM"
-    '                Return ucPNL_p3JKDM
-    '            Case "ucPNL_p3Depreciation"
-    '                Return ucPNL_p3Depreciation
-    '            Case "ucPNL_p3DonationApp"
-    '                Return ucPNL_p3DonationApp
-    '            Case "ucPNL_p3DonationNonApp"
-    '                Return ucPNL_p3DonationNonApp
-    '            Case "ucPNL_p3Zakat"
-    '                Return ucPNL_p3Zakat
-    '            Case "ucPNL_p4LossDispFA"
-    '                Return ucPNL_p4LossDispFA
-    '            Case "ucPNL_p4EntNonStaff"
-    '                Return ucPNL_p4EntNonStaff
-    '            Case "ucPNL_p4EntStaff"
-    '                Return ucPNL_p4EntStaff
-    '            Case "ucPNL_p4Compound"
-    '                Return ucPNL_p4Compound
-    '            Case "ucPNL_p4ProvisionAcc"
-    '                Return ucPNL_p4ProvisionAcc
-    '            Case "ucPNL_p4LeavePass"
-    '                Return ucPNL_p4LeavePass
-    '            Case "ucPNL_p4FAWrittenOff"
-    '                Return ucPNL_p4FAWrittenOff
-    '            Case "ucPNL_p4UnreaLossForeEx"
-    '                Return ucPNL_p4UnreaLossForeEx
-    '            Case "ucPNL_p4ReaLossForeExTrade"
-    '                Return ucPNL_p4ReaLossForeExTrade
-    '            Case "ucPNL_p4ReaLossForeExNonTrade"
-    '                Return ucPNL_p4ReaLossForeExNonTrade
-    '            Case "ucPNL_p4InitSub"
-    '                Return ucPNL_p4InitSub
-    '            Case "ucPNL_p4CAExpenditure"
-    '                Return ucPNL_p4CAExpenditure
-    '            Case "ucPNL_p4Other"
-    '                Return ucPNL_p4Other
-    '            Case "ucPNL_p4NonAllowableExpenses"
-    '                Return ucPNL_p4NonAllowableExpenses
-    '        End Select
-    '    Catch ex As Exception
-    '        Return Nothing
-    '    End Try
-    'End Function
-    ' Public dsDataSet2 As DataSet
-
-    'Public Function GetPNLLabelName(Optional ByRef Errorlog As clsError = Nothing) As List(Of clsPNL_LabelName)
-    '    Try
-    '        Dim ListofLabel As New List(Of clsPNL_LabelName)
-
-    '        'Page 1
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1Sales", "Sales/Turnover", "Sale / turnover", TaxComPNLEnuItem.SALES, PNL_TypeReport.Sales_TurnOver))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1OpenStock", "Opening Stock", "Opening stock", TaxComPNLEnuItem.OPENSTOCK, PNL_TypeReport.Less_Cost_Of_Good_Sold))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1Purchase", "Purchases", "Purchases", TaxComPNLEnuItem.PURCHASE, PNL_TypeReport.Less_Cost_Of_Good_Sold))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1Depreciation", "Depreciation", "Depreciation", TaxComPNLEnuItem.DEPRECIATION, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1AllowanceExpenses", "Other Allowable Expenses", "Allowable expenses", TaxComPNLEnuItem.OTHERALLOWEXP, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1NonAllowableExpenses", "Other Non Allowable Expenses", "", TaxComPNLEnuItem.OTHERNONALLOWEXP, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl9", "Product and cost of production", "Product and cost of production", TaxComPNLEnuItem.COSTPRODUCT, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1CloseStock", "Closing Stock", "Closing stock", TaxComPNLEnuItem.CLOSESTOCK, PNL_TypeReport.CloseStock))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl10", "Cost of sales", "Cost of sales", TaxComPNLEnuItem.COSTOFSALES, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl11", "Gross Profit", "Gross Profit", TaxComPNLEnuItem.GROSSPROFIT, PNL_TypeReport.GrossProfit))
-
-    '        'Page 2
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2OtherBizIncome", "Other Business Income", "Other business income", TaxComPNLEnuItem.OTHERBUSINC, PNL_TypeReport.Other_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ForeignCurrExGain", "Realised Foreign Exchange Gain - Trade", "Foreign currency exchange gain", TaxComPNLEnuItem.REALFETRADE, PNL_TypeReport.Other_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2DivIncome", "Dividend Income", "Dividend income", TaxComPNLEnuItem.DIVIDENDINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2InterestIncome", "Interest Income", "Interest income", TaxComPNLEnuItem.INTERESTINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2RentalIncome", "Rental Income", "Rental income", TaxComPNLEnuItem.RENTALINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2RoyaltyIncome", "Royalty Income", "Royalty income", TaxComPNLEnuItem.ROYALTYINC, PNL_TypeReport.Non_Allowanble_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2OtherIncome", "Other Income", "Other income", TaxComPNLEnuItem.OTHERINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ProDispPlantEq", "Profit on Disposal of Fixed Assets", "Profit on disposal of property, plant and equipment", TaxComPNLEnuItem.PDFIXASSET, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ProDisInvestment", "Profit on Disposal of Investment", "Profit on disposal of investment", TaxComPNLEnuItem.PDINVEST, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ExemptDividend", "Exempt Dividend", "Exempt dividend", TaxComPNLEnuItem.EXEMDIV, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ForeIncomeRemmit", "Foreign Income Remittance", "Foreign income remittance", TaxComPNLEnuItem.FORINCREMIT, PNL_TypeReport.Non_Taxable_Income))
-
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ReaForeExGainNonTrade", "Realised Foreign Exchange Gain Arising from Capital Transaction", "", TaxComPNLEnuItem.REALFE, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeEx", "Unrealised Gain on Foreign Exchange - Trade", "Unrealised gain on foreign exchange", TaxComPNLEnuItem.UNREALFETRADE, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeExNon", "Unrealised Gain on Foregin Exchange - Non-Trade", "Realised foreign exchange gain - non trade", TaxComPNLEnuItem.UNREALFENONTRADE, PNL_TypeReport.Non_Taxable_Income))
-
-
-
-
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2Other", "Other", "Other", TaxComPNLEnuItem.OTHERNONTAXINC, PNL_TypeReport.Non_Taxable_Income))
-
-
-    '        'Page 3
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3InterestResPurS33", "Interest restricted pursuant to S33 (2)", "Interest expense restricted under subsection 33(2)", TaxComPNLEnuItem.INTERESTRESTRICT, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3OtherInterestExHirePur", "Other Interest (excluding hire purchase interest)", "Interest", TaxComPNLEnuItem.EXPOTHERINTEREST, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ProTechManLeganFees", "Professional, Technical, Management & Legal Fees", "Professional, technical, management and legal fees", TaxComPNLEnuItem.EXPLEGAL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3TechPayNonResis", "Technical fee payments to non-resident recipients", "Technical fee payments to non - resident recipients", TaxComPNLEnuItem.EXPTECHNICAL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ContractPay", "Contract Payments", "Contract payments", TaxComPNLEnuItem.EXPCONTRACTPAY, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3DirectorFee", "Directors' Fee", "Directors' fee", TaxComPNLEnuItem.EXPDIRECTORFEE, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Salary", "Salary", "Salaries and wages", TaxComPNLEnuItem.EXPSALARY, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3COEStock", "Cost of Employee Stock Options", "Cost of employee stock options", TaxComPNLEnuItem.EXPEMPLOYEESTOCK, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Royalty", "Royalty", "Royalties", TaxComPNLEnuItem.EXPROYALTY, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Rental", "Rental", "Rental / lease", TaxComPNLEnuItem.EXPRENTAL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3RepairMain", "Repair & Maintenance", "Maintenance and repairs", TaxComPNLEnuItem.EXPREPAIRMAINTENANCE, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ResearchDev", "Research & Development", "Research and development", TaxComPNLEnuItem.EXPRND, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3PromotionAds", "Promotion & Advertisement", "Promotion and advertisement", TaxComPNLEnuItem.EXPADVERTISEMENT, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Travelling", "Travelling & Accommodation", "Travelling and accommodation", TaxComPNLEnuItem.EXPTRAVEL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ForeignCurrExLoss", "", "Foreign currency exchange loss", TaxComPNLEnuItem.EXPUNREALLOSSFE, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3JKDM", "Input Tax Not Claimable from JKDM", "Input tax not claimable from RMCD", TaxComPNLEnuItem.EXPJKDM, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Depreciation", "Depreciation", "Depreciation of property, plant and equipment", TaxComPNLEnuItem.EXPDEPRECIATION, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3DonationApp", "Donation Approved", "Approved donations and contributions", TaxComPNLEnuItem.EXPDONATIONAPPR, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3DonationNonApp", "Donation Non Approved", "Unapproved donations and contributions", TaxComPNLEnuItem.EXPDONATIONNONAPPR, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Zakat", "Zakat", "Zakat", TaxComPNLEnuItem.EXPZAKAT, PNL_TypeReport.Other_Expenses))
-
-    '        'Page 4
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4LossDispFA", "Loss on Disposal of Fixed Assets", "Loss on disposal of property, plant and equipment", TaxComPNLEnuItem.EXPLOSSDISPFA, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4EntNonStaff", "Entertainment Non Staff", "Entertainment - others", TaxComPNLEnuItem.EXPENTERTAINNONSTAFF, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4EntStaff", "Entertainment  Staff", "Entertainment - staff", TaxComPNLEnuItem.EXPENTERTAINSTAFF, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4Compound", "Compound / Penalty", "Compound / penalty", TaxComPNLEnuItem.EXPCOMPAUNDPENALTY, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4ProvisionAcc", "Provision Account", "Provision account", TaxComPNLEnuItem.EXPPROVISION, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4LeavePass", "Leave Passage", "Leave passage", TaxComPNLEnuItem.EXPLEAVEPASSAGE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4FAWrittenOff", "Fixed Asset Written Off", "Property, plant and equipment written - off", TaxComPNLEnuItem.EXPFAWRITTENOFF, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4UnreaLossForeEx", "Unrealised Loss on Foreign Exchange", "", TaxComPNLEnuItem.EXPUNREALLOSSFE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExTrade", "Realised Loss on Foreign Exchange - Trade", "", TaxComPNLEnuItem.EXPREALLOSSFETRADE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExNonTrade", "Realised Loss on Foreign Exchange - Non-Trade", "", TaxComPNLEnuItem.EXPREALLOSSFENONTRADE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4InitSub", "Initial Subscription", "Subscription", TaxComPNLEnuItem.EXPINITIALSUBSCRIPT, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4CAExpenditure", "Capital Expenditure", "Capital expenditure", TaxComPNLEnuItem.EXPCAPITALEXPENDITURE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4Other", "Others", "Others", TaxComPNLEnuItem.EXPOTHERSEXPENSES, PNL_TypeReport.Other_Expenses))
-
-    '        Return ListofLabel
-    '    Catch ex As Exception
-    '        If Errorlog Is Nothing Then
-    '            Errorlog = New clsError
-    '        End If
-    '        With Errorlog
-    '            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-    '            .ErrorCode = ex.GetHashCode.ToString
-    '            .ErrorDateTime = Now
-    '            .ErrorMessage = ex.Message
-    '        End With
-    '        Return Nothing
-    '    End Try
-    'End Function
-    'Public Function GetPNLLabelName_Report(Optional ByRef Errorlog As clsError = Nothing) As List(Of clsPNL_LabelName)
-    '    Try
-    '        Dim ListofLabel As New List(Of clsPNL_LabelName)
-
-    '        'Page 1
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1Sales", "Sales/Turnover", "Sale / turnover", TaxComPNLEnuItem.SALES, PNL_TypeReport.Sales_TurnOver))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1OpenStock", "Less : Cost of Sales", "Less : Cost of Sales", TaxComPNLEnuItem.LESSCOSTSALES_TITLEONLY, PNL_TypeReport.Less_Cost_Of_Good_Sold))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1OpenStock", "Opening Stock", "Opening stock", TaxComPNLEnuItem.OPENSTOCK, PNL_TypeReport.Less_Cost_Of_Good_Sold))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1Purchase", "Purchases", "Purchases", TaxComPNLEnuItem.PURCHASE, PNL_TypeReport.Less_Cost_Of_Good_Sold))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl9", "Product and cost of production", "Product and cost of production", TaxComPNLEnuItem.COSTPRODUCT_TITLEONLY, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1Depreciation", "Depreciation", "Depreciation", TaxComPNLEnuItem.DEPRECIATION, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1AllowanceExpenses", "Other Allowable Expenses", "Allowable expenses", TaxComPNLEnuItem.OTHERALLOWEXP, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1NonAllowableExpenses", "Other Non Allowable Expenses", "", TaxComPNLEnuItem.OTHERNONALLOWEXP, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl9", "Product and cost of production", "Product and cost of production", TaxComPNLEnuItem.COSTPRODUCT, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p1CloseStock", "Closing Stock", "Closing stock", TaxComPNLEnuItem.CLOSESTOCK, PNL_TypeReport.CloseStock))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl10", "Cost of sales", "Cost of sales", TaxComPNLEnuItem.COSTOFSALES, PNL_TypeReport.Product_Cost))
-    '        ListofLabel.Add(New clsPNL_LabelName("LabelControl11", "Gross Profit", "Gross Profit", TaxComPNLEnuItem.GROSSPROFIT, PNL_TypeReport.GrossProfit))
-
-    '        'Page 2
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2OtherBizIncome", "Other Business Income", "Other business income", TaxComPNLEnuItem.OTHERBUSINC, PNL_TypeReport.Other_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ForeignCurrExGain", "Realised Foreign Exchange Gain - Trade", "Foreign currency exchange gain", TaxComPNLEnuItem.REALFETRADE, PNL_TypeReport.Other_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2DivIncome", "Dividend Income", "Dividend income", TaxComPNLEnuItem.DIVIDENDINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2InterestIncome", "Interest Income", "Interest income", TaxComPNLEnuItem.INTERESTINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2RentalIncome", "Rental Income", "Rental income", TaxComPNLEnuItem.RENTALINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2RoyaltyIncome", "Royalty Income", "Royalty income", TaxComPNLEnuItem.ROYALTYINC, PNL_TypeReport.Non_Allowanble_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2OtherIncome", "Other Income", "Other income", TaxComPNLEnuItem.OTHERINC, PNL_TypeReport.Other_Non_Business_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ProDispPlantEq", "Profit on Disposal of Fixed Assets", "Profit on disposal of property, plant and equipment", TaxComPNLEnuItem.PDFIXASSET, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ProDisInvestment", "Profit on Disposal of Investment", "Profit on disposal of investment", TaxComPNLEnuItem.PDINVEST, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ExemptDividend", "Exempt Dividend", "Exempt dividend", TaxComPNLEnuItem.EXEMDIV, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ForeIncomeRemmit", "Foreign Income Remittance", "Foreign income remittance", TaxComPNLEnuItem.FORINCREMIT, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2ReaForeExGainNonTrade", "Realised Foreign Exchange Gain Arising from Capital Transaction", "", TaxComPNLEnuItem.REALFE, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeEx", "Unrealised Gain on Foreign Exchange - Trade", "Realised foreign exchange gain - non trade", TaxComPNLEnuItem.UNREALFETRADE, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2UnreaGainForeExNon", "Unrealised Gain on Foregin Exchange - Non-Trade", "Unrealised gain on foreign exchange", TaxComPNLEnuItem.UNREALFENONTRADE, PNL_TypeReport.Non_Taxable_Income))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p2Other", "Other", "Other", TaxComPNLEnuItem.OTHERNONTAXINC, PNL_TypeReport.Non_Taxable_Income))
-
-
-    '        'Page 3
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3InterestResPurS33", "Interest restricted pursuant to S33 (2)", "Interest expense restricted under subsection 33(2)", TaxComPNLEnuItem.INTERESTRESTRICT, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3OtherInterestExHirePur", "Other Interest (excluding hire purchase interest)", "Interest", TaxComPNLEnuItem.EXPOTHERINTEREST, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ProTechManLeganFees", "Professional, Technical, Management & Legal Fees", "Professional, technical, management and legal fees", TaxComPNLEnuItem.EXPLEGAL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3TechPayNonResis", "Technical fee payments to non-resident recipients", "Technical fee payments to non - resident recipients", TaxComPNLEnuItem.EXPTECHNICAL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ContractPay", "Contract Payments", "Contract payments", TaxComPNLEnuItem.EXPCONTRACTPAY, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3DirectorFee", "Directors' Fee", "Directors' fee", TaxComPNLEnuItem.EXPDIRECTORFEE, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Salary", "Salary", "Salaries and wages", TaxComPNLEnuItem.EXPSALARY, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3COEStock", "Cost of Employee Stock Options", "Cost of employee stock options", TaxComPNLEnuItem.EXPEMPLOYEESTOCK, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Royalty", "Royalty", "Royalties", TaxComPNLEnuItem.EXPROYALTY, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Rental", "Rental", "Rental / lease", TaxComPNLEnuItem.EXPRENTAL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3RepairMain", "Repair & Maintenance", "Maintenance and repairs", TaxComPNLEnuItem.EXPREPAIRMAINTENANCE, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ResearchDev", "Research & Development", "Research and development", TaxComPNLEnuItem.EXPRND, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3PromotionAds", "Promotion & Advertisement", "Promotion and advertisement", TaxComPNLEnuItem.EXPADVERTISEMENT, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Travelling", "Travelling & Accommodation", "Travelling and accommodation", TaxComPNLEnuItem.EXPTRAVEL, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3ForeignCurrExLoss", "", "Foreign currency exchange loss", TaxComPNLEnuItem.EXPUNREALLOSSFE, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3JKDM", "Input Tax Not Claimable from JKDM", "Input tax not claimable from RMCD", TaxComPNLEnuItem.EXPJKDM, PNL_TypeReport.Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Depreciation", "Depreciation", "Depreciation of property, plant and equipment", TaxComPNLEnuItem.EXPDEPRECIATION, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3DonationApp", "Donation Approved", "Approved donations and contributions", TaxComPNLEnuItem.EXPDONATIONAPPR, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3DonationNonApp", "Donation Non Approved", "Unapproved donations and contributions", TaxComPNLEnuItem.EXPDONATIONNONAPPR, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p3Zakat", "Zakat", "Zakat", TaxComPNLEnuItem.EXPZAKAT, PNL_TypeReport.Other_Expenses))
-
-    '        'Page 4
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4LossDispFA", "Loss on Disposal of Fixed Assets", "Loss on disposal of property, plant and equipment", TaxComPNLEnuItem.EXPLOSSDISPFA, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4EntNonStaff", "Entertainment Non Staff", "Entertainment - others", TaxComPNLEnuItem.EXPENTERTAINNONSTAFF, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4EntStaff", "Entertainment  Staff", "Entertainment - staff", TaxComPNLEnuItem.EXPENTERTAINSTAFF, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4Compound", "Compound / Penalty", "Compound / penalty", TaxComPNLEnuItem.EXPCOMPAUNDPENALTY, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4ProvisionAcc", "Provision Account", "Provision account", TaxComPNLEnuItem.EXPPROVISION, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4LeavePass", "Leave Passage", "Leave passage", TaxComPNLEnuItem.EXPLEAVEPASSAGE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4FAWrittenOff", "Fixed Asset Written Off", "Property, plant and equipment written - off", TaxComPNLEnuItem.EXPFAWRITTENOFF, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4UnreaLossForeEx", "Unrealised Loss on Foreign Exchange", "", TaxComPNLEnuItem.EXPUNREALLOSSFE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExTrade", "Realised Loss on Foreign Exchange - Trade", "", TaxComPNLEnuItem.EXPREALLOSSFETRADE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4ReaLossForeExNonTrade", "Realised Loss on Foreign Exchange - Non-Trade", "", TaxComPNLEnuItem.EXPREALLOSSFENONTRADE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4InitSub", "Initial Subscription", "Subscription", TaxComPNLEnuItem.EXPINITIALSUBSCRIPT, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4CAExpenditure", "Capital Expenditure", "Capital expenditure", TaxComPNLEnuItem.EXPCAPITALEXPENDITURE, PNL_TypeReport.Other_Expenses))
-    '        ListofLabel.Add(New clsPNL_LabelName("lbl_p4Other", "Others", "Others", TaxComPNLEnuItem.EXPOTHERSEXPENSES, PNL_TypeReport.Other_Expenses))
-
-    '        Return ListofLabel
-    '    Catch ex As Exception
-    '        If Errorlog Is Nothing Then
-    '            Errorlog = New clsError
-    '        End If
-    '        With Errorlog
-    '            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-    '            .ErrorCode = ex.GetHashCode.ToString
-    '            .ErrorDateTime = Now
-    '            .ErrorMessage = ex.Message
-    '        End With
-    '        Return Nothing
-    '    End Try
-    'End Function
-
     Public Function DestroyPNL(ByVal Type As String, ByRef DockingManager As DockManager, _
-                            ByRef DockDocument As DevExpress.XtraBars.Docking2010.DocumentManager, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                            ByRef DockDocument As DevExpress.XtraBars.Docking2010.DocumentManager, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             DockDocument.BeginUpdate()
 
@@ -660,14 +362,16 @@ Module mdlPNL
             End Select
             Return False
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         Finally
@@ -680,7 +384,7 @@ Module mdlPNL
                             ByVal tabView As DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView, _
                             ByVal RefNo As String, ByVal YA As String, _
                             ByVal RowInfo As DataRow, _
-                            Optional ByRef Errorlog As clsError = Nothing, _
+                            Optional ByRef Errorlog As ClsError = Nothing, _
                             Optional ByRef txtSales As DevExpress.XtraEditors.TextEdit = Nothing, _
                             Optional ByRef SourceNo As Integer = 0, _
                             Optional ByVal cboSourceNo As DevExpress.XtraBars.BarEditItem = Nothing) As Boolean
@@ -693,15 +397,15 @@ Module mdlPNL
 
                     If doc_p1Sales Is Nothing OrElse doc_p1Sales.IsDisposed Then
                         doc_p1Sales = New DockPanel
-                        Dim uc As New ucPNL_p1Sales
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1Sales With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1Sales.Text = lbl.Text
                         doc_p1Sales.Name = TaxComPNLEnuItem.SALES.ToString
                         doc_p1Sales.Controls.Add(uc)
@@ -725,15 +429,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.OPENSTOCK
                     If doc_p1OpeningStock Is Nothing OrElse doc_p1OpeningStock.IsDisposed Then
                         doc_p1OpeningStock = New DockPanel
-                        Dim uc As New ucPNL_p1OpeningStock
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1OpeningStock With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1OpeningStock.Text = lbl.Text
                         doc_p1OpeningStock.Name = TaxComPNLEnuItem.OPENSTOCK.ToString
                         doc_p1OpeningStock.Controls.Add(uc)
@@ -758,15 +462,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.PURCHASE
                     If doc_p1Purchase Is Nothing OrElse doc_p1Purchase.IsDisposed Then
                         doc_p1Purchase = New DockPanel
-                        Dim uc As New ucPNL_p1Purchase
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1Purchase With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1Purchase.Text = lbl.Text
                         doc_p1Purchase.Name = TaxComPNLEnuItem.PURCHASE.ToString
                         doc_p1Purchase.Controls.Add(uc)
@@ -791,15 +495,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.DEPRECIATION
                     If doc_p1Depreciation Is Nothing OrElse doc_p1Depreciation.IsDisposed Then
                         doc_p1Depreciation = New DockPanel
-                        Dim uc As New ucPNL_p1Depreciation
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1Depreciation With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1Depreciation.Text = lbl.Text
                         doc_p1Depreciation.Name = TaxComPNLEnuItem.DEPRECIATION.ToString
                         doc_p1Depreciation.Controls.Add(uc)
@@ -823,15 +527,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
                     If doc_p1AllowanceExpenses Is Nothing OrElse doc_p1AllowanceExpenses.IsDisposed Then
                         doc_p1AllowanceExpenses = New DockPanel
-                        Dim uc As New ucPNL_p1AllowanceExpenses
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1AllowanceExpenses With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1AllowanceExpenses.Text = lbl.Text
                         doc_p1AllowanceExpenses.Name = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
                         doc_p1AllowanceExpenses.Controls.Add(uc)
@@ -855,15 +559,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
                     If doc_p1NonAllowableExpenses Is Nothing OrElse doc_p1NonAllowableExpenses.IsDisposed Then
                         doc_p1NonAllowableExpenses = New DockPanel
-                        Dim uc As New ucPNL_p1NonAllowableExpenses
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1NonAllowableExpenses With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1NonAllowableExpenses.Text = lbl.Text
                         doc_p1NonAllowableExpenses.Name = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
                         doc_p1NonAllowableExpenses.Controls.Add(uc)
@@ -887,15 +591,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.CLOSESTOCK
                     If doc_p1CloseStock Is Nothing OrElse doc_p1CloseStock.IsDisposed Then
                         doc_p1CloseStock = New DockPanel
-                        Dim uc As New ucPNL_p1CloseStock
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p1CloseStock With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p1CloseStock.Text = lbl.Text
                         doc_p1CloseStock.Name = TaxComPNLEnuItem.CLOSESTOCK.ToString
                         doc_p1CloseStock.Controls.Add(uc)
@@ -919,15 +623,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.OTHERBUSINC
                     If doc_p2OtherBizIncome Is Nothing OrElse doc_p2OtherBizIncome.IsDisposed Then
                         doc_p2OtherBizIncome = New DockPanel
-                        Dim uc As New ucPNL_p2OtherBizIncome
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2OtherBizIncome With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2OtherBizIncome.Text = lbl.Text
                         doc_p2OtherBizIncome.Name = TaxComPNLEnuItem.OTHERBUSINC.ToString
                         doc_p2OtherBizIncome.Controls.Add(uc)
@@ -951,15 +655,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.REALFETRADE
                     If doc_p2ForeignCurrExGain Is Nothing OrElse doc_p2ForeignCurrExGain.IsDisposed Then
                         doc_p2ForeignCurrExGain = New DockPanel
-                        Dim uc As New ucPNL_p2ForeignCurrExGain
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2ForeignCurrExGain With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2ForeignCurrExGain.Text = lbl.Text
                         doc_p2ForeignCurrExGain.Name = TaxComPNLEnuItem.REALFETRADE.ToString
                         doc_p2ForeignCurrExGain.Controls.Add(uc)
@@ -983,15 +687,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.INTERESTINC
                     If doc_p2InterestIncome Is Nothing OrElse doc_p2InterestIncome.IsDisposed Then
                         doc_p2InterestIncome = New DockPanel
-                        Dim uc As New ucPNL_p2InterestIncome
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2InterestIncome With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2InterestIncome.Text = lbl.Text
                         doc_p2InterestIncome.Name = TaxComPNLEnuItem.INTERESTINC.ToString
                         doc_p2InterestIncome.Controls.Add(uc)
@@ -1016,15 +720,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.ROYALTYINC
                     If doc_p2RoyaltyIncome Is Nothing OrElse doc_p2RoyaltyIncome.IsDisposed Then
                         doc_p2RoyaltyIncome = New DockPanel
-                        Dim uc As New ucPNL_p2RoyaltyIncome
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2RoyaltyIncome With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2RoyaltyIncome.Text = lbl.Text
                         doc_p2RoyaltyIncome.Name = TaxComPNLEnuItem.ROYALTYINC.ToString
                         doc_p2RoyaltyIncome.Controls.Add(uc)
@@ -1049,15 +753,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.OTHERINC
                     If doc_p2OtherIncome Is Nothing OrElse doc_p2OtherIncome.IsDisposed Then
                         doc_p2OtherIncome = New DockPanel
-                        Dim uc As New ucPNL_p2OtherIncome
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.SourceNo = cboSourceNo
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2OtherIncome With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .SourceNo = cboSourceNo,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2OtherIncome.Text = lbl.Text
                         doc_p2OtherIncome.Name = TaxComPNLEnuItem.OTHERINC.ToString
                         doc_p2OtherIncome.Controls.Add(uc)
@@ -1082,14 +786,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.PDFIXASSET
                     If doc_p2ProDispPlantEq Is Nothing OrElse doc_p2ProDispPlantEq.IsDisposed Then
                         doc_p2ProDispPlantEq = New DockPanel
-                        Dim uc As New ucPNL_p2ProDispPlantEq
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2ProDispPlantEq With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2ProDispPlantEq.Text = lbl.Text
                         doc_p2ProDispPlantEq.Name = TaxComPNLEnuItem.PDFIXASSET.ToString
                         doc_p2ProDispPlantEq.Controls.Add(uc)
@@ -1114,14 +818,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.PDINVEST
                     If doc_p2ProDisInvestment Is Nothing OrElse doc_p2ProDisInvestment.IsDisposed Then
                         doc_p2ProDisInvestment = New DockPanel
-                        Dim uc As New ucPNL_p2ProDisInvestment
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2ProDisInvestment With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2ProDisInvestment.Text = lbl.Text
                         doc_p2ProDisInvestment.Name = TaxComPNLEnuItem.PDINVEST.ToString
                         doc_p2ProDisInvestment.Controls.Add(uc)
@@ -1146,14 +850,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.FORINCREMIT
                     If doc_p2ForeIncomeRemmit Is Nothing OrElse doc_p2ForeIncomeRemmit.IsDisposed Then
                         doc_p2ForeIncomeRemmit = New DockPanel
-                        Dim uc As New ucPNL_p2ForeIncomeRemmit
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2ForeIncomeRemmit With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2ForeIncomeRemmit.Text = lbl.Text
                         doc_p2ForeIncomeRemmit.Name = TaxComPNLEnuItem.FORINCREMIT.ToString
                         doc_p2ForeIncomeRemmit.Controls.Add(uc)
@@ -1178,14 +882,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.REALFE
                     If doc_p2ReaForeExGainNonTrade Is Nothing OrElse doc_p2ReaForeExGainNonTrade.IsDisposed Then
                         doc_p2ReaForeExGainNonTrade = New DockPanel
-                        Dim uc As New ucPNL_p2ReaForeExGainNonTrade
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2ReaForeExGainNonTrade With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2ReaForeExGainNonTrade.Text = lbl.Text
                         doc_p2ReaForeExGainNonTrade.Name = TaxComPNLEnuItem.REALFE.ToString
                         doc_p2ReaForeExGainNonTrade.Controls.Add(uc)
@@ -1210,14 +914,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.UNREALFETRADE
                     If doc_p2UnreaGainForeEx Is Nothing OrElse doc_p2UnreaGainForeEx.IsDisposed Then
                         doc_p2UnreaGainForeEx = New DockPanel
-                        Dim uc As New ucPNL_p2UnreaGainForeEx
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2UnreaGainForeEx With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2UnreaGainForeEx.Text = lbl.Text
                         doc_p2UnreaGainForeEx.Name = TaxComPNLEnuItem.UNREALFETRADE.ToString
                         doc_p2UnreaGainForeEx.Controls.Add(uc)
@@ -1242,14 +946,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
                     If doc_p2UnreaGainForeExNon Is Nothing OrElse doc_p2UnreaGainForeExNon.IsDisposed Then
                         doc_p2UnreaGainForeExNon = New DockPanel
-                        Dim uc As New ucPNL_p2UnreaGainForeExNon
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2UnreaGainForeExNon With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2UnreaGainForeExNon.Text = lbl.Text
                         doc_p2UnreaGainForeExNon.Name = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
                         doc_p2UnreaGainForeExNon.Controls.Add(uc)
@@ -1274,14 +978,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     If doc_p3OtherInterestExHirePur Is Nothing OrElse doc_p3OtherInterestExHirePur.IsDisposed Then
                         doc_p3OtherInterestExHirePur = New DockPanel
-                        Dim uc As New ucPNL_p3OtherInterestExHirePur
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3OtherInterestExHirePur With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3OtherInterestExHirePur.Text = lbl.Text
                         doc_p3OtherInterestExHirePur.Name = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
                         doc_p3OtherInterestExHirePur.Controls.Add(uc)
@@ -1306,14 +1010,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPLEGAL
                     If doc_p3ProTechManLeganFees Is Nothing OrElse doc_p3ProTechManLeganFees.IsDisposed Then
                         doc_p3ProTechManLeganFees = New DockPanel
-                        Dim uc As New ucPNL_p3ProTechManLeganFees
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3ProTechManLeganFees With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3ProTechManLeganFees.Text = lbl.Text
                         doc_p3ProTechManLeganFees.Name = TaxComPNLEnuItem.EXPLEGAL.ToString
                         doc_p3ProTechManLeganFees.Controls.Add(uc)
@@ -1338,14 +1042,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPTECHNICAL
                     If doc_p3TechPayNonResis Is Nothing OrElse doc_p3TechPayNonResis.IsDisposed Then
                         doc_p3TechPayNonResis = New DockPanel
-                        Dim uc As New ucPNL_p3TechPayNonResis
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.RowInfo = RowInfo
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
+                        Dim uc As New ucPNL_p3TechPayNonResis With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .RowInfo = RowInfo,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount
+                        }
                         doc_p3TechPayNonResis.Text = lbl.Text
                         doc_p3TechPayNonResis.Name = TaxComPNLEnuItem.EXPTECHNICAL.ToString
                         doc_p3TechPayNonResis.Controls.Add(uc)
@@ -1370,14 +1074,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
                     If doc_p3ContractPay Is Nothing OrElse doc_p3ContractPay.IsDisposed Then
                         doc_p3ContractPay = New DockPanel
-                        Dim uc As New ucPNL_p3ContractPay
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3ContractPay With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3ContractPay.Text = lbl.Text
                         doc_p3ContractPay.Name = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
                         doc_p3ContractPay.Controls.Add(uc)
@@ -1402,14 +1106,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
                     If doc_p3DirectorFee Is Nothing OrElse doc_p3DirectorFee.IsDisposed Then
                         doc_p3DirectorFee = New DockPanel
-                        Dim uc As New ucPNL_p3DirectorFee
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3DirectorFee With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3DirectorFee.Text = lbl.Text
                         doc_p3DirectorFee.Name = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
                         doc_p3DirectorFee.Controls.Add(uc)
@@ -1434,14 +1138,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPSALARY
                     If doc_p3Salary Is Nothing OrElse doc_p3Salary.IsDisposed Then
                         doc_p3Salary = New DockPanel
-                        Dim uc As New ucPNL_p3Salary
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3Salary With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3Salary.Text = lbl.Text
                         doc_p3Salary.Name = TaxComPNLEnuItem.EXPSALARY.ToString
                         doc_p3Salary.Controls.Add(uc)
@@ -1466,14 +1170,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
                     If doc_p3COEStock Is Nothing OrElse doc_p3COEStock.IsDisposed Then
                         doc_p3COEStock = New DockPanel
-                        Dim uc As New ucPNL_p3COEStock
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3COEStock With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3COEStock.Text = lbl.Text
                         doc_p3COEStock.Name = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
                         doc_p3COEStock.Controls.Add(uc)
@@ -1498,14 +1202,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPROYALTY
                     If doc_p3Royalty Is Nothing OrElse doc_p3Royalty.IsDisposed Then
                         doc_p3Royalty = New DockPanel
-                        Dim uc As New ucPNL_p3Royalty
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3Royalty With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3Royalty.Text = lbl.Text
                         doc_p3Royalty.Name = TaxComPNLEnuItem.EXPROYALTY.ToString
                         doc_p3Royalty.Controls.Add(uc)
@@ -1530,14 +1234,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPRENTAL
                     If doc_p3Rental Is Nothing OrElse doc_p3Rental.IsDisposed Then
                         doc_p3Rental = New DockPanel
-                        Dim uc As New ucPNL_p3Rental
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3Rental With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3Rental.Text = lbl.Text
                         doc_p3Rental.Name = TaxComPNLEnuItem.EXPRENTAL.ToString
                         doc_p3Rental.Controls.Add(uc)
@@ -1562,14 +1266,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
                     If doc_p3RepairMain Is Nothing OrElse doc_p3RepairMain.IsDisposed Then
                         doc_p3RepairMain = New DockPanel
-                        Dim uc As New ucPNL_p3RepairMain
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3RepairMain With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3RepairMain.Text = lbl.Text
                         doc_p3RepairMain.Name = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
                         doc_p3RepairMain.Controls.Add(uc)
@@ -1594,14 +1298,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPRND
                     If doc_p3ResearchDev Is Nothing OrElse doc_p3ResearchDev.IsDisposed Then
                         doc_p3ResearchDev = New DockPanel
-                        Dim uc As New ucPNL_p3ResearchDev
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3ResearchDev With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3ResearchDev.Text = lbl.Text
                         doc_p3ResearchDev.Name = TaxComPNLEnuItem.EXPRND.ToString
                         doc_p3ResearchDev.Controls.Add(uc)
@@ -1626,14 +1330,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
                     If doc_p3PromotionAds Is Nothing OrElse doc_p3PromotionAds.IsDisposed Then
                         doc_p3PromotionAds = New DockPanel
-                        Dim uc As New ucPNL_p3PromotionAds
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3PromotionAds With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3PromotionAds.Text = lbl.Text
                         doc_p3PromotionAds.Name = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
                         doc_p3PromotionAds.Controls.Add(uc)
@@ -1658,14 +1362,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPTRAVEL
                     If doc_p3Travelling Is Nothing OrElse doc_p3Travelling.IsDisposed Then
                         doc_p3Travelling = New DockPanel
-                        Dim uc As New ucPNL_p3Travelling
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3Travelling With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3Travelling.Text = lbl.Text
                         doc_p3Travelling.Name = TaxComPNLEnuItem.EXPTRAVEL.ToString
                         doc_p3Travelling.Controls.Add(uc)
@@ -1690,14 +1394,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPJKDM
                     If doc_p3JKDM Is Nothing OrElse doc_p3JKDM.IsDisposed Then
                         doc_p3JKDM = New DockPanel
-                        Dim uc As New ucPNL_p3JKDM
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3JKDM With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3JKDM.Text = lbl.Text
                         doc_p3JKDM.Name = TaxComPNLEnuItem.EXPJKDM.ToString
                         doc_p3JKDM.Controls.Add(uc)
@@ -1722,14 +1426,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
                     If doc_p3Depreciation Is Nothing OrElse doc_p3Depreciation.IsDisposed Then
                         doc_p3Depreciation = New DockPanel
-                        Dim uc As New ucPNL_p3Depreciation
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3Depreciation With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3Depreciation.Text = lbl.Text
                         doc_p3Depreciation.Name = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
                         doc_p3Depreciation.Controls.Add(uc)
@@ -1754,14 +1458,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
                     If doc_p3DonationApp Is Nothing OrElse doc_p3DonationApp.IsDisposed Then
                         doc_p3DonationApp = New DockPanel
-                        Dim uc As New ucPNL_p3DonationApp
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3DonationApp With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3DonationApp.Text = lbl.Text
                         doc_p3DonationApp.Name = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
                         doc_p3DonationApp.Controls.Add(uc)
@@ -1786,14 +1490,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
                     If doc_p3DonationNonApp Is Nothing OrElse doc_p3DonationNonApp.IsDisposed Then
                         doc_p3DonationNonApp = New DockPanel
-                        Dim uc As New ucPNL_p3DonationNonApp
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3DonationNonApp With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3DonationNonApp.Text = lbl.Text
                         doc_p3DonationNonApp.Name = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
                         doc_p3DonationNonApp.Controls.Add(uc)
@@ -1819,14 +1523,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPZAKAT
                     If doc_p3Zakat Is Nothing OrElse doc_p3Zakat.IsDisposed Then
                         doc_p3Zakat = New DockPanel
-                        Dim uc As New ucPNL_p3Zakat
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3Zakat With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3Zakat.Text = lbl.Text
                         doc_p3Zakat.Name = TaxComPNLEnuItem.EXPZAKAT.ToString
                         doc_p3Zakat.Controls.Add(uc)
@@ -1852,14 +1556,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
                     If doc_p4LossDispFA Is Nothing OrElse doc_p4LossDispFA.IsDisposed Then
                         doc_p4LossDispFA = New DockPanel
-                        Dim uc As New ucPNL_p4LossDispFA
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4LossDispFA With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4LossDispFA.Text = lbl.Text
                         doc_p4LossDispFA.Name = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
                         doc_p4LossDispFA.Controls.Add(uc)
@@ -1885,14 +1589,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
                     If doc_p4EntNonStaff Is Nothing OrElse doc_p4EntNonStaff.IsDisposed Then
                         doc_p4EntNonStaff = New DockPanel
-                        Dim uc As New ucPNL_p4EntNonStaff
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4EntNonStaff With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4EntNonStaff.Text = lbl.Text
                         doc_p4EntNonStaff.Name = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
                         doc_p4EntNonStaff.Controls.Add(uc)
@@ -1918,14 +1622,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
                     If doc_p4EntStaff Is Nothing OrElse doc_p4EntStaff.IsDisposed Then
                         doc_p4EntStaff = New DockPanel
-                        Dim uc As New ucPNL_p4EntStaff
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4EntStaff With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4EntStaff.Text = lbl.Text
                         doc_p4EntStaff.Name = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
                         doc_p4EntStaff.Controls.Add(uc)
@@ -1951,14 +1655,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
                     If doc_p4Compound Is Nothing OrElse doc_p4Compound.IsDisposed Then
                         doc_p4Compound = New DockPanel
-                        Dim uc As New ucPNL_p4Compound
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4Compound With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4Compound.Text = lbl.Text
                         doc_p4Compound.Name = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
                         doc_p4Compound.Controls.Add(uc)
@@ -1984,14 +1688,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPPROVISION
                     If doc_p4ProvisionAcc Is Nothing OrElse doc_p4ProvisionAcc.IsDisposed Then
                         doc_p4ProvisionAcc = New DockPanel
-                        Dim uc As New ucPNL_p4ProvisionAcc
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4ProvisionAcc With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4ProvisionAcc.Text = lbl.Text
                         doc_p4ProvisionAcc.Name = TaxComPNLEnuItem.EXPPROVISION.ToString
                         doc_p4ProvisionAcc.Controls.Add(uc)
@@ -2018,14 +1722,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
                     If doc_p4LeavePass Is Nothing OrElse doc_p4LeavePass.IsDisposed Then
                         doc_p4LeavePass = New DockPanel
-                        Dim uc As New ucPNL_p4LeavePass
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4LeavePass With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4LeavePass.Text = lbl.Text
                         doc_p4LeavePass.Name = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
                         doc_p4LeavePass.Controls.Add(uc)
@@ -2051,14 +1755,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     If doc_p4FAWrittenOff Is Nothing OrElse doc_p4FAWrittenOff.IsDisposed Then
                         doc_p4FAWrittenOff = New DockPanel
-                        Dim uc As New ucPNL_p4FAWrittenOff
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4FAWrittenOff With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4FAWrittenOff.Text = lbl.Text
                         doc_p4FAWrittenOff.Name = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
                         doc_p4FAWrittenOff.Controls.Add(uc)
@@ -2084,14 +1788,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
                     If doc_p4UnreaLossForeEx Is Nothing OrElse doc_p4UnreaLossForeEx.IsDisposed Then
                         doc_p4UnreaLossForeEx = New DockPanel
-                        Dim uc As New ucPNL_p4UnreaLossForeEx
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4UnreaLossForeEx With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4UnreaLossForeEx.Text = lbl.Text
                         doc_p4UnreaLossForeEx.Name = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
                         doc_p4UnreaLossForeEx.Controls.Add(uc)
@@ -2117,14 +1821,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
                     If doc_p4ReaLossForeExTrade Is Nothing OrElse doc_p4ReaLossForeExTrade.IsDisposed Then
                         doc_p4ReaLossForeExTrade = New DockPanel
-                        Dim uc As New ucPNL_p4ReaLossForeExTrade
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4ReaLossForeExTrade With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4ReaLossForeExTrade.Text = lbl.Text
                         doc_p4ReaLossForeExTrade.Name = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
                         doc_p4ReaLossForeExTrade.Controls.Add(uc)
@@ -2150,14 +1854,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
                     If doc_p4ReaLossForeExNonTrade Is Nothing OrElse doc_p4ReaLossForeExNonTrade.IsDisposed Then
                         doc_p4ReaLossForeExNonTrade = New DockPanel
-                        Dim uc As New ucPNL_p4ReaLossForeExNonTrade
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4ReaLossForeExNonTrade With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4ReaLossForeExNonTrade.Text = lbl.Text
                         doc_p4ReaLossForeExNonTrade.Name = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
                         doc_p4ReaLossForeExNonTrade.Controls.Add(uc)
@@ -2183,14 +1887,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
                     If doc_p4InitSub Is Nothing OrElse doc_p4InitSub.IsDisposed Then
                         doc_p4InitSub = New DockPanel
-                        Dim uc As New ucPNL_p4InitSub
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4InitSub With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4InitSub.Text = lbl.Text
                         doc_p4InitSub.Name = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
                         doc_p4InitSub.Controls.Add(uc)
@@ -2216,14 +1920,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
                     If doc_p4CAExpenditure Is Nothing OrElse doc_p4CAExpenditure.IsDisposed Then
                         doc_p4CAExpenditure = New DockPanel
-                        Dim uc As New ucPNL_p4CAExpenditure
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4CAExpenditure With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4CAExpenditure.Text = lbl.Text
                         doc_p4CAExpenditure.Name = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
                         doc_p4CAExpenditure.Controls.Add(uc)
@@ -2249,14 +1953,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
                     If doc_p4Other Is Nothing OrElse doc_p4Other.IsDisposed Then
                         doc_p4Other = New DockPanel
-                        Dim uc As New ucPNL_p4Other
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p4Other With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p4Other.Text = lbl.Text
                         doc_p4Other.Name = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
                         doc_p4Other.Controls.Add(uc)
@@ -2281,15 +1985,15 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.RENTALINC
                     If doc_p2RentalIncome Is Nothing OrElse doc_p2RentalIncome.IsDisposed Then
                         doc_p2RentalIncome = New DockPanel
-                        Dim uc As New ucPNL_p2RentalIncome
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.txtSales = txtSales
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2RentalIncome With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .txtSales = txtSales,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2RentalIncome.Text = lbl.Text
                         doc_p2RentalIncome.Name = TaxComPNLEnuItem.RENTALINC.ToString
                         doc_p2RentalIncome.Controls.Add(uc)
@@ -2314,13 +2018,13 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
                     If doc_p4NonAllowableExpenses Is Nothing OrElse doc_p4NonAllowableExpenses.IsDisposed Then
                         doc_p4NonAllowableExpenses = New DockPanel
-                        Dim uc As New ucPNL_p4NonAllowableExpenses
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
+                        Dim uc As New ucPNL_p4NonAllowableExpenses With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount
+                        }
                         doc_p4NonAllowableExpenses.Text = lbl.Text
                         doc_p4NonAllowableExpenses.Name = TaxComPNLEnuItem.NONALLOWABLEEXPENSES.ToString
                         doc_p4NonAllowableExpenses.Controls.Add(uc)
@@ -2344,14 +2048,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
                     If doc_p2Other Is Nothing OrElse doc_p2Other.IsDisposed Then
                         doc_p2Other = New DockPanel
-                        Dim uc As New ucPNL_p2Other
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2Other With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2Other.Text = lbl.Text
                         doc_p2Other.Name = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
                         doc_p2Other.Controls.Add(uc)
@@ -2376,14 +2080,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.EXEMDIV
                     If doc_p2ExemptDividend Is Nothing OrElse doc_p2ExemptDividend.IsDisposed Then
                         doc_p2ExemptDividend = New DockPanel
-                        Dim uc As New ucPNL_p2ExemptDividend
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2ExemptDividend With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2ExemptDividend.Text = lbl.Text
                         doc_p2ExemptDividend.Name = TaxComPNLEnuItem.EXEMDIV.ToString
                         doc_p2ExemptDividend.Controls.Add(uc)
@@ -2408,14 +2112,14 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.INTERESTRESTRICT
                     If doc_p3InterestResPurS33 Is Nothing OrElse doc_p3InterestResPurS33.IsDisposed Then
                         doc_p3InterestResPurS33 = New DockPanel
-                        Dim uc As New ucPNL_p3InterestResPurS33
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.DataView_Main = dsDataSet
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p3InterestResPurS33 With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .DataView_Main = dsDataSet,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p3InterestResPurS33.Text = lbl.Text
                         doc_p3InterestResPurS33.Name = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
                         doc_p3InterestResPurS33.Controls.Add(uc)
@@ -2440,17 +2144,17 @@ Module mdlPNL
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     If doc_p2DivIncome Is Nothing OrElse doc_p2DivIncome.IsDisposed Then
                         doc_p2DivIncome = New DockPanel
-                        Dim uc As New ucPNL_p2DivIncome
-
-                        uc.RefNo = RefNo
-                        uc.YA = YA
-                        uc.txtSales = txtSales
-                        uc.DataView_Main = dsDataSet
-                        uc.DataView_Main2 = dsDataSet
-                        uc.SourceNo = cboSourceNo
-                        uc.Dock = DockStyle.Fill
-                        uc.txtAmount = txtAmount
-                        uc.RowInfo = RowInfo
+                        Dim uc As New ucPNL_p2DivIncome With {
+                            .RefNo = RefNo,
+                            .YA = YA,
+                            .txtSales = txtSales,
+                            .DataView_Main = dsDataSet,
+                            .DataView_Main2 = dsDataSet,
+                            .SourceNo = cboSourceNo,
+                            .Dock = DockStyle.Fill,
+                            .txtAmount = txtAmount,
+                            .RowInfo = RowInfo
+                        }
                         doc_p2DivIncome.Text = lbl.Text
                         doc_p2DivIncome.Name = TaxComPNLEnuItem.DIVIDENDINC.ToString
                         doc_p2DivIncome.Controls.Add(uc)
@@ -2476,1355 +2180,25 @@ Module mdlPNL
 
             Return False
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         Finally
             DockDocument.EndUpdate()
         End Try
     End Function
-    'Public Function ViewPNL(ByVal Type As mdlEnum.TaxComPNLEnuItem, ByRef DockingManager As DockManager, _
-    '                        ByRef DockDocument As DevExpress.XtraBars.Docking2010.DocumentManager, ByVal lbl As DevExpress.XtraEditors.LabelControl, _
-    '                        ByVal txtAmount As DevExpress.XtraEditors.TextEdit, _
-    '                        ByVal tabView As DevExpress.XtraBars.Docking2010.Views.Tabbed.TabbedView, _
-    '                        ByVal RefNo As String, ByVal YA As String,
-    '                        Optional ByRef Errorlog As clsError = Nothing, Optional ByRef txtSales As DevExpress.XtraEditors.TextEdit = Nothing, Optional ByRef SourceNo As Integer = 0, Optional ByVal cboSourceNo As DevExpress.XtraBars.BarEditItem = Nothing) As Boolean
-    '    Try
-    '        DockDocument.BeginUpdate()
-    '        Dim doc As DevExpress.XtraBars.Docking2010.Views.BaseDocument
-    '        Select Case Type
-    '            Case TaxComPNLEnuItem.SALES
-
-    '                If P1_docSales Is Nothing OrElse P1_docSales.IsDisposed Then
-    '                    P1_docSales = New DockPanel
-    '                    Dim uc As New ucPNL_p1Sales
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docSales.Text = lbl.Text
-    '                    P1_docSales.Name = TaxComPNLEnuItem.SALES.ToString
-    '                    P1_docSales.Controls.Add(uc)
-    '                    P1_docSales.Register(DockingManager)
-    '                    doc = DockDocument.View.AddDocument(P1_docSales)
-    '                Else
-    '                    P1_docSales.Visibility = DockVisibility.Visible
-    '                    If P1_docSales.Controls.Count > 0 AndAlso TypeOf P1_docSales.Controls(0) Is ucPNL_p1Sales Then
-    '                        Dim uc As ucPNL_p1Sales = CType(P1_docSales.Controls(0), ucPNL_p1Sales)
-    '                        uc.RefNo = RefNo
-    '                        uc.txtAmount = txtAmount
-    '                        uc.YA = YA
-    '                        uc.SourceNo = cboSourceNo
-    '                    End If
-    '                    doc = DockDocument.View.AddDocument(P1_docSales)
-    '                End If
-
-    '                DockDocument.View.ActivateDocument(P1_docSales)
-
-    '            Case TaxComPNLEnuItem.OPENSTOCK
-    '                If P1_docOpeningStock Is Nothing OrElse P1_docOpeningStock.IsDisposed Then
-    '                    P1_docOpeningStock = New DockPanel
-    '                    Dim uc As New ucPNL_p1OpeningStock
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docOpeningStock.Text = lbl.Text
-    '                    P1_docOpeningStock.Name = TaxComPNLEnuItem.OPENSTOCK.ToString
-    '                    P1_docOpeningStock.Controls.Add(uc)
-    '                    P1_docOpeningStock.DockedAsTabbedDocument = True
-    '                    P1_docOpeningStock.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P1_docOpeningStock)
-    '                Else
-    '                    P1_docOpeningStock.Visibility = DockVisibility.Visible
-    '                    If P1_docOpeningStock.Controls.Count > 0 AndAlso TypeOf P1_docOpeningStock.Controls(0) Is ucPNL_p1Sales Then
-    '                        Dim uc As ucPNL_p1Sales = CType(P1_docOpeningStock.Controls(0), ucPNL_p1Sales)
-    '                        uc.RefNo = RefNo
-    '                        uc.txtAmount = txtAmount
-    '                        uc.YA = YA
-    '                        uc.SourceNo = cboSourceNo
-    '                    End If
-    '                    doc = DockDocument.View.AddDocument(P1_docOpeningStock)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P1_docOpeningStock)
-
-    '            Case TaxComPNLEnuItem.PURCHASE
-    '                If P1_docPurchase Is Nothing OrElse P1_docPurchase.IsDisposed Then
-    '                    P1_docPurchase = New DockPanel
-    '                    Dim uc As New ucPNL_p1Purchase
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docPurchase.Text = lbl.Text
-    '                    P1_docPurchase.Name = TaxComPNLEnuItem.PURCHASE.ToString
-    '                    P1_docPurchase.Controls.Add(uc)
-    '                    P1_docPurchase.DockedAsTabbedDocument = True
-    '                    P1_docPurchase.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P1_docPurchase)
-    '                Else
-    '                    P1_docPurchase.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P1_docPurchase)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P1_docPurchase)
-
-    '            Case TaxComPNLEnuItem.DEPRECIATION
-    '                If P1_docDepreciation Is Nothing OrElse P1_docDepreciation.IsDisposed Then
-    '                    P1_docDepreciation = New DockPanel
-    '                    Dim uc As New ucPNL_p1Depreciation
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docDepreciation.Text = lbl.Text
-    '                    P1_docDepreciation.Name = TaxComPNLEnuItem.DEPRECIATION.ToString
-    '                    P1_docDepreciation.Controls.Add(uc)
-    '                    P1_docDepreciation.DockedAsTabbedDocument = True
-    '                    P1_docDepreciation.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P1_docDepreciation)
-    '                Else
-    '                    P1_docDepreciation.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P1_docDepreciation)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P1_docDepreciation)
-    '            Case TaxComPNLEnuItem.OTHERALLOWEXP
-    '                If P1_docAllowanceExpenses Is Nothing OrElse P1_docAllowanceExpenses.IsDisposed Then
-    '                    P1_docAllowanceExpenses = New DockPanel
-    '                    Dim uc As New ucPNL_p1AllowanceExpenses
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docAllowanceExpenses.Text = lbl.Text
-    '                    P1_docAllowanceExpenses.Name = TaxComPNLEnuItem.OTHERALLOWEXP.ToString
-    '                    P1_docAllowanceExpenses.Controls.Add(uc)
-    '                    P1_docAllowanceExpenses.DockedAsTabbedDocument = True
-    '                    P1_docAllowanceExpenses.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P1_docAllowanceExpenses)
-    '                Else
-    '                    P1_docAllowanceExpenses.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P1_docAllowanceExpenses)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P1_docAllowanceExpenses)
-    '            Case TaxComPNLEnuItem.OTHERNONALLOWEXP
-    '                If P1_docNonAllowableExpenses Is Nothing OrElse P1_docNonAllowableExpenses.IsDisposed Then
-    '                    P1_docNonAllowableExpenses = New DockPanel
-    '                    Dim uc As New ucPNL_p1NonAllowableExpenses
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docNonAllowableExpenses.Text = lbl.Text
-    '                    P1_docNonAllowableExpenses.Name = TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString
-    '                    P1_docNonAllowableExpenses.Controls.Add(uc)
-    '                    P1_docNonAllowableExpenses.DockedAsTabbedDocument = True
-    '                    P1_docNonAllowableExpenses.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P1_docNonAllowableExpenses)
-    '                Else
-    '                    P1_docNonAllowableExpenses.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P1_docNonAllowableExpenses)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P1_docNonAllowableExpenses)
-    '            Case TaxComPNLEnuItem.CLOSESTOCK
-    '                If P1_docCloseStock Is Nothing OrElse P1_docCloseStock.IsDisposed Then
-    '                    P1_docCloseStock = New DockPanel
-    '                    Dim uc As New ucPNL_p1CloseStock
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P1_docCloseStock.Text = lbl.Text
-    '                    P1_docCloseStock.Name = TaxComPNLEnuItem.CLOSESTOCK.ToString
-    '                    P1_docCloseStock.Controls.Add(uc)
-    '                    P1_docCloseStock.DockedAsTabbedDocument = True
-    '                    P1_docCloseStock.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P1_docCloseStock)
-    '                Else
-    '                    P1_docCloseStock.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P1_docCloseStock)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P1_docCloseStock)
-    '            Case TaxComPNLEnuItem.OTHERBUSINC
-    '                If P2_docOtherBizIncome Is Nothing OrElse P2_docOtherBizIncome.IsDisposed Then
-    '                    P2_docOtherBizIncome = New DockPanel
-    '                    Dim uc As New ucPNL_p2OtherBizIncome
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docOtherBizIncome.Text = lbl.Text
-    '                    P2_docOtherBizIncome.Name = TaxComPNLEnuItem.OTHERBUSINC.ToString
-    '                    P2_docOtherBizIncome.Controls.Add(uc)
-    '                    P2_docOtherBizIncome.DockedAsTabbedDocument = True
-    '                    P2_docOtherBizIncome.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P2_docOtherBizIncome)
-    '                Else
-    '                    P2_docOtherBizIncome.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docOtherBizIncome)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docOtherBizIncome)
-    '            Case TaxComPNLEnuItem.REALFETRADE
-    '                If P2_docForeignCurrExGain Is Nothing OrElse P2_docForeignCurrExGain.IsDisposed Then
-    '                    P2_docForeignCurrExGain = New DockPanel
-    '                    Dim uc As New ucPNL_p2ForeignCurrExGain
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docForeignCurrExGain.Text = lbl.Text
-    '                    P2_docForeignCurrExGain.Name = TaxComPNLEnuItem.REALFETRADE.ToString
-    '                    P2_docForeignCurrExGain.Controls.Add(uc)
-    '                    P2_docForeignCurrExGain.DockedAsTabbedDocument = True
-    '                    P2_docForeignCurrExGain.Register(DockingManager)
-
-    '                    DockDocument.View.AddDocument(P2_docForeignCurrExGain)
-    '                Else
-    '                    P2_docForeignCurrExGain.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docForeignCurrExGain)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docForeignCurrExGain)
-    '            Case TaxComPNLEnuItem.INTERESTINC
-    '                If P2_docInterestIncome Is Nothing OrElse P2_docInterestIncome.IsDisposed Then
-    '                    P2_docInterestIncome = New DockPanel
-    '                    Dim uc As New ucPNL_p2InterestIncome
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docInterestIncome.Text = lbl.Text
-    '                    P2_docInterestIncome.Name = TaxComPNLEnuItem.INTERESTINC.ToString
-    '                    P2_docInterestIncome.Controls.Add(uc)
-    '                    P2_docInterestIncome.DockedAsTabbedDocument = True
-    '                    P2_docInterestIncome.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docInterestIncome)
-    '                Else
-    '                    P2_docInterestIncome.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docInterestIncome)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docInterestIncome)
-    '            Case TaxComPNLEnuItem.ROYALTYINC
-    '                If P2_docRoyaltyIncome Is Nothing OrElse P2_docRoyaltyIncome.IsDisposed Then
-    '                    P2_docRoyaltyIncome = New DockPanel
-    '                    Dim uc As New ucPNL_p2RoyaltyIncome
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docRoyaltyIncome.Text = lbl.Text
-    '                    P2_docRoyaltyIncome.Name = TaxComPNLEnuItem.ROYALTYINC.ToString
-    '                    P2_docRoyaltyIncome.Controls.Add(uc)
-    '                    P2_docRoyaltyIncome.DockedAsTabbedDocument = True
-    '                    P2_docRoyaltyIncome.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docRoyaltyIncome)
-    '                Else
-    '                    P2_docRoyaltyIncome.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docRoyaltyIncome)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docRoyaltyIncome)
-    '            Case TaxComPNLEnuItem.OTHERINC
-    '                If P2_docOtherIncome Is Nothing OrElse P2_docOtherIncome.IsDisposed Then
-    '                    P2_docOtherIncome = New DockPanel
-    '                    Dim uc As New ucPNL_p2OtherIncome
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docOtherIncome.Text = lbl.Text
-    '                    P2_docOtherIncome.Name = TaxComPNLEnuItem.OTHERINC.ToString
-    '                    P2_docOtherIncome.Controls.Add(uc)
-    '                    P2_docOtherIncome.DockedAsTabbedDocument = True
-    '                    P2_docOtherIncome.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docOtherIncome)
-    '                Else
-    '                    P2_docOtherIncome.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docOtherIncome)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docOtherIncome)
-    '            Case TaxComPNLEnuItem.PDFIXASSET
-    '                If P2_docProDispPlantEq Is Nothing OrElse P2_docProDispPlantEq.IsDisposed Then
-    '                    P2_docProDispPlantEq = New DockPanel
-    '                    Dim uc As New ucPNL_p2ProDispPlantEq
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docProDispPlantEq.Text = lbl.Text
-    '                    P2_docProDispPlantEq.Name = TaxComPNLEnuItem.PDFIXASSET.ToString
-    '                    P2_docProDispPlantEq.Controls.Add(uc)
-    '                    P2_docProDispPlantEq.DockedAsTabbedDocument = True
-    '                    P2_docProDispPlantEq.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docProDispPlantEq)
-    '                Else
-    '                    P2_docProDispPlantEq.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docProDispPlantEq)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docProDispPlantEq)
-    '            Case TaxComPNLEnuItem.PDINVEST
-    '                If P2_docProDisInvestment Is Nothing OrElse P2_docProDisInvestment.IsDisposed Then
-    '                    P2_docProDisInvestment = New DockPanel
-    '                    Dim uc As New ucPNL_p2ProDisInvestment
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docProDisInvestment.Text = lbl.Text
-    '                    P2_docProDisInvestment.Name = TaxComPNLEnuItem.PDINVEST.ToString
-    '                    P2_docProDisInvestment.Controls.Add(uc)
-    '                    P2_docProDisInvestment.DockedAsTabbedDocument = True
-    '                    P2_docProDisInvestment.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docProDisInvestment)
-    '                Else
-    '                    P2_docProDisInvestment.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docProDisInvestment)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docProDisInvestment)
-    '            Case TaxComPNLEnuItem.FORINCREMIT
-    '                If P2_docForeIncomeRemmit Is Nothing OrElse P2_docForeIncomeRemmit.IsDisposed Then
-    '                    P2_docForeIncomeRemmit = New DockPanel
-    '                    Dim uc As New ucPNL_p2ForeIncomeRemmit
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docForeIncomeRemmit.Text = lbl.Text
-    '                    P2_docForeIncomeRemmit.Name = TaxComPNLEnuItem.FORINCREMIT.ToString
-    '                    P2_docForeIncomeRemmit.Controls.Add(uc)
-    '                    P2_docForeIncomeRemmit.DockedAsTabbedDocument = True
-    '                    P2_docForeIncomeRemmit.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docForeIncomeRemmit)
-    '                Else
-    '                    P2_docForeIncomeRemmit.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docForeIncomeRemmit)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docForeIncomeRemmit)
-    '            Case TaxComPNLEnuItem.REALFE
-    '                If P2_docReaForeExGainNonTrade Is Nothing OrElse P2_docReaForeExGainNonTrade.IsDisposed Then
-    '                    P2_docReaForeExGainNonTrade = New DockPanel
-    '                    Dim uc As New ucPNL_p2ReaForeExGainNonTrade
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docReaForeExGainNonTrade.Text = lbl.Text
-    '                    P2_docReaForeExGainNonTrade.Name = TaxComPNLEnuItem.REALFE.ToString
-    '                    P2_docReaForeExGainNonTrade.Controls.Add(uc)
-    '                    P2_docReaForeExGainNonTrade.DockedAsTabbedDocument = True
-    '                    P2_docReaForeExGainNonTrade.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docReaForeExGainNonTrade)
-    '                Else
-    '                    P2_docReaForeExGainNonTrade.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docReaForeExGainNonTrade)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docReaForeExGainNonTrade)
-    '            Case TaxComPNLEnuItem.UNREALFETRADE
-    '                If P2_docUnreaGainForeEx Is Nothing OrElse P2_docUnreaGainForeEx.IsDisposed Then
-    '                    P2_docUnreaGainForeEx = New DockPanel
-    '                    Dim uc As New ucPNL_p2UnreaGainForeEx
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docUnreaGainForeEx.Text = lbl.Text
-    '                    P2_docUnreaGainForeEx.Name = TaxComPNLEnuItem.UNREALFETRADE.ToString
-    '                    P2_docUnreaGainForeEx.Controls.Add(uc)
-    '                    P2_docUnreaGainForeEx.DockedAsTabbedDocument = True
-    '                    P2_docUnreaGainForeEx.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docUnreaGainForeEx)
-    '                Else
-    '                    P2_docUnreaGainForeEx.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docUnreaGainForeEx)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docUnreaGainForeEx)
-    '            Case TaxComPNLEnuItem.UNREALFENONTRADE
-    '                If P2_docUnreaGainForeExNon Is Nothing OrElse P2_docUnreaGainForeExNon.IsDisposed Then
-    '                    P2_docUnreaGainForeExNon = New DockPanel
-    '                    Dim uc As New ucPNL_p2UnreaGainForeExNon
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docUnreaGainForeExNon.Text = lbl.Text
-    '                    P2_docUnreaGainForeExNon.Name = TaxComPNLEnuItem.UNREALFENONTRADE.ToString
-    '                    P2_docUnreaGainForeExNon.Controls.Add(uc)
-    '                    P2_docUnreaGainForeExNon.DockedAsTabbedDocument = True
-    '                    P2_docUnreaGainForeExNon.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docUnreaGainForeExNon)
-    '                Else
-    '                    P2_docUnreaGainForeExNon.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docUnreaGainForeExNon)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docUnreaGainForeExNon)
-    '            Case TaxComPNLEnuItem.EXPOTHERINTEREST
-    '                If P3_docOtherInterestExHirePur Is Nothing OrElse P3_docOtherInterestExHirePur.IsDisposed Then
-    '                    P3_docOtherInterestExHirePur = New DockPanel
-    '                    Dim uc As New ucPNL_p3OtherInterestExHirePur
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docOtherInterestExHirePur.Text = lbl.Text
-    '                    P3_docOtherInterestExHirePur.Name = TaxComPNLEnuItem.EXPOTHERINTEREST.ToString
-    '                    P3_docOtherInterestExHirePur.Controls.Add(uc)
-    '                    P3_docOtherInterestExHirePur.DockedAsTabbedDocument = True
-    '                    P3_docOtherInterestExHirePur.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docOtherInterestExHirePur)
-    '                Else
-    '                    P3_docOtherInterestExHirePur.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docOtherInterestExHirePur)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docOtherInterestExHirePur)
-    '            Case TaxComPNLEnuItem.EXPLEGAL
-    '                If P3_docProTechManLeganFees Is Nothing OrElse P3_docProTechManLeganFees.IsDisposed Then
-    '                    P3_docProTechManLeganFees = New DockPanel
-    '                    Dim uc As New ucPNL_p3ProTechManLeganFees
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docProTechManLeganFees.Text = lbl.Text
-    '                    P3_docProTechManLeganFees.Name = TaxComPNLEnuItem.EXPLEGAL.ToString
-    '                    P3_docProTechManLeganFees.Controls.Add(uc)
-    '                    P3_docProTechManLeganFees.DockedAsTabbedDocument = True
-    '                    P3_docProTechManLeganFees.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docProTechManLeganFees)
-    '                Else
-    '                    P3_docProTechManLeganFees.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docProTechManLeganFees)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docProTechManLeganFees)
-    '            Case TaxComPNLEnuItem.EXPTECHNICAL
-    '                If P3_docTechPayNonResis Is Nothing OrElse P3_docTechPayNonResis.IsDisposed Then
-    '                    P3_docTechPayNonResis = New DockPanel
-    '                    Dim uc As New ucPNL_p3TechPayNonResis
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docTechPayNonResis.Text = lbl.Text
-    '                    P3_docTechPayNonResis.Name = TaxComPNLEnuItem.EXPTECHNICAL.ToString
-    '                    P3_docTechPayNonResis.Controls.Add(uc)
-    '                    P3_docTechPayNonResis.DockedAsTabbedDocument = True
-    '                    P3_docTechPayNonResis.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docTechPayNonResis)
-    '                Else
-    '                    P3_docTechPayNonResis.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docTechPayNonResis)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docTechPayNonResis)
-    '            Case TaxComPNLEnuItem.EXPCONTRACTPAY
-    '                If P3_docContractPay Is Nothing OrElse P3_docContractPay.IsDisposed Then
-    '                    P3_docContractPay = New DockPanel
-    '                    Dim uc As New ucPNL_p3ContractPay
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docContractPay.Text = lbl.Text
-    '                    P3_docContractPay.Name = TaxComPNLEnuItem.EXPCONTRACTPAY.ToString
-    '                    P3_docContractPay.Controls.Add(uc)
-    '                    P3_docContractPay.DockedAsTabbedDocument = True
-    '                    P3_docContractPay.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docContractPay)
-    '                Else
-    '                    P3_docContractPay.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docContractPay)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docContractPay)
-    '            Case TaxComPNLEnuItem.EXPDIRECTORFEE
-    '                If P3_docDirectorFee Is Nothing OrElse P3_docDirectorFee.IsDisposed Then
-    '                    P3_docDirectorFee = New DockPanel
-    '                    Dim uc As New ucPNL_p3DirectorFee
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docDirectorFee.Text = lbl.Text
-    '                    P3_docDirectorFee.Name = TaxComPNLEnuItem.EXPDIRECTORFEE.ToString
-    '                    P3_docDirectorFee.Controls.Add(uc)
-    '                    P3_docDirectorFee.DockedAsTabbedDocument = True
-    '                    P3_docDirectorFee.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docDirectorFee)
-    '                Else
-    '                    P3_docDirectorFee.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docDirectorFee)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docDirectorFee)
-    '            Case TaxComPNLEnuItem.EXPSALARY
-    '                If P3_docSalary Is Nothing OrElse P3_docSalary.IsDisposed Then
-    '                    P3_docSalary = New DockPanel
-    '                    Dim uc As New ucPNL_p3Salary
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docSalary.Text = lbl.Text
-    '                    P3_docSalary.Name = TaxComPNLEnuItem.EXPSALARY.ToString
-    '                    P3_docSalary.Controls.Add(uc)
-    '                    P3_docSalary.DockedAsTabbedDocument = True
-    '                    P3_docSalary.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docSalary)
-    '                Else
-    '                    P3_docSalary.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docSalary)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docSalary)
-    '            Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
-    '                If P3_docCOEStock Is Nothing OrElse P3_docCOEStock.IsDisposed Then
-    '                    P3_docCOEStock = New DockPanel
-    '                    Dim uc As New ucPNL_p3COEStock
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docCOEStock.Text = lbl.Text
-    '                    P3_docCOEStock.Name = TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString
-    '                    P3_docCOEStock.Controls.Add(uc)
-    '                    P3_docCOEStock.DockedAsTabbedDocument = True
-    '                    P3_docCOEStock.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docCOEStock)
-    '                Else
-    '                    P3_docCOEStock.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docCOEStock)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docCOEStock)
-    '            Case TaxComPNLEnuItem.EXPROYALTY
-    '                If P3_docRoyalty Is Nothing OrElse P3_docRoyalty.IsDisposed Then
-    '                    P3_docRoyalty = New DockPanel
-    '                    Dim uc As New ucPNL_p3Royalty
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docRoyalty.Text = lbl.Text
-    '                    P3_docRoyalty.Name = TaxComPNLEnuItem.EXPROYALTY.ToString
-    '                    P3_docRoyalty.Controls.Add(uc)
-    '                    P3_docRoyalty.DockedAsTabbedDocument = True
-    '                    P3_docRoyalty.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docRoyalty)
-    '                Else
-    '                    P3_docRoyalty.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docRoyalty)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docRoyalty)
-    '            Case TaxComPNLEnuItem.EXPRENTAL
-    '                If P3_docRental Is Nothing OrElse P3_docRental.IsDisposed Then
-    '                    P3_docRental = New DockPanel
-    '                    Dim uc As New ucPNL_p3Rental
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docRental.Text = lbl.Text
-    '                    P3_docRental.Name = TaxComPNLEnuItem.EXPRENTAL.ToString
-    '                    P3_docRental.Controls.Add(uc)
-    '                    P3_docRental.DockedAsTabbedDocument = True
-    '                    P3_docRental.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docRental)
-    '                Else
-    '                    P3_docRental.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docRental)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docRental)
-    '            Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
-    '                If P3_docRepairMain Is Nothing OrElse P3_docRepairMain.IsDisposed Then
-    '                    P3_docRepairMain = New DockPanel
-    '                    Dim uc As New ucPNL_p3RepairMain
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docRepairMain.Text = lbl.Text
-    '                    P3_docRepairMain.Name = TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString
-    '                    P3_docRepairMain.Controls.Add(uc)
-    '                    P3_docRepairMain.DockedAsTabbedDocument = True
-    '                    P3_docRepairMain.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docRepairMain)
-    '                Else
-    '                    P3_docRepairMain.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docRepairMain)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docRepairMain)
-    '            Case TaxComPNLEnuItem.EXPRND
-    '                If P3_docResearchDev Is Nothing OrElse P3_docResearchDev.IsDisposed Then
-    '                    P3_docResearchDev = New DockPanel
-    '                    Dim uc As New ucPNL_p3ResearchDev
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docResearchDev.Text = lbl.Text
-    '                    P3_docResearchDev.Name = TaxComPNLEnuItem.EXPRND.ToString
-    '                    P3_docResearchDev.Controls.Add(uc)
-    '                    P3_docResearchDev.DockedAsTabbedDocument = True
-    '                    P3_docResearchDev.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docResearchDev)
-    '                Else
-    '                    P3_docResearchDev.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docResearchDev)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docResearchDev)
-    '            Case TaxComPNLEnuItem.EXPADVERTISEMENT
-    '                If P3_docPromotionAds Is Nothing OrElse P3_docPromotionAds.IsDisposed Then
-    '                    P3_docPromotionAds = New DockPanel
-    '                    Dim uc As New ucPNL_p3PromotionAds
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docPromotionAds.Text = lbl.Text
-    '                    P3_docPromotionAds.Name = TaxComPNLEnuItem.EXPADVERTISEMENT.ToString
-    '                    P3_docPromotionAds.Controls.Add(uc)
-    '                    P3_docPromotionAds.DockedAsTabbedDocument = True
-    '                    P3_docPromotionAds.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docPromotionAds)
-    '                Else
-    '                    P3_docPromotionAds.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docPromotionAds)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docPromotionAds)
-    '            Case TaxComPNLEnuItem.EXPTRAVEL
-    '                If P3_docTravelling Is Nothing OrElse P3_docTravelling.IsDisposed Then
-    '                    P3_docTravelling = New DockPanel
-    '                    Dim uc As New ucPNL_p3Travelling
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docTravelling.Text = lbl.Text
-    '                    P3_docTravelling.Name = TaxComPNLEnuItem.EXPTRAVEL.ToString
-    '                    P3_docTravelling.Controls.Add(uc)
-    '                    P3_docTravelling.DockedAsTabbedDocument = True
-    '                    P3_docTravelling.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docTravelling)
-    '                Else
-    '                    P3_docTravelling.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docTravelling)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docTravelling)
-    '            Case TaxComPNLEnuItem.EXPJKDM
-    '                If P3_docJKDM Is Nothing OrElse P3_docJKDM.IsDisposed Then
-    '                    P3_docJKDM = New DockPanel
-    '                    Dim uc As New ucPNL_p3JKDM
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docJKDM.Text = lbl.Text
-    '                    P3_docJKDM.Name = TaxComPNLEnuItem.EXPJKDM.ToString
-    '                    P3_docJKDM.Controls.Add(uc)
-    '                    P3_docJKDM.DockedAsTabbedDocument = True
-    '                    P3_docJKDM.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docJKDM)
-    '                Else
-    '                    P3_docJKDM.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docJKDM)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docJKDM)
-    '            Case TaxComPNLEnuItem.EXPDEPRECIATION
-    '                If P3_docDepreciation Is Nothing OrElse P3_docDepreciation.IsDisposed Then
-    '                    P3_docDepreciation = New DockPanel
-    '                    Dim uc As New ucPNL_p3Depreciation
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docDepreciation.Text = lbl.Text
-    '                    P3_docDepreciation.Name = TaxComPNLEnuItem.EXPDEPRECIATION.ToString
-    '                    P3_docDepreciation.Controls.Add(uc)
-    '                    P3_docDepreciation.DockedAsTabbedDocument = True
-    '                    P3_docDepreciation.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docDepreciation)
-    '                Else
-    '                    P3_docDepreciation.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docDepreciation)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docDepreciation)
-    '            Case TaxComPNLEnuItem.EXPDONATIONAPPR
-    '                If P3_docDonationApp Is Nothing OrElse P3_docDonationApp.IsDisposed Then
-    '                    P3_docDonationApp = New DockPanel
-    '                    Dim uc As New ucPNL_p3DonationApp
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docDonationApp.Text = lbl.Text
-    '                    P3_docDonationApp.Name = TaxComPNLEnuItem.EXPDONATIONAPPR.ToString
-    '                    P3_docDonationApp.Controls.Add(uc)
-    '                    P3_docDonationApp.DockedAsTabbedDocument = True
-    '                    P3_docDonationApp.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docDonationApp)
-    '                Else
-    '                    P3_docDonationApp.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docDonationApp)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docDonationApp)
-    '            Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
-    '                If P3_docDonationNonApp Is Nothing OrElse P3_docDonationNonApp.IsDisposed Then
-    '                    P3_docDonationNonApp = New DockPanel
-    '                    Dim uc As New ucPNL_p3DonationNonApp
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docDonationNonApp.Text = lbl.Text
-    '                    P3_docDonationNonApp.Name = TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString
-    '                    P3_docDonationNonApp.Controls.Add(uc)
-    '                    P3_docDonationNonApp.DockedAsTabbedDocument = True
-    '                    P3_docDonationNonApp.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docDonationNonApp)
-    '                Else
-    '                    P3_docDonationNonApp.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docDonationNonApp)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docDonationNonApp)
-
-    '            Case TaxComPNLEnuItem.EXPZAKAT
-    '                If p3_docZakat Is Nothing OrElse p3_docZakat.IsDisposed Then
-    '                    p3_docZakat = New DockPanel
-    '                    Dim uc As New ucPNL_p3Zakat
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p3_docZakat.Text = lbl.Text
-    '                    p3_docZakat.Name = TaxComPNLEnuItem.EXPZAKAT.ToString
-    '                    p3_docZakat.Controls.Add(uc)
-    '                    p3_docZakat.DockedAsTabbedDocument = True
-    '                    p3_docZakat.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p3_docZakat)
-    '                Else
-    '                    p3_docZakat.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p3_docZakat)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p3_docZakat)
-
-    '            Case TaxComPNLEnuItem.EXPLOSSDISPFA
-    '                If p4_docLossDispFA Is Nothing OrElse p4_docLossDispFA.IsDisposed Then
-    '                    p4_docLossDispFA = New DockPanel
-    '                    Dim uc As New ucPNL_p4LossDispFA
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docLossDispFA.Text = lbl.Text
-    '                    p4_docLossDispFA.Name = TaxComPNLEnuItem.EXPLOSSDISPFA.ToString
-    '                    p4_docLossDispFA.Controls.Add(uc)
-    '                    p4_docLossDispFA.DockedAsTabbedDocument = True
-    '                    p4_docLossDispFA.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docLossDispFA)
-    '                Else
-    '                    p4_docLossDispFA.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docLossDispFA)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docLossDispFA)
-
-    '            Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
-    '                If p4_docEntNonStaff Is Nothing OrElse p4_docEntNonStaff.IsDisposed Then
-    '                    p4_docEntNonStaff = New DockPanel
-    '                    Dim uc As New ucPNL_p4EntNonStaff
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docEntNonStaff.Text = lbl.Text
-    '                    p4_docEntNonStaff.Name = TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString
-    '                    p4_docEntNonStaff.Controls.Add(uc)
-    '                    p4_docEntNonStaff.DockedAsTabbedDocument = True
-    '                    p4_docEntNonStaff.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docEntNonStaff)
-    '                Else
-    '                    p4_docEntNonStaff.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docEntNonStaff)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docEntNonStaff)
-
-    '            Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
-    '                If p4_docEntStaff Is Nothing OrElse p4_docEntStaff.IsDisposed Then
-    '                    p4_docEntStaff = New DockPanel
-    '                    Dim uc As New ucPNL_p4EntStaff
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docEntStaff.Text = lbl.Text
-    '                    p4_docEntStaff.Name = TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString
-    '                    p4_docEntStaff.Controls.Add(uc)
-    '                    p4_docEntStaff.DockedAsTabbedDocument = True
-    '                    p4_docEntStaff.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docEntStaff)
-    '                Else
-    '                    p4_docEntStaff.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docEntStaff)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docEntStaff)
-
-    '            Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
-    '                If p4_docCompound Is Nothing OrElse p4_docCompound.IsDisposed Then
-    '                    p4_docCompound = New DockPanel
-    '                    Dim uc As New ucPNL_p4Compound
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docCompound.Text = lbl.Text
-    '                    p4_docCompound.Name = TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString
-    '                    p4_docCompound.Controls.Add(uc)
-    '                    p4_docCompound.DockedAsTabbedDocument = True
-    '                    p4_docCompound.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docCompound)
-    '                Else
-    '                    p4_docCompound.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docCompound)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docCompound)
-
-    '            Case TaxComPNLEnuItem.EXPPROVISION
-    '                If p4_docProvisionAcc Is Nothing OrElse p4_docProvisionAcc.IsDisposed Then
-    '                    p4_docProvisionAcc = New DockPanel
-    '                    Dim uc As New ucPNL_p4ProvisionAcc
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docProvisionAcc.Text = lbl.Text
-    '                    p4_docProvisionAcc.Name = TaxComPNLEnuItem.EXPPROVISION.ToString
-    '                    p4_docProvisionAcc.Controls.Add(uc)
-    '                    p4_docProvisionAcc.DockedAsTabbedDocument = True
-    '                    p4_docProvisionAcc.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docProvisionAcc)
-    '                Else
-    '                    p4_docProvisionAcc.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docProvisionAcc)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docProvisionAcc)
-
-
-    '            Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
-    '                If p4_docLeavePass Is Nothing OrElse p4_docLeavePass.IsDisposed Then
-    '                    p4_docLeavePass = New DockPanel
-    '                    Dim uc As New ucPNL_p4LeavePass
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docLeavePass.Text = lbl.Text
-    '                    p4_docLeavePass.Name = TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString
-    '                    p4_docLeavePass.Controls.Add(uc)
-    '                    p4_docLeavePass.DockedAsTabbedDocument = True
-    '                    p4_docLeavePass.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docLeavePass)
-    '                Else
-    '                    p4_docLeavePass.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docLeavePass)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docLeavePass)
-
-    '            Case TaxComPNLEnuItem.EXPFAWRITTENOFF
-    '                If p4_docFAWrittenOff Is Nothing OrElse p4_docFAWrittenOff.IsDisposed Then
-    '                    p4_docFAWrittenOff = New DockPanel
-    '                    Dim uc As New ucPNL_p4FAWrittenOff
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docFAWrittenOff.Text = lbl.Text
-    '                    p4_docFAWrittenOff.Name = TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString
-    '                    p4_docFAWrittenOff.Controls.Add(uc)
-    '                    p4_docFAWrittenOff.DockedAsTabbedDocument = True
-    '                    p4_docFAWrittenOff.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docFAWrittenOff)
-    '                Else
-    '                    p4_docFAWrittenOff.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docFAWrittenOff)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docFAWrittenOff)
-
-    '            Case TaxComPNLEnuItem.EXPUNREALLOSSFE
-    '                If p4_docUnreaLossForeEx Is Nothing OrElse p4_docUnreaLossForeEx.IsDisposed Then
-    '                    p4_docUnreaLossForeEx = New DockPanel
-    '                    Dim uc As New ucPNL_p4UnreaLossForeEx
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docUnreaLossForeEx.Text = lbl.Text
-    '                    p4_docUnreaLossForeEx.Name = TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString
-    '                    p4_docUnreaLossForeEx.Controls.Add(uc)
-    '                    p4_docUnreaLossForeEx.DockedAsTabbedDocument = True
-    '                    p4_docUnreaLossForeEx.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docUnreaLossForeEx)
-    '                Else
-    '                    p4_docUnreaLossForeEx.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docUnreaLossForeEx)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docUnreaLossForeEx)
-
-    '            Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
-    '                If p4_docReaLossForeExTrade Is Nothing OrElse p4_docReaLossForeExTrade.IsDisposed Then
-    '                    p4_docReaLossForeExTrade = New DockPanel
-    '                    Dim uc As New ucPNL_p4ReaLossForeExTrade
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docReaLossForeExTrade.Text = lbl.Text
-    '                    p4_docReaLossForeExTrade.Name = TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString
-    '                    p4_docReaLossForeExTrade.Controls.Add(uc)
-    '                    p4_docReaLossForeExTrade.DockedAsTabbedDocument = True
-    '                    p4_docReaLossForeExTrade.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docReaLossForeExTrade)
-    '                Else
-    '                    p4_docReaLossForeExTrade.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docReaLossForeExTrade)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docReaLossForeExTrade)
-
-    '            Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
-    '                If p4_docReaLossForeExNonTrade Is Nothing OrElse p4_docReaLossForeExNonTrade.IsDisposed Then
-    '                    p4_docReaLossForeExNonTrade = New DockPanel
-    '                    Dim uc As New ucPNL_p4ReaLossForeExNonTrade
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docReaLossForeExNonTrade.Text = lbl.Text
-    '                    p4_docReaLossForeExNonTrade.Name = TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString
-    '                    p4_docReaLossForeExNonTrade.Controls.Add(uc)
-    '                    p4_docReaLossForeExNonTrade.DockedAsTabbedDocument = True
-    '                    p4_docReaLossForeExNonTrade.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docReaLossForeExNonTrade)
-    '                Else
-    '                    p4_docReaLossForeExNonTrade.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docReaLossForeExNonTrade)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docReaLossForeExNonTrade)
-
-    '            Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
-    '                If p4_docInitSub Is Nothing OrElse p4_docInitSub.IsDisposed Then
-    '                    p4_docInitSub = New DockPanel
-    '                    Dim uc As New ucPNL_p4InitSub
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docInitSub.Text = lbl.Text
-    '                    p4_docInitSub.Name = TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString
-    '                    p4_docInitSub.Controls.Add(uc)
-    '                    p4_docInitSub.DockedAsTabbedDocument = True
-    '                    p4_docInitSub.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docInitSub)
-    '                Else
-    '                    p4_docInitSub.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docInitSub)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docInitSub)
-
-    '            Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
-    '                If p4_docCAExpenditure Is Nothing OrElse p4_docCAExpenditure.IsDisposed Then
-    '                    p4_docCAExpenditure = New DockPanel
-    '                    Dim uc As New ucPNL_p4CAExpenditure
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docCAExpenditure.Text = lbl.Text
-    '                    p4_docCAExpenditure.Name = TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString
-    '                    p4_docCAExpenditure.Controls.Add(uc)
-    '                    p4_docCAExpenditure.DockedAsTabbedDocument = True
-    '                    p4_docCAExpenditure.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docCAExpenditure)
-    '                Else
-    '                    p4_docCAExpenditure.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docCAExpenditure)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docCAExpenditure)
-
-    '            Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
-    '                If p4_docOther Is Nothing OrElse p4_docOther.IsDisposed Then
-    '                    p4_docOther = New DockPanel
-    '                    Dim uc As New ucPNL_p4Other
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docOther.Text = lbl.Text
-    '                    p4_docOther.Name = TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString
-    '                    p4_docOther.Controls.Add(uc)
-    '                    p4_docOther.DockedAsTabbedDocument = True
-    '                    p4_docOther.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docOther)
-    '                Else
-    '                    p4_docOther.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docOther)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docOther)
-    '            Case TaxComPNLEnuItem.RENTALINC
-    '                If P2_docRentalIncome Is Nothing OrElse P2_docRentalIncome.IsDisposed Then
-    '                    P2_docRentalIncome = New DockPanel
-    '                    Dim uc As New ucPNL_p2RentalIncome
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.txtSales = txtSales
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docRentalIncome.Text = lbl.Text
-    '                    P2_docRentalIncome.Name = TaxComPNLEnuItem.RENTALINC.ToString
-    '                    P2_docRentalIncome.Controls.Add(uc)
-    '                    P2_docRentalIncome.DockedAsTabbedDocument = True
-    '                    P2_docRentalIncome.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docRentalIncome)
-    '                Else
-    '                    P2_docRentalIncome.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docRentalIncome)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docRentalIncome)
-    '            Case TaxComPNLEnuItem.NONALLOWABLEEXPENSES
-    '                If p4_docNonAllowableExpenses Is Nothing OrElse p4_docNonAllowableExpenses.IsDisposed Then
-    '                    p4_docNonAllowableExpenses = New DockPanel
-    '                    Dim uc As New ucPNL_p4NonAllowableExpenses
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    p4_docNonAllowableExpenses.Text = lbl.Text
-    '                    p4_docNonAllowableExpenses.Name = TaxComPNLEnuItem.NONALLOWABLEEXPENSES.ToString
-    '                    p4_docNonAllowableExpenses.Controls.Add(uc)
-    '                    p4_docNonAllowableExpenses.DockedAsTabbedDocument = True
-    '                    p4_docNonAllowableExpenses.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(p4_docNonAllowableExpenses)
-    '                Else
-    '                    p4_docNonAllowableExpenses.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(p4_docNonAllowableExpenses)
-    '                End If
-    '                DockDocument.View.ActivateDocument(p4_docNonAllowableExpenses)
-    '            Case TaxComPNLEnuItem.OTHERNONTAXINC
-    '                If P2_docOther Is Nothing OrElse P2_docOther.IsDisposed Then
-    '                    P2_docOther = New DockPanel
-    '                    Dim uc As New ucPNL_p2Other
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docOther.Text = lbl.Text
-    '                    P2_docOther.Name = TaxComPNLEnuItem.OTHERNONTAXINC.ToString
-    '                    P2_docOther.Controls.Add(uc)
-    '                    P2_docOther.DockedAsTabbedDocument = True
-    '                    P2_docOther.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docOther)
-    '                Else
-    '                    P2_docOther.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docOther)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docOther)
-    '            Case TaxComPNLEnuItem.EXEMDIV
-    '                If P2_docExemptDividend Is Nothing OrElse P2_docExemptDividend.IsDisposed Then
-    '                    P2_docExemptDividend = New DockPanel
-    '                    Dim uc As New ucPNL_p2ExemptDividend
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docExemptDividend.Text = lbl.Text
-    '                    P2_docExemptDividend.Name = TaxComPNLEnuItem.EXEMDIV.ToString
-    '                    P2_docExemptDividend.Controls.Add(uc)
-    '                    P2_docExemptDividend.DockedAsTabbedDocument = True
-    '                    P2_docExemptDividend.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docExemptDividend)
-    '                Else
-    '                    P2_docExemptDividend.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docExemptDividend)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docExemptDividend)
-    '            Case TaxComPNLEnuItem.INTERESTRESTRICT
-    '                If P3_docInterestResPurS33 Is Nothing OrElse P3_docInterestResPurS33.IsDisposed Then
-    '                    P3_docInterestResPurS33 = New DockPanel
-    '                    Dim uc As New ucPNL_p3InterestResPurS33
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P3_docInterestResPurS33.Text = lbl.Text
-    '                    P3_docInterestResPurS33.Name = TaxComPNLEnuItem.INTERESTRESTRICT.ToString
-    '                    P3_docInterestResPurS33.Controls.Add(uc)
-    '                    P3_docInterestResPurS33.DockedAsTabbedDocument = True
-    '                    P3_docInterestResPurS33.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P3_docInterestResPurS33)
-    '                Else
-    '                    P3_docInterestResPurS33.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P3_docInterestResPurS33)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P3_docInterestResPurS33)
-    '            Case TaxComPNLEnuItem.DIVIDENDINC
-    '                If P2_docDivIncome Is Nothing OrElse P2_docDivIncome.IsDisposed Then
-    '                    P2_docDivIncome = New DockPanel
-    '                    Dim uc As New ucPNL_p2DivIncome
-
-    '                    uc.RefNo = RefNo
-    '                    uc.YA = YA
-    '                    uc.txtSales = txtSales
-    '                    uc.DataView_Main = dsDataSet
-    '                    uc.DataView_Main2 = dsDataSet
-    '                    uc.SourceNo = cboSourceNo
-    '                    uc.Dock = DockStyle.Fill
-    '                    uc.txtAmount = txtAmount
-    '                    P2_docDivIncome.Text = lbl.Text
-    '                    P2_docDivIncome.Name = TaxComPNLEnuItem.DIVIDENDINC.ToString
-    '                    P2_docDivIncome.Controls.Add(uc)
-    '                    P2_docDivIncome.DockedAsTabbedDocument = True
-    '                    P2_docDivIncome.Register(DockingManager)
-
-
-    '                    DockDocument.View.AddDocument(P2_docDivIncome)
-    '                Else
-    '                    P2_docDivIncome.Visibility = DockVisibility.Visible
-    '                    DockDocument.View.AddDocument(P2_docDivIncome)
-    '                End If
-    '                DockDocument.View.ActivateDocument(P2_docDivIncome)
-    '        End Select
-
-    '        Return False
-    '    Catch ex As Exception
-    '        If Errorlog Is Nothing Then
-    '            Errorlog = New clsError
-    '        End If
-    '        With Errorlog
-    '            .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
-    '            .ErrorCode = ex.GetHashCode.ToString
-    '            .ErrorDateTime = Now
-    '            .ErrorMessage = ex.Message
-    '        End With
-    '        Return False
-    '    Finally
-    '        DockDocument.EndUpdate()
-    '    End Try
-    'End Function
     Public Sub MoveItemsInListView(ByVal blnMoveUp As Boolean, ByVal MainTable As String, ByVal MainTable_Details As String, _
                                    ByVal RefNo As String, ByVal MainKey As String, ByVal MainKey_Details As String, _
-                                    ByRef gridview As DevExpress.XtraGrid.Views.Grid.GridView, ByRef ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+                                    ByRef gridview As DevExpress.XtraGrid.Views.Grid.GridView, ByRef ds As DataSet, Optional ByRef ErrorLog As ClsError = Nothing)
         Try
             'Set the listview index to limit to depending on whether we are moving things up or down in the list
             Dim intLimittedIndex As Integer = (ds.Tables(MainTable).Rows.Count - 1)
@@ -3856,13 +2230,14 @@ Module mdlPNL
             Dim tmpcol As System.Data.DataColumn
             For Each col As System.Data.DataColumn In ds.Tables(MainTable_Details).Columns
                 tmpcol = Nothing
-                tmpcol = New DataColumn
-                tmpcol.ColumnName = col.ColumnName
-                tmpcol.DataType = col.DataType
-                tmpcol.DefaultValue = col.DefaultValue
-                tmpcol.AutoIncrement = col.AutoIncrement
-                tmpcol.AutoIncrementSeed = col.AutoIncrementSeed
-                tmpcol.AutoIncrementStep = col.AutoIncrementStep
+                tmpcol = New DataColumn With {
+                    .ColumnName = col.ColumnName,
+                    .DataType = col.DataType,
+                    .DefaultValue = col.DefaultValue,
+                    .AutoIncrement = col.AutoIncrement,
+                    .AutoIncrementSeed = col.AutoIncrementSeed,
+                    .AutoIncrementStep = col.AutoIncrementStep
+                }
 
                 ltmpdtRow.Columns.Add(tmpcol)
             Next
@@ -3934,6 +2309,8 @@ Module mdlPNL
             Next
 
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             ' Trace.WriteLine("MoveItemsInListView() has thrown an exception: " & ex.Message)
         Finally
             'Set the focus on the listview
@@ -3942,7 +2319,7 @@ Module mdlPNL
     End Sub
     Public Sub MoveItemsInListView_WithoutChild(ByVal blnMoveUp As Boolean, ByVal MainTable As String, _
                                    ByVal RefNo As String, ByVal MainKey As String, _
-                                    ByRef gridview As DevExpress.XtraGrid.Views.Grid.GridView, ByRef ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+                                    ByRef gridview As DevExpress.XtraGrid.Views.Grid.GridView, ByRef ds As DataSet, Optional ByRef ErrorLog As ClsError = Nothing)
         Try
             'Set the listview index to limit to depending on whether we are moving things up or down in the list
             Dim intLimittedIndex As Integer = (ds.Tables(MainTable).Rows.Count - 1)
@@ -4032,6 +2409,8 @@ Module mdlPNL
             Next
 
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             ' Trace.WriteLine("MoveItemsInListView() has thrown an exception: " & ex.Message)
         Finally
             'Set the focus on the listview
@@ -4043,7 +2422,7 @@ Module mdlPNL
                                                      ByVal SourceNo As Integer, ByRef dsPNL As DataSet, _
                                                      ByRef GridView1 As DevExpress.XtraGrid.Views.Grid.GridView, _
                                                      ByRef TotalMonth As Integer, ByRef Day As DateTime, _
-                                                     Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                                     Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = Nothing
             Dim clm As System.Data.DataColumn
@@ -4055,22 +2434,24 @@ Module mdlPNL
             GridView1.Columns.Clear()
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Clear()
 
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "Month"
-            clm.Caption = "Month"
-            clm.DataType = Type.GetType("System.DateTime")
-            clm.DefaultValue = Now
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "Month",
+                .Caption = "Month",
+                .DataType = Type.GetType("System.DateTime"),
+                .DefaultValue = Now,
+                .AllowDBNull = True
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Month"
-            col.Name = "Month"
-            col.VisibleIndex = infx
-            col.Visible = True
-            col.ColumnEdit = New RepositoryItemDateEdit()
-            col.Width = 150
-            col.FieldName = "Month"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Month",
+                .Name = "Month",
+                .VisibleIndex = infx,
+                .Visible = True,
+                .ColumnEdit = New RepositoryItemDateEdit(),
+                .Width = 150,
+                .FieldName = "Month"
+            }
             col.OptionsColumn.ReadOnly = True
             col.OptionsColumn.TabStop = False
             GridView1.Columns.Add(col)
@@ -4084,21 +2465,23 @@ Module mdlPNL
                     Day = CDate(IIf(IsDBNull(row("BasicPeriod")), Now, row("BasicPeriod")))
                     infx += 1
                     clm = Nothing
-                    clm = New System.Data.DataColumn
-                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    clm.Caption = "inv"
-                    clm.DefaultValue = 0
-                    clm.DataType = Type.GetType("System.Decimal")
+                    clm = New System.Data.DataColumn With {
+                        .ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Caption = "inv",
+                        .DefaultValue = 0,
+                        .DataType = Type.GetType("System.Decimal")
+                    }
                     dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
                     '------------------------------------------------------------------
 
-                    col = New DevExpress.XtraGrid.Columns.GridColumn
-                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
-                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    col.Tag = "inv"
-                    col.VisibleIndex = infx
-                    col.Visible = True
+                    col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                        .Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1),
+                        .Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Tag = "inv",
+                        .VisibleIndex = infx,
+                        .Visible = True
+                    }
                     txt = New RepositoryItemTextEdit
                     txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
                     txt.Mask.EditMask = "c"
@@ -4112,16 +2495,18 @@ Module mdlPNL
             End If
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalIncProInv"
-            clm.Caption = "Total Income Producing Investment"
-            clm.DefaultValue = 0
-            clm.DataType = Type.GetType("System.Decimal")
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalIncProInv",
+                .Caption = "Total Income Producing Investment",
+                .DefaultValue = 0,
+                .DataType = Type.GetType("System.Decimal")
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Total Income Producing Investment"
-            col.Name = "TotalIncProInv"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Total Income Producing Investment",
+                .Name = "TotalIncProInv"
+            }
             infx += 1
             col.VisibleIndex = infx
             col.Visible = True
@@ -4146,21 +2531,23 @@ Module mdlPNL
                     Day = CDate(IIf(IsDBNull(row("BasicPeriod")), Now, row("BasicPeriod")))
                     infx += 1
                     clm = Nothing
-                    clm = New System.Data.DataColumn
-                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    clm.Caption = "invNon"
-                    clm.DefaultValue = 0
-                    clm.DataType = Type.GetType("System.Decimal")
+                    clm = New System.Data.DataColumn With {
+                        .ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Caption = "invNon",
+                        .DefaultValue = 0,
+                        .DataType = Type.GetType("System.Decimal")
+                    }
                     dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
                     '------------------------------------------------------------------
 
-                    col = New DevExpress.XtraGrid.Columns.GridColumn
-                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
-                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    col.Tag = "invNon"
-                    col.VisibleIndex = infx
-                    col.Visible = True
+                    col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                        .Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1),
+                        .Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Tag = "invNon",
+                        .VisibleIndex = infx,
+                        .Visible = True
+                    }
                     txt = New RepositoryItemTextEdit
                     txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
                     txt.Mask.EditMask = "c"
@@ -4175,16 +2562,18 @@ Module mdlPNL
 
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalIncNonProInv"
-            clm.Caption = "Total Income Non Producing Investment"
-            clm.DefaultValue = 0
-            clm.DataType = Type.GetType("System.Decimal")
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalIncNonProInv",
+                .Caption = "Total Income Non Producing Investment",
+                .DefaultValue = 0,
+                .DataType = Type.GetType("System.Decimal")
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Total Income Non Producing Investment"
-            col.Name = "TotalIncNonProInv"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Total Income Non Producing Investment",
+                .Name = "TotalIncNonProInv"
+            }
             infx += 1
             col.VisibleIndex = infx
             col.Visible = True
@@ -4204,16 +2593,18 @@ Module mdlPNL
             '==============================================================
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalInv"
-            clm.Caption = "Total Investment"
-            clm.DefaultValue = 0
-            clm.DataType = Type.GetType("System.Decimal")
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalInv",
+                .Caption = "Total Investment",
+                .DefaultValue = 0,
+                .DataType = Type.GetType("System.Decimal")
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Total Investment"
-            col.Name = "TotalInv"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Total Investment",
+                .Name = "TotalInv"
+            }
             infx += 1
             col.VisibleIndex = infx
             col.Visible = True
@@ -4239,21 +2630,23 @@ Module mdlPNL
                     Day = CDate(IIf(IsDBNull(row("BasicPeriod")), Now, row("BasicPeriod")))
                     infx += 1
                     clm = Nothing
-                    clm = New System.Data.DataColumn
-                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    clm.Caption = "Borr"
-                    clm.DefaultValue = 0
-                    clm.DataType = Type.GetType("System.Decimal")
+                    clm = New System.Data.DataColumn With {
+                        .ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Caption = "Borr",
+                        .DefaultValue = 0,
+                        .DataType = Type.GetType("System.Decimal")
+                    }
                     dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
                     '------------------------------------------------------------------
 
-                    col = New DevExpress.XtraGrid.Columns.GridColumn
-                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
-                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    col.Tag = "Borr"
-                    col.VisibleIndex = infx
-                    col.Visible = True
+                    col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                        .Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1),
+                        .Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Tag = "Borr",
+                        .VisibleIndex = infx,
+                        .Visible = True
+                    }
                     txt = New RepositoryItemTextEdit
                     txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
                     txt.Mask.EditMask = "c"
@@ -4269,16 +2662,18 @@ Module mdlPNL
             '==============================================================
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalBorr"
-            clm.Caption = "Total Borrowing"
-            clm.DefaultValue = 0
-            clm.DataType = Type.GetType("System.Decimal")
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalBorr",
+                .Caption = "Total Borrowing",
+                .DefaultValue = 0,
+                .DataType = Type.GetType("System.Decimal")
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Total Borrowing"
-            col.Name = "TotalBorr"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Total Borrowing",
+                .Name = "TotalBorr"
+            }
             infx += 1
             col.VisibleIndex = infx
             col.Visible = True
@@ -4303,21 +2698,23 @@ Module mdlPNL
                     Day = CDate(IIf(IsDBNull(row("BasicPeriod")), Now, row("BasicPeriod")))
                     infx += 1
                     clm = Nothing
-                    clm = New System.Data.DataColumn
-                    clm.ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    clm.Caption = "Interest"
-                    clm.DefaultValue = 0
-                    clm.DataType = Type.GetType("System.Decimal")
+                    clm = New System.Data.DataColumn With {
+                        .ColumnName = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Caption = "Interest",
+                        .DefaultValue = 0,
+                        .DataType = Type.GetType("System.Decimal")
+                    }
                     dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
                     '------------------------------------------------------------------
 
-                    col = New DevExpress.XtraGrid.Columns.GridColumn
-                    col.Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1)
-                    col.Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString
-                    col.Tag = "Interest"
-                    col.VisibleIndex = infx
-                    col.Visible = True
+                    col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                        .Caption = IIf(IsDBNull(row("Item")), "", row("Item")).ToString.Remove(0, 1),
+                        .Name = IIf(IsDBNull(row("Item")), "", row("Item")).ToString,
+                        .Tag = "Interest",
+                        .VisibleIndex = infx,
+                        .Visible = True
+                    }
                     txt = New RepositoryItemTextEdit
                     txt.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric
                     txt.Mask.EditMask = "c"
@@ -4333,16 +2730,18 @@ Module mdlPNL
             '==============================================================
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalInterest"
-            clm.Caption = "Total Expenses"
-            clm.DefaultValue = 0
-            clm.DataType = Type.GetType("System.Decimal")
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalInterest",
+                .Caption = "Total Expenses",
+                .DefaultValue = 0,
+                .DataType = Type.GetType("System.Decimal")
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Total Interest"
-            col.Name = "TotalInterest"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Total Interest",
+                .Name = "TotalInterest"
+            }
             infx += 1
             col.VisibleIndex = infx
             col.Visible = True
@@ -4362,16 +2761,18 @@ Module mdlPNL
             '==============================================================
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalRestrict"
-            clm.Caption = "Interest Restrict"
-            clm.DefaultValue = 0
-            clm.DataType = Type.GetType("System.Decimal")
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalRestrict",
+                .Caption = "Interest Restrict",
+                .DefaultValue = 0,
+                .DataType = Type.GetType("System.Decimal")
+            }
             dsPNL.Tables("REF_INTEREST_RESTRIC_TMP").Columns.Add(clm)
 
-            col = New DevExpress.XtraGrid.Columns.GridColumn
-            col.Caption = "Total Restrict"
-            col.Name = "TotalRestrict"
+            col = New DevExpress.XtraGrid.Columns.GridColumn With {
+                .Caption = "Total Restrict",
+                .Name = "TotalRestrict"
+            }
             infx += 1
             col.VisibleIndex = infx
             col.Visible = True
@@ -4390,25 +2791,27 @@ Module mdlPNL
 
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
 
 #Region "GENERAL"
-    Public Sub OpenNoteForm(ByVal GridView As GridView, ByVal RowInfo As DataRow, Optional ByRef ErrorLog As clsError = Nothing)
+    Public Sub OpenNoteForm(ByVal GridView As GridView, ByVal RowInfo As DataRow, Optional ByRef ErrorLog As ClsError = Nothing)
         Try
-            Dim frm As New frmNote
-
-            frm.PNL_KeyName = IIf(IsDBNull(RowInfo("KeyName")), "", RowInfo("KeyName"))
+            Dim frm As New frmNote With {
+                .PNL_KeyName = IIf(IsDBNull(RowInfo("KeyName")), "", RowInfo("KeyName"))
+            }
 
             Dim viewChild As GridView = GridView.GetDetailView(GridView.FocusedRowHandle, 0)
             Dim PrefixName As String = IIf(IsDBNull(RowInfo("PrefixName")), "", RowInfo("PrefixName"))
@@ -4429,24 +2832,26 @@ Module mdlPNL
             frm.ShowDialog()
 
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
     End Sub
     Public Function GetNonAllowanbleExpenses(ByRef dsNonAllowableExpenses As DataSet, ByVal RefNo As String, ByVal YA As String, _
-                                             ByVal SourceNo As DevExpress.XtraBars.BarEditItem, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+                                             ByVal SourceNo As DevExpress.XtraBars.BarEditItem, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             If dsNonAllowableExpenses Is Nothing OrElse dsNonAllowableExpenses.Tables("NonAllowable_Expenses") Is Nothing Then
                 If Errorlog Is Nothing Then
-                    Errorlog = New clsError
+                    Errorlog = New ClsError
                 End If
                 With Errorlog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -6621,84 +5026,94 @@ Module mdlPNL
 
             Return NonAllowableExpenses
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Public Function CalcProductofCost(ByVal p1Depreciation As Decimal, ByVal p1AllowanceExpenses As Decimal, ByVal p1NonAllowableExpenses As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function CalcProductofCost(ByVal p1Depreciation As Decimal, ByVal p1AllowanceExpenses As Decimal, ByVal p1NonAllowableExpenses As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = p1Depreciation + p1AllowanceExpenses + p1NonAllowableExpenses
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Public Function CalcPurchaseProductofCost(ByVal p1Purchase As Decimal, ByVal p1COP As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function CalcPurchaseProductofCost(ByVal p1Purchase As Decimal, ByVal p1COP As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = p1Purchase + p1COP
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Public Function CalcGrossProfitLoss(ByVal p1Sales As Decimal, ByVal p1COS As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function CalcGrossProfitLoss(ByVal p1Sales As Decimal, ByVal p1COS As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = p1Sales - p1COS
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
     Public Function CalcNonBizIncome(ByVal p2DividendInc As Decimal, ByVal p2InterestInc As Decimal, _
                                      ByVal p2RentalInc As Decimal, ByVal p2RoyaltyInc As Decimal, _
-                                     ByVal p2OtherInc As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+                                     ByVal p2OtherInc As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = p2DividendInc + p2InterestInc + p2RentalInc + p2RoyaltyInc + p2OtherInc
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
@@ -6710,7 +5125,7 @@ Module mdlPNL
                                  ByVal p3RepairMain As Decimal, ByVal p3ResearchDev As Decimal, ByVal p3PromotionAds As Decimal, _
                                  ByVal p3Travelling As Decimal, ByVal p3JKDM As Decimal, ByVal p3InterestResPurS33 As Decimal, _
                                  ByVal p4TotalOtherExpenses As Decimal, ByRef BalacingFigure As Decimal, ByRef NonAllowableExpenses As Decimal, _
-                                 ByVal RefNo As String, ByVal YA As String, ByVal cboSourceNo As DevExpress.XtraBars.BarEditItem, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+                                 ByVal RefNo As String, ByVal YA As String, ByVal cboSourceNo As DevExpress.XtraBars.BarEditItem, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             'Dim p3ContractPay As Decimal = IIf(IsNumeric(txt_p3Depreciation.EditValue) = False, 0, txt_p3Depreciation.EditValue)
             'Dim p3DirectorFee As Decimal = IIf(IsNumeric(txt_p3Depreciation.EditValue) = False, 0, txt_p3Depreciation.EditValue)
@@ -6720,14 +5135,16 @@ Module mdlPNL
 
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
@@ -6740,20 +5157,22 @@ Module mdlPNL
                                      ByVal p4FAWrittenOff As Decimal, ByVal p4UnreaLossForeEx As Decimal, _
                                      ByVal p4ReaLossForeExTrade As Decimal, ByVal p4ReaLossForeExNonTrade As Decimal, _
                                      ByVal p4InitSub As Decimal, ByVal p4CAExpenditure As Decimal, _
-                                     ByVal p4Other As Decimal, ByVal p4LossDispFA As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+                                     ByVal p4Other As Decimal, ByVal p4LossDispFA As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = p3Depreciation + p3DonationApp + p3DonationNonApp + p3Zakat + p4EntNonStaff + p4EntStaff + p4Compound + p4ProvisionAcc + p4LeavePass + p4FAWrittenOff + p4UnreaLossForeEx + p4ReaLossForeExTrade + p4ReaLossForeExNonTrade + p4InitSub + p4CAExpenditure + p4Other + p4LossDispFA
 
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
@@ -6761,43 +5180,47 @@ Module mdlPNL
     Public Function CalcNonTaxProfit(ByVal p2ProDispPlantEq As Decimal, ByVal p2Other As Decimal, _
                                      ByVal p2ExemptDividend As Decimal, ByVal p2ForeIncomeRemmit As Decimal, _
                                      ByVal p2ReaForeExGainNonTrade As Decimal, ByVal p2UnreaGainForeEx As Decimal, _
-                                     ByVal p2UnreaGainForeExNon As Decimal, ByVal p2ProDisInvestment As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+                                     ByVal p2UnreaGainForeExNon As Decimal, ByVal p2ProDisInvestment As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = p2ProDispPlantEq + p2Other + p2ExemptDividend + p2ForeIncomeRemmit + p2ReaForeExGainNonTrade + p2UnreaGainForeEx + p2UnreaGainForeExNon + p2ProDisInvestment
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Public Function CalcCostOfSales(ByVal p1OpenStock As Decimal, ByVal p1CloseStock As Decimal, ByVal p1PCP As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function CalcCostOfSales(ByVal p1OpenStock As Decimal, ByVal p1CloseStock As Decimal, ByVal p1PCP As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim subTotal As Decimal = (p1OpenStock + p1PCP) - p1CloseStock
             Return subTotal
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
     Public Function CalcTotalofViewRental(ByRef txtName As DevExpress.XtraEditors.TextEdit, ByRef ds As DataSet, _
                                     ByVal TableName As String, ByVal ColumnName As String, _
-                                    ByVal CurrentAmount As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    ByVal CurrentAmount As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim obj As Object = ds.Tables(TableName).Compute("sum(" & ColumnName & ")", "RI_STATUS4d ='Section 4d'")
 
@@ -6809,21 +5232,23 @@ Module mdlPNL
 
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function CalcTotalofView(ByRef txtName As DevExpress.XtraEditors.TextEdit, ByRef ds As DataSet, _
                                     ByVal TableName As String, ByVal ColumnName As String, _
-                                    ByVal CurrentAmount As Decimal, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    ByVal CurrentAmount As Decimal, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim obj As Object = ds.Tables(TableName).Compute("sum(" & ColumnName & ")", "")
 
@@ -6832,17 +5257,19 @@ Module mdlPNL
             Else
                 txtName.EditValue = CurrentAmount
             End If
-
+            Application.DoEvents()
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
@@ -6853,7 +5280,7 @@ Module mdlPNL
                                          ByVal ColumnAddBack_Details As String, ByVal ColumnDeduct_Details As String, _
                                          ByVal ColumnAmount As String, ByVal ColumnAmount_Details As String, _
                                          ByVal ColumnPecentageAmount As String, _
-                                         Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                         Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
 
             Dim tmpTotal As Decimal = 0
@@ -6907,14 +5334,16 @@ Module mdlPNL
 
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
@@ -6926,7 +5355,7 @@ Module mdlPNL
                                          ByVal ColumnAddBack_Details As String, ByVal ColumnDeduct_Details As String, _
                                          ByVal ColumnAmount As String, ByVal ColumnAmount_Details As String, _
                                          ByVal ColumnPecentage As String, ByVal ColumnPecentageAmount As String, _
-                                         Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                         Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
 
             Dim tmpTotal As Decimal = 0
@@ -6981,14 +5410,17 @@ Module mdlPNL
 
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
+
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
@@ -6996,7 +5428,7 @@ Module mdlPNL
     End Function
     Public Function MappingSourceNo(ByVal TableName As String, ByVal TableName_Details As String, ByVal ColumnName_Key As String, _
                                         ByVal ColumnNameDetails_Key As String, ByVal Column_SourceNo As String, ByVal ColumnDetails_SourceNo As String, _
-                                        ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                        ByRef ds As DataSet, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds IsNot Nothing Then
                 Dim obj As Object = Nothing
@@ -7017,21 +5449,24 @@ Module mdlPNL
             End If
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
+
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function reCalc_SubTotalView(ByVal TableName As String, ByVal TableName_Details As String, ByVal ColumnName_Key As String, _
                                         ByVal ColumnNameDetails_Key As String, ByVal Column_Total As String, ByVal ColumnDetails_Total As String, _
-                                        ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                        ByRef ds As DataSet, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If ds IsNot Nothing Then
                 Dim obj As Object = Nothing
@@ -7050,21 +5485,23 @@ Module mdlPNL
 
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function DisableAmountIfGotChild(ByVal TableName As String, ByVal ColumnName_key As String, ByVal ColumnNameDetails_key As String, _
                                             ByVal DetailsColumnName As String, ByRef view1 As DevExpress.XtraGrid.Views.Grid.GridView, ByRef ds As DataSet, _
-                                            Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                            Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim parentkey As Integer = 0
             Dim obj As Object = Nothing
@@ -7088,14 +5525,16 @@ Module mdlPNL
             Next
             Return False
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
@@ -7103,7 +5542,7 @@ Module mdlPNL
     Public Function SumSubTotalViewRow(ByVal TableName_Details As String, ByVal ColumnName_key As String, ByVal ColumnNameDetails_key As String, _
                                        ByVal ColumnName_Amount As String, ByVal ColumnNameDetails_Amount As String, _
                                        ByRef view1 As DevExpress.XtraGrid.Views.Grid.GridView, ByRef view2 As DevExpress.XtraGrid.Views.Grid.GridView, _
-                                       ByRef ds As DataSet, ByRef currentrow As DataRow, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                       ByRef ds As DataSet, ByRef currentrow As DataRow, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             If IsDBNull(currentrow(ColumnNameDetails_key)) = False Then
                 Dim parentkey As Integer = CInt(currentrow(ColumnNameDetails_key))
@@ -7132,14 +5571,16 @@ Module mdlPNL
 
             Return True
         Catch ex As Exception
+                        Dim st As New StackTrace(True)
+                        st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try

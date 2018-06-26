@@ -15,7 +15,7 @@ Public Class frmPNL_InterestResPurS33_Monthly
     Public KeyID As Integer = 0
     Public isEdit As Boolean = False
     Public txtAmount As DevExpress.XtraEditors.TextEdit
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
 
     Public Const MainTable As String = "EXPENSES_INTERESTRESTRICT" 'PLFST_SALES
     Public Const MainTable_Details As String = "INTEREST_RESTRIC_MONTLY_REPORT" 'PLFST_SALES_DETAIL
@@ -46,10 +46,12 @@ Public Class frmPNL_InterestResPurS33_Monthly
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             mdlPNL2.LoadTable_InterestRestricted(DsPNL, RefNo, YA, SourceNo, KeyID, Errorlog)
             Application.DoEvents()
@@ -84,11 +86,12 @@ Public Class frmPNL_InterestResPurS33_Monthly
 
                     Case Else
 
-                        Dim item1 As GridGroupSummaryItem = New GridGroupSummaryItem()
-                        item1.FieldName = colx.ColumnName
-                        item1.SummaryType = DevExpress.Data.SummaryItemType.Sum
-                        item1.DisplayFormat = "{0:n2}"
-                        item1.ShowInGroupColumnFooter = GridView1.Columns(colx.ColumnName)
+                        Dim item1 As GridGroupSummaryItem = New GridGroupSummaryItem With {
+                            .FieldName = colx.ColumnName,
+                            .SummaryType = DevExpress.Data.SummaryItemType.Sum,
+                            .DisplayFormat = "{0:n2}",
+                            .ShowInGroupColumnFooter = GridView1.Columns(colx.ColumnName)
+                        }
                         GridView1.GroupSummary.Add(item1)
                 End Select
 
@@ -103,14 +106,16 @@ Public Class frmPNL_InterestResPurS33_Monthly
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
         End Try
     End Sub
@@ -274,6 +279,8 @@ Public Class frmPNL_InterestResPurS33_Monthly
             ADO.Save_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(KeyID, DsPNL.Tables(MainTable_Details), RefNo, YA, SourceNo, ErrorLog)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -296,6 +303,8 @@ Public Class frmPNL_InterestResPurS33_Monthly
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -320,6 +329,8 @@ Public Class frmPNL_InterestResPurS33_Monthly
             End If
             
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -331,6 +342,8 @@ Public Class frmPNL_InterestResPurS33_Monthly
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -4109,6 +4109,8 @@ Partial Public Class dsCA
         
         Private columnTWDV_TOTAL As Global.System.Data.DataColumn
         
+        Private columnCA_NOTE_COLUMN As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -4353,6 +4355,14 @@ Partial Public Class dsCA
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CA_NOTE_COLUMNColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCA_NOTE_COLUMN
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -4414,9 +4424,10 @@ Partial Public Class dsCA
                     ByVal TWDV_CF As Decimal,  _
                     ByVal IndexNo As Integer,  _
                     ByVal CA_TRANSFERROR_NAME As String,  _
-                    ByVal TWDV_TOTAL As Decimal) As CA_REPORT_TEMPRow
+                    ByVal TWDV_TOTAL As Decimal,  _
+                    ByVal CA_NOTE_COLUMN As String) As CA_REPORT_TEMPRow
             Dim rowCA_REPORT_TEMPRow As CA_REPORT_TEMPRow = CType(Me.NewRow,CA_REPORT_TEMPRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, ID, RefNo, YA, CA_KEY, CA_NAME, CA_ASSET, CA_CATEGORY_CODE, CA_MODE, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, TWDV_AI, TWDV_AA, TWDV_CF, IndexNo, CA_TRANSFERROR_NAME, TWDV_TOTAL}
+            Dim columnValuesArray() As Object = New Object() {Nothing, ID, RefNo, YA, CA_KEY, CA_NAME, CA_ASSET, CA_CATEGORY_CODE, CA_MODE, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, QC_BF, QC_ADD, QC_DISP, QC_CF, TWDV_BF, TWDV_ADD, TWDV_DISP, TWDV_AI, TWDV_AA, TWDV_CF, IndexNo, CA_TRANSFERROR_NAME, TWDV_TOTAL, CA_NOTE_COLUMN}
             rowCA_REPORT_TEMPRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCA_REPORT_TEMPRow)
             Return rowCA_REPORT_TEMPRow
@@ -4465,6 +4476,7 @@ Partial Public Class dsCA
             Me.columnIndexNo = MyBase.Columns("IndexNo")
             Me.columnCA_TRANSFERROR_NAME = MyBase.Columns("CA_TRANSFERROR_NAME")
             Me.columnTWDV_TOTAL = MyBase.Columns("TWDV_TOTAL")
+            Me.columnCA_NOTE_COLUMN = MyBase.Columns("CA_NOTE_COLUMN")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4522,6 +4534,8 @@ Partial Public Class dsCA
             MyBase.Columns.Add(Me.columnCA_TRANSFERROR_NAME)
             Me.columnTWDV_TOTAL = New Global.System.Data.DataColumn("TWDV_TOTAL", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnTWDV_TOTAL)
+            Me.columnCA_NOTE_COLUMN = New Global.System.Data.DataColumn("CA_NOTE_COLUMN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCA_NOTE_COLUMN)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnCA_KEY}, false))
             Me.columnID_Key.AutoIncrement = true
             Me.columnID_Key.AutoIncrementSeed = -1
@@ -5461,6 +5475,8 @@ Partial Public Class dsCA
         
         Private columnIndexNo As Global.System.Data.DataColumn
         
+        Private columnCA_NOTE_COLUMN As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -5793,6 +5809,14 @@ Partial Public Class dsCA
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CA_NOTE_COLUMNColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCA_NOTE_COLUMN
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -5864,9 +5888,10 @@ Partial Public Class dsCA
                     ByVal AA_80 As Decimal,  _
                     ByVal AA_90 As Decimal,  _
                     ByVal AA_100 As Decimal,  _
-                    ByVal IndexNo As Integer) As CA_REPORT_CONTROLTRANSFER_TEMPRow
+                    ByVal IndexNo As Integer,  _
+                    ByVal CA_NOTE_COLUMN As String) As CA_REPORT_CONTROLTRANSFER_TEMPRow
             Dim rowCA_REPORT_CONTROLTRANSFER_TEMPRow As CA_REPORT_CONTROLTRANSFER_TEMPRow = CType(Me.NewRow,CA_REPORT_CONTROLTRANSFER_TEMPRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Nothing, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_PURCHASE_AMOUNT, CA_TRANSFERROR_NAME, CA_TRANSFER_VAL, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, CA_CAEEO, QC_CF, TWDV_BF, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, AA_60, AA_80, AA_90, AA_100, IndexNo}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Nothing, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_PURCHASE_AMOUNT, CA_TRANSFERROR_NAME, CA_TRANSFER_VAL, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, CA_CAEEO, QC_CF, TWDV_BF, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, AA_60, AA_80, AA_90, AA_100, IndexNo, CA_NOTE_COLUMN}
             rowCA_REPORT_CONTROLTRANSFER_TEMPRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCA_REPORT_CONTROLTRANSFER_TEMPRow)
             Return rowCA_REPORT_CONTROLTRANSFER_TEMPRow
@@ -5926,6 +5951,7 @@ Partial Public Class dsCA
             Me.columnAA_90 = MyBase.Columns("AA_90")
             Me.columnAA_100 = MyBase.Columns("AA_100")
             Me.columnIndexNo = MyBase.Columns("IndexNo")
+            Me.columnCA_NOTE_COLUMN = MyBase.Columns("CA_NOTE_COLUMN")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6005,6 +6031,8 @@ Partial Public Class dsCA
             MyBase.Columns.Add(Me.columnAA_100)
             Me.columnIndexNo = New Global.System.Data.DataColumn("IndexNo", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnIndexNo)
+            Me.columnCA_NOTE_COLUMN = New Global.System.Data.DataColumn("CA_NOTE_COLUMN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCA_NOTE_COLUMN)
             Me.columnID_Key.AutoIncrement = true
             Me.columnID_Key.AutoIncrementSeed = -1
             Me.columnID_Key.AutoIncrementStep = -1
@@ -6208,6 +6236,8 @@ Partial Public Class dsCA
         Private columnIndexNo As Global.System.Data.DataColumn
         
         Private columnDISP_KEY As Global.System.Data.DataColumn
+        
+        Private columnCA_NOTE_COLUMN As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -6461,6 +6491,14 @@ Partial Public Class dsCA
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CA_NOTE_COLUMNColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCA_NOTE_COLUMN
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -6523,9 +6561,10 @@ Partial Public Class dsCA
                     ByVal DISP_BABC As Decimal,  _
                     ByVal Type As Integer,  _
                     ByVal IndexNo As Integer,  _
-                    ByVal DISP_KEY As Integer) As CA_REPORT_DISPOSAL_TEMPRow
+                    ByVal DISP_KEY As Integer,  _
+                    ByVal CA_NOTE_COLUMN As String) As CA_REPORT_DISPOSAL_TEMPRow
             Dim rowCA_REPORT_DISPOSAL_TEMPRow As CA_REPORT_DISPOSAL_TEMPRow = CType(Me.NewRow,CA_REPORT_DISPOSAL_TEMPRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, ID, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, CA_CAEEO, DISP_DEPRECIATION, DISP_WDV, DISP_DISPOSAL_VALUE, DISP_PNL, DISP_TWDV, DISP_BABC, Type, IndexNo, DISP_KEY}
+            Dim columnValuesArray() As Object = New Object() {Nothing, ID, RefNo, YA, CA_KEY, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_MODE, CA_TRANSFERROR_NAME, CA_PURCHASE_YEAR, CA_QUALIFYING_COST, CA_RATE_IA, CA_RATE_AA, CA_CAEEO, DISP_DEPRECIATION, DISP_WDV, DISP_DISPOSAL_VALUE, DISP_PNL, DISP_TWDV, DISP_BABC, Type, IndexNo, DISP_KEY, CA_NOTE_COLUMN}
             rowCA_REPORT_DISPOSAL_TEMPRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCA_REPORT_DISPOSAL_TEMPRow)
             Return rowCA_REPORT_DISPOSAL_TEMPRow
@@ -6575,6 +6614,7 @@ Partial Public Class dsCA
             Me.columnType = MyBase.Columns("Type")
             Me.columnIndexNo = MyBase.Columns("IndexNo")
             Me.columnDISP_KEY = MyBase.Columns("DISP_KEY")
+            Me.columnCA_NOTE_COLUMN = MyBase.Columns("CA_NOTE_COLUMN")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6634,6 +6674,8 @@ Partial Public Class dsCA
             MyBase.Columns.Add(Me.columnIndexNo)
             Me.columnDISP_KEY = New Global.System.Data.DataColumn("DISP_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnDISP_KEY)
+            Me.columnCA_NOTE_COLUMN = New Global.System.Data.DataColumn("CA_NOTE_COLUMN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCA_NOTE_COLUMN)
             Me.columnID_Key.AutoIncrement = true
             Me.columnID_Key.AutoIncrementSeed = -1
             Me.columnID_Key.AutoIncrementStep = -1
@@ -6830,6 +6872,8 @@ Partial Public Class dsCA
         Private columnCF_INTEREST As Global.System.Data.DataColumn
         
         Private columnIndexNo As Global.System.Data.DataColumn
+        
+        Private columnCA_NOTE_COLUMN As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -7051,6 +7095,14 @@ Partial Public Class dsCA
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CA_NOTE_COLUMNColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCA_NOTE_COLUMN
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -7109,9 +7161,10 @@ Partial Public Class dsCA
                     ByVal CURR_INTEREST As Decimal,  _
                     ByVal CF_PRINCIPAL As Decimal,  _
                     ByVal CF_INTEREST As Decimal,  _
-                    ByVal IndexNo As Integer) As HP_REPORT_TEMPRow
+                    ByVal IndexNo As Integer,  _
+                    ByVal CA_NOTE_COLUMN As String) As HP_REPORT_TEMPRow
             Dim rowHP_REPORT_TEMPRow As HP_REPORT_TEMPRow = CType(Me.NewRow,HP_REPORT_TEMPRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, HP_KEY, ID, RefNo, YA, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_PURCHASE_YEAR, HP_PRINCIPAL, HP_INTEREST_RATE, HP_INTEREST, HP_TOTAL, BF_PRINCIPAL, BF_INTEREST, CURR_PRINCIPAL, CURR_INTEREST, CF_PRINCIPAL, CF_INTEREST, IndexNo}
+            Dim columnValuesArray() As Object = New Object() {Nothing, HP_KEY, ID, RefNo, YA, CA_NAME, CA_SOURCENO, CA_YA, HP_CODE, CA_ASSET, CA_CATEGORY_CODE, CA_PURCHASE_YEAR, HP_PRINCIPAL, HP_INTEREST_RATE, HP_INTEREST, HP_TOTAL, BF_PRINCIPAL, BF_INTEREST, CURR_PRINCIPAL, CURR_INTEREST, CF_PRINCIPAL, CF_INTEREST, IndexNo, CA_NOTE_COLUMN}
             rowHP_REPORT_TEMPRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowHP_REPORT_TEMPRow)
             Return rowHP_REPORT_TEMPRow
@@ -7157,6 +7210,7 @@ Partial Public Class dsCA
             Me.columnCF_PRINCIPAL = MyBase.Columns("CF_PRINCIPAL")
             Me.columnCF_INTEREST = MyBase.Columns("CF_INTEREST")
             Me.columnIndexNo = MyBase.Columns("IndexNo")
+            Me.columnCA_NOTE_COLUMN = MyBase.Columns("CA_NOTE_COLUMN")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -7208,6 +7262,8 @@ Partial Public Class dsCA
             MyBase.Columns.Add(Me.columnCF_INTEREST)
             Me.columnIndexNo = New Global.System.Data.DataColumn("IndexNo", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnIndexNo)
+            Me.columnCA_NOTE_COLUMN = New Global.System.Data.DataColumn("CA_NOTE_COLUMN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCA_NOTE_COLUMN)
             Me.columnID_Key.AutoIncrement = true
             Me.columnID_Key.AutoIncrementSeed = -1
             Me.columnID_Key.AutoIncrementStep = -1
@@ -8000,6 +8056,8 @@ Partial Public Class dsCA
         
         Private columnCA_KEY As Global.System.Data.DataColumn
         
+        Private columnCA_NOTE_COLUMN As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -8276,6 +8334,14 @@ Partial Public Class dsCA
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CA_NOTE_COLUMNColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCA_NOTE_COLUMN
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -8341,9 +8407,10 @@ Partial Public Class dsCA
                     ByVal Total As Decimal,  _
                     ByVal IndexNo As Integer,  _
                     ByVal GroupType As Integer,  _
-                    ByVal CA_KEY As Integer) As CA_REPORT_ANALYSIS_PROPERTYRow
+                    ByVal CA_KEY As Integer,  _
+                    ByVal CA_NOTE_COLUMN As String) As CA_REPORT_ANALYSIS_PROPERTYRow
             Dim rowCA_REPORT_ANALYSIS_PROPERTYRow As CA_REPORT_ANALYSIS_PROPERTYRow = CType(Me.NewRow,CA_REPORT_ANALYSIS_PROPERTYRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, ID, RefNo, YA, CA_DESCRIPTION, CA_CATEGORY, CA_INCENTIVE_TITLE, CA_INCENTIVE, CA_QUALIFYING_COST, CA_REC, CA_DEFERRED, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, AA_60, AA_80, AA_90, AA_100, Total, IndexNo, GroupType, CA_KEY}
+            Dim columnValuesArray() As Object = New Object() {Nothing, ID, RefNo, YA, CA_DESCRIPTION, CA_CATEGORY, CA_INCENTIVE_TITLE, CA_INCENTIVE, CA_QUALIFYING_COST, CA_REC, CA_DEFERRED, AA_0, AA_2, AA_3, AA_8, AA_10, AA_12, AA_14, AA_16, AA_20, AA_40, AA_50, AA_60, AA_80, AA_90, AA_100, Total, IndexNo, GroupType, CA_KEY, CA_NOTE_COLUMN}
             rowCA_REPORT_ANALYSIS_PROPERTYRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCA_REPORT_ANALYSIS_PROPERTYRow)
             Return rowCA_REPORT_ANALYSIS_PROPERTYRow
@@ -8396,6 +8463,7 @@ Partial Public Class dsCA
             Me.columnIndexNo = MyBase.Columns("IndexNo")
             Me.columnGroupType = MyBase.Columns("GroupType")
             Me.columnCA_KEY = MyBase.Columns("CA_KEY")
+            Me.columnCA_NOTE_COLUMN = MyBase.Columns("CA_NOTE_COLUMN")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -8461,6 +8529,8 @@ Partial Public Class dsCA
             MyBase.Columns.Add(Me.columnGroupType)
             Me.columnCA_KEY = New Global.System.Data.DataColumn("CA_KEY", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnCA_KEY)
+            Me.columnCA_NOTE_COLUMN = New Global.System.Data.DataColumn("CA_NOTE_COLUMN", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCA_NOTE_COLUMN)
             Me.columnID_Key.AutoIncrement = true
             Me.columnID_Key.AllowDBNull = false
             Me.columnID_Key.ReadOnly = true
@@ -8624,6 +8694,8 @@ Partial Public Class dsCA
         
         Private columnType_CA As Global.System.Data.DataColumn
         
+        Private columnTitleFront As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -8732,6 +8804,14 @@ Partial Public Class dsCA
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property TitleFrontColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnTitleFront
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -8768,9 +8848,9 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddCA_NOTERow(ByVal Title As String, ByVal RefNo As String, ByVal YA As String, ByVal CA_ID As Integer, ByVal TypeNote As Integer, ByVal Note As String, ByVal TagID As String, ByVal Type_CA As Integer) As CA_NOTERow
+        Public Overloads Function AddCA_NOTERow(ByVal Title As String, ByVal RefNo As String, ByVal YA As String, ByVal CA_ID As Integer, ByVal TypeNote As Integer, ByVal Note As String, ByVal TagID As String, ByVal Type_CA As Integer, ByVal TitleFront As String) As CA_NOTERow
             Dim rowCA_NOTERow As CA_NOTERow = CType(Me.NewRow,CA_NOTERow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Title, RefNo, YA, CA_ID, TypeNote, Note, TagID, Type_CA}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Title, RefNo, YA, CA_ID, TypeNote, Note, TagID, Type_CA, TitleFront}
             rowCA_NOTERow.ItemArray = columnValuesArray
             Me.Rows.Add(rowCA_NOTERow)
             Return rowCA_NOTERow
@@ -8802,6 +8882,7 @@ Partial Public Class dsCA
             Me.columnNote = MyBase.Columns("Note")
             Me.columnTagID = MyBase.Columns("TagID")
             Me.columnType_CA = MyBase.Columns("Type_CA")
+            Me.columnTitleFront = MyBase.Columns("TitleFront")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -8825,6 +8906,8 @@ Partial Public Class dsCA
             MyBase.Columns.Add(Me.columnTagID)
             Me.columnType_CA = New Global.System.Data.DataColumn("Type_CA", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnType_CA)
+            Me.columnTitleFront = New Global.System.Data.DataColumn("TitleFront", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnTitleFront)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, false))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -13354,6 +13437,21 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CA_NOTE_COLUMN() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableCA_REPORT_TEMP.CA_NOTE_COLUMNColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CA_NOTE_COLUMN' in table 'CA_REPORT_TEMP' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCA_REPORT_TEMP.CA_NOTE_COLUMNColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsRefNoNull() As Boolean
             Return Me.IsNull(Me.tableCA_REPORT_TEMP.RefNoColumn)
         End Function
@@ -13638,6 +13736,18 @@ Partial Public Class dsCA
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetTWDV_TOTALNull()
             Me(Me.tableCA_REPORT_TEMP.TWDV_TOTALColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCA_NOTE_COLUMNNull() As Boolean
+            Return Me.IsNull(Me.tableCA_REPORT_TEMP.CA_NOTE_COLUMNColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCA_NOTE_COLUMNNull()
+            Me(Me.tableCA_REPORT_TEMP.CA_NOTE_COLUMNColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -15118,6 +15228,22 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CA_NOTE_COLUMN() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableCA_REPORT_CONTROLTRANSFER_TEMP.CA_NOTE_COLUMNColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CA_NOTE_COLUMN' in table 'CA_REPORT_CONTROLTRANSFER_TEMP' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCA_REPORT_CONTROLTRANSFER_TEMP.CA_NOTE_COLUMNColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsRefNoNull() As Boolean
             Return Me.IsNull(Me.tableCA_REPORT_CONTROLTRANSFER_TEMP.RefNoColumn)
         End Function
@@ -15534,6 +15660,18 @@ Partial Public Class dsCA
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetIndexNoNull()
             Me(Me.tableCA_REPORT_CONTROLTRANSFER_TEMP.IndexNoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCA_NOTE_COLUMNNull() As Boolean
+            Return Me.IsNull(Me.tableCA_REPORT_CONTROLTRANSFER_TEMP.CA_NOTE_COLUMNColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCA_NOTE_COLUMNNull()
+            Me(Me.tableCA_REPORT_CONTROLTRANSFER_TEMP.CA_NOTE_COLUMNColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -15957,6 +16095,22 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CA_NOTE_COLUMN() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableCA_REPORT_DISPOSAL_TEMP.CA_NOTE_COLUMNColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CA_NOTE_COLUMN' in table 'CA_REPORT_DISPOSAL_TEMP' is DBNul"& _ 
+                            "l.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCA_REPORT_DISPOSAL_TEMP.CA_NOTE_COLUMNColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsRefNoNull() As Boolean
             Return Me.IsNull(Me.tableCA_REPORT_DISPOSAL_TEMP.RefNoColumn)
         End Function
@@ -16253,6 +16407,18 @@ Partial Public Class dsCA
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetDISP_KEYNull()
             Me(Me.tableCA_REPORT_DISPOSAL_TEMP.DISP_KEYColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCA_NOTE_COLUMNNull() As Boolean
+            Return Me.IsNull(Me.tableCA_REPORT_DISPOSAL_TEMP.CA_NOTE_COLUMNColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCA_NOTE_COLUMNNull()
+            Me(Me.tableCA_REPORT_DISPOSAL_TEMP.CA_NOTE_COLUMNColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -16610,6 +16776,21 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CA_NOTE_COLUMN() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableHP_REPORT_TEMP.CA_NOTE_COLUMNColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CA_NOTE_COLUMN' in table 'HP_REPORT_TEMP' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableHP_REPORT_TEMP.CA_NOTE_COLUMNColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsHP_KEYNull() As Boolean
             Return Me.IsNull(Me.tableHP_REPORT_TEMP.HP_KEYColumn)
         End Function
@@ -16858,6 +17039,18 @@ Partial Public Class dsCA
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetIndexNoNull()
             Me(Me.tableHP_REPORT_TEMP.IndexNoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCA_NOTE_COLUMNNull() As Boolean
+            Return Me.IsNull(Me.tableHP_REPORT_TEMP.CA_NOTE_COLUMNColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCA_NOTE_COLUMNNull()
+            Me(Me.tableHP_REPORT_TEMP.CA_NOTE_COLUMNColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -17979,6 +18172,22 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CA_NOTE_COLUMN() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableCA_REPORT_ANALYSIS_PROPERTY.CA_NOTE_COLUMNColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CA_NOTE_COLUMN' in table 'CA_REPORT_ANALYSIS_PROPERTY' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCA_REPORT_ANALYSIS_PROPERTY.CA_NOTE_COLUMNColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsIDNull() As Boolean
             Return Me.IsNull(Me.tableCA_REPORT_ANALYSIS_PROPERTY.IDColumn)
         End Function
@@ -18324,6 +18533,18 @@ Partial Public Class dsCA
         Public Sub SetCA_KEYNull()
             Me(Me.tableCA_REPORT_ANALYSIS_PROPERTY.CA_KEYColumn) = Global.System.Convert.DBNull
         End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCA_NOTE_COLUMNNull() As Boolean
+            Return Me.IsNull(Me.tableCA_REPORT_ANALYSIS_PROPERTY.CA_NOTE_COLUMNColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCA_NOTE_COLUMNNull()
+            Me(Me.tableCA_REPORT_ANALYSIS_PROPERTY.CA_NOTE_COLUMNColumn) = Global.System.Convert.DBNull
+        End Sub
     End Class
     
     '''<summary>
@@ -18474,6 +18695,21 @@ Partial Public Class dsCA
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property TitleFront() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tableCA_NOTE.TitleFrontColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TitleFront' in table 'CA_NOTE' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableCA_NOTE.TitleFrontColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsTitleNull() As Boolean
             Return Me.IsNull(Me.tableCA_NOTE.TitleColumn)
         End Function
@@ -18566,6 +18802,18 @@ Partial Public Class dsCA
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetType_CANull()
             Me(Me.tableCA_NOTE.Type_CAColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsTitleFrontNull() As Boolean
+            Return Me.IsNull(Me.tableCA_NOTE.TitleFrontColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetTitleFrontNull()
+            Me(Me.tableCA_NOTE.TitleFrontColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

@@ -25,7 +25,7 @@ Public Class ucPNL_p2UnreaGainForeEx
 
     Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -51,12 +51,14 @@ Public Class ucPNL_p2UnreaGainForeEx
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
 
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             INCOMENTUREALFETBindingSource.DataSource = DsPNL1.Tables(MainTable)
@@ -67,14 +69,16 @@ Public Class ucPNL_p2UnreaGainForeEx
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try
@@ -87,6 +91,8 @@ Public Class ucPNL_p2UnreaGainForeEx
             GridView1.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
             GridView1.FocusedColumn = GridView1.VisibleColumns(0)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -100,6 +106,8 @@ Public Class ucPNL_p2UnreaGainForeEx
             dgv.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
             dgv.FocusedColumn = dgv.VisibleColumns(0)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -114,6 +122,8 @@ Public Class ucPNL_p2UnreaGainForeEx
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -134,6 +144,8 @@ Public Class ucPNL_p2UnreaGainForeEx
                 Next
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -150,6 +162,8 @@ Public Class ucPNL_p2UnreaGainForeEx
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -163,6 +177,8 @@ Public Class ucPNL_p2UnreaGainForeEx
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -179,6 +195,8 @@ Public Class ucPNL_p2UnreaGainForeEx
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -195,6 +213,8 @@ Public Class ucPNL_p2UnreaGainForeEx
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -210,6 +230,8 @@ Public Class ucPNL_p2UnreaGainForeEx
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -229,6 +251,8 @@ Public Class ucPNL_p2UnreaGainForeEx
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -246,6 +270,8 @@ Public Class ucPNL_p2UnreaGainForeEx
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -255,6 +281,8 @@ Public Class ucPNL_p2UnreaGainForeEx
         Try
             GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -265,6 +293,8 @@ Public Class ucPNL_p2UnreaGainForeEx
             GridView1.GetDataRow(e.RowHandle)(Main_Desc) = Me.Parent.Text
             GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -273,6 +303,8 @@ Public Class ucPNL_p2UnreaGainForeEx
         Try
             mdlPNL.MoveItemsInListView(True, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL1, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -281,6 +313,8 @@ Public Class ucPNL_p2UnreaGainForeEx
         Try
             mdlPNL.MoveItemsInListView(False, MainTable, MainTable_Details, RefNo, MainKey, MainKey_Details, GridView1, DsPNL1, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -294,6 +328,8 @@ Public Class ucPNL_p2UnreaGainForeEx
             mdlPNL.OpenNoteForm(GridView1, _RowInfo)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

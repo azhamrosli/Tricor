@@ -51,6 +51,8 @@ Module mdlProcess
 
 
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -76,6 +78,8 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -108,6 +112,8 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -140,6 +146,8 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -172,6 +180,8 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -214,6 +224,8 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -266,6 +278,8 @@ Module mdlProcess
             'End If
             ' Return System.Configuration.ConfigurationManager.ConnectionStrings("dbEmployeeManagementConnectionString").ConnectionString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -309,6 +323,8 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -352,6 +368,8 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -395,6 +413,8 @@ Module mdlProcess
             'End If
             ' Return System.Configuration.ConfigurationManager.ConnectionStrings("dbEmployeeManagementConnectionString").ConnectionString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -442,6 +462,8 @@ Module mdlProcess
                  keySize _
              )
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Return Nothing
         End Try
@@ -478,6 +500,8 @@ Module mdlProcess
                 keySize _
             )
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             ' MsgBox(ex.Message, MsgBoxStyle.Critical)
             Return Nothing
         End Try
@@ -496,6 +520,8 @@ Module mdlProcess
                 .ErrorMessage = Message
             End With
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
                 ErrorLog = New clsError
             End If
@@ -538,6 +564,8 @@ Module mdlProcess
             Pic.Image.Save(ms, Imaging.ImageFormat.Jpeg)
             Return ms.GetBuffer()
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.HResult.ToString, ex.Message, 1)
             Return Nothing
         End Try
@@ -555,6 +583,8 @@ tryagain:
             End If
 
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             GoTo tryagain
         End Try
 
@@ -588,6 +618,8 @@ tryagain:
 
             Return strAdd 'nics(0).GetPhysicalAddress.ToString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.HResult.ToString, ex.Message, 1)
             Return ""
         End Try
@@ -608,6 +640,8 @@ tryagain:
 
             Return strAdd 'nics(0).GetPhysicalAddress.ToString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.HResult.ToString, ex.Message, 1)
             Return ""
         End Try
@@ -639,6 +673,8 @@ tryagain:
                 End If
             End If
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return Format(DateData, "dd-MMM-yyyy")
         End Try
     End Function
@@ -692,6 +728,8 @@ tryagain:
             End If
 
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return Format(DateData, "dd-MMM-yyyy")
         End Try
     End Function
@@ -722,6 +760,8 @@ tryagain:
 
             Return sb.ToString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -737,6 +777,8 @@ tryagain:
 
             Return sb.ToString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -752,6 +794,8 @@ tryagain:
 
             Return sb.ToString
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -760,6 +804,8 @@ tryagain:
             Dim byt As Byte() = System.Text.Encoding.UTF8.GetBytes(data)
             Return System.Convert.ToBase64String(byt)
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -768,6 +814,8 @@ tryagain:
             Dim byt() As Byte = System.Convert.FromBase64String(data)
             Return System.Text.ASCIIEncoding.ASCII.GetString(byt)
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -796,6 +844,8 @@ tryagain:
                     Return "N0"
             End Select
         Catch ex As Exception
+Dim st As New StackTrace(True)
+ st = New StackTrace(ex, True)
             Return "N2"
         End Try
     End Function

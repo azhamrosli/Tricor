@@ -1,9 +1,10 @@
 ﻿Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class frmMovement_Add
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
+    Dim MM_REFID As String = ""
     Dim autosource As AutoCompleteStringCollection = Nothing
     Sub New()
 
@@ -21,6 +22,8 @@ Public Class frmMovement_Add
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -59,11 +62,16 @@ Public Class frmMovement_Add
 
                 btnNote_Add.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
                 btnNote_Less.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
+
+                MM_REFID = ""
             Else
                 btnNote_Add.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
                 btnNote_Less.Visibility = DevExpress.XtraBars.BarItemVisibility.Always
 
                 Dim dt As DataTable = clsMoveNormal.Load_MovementNormal(ID, ErrorLog)
+                DsMovement.Tables("MOVEMENT_ADD").AcceptChanges()
+                DsMovement.Tables("MOVEMENT_DEDUCT").AcceptChanges()
+                DsMovement.Tables("MOVEMENT_NORMAL").AcceptChanges()
 
                 DsMovement.Tables("MOVEMENT_ADD").Rows.Clear()
                 DsMovement.Tables("MOVEMENT_DEDUCT").Rows.Clear()
@@ -72,6 +80,7 @@ Public Class frmMovement_Add
                     cboRefNo.Enabled = True
                     cboYA.Enabled = True
                     isEdit = False
+                    MM_REFID = ""
                     Exit Sub
                 End If
 
@@ -90,6 +99,7 @@ Public Class frmMovement_Add
                 txtNoteStart.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_START")), 0, dt.Rows(0)("MM_NOTE_START"))
                 txtNoteEnd.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_NOTE_END")), 0, dt.Rows(0)("MM_NOTE_END"))
                 txtTotalAmount_AddbackDeduct.EditValue = IIf(IsDBNull(dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT")), 0, dt.Rows(0)("MM_ADD_DEDUCT_AMOUNT"))
+                MM_REFID = IIf(IsDBNull(dt.Rows(0)("MM_REFID")), "", dt.Rows(0)("MM_REFID"))
 
                 RGType.SelectedIndex = IIf(IsDBNull(dt.Rows(0)("MM_TYPE_PASS")), 0, dt.Rows(0)("MM_TYPE_PASS"))
                 'If IsDBNull(dt.Rows(0)("MM_TYPE_PASS")) = False AndAlso dt.Rows(0)("MM_TYPE_PASS") = 1 Then
@@ -119,6 +129,8 @@ Public Class frmMovement_Add
             MOVEMENTADDBindingSource.DataSource = DsMovement.Tables("MOVEMENT_ADD")
             '    MOVEMENTDEDUCTBindingSource.DataSource = DsMovement.Tables("MOVEMENT_DEDUCT")
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -148,6 +160,8 @@ Public Class frmMovement_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -179,6 +193,8 @@ Public Class frmMovement_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -187,6 +203,8 @@ Public Class frmMovement_Add
             GridView1.GetDataRow(e.RowHandle)("MM_AddBack") = False
             GridView1.GetDataRow(e.RowHandle)("MM_ADDBACK_AMOUNT") = 0
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -195,6 +213,8 @@ Public Class frmMovement_Add
             GridView2.GetDataRow(e.RowHandle)("MM_Deduct") = False
             GridView2.GetDataRow(e.RowHandle)("MM_DEDUCT_AMOUNT") = 0
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -202,6 +222,8 @@ Public Class frmMovement_Add
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -216,6 +238,8 @@ Public Class frmMovement_Add
             clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -231,6 +255,8 @@ Public Class frmMovement_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -246,6 +272,8 @@ Public Class frmMovement_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -255,6 +283,8 @@ Public Class frmMovement_Add
             clsMoveNormal.CalcVal(DsMovement, txtAmountStart.EditValue, txtAmountEnd.EditValue, txtTotalAmount_AddbackDeduct.EditValue)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
 
@@ -282,6 +312,8 @@ Public Class frmMovement_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -299,6 +331,8 @@ Public Class frmMovement_Add
 
             dtBalanceEnd.EditValue = Lastyear
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -316,13 +350,18 @@ Public Class frmMovement_Add
                 'ElseIf chkTaxNegative.Checked Then
                 '    TypePass = 3
                 'End If
+                DsMovement.Tables("MOVEMENT_ADD").AcceptChanges()
+                DsMovement.Tables("MOVEMENT_DEDUCT").AcceptChanges()
+                DsMovement.Tables("MOVEMENT_NORMAL").AcceptChanges()
+
+                Application.DoEvents()
 
                 If isEdit Then
                     If clsMoveNormal.Update_MovementNormal(ID, cboRefNo.EditValue, cboYA.EditValue, txtTitle.EditValue, cboType.EditValue, _
                                                      dtEnded.EditValue, dtBalanceStart.EditValue, dtBalanceEnd.EditValue, txtAmountStart.EditValue, _
                                                      txtAmountEnd.EditValue, txtNoteStart.EditValue, txtNoteEnd.EditValue, _
                                                      txtTotalAmount_AddbackDeduct.EditValue, TypePass, cboSourceCode.EditValue, _
-                                                     DsMovement, ErrorLog) Then
+                                                     MM_REFID, DsMovement, ErrorLog) Then
                         MsgBox("Successfully updated movement.", MsgBoxStyle.Information)
                         Application.DoEvents()
                         If mdlRefreshTaxComputation.RefreshTaxcom(cboRefNo.EditValue, cboYA.EditValue, ErrorLog) = False Then
@@ -357,6 +396,8 @@ Public Class frmMovement_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -409,6 +450,8 @@ Public Class frmMovement_Add
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             MsgBox("Failed to validate data." & vbCrLf & ex.Message, MsgBoxStyle.Exclamation)
             Return False
         End Try
@@ -424,6 +467,8 @@ Public Class frmMovement_Add
                 GridView2.DeleteSelectedRows()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         Finally
             DsMovement.Tables("MOVEMENT_ADD").AcceptChanges()
@@ -441,6 +486,8 @@ Public Class frmMovement_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -454,6 +501,8 @@ Public Class frmMovement_Add
                 mdlPNL.MoveItemsInListView_WithoutChild(False, "MOVEMENT_DEDUCT", cboRefNo.EditValue, "MM_ID", GridView2, DsMovement, ErrorLog)
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -469,6 +518,8 @@ Public Class frmMovement_Add
                 GridView2.FocusedColumn = GridView2.VisibleColumns(0)
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -499,6 +550,8 @@ Public Class frmMovement_Add
                 SearchSourceNO()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -510,6 +563,8 @@ Public Class frmMovement_Add
                 cboSourceCode.SelectedIndex = 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -518,6 +573,8 @@ Public Class frmMovement_Add
         Try
             SearchSourceNO()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -529,18 +586,21 @@ Public Class frmMovement_Add
                 Exit Sub
             End If
 
-            Dim frm As New frmNote_Movement
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.MM_ID = ID
-            frm.Data_SubID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID")
-            frm.Type_Movement = 0
-            frm.Type_Addless = 0
-            frm.DsMovement = DsMovement
-            frm.TagID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("TagID")
-            frm.RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_Description")
+            Dim frm As New frmNote_Movement With {
+                .RefNo = CType(cboRefNo.EditValue, String),
+                .YA = cboYA.EditValue,
+                .MM_ID = ID,
+                .Data_SubID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_ID"),
+                .Type_Movement = 0,
+                .Type_Addless = 0,
+                .DsMovement = DsMovement,
+                .TagID = GridView1.GetDataRow(GridView1.FocusedRowHandle)("TagID"),
+                .RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("MM_Description")
+            }
             frm.ShowDialog()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -552,19 +612,21 @@ Public Class frmMovement_Add
                 Exit Sub
             End If
 
-
-            Dim frm As New frmNote_Movement
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.MM_ID = ID
-            frm.Data_SubID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_ID")
-            frm.Type_Movement = 0
-            frm.Type_Addless = 1
-            frm.DsMovement = DsMovement
-            frm.TagID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("TagID")
-            frm.RowDescription = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_Description")
+            Dim frm As New frmNote_Movement With {
+                .RefNo = CType(cboRefNo.EditValue, String),
+                .YA = cboYA.EditValue,
+                .MM_ID = ID,
+                .Data_SubID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_ID"),
+                .Type_Movement = 0,
+                .Type_Addless = 1,
+                .DsMovement = DsMovement,
+                .TagID = GridView2.GetDataRow(GridView2.FocusedRowHandle)("TagID"),
+                .RowDescription = GridView2.GetDataRow(GridView2.FocusedRowHandle)("MM_Description")
+            }
             frm.ShowDialog()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub

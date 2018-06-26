@@ -2,25 +2,27 @@
     Public isEdit As Boolean = False
     Public ID As Integer = 0
 
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Private Sub frmBalanceSheet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
 
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
-            If CreateLookUpTaxPayer(DsDefault, ErrorLog) = False Then
+            If CreateLookUpTaxPayer(DataSet:=DsDefault, Errorlog:=Errorlog) = False Then
                 MsgBox("Unable to retrive tax payer.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
 
 
-            If CreateLookUpYA(cboYA, ErrorLog, True) = False Then
+            If CreateLookUpYA(cboYA, Errorlog, True) = False Then
                 MsgBox("Unable to retrive YA.", MsgBoxStyle.Critical)
                 Exit Sub
             End If
@@ -64,20 +66,22 @@
                     txtAppropriation.EditValue = IIf(IsDBNull(dt.Rows(0)("BS_PNL_APPR_ACC")), 0, dt.Rows(0)("BS_PNL_APPR_ACC"))
                     txtReserves.EditValue = IIf(IsDBNull(dt.Rows(0)("BS_RESERVE_ACC")), 0, dt.Rows(0)("BS_RESERVE_ACC"))
 
-                    lblModifiedBy.Caption = "Last Update :" & IIf(IsDBNull(dt.Rows(0)("ModifiedBy")), "", dt.Rows(0)("ModifiedBy")) & _
+                    lblModifiedBy.Caption = "Last Update :" & IIf(IsDBNull(dt.Rows(0)("ModifiedBy")), "", dt.Rows(0)("ModifiedBy")) &
                         "(" & Format(CDate(IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), Now, dt.Rows(0)("ModifiedDateTime"))), "dd-MMM-yyyy HH:mm") & ")"
                 End If
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try
@@ -90,6 +94,8 @@
             txtRefNo.EditValue = cboRefNo.EditValue
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
 
@@ -103,6 +109,8 @@
 
             txtTotalFA.EditValue = CDec(txtVehicle.EditValue) + CDec(txtMachinery.EditValue) + CDec(txtBuilding.EditValue) + CDec(txtOtherFA.EditValue)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -111,6 +119,8 @@
         Try
             txtTotalCA.EditValue = CDec(txtOtherDebtors.EditValue) + CDec(txtStock.EditValue) + CDec(txtLoanTo.EditValue) + CDec(txtCashBank.EditValue) + CDec(txtOtherCA.EditValue) + CDec(txtTradeDebtors.EditValue)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -120,6 +130,8 @@
         Try
             txtTotalAssets.EditValue = CDec(txtTotalCA.EditValue) + CDec(txtInvestment.EditValue) + CDec(txtTotalFA.EditValue)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -128,6 +140,8 @@
         Try
             txtTotalCL.EditValue = CDec(txtBorrowing.EditValue) + CDec(txtLoanFrom.EditValue) + CDec(txtOtherCreditor.EditValue) + CDec(txtTradeCreditor.EditValue) + CDec(txtOtherCL.EditValue)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -136,6 +150,8 @@
         Try
             txtTotalLiability.EditValue = CDec(txtTotalCL.EditValue) + CDec(txtLongTerm.EditValue)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -151,6 +167,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -159,6 +177,8 @@
         Try
             txtTotalLE.EditValue = CDec(txtTotalEquity.EditValue) + CDec(txtTotalLiability.EditValue)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -215,6 +235,8 @@
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -247,6 +269,8 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return False
         End Try
     End Function

@@ -1,5 +1,5 @@
 ﻿Public Class ucDisposal
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim isChangeForm As Boolean = False
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
@@ -61,6 +61,8 @@
 
             CABindingSource.DataSource = DsCA
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             pnlLoading.Visible = False
@@ -73,6 +75,8 @@
             frm.ShowDialog()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -85,6 +89,8 @@
             txtFilterValue.Text = ""
             LoadData(1)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -96,6 +102,8 @@
         Try
             btnEdit.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -106,16 +114,19 @@
 
             If dtRow IsNot Nothing AndAlso dtRow.Count > 0 Then
                 Dim ID As Integer = dtRow(0)("CA_DISP_KEY")
-                Dim frm As New frmDisposal_Add
-                frm.isEdit = True
-                frm.ID = ID
-                frm.ID_CA = ID_CA
+                Dim frm As New frmDisposal_Add With {
+                    .isEdit = True,
+                    .ID = ID,
+                    .ID_CA = ID_CA
+                }
                 frm.ShowDialog()
                 Me.LoadData()
             End If
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -139,6 +150,8 @@
             Application.DoEvents()
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
 
@@ -149,6 +162,8 @@
             cboRefNo.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -158,6 +173,8 @@
             cboYA.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -167,6 +184,8 @@
             txtFilterValue.EditValue = ""
             Me.LoadData(2)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -175,17 +194,22 @@
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
     Private Sub btnPrint_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles btnPrint.ItemClick
         Try
-            Dim frm As New frmCA_ReportMenu
-            frm.TypeReport = 8
+            Dim frm As New frmCA_ReportMenu With {
+                .TypeReport = 8
+            }
             frm.ShowDialog()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -3,10 +3,10 @@
 Module mdlRefreshTaxComputation
 #Region "NON ALLOWABLE TAXABLE"
 
-    Public Function GetAJDTotalRevenueExpenditure(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalRevenueExpenditure(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -15,8 +15,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([RE_AMOUNT] as money))),0) as sumx FROM [REVENUE_EXPENDITURE] WHERE [RE_REF_NO]=@refNo AND [RE_YA]=@ya AND [RE_SOURCENO]=@source"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
@@ -29,23 +30,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
 
-    Public Function GetAJDTotalOtherExpenditure(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalOtherExpenditure(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -54,8 +57,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([OE_AMOUNT] as money))),0) as sumx FROM [OTHER_EXPENDITURE] WHERE [OE_REF_NO]=@refno AND [OE_YA]=@ya AND [OE_SOURCENO]=@source"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
@@ -68,22 +72,24 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpOtherInterest(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpOtherInterest(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -96,8 +102,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exi_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -110,23 +117,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpContractPay(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpContractPay(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -139,8 +148,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exc_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -153,23 +163,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpDirectorFee(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpDirectorFee(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -182,8 +194,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exdf_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -196,23 +209,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpTechnicalFee(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpTechnicalFee(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -225,8 +240,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and extf_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -239,23 +255,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpSalary(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpSalary(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -268,8 +286,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exs_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -282,23 +301,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpRoyalty(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpRoyalty(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -311,8 +332,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exro_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -325,23 +347,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpRental(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpRental(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -354,8 +378,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exrent_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -368,23 +393,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpRepairMaintenance(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpRepairMaintenance(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -397,8 +424,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exrep_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -411,23 +439,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpRND(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpRND(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -440,8 +470,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exres_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -454,23 +485,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpPromotionAdvertisement(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpPromotionAdvertisement(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -483,8 +516,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exp_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -497,23 +531,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpTravel(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpTravel(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -526,8 +562,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and ext_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -540,23 +577,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpJKDM(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpJKDM(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -569,8 +608,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exjk_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -583,23 +623,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpEmployeeStock(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpEmployeeStock(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -612,8 +654,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exes_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -626,23 +669,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpLegal(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpLegal(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -655,8 +700,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and EXL_DEDUCTIBLE=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -669,23 +715,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpEntertainStaff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpEntertainStaff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -698,8 +746,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and EXOES_DEDUCTIBLE=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -712,23 +761,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpOthersExpenses(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpOthersExpenses(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -741,8 +792,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exo_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -755,23 +807,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpDepreciation(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpDepreciation(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -784,8 +838,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exodep_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -798,23 +853,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpEntertainNonStaff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpEntertainNonStaff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -827,8 +884,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exoens_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -841,23 +899,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpProvision(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpProvision(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -870,8 +930,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exopa_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -884,23 +945,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpCompoundPenalty(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpCompoundPenalty(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -913,8 +976,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exop_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -927,23 +991,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpLeavePassage(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpLeavePassage(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -956,8 +1022,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exolp_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -970,23 +1037,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpFAWrittenOff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpFAWrittenOff(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -999,8 +1068,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exowo_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1013,23 +1083,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpInitialSubscript(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpInitialSubscript(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1042,8 +1114,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exois_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1056,23 +1129,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpCapitalExpenditure(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpCapitalExpenditure(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1085,8 +1160,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exoce_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1099,23 +1175,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalDepreciation(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalDepreciation(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1128,8 +1206,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exdep_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1142,23 +1221,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalOtherNonAllowExpenses(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalOtherNonAllowExpenses(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1171,8 +1252,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exna_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1185,23 +1267,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalPurchases(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalPurchases(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1214,8 +1298,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and plfpur_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1228,23 +1313,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpDonationNonApproved(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpDonationNonApproved(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1257,8 +1344,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exonad_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1271,23 +1359,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpInterestRestrict(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpInterestRestrict(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1300,8 +1390,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exir_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1314,23 +1405,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpUnrealLossFE(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpUnrealLossFE(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1343,8 +1436,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exour_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1357,23 +1451,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpRealLossFENonTrade(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpRealLossFENonTrade(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1386,8 +1482,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exor_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1400,23 +1497,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpLossDisposalFA(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpLossDisposalFA(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1429,8 +1528,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exold_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1443,23 +1543,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalOtherExrLossForeignt(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalOtherExrLossForeignt(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1472,8 +1574,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exort_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1486,23 +1589,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpDonationApproved(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpDonationApproved(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1515,8 +1620,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exoad_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1529,23 +1635,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetAJDTotalExpZakat(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalExpZakat(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1558,8 +1666,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exoz_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1572,24 +1681,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function GetAJDTotalRealFETrade(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetAJDTotalRealFETrade(ByVal PNLID As Integer, ByVal SourceNo As Integer, ByVal strDeductible As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1602,8 +1713,9 @@ Module mdlRefreshTaxComputation
                 StrSQL += " and exi_deductible=@ded"
             End If
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
             SQLcmd.Parameters.Add("@ded", strDeductible)
@@ -1616,23 +1728,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetTotalNonAllowLoss(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetTotalNonAllowLoss(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1640,8 +1754,9 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([NL_AMOUNT] as money))),0) as sumx FROM [NON_ALLOW_LOSS] WHERE [NL_REF_NO]=@refno AND [NL_YA]=@ya AND [NL_SOURCENO]=@source AND [NL_CATEGORIZED]=''"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
@@ -1655,24 +1770,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function GetNonTaxableIncome(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetNonTaxableIncome(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1680,8 +1797,9 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([NT_AMOUNT] as money))),0) as sumx FROM [NON_TAXABLE_INCOME] WHERE [NT_REF_NO]=@refno AND [NT_YA]=@ya AND [NT_SOURCENO]=@source AND [NT_CATEGORIZED]<>'Other'"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
@@ -1695,23 +1813,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetTotalTaxableIncome(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetTotalTaxableIncome(ByVal strRefNo As String, ByVal strCYa As String, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1719,8 +1839,9 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([TI_AMOUNT] as money))),0) as sumx FROM [TAXABLE_INCOME] WHERE [TI_REF_NO]=@refno AND [TI_YA]=@ya AND [TI_SOURCENO]=@source"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
             SQLcmd.Parameters.Add("@source", SqlDbType.Int).Value = SourceNo
@@ -1734,23 +1855,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetTotalMovementNormal_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetTotalMovementNormal_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1758,8 +1881,9 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_ADD] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_NORMAL WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_AddBack=1"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -1772,23 +1896,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetTotalMovementNormal_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetTotalMovementNormal_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1796,8 +1922,9 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT Isnull(sum(MM_Amount),0) as sumx FROM [MOVEMENT_DEDUCT] WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_NORMAL WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_Deduct=1"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -1810,23 +1937,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetTotalMovementComplex_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetTotalMovementComplex_AddBack(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1847,8 +1976,9 @@ Module mdlRefreshTaxComputation
             StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
             StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_SPECIFIC_NONALLOWABLE_ADDBACK=1 "
             StrSQL += ") a"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -1861,23 +1991,25 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
-    Public Function GetTotalMovementComplex_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As Double
+    Public Function GetTotalMovementComplex_Deduct(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As ClsError = Nothing) As Double
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1898,8 +2030,9 @@ Module mdlRefreshTaxComputation
             StrSQL += "WHERE MM_PARENTID in (SELECT MM_ID FROM MOVEMENT_COMPLEX "
             StrSQL += "WHERE MM_REFNO=@refno AND MM_YA=@ya) AND MM_SPECIFIC_NONALLOWABLE_DEDUCT=1 "
             StrSQL += ") a"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
@@ -1912,14 +2045,16 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
@@ -1928,10 +2063,10 @@ Module mdlRefreshTaxComputation
 #End Region
 #Region "LOAD"
 
-    Public Function GetTCBusinessSource(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function GetTCBusinessSource(ByVal strRefNo As String, ByVal strCYa As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -1939,30 +2074,33 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "select tc_business from tax_computation where tc_ref_no=@refno and tc_ya=@ya order by tc_business"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@refno", SqlDbType.NVarChar, 20).Value = strRefNo
             SQLcmd.Parameters.Add("@ya", SqlDbType.NVarChar, 5).Value = strCYa
 
             Return ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_TaxCom_DividendIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_DividendIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -1970,8 +2108,9 @@ Module mdlRefreshTaxComputation
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL(sum(case when di_disclose='Yes' then di_net else di_gross end),0) as sumx from dividend_income where di_key=@di_key and di_sourceno=@di_sourceno and di_transfer='Section 4c' or di_transfer='Single Tier'"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@di_key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@di_sourceno", SqlDbType.Int).Value = SourceNo
 
@@ -1983,24 +2122,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_RentalIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_RentalIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2009,8 +2150,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum([RI_AMOUNT] )),0) as sumx FROM [RENTAL_INCOME] WHERE [ri_key]=@ri_key AND [ri_sourceno]=@ri_sourceno AND [RI_STATUS4d]='Sec 4d' or [RI_STATUS4d]='Section 4d'"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ri_key", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@ri_sourceno", SqlDbType.Int).Value = SourceNo
 
@@ -2022,24 +2164,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_RoyaltIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_RoyaltIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2048,8 +2192,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum([NOBRI_AMOUNT])),0) as sumx FROM [INCOME_NBROYALTY] WHERE [NOBRI_KEY]=@NOBRI_KEY AND [NOBRI_SOURCENO]=@NOBRI_SOURCENO"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@NOBRI_KEY", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@NOBRI_SOURCENO", SqlDbType.Int).Value = SourceNo
 
@@ -2061,24 +2206,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_InterestIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_InterestIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2087,8 +2234,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum([NOBII_AMOUNT])),0) as sumx FROM [INCOME_NBINTEREST] WHERE [NOBII_KEY]=@NOBII_KEY AND [NOBII_SOURCENO]=@NOBII_SOURCENO"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@NOBII_KEY", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@NOBII_SOURCENO", SqlDbType.Int).Value = SourceNo
 
@@ -2100,24 +2248,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_OtherIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_OtherIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2126,8 +2276,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum([OI_AMOUNT])),0) as sumx FROM [OTHER_INCOME] WHERE [OI_KEY]=@OI_KEY AND [OI_SOURCENO]=@OI_SOURCENO"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@OI_KEY", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@OI_SOURCENO", SqlDbType.Int).Value = SourceNo
 
@@ -2139,24 +2290,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_NonSourceBusinessIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_NonSourceBusinessIncome(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2165,8 +2318,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum([NSBI_AMOUNT])),0) as sumx FROM [NONSOURCE_BUSINESSINCOME] WHERE [NSBI_KEY]= @NSBI_KEY AND [NSBI_SOURCENO]=@NSBI_SOURCENO"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@NSBI_KEY", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@NSBI_SOURCENO", SqlDbType.Int).Value = SourceNo
 
@@ -2178,24 +2332,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_ExemptDividend(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_ExemptDividend(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2204,8 +2360,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum([ED_AMOUNT] )),0) as sumx FROM [EXEMPT_DIVIDEND] WHERE [ED_KEY]=@ED_KEY AND [ED_SOURCENO]=@ED_SOURCENO"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ED_KEY", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@ED_SOURCENO", SqlDbType.Int).Value = SourceNo
 
@@ -2217,24 +2374,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_OtherBusinessIncome(ByVal PNLID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_OtherBusinessIncome(ByVal PNLID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2243,8 +2402,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([OBI_GROSS_INCOME] as money))),0) as sumx FROM [OTHER_BUSINESS_INCOME] WHERE [OBI_KEY]=@OI_KEY"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@OI_KEY", SqlDbType.Int).Value = PNLID
 
             Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -2255,24 +2415,26 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
         End Try
     End Function
 
-    Public Function Load_TaxCom_OtherBusinessIncomeBySource(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Decimal
+    Public Function Load_TaxCom_OtherBusinessIncomeBySource(ByVal PNLID As Integer, ByVal SourceNo As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Decimal
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return 0
@@ -2281,8 +2443,9 @@ Module mdlRefreshTaxComputation
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT ISNULL((sum(cast([OBI_GROSS_INCOME] as money))),0) as sumx FROM [OTHER_BUSINESS_INCOME] WHERE [OBI_KEY]=@data and [OBI_SOURCENO]=@sourceno"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@data", SqlDbType.Int).Value = PNLID
             SQLcmd.Parameters.Add("@sourceno", SqlDbType.Int).Value = SourceNo
 
@@ -2294,14 +2457,16 @@ Module mdlRefreshTaxComputation
                 Return 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return 0
@@ -2312,7 +2477,7 @@ Module mdlRefreshTaxComputation
 
 #End Region
 
-    Public Function RefreshInvestmentHolding(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function RefreshInvestmentHolding(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dtIH As DataTable = Nothing
             Dim dtPL As DataTable = Nothing
@@ -2544,21 +2709,23 @@ Module mdlRefreshTaxComputation
             End If
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
     
-    Public Function RefreshTaxcom(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function RefreshTaxcom(ByVal RefNo As String, ByVal YA As String, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim TC_AI_DIVIDEND As Decimal = 0
             Dim TC_AI_RENTAL As Decimal = 0
@@ -2700,8 +2867,6 @@ Module mdlRefreshTaxComputation
                         Application.DoEvents()
 
                         ADO.Update_AdjTaxcom(TaxcomID, TC_AI_DIVIDEND, TC_AI_RENTAL, TC_AI_ROYALTY, TC_AI_INTEREST, TC_AI_SEC4A, TC_AI_PNL_BAL, TC_AI_ADJ_BS_EXP_NA_EXP, TC_AI_ADJ_BS_IN_NA_LOS, TC_AI_ADJ_BS_IN_NT_IN, TC_AI_TOT_NONBS_IN, TC_AI_TOT_BS_IN, TC_AI_ADJ_BS_IN_TAX_IN, TC_AI_ADJ_BS_EXP_INT, TC_AI_ADJ_BS_EXP_RV_EXP, TC_AI_ADJ_BS_EXP_CLAIM, TC_AI_TOT_ADJ_BS_EXP, TC_OTHERDEDUCTION, TC_AI_TOT_ADJ_BS_IN, TC_AI_ADJ_IN_LOSS)
-
-
                     End If
 
 
@@ -2711,62 +2876,45 @@ Module mdlRefreshTaxComputation
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
         End Try
     End Function
-    Public Function GetTaxableIncome_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
+    Public Function GetTaxableIncome_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, Optional ByVal ErrorLog As ClsError = Nothing) As Decimal
         Try
             Dim dtMovement As DataTable = Nothing
             Dim dtData As DataTable = Nothing
             Dim tmpMovement As Decimal = 0
             Dim Amount As Decimal = 0
+            Dim MM_REFID As String = ""
             'Normal movement
             Dim ListofCmd As New List(Of SqlCommand)
             dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
 
             Dim Key As Integer = ADO.Load_GetTaxableIncome_Key(Nothing)
-            ADO.Delete_TaxableIncome(RefNo, YA, ListofCmd)
+
             If dtMovement IsNot Nothing Then
                 For i As Integer = 0 To dtMovement.Rows.Count - 1
-                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+
+                    MM_REFID = IIf(IsDBNull(dtMovement.Rows(i)("MM_REFID")), "", dtMovement.Rows(i)("MM_REFID"))
+                    ADO.Delete_TaxableIncome(RefNo, YA, MM_REFID, ListofCmd)
+
+                    If MM_REFID <> "" AndAlso IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
                         If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
                             Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
-
-                            dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
-                            Dim tmpAmount As Decimal = 0
-                            If dtData IsNot Nothing Then
-
-                                For Each row As DataRow In dtData.Rows
-
-                                    If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
-                                        tmpAmount = row("TI_AMOUNT")
-                                    End If
-                                    ' ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
-
-                                Next
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-                                Key += 1
-                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-                            Else
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-                                Key += 1
-                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-                            End If
-
+                            Key += 1
+                            ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")), dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), MM_REFID, ListofCmd)
                         End If
                     End If
                 Next
@@ -2781,39 +2929,15 @@ Module mdlRefreshTaxComputation
             If dtMovement IsNot Nothing Then
                 For i As Integer = 0 To dtMovement.Rows.Count - 1
 
-                    Dim tmpAmount As Decimal = 0
-                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+                    MM_REFID = IIf(IsDBNull(dtMovement.Rows(i)("MM_REFID")), "", dtMovement.Rows(i)("MM_REFID"))
+
+                    ADO.Delete_TaxableIncome(RefNo, YA, MM_REFID, ListofCmd)
+
+                    If MM_REFID <> "" AndAlso IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
                         If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
                             Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
-
-
-                            dtData = ADO.Load_TaxableIncome(RefNo, YA, ErrorLog)
-
-                            If dtData IsNot Nothing Then
-
-
-                                For Each row As DataRow In dtData.Rows
-
-                                    If IsDBNull(row("TI_AMOUNT")) = False AndAlso IsNumeric(row("TI_AMOUNT")) Then
-                                        tmpAmount = row("TI_AMOUNT")
-                                    End If
-                                    '  ADO.Save_TaxableIncome(RefNo, YA, row("TI_DESC"), tmpAmount, SourceNo, ListofCmd)
-
-                                Next
-
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-                                Key += 1
-                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-
-                            Else
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-                                Key += 1
-                                ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-                            End If
+                            Key += 1
+                            ADO.Save_TaxableIncome(Key, RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")), dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), MM_REFID, ListofCmd)
                         End If
                     End If
 
@@ -2827,52 +2951,34 @@ Module mdlRefreshTaxComputation
 
             Return Amount
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return 0
         End Try
     End Function
-    Public Function GetRevenueExpenditure_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, Optional ByVal ErrorLog As clsError = Nothing) As Decimal
+    Public Function GetRevenueExpenditure_Movement(ByVal RefNo As String, ByVal YA As String, ByVal Type As Integer, Optional ByVal ErrorLog As ClsError = Nothing) As Decimal
         Try
             Dim dtMovement As DataTable = Nothing
             Dim dtData As DataTable = Nothing
             Dim tmpMovement As Decimal = 0
             Dim Amount As Decimal = 0
+            Dim MM_REFID As String = ""
             'Normal movement
 
             dtMovement = clsMoveNormal.Load_MovementNormal(RefNo, YA, ErrorLog)
             Dim ListofCmd As New List(Of SqlCommand)
-            ADO.Delete_RevenueExpenditure(RefNo, YA, ListofCmd)
+
             If dtMovement IsNot Nothing Then
                 For i As Integer = 0 To dtMovement.Rows.Count - 1
-                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+
+                    MM_REFID = IIf(IsDBNull(dtMovement.Rows(i)("MM_REFID")), "", dtMovement.Rows(i)("MM_REFID"))
+                    ADO.Delete_RevenueExpenditure(RefNo, YA, MM_REFID, ListofCmd)
+
+                    If MM_REFID <> "" AndAlso IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
                         If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
                             Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
-
-
-                            dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
-                            Dim tmpAmount As Integer = 0
-                            If dtData IsNot Nothing Then
-
-
-                                For Each row As DataRow In dtData.Rows
-
-                                    If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
-                                        tmpAmount = row("RE_AMOUNT")
-                                    End If
-                                    '  ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
-
-                                Next
-
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-
-                            Else
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-                            End If
+                            '   Key += 1
+                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")), dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), MM_REFID, ListofCmd)
                         End If
                     End If
                 Next
@@ -2887,38 +2993,14 @@ Module mdlRefreshTaxComputation
             If dtMovement IsNot Nothing Then
                 For i As Integer = 0 To dtMovement.Rows.Count - 1
 
-                    If IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
+                    MM_REFID = IIf(IsDBNull(dtMovement.Rows(i)("MM_REFID")), "", dtMovement.Rows(i)("MM_REFID"))
+                    ADO.Delete_RevenueExpenditure(RefNo, YA, MM_REFID, ListofCmd)
+
+                    If MM_REFID <> "" AndAlso IsDBNull(dtMovement.Rows(i)("MM_TYPE_PASS")) = False AndAlso dtMovement.Rows(i)("MM_TYPE_PASS") <> 0 Then
                         If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso Type = CInt(dtMovement.Rows(i)("MM_TYPE_PASS")) Then
                             Amount += CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT"))
-
-
-                            dtData = ADO.Load_RevenueExpenditure(RefNo, YA, ErrorLog)
-                            Dim tmpAmount As Integer = 0
-                            If dtData IsNot Nothing Then
-
-                                For Each row As DataRow In dtData.Rows
-
-                                    If IsDBNull(row("RE_AMOUNT")) = False AndAlso IsNumeric(row("RE_AMOUNT")) Then
-                                        tmpAmount = row("RE_AMOUNT")
-                                    End If
-                                    ' ADO.Save_RevenueExpenditure(RefNo, YA, row("RE_DESC"), tmpAmount, SourceNo, ListofCmd)
-
-                                Next
-
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-
-                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-
-
-                            Else
-                                If IsDBNull(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) = False AndAlso IsNumeric(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")) Then
-                                    tmpAmount = dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")
-                                End If
-
-                                ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), tmpAmount, dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), ListofCmd)
-                            End If
+                            ' Key += 1
+                            ADO.Save_RevenueExpenditure(RefNo, YA, dtMovement.Rows(i)("MM_TITLE"), CDec(dtMovement.Rows(i)("MM_ADD_DEDUCT_AMOUNT")), dtMovement.Rows(i)("MM_SOURCENO"), dtMovement.Rows(i)("MM_ID"), MM_REFID, ListofCmd)
                         End If
                     End If
                 Next
@@ -2928,6 +3010,8 @@ Module mdlRefreshTaxComputation
             End If
             Return Amount
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return 0
         End Try
     End Function
@@ -2938,11 +3022,13 @@ Module mdlRefreshTaxComputation
 
             Return dblTotalNBI
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return 0
         End Try
 
     End Function
-    Public Function GetTotalNonAllowableExpenses(ByVal RefNo As String, ByVal YA As String, ByVal PNLID As Integer, Optional ByRef Errorlog As clsError = Nothing) As Double
+    Public Function GetTotalNonAllowableExpenses(ByVal RefNo As String, ByVal YA As String, ByVal PNLID As Integer, Optional ByRef Errorlog As ClsError = Nothing) As Double
         Try
             Dim strDeductible As String = "No"
             Dim dblTotalNonAllowExpenses As Double = 0
@@ -3057,14 +3143,16 @@ Module mdlRefreshTaxComputation
 
             Return dblTotalNonAllowExpenses
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
 

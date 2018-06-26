@@ -2,7 +2,7 @@
 
 Public Class frmHP_Add
     Inherits DevExpress.XtraEditors.XtraForm
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
     Public ID_CA As Integer = 0
@@ -73,6 +73,9 @@ Public Class frmHP_Add
                 cboYA.EditValue = mdlProcess.ArgParam3
                 cboPurchaseYE.EditValue = mdlProcess.ArgParam3
                 DefaultTaxPayer(cboRefNo)
+                If isEdit = False Then
+                    dtDateofPurchase.EditValue = New Date(cboYA.EditValue, 1, 1)
+                End If
             End If
 
 
@@ -156,6 +159,8 @@ Public Class frmHP_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
@@ -193,6 +198,8 @@ Public Class frmHP_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -211,6 +218,18 @@ Public Class frmHP_Add
             pnlMain.Enabled = True
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    Private Sub cboYA_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged
+        Try
+            If isEdit = False Then
+                dtDateofPurchase.EditValue = New Date(cboYA.EditValue, 1, 1)
+            End If
+        Catch ex As Exception
 
         End Try
     End Sub
@@ -218,6 +237,8 @@ Public Class frmHP_Add
         Try
             cboPurchaseYE.EditValue = cboYA.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -259,6 +280,8 @@ Public Class frmHP_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -423,6 +446,8 @@ Public Class frmHP_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -431,6 +456,8 @@ Public Class frmHP_Add
             txtRestrictedQua.EditValue = txtPurchaseAmountFA.EditValue
             GetPrincipal()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -444,6 +471,8 @@ Public Class frmHP_Add
             End If
             GetPrincipal()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -464,6 +493,8 @@ Public Class frmHP_Add
             txtPrincipal.EditValue = total
             GetPrincipalInterestTotal()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -483,6 +514,8 @@ Public Class frmHP_Add
 
             txtPrincipalInterest_Total.EditValue = total
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -490,6 +523,8 @@ Public Class frmHP_Add
         Try
             GetPrincipalInterestTotal()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -501,6 +536,8 @@ Public Class frmHP_Add
             Dim value As Object = row("CA_CATEGORY")
             txtCategory.Text = value.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -524,6 +561,8 @@ Public Class frmHP_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -541,6 +580,8 @@ Public Class frmHP_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -573,6 +614,8 @@ Public Class frmHP_Add
                 Next
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -592,6 +635,8 @@ Public Class frmHP_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -644,6 +689,8 @@ Public Class frmHP_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -669,6 +716,8 @@ Public Class frmHP_Add
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -677,6 +726,8 @@ Public Class frmHP_Add
         Try
             DefaultTaxPayer(sender)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -687,17 +738,24 @@ Public Class frmHP_Add
                 Exit Sub
             End If
 
-            Dim frm As New frmNote_CA
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.CA_ID = ID
-            frm.TagID = ""
-            frm.Type_CA = 1
-            frm.RowDescription = txtAsset.EditValue & "(" & txtCategory.EditValue & ")"
+            Dim frm As New frmNote_CA With {
+                .RefNo = CType(cboRefNo.EditValue, String),
+                .YA = cboYA.EditValue,
+                .CA_ID = ID,
+                .TagID = "",
+                .Type_CA = 1,
+                .RowDescription = txtAsset.EditValue & "(" & txtCategory.EditValue & ")"
+            }
             frm.ShowDialog()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
+    End Sub
+
+    Private Sub cboYA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboYA.SelectedIndexChanged
+
     End Sub
 End Class

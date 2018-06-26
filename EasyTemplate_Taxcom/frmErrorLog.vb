@@ -10,6 +10,8 @@ Public Class frmErrorLog
 
             DtErrorLogBindingSource.DataSource = dsDataSetErrorlog.Tables("dtErrorLog")
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -25,6 +27,8 @@ Public Class frmErrorLog
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -33,20 +37,23 @@ Public Class frmErrorLog
         Try
             DsDefault.Tables("dtErrorLog").Rows.Clear()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
     Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
         Try
-            Dim link As New PrintableComponentLink(New PrintingSystem())
-
-            link.Component = grdErrorLog
-
-            link.Landscape = True
+            Dim link As New PrintableComponentLink(New PrintingSystem()) With {
+                .Component = grdErrorLog,
+                .Landscape = True
+            }
 
             link.ShowPreview()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

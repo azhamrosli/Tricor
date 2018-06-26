@@ -24,20 +24,23 @@ Public Class clsMovementNormal
             ds.Tables(TableName_Deduct).Rows.Clear()
             ds.Tables(TableName).Rows.Clear()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-    Public Function LoadWordMovement(ByRef AutoSouce As AutoCompleteStringCollection, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function LoadWordMovement(ByRef AutoSouce As AutoCompleteStringCollection, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
             End If
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT TOP 1000 MM_Description FROM MOVEMENT_ADD UNION SELECT TOP 1000 MM_Description FROM MOVEMENT_DEDUCT"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
 
             Dim dt As DataTable = Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
@@ -58,20 +61,23 @@ Public Class clsMovementNormal
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Sub SearchListData(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+
+    Public Sub SearchListData(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef ErrorLog As ClsError = Nothing)
         Try
             Dim dt As DataTable = Me.Load_MovementNormal_Search(RefNo, YA, ErrorLog)
 
@@ -86,19 +92,21 @@ Public Class clsMovementNormal
                 ds.Tables(TableName).ImportRow(dt.Rows(i))
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
     End Sub
-    Public Sub StoreDataToDataset(ByVal ID As Integer, ByRef ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing)
+    Public Sub StoreDataToDataset(ByVal ID As Integer, ByRef ds As DataSet, Optional ByRef ErrorLog As ClsError = Nothing)
         Try
 
             Dim dt As DataTable = Nothing
@@ -123,26 +131,66 @@ Public Class clsMovementNormal
                 Next
             End If
 
-           
+
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
     End Sub
 #Region "LOAD"
-
-    Public Function Check_MovementNormalAdd_TagID(ByVal TagID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Check_MovementNormal_TagID(ByVal MM_REFID As String, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
+
+            If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
+                Return False
+            End If
+
+            Dim SQLcmd As SqlCommand
+            Dim StrSQL As String = "SELECT COUNT(*) as countx FROM MOVEMENT_NORMAL WHERE MM_REFID=@MM_REFID"
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
+            SQLcmd.Parameters.Add("@MM_REFID", SqlDbType.NVarChar, 50).Value = MM_REFID
+
+            Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 AndAlso IsDBNull(dt.Rows(0)("countx")) = False AndAlso dt.Rows(0)("countx") > 0 Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function Check_MovementNormalAdd_TagID(ByVal TagID As String, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
+        Try
+
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -150,8 +198,9 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT COUNT(*) as countx FROM MOVEMENT_ADD WHERE TagID=@TagID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
 
             Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -162,22 +211,24 @@ Public Class clsMovementNormal
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function Check_MovementNormalDeduct_TagID(ByVal TagID As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Check_MovementNormalDeduct_TagID(ByVal TagID As String, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -185,8 +236,9 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT COUNT(*) as countx FROM MOVEMENT_DEDUCT WHERE TagID=@TagID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@TagID", SqlDbType.NVarChar, 50).Value = TagID
 
             Dim dt As DataTable = ADO.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
@@ -198,14 +250,16 @@ Public Class clsMovementNormal
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
@@ -213,10 +267,10 @@ Public Class clsMovementNormal
     End Function
 
 
-    Public Function CheckExist_MovementNormal(ByVal MM_REFNO As String, ByVal MM_YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function CheckExist_MovementNormal(ByVal MM_REFNO As String, ByVal MM_YA As String, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -224,8 +278,9 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT COUNT(*) AS COUNTX FROM MOVEMENT_NORMAL WHERE MM_REFNO=@MM_REFNO AND MM_YA=@MM_YA"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = MM_REFNO
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = MM_YA
 
@@ -238,24 +293,26 @@ Public Class clsMovementNormal
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function Load_MovementNormal_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal_Search(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -290,24 +347,26 @@ Public Class clsMovementNormal
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_MovementNormal(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal(ByVal ID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -315,30 +374,33 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM MOVEMENT_NORMAL WHERE MM_ID=@ID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
 
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_MovementNormal(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal(ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -346,31 +408,34 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM MOVEMENT_NORMAL WHERE MM_REFNO=@MM_REFNO AND MM_YA=@MM_YA"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
 
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_MovementNormal_Add(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal_Add(ByVal ID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -378,30 +443,33 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM MOVEMENT_ADD WHERE MM_PARENTID=@ID ORDER BY MM_Sequence"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
 
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_MovementNormal_Add(ByVal ID As Integer, ByVal MM_PARENTID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal_Add(ByVal ID As Integer, ByVal MM_PARENTID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -409,31 +477,34 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM MOVEMENT_ADD WHERE MM_ID=@MM_ID AND MM_PARENTID=@MM_PARENTID ORDER BY MM_Sequence"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
             SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_PARENTID
 
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_MovementNormal_Deduct(ByVal ID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal_Deduct(ByVal ID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -441,30 +512,33 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM MOVEMENT_DEDUCT WHERE MM_PARENTID=@ID ORDER BY MM_Sequence"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID
 
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function Load_MovementNormal_Deduct(ByVal ID As Integer, ByVal MM_PARENTID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function Load_MovementNormal_Deduct(ByVal ID As Integer, ByVal MM_PARENTID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -472,21 +546,24 @@ Public Class clsMovementNormal
 
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "SELECT * FROM MOVEMENT_DEDUCT WHERE MM_ID=@MM_ID AND MM_PARENTID=@MM_PARENTID ORDER BY MM_Sequence"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
             SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_PARENTID
 
             Return Me.GetSQLDataTable(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -495,17 +572,17 @@ Public Class clsMovementNormal
     End Function
 #End Region
 #Region "SAVE"
-    Public Function Save_MovementNormal(ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
-                                        ByVal TypeDate As String, ByVal YearEnded As DateTime, _
-                                        ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
-                                        ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal, _
-                                        ByVal TypePass As Integer, ByVal SourceNO As Integer, _
-                                        ByVal ds As DataSet, _
-                                        ByRef ReturnID As Integer, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Save_MovementNormal(ByVal RefNo As String, ByVal YA As String, ByVal Title As String,
+                                        ByVal TypeDate As String, ByVal YearEnded As DateTime,
+                                        ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime,
+                                        ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal,
+                                        ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddBackDeduct As Decimal,
+                                        ByVal TypePass As Integer, ByVal SourceNO As Integer,
+                                        ByVal ds As DataSet,
+                                        ByRef ReturnID As Integer, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
             Dim tmpTagID As String = Nothing
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
@@ -515,9 +592,16 @@ Public Class clsMovementNormal
             Dim SQLcmd As SqlCommand
             Dim tmpID As Decimal = 0
 
-            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_TYPE,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS,MM_SOURCENO) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_TYPE,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS,@MM_SOURCENO)"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            tmpTagID = "MMN" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+
+            While Me.Check_MovementNormal_TagID(tmpTagID, ErrorLog)
+                tmpTagID = "MMN" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+            End While
+
+            Dim StrSQL As String = "INSERT INTO MOVEMENT_NORMAL (MM_REFNO,MM_YA,MM_TITLE,MM_TYPE,MM_YEAR_ENDED,MM_BALANCE_START,MM_BALANCE_END,MM_AMOUNT_START,MM_AMOUNT_END,MM_NOTE_START,MM_NOTE_END,ModifiedBy,ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS,MM_SOURCENO,MM_REFID) VALUES (@MM_REFNO,@MM_YA,@MM_TITLE,@MM_TYPE,@MM_YEAR_ENDED,@MM_BALANCE_START,@MM_BALANCE_END,@MM_AMOUNT_START,@MM_AMOUNT_END,@MM_NOTE_START,@MM_NOTE_END,@ModifiedBy,@ModifiedDateTime,@MM_ADD_DEDUCT_AMOUNT,@MM_TYPE_PASS,@MM_SOURCENO,@MM_REFID)"
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@MM_TITLE", SqlDbType.NVarChar, 250).Value = IIf(Title Is Nothing, "", Title)
@@ -534,6 +618,7 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddBackDeduct
             SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
             SQLcmd.Parameters.Add("@MM_SOURCENO", SqlDbType.Int).Value = SourceNO
+            SQLcmd.Parameters.Add("@MM_REFID", SqlDbType.NVarChar, 50).Value = tmpTagID
 
 
             Me.ExecuteSQLCmd(SQLcmd, SqlCon, System.Reflection.MethodBase.GetCurrentMethod().Name, ErrorLog, ReturnID)
@@ -550,8 +635,9 @@ Public Class clsMovementNormal
                     SQLcmd = Nothing
                     StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT,@TagID)"
 
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = StrSQL
+                    SQLcmd = New SqlCommand With {
+                        .CommandText = StrSQL
+                    }
 
                     tmpTagID = "NMLADD" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
 
@@ -574,8 +660,9 @@ Public Class clsMovementNormal
                     SQLcmd = Nothing
                     StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT,@TagID)"
 
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = StrSQL
+                    SQLcmd = New SqlCommand With {
+                        .CommandText = StrSQL
+                    }
 
                     tmpTagID = "NMLLES" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
 
@@ -601,14 +688,16 @@ Public Class clsMovementNormal
                 Return True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -617,16 +706,16 @@ Public Class clsMovementNormal
     End Function
 #End Region
 #Region "UPDATE"
-    Public Function Update_MovementNormal(ByVal ID As Integer, ByVal RefNo As String, ByVal YA As String, ByVal Title As String, _
-                                      ByVal TypeDate As String, ByVal YearEnded As DateTime, _
-                                      ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime, _
-                                      ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal, _
-                                      ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal, _
-                                      ByVal TypePass As Integer, ByVal SourceNO As Integer, _
-                                      ByVal ds As DataSet, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Update_MovementNormal(ByVal ID As Integer, ByVal RefNo As String, ByVal YA As String, ByVal Title As String,
+                                      ByVal TypeDate As String, ByVal YearEnded As DateTime,
+                                      ByVal BalanceStart As DateTime, ByVal BalanceEnd As DateTime,
+                                      ByVal AmountStart As Decimal, ByVal AmountEnd As Decimal,
+                                      ByVal NoteStart As String, ByVal NoteEnd As String, ByVal Total_AddbackDeduct As Decimal,
+                                      ByVal TypePass As Integer, ByVal SourceNO As Integer, ByVal MM_REFID As String,
+                                      ByVal ds As DataSet, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return False
@@ -637,10 +726,22 @@ Public Class clsMovementNormal
             Dim tmpID As Decimal = 0
             ListofCmd = New List(Of SqlCommand)
 
-            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_TYPE=@MM_TYPE,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS,MM_SOURCENO=@MM_SOURCENO WHERE MM_ID=@MM_ID"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            If MM_REFID Is Nothing OrElse MM_REFID = "" Then
+                tmpTagID = "MMN" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+
+                While Me.Check_MovementNormal_TagID(tmpTagID, ErrorLog)
+                    tmpTagID = "MMN" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
+                End While
+            Else
+                tmpTagID = MM_REFID
+            End If
+
+            Dim StrSQL As String = "UPDATE MOVEMENT_NORMAL SET MM_REFNO=@MM_REFNO,MM_YA=@MM_YA,MM_TITLE=@MM_TITLE,MM_TYPE=@MM_TYPE,MM_YEAR_ENDED=@MM_YEAR_ENDED,MM_BALANCE_START=@MM_BALANCE_START,MM_BALANCE_END=@MM_BALANCE_END,MM_AMOUNT_START=@MM_AMOUNT_START,MM_AMOUNT_END=@MM_AMOUNT_END,MM_NOTE_START=@MM_NOTE_START,MM_NOTE_END=@MM_NOTE_END,ModifiedBy=@ModifiedBy,ModifiedDateTime=@ModifiedDateTime,MM_ADD_DEDUCT_AMOUNT=@MM_ADD_DEDUCT_AMOUNT,MM_TYPE_PASS=@MM_TYPE_PASS,MM_SOURCENO=@MM_SOURCENO,MM_REFID=@MM_REFID WHERE MM_ID=@MM_ID"
+
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
             SQLcmd.Parameters.Add("@MM_REFNO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@MM_YA", SqlDbType.NVarChar, 5).Value = YA
@@ -658,20 +759,23 @@ Public Class clsMovementNormal
             SQLcmd.Parameters.Add("@MM_ADD_DEDUCT_AMOUNT", SqlDbType.Decimal).Value = Total_AddbackDeduct
             SQLcmd.Parameters.Add("@MM_TYPE_PASS", SqlDbType.Int).Value = TypePass
             SQLcmd.Parameters.Add("@MM_SOURCENO", SqlDbType.Int).Value = SourceNO
+            SQLcmd.Parameters.Add("@MM_REFID", SqlDbType.NVarChar, 50).Value = tmpTagID
 
             ListofCmd.Add(SQLcmd)
 
             StrSQL = "DELETE MOVEMENT_ADD WHERE MM_PARENTID=@MM_ID"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
             ListofCmd.Add(SQLcmd)
 
             StrSQL = "DELETE MOVEMENT_DEDUCT WHERE MM_PARENTID=@MM_ID"
 
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = ID
             ListofCmd.Add(SQLcmd)
 
@@ -680,8 +784,9 @@ Public Class clsMovementNormal
                     SQLcmd = Nothing
                     StrSQL = "INSERT INTO MOVEMENT_ADD (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_AddBack,MM_ADDBACK_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_AddBack,@MM_ADDBACK_AMOUNT,@TagID)"
 
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = StrSQL
+                    SQLcmd = New SqlCommand With {
+                        .CommandText = StrSQL
+                    }
 
 
                     If IsDBNull(ds.Tables(TableName_ADD).Rows(i)("TagID")) OrElse ds.Tables(TableName_ADD).Rows(i)("TagID") Is Nothing Then
@@ -709,8 +814,9 @@ Public Class clsMovementNormal
                     SQLcmd = Nothing
                     StrSQL = "INSERT INTO MOVEMENT_DEDUCT (MM_PARENTID,MM_Description,MM_Amount,MM_Sequence,MM_Deduct,MM_DEDUCT_AMOUNT,TagID) VALUES (@MM_PARENTID,@MM_Description,@MM_Amount,@MM_Sequence,@MM_Deduct,@MM_DEDUCT_AMOUNT,@TagID)"
 
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = StrSQL
+                    SQLcmd = New SqlCommand With {
+                        .CommandText = StrSQL
+                    }
 
                     If IsDBNull(ds.Tables(TableName_Deduct).Rows(i)("TagID")) OrElse ds.Tables(TableName_Deduct).Rows(i)("TagID") Is Nothing Then
                         tmpTagID = "NMLLES" & Format(Now, "ddMMMyyyyHHmmss") & RandomID(3)
@@ -740,14 +846,16 @@ Public Class clsMovementNormal
                 Return True
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -756,10 +864,10 @@ Public Class clsMovementNormal
     End Function
 #End Region
 #Region "DELETE"
-    Public Function Delete_MovementNormal(ByVal MM_ID As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function Delete_MovementNormal(ByVal MM_ID As Integer, ByVal RefNo As String, ByVal YA As String, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
-            Dim SqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
             Dim ListofCmd As List(Of SqlCommand)
             If DBConnection(SqlCon, ErrorLog) = False OrElse SqlCon Is Nothing Then
                 Return Nothing
@@ -767,31 +875,35 @@ Public Class clsMovementNormal
             ListofCmd = New List(Of SqlCommand)
             Dim SQLcmd As SqlCommand
             Dim StrSQL As String = "DELETE FROM MOVEMENT_NORMAL WHERE MM_ID=@MM_ID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_ID", SqlDbType.Int).Value = MM_ID
 
             ListofCmd.Add(SQLcmd)
 
             SQLcmd = Nothing
             StrSQL = "DELETE FROM MOVEMENT_ADD WHERE MM_PARENTID=@MM_PARENTID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_ID
             ListofCmd.Add(SQLcmd)
 
 
             SQLcmd = Nothing
             StrSQL = "DELETE FROM MOVEMENT_DEDUCT WHERE MM_PARENTID=@MM_PARENTID"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@MM_PARENTID", SqlDbType.Int).Value = MM_ID
             ListofCmd.Add(SQLcmd)
 
             SQLcmd = Nothing
             StrSQL = "DELETE FROM TAXABLE_INCOME WHERE TI_REF_NO=@TI_REF_NO AND TI_YA=@TI_YA AND TI_TYPE=@TI_TYPE"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@TI_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@TI_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@TI_TYPE", SqlDbType.Int).Value = MM_ID
@@ -799,8 +911,9 @@ Public Class clsMovementNormal
 
             SQLcmd = Nothing
             StrSQL = "DELETE FROM REVENUE_EXPENDITURE WHERE RE_REF_NO=@RE_REF_NO AND RE_YA=@RE_YA AND RE_TYPE=@RE_TYPE"
-            SQLcmd = New SqlCommand
-            SQLcmd.CommandText = StrSQL
+            SQLcmd = New SqlCommand With {
+                .CommandText = StrSQL
+            }
             SQLcmd.Parameters.Add("@RE_REF_NO", SqlDbType.NVarChar, 20).Value = RefNo
             SQLcmd.Parameters.Add("@RE_YA", SqlDbType.NVarChar, 5).Value = YA
             SQLcmd.Parameters.Add("@RE_TYPE", SqlDbType.Int).Value = MM_ID
@@ -810,14 +923,16 @@ Public Class clsMovementNormal
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -856,6 +971,8 @@ Public Class clsMovementNormal
             AmountEnd = Total
             TotalAmountAddDeduct = TotalAddBackDeduct
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             AmountEnd = 0
         End Try
     End Sub

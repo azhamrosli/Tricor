@@ -22,7 +22,7 @@ Public Class ucPNL_p2DivIncome
 
     Private _RowInfo As DataRow = Nothing
     Private MainViews As DataSet
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public Sub New()
         InitializeComponent()
     End Sub
@@ -65,12 +65,14 @@ Public Class ucPNL_p2DivIncome
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
 
-    Public Sub LoadData(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub LoadData(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             BUSINESSSOURCEBindingSource.DataSource = DsPNL1.Tables("BUSINESS_SOURCE")
             DIVIDENDINCOMEBindingSource.DataSource = dsDataSet.Tables("DIVIDEND_INCOME")
@@ -91,14 +93,16 @@ Public Class ucPNL_p2DivIncome
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
         End Try
@@ -111,6 +115,8 @@ Public Class ucPNL_p2DivIncome
             GridView1.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
             GridView1.FocusedColumn = GridView1.VisibleColumns(0)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -124,6 +130,8 @@ Public Class ucPNL_p2DivIncome
             dgv.FocusedRowHandle = DevExpress.XtraGrid.GridControl.NewItemRowHandle
             dgv.FocusedColumn = dgv.VisibleColumns(0)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -138,6 +146,8 @@ Public Class ucPNL_p2DivIncome
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -161,6 +171,8 @@ Public Class ucPNL_p2DivIncome
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -229,6 +241,8 @@ Public Class ucPNL_p2DivIncome
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -244,6 +258,8 @@ Public Class ucPNL_p2DivIncome
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -252,6 +268,8 @@ Public Class ucPNL_p2DivIncome
         Try
             GridView1.ExpandMasterRow(GridView1.FocusedRowHandle)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -264,6 +282,8 @@ Public Class ucPNL_p2DivIncome
             GridView1.GetDataRow(e.RowHandle)("DI_TRANSFER") = cboTypeofIncome.EditValue
             GridView1.GetDataRow(e.RowHandle)(MainSourceNo) = SourceNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -351,6 +371,8 @@ Public Class ucPNL_p2DivIncome
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -363,6 +385,8 @@ Public Class ucPNL_p2DivIncome
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -386,6 +410,8 @@ Public Class ucPNL_p2DivIncome
             Next
             dsDataSet.Tables("DIVIDEND_INCOME").AcceptChanges()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -398,6 +424,8 @@ Public Class ucPNL_p2DivIncome
             mdlPNL.OpenNoteForm(GridView1, _RowInfo)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

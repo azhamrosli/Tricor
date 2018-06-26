@@ -20,19 +20,19 @@ Module mdlProcess
     Public V4 As Integer = My.Application.Info.Version.Revision
     Public R1 As String = ""
 
-    Public ArgParam0 As String = "frmca" 'Form Name
+    Public ArgParam0 As String = "" 'Form Name
     Public ArgParam1 As String = "TAXCOM_C" 'Database Name
-    Public ArgParam2 As String = "1234567890" '"1054242304" 'RefNo
+    Public ArgParam2 As String = "02107096402" '"1054242304" 'RefNo
     Public ArgParam3 As String = "2017" 'YA"
     Public Const isVersionLicenseType As VersionLicenseType = VersionLicenseType.Tricor
-    Public ListofClsError As List(Of clsError) = Nothing
+    Public ListofClsError As List(Of ClsError) = Nothing
     Public dsDataSetErrorlog As DataSet
 
     Dim MaxYearForCA As Integer = 50
 
 #Region "DATABASE"
 #Region "YGL SERVER"
-    Public Function DBConnection_YGLSERVER(ByRef sqlCon As SqlConnection, ByRef ErrorMsg As clsError) As Boolean
+    Public Function DBConnection_YGLSERVER(ByRef sqlCon As SqlConnection, ByRef ErrorMsg As ClsError) As Boolean
         Try
             Dim strCon As String = DBSetting_YGLSERVER()
 
@@ -54,11 +54,13 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             With ErrorMsg
                 .ErrorName = "DBConnection"
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
@@ -67,12 +69,14 @@ Module mdlProcess
         Try
             Return "Server=175.136.230.74,11443;Database=taxcom;User Id=taxcom;Password=P@$$w0rd;"
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return Nothing
         End Try
     End Function
 #End Region
-    Public Function DBConnection_Test(ByVal ServerName As String, ByVal UserName As String, ByVal Password As String, _
-                                          ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+    Public Function DBConnection_Test(ByVal ServerName As String, ByVal UserName As String, ByVal Password As String,
+                                          ByRef sqlCon As SqlConnection, ByRef ErrorLog As ClsError) As Boolean
         Try
 
             Dim strCon As String = DBSetting()
@@ -90,21 +94,23 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBConnection_OFFICE(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+    Public Function DBConnection_OFFICE(ByRef sqlCon As SqlConnection, ByRef ErrorLog As ClsError) As Boolean
         Try
 
             Dim strCon As String = DBSetting()
@@ -122,21 +128,23 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBConnection(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+    Public Function DBConnection(ByRef sqlCon As SqlConnection, ByRef ErrorLog As ClsError) As Boolean
         Try
 
             Dim strCon As String = DBSetting(1, ArgParam1)
@@ -154,21 +162,23 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBConnection_B(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+    Public Function DBConnection_B(ByRef sqlCon As SqlConnection, ByRef ErrorLog As ClsError) As Boolean
         Try
 
             Dim strCon As String = DBSetting(1, "TAXCOM_B")
@@ -186,21 +196,23 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBConnection_CA(ByRef sqlCon As SqlConnection, ByRef ErrorLog As clsError) As Boolean
+    Public Function DBConnection_CA(ByRef sqlCon As SqlConnection, ByRef ErrorLog As ClsError) As Boolean
         Try
             Dim DatabaseName As String = Nothing
 
@@ -228,21 +240,23 @@ Module mdlProcess
             sqlCon = Con
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBSetting(Optional type As Integer = 0, Optional DatabaseName As String = "TAXCOM_C", Optional ErrorLog As clsError = Nothing) As String
+    Public Function DBSetting(Optional type As Integer = 0, Optional DatabaseName As String = "TAXCOM_C", Optional ErrorLog As ClsError = Nothing) As String
         Try
             Dim regVersion As RegistryKey
             If Environment.Is64BitOperatingSystem Then
@@ -253,7 +267,7 @@ Module mdlProcess
 
             If regVersion Is Nothing Then
                 If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
+                    ErrorLog = New ClsError
                 End If
                 With ErrorLog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -280,21 +294,23 @@ Module mdlProcess
             'End If
             ' Return System.Configuration.ConfigurationManager.ConnectionStrings("dbEmployeeManagementConnectionString").ConnectionString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return Nothing
         End Try
     End Function
-    Public Function DBSetting_GetSetting(ByRef Server As String, ByRef UserID As String, ByRef Pass As String, Optional ErrorLog As clsError = Nothing) As Boolean
+    Public Function DBSetting_GetSetting(ByRef Server As String, ByRef UserID As String, ByRef Pass As String, Optional ErrorLog As ClsError = Nothing) As Boolean
         Try
             Dim regVersion As RegistryKey
             If Environment.Is64BitOperatingSystem Then
@@ -305,7 +321,7 @@ Module mdlProcess
 
             If regVersion Is Nothing Then
                 If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
+                    ErrorLog = New ClsError
                 End If
                 With ErrorLog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -323,21 +339,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function DBSetting_SetSetting(ByRef Server As String, ByRef UserID As String, ByRef Pass As String, Optional ErrorLog As clsError = Nothing) As Boolean
+    Public Function DBSetting_SetSetting(ByRef Server As String, ByRef UserID As String, ByRef Pass As String, Optional ErrorLog As ClsError = Nothing) As Boolean
         Try
             Dim regVersion As RegistryKey
             If Environment.Is64BitOperatingSystem Then
@@ -348,7 +366,7 @@ Module mdlProcess
 
             If regVersion Is Nothing Then
                 If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
+                    ErrorLog = New ClsError
                 End If
                 With ErrorLog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -366,21 +384,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function GetServerName(Optional type As Integer = 0, Optional DatabaseName As String = "TAXCOM_C", Optional ErrorLog As clsError = Nothing) As String
+    Public Function GetServerName(Optional type As Integer = 0, Optional DatabaseName As String = "TAXCOM_C", Optional ErrorLog As ClsError = Nothing) As String
         Try
             Dim regVersion As RegistryKey
             If Environment.Is64BitOperatingSystem Then
@@ -391,7 +411,7 @@ Module mdlProcess
 
             If regVersion Is Nothing Then
                 If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
+                    ErrorLog = New ClsError
                 End If
                 With ErrorLog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -409,14 +429,16 @@ Module mdlProcess
             'End If
             ' Return System.Configuration.ConfigurationManager.ConnectionStrings("dbEmployeeManagementConnectionString").ConnectionString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -446,16 +468,18 @@ Module mdlProcess
             keySize = 256                   ' can be 192 or 128
 
             Return RijndaelSimple.Encrypt _
-             ( _
-                 plainText, _
-                 passPhrase, _
-                 saltValue, _
-                 hashAlgorithm, _
-                 passwordIterations, _
-                 initVector, _
-                 keySize _
+             (
+                 plainText,
+                 passPhrase,
+                 saltValue,
+                 hashAlgorithm,
+                 passwordIterations,
+                 initVector,
+                 keySize
              )
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Return Nothing
         End Try
@@ -482,26 +506,32 @@ Module mdlProcess
             keySize = 256                   ' can be 192 or 128
 
             Return RijndaelSimple.Decrypt _
-            ( _
-                cipherText, _
-                passPhrase, _
-                saltValue, _
-                hashAlgorithm, _
-                passwordIterations, _
-                initVector, _
-                keySize _
+            (
+                cipherText,
+                passPhrase,
+                saltValue,
+                hashAlgorithm,
+                passwordIterations,
+                initVector,
+                keySize
             )
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             ' MsgBox(ex.Message, MsgBoxStyle.Critical)
             Return Nothing
         End Try
     End Function
 #End Region
 #Region "GENERAL"
-    Public Sub AddListOfError(ByVal ErrorLog As clsError)
+    Public Sub AddListOfError(ByVal ErrorLog As ClsError)
         Try
             If ListofClsError Is Nothing Then
-                ListofClsError = New List(Of clsError)
+                ListofClsError = New List(Of ClsError)
+            End If
+
+            If dsDataSetErrorlog Is Nothing Then
+                dsDataSetErrorlog = New dsDefault
             End If
 
             ListofClsError.Add(ErrorLog)
@@ -522,16 +552,35 @@ Module mdlProcess
             End If
 
             If CheckForInternetConnection() Then
-                ADO.SaveSupport("CLN-22052018113101BAA", "", "", "", ErrorLog.ErrorCode & " - " & ErrorLog.ErrorName & " - " & ErrorLog.ErrorMessage, "This is automatically generate by software.", _
-                            0, 0, "", Now.Year, My.Computer.Name, Now, Now, Nothing, ErrorLog)
+
+                Dim tmpRefID As String = ""
+                Dim tmpYA As Integer = Now.Year
+
+                If mdlProcess.ArgParam2 <> "" Then
+                    tmpRefID = mdlProcess.ArgParam2
+                End If
+                If mdlProcess.ArgParam3 <> "" AndAlso IsNumeric(mdlProcess.ArgParam3) Then
+                    tmpYA = mdlProcess.ArgParam3
+                End If
+
+                If YGLClient IsNot Nothing Then
+                    ADO.SaveSupport("CLN-22052018113101BAA", "", "", "", ErrorLog.ErrorCode & " - " & ErrorLog.ErrorName & " - " & ErrorLog.ErrorMessage, "This is automatically generate by software." & "Company : " & IIf(IsDBNull(YGLClient("RefID")), "", YGLClient("RefID")) & " - " & IIf(IsDBNull(YGLClient("CompanyName")), "", YGLClient("CompanyName")),
+                         0, 1, tmpRefID, tmpYA, My.Computer.Name, Now, Now, Nothing, ErrorLog)
+                Else
+                    ADO.SaveSupport("CLN-22052018113101BAA", "", "", "", ErrorLog.ErrorCode & " - " & ErrorLog.ErrorName & " - " & ErrorLog.ErrorMessage, "This is automatically generate by software.",
+                         0, 1, tmpRefID, tmpYA, My.Computer.Name, Now, Now, Nothing, ErrorLog)
+                End If
+
             End If
-            
+
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-    Public Function CalcNa(ByVal dtPNLDetails As DataTable, ByVal ColumnName As String, ByRef NA_Exp As Decimal, Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+    Public Function CalcNa(ByVal dtPNLDetails As DataTable, ByVal ColumnName As String, ByRef NA_Exp As Decimal, Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Try
 
             For j As Integer = 0 To dtPNLDetails.Rows.Count - 1
@@ -541,22 +590,24 @@ Module mdlProcess
             Next
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
             Return True
         End Try
     End Function
-    Public Function CreateLookUpSourceNO(ByRef dsSourceNo As DataSet, ByVal RefNo As String, ByVal YA As Integer, _
-                                        Optional ByVal TableName As String = "BUSINESS_SOURCE", Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpSourceNO(ByRef dsSourceNo As DataSet, ByVal RefNo As String, ByVal YA As Integer,
+                                        Optional ByVal TableName As String = "BUSINESS_SOURCE", Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadBusinessSource_ByRefNo(RefNo, CStr(YA), Errorlog)
 
@@ -586,22 +637,24 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpHPCode(ByRef cboHP As DevExpress.XtraEditors.ComboBoxEdit, _
-                                         ByVal RefNo As String, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpHPCode(ByRef cboHP As DevExpress.XtraEditors.ComboBoxEdit,
+                                         ByVal RefNo As String, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadHPCode_ByRefNo(RefNo, Errorlog)
 
@@ -616,14 +669,16 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
@@ -631,8 +686,8 @@ Module mdlProcess
             Return False
         End Try
     End Function
-    Public Function CreateLookUpSourceNox(ByRef cboSourceNo As DevExpress.XtraEditors.Repository.RepositoryItemComboBox, _
-                                         ByVal RefNo As String, ByVal YA As String, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpSourceNox(ByRef cboSourceNo As DevExpress.XtraEditors.Repository.RepositoryItemComboBox,
+                                         ByVal RefNo As String, ByVal YA As String, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadSourceNo(RefNo, YA, Errorlog)
 
@@ -647,22 +702,24 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpSourceNo(ByRef cboSourceNo As DevExpress.XtraEditors.ComboBoxEdit, _
-                                         ByVal RefNo As String, ByVal YA As String, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpSourceNo(ByRef cboSourceNo As DevExpress.XtraEditors.ComboBoxEdit,
+                                         ByVal RefNo As String, ByVal YA As String, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadSourceNo(RefNo, YA, Errorlog)
 
@@ -677,21 +734,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpSourceNo(ByRef cboSourceNo As DevExpress.XtraBars.BarEditItem, ByVal RefNo As String, ByVal YA As String, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpSourceNo(ByRef cboSourceNo As DevExpress.XtraBars.BarEditItem, ByVal RefNo As String, ByVal YA As String, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadSourceNo(RefNo, YA, Errorlog)
 
@@ -708,21 +767,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As clsError = Nothing, Optional isAddEmpty As Boolean = False) As Boolean
+    Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As ClsError = Nothing, Optional isAddEmpty As Boolean = False) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadYA(Errorlog)
 
@@ -741,21 +802,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpState(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As clsError = Nothing, Optional isAddEmpty As Boolean = False) As Boolean
+    Public Function CreateLookUpState(ByRef cboYA As DevExpress.XtraEditors.ComboBoxEdit, Optional Errorlog As ClsError = Nothing, Optional isAddEmpty As Boolean = False) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadState(Errorlog)
 
@@ -774,21 +837,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraBars.BarEditItem, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpYA(ByRef cboYA As DevExpress.XtraBars.BarEditItem, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadYA(Errorlog)
 
@@ -806,21 +871,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpCategory(ByRef DataSet As DataSet, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpCategory(ByRef DataSet As DataSet, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadCategory(Errorlog)
 
@@ -840,21 +907,23 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Public Function CreateLookUpTaxPayer(ByRef DataSet As DataSet, Optional Errorlog As clsError = Nothing) As Boolean
+    Public Function CreateLookUpTaxPayer(ByRef DataSet As DataSet, Optional Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dt As DataTable = ADO.LoadTaxPayer(Errorlog)
 
@@ -880,24 +949,52 @@ Module mdlProcess
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(Errorlog)
             Return False
         End Try
     End Function
-    Private Sub CreateErrorLog(ByVal MethodName As String, ByVal ErrorCode As String, ByVal Message As String, ByRef ErrorLog As clsError)
+    Public Function CreateSearchLookUpSourceNo(ByRef ds As DataSet, ByVal RefNo As String, ByVal YA As String, Optional Errorlog As ClsError = Nothing) As Boolean
+        Try
+            If RefNo Is Nothing OrElse RefNo = "" Then
+                Return False
+            End If
+
+            If YA Is Nothing OrElse YA = "" AndAlso IsNumeric(YA) = False Then
+                Return False
+            End If
+
+            Dim dt As DataTable = ADO.LoadSourceNo2(RefNo, YA, Errorlog)
+
+            If dt Is Nothing Then
+                Return False
+            End If
+
+            For Each rowx As DataRow In dt.Rows
+                ds.Tables("BUSINESS_SOURCE").ImportRow(rowx)
+            Next
+            Return True
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            Return False
+        End Try
+    End Function
+    Private Sub CreateErrorLog(ByVal MethodName As String, ByVal ErrorCode As String, ByVal Message As String, ByRef ErrorLog As ClsError)
         Try
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = MethodName
@@ -906,14 +1003,16 @@ Module mdlProcess
                 .ErrorMessage = Message
             End With
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -948,6 +1047,8 @@ Module mdlProcess
             Pic.Image.Save(ms, Imaging.ImageFormat.Jpeg)
             Return ms.GetBuffer()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.HResult.ToString, ex.Message, 1)
             Return Nothing
         End Try
@@ -965,6 +1066,8 @@ tryagain:
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             GoTo tryagain
         End Try
 
@@ -987,6 +1090,8 @@ tryagain:
 
             Return data
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return Nothing
         End Try
     End Function
@@ -1016,6 +1121,8 @@ tryagain:
 
             Return strAdd 'nics(0).GetPhysicalAddress.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.HResult.ToString, ex.Message, 1)
             Return ""
         End Try
@@ -1036,6 +1143,8 @@ tryagain:
 
             Return strAdd 'nics(0).GetPhysicalAddress.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.HResult.ToString, ex.Message, 1)
             Return ""
         End Try
@@ -1067,6 +1176,8 @@ tryagain:
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return Format(DateData, "dd-MMM-yyyy")
         End Try
     End Function
@@ -1120,6 +1231,8 @@ tryagain:
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return Format(DateData, "dd-MMM-yyyy")
         End Try
     End Function
@@ -1150,6 +1263,8 @@ tryagain:
 
             Return sb.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -1165,6 +1280,8 @@ tryagain:
 
             Return sb.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -1180,6 +1297,8 @@ tryagain:
 
             Return sb.ToString
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -1188,6 +1307,8 @@ tryagain:
             Dim byt As Byte() = System.Text.Encoding.UTF8.GetBytes(data)
             Return System.Convert.ToBase64String(byt)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -1196,6 +1317,8 @@ tryagain:
             Dim byt() As Byte = System.Convert.FromBase64String(data)
             Return System.Text.ASCIIEncoding.ASCII.GetString(byt)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function
@@ -1208,9 +1331,9 @@ tryagain:
         End If
         Return System.Text.Encoding.UTF8.GetBytes(data)
     End Function
-    Public Function SentEmail_NewUser(ByVal Email As String, ByVal FirstName As String, ByVal LastName As String, ByVal ID As Decimal, Optional ErrorLog As clsError = Nothing) As Boolean
+    Public Function SentEmail_NewUser(ByVal Email As String, ByVal FirstName As String, ByVal LastName As String, ByVal ID As Decimal, Optional ErrorLog As ClsError = Nothing) As Boolean
         If ErrorLog Is Nothing Then
-            ErrorLog = New clsError
+            ErrorLog = New ClsError
         End If
         Try
             Using mail As MailMessage = New MailMessage
@@ -1256,14 +1379,16 @@ tryagain:
                 Return True
             End Using
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -1284,7 +1409,7 @@ tryagain:
     End Function
     Public Function LicenseChecking() As Boolean
         Try
-           
+
             If ADO Is Nothing Then
                 ADO = New clsIODatabase
             End If
@@ -1329,16 +1454,16 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return True
         Finally
             ADO = Nothing
         End Try
     End Function
-
-   
 #End Region
 #Region "REPORT"
-    Public Function GenerateTable_SummaryQE(dt As DataTable, ByRef ds As DataSet, ByRef ErrorLog As clsError) As Boolean
+    Public Function GenerateTable_SummaryQE(dt As DataTable, ByRef ds As DataSet, ByRef ErrorLog As ClsError) As Boolean
         Try
             If ds Is Nothing Then
                 ds = New dsCA
@@ -1347,32 +1472,36 @@ tryagain:
             Dim col As DataColumn
 
             col = Nothing
-            col = New DataColumn
-            col.ColumnName = "CA_DESCRIPTION"
-            col.Caption = "Description"
-            col.DataType = System.Type.GetType("System.String")
-            col.MaxLength = 255
+            col = New DataColumn With {
+                .ColumnName = "CA_DESCRIPTION",
+                .Caption = "Description",
+                .DataType = System.Type.GetType("System.String"),
+                .MaxLength = 255
+            }
             dtTable.Columns.Add(col)
 
             col = Nothing
-            col = New DataColumn
-            col.ColumnName = "YA"
-            col.Caption = "YA"
-            col.DataType = System.Type.GetType("System.Int32")
+            col = New DataColumn With {
+                .ColumnName = "YA",
+                .Caption = "YA",
+                .DataType = System.Type.GetType("System.Int32")
+            }
             dtTable.Columns.Add(col)
 
-            col = New DataColumn
-            col.ColumnName = "CA_CATEGORY"
-            col.Caption = "Category"
-            col.DataType = System.Type.GetType("System.String")
-            col.MaxLength = 255
+            col = New DataColumn With {
+                .ColumnName = "CA_CATEGORY",
+                .Caption = "Category",
+                .DataType = System.Type.GetType("System.String"),
+                .MaxLength = 255
+            }
             dtTable.Columns.Add(col)
 
             col = Nothing
-            col = New DataColumn
-            col.ColumnName = "GroupType"
-            col.Caption = "GroupType"
-            col.DataType = System.Type.GetType("System.Int32")
+            col = New DataColumn With {
+                .ColumnName = "GroupType",
+                .Caption = "GroupType",
+                .DataType = System.Type.GetType("System.Int32")
+            }
             dtTable.Columns.Add(col)
             'col = Nothing
             'col = New DataColumn
@@ -1390,10 +1519,11 @@ tryagain:
                         tmpStatus = True
 
                         col = Nothing
-                        col = New DataColumn
-                        col.ColumnName = ListofAA(i)
-                        col.Caption = ListofAA(i) & "% RM"
-                        col.DataType = System.Type.GetType("System.Decimal")
+                        col = New DataColumn With {
+                            .ColumnName = ListofAA(i),
+                            .Caption = ListofAA(i) & "% RM",
+                            .DataType = System.Type.GetType("System.Decimal")
+                        }
                         dtTable.Columns.Add(col)
                     End If
 
@@ -1401,10 +1531,11 @@ tryagain:
 
             Next
 
-            col = New DataColumn
-            col.ColumnName = "Total"
-            col.Caption = "Total"
-            col.DataType = System.Type.GetType("System.Decimal")
+            col = New DataColumn With {
+                .ColumnName = "Total",
+                .Caption = "Total",
+                .DataType = System.Type.GetType("System.Decimal")
+            }
 
             dtTable.Columns.Add(col)
             Dim dtRow As DataRow = Nothing
@@ -1427,20 +1558,287 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAAnalysis(ds As DataSet, ID As String, ByRef rpt As rpt_CAAnalysis, ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function GenerateTable_ControlTransferIn(ByVal dt As DataTable, ByRef ds As DataSet, ByRef ErrorLog As ClsError) As Boolean
+        Try
+            If ds Is Nothing Then
+                ds = New dsCA
+            End If
+
+            Dim dtTable As New DataTable("CA_REPORT_CONTROLTRANSFER_TEMP_2")
+            Dim col As DataColumn
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "CA_ASSET",
+                .Caption = "Asset Name",
+                .DataType = System.Type.GetType("System.String"),
+                .MaxLength = 255
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "CA_KEY",
+                .Caption = "KEY",
+                .DataType = System.Type.GetType("System.Int32")
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "CA_PURCHASE_YEAR",
+                .Caption = "Year of Purchase",
+                .DataType = System.Type.GetType("System.Int32")
+            }
+            dtTable.Columns.Add(col)
+
+            col = New DataColumn With {
+                .ColumnName = "CA_TRANSFERROR_NAME",
+                .Caption = "Transferor Name",
+                .DataType = System.Type.GetType("System.String"),
+                .MaxLength = 255
+            }
+            dtTable.Columns.Add(col)
+
+            col = New DataColumn With {
+                .ColumnName = "CA_CATEGORY_CODE",
+                .Caption = "Category",
+                .DataType = System.Type.GetType("System.String"),
+                .MaxLength = 255
+            }
+            dtTable.Columns.Add(col)
+
+            col = New DataColumn With {
+                .ColumnName = "CA_CAEEO",
+                .Caption = "AA",
+                .DataType = System.Type.GetType("System.Boolean")
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "CA_PURCHASE_AMOUNT",
+                .Caption = "Original Cost Transferred",
+                .DataType = System.Type.GetType("System.Decimal")
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "TWDV_BF",
+                .Caption = "Tax WDV Transferred",
+                .DataType = System.Type.GetType("System.Decimal")
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "CA_TRANSFER_VAL",
+                .Caption = "Transfer Value",
+                .DataType = System.Type.GetType("System.Decimal")
+            }
+            dtTable.Columns.Add(col)
+
+            col = Nothing
+            col = New DataColumn With {
+                .ColumnName = "AA_0",
+                .Caption = "No Claim",
+                .DataType = System.Type.GetType("System.Decimal")
+            }
+            dtTable.Columns.Add(col)
+            Dim ListofAA As List(Of String) = mdlCA.Get_ListofAA()
+
+            Dim tmpStatus As Boolean = False
+            For i As Integer = 0 To ListofAA.Count - 1
+                tmpStatus = False
+                For x As Integer = 0 To dt.Rows.Count - 1
+
+                    If tmpStatus = False AndAlso IsDBNull(dt.Rows(x)(ListofAA(i))) = False AndAlso dt.Rows(x)(ListofAA(i)) <> 0 Then
+                        tmpStatus = True
+
+                        col = Nothing
+                        col = New DataColumn With {
+                            .ColumnName = ListofAA(i),
+                            .Caption = ListofAA(i) & "% RM",
+                            .DataType = System.Type.GetType("System.Decimal")
+                        }
+                        dtTable.Columns.Add(col)
+                    End If
+
+                Next
+
+            Next
+
+            Dim dtRow As DataRow = Nothing
+            For i As Integer = 0 To dt.Rows.Count - 1
+
+
+                dtRow = Nothing
+                dtRow = dtTable.NewRow
+                For x As Integer = 0 To dtTable.Columns.Count - 1
+
+                    If IsDBNull(dt.Rows(i)(dtTable.Columns(x).ColumnName)) = False Then
+                        dtRow(dtTable.Columns(x).ColumnName) = dt.Rows(i)(dtTable.Columns(x).ColumnName)
+                    End If
+
+                Next
+                dtTable.Rows.Add(dtRow)
+            Next
+
+            ds.Tables.Add(dtTable)
+
+            Return True
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function PrintReport_ControlTransferIn(ds As DataSet, ByVal ID As String, ByVal RefNo As String,
+                                                  ByVal YA As String, ByRef rpt As rpt_CAControlTransfer, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
+        Try
+            Dim clsNote As New clsNote_CA
+            If rpt Is Nothing Then
+                rpt = New rpt_CAControlTransfer
+            End If
+
+            Dim dtNote As DataTable = Nothing
+            Dim dtNote_Child As DataTable = Nothing
+            Dim tmpNoteID As Integer = 0
+
+            Dim Ext As String = Nothing
+            Dim dtRowAtt As Byte() = Nothing
+            Dim i As Integer = -1
+
+            ds.Tables("CA_NOTE_ATTACHMENT").Rows.Clear()
+            ds.Tables("CA_NOTE_COLUMN").Rows.Clear()
+            ds.Tables("CA_NOTE").Rows.Clear()
+
+            ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Clear()
+
+            'rpt.DsCA1.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Clear()
+
+            '   rpt.DataSource = ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP")
+            For Each rowx As DataRow In ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP_2").Rows
+                ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").ImportRow(rowx)
+                'rpt.DsCA1.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").ImportRow(rowx)
+            Next
+            rpt.paramID.Value = ID
+            rpt.paramCompanyName.Value = ADO.LoadTaxPayer_CompanyName(RefNo)
+            rpt.paramYA.Value = YA
+            rpt.paramSch.Value = SchApex
+            rpt.Landscape = True
+
+
+            For Each rowx As DataRow In ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Rows
+                If IsDBNull(rowx("CA_KEY")) = False Then
+
+                    dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
+
+                    If dtNote IsNot Nothing Then
+                        i = -1
+                        For Each rownote As DataRow In dtNote.Rows
+                            i += 1
+                            ds.Tables("CA_NOTE").ImportRow(rownote)
+                            ds.Tables("CA_REPORT_CONTROLTRANSFER_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
+
+                            tmpNoteID = rownote("ID")
+                            dtNote_Child = Nothing
+                            dtNote_Child = clsNote.Load_Note_Column(tmpNoteID)
+
+                            If dtNote_Child IsNot Nothing Then
+                                For Each rownote_child As DataRow In dtNote_Child.Rows
+                                    rownote_child("ParentID") = tmpNoteID
+                                    Application.DoEvents()
+                                    ds.Tables("CA_NOTE_COLUMN").ImportRow(rownote_child)
+                                Next
+                            End If
+                            dtNote_Child = Nothing
+                            dtNote_Child = clsNote.Load_Note_Attachment(tmpNoteID)
+
+                            If dtNote_Child IsNot Nothing Then
+                                For Each rownote_child As DataRow In dtNote_Child.Rows
+                                    rownote_child("ParentID") = tmpNoteID
+                                    Application.DoEvents()
+                                    ds.Tables("CA_NOTE_ATTACHMENT").ImportRow(rownote_child)
+
+
+                                    Ext = Nothing
+                                    dtRowAtt = IIf(IsDBNull(rownote_child("Attachment")), Nothing, rownote_child("Attachment"))
+                                    Ext = IIf(IsDBNull(rownote_child("Extension")), Nothing, rownote_child("Extension"))
+
+                                    If dtRowAtt IsNot Nothing Then
+                                        Dim frmnote As New frmNote_AttachmentView
+                                        Select Case Ext.ToLower
+                                            Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                frmnote.Type = 0
+                                            Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                frmnote.Type = 1
+                                            Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                frmnote.Type = 2
+                                            Case ".pdf"
+                                                frmnote.Type = 3
+                                        End Select
+                                        frmnote.Title = ds.Tables("CA_NOTE").Rows(i)("Title")
+                                        frmnote.Extension = Ext
+                                        frmnote.dataArr = dtRowAtt
+                                        frmnote.Show()
+                                    End If
+                                Next
+                            End If
+                        Next
+
+                    End If
+
+                End If
+            Next
+            rpt.DataSource = ds
+            rpt.XrSubreport1.ReportSource.DataSource = ds
+            rpt.FontSize.Value = 10
+
+            Return True
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            If ErrorLog Is Nothing Then
+                ErrorLog = New ClsError
+            End If
+            With ErrorLog
+                .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
+                .ErrorCode = ex.GetHashCode.ToString
+                .ErrorDateTime = Now
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
+            End With
+            AddListOfError(ErrorLog)
+            Return False
+        End Try
+    End Function
+    Public Function PrintReport_CAAnalysis(ds As DataSet, ID As String, ByRef rpt As rpt_CAAnalysis, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             If rpt Is Nothing Then
@@ -1456,7 +1854,9 @@ tryagain:
 
             Dim dt As DataTable = Nothing
 
-             dt = ADO.Load_CAReport_Analysis_Temp(ID)
+            dt = ADO.Load_CAReport_Analysis_Temp(ID)
+
+            Dim Total As Integer = 0
 
             For Each rowx As DataRow In dt.Rows
                 ds.Tables("CA_REPORT_ANALYSIS_PROPERTY").ImportRow(rowx)
@@ -1469,8 +1869,9 @@ tryagain:
             Dim dtNote As DataTable = Nothing
             Dim dtNote_Child As DataTable = Nothing
             Dim tmpNoteID As Integer = 0
-
+            Dim i As Integer = -1
             For Each rowx As DataRow In dt.Rows
+                i += 1
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
@@ -1480,6 +1881,8 @@ tryagain:
                         For Each rownote As DataRow In dtNote.Rows
                             'rpt.DsCA1.Tables("CA_NOTE").ImportRow(rownote)
                             ds.Tables("CA_NOTE").ImportRow(rownote)
+                            ds.Tables("CA_REPORT_ANALYSIS_PROPERTY").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
+
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -1516,20 +1919,22 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_SummaryQE(ds As DataSet, ID As String, ByRef rpt As rpt_CASummaryQE, ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_SummaryQE(ds As DataSet, ID As String, ByRef rpt As rpt_CASummaryQE, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             Dim No40 As Decimal = 0
@@ -1549,20 +1954,22 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_ITA(RefNo As String, YA As String, ByRef rpt As rpt_ITA, ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_ITA(RefNo As String, YA As String, ByRef rpt As rpt_ITA, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             Dim dtTaxCOM As DataTable = ADO.Load_Tax_Computation(RefNo, YA)
@@ -1623,20 +2030,22 @@ tryagain:
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_RA(RefNo As String, YA As String, ByRef rpt As rpt_RA, ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_RA(RefNo As String, YA As String, ByRef rpt As rpt_RA, ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             Dim dtTaxCOM As DataTable = ADO.Load_Tax_Computation(RefNo, YA)
@@ -1697,30 +2106,32 @@ tryagain:
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_CP204(dsCP204 As DataSet, RefNo As String, YA As String, ID As Integer, ByRef rpt As rpt_CP204_Breakdown, _
-                                      ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "APPENDIX") As Boolean
+    Public Function PrintReport_CP204(dsCP204 As DataSet, RefNo As String, YA As String, ID As Integer, ByRef rpt As rpt_CP204_Breakdown,
+                                      ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "APPENDIX") As Boolean
         Try
             Dim clsCP204_Note As New clsNote_CP204
-
+            Dim tmpID As String = Nothing
             Dim dt As DataTable = ADO.Load_CP204_BreakDown_ByParentID(ID)
 
             dsCP204.Tables("BORANG_CP204_TRICOR_BREAKDOWN_REPORT").Rows.Clear()
             If dt Is Nothing Then
                 MsgBox("Record not found.", MsgBoxStyle.Critical)
-                Exit Function
+                Return False
             End If
 
 
@@ -1758,7 +2169,8 @@ tryagain:
                 dtNote = clsCP204_Note.Load_Note(dt.Rows(i)("CP_TagID"), ID, ErrorLog)
 
                 If dtNote IsNot Nothing Then
-                    dtRow("CP_NOTE_TITLE") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                    dtRow("CP_NOTE_TITLE") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                    tmpID = dtNote.Rows(0)("ID")
                     dtNote.Rows(0)("ID") = dsCP204.Tables("BORANG_CP204_NOTE").Rows.Count + 1
                     dsCP204.Tables("BORANG_CP204_NOTE").ImportRow(dtNote.Rows(0))
                 End If
@@ -1767,7 +2179,7 @@ tryagain:
                 If dtNote IsNot Nothing Then
 
                     dtNoteChild = Nothing
-                    dtNoteChild = clsCP204_Note.Load_Note_Attachment(dtNote.Rows(0)("ID"), ErrorLog)
+                    dtNoteChild = clsCP204_Note.Load_Note_Attachment(tmpID, ErrorLog)
                     If dtNoteChild IsNot Nothing Then
                         For Each rowx As DataRow In dtNoteChild.Rows
                             rowx("ParentID") = dtNote.Rows(0)("ID")
@@ -1798,7 +2210,7 @@ tryagain:
                     End If
 
                     dtNoteChild = Nothing
-                    dtNoteChild = clsCP204_Note.Load_Note_Column(dtNote.Rows(0)("ID"), ErrorLog)
+                    dtNoteChild = clsCP204_Note.Load_Note_Column(tmpID, ErrorLog)
                     If dtNoteChild IsNot Nothing Then
                         For Each rowx As DataRow In dtNoteChild.Rows
                             rowx("ParentID") = dtNote.Rows(0)("ID")
@@ -1845,21 +2257,23 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAByAsset(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rptCAReport, ByRef ErrorLog As clsError) As Boolean
+    Public Function PrintReport_CAByAsset(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rptCAReport, ByRef ErrorLog As ClsError) As Boolean
         Try
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
@@ -1891,6 +2305,7 @@ tryagain:
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
 
+
                     If dtNote IsNot Nothing Then
                         i = -1
                         For Each rownote As DataRow In dtNote.Rows
@@ -1916,6 +2331,7 @@ tryagain:
                                     rownote_child("ParentID") = tmpNoteID
                                     Application.DoEvents()
                                     dsCA.Tables("CA_NOTE_ATTACHMENT").ImportRow(rownote_child)
+                                    dsCA.Tables("CA_REPORT_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                                     Ext = Nothing
                                     dtRowAtt = IIf(IsDBNull(rownote_child("Attachment")), Nothing, rownote_child("Attachment"))
@@ -1953,22 +2369,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAByRate(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_CAByRate, _
-                                         ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_CAByRate(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_CAByRate,
+                                         ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
@@ -1994,17 +2412,18 @@ tryagain:
 
 
             rpt.Landscape = True
-
+            i = -1
             For Each rowx As DataRow In dsCA.Tables("CA_REPORT_TEMP").Rows
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
 
                     If dtNote IsNot Nothing Then
-                        i = -1
+
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
+                            rowx("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2063,22 +2482,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_CAByCategory(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_CAByCategory, _
-                                             ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_CAByCategory(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_CAByCategory,
+                                             ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
@@ -2104,17 +2525,19 @@ tryagain:
 
 
             rpt.Landscape = True
-
+            i = -1
             For Each rowx As DataRow In dsCA.Tables("CA_REPORT_TEMP").Rows
                 If IsDBNull(rowx("CA_KEY")) = False Then
 
                     dtNote = clsNote.Load_Note(rowx("CA_KEY"), 0)
 
                     If dtNote IsNot Nothing Then
-                        i = -1
+
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
+                            'dsCA.Tables("CA_REPORT_TEMP").Rows(i)("CA_NOTE_COLUMN") = rownote("Title")
+                            rowx("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2173,22 +2596,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_ControlTransferOut(dsCA As DataSet, ComName As String, ByVal YA As String, ByRef rpt As rpt_CAControlTransfer_Out, _
-                                                   ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_ControlTransferOut(dsCA As DataSet, ComName As String, ByVal YA As String, ByRef rpt As rpt_CAControlTransfer_Out,
+                                                   ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
@@ -2220,6 +2645,7 @@ tryagain:
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
+                            dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2279,22 +2705,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_WrittenOff(dsCA As DataSet, ComName As String, ByVal YA As String, ByRef rpt As rpt_CAWrittenOff, _
-                                           ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_WrittenOff(dsCA As DataSet, ComName As String, ByVal YA As String, ByRef rpt As rpt_CAWrittenOff,
+                                           ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
             Dim dtNote As DataTable = Nothing
@@ -2325,6 +2753,7 @@ tryagain:
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
+                            dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rowx("TitleFront")), "", rowx("TitleFront")) & " " & IIf(IsDBNull(rowx("Title")), "", rowx("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2383,22 +2812,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_Disposal(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_Disposal, _
-                                         ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_Disposal(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_Disposal,
+                                         ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             'Disposal
             Dim clsNote As New clsNote_CA
@@ -2431,6 +2862,7 @@ tryagain:
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
+                            dsCA.Tables("CA_REPORT_DISPOSAL_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rownote("TitleFront")), "", rownote("TitleFront")) & " " & IIf(IsDBNull(rownote("Title")), "", rownote("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2490,22 +2922,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_HP(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_HP, _
-                                   ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_HP(dsCA As DataSet, ComName As String, YA As String, ByRef rpt As rpt_HP,
+                                   ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsNote As New clsNote_CA
 
@@ -2544,6 +2978,7 @@ tryagain:
                         For Each rownote As DataRow In dtNote.Rows
                             i += 1
                             dsCA.Tables("CA_NOTE").ImportRow(rownote)
+                            dsCA.Tables("HP_REPORT_TEMP").Rows(i)("CA_NOTE_COLUMN") = IIf(IsDBNull(rowx("TitleFront")), "", rowx("TitleFront")) & " " & IIf(IsDBNull(rowx("Title")), "", rowx("Title"))
 
                             tmpNoteID = rownote("ID")
                             dtNote_Child = Nothing
@@ -2603,22 +3038,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_MovementComplex(dsMovement As DataSet, ID As Integer, RefNo As String, ByRef rpt As rptMovementComplex, _
-                                                ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_MovementComplex(dsMovement As DataSet, ID As Integer, RefNo As String, ByRef rpt As rptMovementComplex,
+                                                ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsMovement_Note As New clsNote_Movement
 
@@ -2661,7 +3098,7 @@ tryagain:
                         dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 1, 0, ErrorLog)
 
                         If dtNote IsNot Nothing Then
-                            dt.Rows(i)("MM_NOTE") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                            dt.Rows(i)("MM_NOTE") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
                             dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
                         End If
 
@@ -2729,7 +3166,7 @@ tryagain:
                         dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 1, 1, ErrorLog)
 
                         If dtNote IsNot Nothing Then
-                            dt.Rows(i)("MM_NOTE") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                            dt.Rows(i)("MM_NOTE") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
                             dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
                         End If
 
@@ -2795,22 +3232,24 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_MovementNormal(dsMovement As DataSet, ID As Integer, ByVal RefNo As String, ByRef rpt As rptMovementNormal, _
-                                               ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+    Public Function PrintReport_MovementNormal(dsMovement As DataSet, ID As Integer, ByVal RefNo As String, ByRef rpt As rptMovementNormal,
+                                               ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
             Dim clsMovement_Note As New clsNote_Movement
 
@@ -2821,7 +3260,7 @@ tryagain:
             Dim dtNoteChild As DataTable = Nothing
             Dim Ext As String = Nothing
             Dim dtRowAtt As Byte() = Nothing
-
+            Dim TmpID As Decimal = 0
 
             dt = clsMoveNormal.Load_MovementNormal(ID, ErrorLog)
 
@@ -2836,7 +3275,7 @@ tryagain:
 
             If dt Is Nothing Then
                 MsgBox("Data not found.", MsgBoxStyle.Critical)
-                Exit Function
+                Return False
             End If
 
             For i As Integer = 0 To dt.Rows.Count - 1
@@ -2856,83 +3295,21 @@ tryagain:
                         dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 0, 0, ErrorLog)
 
                         If dtNote IsNot Nothing Then
-                            dt.Rows(i)("Note") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
-                            dsMovement.Tables("MOVEMENT_ADD").ImportRow(dt.Rows(i))
+                            dt.Rows(i)("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                            TmpID = dtNote.Rows(0)("ID")
+                            Application.DoEvents()
+                            dtNote.Rows(0)("ID") = dsMovement.Tables("MOVEMENT_NOTE").Rows.Count + 1
+                            Application.DoEvents()
+                            dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
                         End If
-
+                        dsMovement.Tables("MOVEMENT_ADD").ImportRow(dt.Rows(i))
                         Application.DoEvents()
                         If dtNote IsNot Nothing Then
 
-                            dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
+                            ' dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
 
                             dtNoteChild = Nothing
-                            dtNoteChild = clsMovement_Note.Load_Note_Attachment(dtNote.Rows(0)("ID"), ErrorLog)
-                            If dtNoteChild IsNot Nothing Then
-                                For Each rowx As DataRow In dtNoteChild.Rows
-                                    rowx("ParentID") = dt.Rows(i)("ID")
-                                    dsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").ImportRow(rowx)
-
-
-                                    Ext = Nothing
-                                    dtRowAtt = IIf(IsDBNull(rowx("Attachment")), Nothing, rowx("Attachment"))
-                                    Ext = IIf(IsDBNull(rowx("Extension")), Nothing, rowx("Extension"))
-
-                                    If dtRowAtt IsNot Nothing Then
-                                        Dim frmnote As New frmNote_AttachmentView
-                                        Select Case Ext.ToLower
-                                            Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
-                                                frmnote.Type = 0
-                                            Case ".xls", ".xlsx", ".csv", ".openxml"
-                                                frmnote.Type = 1
-                                            Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
-                                                frmnote.Type = 2
-                                            Case ".pdf"
-                                                frmnote.Type = 3
-                                        End Select
-                                        frmnote.Title = dt.Rows(i)("Note")
-                                        frmnote.Extension = Ext
-                                        frmnote.dataArr = dtRowAtt
-                                        frmnote.Show()
-                                    End If
-                                Next
-                            End If
-
-                            dtNoteChild = Nothing
-                            dtNoteChild = clsMovement_Note.Load_Note_Column(dtNote.Rows(0)("ID"), ErrorLog)
-                            If dtNoteChild IsNot Nothing Then
-                                For Each rowx As DataRow In dtNoteChild.Rows
-                                    rowx("ParentID") = dt.Rows(i)("ID")
-                                    dsMovement.Tables("MOVEMENT_NOTE_COLUMN").ImportRow(rowx)
-                                Next
-                            End If
-
-                        End If
-
-                    End If
-
-                Next
-            End If
-            Application.DoEvents()
-            dt = clsMoveNormal.Load_MovementNormal_Deduct(ID, ErrorLog)
-
-            If dt IsNot Nothing Then
-                For i As Integer = 0 To dt.Rows.Count - 1
-
-                    If IsDBNull(dt.Rows(i)("TagID")) = False Then
-                        dtNote = Nothing
-                        dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 0, 1, ErrorLog)
-
-                        If dtNote IsNot Nothing Then
-                            dt.Rows(i)("Note") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
-                            dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
-                        End If
-
-                        dsMovement.Tables("MOVEMENT_DEDUCT").ImportRow(dt.Rows(i))
-                        Application.DoEvents()
-                        If dtNote IsNot Nothing Then
-
-                            dtNoteChild = Nothing
-                            dtNoteChild = clsMovement_Note.Load_Note_Attachment(dtNote.Rows(0)("ID"), ErrorLog)
+                            dtNoteChild = clsMovement_Note.Load_Note_Attachment(TmpID, ErrorLog)
                             If dtNoteChild IsNot Nothing Then
                                 For Each rowx As DataRow In dtNoteChild.Rows
                                     rowx("ParentID") = dtNote.Rows(0)("ID")
@@ -2964,7 +3341,77 @@ tryagain:
                             End If
 
                             dtNoteChild = Nothing
-                            dtNoteChild = clsMovement_Note.Load_Note_Column(dtNote.Rows(0)("ID"), ErrorLog)
+                            dtNoteChild = clsMovement_Note.Load_Note_Column(TmpID, ErrorLog)
+                            If dtNoteChild IsNot Nothing Then
+                                For Each rowx As DataRow In dtNoteChild.Rows
+                                    rowx("ParentID") = dtNote.Rows(0)("ID")
+                                    dsMovement.Tables("MOVEMENT_NOTE_COLUMN").ImportRow(rowx)
+                                Next
+                            End If
+
+                        End If
+
+                    End If
+
+                Next
+            End If
+            Application.DoEvents()
+            dt = clsMoveNormal.Load_MovementNormal_Deduct(ID, ErrorLog)
+
+            If dt IsNot Nothing Then
+                For i As Integer = 0 To dt.Rows.Count - 1
+
+                    If IsDBNull(dt.Rows(i)("TagID")) = False Then
+                        dtNote = Nothing
+                        dtNote = clsMovement_Note.Load_Note(dt.Rows(i)("TagID"), ID, 0, 1, ErrorLog)
+
+                        If dtNote IsNot Nothing Then
+                            dt.Rows(i)("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                            TmpID = dtNote.Rows(0)("ID")
+                            Application.DoEvents()
+                            dtNote.Rows(0)("ID") = dsMovement.Tables("MOVEMENT_NOTE").Rows.Count + 1
+                            Application.DoEvents()
+                            dsMovement.Tables("MOVEMENT_NOTE").ImportRow(dtNote.Rows(0))
+                        End If
+
+                        dsMovement.Tables("MOVEMENT_DEDUCT").ImportRow(dt.Rows(i))
+                        Application.DoEvents()
+                        If dtNote IsNot Nothing Then
+
+                            dtNoteChild = Nothing
+                            dtNoteChild = clsMovement_Note.Load_Note_Attachment(TmpID, ErrorLog)
+                            If dtNoteChild IsNot Nothing Then
+                                For Each rowx As DataRow In dtNoteChild.Rows
+                                    rowx("ParentID") = dtNote.Rows(0)("ID")
+                                    dsMovement.Tables("MOVEMENT_NOTE_ATTACHMENT").ImportRow(rowx)
+
+
+                                    Ext = Nothing
+                                    dtRowAtt = IIf(IsDBNull(rowx("Attachment")), Nothing, rowx("Attachment"))
+                                    Ext = IIf(IsDBNull(rowx("Extension")), Nothing, rowx("Extension"))
+
+                                    If dtRowAtt IsNot Nothing Then
+                                        Dim frmnote As New frmNote_AttachmentView
+                                        Select Case Ext.ToLower
+                                            Case ".jpg", ".png", ".jpeg", ".bitmap", ".ico", ".gif", ".tif"
+                                                frmnote.Type = 0
+                                            Case ".xls", ".xlsx", ".csv", ".openxml"
+                                                frmnote.Type = 1
+                                            Case ".doc", "docx", ".rtf", ".wordml", ".opendocument"
+                                                frmnote.Type = 2
+                                            Case ".pdf"
+                                                frmnote.Type = 3
+                                        End Select
+                                        frmnote.Title = dt.Rows(i)("Note")
+                                        frmnote.Extension = Ext
+                                        frmnote.dataArr = dtRowAtt
+                                        frmnote.Show()
+                                    End If
+                                Next
+                            End If
+
+                            dtNoteChild = Nothing
+                            dtNoteChild = clsMovement_Note.Load_Note_Column(TmpID, ErrorLog)
                             If dtNoteChild IsNot Nothing Then
                                 For Each rowx As DataRow In dtNoteChild.Rows
                                     rowx("ParentID") = dtNote.Rows(0)("ID")
@@ -2990,23 +3437,25 @@ tryagain:
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
         End Try
     End Function
-    Public Function PrintReport_PNL(RefNo As String, YA As String, ByRef rpt As rptPNL, _
+    Public Function PrintReport_PNL(RefNo As String, YA As String, ByRef rpt As rptPNL,
                                    ByRef rpt_details As rptPNL_Details, ByRef rpt_interest As rptPNL_InterestResict _
-                                   , ByRef ErrorLog As clsError, Optional ByVal SchApex As String = "") As Boolean
+                                   , ByRef ErrorLog As ClsError, Optional ByVal SchApex As String = "") As Boolean
         Try
 
             If RefNo Is Nothing OrElse YA Is Nothing OrElse IsNumeric(YA) = False Then
@@ -3055,16 +3504,18 @@ tryagain:
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
 
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
             Return False
@@ -3072,7 +3523,7 @@ tryagain:
     End Function
 #End Region
 End Module
-Public Class clsError
+Public Class ClsError
     Public ErrorName As String = Nothing
     Public ErrorCode As String = Nothing
     Public ErrorMessage As String = Nothing

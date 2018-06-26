@@ -5,7 +5,7 @@ Imports System.Data.SqlClient
 
 Partial Public Class frmStartup
     Inherits DevExpress.XtraEditors.XtraForm
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Shared Sub New()
         DevExpress.UserSkins.BonusSkins.Register()
         DevExpress.Skins.SkinManager.EnableFormSkins()
@@ -23,6 +23,8 @@ Partial Public Class frmStartup
             Timer1.Enabled = True
             Timer1.Start()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -30,7 +32,7 @@ Partial Public Class frmStartup
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
             Timer1.Stop()
-            Dim sqlCon As SqlConnection
+            Dim SqlCon As SqlConnection = Nothing
 
             If mdlProcess.DBConnection(sqlCon, ErrorLog) = False Then
                 MsgBox("Failed to connect with database.", MsgBoxStyle.Critical)
@@ -51,6 +53,8 @@ Partial Public Class frmStartup
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

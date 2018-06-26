@@ -3,11 +3,11 @@ Imports DevExpress.Spreadsheet
 Imports DevExpress.Spreadsheet.Export
 Imports DevExpress.XtraGrid
 Imports System.Data.OleDb
-
+Imports DevExpress.XtraReports.UI
 Public Class frmPNL_Add
     Public isEdit As Boolean = True
     Public ID As Decimal = 1269
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim isReplacePNL As Boolean = False
     Dim ListofCmd As List(Of SqlCommand)
 
@@ -56,6 +56,8 @@ Public Class frmPNL_Add
                 XtraTabControl1.SelectedTabPageIndex = 3
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -83,6 +85,8 @@ Public Class frmPNL_Add
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
 
@@ -103,6 +107,8 @@ Public Class frmPNL_Add
             DocumentManager1.View.Controller.CloseAll()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -225,6 +231,8 @@ Public Class frmPNL_Add
                     Return lbl_p2DivIncome
             End Select
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return lbl_p1Sales
         End Try
     End Function
@@ -395,6 +403,7 @@ Public Class frmPNL_Add
                     For Each rowInfo As DataRow In dtPNLInfo.Rows
                         KeyNameEnum = [Enum].Parse(GetType(TaxComPNLEnuItem), IIf(IsDBNull(rowInfo("KeyName")), "", rowInfo("KeyName")))
                         GetTxtAmount(KeyNameEnum, txtamount)
+                        Application.DoEvents()
                         mdlPNL2.PNL_ReCalcAll_Amount(KeyNameEnum, dsDataSet, txtamount, ErrorLog)
                     Next
                 End If
@@ -424,7 +433,7 @@ Public Class frmPNL_Add
                             End Select
 
                         End If
-                       
+
                     Next
 
                 End If
@@ -436,14 +445,16 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         Finally
@@ -460,7 +471,7 @@ Public Class frmPNL_Add
             Dim txtamount As DevExpress.XtraEditors.TextEdit
 
             GetTxtAmount(Type, txtamount)
-
+            Application.DoEvents()
             If cboRefNo Is Nothing OrElse cboYA Is Nothing OrElse cboRefNo.EditValue.ToString = "" OrElse cboYA.EditValue.ToString = "" Then
                 MsgBox("Please select tax payer and ya first.", MsgBoxStyle.Exclamation)
                 Exit Sub
@@ -473,6 +484,8 @@ Public Class frmPNL_Add
             '.View.AddDocument(doc)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -601,10 +614,12 @@ Public Class frmPNL_Add
                     txtAmount = txt_p2DivIncome
             End Select
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             txtAmount = txt_p2DivIncome
         End Try
     End Sub
-   
+
     Private Sub lblSales_DoubleClick(sender As Object, e As EventArgs) Handles lbl_p1Sales.DoubleClick, lbl_p1OpenStock.DoubleClick, lbl_p1Purchase.DoubleClick, lbl_p1Depreciation.DoubleClick, lbl_p1AllowanceExpenses.DoubleClick, lbl_p1NonAllowableExpenses.DoubleClick, lbl_p1CloseStock.DoubleClick, lbl_p2OtherBizIncome.DoubleClick, lbl_p2ForeignCurrExGain.DoubleClick, lbl_p2InterestIncome.DoubleClick, lbl_p2RoyaltyIncome.DoubleClick, lbl_p2OtherIncome.DoubleClick, lbl_p2ProDispPlantEq.DoubleClick, lbl_p2ProDisInvestment.DoubleClick, lbl_p2ForeIncomeRemmit.DoubleClick, lbl_p2ReaForeExGainNonTrade.DoubleClick, lbl_p2UnreaGainForeEx.DoubleClick, lbl_p2UnreaGainForeExNon.DoubleClick, lbl_p3OtherInterestExHirePur.DoubleClick, lbl_p3ProTechManLeganFees.DoubleClick, lbl_p3TechPayNonResis.DoubleClick, lbl_p3ContractPay.DoubleClick, lbl_p3DirectorFee.DoubleClick, lbl_p3Salary.DoubleClick, lbl_p3COEStock.DoubleClick, lbl_p3Royalty.DoubleClick, lbl_p3Rental.DoubleClick, lbl_p3RepairMain.DoubleClick, lbl_p3ResearchDev.DoubleClick, lbl_p3PromotionAds.DoubleClick, lbl_p3Travelling.DoubleClick, lbl_p3JKDM.DoubleClick, lbl_p3Depreciation.DoubleClick, lbl_p3DonationApp.DoubleClick, lbl_p3DonationNonApp.DoubleClick, lbl_p3Zakat.DoubleClick, lbl_p4LossDispFA.DoubleClick, lbl_p4EntNonStaff.DoubleClick, lbl_p4EntStaff.DoubleClick, lbl_p4Compound.DoubleClick, lbl_p4ProvisionAcc.DoubleClick, lbl_p4LeavePass.DoubleClick, lbl_p4FAWrittenOff.DoubleClick, lbl_p4UnreaLossForeEx.DoubleClick, lbl_p4ReaLossForeExTrade.DoubleClick, lbl_p4ReaLossForeExNonTrade.DoubleClick, lbl_p4InitSub.DoubleClick, lbl_p4CAExpenditure.DoubleClick, lbl_p4Other.DoubleClick, lbl_p2RentalIncome.DoubleClick, lblP4NonAllowableExpenses.DoubleClick, lbl_p2Other.DoubleClick, lbl_p2ExemptDividend.DoubleClick, lbl_p3InterestResPurS33.DoubleClick, lbl_p2DivIncome.DoubleClick, lbl_p3ForeignCurrExLoss.DoubleClick
         Try
 
@@ -637,6 +652,8 @@ Public Class frmPNL_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -655,6 +672,8 @@ Public Class frmPNL_Add
         Try
             txt_p1COP.EditValue = mdlPNL.CalcProductofCost(IIf(IsNumeric(txt_p1Depreciation.EditValue) = False, 0, txt_p1Depreciation.EditValue), IIf(IsNumeric(txt_p1AllowanceExpenses.EditValue) = False, 0, txt_p1AllowanceExpenses.EditValue), IIf(IsNumeric(txt_p1NonAllowableExpenses.EditValue) = False, 0, txt_p1NonAllowableExpenses.EditValue))
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -663,6 +682,8 @@ Public Class frmPNL_Add
         Try
             txt_p1PCP.EditValue = mdlPNL.CalcPurchaseProductofCost(IIf(IsNumeric(txt_p1Purchase.EditValue) = False, 0, txt_p1Purchase.EditValue), IIf(IsNumeric(txt_p1COP.EditValue) = False, 0, txt_p1COP.EditValue))
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -673,6 +694,8 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
 
@@ -683,6 +706,8 @@ Public Class frmPNL_Add
 
             CalcNetProfit()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -699,7 +724,7 @@ Public Class frmPNL_Add
                 Exit Sub
             End If
             Progress(2, "Preparing data...")
-            Dim sqlCon As SqlConnection = Nothing
+            Dim SqlCon As SqlConnection = Nothing
 
             ListofCmd = Nothing
             ListofCmd = New List(Of SqlCommand)
@@ -1010,17 +1035,19 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog IsNot Nothing Then
                 MsgBox(ErrorLog.ErrorMessage)
 
                 If ErrorLog Is Nothing Then
-                    ErrorLog = New clsError
+                    ErrorLog = New ClsError
                 End If
                 With ErrorLog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                     .ErrorCode = ex.GetHashCode.ToString
                     .ErrorDateTime = Now
-                    .ErrorMessage = ex.Message
+                    .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
                 End With
                 AddListOfError(ErrorLog)
             End If
@@ -1035,6 +1062,8 @@ Public Class frmPNL_Add
 
             End Select
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1046,6 +1075,8 @@ Public Class frmPNL_Add
                 txtLastModified.EditValue = IIf(IsDBNull(dt.Rows(0)("ModifiedDateTime")), "", dt.Rows(0)("ModifiedDateTime"))
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1055,10 +1086,12 @@ Public Class frmPNL_Add
             pnlProgress.Caption = Caption
             Application.DoEvents()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-    Public Function GetTotalTaxDeductuibDividendIncome(Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function GetTotalTaxDeductuibDividendIncome(Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim obj As Object = dsDataSet.Tables("DIVIDEND_INCOME").Compute("sum('di_taxdeduction')", "")
 
@@ -1068,19 +1101,20 @@ Public Class frmPNL_Add
 
             Return 0
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-
     Private Function isValid() As Boolean
         Try
             If cboRefNo Is Nothing OrElse cboRefNo.EditValue.ToString = "" Then
@@ -1121,31 +1155,32 @@ Public Class frmPNL_Add
             Return True
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
-
-
-    Public Function GetTotalDonation(Optional ByRef Errorlog As clsError = Nothing) As Decimal
+    Public Function GetTotalDonation(Optional ByRef Errorlog As ClsError = Nothing) As Decimal
         Try
             Dim Total As Decimal = 0
 
             Total = IIf(IsNumeric(txt_p3DonationApp.EditValue), txt_p3DonationApp.EditValue, 0) + IIf(IsNumeric(txt_p3DonationNonApp.EditValue), txt_p3DonationNonApp.EditValue, 0)
             Return 0
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return 0
         End Try
     End Function
-
     Private Sub txt_p2DivIncome_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p2DivIncome.EditValueChanged, txt_p2InterestIncome.EditValueChanged, txt_p2RentalIncome.EditValueChanged, txt_p2RoyaltyIncome.EditValueChanged, txt_p2OtherIncome.EditValueChanged
         Try
             Dim Dividen As Decimal = IIf(IsNumeric(txt_p2DivIncome.EditValue) = False, 0, txt_p2DivIncome.EditValue)
@@ -1158,6 +1193,8 @@ Public Class frmPNL_Add
 
             CalcNetProfit()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1178,6 +1215,8 @@ Public Class frmPNL_Add
 
             CalcNetProfit()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1206,6 +1245,8 @@ Public Class frmPNL_Add
             txt_p4TotalOtherExpenses.EditValue = mdlPNL.CalcOtherExpenses(p3Depreciation, p3DonationApp, p3DonationNonApp, p3Zakat, p4EntNonStaff, p4EntStaff, p4Compound, p4ProvisionAcc, p4LeavePass, p4FAWrittenOff, p4UnreaLossForeEx, p4ReaLossForeExTrade, p4ReaLossForeExNonTrade, p4InitSub, p4CAExpenditure, p4Other, p4LossDispFA, ErrorLog)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
 
@@ -1214,6 +1255,8 @@ Public Class frmPNL_Add
         Try
             CalcTotalExpenses()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1261,15 +1304,16 @@ Public Class frmPNL_Add
 
             CalcNetProfit()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
     Private Sub txt_p4TotalExpenses_KeyUp(sender As Object, e As KeyEventArgs) Handles txt_p4TotalExpenses.KeyUp
         CalcTotalExpenses()
     End Sub
-
     Public Sub GetOtherBalancingFigureRefresh(ByVal TotalExpenses As Decimal, ByVal ExpectedExpenses As Decimal, _
-                                                    Optional ByRef Errorlog As clsError = Nothing)
+                                                    Optional ByRef Errorlog As ClsError = Nothing)
         Try
             If ExpectedExpenses <> 0 Then
                 Dim dblOtherBalancingFigure As Decimal = ExpectedExpenses - TotalExpenses
@@ -1277,7 +1321,7 @@ Public Class frmPNL_Add
 
                 txt_p4OtherBalacingFigure.EditValue = dblOtherBalancingFigure
             End If
-         
+
             'If TotalExpenses < txtTotalExpensesDic Then
             '    dblOtherBalancingFigure = txtTotalExpensesDic - TotalExpenses
             '    If dblOtherBalancingFigure >= ExpTotalBalance Then
@@ -1289,21 +1333,22 @@ Public Class frmPNL_Add
             'End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             txt_p4OtherBalacingFigure.EditValue = 0
         End Try
     End Sub
-
-    Public Sub CalcNetProfit(Optional ByRef Errorlog As clsError = Nothing)
+    Public Sub CalcNetProfit(Optional ByRef Errorlog As ClsError = Nothing)
         Try
             'Dim dblNetProfitLoss As Double 'weihong add RealFETrade
             'dblNetProfitLoss = GetGrossProfitLoss() + dicPNL("OtherBusinessIncome") + GetTotalOtherNonBusinessIncome() + GetTotalNonTaxableIncome() - GetTotalExpensesDic() + dicPNL("RealFETrade")
@@ -1317,14 +1362,16 @@ Public Class frmPNL_Add
             txt_p4NetProfitLoss.EditValue = NetProfitLoss
             txtNetProfit2.EditValue = NetProfitLoss
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
         End Try
@@ -1333,10 +1380,11 @@ Public Class frmPNL_Add
         Try
             CalcNetProfit()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-
     Private Sub txt_p4ExpectedExpenses_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p4ExpectedExpenses.EditValueChanged
         Try
 
@@ -1344,16 +1392,19 @@ Public Class frmPNL_Add
             Dim p4ExpectedExpenses As Decimal = IIf(IsNumeric(txt_p4ExpectedExpenses.EditValue) = False, 0, txt_p4ExpectedExpenses.EditValue)
             GetOtherBalancingFigureRefresh(TotalExpenses, p4ExpectedExpenses)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
-
     Private Sub txt_p4NonAllowableExpenses_EditValueChanged(sender As Object, e As EventArgs) Handles txt_p4NonAllowableExpenses.EditValueChanged
         Try
             If txt_p4NonAllowableExpenses IsNot Nothing Then
                 txtNonAllowableExpense.EditValue = txt_p4NonAllowableExpenses.EditValue
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1396,6 +1447,8 @@ Public Class frmPNL_Add
                 pnlDocInformation.Enabled = False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1408,6 +1461,8 @@ Public Class frmPNL_Add
         Try
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1519,6 +1574,8 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1598,7 +1655,7 @@ Public Class frmPNL_Add
 
                             End If
                         End If
-                        
+
                     Next
 
                 Next
@@ -1618,14 +1675,16 @@ Public Class frmPNL_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         Finally
@@ -1638,33 +1697,13 @@ Public Class frmPNL_Add
         e.Action = DataTableExporterAction.Continue
     End Sub
 
-    'Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs) Handles BarButtonItem2.ItemClick
-    '    Try
-    '        Dim frm As New frmPNL_Report
-    '        frm.RefNo = cboRefNo.EditValue
-    '        frm.YA = cboYA.EditValue
-    '        frm.ShowDialog()
-    '    Catch ex As Exception
-
-    '    End Try
-    'End Sub
-
     Private Sub TabbedView1_EndDocumentsHostDocking(sender As Object, e As DevExpress.XtraBars.Docking2010.Views.DocumentEventArgs) Handles TabbedView1.EndDocumentsHostDocking
 
     End Sub
 
 
     Private Sub TabbedView1_RegisterDocumentsHostWindow(sender As Object, e As DevExpress.XtraBars.Docking2010.DocumentsHostWindowEventArgs) Handles TabbedView1.RegisterDocumentsHostWindow
-        'Try
-        '    ' MsgBox(e.HostWindow.DocumentManager.View.Documents(0).ControlName)
-        '    If e.HostWindow.DocumentManager.GetDocument(P1_docSales) IsNot Nothing Then
-        '        MsgBox(e.HostWindow.DocumentManager.GetDocument(P1_docSales).ControlName)
-        '    End If
 
-        'Catch ex As Exception
-
-        'End Try
-        'MsgBox("E")
     End Sub
 
     Private Sub cboMainSource_EditValueChanged(sender As Object, e As EventArgs) Handles cboMainSource.EditValueChanged
@@ -1672,6 +1711,8 @@ Public Class frmPNL_Add
             UcPNL_Import1.SourceNo = cboMainSource.EditValue
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1691,6 +1732,8 @@ Public Class frmPNL_Add
         Try
             pnlDocInformation.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Visible
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1699,6 +1742,8 @@ Public Class frmPNL_Add
         Try
             pnlDocImport.Visibility = DevExpress.XtraBars.Docking.DockVisibility.Visible
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1707,6 +1752,8 @@ Public Class frmPNL_Add
         Try
             frmErrorLog.Show()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1772,6 +1819,8 @@ Public Class frmPNL_Add
             UcPNL_Import1.txt_p4Other = txt_p4Other
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -1833,20 +1882,22 @@ Public Class frmPNL_Add
                         Next
                     End If
 
-                   
+
                 Next
                 DataSearchBindingSource.DataSource = dsDataSet.Tables("DataSearch")
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
@@ -1878,14 +1929,16 @@ Public Class frmPNL_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
@@ -1897,8 +1950,49 @@ Public Class frmPNL_Add
                 btnSearch.PerformClick()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
+    Private Sub lbl_p1Sales_Click(sender As Object, e As EventArgs) Handles lbl_p1Sales.Click
+
+    End Sub
+
+    Private Sub BarButtonItem2_ItemClick(sender As Object, e As DevExpress.XtraBars.ItemClickEventArgs)
+        Try
+            Dim rpt As rptPNL
+            Dim rpt_details As rptPNL_Details
+            Dim rpt_interest As rptPNL_InterestResict
+
+            If GridView1.GetFocusedDataRow() Is Nothing Then
+                GridView1.FocusedRowHandle = 0
+                Application.DoEvents()
+            End If
+
+            Dim RefNo As String = cboRefNo.EditValue
+            Dim YA As String = cboYA.EditValue
+
+            If mdlProcess.PrintReport_PNL(RefNo, YA, rpt, rpt_details, rpt_interest, ErrorLog) Then
+                Dim minPageCount As Integer = Math.Min(rpt.Pages.Count, rpt_interest.Pages.Count)
+
+                Dim x As Integer = 0
+
+                For Each pg As DevExpress.XtraPrinting.Page In rpt_interest.Pages
+                    rpt.Pages.Add(pg)
+                Next
+
+                Dim printTool As New ReportPrintTool(rpt)
+                printTool.ShowPreview()
+            Else
+                MsgBox("Failed to load profit and loss report.", MsgBoxStyle.Critical)
+            End If
+
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
 End Class

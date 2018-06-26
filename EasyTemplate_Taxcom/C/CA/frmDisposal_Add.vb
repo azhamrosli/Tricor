@@ -1,6 +1,6 @@
 ﻿Public Class frmDisposal_Add 
     Inherits DevExpress.XtraEditors.XtraForm
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
     Public ID_CA As Integer = 0
@@ -57,7 +57,9 @@
             Else
                 cboYA.SelectedIndex = 0
             End If
-
+            If isEdit = False Then
+                dtDisposal.EditValue = New Date(cboYA.EditValue, 1, 1)
+            End If
             Application.DoEvents()
 
             If mdlProcess.ArgParam2 <> "" Then
@@ -196,6 +198,8 @@
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -221,6 +225,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             ShowMainCA()
@@ -230,6 +236,8 @@
         Try
             Load_CA()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -248,6 +256,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -261,6 +271,8 @@
             DockPanel3.Enabled = True
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -411,9 +423,13 @@
                 End If
 
             Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
             End Try
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -466,6 +482,8 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(ex.Message, MsgBoxStyle.Critical)
             Return False
         End Try
@@ -506,7 +524,12 @@
                 Application.DoEvents()
                 cboTypeDisposal.SelectedIndex = 0
 
-                dtDisposal.EditValue = Now
+                If isEdit = False Then
+                    dtDisposal.EditValue = New Date(cboYA.EditValue, 1, 1)
+                Else
+                    dtDisposal.EditValue = Now
+                End If
+
                 txtDisposal_PurchaseAmount.EditValue = txtPurchaseAmountFA.EditValue
                 txtDispose_QC.EditValue = txtPurchaseAmountFA.EditValue
                 txtDisposal_TWDV.EditValue = Calc_TWDV(dtrow)
@@ -519,6 +542,8 @@
                 dtRowSelected = dtrow
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -556,6 +581,8 @@
 
             Return CA_TWDV
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return 0
         End Try
     End Function
@@ -606,6 +633,8 @@
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return 0
         End Try
 
@@ -617,6 +646,8 @@
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -640,6 +671,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -659,6 +692,8 @@
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -667,6 +702,8 @@
         Try
             Save_Disposal()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -675,6 +712,8 @@
         Try
             DefaultTaxPayer(sender)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -685,17 +724,32 @@
                 Exit Sub
             End If
 
-            Dim frm As New frmNote_CA
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.CA_ID = ID_CA
-            frm.TagID = ID
-            frm.Type_CA = 2
-            frm.RowDescription = txtAsset.EditValue
+            Dim frm As New frmNote_CA With {
+                .RefNo = CType(cboRefNo.EditValue, String),
+                .YA = cboYA.EditValue,
+                .CA_ID = ID_CA,
+                .TagID = ID,
+                .Type_CA = 2,
+                .RowDescription = txtAsset.EditValue
+            }
             frm.ShowDialog()
 
+        Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
+
+        End Try
+    End Sub
+
+    Private Sub cboYA_EditValueChanged(sender As Object, e As EventArgs) Handles cboYA.EditValueChanged
+        Try
+            If isEdit = False Then
+                dtDisposal.EditValue = New Date(cboYA.EditValue, 1, 1)
+            End If
         Catch ex As Exception
 
         End Try
     End Sub
+
+
 End Class

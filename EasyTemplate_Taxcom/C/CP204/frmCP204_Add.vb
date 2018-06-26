@@ -3,7 +3,7 @@ Imports DevExpress.XtraPrinting
 Imports DevExpress.XtraEditors.Calendar
 Imports DevExpress.XtraReports.UI
 Public Class frmCP204_Add
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
     Dim isBusy As Boolean = False
@@ -26,6 +26,8 @@ Public Class frmCP204_Add
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -198,6 +200,8 @@ Public Class frmCP204_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             isBusy2 = False
@@ -296,6 +300,8 @@ Public Class frmCP204_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             isBusy = False
@@ -395,6 +401,8 @@ Public Class frmCP204_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -413,6 +421,8 @@ Public Class frmCP204_Add
             Next
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -424,6 +434,8 @@ Public Class frmCP204_Add
                 dtCommencement.Enabled = False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -438,6 +450,8 @@ Public Class frmCP204_Add
                 cboYA_To_SME.Enabled = False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -452,6 +466,8 @@ Public Class frmCP204_Add
                 CalcEstimationPercent()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -569,6 +585,8 @@ Public Class frmCP204_Add
                 txtCurrAvaiblePayment.EditValue = 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -587,6 +605,8 @@ Public Class frmCP204_Add
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -624,6 +644,8 @@ Public Class frmCP204_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -712,14 +734,16 @@ Public Class frmCP204_Add
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
@@ -832,6 +856,8 @@ Public Class frmCP204_Add
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -851,6 +877,8 @@ Public Class frmCP204_Add
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -859,6 +887,8 @@ Public Class frmCP204_Add
         Try
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -875,6 +905,8 @@ Public Class frmCP204_Add
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -898,6 +930,8 @@ Public Class frmCP204_Add
                 CalcPenalty(GridView1.FocusedRowHandle)
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -916,6 +950,8 @@ Public Class frmCP204_Add
                 CalcPenalty(GridView1.FocusedRowHandle)
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -932,6 +968,8 @@ Public Class frmCP204_Add
                 CalcEstimationPercent()
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -943,16 +981,19 @@ Public Class frmCP204_Add
                 Exit Sub
             End If
 
-            Dim frm As New frmNote_CP204
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.Parent_KEY = ID
-            frm.DataID = DsCP204.Tables(MainTable_Details).Rows(GridView1.FocusedRowHandle)("CP_ID")
-            frm.Ds_CP204 = DsCP204
-            frm.TagID = DsCP204.Tables(MainTable_Details).Rows(GridView1.FocusedRowHandle)("CP_TagID")
-            frm.RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("CP_PAYMENT_DUE") & " (" & GridView1.GetDataRow(GridView1.FocusedRowHandle)("CP_INSTALLMENT_AMOUNT") & ")"
+            Dim frm As New frmNote_CP204 With {
+                .RefNo = CType(cboRefNo.EditValue, String),
+                .YA = cboYA.EditValue,
+                .Parent_KEY = ID,
+                .DataID = DsCP204.Tables(MainTable_Details).Rows(GridView1.FocusedRowHandle)("CP_ID"),
+                .Ds_CP204 = DsCP204,
+                .TagID = DsCP204.Tables(MainTable_Details).Rows(GridView1.FocusedRowHandle)("CP_TagID"),
+                .RowDescription = GridView1.GetDataRow(GridView1.FocusedRowHandle)("CP_PAYMENT_DUE") & " (" & GridView1.GetDataRow(GridView1.FocusedRowHandle)("CP_INSTALLMENT_AMOUNT") & ")"
+            }
             frm.ShowDialog()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

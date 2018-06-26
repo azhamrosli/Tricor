@@ -301,6 +301,7 @@ Partial Class frmCP204_Add
         Me.btnPrint.ImageOptions.LargeImage = CType(resources.GetObject("btnPrint.ImageOptions.LargeImage"), System.Drawing.Image)
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph
+        Me.btnPrint.Visibility = DevExpress.XtraBars.BarItemVisibility.Never
         '
         'btnNote
         '

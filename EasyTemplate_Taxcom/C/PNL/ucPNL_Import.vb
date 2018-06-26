@@ -1,7 +1,7 @@
 ﻿Imports System.Data.OleDb
 
 Public Class ucPNL_Import
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public txt_p1Sales As DevExpress.XtraEditors.TextEdit = Nothing
 
     Public txt_p1OpenStock As DevExpress.XtraEditors.TextEdit = Nothing
@@ -119,14 +119,16 @@ Public Class ucPNL_Import
             ExportPNLBindingSource.DataSource = MainDataSet.Tables(MainTable)
             ds = Nothing
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = "C1001"
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
 
             AddListOfError(ErrorLog)
@@ -158,6 +160,8 @@ Public Class ucPNL_Import
 
             Import_Data()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -174,6 +178,8 @@ Public Class ucPNL_Import
 
             Import_Data()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -209,6 +215,8 @@ Public Class ucPNL_Import
                 End If
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -276,6 +284,8 @@ Public Class ucPNL_Import
 
             'ExportPNLBindingSource.DataSource = dsDataSet.Tables(Me.MainTable)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -284,6 +294,8 @@ Public Class ucPNL_Import
         Try
             btnOpenFile.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -292,6 +304,8 @@ Public Class ucPNL_Import
         Try
             btnOpenFileYGL.PerformClick()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -325,9 +339,13 @@ Public Class ucPNL_Import
                     End If
                 Next
             Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
             End Try
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -554,6 +572,8 @@ Public Class ucPNL_Import
                     Return ""
             End Select
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return ""
         End Try
     End Function

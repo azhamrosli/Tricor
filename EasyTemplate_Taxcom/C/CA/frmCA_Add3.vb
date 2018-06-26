@@ -1,6 +1,6 @@
 ﻿Public Class frmCA_Add3 
     Inherits DevExpress.XtraEditors.XtraForm
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public isEdit As Boolean = False
     Public ID As Integer = 0
     Shared Sub New()
@@ -20,6 +20,8 @@
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -76,6 +78,9 @@
                 cboYA.EditValue = mdlProcess.ArgParam3
                 cboPurchaseYE.EditValue = mdlProcess.ArgParam3
                 DefaultTaxPayer(cboRefNo)
+                If isEdit = False Then
+                    dtDateofPurchase.EditValue = New Date(cboYA.EditValue, 1, 1)
+                End If
             End If
 
 
@@ -129,22 +134,22 @@
                 txtAssetID.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_ASSET_CODE")), "", dt.Rows(0)("CA_ASSET_CODE"))
                 cboCategory.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_CATEGORY_CODE")), "", dt.Rows(0)("CA_CATEGORY_CODE"))
                 dtDateofPurchase.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_PURCHASE_DATE")), Now, dt.Rows(0)("CA_PURCHASE_DATE"))
-                txtPurchaseAmountFA.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_PURCHASE_AMOUNT")), 0, dt.Rows(0)("CA_PURCHASE_AMOUNT"))
-                txtDeposit.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_PAYMENT")), 0, dt.Rows(0)("CA_PAYMENT"))
-                txtRestrictedQua.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_RESTRICTED_QC")), 0, dt.Rows(0)("CA_RESTRICTED_QC"))
+                txtPurchaseAmountFA.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_PURCHASE_AMOUNT")), 0, dt.Rows(0)("CA_PURCHASE_AMOUNT")))
+                txtDeposit.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_PAYMENT")), 0, dt.Rows(0)("CA_PAYMENT")))
+                txtRestrictedQua.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_RESTRICTED_QC")), 0, dt.Rows(0)("CA_RESTRICTED_QC")))
                 txtDescription.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_DESC")), "", dt.Rows(0)("CA_DESC"))
                 txtIA.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_RATE_IA")), 0, dt.Rows(0)("CA_RATE_IA"))
                 cboAA.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_RATE_AA")), 0, dt.Rows(0)("CA_RATE_AA"))
-                txtQualifyingCost.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_QUALIFYING_COST")), 0, dt.Rows(0)("CA_QUALIFYING_COST"))
-                txtRemainingQualifyingCost.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_REMAIN_QC")), 0, dt.Rows(0)("CA_REMAIN_QC"))
-                txtTWDV.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TWDV")), 0, dt.Rows(0)("CA_TWDV"))
+                txtQualifyingCost.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_QUALIFYING_COST")), 0, dt.Rows(0)("CA_QUALIFYING_COST")))
+                txtRemainingQualifyingCost.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_REMAIN_QC")), 0, dt.Rows(0)("CA_REMAIN_QC")))
+                txtTWDV.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_TWDV")), 0, dt.Rows(0)("CA_TWDV")))
                 cboIncentive.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_INCENTIVE")), "", dt.Rows(0)("CA_INCENTIVE"))
-                txtTWDV.EditValue = IIf(IsDBNull(dt.Rows(0)("CA_TWDV")), 0, dt.Rows(0)("CA_TWDV"))
+                txtTWDV.EditValue = CInt(IIf(IsDBNull(dt.Rows(0)("CA_TWDV")), 0, dt.Rows(0)("CA_TWDV")))
 
                 If IsDBNull(dt.Rows(0)("CA_CTRL_TRANSFER")) = False AndAlso dt.Rows(0)("CA_CTRL_TRANSFER").ToString <> 0 Then
-                    chkControlTransfer.Checked = True
-                Else
                     chkControlTransfer.Checked = False
+                Else
+                    chkControlTransfer.Checked = True
                 End If
 
                 'cbo.Checked = CBool(IIf(IsDBNull(dt.Rows(0)("CA_CAEEO")), False, dt.Rows(0)("CA_CAEEO")))
@@ -157,6 +162,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             MsgBox(ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
@@ -169,6 +176,8 @@
         Try
             DefaultTaxPayer(cboRefNo)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -189,6 +198,8 @@
                 txtIA.EditValue = 0
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -229,13 +240,13 @@
                     chkREC.Visible = True
                     chkCAEEO.Visible = True
 
-
-
                 End If
             End If
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         Finally
             ShowMainCA()
@@ -261,6 +272,8 @@
             pnlMain.Enabled = True
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -276,6 +289,8 @@
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -287,10 +302,13 @@
                 txtRestrictedQua.EditValue = txtPurchaseAmountFA.EditValue
                 txtPurchaseAmount.EditValue = txtPurchaseAmountFA.EditValue
             End If
-           
+
 
         Catch ex As Exception
-
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+        Finally
+            CalcNonQualifyingCost()
         End Try
     End Sub
     Private Sub txtRestrictedQua_EditValueChanged(sender As Object, e As EventArgs) Handles txtRestrictedQua.EditValueChanged
@@ -306,34 +324,53 @@
                 txtRemainingQualifyingCost.EditValue = txtQualifyingCost.EditValue
                 txtTWDV.EditValue = 0
             End If
-          
+
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
 
     Private Sub txtQualifyingCost_EditValueChanged(sender As Object, e As EventArgs) Handles txtQualifyingCost.EditValueChanged
+        CalcNonQualifyingCost()
+    End Sub
+    Private Sub CalcNonQualifyingCost()
         Try
+            Dim PurchaseAmount As Decimal = 0
+            Dim QualifyingCost As Decimal = 0
+
+            If txtPurchaseAmount.EditValue IsNot Nothing AndAlso IsNumeric(txtPurchaseAmount.EditValue) Then
+                PurchaseAmount = CDec(txtPurchaseAmount.EditValue)
+            End If
+            If txtQualifyingCost.EditValue IsNot Nothing AndAlso IsNumeric(txtQualifyingCost.EditValue) Then
+                QualifyingCost = CDec(txtQualifyingCost.EditValue)
+            End If
+
             If chkREC.Checked = False Then
-                txtNonQualifyingCost.EditValue = CDec(txtPurchaseAmount.EditValue) - CDec(txtQualifyingCost.EditValue)
+
+                txtNonQualifyingCost.EditValue = PurchaseAmount - QualifyingCost
                 txtRemainingQualifyingCost.EditValue = txtQualifyingCost.EditValue
                 txtTWDV.EditValue = txtQualifyingCost.EditValue
             Else
                 txtIA.EditValue = 0
                 cboAA.EditValue = 0
                 txtQualifyingCost.EditValue = 0
-                txtNonQualifyingCost.EditValue = CDec(txtPurchaseAmount.EditValue) - CDec(txtQualifyingCost.EditValue)
+                Dim Total As Decimal = PurchaseAmount - QualifyingCost
+
+                If Total < 0 Then
+                    Total = 0
+                End If
+                txtNonQualifyingCost.EditValue = Total
                 txtRemainingQualifyingCost.EditValue = txtQualifyingCost.EditValue
                 txtTWDV.EditValue = 0
             End If
-           
+
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
-    End Sub
-
-    Private Sub TaxPayerFindBindingSource_CurrentChanged(sender As Object, e As EventArgs) Handles TaxPayerFindBindingSource.CurrentChanged
-
     End Sub
 
     Private Sub cboCategory_EditValueChanged(sender As Object, e As EventArgs) Handles cboCategory.EditValueChanged
@@ -344,6 +381,8 @@
             txtCategory.Text = value.ToString
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -366,6 +405,8 @@
                 dtDateofPurchase.ReadOnly = False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -381,9 +422,11 @@
                     txtTransferorName.EditValue = ""
                     txtTransferVal.EditValue = ""
                 End If
-             
+
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -392,7 +435,7 @@
         Try
             If chkREC.Checked Then
                 chkDeductAdjustIncome.Checked = True
-               
+
                 txtIA.EditValue = 0
                 cboAA.EditValue = 0
                 txtQualifyingCost.EditValue = 0
@@ -405,8 +448,10 @@
                 chkDeductAdjustIncome.Checked = False
                 txtQualifyingCost_EditValueChanged(sender, e)
             End If
-           
+
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -454,8 +499,9 @@
                             Dim rlst As DialogResult = MessageBox.Show("Do you want to create hire purchase?", "Capital Allowance", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
                             If rlst = Windows.Forms.DialogResult.Yes Then
-                                Dim frm As New frmHP_Add
-                                frm.ID_CA = ReturnID
+                                Dim frm As New frmHP_Add With {
+                                    .ID_CA = ReturnID
+                                }
                                 frm.ShowDialog()
                                 Me.LoadData()
                             Else
@@ -475,6 +521,8 @@
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -512,7 +560,7 @@
                     Return False
                 End If
             End If
-           
+
             If cboAA.EditValue Is Nothing OrElse cboAA.EditValue.ToString = "" Then
                 cboAA.Focus()
                 MsgBox("Annual allowance percentage cannot be empty.", MsgBoxStyle.Exclamation)
@@ -521,6 +569,8 @@
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
@@ -532,6 +582,8 @@
         Try
             LoadHPData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -553,6 +605,8 @@
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -583,6 +637,8 @@
 
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -593,7 +649,12 @@
                 cboPurchaseYE.EditValue = cboYA.EditValue
             End If
 
+            If isEdit = False Then
+                dtDateofPurchase.EditValue = New Date(cboYA.EditValue, 1, 1)
+            End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -603,6 +664,8 @@
         Try
             DefaultTaxPayer(sender)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -617,20 +680,24 @@
                 Exit Sub
             End If
 
-            Dim frm As New frmNote_CA
-            frm.RefNo = cboRefNo.EditValue
-            frm.YA = cboYA.EditValue
-            frm.CA_ID = ID
-            frm.TagID = ""
-            frm.Type_CA = 0
-            frm.RowDescription = txtAsset.EditValue & "(" & txtCategory.EditValue & ")"
+            Dim frm As New frmNote_CA With {
+                .RefNo = CType(cboRefNo.EditValue, String),
+                .YA = cboYA.EditValue,
+                .CA_ID = ID,
+                .TagID = "",
+                .Type_CA = 0,
+                .RowDescription = txtAsset.EditValue & "(" & txtCategory.EditValue & ")"
+            }
             frm.ShowDialog()
 
 
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
         End Try
     End Sub
+
 End Class

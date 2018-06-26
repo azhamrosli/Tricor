@@ -100,15 +100,15 @@ Module mdlencrypt
 
             ' Create uninitialized Rijndael encryption object.
             Dim symmetricKey As RijndaelManaged
-            symmetricKey = New RijndaelManaged()
-
             ' It is reasonable to set encryption mode to Cipher Block Chaining
             ' (CBC). Use default options for other symmetric key parameters.
-            symmetricKey.Mode = CipherMode.CBC
+            symmetricKey = New RijndaelManaged With {
+                .Mode = CipherMode.CBC
+            }
 
-            ' Generate encryptor from the existing key bytes and initialization 
-            ' vector. Key size will be defined based on the number of the key 
-            ' bytes.
+                ' Generate encryptor from the existing key bytes and initialization 
+                ' vector. Key size will be defined based on the number of the key 
+                ' bytes.
             Dim encryptor As ICryptoTransform
             encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes)
 
@@ -236,15 +236,15 @@ Module mdlencrypt
 
             ' Create uninitialized Rijndael encryption object.
             Dim symmetricKey As RijndaelManaged
-            symmetricKey = New RijndaelManaged()
-
             ' It is reasonable to set encryption mode to Cipher Block Chaining
             ' (CBC). Use default options for other symmetric key parameters.
-            symmetricKey.Mode = CipherMode.CBC
+            symmetricKey = New RijndaelManaged With {
+                .Mode = CipherMode.CBC
+            }
 
-            ' Generate decryptor from the existing key bytes and initialization 
-            ' vector. Key size will be defined based on the number of the key 
-            ' bytes.
+                ' Generate decryptor from the existing key bytes and initialization 
+                ' vector. Key size will be defined based on the number of the key 
+                ' bytes.
             Dim decryptor As ICryptoTransform
             decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes)
 

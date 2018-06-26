@@ -18,6 +18,8 @@ Public Class frmCA_Report_FA_Reconciliation
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -57,6 +59,8 @@ Public Class frmCA_Report_FA_Reconciliation
             End Select
             BandedGridView1.EndSort()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -80,6 +84,8 @@ Public Class frmCA_Report_FA_Reconciliation
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -97,6 +103,8 @@ Public Class frmCA_Report_FA_Reconciliation
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -132,6 +140,8 @@ Public Class frmCA_Report_FA_Reconciliation
             BandedGridView1.ExpandAllGroups()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -140,6 +150,8 @@ Public Class frmCA_Report_FA_Reconciliation
         Try
             BandedGridView1.CollapseAllGroups()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

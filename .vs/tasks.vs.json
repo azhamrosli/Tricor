@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-EasyTemplate_Taxcom",
+      "appliesTo": "EasyTemplate_Taxcom/",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-EasyTemplate_Taxcom",
+      "appliesTo": "EasyTemplate_Taxcom/",
+      "type": "launch"
+    }
+  ]
+}

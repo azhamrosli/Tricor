@@ -11,7 +11,7 @@ Imports DevExpress.XtraReports.UI
 
 Public Class frmCA_Report_Disposal
     Dim clsNote As clsNote_CA = Nothing
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Public ID As String = ""
     Public RefNo As String = ""
     Public YA As String = ""
@@ -35,6 +35,8 @@ Public Class frmCA_Report_Disposal
         Try
             ADO.Delete_CA_Report_TEMP(ID)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -42,6 +44,8 @@ Public Class frmCA_Report_Disposal
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -97,6 +101,8 @@ Public Class frmCA_Report_Disposal
             End Select
             GridView1.EndSort()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -186,9 +192,13 @@ Public Class frmCA_Report_Disposal
 
 
             Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
             End Try
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -197,6 +207,8 @@ Public Class frmCA_Report_Disposal
             PrintExport(True)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -205,6 +217,8 @@ Public Class frmCA_Report_Disposal
             GridView1.ExpandAllGroups()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -213,6 +227,8 @@ Public Class frmCA_Report_Disposal
         Try
             GridView1.CollapseAllGroups()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -363,10 +379,11 @@ Public Class frmCA_Report_Disposal
 
         ' Create header captions
         For i As Integer = 0 To colCount - 1
-            Dim label As New XRLabel()
-            label.Location = New Point(colWidth * i, 0)
-            label.Size = New Size(colWidth, 20)
-            label.Text = ds.Tables(0).Columns(i).Caption
+            Dim label As New XRLabel With {
+                .Location = New Point(colWidth * i, 0),
+                .Size = New Size(colWidth, 20),
+                .Text = ds.Tables(0).Columns(i).Caption
+            }
             If i > 0 Then
                 label.Borders = DevExpress.XtraPrinting.BorderSide.Right Or DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Bottom
             Else
@@ -378,9 +395,10 @@ Public Class frmCA_Report_Disposal
         Next i
         ' Create data-bound labels with different odd and even backgrounds
         For i As Integer = 0 To colCount - 1
-            Dim label As New XRLabel()
-            label.Location = New Point(colWidth * i, 0)
-            label.Size = New Size(colWidth, 20)
+            Dim label As New XRLabel With {
+                .Location = New Point(colWidth * i, 0),
+                .Size = New Size(colWidth, 20)
+            }
             label.DataBindings.Add("Text", Nothing, ds.Tables(0).Columns(i).Caption)
             label.OddStyleName = "OddStyle"
             label.EvenStyleName = "EvenStyle"
@@ -400,21 +418,25 @@ Public Class frmCA_Report_Disposal
         Dim colWidth As Integer = (rep.PageWidth - (rep.Margins.Left + rep.Margins.Right)) / colCount
 
         ' Create a table to represent headers
-        Dim tableHeader As New XRTable()
-        tableHeader.Height = 20
-        tableHeader.Width = (rep.PageWidth - (rep.Margins.Left + rep.Margins.Right))
-        Dim headerRow As New XRTableRow()
-        headerRow.Width = tableHeader.Width
+        Dim tableHeader As New XRTable With {
+            .Height = 20,
+            .Width = (rep.PageWidth - (rep.Margins.Left + rep.Margins.Right))
+        }
+        Dim headerRow As New XRTableRow With {
+            .Width = tableHeader.Width
+        }
         tableHeader.Rows.Add(headerRow)
 
         tableHeader.BeginInit()
 
         ' Create a table to display data
-        Dim tableDetail As New XRTable()
-        tableDetail.Height = 20
-        tableDetail.Width = (rep.PageWidth - (rep.Margins.Left + rep.Margins.Right))
-        Dim detailRow As New XRTableRow()
-        detailRow.Width = tableDetail.Width
+        Dim tableDetail As New XRTable With {
+            .Height = 20,
+            .Width = (rep.PageWidth - (rep.Margins.Left + rep.Margins.Right))
+        }
+        Dim detailRow As New XRTableRow With {
+            .Width = tableDetail.Width
+        }
         tableDetail.Rows.Add(detailRow)
         tableDetail.EvenStyleName = "EvenStyle"
         tableDetail.OddStyleName = "OddStyle"
@@ -423,12 +445,14 @@ Public Class frmCA_Report_Disposal
 
         ' Create table cells, fill the header cells with text, bind the cells to data
         For i As Integer = 0 To colCount - 1
-            Dim headerCell As New XRTableCell()
-            headerCell.Width = colWidth
-            headerCell.Text = ds.Tables(0).Columns(i).Caption
+            Dim headerCell As New XRTableCell With {
+                .Width = colWidth,
+                .Text = ds.Tables(0).Columns(i).Caption
+            }
 
-            Dim detailCell As New XRTableCell()
-            detailCell.Width = colWidth
+            Dim detailCell As New XRTableCell With {
+                .Width = colWidth
+            }
             detailCell.DataBindings.Add("Text", Nothing, ds.Tables(0).Columns(i).Caption)
             If i = 0 Then
                 headerCell.Borders = DevExpress.XtraPrinting.BorderSide.Left Or DevExpress.XtraPrinting.BorderSide.Top Or DevExpress.XtraPrinting.BorderSide.Bottom
@@ -452,18 +476,19 @@ Public Class frmCA_Report_Disposal
         Dim ds As DataSet = (CType(rep.DataSource, DataSet))
 
         ' Create a chart
-        Dim xrChart1 As XRChart = New DevExpress.XtraReports.UI.XRChart()
+        Dim xrChart1 As XRChart = New DevExpress.XtraReports.UI.XRChart With {
+            .Location = New System.Drawing.Point(0, 0),
+            .Name = "xrChart1"
+        }
 
-        xrChart1.Location = New System.Drawing.Point(0, 0)
-        xrChart1.Name = "xrChart1"
-
-        ' Create chart series and bind them to data
+            ' Create chart series and bind them to data
         For i As Integer = 1 To ds.Tables(0).Columns.Count - 1
             If ds.Tables(0).Columns(i).DataType Is GetType(Integer) OrElse ds.Tables(0).Columns(i).DataType Is GetType(Double) Then
-                Dim series As New DevExpress.XtraCharts.Series(ds.Tables(0).Columns(i).Caption, DevExpress.XtraCharts.ViewType.Bar)
-                series.DataSource = ds.Tables(0)
-                series.ArgumentDataMember = ds.Tables(0).Columns(0).Caption
-                series.PointOptionsTypeName = "PointOptions"
+                Dim series As New DevExpress.XtraCharts.Series(ds.Tables(0).Columns(i).Caption, DevExpress.XtraCharts.ViewType.Bar) With {
+                    .DataSource = ds.Tables(0),
+                    .ArgumentDataMember = ds.Tables(0).Columns(0).Caption,
+                    .PointOptionsTypeName = "PointOptions"
+                }
                 series.ValueDataMembers(0) = ds.Tables(0).Columns(i).Caption
                 xrChart1.Series.Add(series)
 

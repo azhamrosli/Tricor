@@ -143,7 +143,7 @@ Public Class rpt_CP204_Breakdown
         Me.XrLabel6.BackColor = System.Drawing.Color.Transparent
         Me.XrLabel6.Dpi = 254.0!
         Me.XrLabel6.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(511.626!, 435.4749!)
+        Me.XrLabel6.LocationFloat = New DevExpress.Utils.PointFloat(603.879!, 435.4749!)
         Me.XrLabel6.Name = "XrLabel6"
         Me.XrLabel6.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
         Me.XrLabel6.SizeF = New System.Drawing.SizeF(248.916!, 67.60419!)
@@ -158,7 +158,7 @@ Public Class rpt_CP204_Breakdown
         Me.XrLabel5.BackColor = System.Drawing.Color.Transparent
         Me.XrLabel5.Dpi = 254.0!
         Me.XrLabel5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(1035.242!, 435.4749!)
+        Me.XrLabel5.LocationFloat = New DevExpress.Utils.PointFloat(1127.495!, 435.475!)
         Me.XrLabel5.Name = "XrLabel5"
         Me.XrLabel5.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
         Me.XrLabel5.SizeF = New System.Drawing.SizeF(248.92!, 67.60419!)
@@ -349,7 +349,7 @@ Public Class rpt_CP204_Breakdown
         Me.XrLabel4.BackColor = System.Drawing.Color.Transparent
         Me.XrLabel4.Dpi = 254.0!
         Me.XrLabel4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold)
-        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(1284.162!, 435.4749!)
+        Me.XrLabel4.LocationFloat = New DevExpress.Utils.PointFloat(1376.415!, 435.475!)
         Me.XrLabel4.Name = "XrLabel4"
         Me.XrLabel4.Padding = New DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254.0!)
         Me.XrLabel4.SizeF = New System.Drawing.SizeF(248.92!, 67.60419!)
@@ -409,7 +409,7 @@ Public Class rpt_CP204_Breakdown
         '
         'tableCell13
         '
-        Me.tableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BORANG_CP204_TRICOR_BREAKDOWN_REPORT.CP_INSTALLMENT_AMOUNT")})
+        Me.tableCell13.DataBindings.AddRange(New DevExpress.XtraReports.UI.XRBinding() {New DevExpress.XtraReports.UI.XRBinding("Text", Nothing, "BORANG_CP204_TRICOR_BREAKDOWN_REPORT.CP_INSTALLMENT_AMOUNT", "{0:n2}")})
         Me.tableCell13.Dpi = 254.0!
         Me.tableCell13.Name = "tableCell13"
         Me.tableCell13.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight
@@ -710,6 +710,8 @@ Public Class rpt_CP204_Breakdown
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -725,6 +727,8 @@ Public Class rpt_CP204_Breakdown
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -741,6 +745,8 @@ Public Class rpt_CP204_Breakdown
                 End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

@@ -3,7 +3,7 @@ Imports DevExpress.XtraGrid.Views.Grid
 
 Public Class frmPNL_Import
     Public FileURL As String = Nothing
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Dim dtTableSheet As DataTable = Nothing
     Public Property DataView_TableSheet() As DataTable
         Get
@@ -25,6 +25,8 @@ Public Class frmPNL_Import
 
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -68,6 +70,8 @@ Public Class frmPNL_Import
 
             Import_Data()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -109,6 +113,8 @@ Public Class frmPNL_Import
                 ds = Nothing
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -140,6 +146,8 @@ Public Class frmPNL_Import
                 End Select
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -160,6 +168,8 @@ Public Class frmPNL_Import
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

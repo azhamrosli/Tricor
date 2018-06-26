@@ -3,7 +3,7 @@
 Public Class frmCP204_PenaltyLate
     Public ID As Integer = 0
     Public isEdit As Boolean = False
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
 
     Public Const MainTable As String = "BORANG_CP204_TRICOR"
     Public Const MainTable_Details As String = "BORANG_CP204_TRICOR_BREAKDOWN"
@@ -12,6 +12,8 @@ Public Class frmCP204_PenaltyLate
         Try
             LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -46,6 +48,8 @@ Public Class frmCP204_PenaltyLate
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -53,6 +57,8 @@ Public Class frmCP204_PenaltyLate
         Try
             txtRefNo.EditValue = cboRefNo.EditValue
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         Finally
             GenerateBreakDown()
@@ -138,6 +144,8 @@ Public Class frmCP204_PenaltyLate
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -187,6 +195,8 @@ Public Class frmCP204_PenaltyLate
                 'End If
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
 

@@ -2,7 +2,7 @@
 Imports CrystalDecisions.Shared
 
 Public Class frm_rptLampiranA1
-    Dim ErrorLog As clsError = Nothing
+    Dim ErrorLog As ClsError = Nothing
     Private Sub frm_rptLampiranA_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Try
             e.Cancel = True
@@ -10,6 +10,8 @@ Public Class frm_rptLampiranA1
 
             frmStartup.Close()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -18,6 +20,8 @@ Public Class frm_rptLampiranA1
             Timer1.Enabled = True
             Timer1.Start()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -102,6 +106,8 @@ Public Class frm_rptLampiranA1
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(ex.Message)
         End Try
     End Sub
@@ -342,6 +348,8 @@ Public Class frm_rptLampiranA1
             Next
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(System.Reflection.MethodBase.GetCurrentMethod().Name & vbCrLf & ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
@@ -1328,6 +1336,8 @@ Public Class frm_rptLampiranA1
             Next
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(System.Reflection.MethodBase.GetCurrentMethod().Name & vbCrLf & ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
@@ -2701,6 +2711,8 @@ Public Class frm_rptLampiranA1
 
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             MsgBox(System.Reflection.MethodBase.GetCurrentMethod().Name & vbCrLf & ex.Message, MsgBoxStyle.Critical)
         End Try
     End Sub
@@ -2710,6 +2722,8 @@ Public Class frm_rptLampiranA1
             Timer1.Stop()
             Me.LoadData()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

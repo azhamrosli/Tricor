@@ -11,7 +11,7 @@
     <AssemblyName>ET_Taxcom</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <OptionExplicit>On</OptionExplicit>
+    <OptionExplicit>Off</OptionExplicit>
     <OptionCompare>Text</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -44,6 +44,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>
     </DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,6 +59,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>
     </DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <MyType>WindowsForms</MyType>
@@ -160,8 +166,12 @@
     <Reference Include="DevExpress.XtraNavBar.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraPdfViewer.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPdfViewer.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
@@ -177,7 +187,9 @@
     <Reference Include="DevExpress.XtraRichEdit.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.XtraScheduler.v17.1.Reporting.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -222,6 +234,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="C\Adjusted Income\dsAdjustedIncome.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsAdjustedIncome.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_AddMiningExp.Designer.vb">
+      <DependentUpon>ucAI_AddMiningExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_AddMiningExp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_OthExp.Designer.vb">
+      <DependentUpon>ucAI_OthExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_OthExp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_OtherDeduc.Designer.vb">
+      <DependentUpon>ucAI_OtherDeduc.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_OtherDeduc.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_RevenueExp.Designer.vb">
+      <DependentUpon>ucAI_RevenueExp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_RevenueExp.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_MiningAllowing.Designer.vb">
+      <DependentUpon>ucAI_MiningAllowing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_MiningAllowing.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_TaxIn.Designer.vb">
+      <DependentUpon>ucAI_TaxIn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_TaxIn.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_NALoss.Designer.vb">
+      <DependentUpon>ucAI_NALoss.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_NALoss.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_SurplusMiningAllowance.Designer.vb">
+      <DependentUpon>ucAI_SurplusMiningAllowance.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\ucAI_SurplusMiningAllowance.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="C\BalanceSheet\dsBalanceSheet.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -300,46 +365,46 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="C\CA\mdlCA.vb" />
-    <Compile Include="C\CA\rptCAReport.vb">
+    <Compile Include="C\CA\Report\rptCAReport.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rptCA_Note.Designer.vb">
+    <Compile Include="C\CA\Report\rptCA_Note.Designer.vb">
       <DependentUpon>rptCA_Note.vb</DependentUpon>
     </Compile>
-    <Compile Include="C\CA\rptCA_Note.vb">
+    <Compile Include="C\CA\Report\rptCA_Note.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CAAnalysis.Designer.vb">
+    <Compile Include="C\CA\Report\rpt_CAAnalysis.Designer.vb">
       <DependentUpon>rpt_CAAnalysis.vb</DependentUpon>
     </Compile>
-    <Compile Include="C\CA\rpt_CAAnalysis.vb">
+    <Compile Include="C\CA\Report\rpt_CAAnalysis.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CAByCategory.vb">
+    <Compile Include="C\CA\Report\rpt_CAByCategory.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CAByRate.vb">
+    <Compile Include="C\CA\Report\rpt_CAByRate.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CAControlTransfer.vb">
+    <Compile Include="C\CA\Report\rpt_CAControlTransfer.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CAControlTransfer_Out.vb">
+    <Compile Include="C\CA\Report\rpt_CAControlTransfer_Out.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CASummaryQE.Designer.vb">
+    <Compile Include="C\CA\Report\rpt_CASummaryQE.Designer.vb">
       <DependentUpon>rpt_CASummaryQE.vb</DependentUpon>
     </Compile>
-    <Compile Include="C\CA\rpt_CASummaryQE.vb">
+    <Compile Include="C\CA\Report\rpt_CASummaryQE.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_Disposal.vb">
+    <Compile Include="C\CA\Report\rpt_Disposal.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_CAWrittenOff.vb">
+    <Compile Include="C\CA\Report\rpt_CAWrittenOff.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\CA\rpt_HP.vb">
+    <Compile Include="C\CA\Report\rpt_HP.vb">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="C\CA\ucCA.Designer.vb">
@@ -368,6 +433,24 @@
     <Compile Include="C\CP204\rpt_CP204_Note.vb">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="C\MasterData\Company Profile\frmTaxpayerInformation_Add.Designer.vb">
+      <DependentUpon>frmTaxpayerInformation_Add.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\MasterData\Company Profile\frmTaxpayerInformation_Add.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\MasterData\Company Profile\ucTaxPayerInformation.Designer.vb">
+      <DependentUpon>ucTaxPayerInformation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\MasterData\Company Profile\ucTaxPayerInformation.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C\MasterData\ucBank.Designer.vb">
+      <DependentUpon>ucBank.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\MasterData\ucBank.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="C\Movement\clsNote_Movement.vb" />
     <Compile Include="C\Movement\dsMovement.vb">
       <DependentUpon>dsMovement.xsd</DependentUpon>
@@ -395,6 +478,12 @@
     </Compile>
     <Compile Include="C\Note\frmNote_CP204.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL_Details.Designer.vb">
+      <DependentUpon>rptPNL_Details.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\PNL\Report\rptPNL_Details.vb">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="C\PNL\Report\rptPNL_Note.Designer.vb">
       <DependentUpon>rptPNL_Note.vb</DependentUpon>
@@ -497,12 +586,6 @@
     <Compile Include="C\PNL\Report\rptPNL.vb">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="C\PNL\Report\rptPNL_Details.Designer.vb">
-      <DependentUpon>rptPNL_Details.vb</DependentUpon>
-    </Compile>
-    <Compile Include="C\PNL\Report\rptPNL_Details.vb">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="C\PNL\Report\rptPNL_InterestResict.Designer.vb">
       <DependentUpon>rptPNL_InterestResict.vb</DependentUpon>
     </Compile>
@@ -542,6 +625,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dsTaxcomputation.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\frmAdjustedIncome.Designer.vb">
+      <DependentUpon>frmAdjustedIncome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="C\Adjusted Income\frmAdjustedIncome.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="EnumModule.vb" />
     <Compile Include="C\CA\frmCA_Add3.Designer.vb">
@@ -1138,6 +1227,30 @@
     <Compile Include="ucSQLScript.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_AddMiningExp.resx">
+      <DependentUpon>ucAI_AddMiningExp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_OthExp.resx">
+      <DependentUpon>ucAI_OthExp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_OtherDeduc.resx">
+      <DependentUpon>ucAI_OtherDeduc.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_RevenueExp.resx">
+      <DependentUpon>ucAI_RevenueExp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_MiningAllowing.resx">
+      <DependentUpon>ucAI_MiningAllowing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_TaxIn.resx">
+      <DependentUpon>ucAI_TaxIn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_NALoss.resx">
+      <DependentUpon>ucAI_NALoss.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\ucAI_SurplusMiningAllowance.resx">
+      <DependentUpon>ucAI_SurplusMiningAllowance.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\BalanceSheet\frmBalanceSheet.resx">
       <DependentUpon>frmBalanceSheet.vb</DependentUpon>
     </EmbeddedResource>
@@ -1183,37 +1296,37 @@
     <EmbeddedResource Include="C\CA\frmHP_Add.resx">
       <DependentUpon>frmHP_Add.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rptCAReport.resx">
+    <EmbeddedResource Include="C\CA\Report\rptCAReport.resx">
       <DependentUpon>rptCAReport.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rptCA_Note.resx">
+    <EmbeddedResource Include="C\CA\Report\rptCA_Note.resx">
       <DependentUpon>rptCA_Note.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CAAnalysis.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CAAnalysis.resx">
       <DependentUpon>rpt_CAAnalysis.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CAByCategory.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CAByCategory.resx">
       <DependentUpon>rpt_CAByCategory.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CAByRate.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CAByRate.resx">
       <DependentUpon>rpt_CAByRate.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CAControlTransfer.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CAControlTransfer.resx">
       <DependentUpon>rpt_CAControlTransfer.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CAControlTransfer_Out.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CAControlTransfer_Out.resx">
       <DependentUpon>rpt_CAControlTransfer_Out.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CASummaryQE.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CASummaryQE.resx">
       <DependentUpon>rpt_CASummaryQE.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_Disposal.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_Disposal.resx">
       <DependentUpon>rpt_Disposal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_CAWrittenOff.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_CAWrittenOff.resx">
       <DependentUpon>rpt_CAWrittenOff.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\CA\rpt_HP.resx">
+    <EmbeddedResource Include="C\CA\Report\rpt_HP.resx">
       <DependentUpon>rpt_HP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\CA\ucCA.resx">
@@ -1249,6 +1362,15 @@
     <EmbeddedResource Include="C\DeemedInterest\ucDeemedInterest.resx">
       <DependentUpon>ucDeemedInterest.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="C\MasterData\Company Profile\frmTaxpayerInformation_Add.resx">
+      <DependentUpon>frmTaxpayerInformation_Add.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\MasterData\Company Profile\ucTaxPayerInformation.resx">
+      <DependentUpon>ucTaxPayerInformation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\MasterData\ucBank.resx">
+      <DependentUpon>ucBank.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="C\Movement\rptMovement_Note.resx">
       <DependentUpon>rptMovement_Note.vb</DependentUpon>
     </EmbeddedResource>
@@ -1257,6 +1379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="C\Note\frmNote_CP204.resx">
       <DependentUpon>frmNote_CP204.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\PNL\Report\rptPNL_Details.resx">
+      <DependentUpon>rptPNL_Details.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\rptPNL_Note.resx">
       <DependentUpon>rptPNL_Note.vb</DependentUpon>
@@ -1274,9 +1399,6 @@
     <EmbeddedResource Include="C\PNL\Report\rptPNL.resx">
       <DependentUpon>rptPNL.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="C\PNL\Report\rptPNL_Details.resx">
-      <DependentUpon>rptPNL_Details.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="C\PNL\Report\rptPNL_InterestResict.resx">
       <DependentUpon>rptPNL_InterestResict.vb</DependentUpon>
     </EmbeddedResource>
@@ -1291,6 +1413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="C\Report\rpt_TableofContent.resx">
       <DependentUpon>rpt_TableofContent.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C\Adjusted Income\frmAdjustedIncome.resx">
+      <DependentUpon>frmAdjustedIncome.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
@@ -1580,6 +1705,18 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram4.cd" />
+    <None Include="C\Adjusted Income\dsAdjustedIncome.xsc">
+      <DependentUpon>dsAdjustedIncome.xsd</DependentUpon>
+    </None>
+    <None Include="C\Adjusted Income\dsAdjustedIncome.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsAdjustedIncome.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="C\Adjusted Income\dsAdjustedIncome.xss">
+      <DependentUpon>dsAdjustedIncome.xsd</DependentUpon>
+    </None>
     <None Include="C\BalanceSheet\dsBalanceSheet.xsc">
       <DependentUpon>dsBalanceSheet.xsd</DependentUpon>
     </None>
@@ -1730,10 +1867,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="C\CA\Report\" />
     <Folder Include="C\DeemedInterest\Report\" />
     <Folder Include="C\Income Calculation\" />
-    <Folder Include="C\MasterData\" />
     <Folder Include="C\Report\Reporting\" />
   </ItemGroup>
   <ItemGroup>

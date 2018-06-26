@@ -20,6 +20,8 @@
         Try
             TC_CB_RA_BAL_BF = CDec(lbl_TC_CB_RA_BAL_BF.Text)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -27,6 +29,8 @@
         Try
             TC_RA_QU_AMOUNT = CDec(lblTC_RA_QUA_AMOUNT.Text)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -35,6 +39,8 @@
         Try
             e.Value = TC_RA_QU_AMOUNT + TC_CB_RA_BAL_BF + LESS_DRAWAL
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -43,6 +49,8 @@
         Try
             Total_WithDrawal += CDec(lbl_WithDrawal_Amount.Text)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -51,6 +59,8 @@
         Try
             Total_Adjustment += CDec(lbl_Adjustment_Amount.Text)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -59,6 +69,8 @@
         Try
             TC_CB_RA_CURR = CDec(lbl_TC_CB_RA_CURR.Text)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -67,6 +79,8 @@
         Try
             '  lbl_Total.Text = 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

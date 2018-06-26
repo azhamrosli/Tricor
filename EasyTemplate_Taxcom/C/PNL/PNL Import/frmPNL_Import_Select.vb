@@ -19,6 +19,8 @@ Public Class frmPNL_Import_Select
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -79,6 +81,8 @@ Public Class frmPNL_Import_Select
             'End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -97,6 +101,8 @@ Public Class frmPNL_Import_Select
 
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -115,6 +121,8 @@ Public Class frmPNL_Import_Select
 
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -130,6 +138,8 @@ Public Class frmPNL_Import_Select
             DsPNL1.Tables("PNLImport_TableList").Rows.Clear()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -145,6 +155,8 @@ Public Class frmPNL_Import_Select
             DsPNL1.Tables("PNLImport_TableList_Select").Rows.Clear()
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -153,6 +165,8 @@ Public Class frmPNL_Import_Select
         Try
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -165,11 +179,14 @@ Public Class frmPNL_Import_Select
                 Exit Sub
             End If
 
-            Dim frm As New frmPNL_Import
-            frm.FileURL = txtFileUrl.EditValue
-            frm.DataView_TableSheet = DsPNL1.Tables("PNLImport_TableList_Select")
+            Dim frm As New frmPNL_Import With {
+                .FileURL = txtFileUrl.EditValue,
+                .DataView_TableSheet = DsPNL1.Tables("PNLImport_TableList_Select")
+            }
             frm.ShowDialog()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub

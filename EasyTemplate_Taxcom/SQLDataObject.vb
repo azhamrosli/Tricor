@@ -34,10 +34,10 @@ Public Class SQLDataObject
             strSQLConstr = strConn 'DecryptConnectionString(strConn)
         End Set
     End Property
-    Private Sub CreateErrorLog(ByVal MethodName As String, ByVal ErrorCode As String, ByVal Message As String, ByRef ErrorLog As clsError)
+    Private Sub CreateErrorLog(ByVal MethodName As String, ByVal ErrorCode As String, ByVal Message As String, ByRef ErrorLog As ClsError)
         Try
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = MethodName
@@ -48,14 +48,16 @@ Public Class SQLDataObject
 
             AddListOfError(ErrorLog)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             ADO.EventLogging(System.Reflection.MethodBase.GetCurrentMethod().Name & " " & MethodName, ex.HResult.ToString, ex.Message, 2)
         End Try
@@ -64,7 +66,7 @@ Public Class SQLDataObject
 #End Region
 
 #Region " Functions & Subroutines"
-    Public Function GetSQLDataTable(ByVal Command As SqlCommand, ByVal oConn As SqlConnection, Optional MethodName As String = "", Optional ByRef ErrorLog As clsError = Nothing) As DataTable
+    Public Function GetSQLDataTable(ByVal Command As SqlCommand, ByVal oConn As SqlConnection, Optional MethodName As String = "", Optional ByRef ErrorLog As ClsError = Nothing) As DataTable
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -86,7 +88,9 @@ Public Class SQLDataObject
                 Return Nothing
             End If
         Catch ex As Exception
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return Nothing
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -96,7 +100,7 @@ Public Class SQLDataObject
     End Function
     Public Function ExecuteSQLCmd_NOIDReturn(ByVal Command As SqlCommand, ByVal oConn As SqlConnection,
                                    Optional MethodName As String = "",
-                                  Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                  Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -113,7 +117,9 @@ Public Class SQLDataObject
 
             Return True
         Catch ex As Exception
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -123,7 +129,7 @@ Public Class SQLDataObject
     End Function
     Public Function ExecuteSQLCmd(ByVal Command As SqlCommand, ByVal oConn As SqlConnection,
                                    Optional MethodName As String = "",
-                                  Optional ByRef ErrorLog As clsError = Nothing, Optional ByRef ReturnID As Integer = -1) As Boolean
+                                  Optional ByRef ErrorLog As ClsError = Nothing, Optional ByRef ReturnID As Integer = -1) As Boolean
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -143,8 +149,10 @@ Public Class SQLDataObject
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -152,7 +160,7 @@ Public Class SQLDataObject
             End If
         End Try
     End Function
-    Public Function GetSQLDataSet(ByVal strSQL As String, ByVal oConn As SqlConnection, Optional MethodName As String = "", Optional ByRef ErrorLog As clsError = Nothing) As DataSet
+    Public Function GetSQLDataSet(ByVal strSQL As String, ByVal oConn As SqlConnection, Optional MethodName As String = "", Optional ByRef ErrorLog As ClsError = Nothing) As DataSet
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -174,7 +182,9 @@ Public Class SQLDataObject
             End If
 
         Catch ex As Exception
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return Nothing
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -185,7 +195,7 @@ Public Class SQLDataObject
     End Function
     Public Sub UpdateSQLDataTableTransction(ByVal strDelTbl As ArrayList, ByVal odt As ArrayList, _
                                             ByVal strSelectSQL As ArrayList, ByVal oConn As SqlConnection, _
-                                             Optional ByRef ErrorLog As clsError = Nothing)
+                                             Optional ByRef ErrorLog As ClsError = Nothing)
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -200,12 +210,15 @@ Public Class SQLDataObject
         'Delete statement arraylist size is independent
         Try
             For i = 0 To strDelTbl.Count - 1
-                Dim Cmd As New SqlCommand(strDelTbl(i))
-                Cmd.Connection = oConn
-                Cmd.Transaction = txn
+                Dim Cmd As New SqlCommand(strDelTbl(i)) With {
+                    .Connection = oConn,
+                    .Transaction = txn
+                }
                 Cmd.ExecuteNonQuery()
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             txn.Rollback()
             Exit Sub
@@ -220,6 +233,8 @@ Public Class SQLDataObject
                 da.Update(odt(i))
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             txn.Rollback()
             Exit Sub
@@ -231,7 +246,7 @@ Public Class SQLDataObject
     End Sub
     'Above function using dataset instead of datatable
     Public Sub UpdateSQLDataTable(ByVal odt As DataTable, ByVal oConn As SqlConnection, ByVal strSelectSQL As String, _
-                                   Optional ByRef ErrorLog As clsError = Nothing)
+                                   Optional ByRef ErrorLog As ClsError = Nothing)
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             Exit Sub
@@ -242,12 +257,14 @@ Public Class SQLDataObject
             Dim cb As New SqlCommandBuilder(da)
             da.Update(odt)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
         End Try
 
     End Sub
     'Insert, update & delete using dataset and command builder
-    Public Sub CBUpdateSQLTrans(ByVal odt As DataTable, ByVal oConn As SqlConnection, ByVal strSelectSQL As String, Optional ByRef ErrorLog As clsError = Nothing)
+    Public Sub CBUpdateSQLTrans(ByVal odt As DataTable, ByVal oConn As SqlConnection, ByVal strSelectSQL As String, Optional ByRef ErrorLog As ClsError = Nothing)
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -273,6 +290,8 @@ Public Class SQLDataObject
             If Not InsertedRows Is Nothing Then da.Update(InsertedRows)
             If Not DeletedRows Is Nothing Then da.Update(DeletedRows)
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             txn.Rollback()
             DBErrorMsg = ex.Message.ToString
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
@@ -285,7 +304,7 @@ Public Class SQLDataObject
         End If
     End Sub
     Public Function ExecuteSQLTransactionBySQLCommand_NOReturnID(ByVal ListofSQLCmd As List(Of SqlCommand), ByVal oConn As SqlConnection,
-                                                     Optional ByVal MethodName As String = "", Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                                     Optional ByVal MethodName As String = "", Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         Dim ReturnID As Integer = -1
         Dim SQL As String = ""
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
@@ -310,8 +329,10 @@ Public Class SQLDataObject
             txn.Commit() 'Commit Trans 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -320,7 +341,7 @@ Public Class SQLDataObject
         End Try
     End Function
     Public Function ExecuteSQLTransactionBySQLCommand(ByVal ListofSQLCmd As List(Of SqlCommand), ByVal oConn As SqlConnection,
-                                                      Optional ByVal MethodName As String = "", Optional ByRef ErrorLog As clsError = Nothing,
+                                                      Optional ByVal MethodName As String = "", Optional ByRef ErrorLog As ClsError = Nothing,
                                                       Optional ByRef ListOfReturnID As List(Of Integer) = Nothing) As Boolean
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
@@ -350,8 +371,10 @@ Public Class SQLDataObject
             txn.Commit() 'Commit Trans 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
 
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, "Line No =" & ReturnID & " | SQL =" & SQL & " | Error=" & ex.Message, ErrorLog)
             Return False
         Finally
             If oConn IsNot Nothing AndAlso oConn.State = ConnectionState.Open Then
@@ -360,7 +383,7 @@ Public Class SQLDataObject
         End Try
     End Function
     Public Function ExecuteSQL(ByVal strSQL As String, ByVal oConn As SqlConnection, _
-                                 Optional MethodName As String = "", Optional ByRef ErrorLog As clsError = Nothing) As Integer
+                                 Optional MethodName As String = "", Optional ByRef ErrorLog As ClsError = Nothing) As Integer
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -368,14 +391,17 @@ Public Class SQLDataObject
             End If
         End If
 
-        Dim Cmd As New SqlCommand
-        Cmd.CommandText = strSQL
-        Cmd.CommandType = CommandType.Text
-        Cmd.Connection = oConn
+        Dim Cmd As New SqlCommand With {
+            .CommandText = strSQL,
+            .CommandType = CommandType.Text,
+            .Connection = oConn
+        }
         Try
             Return Cmd.ExecuteNonQuery() 'The number of rows affected.
         Catch ex As Exception
-            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
+            CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name & " ||| " & MethodName, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return -1
         End Try
     End Function
@@ -388,7 +414,7 @@ Public Class SQLDataObject
         End If
     End Function
     Public Function CreateInsertCommand_ByDataTable(ByVal dt As DataTable, ByVal oConn As SqlConnection, ByVal ExceptionCol As List(Of String), _
-                                              ByRef ListOfSQLcmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                              ByRef ListOfSQLcmd As List(Of SqlCommand), Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
 
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -432,9 +458,10 @@ Public Class SQLDataObject
                     Next
                     tmpSQL += ")"
 
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = tmpSQL
-                    SQLcmd.Connection = oConn
+                    SQLcmd = New SqlCommand With {
+                        .CommandText = tmpSQL,
+                        .Connection = oConn
+                    }
 
                     For x As Integer = 0 To ListofColnotExp.Count - 1
                         Select Case ListofColnotExp(x).DataType
@@ -462,12 +489,14 @@ Public Class SQLDataObject
             End If
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         End Try
     End Function
     Public Function CreateUpdateCommand_ByDataTable(ByVal dt As DataTable, ByVal oConn As SqlConnection, ByVal ExceptionCol As List(Of String), _
-                                             ByVal colID As String, ByRef ListOfSQLcmd As List(Of SqlCommand), Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                             ByVal colID As String, ByRef ListOfSQLcmd As List(Of SqlCommand), Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
                 Return Nothing
@@ -502,9 +531,10 @@ Public Class SQLDataObject
 
                     tmpSQL += " WHERE " & colID & "=@" & colID
 
-                    SQLcmd = New SqlCommand
-                    SQLcmd.CommandText = tmpSQL
-                    SQLcmd.Connection = oConn
+                    SQLcmd = New SqlCommand With {
+                        .CommandText = tmpSQL,
+                        .Connection = oConn
+                    }
 
                     For x As Integer = 0 To ListofColnotExp.Count - 1
                         Select Case ListofColnotExp(x).DataType
@@ -557,6 +587,8 @@ Public Class SQLDataObject
             End If
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         End Try
@@ -593,6 +625,8 @@ Public Class SQLDataObject
             ' if we get here, we can commit the transaction (if there is one)
             If Not (tr Is Nothing) Then tr.Commit()
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             ' in this case we must rollback the transaction 
             ' (if there is one) and swallow the exception
             If Not (tr Is Nothing) Then tr.Rollback()
@@ -604,7 +638,7 @@ Public Class SQLDataObject
     End Function
     Public Function WriteDateTableXML(ByVal Command As SqlCommand, ByVal oConn As SqlConnection, ByVal FilePath As String, Optional Type As Integer = 0,
                                    Optional ByVal MethodName As String = "",
-                                  Optional ByRef ErrorLog As clsError = Nothing) As Boolean
+                                  Optional ByRef ErrorLog As ClsError = Nothing) As Boolean
         'NOTE := FILE PATH MUST BE FULL
         If oConn Is Nothing OrElse oConn.State = ConnectionState.Closed OrElse oConn.State = ConnectionState.Broken Then
             If mdlProcess.DBConnection(oConn, ErrorLog) = False Then
@@ -643,6 +677,8 @@ Public Class SQLDataObject
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+            st = New StackTrace(ex, True)
             CreateErrorLog(System.Reflection.MethodBase.GetCurrentMethod().Name, ex.GetHashCode.ToString, ex.Message, ErrorLog)
             Return False
         Finally

@@ -7,7 +7,7 @@ Imports Microsoft.Reporting.WinForms
 
 Module mdlPNL2
 
-    Public Sub ClearMemoryDataset(Optional ByRef ErrorLog As clsError = Nothing)
+    Public Sub ClearMemoryDataset(Optional ByRef ErrorLog As ClsError = Nothing)
         Try
             dsDataSet.Tables("PLFST_SALES_DETAIL").Rows.Clear()
             dsDataSet.Tables("PLFST_SALES").Rows.Clear()
@@ -118,21 +118,23 @@ Module mdlPNL2
 
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
         End Try
     End Sub
     Public Function PNL_GetSaveData(ByVal PNL_Key As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                     ByVal oConn As SqlConnection, ByRef ListofCmd As List(Of SqlCommand), _
                                     ByVal RefNo As String, ByVal YA As String, _
-                                    Optional ByRef isIncludeInReport As Boolean = True, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                    Optional ByRef isIncludeInReport As Boolean = True, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim contrl As Control = Nothing
             Dim ds As DataSet = Nothing
@@ -1288,14 +1290,16 @@ Module mdlPNL2
 
             Return False
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return False
         End Try
@@ -1315,11 +1319,13 @@ Module mdlPNL2
             End Select
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return True
         End Try
     End Function
 
-    Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function PNL_ReCalcAll_Amount(ByVal Type As TaxComPNLEnuItem, ByRef ds As DataSet, ByRef txtAmount As DevExpress.XtraEditors.TextEdit, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Select Case Type
                 Case TaxComPNLEnuItem.SALES
@@ -1454,21 +1460,23 @@ Module mdlPNL2
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return True
         End Try
     End Function
     Public Function PNL_GetData(ByVal PNL_KEY As Decimal, ByVal Type As TaxComPNLEnuItem, _
                                     ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, _
-                                    Optional ByRef Errorlog As clsError = Nothing, Optional ByRef isHaveData As Boolean = False, _
+                                    Optional ByRef Errorlog As ClsError = Nothing, Optional ByRef isHaveData As Boolean = False, _
                                     Optional ByVal isPrint As Boolean = False, Optional clsNote As clsNote_PNL = Nothing) As Boolean
         Dim strError As String = Nothing
         Try
@@ -1510,7 +1518,7 @@ Module mdlPNL2
                                 If dtNote IsNot Nothing Then
                                     NoteOrder += 1
 
-                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
                                 End If
                             End If
                             ds.Tables("PLFST_SALES").Rows.Add(dtRow)
@@ -1538,7 +1546,7 @@ Module mdlPNL2
                                     If dtNote IsNot Nothing Then
                                         NoteOrder += 1
 
-                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
                                     End If
                                 End If
                                 ds.Tables("PLFST_SALES_DETAIL").Rows.Add(dtRow)
@@ -1565,6 +1573,17 @@ Module mdlPNL2
                             dtRow("PLFOS_AMOUNT") = rowx("PLFOS_AMOUNT")
                             dtRow("PLFOS_NOTE") = rowx("PLFOS_NOTE")
                             dtRow("RowIndex") = rowx("RowIndex")
+
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OPENSTOCK.ToString, True, rowx("PLFOS_PLFOSKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
+
                             dtRow("TotalSourceNo") = ADO.Load_PNL_PLFST_OPENSTOCK_TOTAL_SOURCENO(PNL_KEY, Errorlog)
                             ds.Tables("PLFST_OPENSTOCK").Rows.Add(dtRow)
                         Next
@@ -1584,6 +1603,16 @@ Module mdlPNL2
                                 dtRow("PLFOSD_AMOUNT") = rowx("PLFOSD_AMOUNT")
                                 dtRow("PLFOSD_NOTE") = rowx("PLFOSD_NOTE")
                                 dtRow("RowIndex") = rowx("RowIndex")
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OPENSTOCK.ToString, False, rowx("PLFOSD_PLFOSKEY"), rowx("PLFOSD_PLFOSDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
 
                                 ds.Tables("PLFST_OPENSTOCK_DETAIL").Rows.Add(dtRow)
                             Next
@@ -1615,6 +1644,15 @@ Module mdlPNL2
                                 Else
                                     dtRow("PLFPUR_DEDUCTIBLE") = False
                                 End If
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.PURCHASE.ToString, True, rowx("PLFPUR_PLFPURKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 ds.Tables("PLFST_PURCHASE").Rows.Add(dtRow)
                             End If
@@ -1639,6 +1677,15 @@ Module mdlPNL2
                                     dtRow("PLFPURD_DEDUCTIBLE") = True
                                 Else
                                     dtRow("PLFPURD_DEDUCTIBLE") = False
+                                End If
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.PURCHASE.ToString, False, rowx("PLFPURD_PLFPURKEY"), rowx("PLFPURD_PLFPURDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 ds.Tables("PLFST_PURCHASE_DETAIL").Rows.Add(dtRow)
@@ -1673,6 +1720,17 @@ Module mdlPNL2
 
                                 dtRow("EXDEP_NOTE") = rowx("EXDEP_NOTE")
                                 dtRow("EXDEP_DETAIL") = rowx("EXDEP_DETAIL")
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.DEPRECIATION.ToString, True, rowx("EXDEP_EXDEPKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_DEPRECIATION").Rows.Add(dtRow)
                             End If
@@ -1700,6 +1758,15 @@ Module mdlPNL2
                                     dtRow("EXDEPD_DEDUCTIBLE") = False
                                 End If
 
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.DEPRECIATION.ToString, False, rowx("EXDEPD_EXDEPKEY"), rowx("EXDEPD_EXDEPDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 dtRow("EXDEPD_NOTE") = rowx("EXDEPD_NOTE")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_DEPRECIATION_DETAIL").Rows.Add(dtRow)
@@ -1737,6 +1804,17 @@ Module mdlPNL2
                                 End If
                                 dtRow("EXA_NOTE") = rowx("EXA_NOTE")
                                 dtRow("EXA_DETAIL") = rowx("EXA_DETAIL")
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERALLOWEXP.ToString, True, rowx("EXA_EXAKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_ALLOW").Rows.Add(dtRow)
                             End If
@@ -1763,6 +1841,17 @@ Module mdlPNL2
                                 End If
                                 '  dtRow("EXAD_DEDUCTIBLE") = rowx("EXAD_DEDUCTIBLE")
                                 dtRow("EXAD_NOTE") = rowx("EXAD_NOTE")
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERALLOWEXP.ToString, False, rowx("EXAD_EXAKEY"), dtRow("EXAD_EXADKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_ALLOW_DETAIL").Rows.Add(dtRow)
                             Next
@@ -1795,6 +1884,16 @@ Module mdlPNL2
                                 dtRow("EXNA_DEDUCTIBLE") = rowx("EXNA_DEDUCTIBLE")
                                 dtRow("EXNA_NOTE") = rowx("EXNA_NOTE")
                                 dtRow("EXNA_DETAIL") = rowx("EXNA_DETAIL")
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString, True, rowx("EXNA_EXNAKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_NONALLOW").Rows.Add(dtRow)
                             End If
@@ -1822,6 +1921,16 @@ Module mdlPNL2
                                 dtRow("EXNAD_DEDUCTIBLE") = rowx("EXNAD_DEDUCTIBLE")
                                 dtRow("EXNAD_AMOUNT") = rowx("EXNAD_AMOUNT")
                                 dtRow("EXNAD_NOTE") = rowx("EXNAD_NOTE")
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERNONALLOWEXP.ToString, False, rowx("EXNAD_EXNAKEY"), dtRow("EXNAD_EXNADKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 ds.Tables("EXPENSES_NONALLOW_DETAIL").Rows.Add(dtRow)
                             Next
@@ -1838,6 +1947,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.CLOSESTOCK.ToString, True, rowx("PLFCS_PLFCSKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("PLFST_CLOSESTOCK").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -1846,6 +1964,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.CLOSESTOCK.ToString, False, rowx("PLFCSD_PLFCSKEY"), rowx("PLFCSD_PLFCSDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("PLFST_CLOSESTOCK_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -1861,6 +1988,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERBUSINC.ToString, True, rowx("NSBI_NSBIKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("NONSOURCE_BUSINESSINCOME").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -1869,6 +2005,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERALLOWEXP.ToString, False, rowx("NSBID_NSBIKEY"), rowx("NSBID_NSBIDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("NONSOURCE_BUSINESSINCOME_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -1884,6 +2029,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.REALFETRADE.ToString, True, rowx("IRFET_IRFETKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_REALFET").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -1892,6 +2046,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.REALFETRADE.ToString, False, rowx("IRFETD_IRFETKEY"), rowx("IRFETD_IRFETDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_REALFET_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -1907,6 +2070,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.DIVIDENDINC.ToString, True, rowx("DI_DIVIDENDKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("dividend_income").ImportRow(rowx)
                         Next
                     Else
@@ -1921,6 +2093,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.INTERESTINC.ToString, True, rowx("NOBII_NOBIIKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NBINTEREST").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -1929,6 +2110,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.INTERESTINC.ToString, False, rowx("NOBIID_NOBIIKEY"), rowx("NOBIID_NOBIIDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_NBINTEREST_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -1943,6 +2133,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.RENTALINC.ToString, True, rowx("RI_RENTKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("rental_income").ImportRow(rowx)
                         Next
                     Else
@@ -1957,6 +2156,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.ROYALTYINC.ToString, True, rowx("NOBRI_NOBRIKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NBROYALTY").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -1965,6 +2173,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.ROYALTYINC.ToString, False, rowx("NOBRID_NOBRIKEY"), rowx("NOBRID_NOBRIDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_NBROYALTY_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -1980,6 +2197,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERINC.ToString, True, rowx("OI_OIKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("OTHER_INCOME").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -1988,6 +2214,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERINC.ToString, False, rowx("OID_OIKEY"), rowx("OID_OIDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_INCOME_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2003,6 +2238,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.PDFIXASSET.ToString, True, rowx("NTIDFA_NTIDFAKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NTDISPOSALFA").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2011,6 +2255,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.PDFIXASSET.ToString, False, rowx("NTIDFAD_NTIDFAKEY"), rowx("NTIDFAD_NTIDFADKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_NTDISPOSALFA_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2026,6 +2279,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.PDINVEST.ToString, True, rowx("NTIDI_NTIDIKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NTDISPOSALINVEST").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2034,6 +2296,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.PDINVEST.ToString, False, rowx("NTIDID_NTIDIKEY"), rowx("NTIDID_NTIDIDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_NTDISPOSALINVEST_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2048,6 +2319,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXEMDIV.ToString, True, rowx("ED_EDKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("exempt_dividend").ImportRow(rowx)
                         Next
                     End If
@@ -2060,6 +2340,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.FORINCREMIT.ToString, True, rowx("NTIFIR_NTIFIRKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NTFOREIGNINCREM").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2068,6 +2357,16 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.FORINCREMIT.ToString, False, rowx("NTIFIRD_NTIFIRKEY"), rowx("NTIFIRD_NTIFIRDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("INCOME_NTFOREIGNINCREM_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2083,6 +2382,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.REALFE.ToString, True, rowx("NTIUT_NTIUTKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NTUREALFET").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2091,6 +2399,16 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.REALFE.ToString, False, rowx("NTIUTD_NTIUTKEY"), rowx("NTIRFECTD_NTIRFECTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("INCOME_NTUREALFET_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2106,6 +2424,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.UNREALFENONTRADE.ToString, True, rowx("NTIRFECT_NTIRFECTKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NTREALFE").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2114,6 +2441,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.UNREALFENONTRADE.ToString, False, rowx("NTIRFECTD_NTIRFECTKEY"), rowx("NTIRFECTD_NTIRFECTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_NTREALFE_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2129,6 +2465,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.UNREALFETRADE.ToString, True, rowx("NTIUNT_NTIUNTKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("INCOME_NTUREALFENT").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2137,6 +2482,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.UNREALFETRADE.ToString, False, rowx("NTIUNTD_NTIUNTKEY"), rowx("NTIUNTD_NTIUNTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("INCOME_NTUREALFENT_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2152,6 +2506,15 @@ Module mdlPNL2
                     If dt IsNot Nothing Then
                         isHaveData = True
                         For Each rowx As DataRow In dt.Rows
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERNONTAXINC.ToString, True, rowx("NT_KEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("non_taxable_income").ImportRow(rowx)
                         Next
                         dt = Nothing
@@ -2160,6 +2523,15 @@ Module mdlPNL2
 
                         If dt IsNot Nothing Then
                             For Each rowx As DataRow In dt.Rows
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.OTHERNONTAXINC.ToString, False, rowx("NTD_NTKEY"), rowx("NTD_NTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("NON_TAXABLE_INCOME_DETAIL").ImportRow(rowx)
                             Next
                         End If
@@ -2203,6 +2575,17 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.INTERESTRESTRICT.ToString, True, rowx("EXIR_EXIRKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("expenses_interestrestrict").Rows.Add(dtRow)
 
                                 tmpDt_Data = Nothing
@@ -2218,7 +2601,7 @@ Module mdlPNL2
                                 mdlPNL2.AppenData_InterestRestricted(tmpDt_Data, ds, Errorlog)
                                 Application.DoEvents()
 
-                                ADO.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(PNL_KEY, ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT"), RefNo, _
+                                ADO.SAVE_EXPENSES_INTERESTRESTRICT_TRICOR_TEMP(PNL_KEY, ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT"), RefNo,
                                                                                       YA, rowx("EXIR_SOURCENO"), Errorlog)
 
 
@@ -2226,93 +2609,6 @@ Module mdlPNL2
                                     mdlPNL2.AppenData_InterestRestricted_Report(tmpDt_Data, ds, RefNo, YA, rowx("EXIR_SOURCENO"), Errorlog)
                                 End If
 
-
-
-                                'If isPrint Then
-
-                                '    'Dim frm As New frmReport_Test
-                                '    'frm.rptURL = Application.StartupPath & "\Report1.rdlc"
-                                '    'frm.ds = ds
-                                '    'frm.Show()
-                                '    Dim frm As New frmPNL_InterestResPurS33_Monthly
-                                '    frm.ID_PNL = PNL_KEY
-                                '    frm.RefNo = RefNo
-                                '    frm.YA = YA
-                                '    frm.SourceNo = rowx("EXIR_SOURCENO")
-                                '    frm.KeyID = rowx("EXIR_EXIRKEY")
-                                '    frm.LoadData(Errorlog)
-                                '    Application.DoEvents()
-                                '    Dim path As String = Application.StartupPath & "\ReportTemporary"
-                                '    If System.IO.Directory.Exists(path) = False Then
-                                '        System.IO.Directory.CreateDirectory(path)
-                                '    End If
-
-                                '    path += "\InterestRestricted.xlsx"
-
-                                '    If System.IO.File.Exists(path) Then
-                                '        System.IO.File.Delete(path)
-                                '    End If
-
-                                '    frm.GridControl1.ExportToXlsx(path)
-                                '    Application.DoEvents()
-
-                                '    Using stream As New FileStream(path, FileMode.Open)
-
-                                '        Dim spreadsheetControl1 As New SpreadsheetControl
-
-                                '        spreadsheetControl1.LoadDocument(stream, DocumentFormat.Xlsx)
-
-                                '        Dim workbook As IWorkbook = spreadsheetControl1.Document
-
-                                '        Dim worksheet1 As Worksheet = workbook.Worksheets(0)
-
-
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        worksheet1.Rows(0).Insert()
-                                '        Application.DoEvents()
-                                '        worksheet1.Rows(1)(0).Value = ADO.LoadTaxPayer_CompanyName(RefNo)
-                                '        worksheet1.Rows(2)(0).Value = "Schedule of Section 33(2) Restriction of Interest Expense"
-                                '        worksheet1.Rows(3)(0).Value = "Year of Assessment : " & CStr(YA)
-
-                                '        worksheet1.Rows(5)(0).Value = "(In Malaysian Ringgit)"
-                                '        Application.DoEvents()
-
-
-                                '        '  worksheet1.Rows(0).Delete()
-                                '        ' Application.DoEvents()
-
-                                '        worksheet1.Rows(0)(0).Value = ""
-                                '        worksheet1.Rows(0)(1).Value = ""
-                                '        'Dim inx As Integer = 1
-                                '        'For Each colx As DataColumn In ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns
-
-                                '        '    Select Case colx.ColumnName
-                                '        '        Case "Title", "TypeName", "TypeIncome", "TotalYear", "LabelTag", "KeyID"
-
-                                '        '        Case Else
-                                '        '            inx += 1
-                                '        '            worksheet1.Rows(7)(inx).Value = colx.ColumnName
-                                '        '    End Select
-                                '        'Next
-                                '        workbook.SaveDocument(stream, DocumentFormat.Xlsx)
-
-
-                                '    End Using
-                                '    Application.DoEvents()
-
-
-                                '    Dim frmExcel As New frmExcel
-                                '    frmExcel.isAutoOpen = True
-                                '    frmExcel.Path = path
-                                '    frmExcel.Show()
-
-                                'End If
                                 tmpDt_Data = Nothing
 
 
@@ -2335,7 +2631,7 @@ Module mdlPNL2
 
                                         ds.Tables("REF_INTEREST_RESTRIC_DETAIL").Rows.Add(dtRow)
                                     Next
-                                    If ADO.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ds.Tables("REF_INTEREST_RESTRIC_DETAIL"), RefNo, YA, rowx("EXIR_SOURCENO"), PNL_KEY, _
+                                    If ADO.Save_REF_INTEREST_RESTRIC_DETAIL_TEMP(ds.Tables("REF_INTEREST_RESTRIC_DETAIL"), RefNo, YA, rowx("EXIR_SOURCENO"), PNL_KEY,
                                                                   0, Errorlog, False) = False Then
 
                                     End If
@@ -2378,6 +2674,16 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPOTHERINTEREST.ToString, True, rowx("EXI_EXIKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_interest").Rows.Add(dtRow)
                             End If
 
@@ -2409,6 +2715,16 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPOTHERINTEREST.ToString, False, rowx("EXID_EXIKEY"), rowx("EXID_EXIDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_INTEREST_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2446,6 +2762,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPLEGAL.ToString, True, rowx("EXL_EXLKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_legal").Rows.Add(dtRow)
                             End If
 
@@ -2477,6 +2802,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPLEGAL.ToString, False, rowx("EXLD_EXLKEY"), rowx("EXLD_EXLDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_LEGAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2514,6 +2848,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPTECHNICAL.ToString, True, rowx("EXTF_EXTFKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_tech_fee").Rows.Add(dtRow)
                             End If
 
@@ -2545,6 +2888,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPTECHNICAL.ToString, False, rowx("EXTFD_EXTFKEY"), rowx("EXTFD_EXTFDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_TECH_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2582,6 +2934,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPCONTRACTPAY.ToString, True, rowx("EXC_EXCKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_contract").Rows.Add(dtRow)
                             End If
 
@@ -2614,6 +2975,16 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPCONTRACTPAY.ToString, False, rowx("EXCD_EXCKEY"), rowx("EXCD_EXCDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("EXPENSES_CONTRACT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2651,6 +3022,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDIRECTORFEE.ToString, True, rowx("EXDF_EXDFKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_directors_fee").Rows.Add(dtRow)
                             End If
 
@@ -2682,6 +3062,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDIRECTORFEE.ToString, False, rowx("EXDFD_EXDFKEY"), rowx("EXDFD_EXDFDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_DIRECTORS_FEE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2719,6 +3108,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPSALARY.ToString, True, rowx("EXS_EXSKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_salary").Rows.Add(dtRow)
                             End If
 
@@ -2751,6 +3149,16 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPSALARY.ToString, False, rowx("EXSD_EXSKEY"), rowx("EXSD_EXSDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("EXPENSES_SALARY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2787,6 +3195,15 @@ Module mdlPNL2
                                     dtRow("EXES_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString, True, rowx("EXES_EXESKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_empl_stock").Rows.Add(dtRow)
                             End If
 
@@ -2804,6 +3221,7 @@ Module mdlPNL2
                                 dtRow("EXESD_SOURCENO") = rowx("EXESD_SOURCENO")
                                 dtRow("EXESD_DESC") = rowx("EXESD_DESC")
                                 dtRow("EXESD_AMOUNT") = rowx("EXESD_AMOUNT")
+                                dtRow("EXESD_EXESDKEY") = ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Count + 1
                                 If IsDBNull(rowx("EXESD_DEDUCTIBLE")) = False AndAlso (rowx("EXESD_DEDUCTIBLE") = "Yes" OrElse rowx("EXESD_DEDUCTIBLE") = "True") Then
                                     dtRow("EXESD_DEDUCTIBLE") = True
                                 Else
@@ -2819,6 +3237,15 @@ Module mdlPNL2
 
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPEMPLOYEESTOCK.ToString, False, rowx("EXESD_EXESKEY"), rowx("EXESD_EXESDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_EMPLSTOCK_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2856,6 +3283,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPROYALTY.ToString, True, rowx("EXRO_EXROKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_royalty").Rows.Add(dtRow)
                             End If
 
@@ -2887,6 +3323,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPROYALTY.ToString, False, rowx("EXROD_EXROKEY"), rowx("EXROD_EXRODKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_ROYALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2924,6 +3369,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPRENTAL.ToString, True, rowx("EXRENT_EXRENTKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 dtRow("Address") = rowx("Address")
                                 ds.Tables("expenses_rental").Rows.Add(dtRow)
                             End If
@@ -2957,6 +3411,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
                                 dtRow("Address") = rowx("Address")
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPRENTAL.ToString, False, rowx("EXRENTD_EXRENTKEY"), rowx("EXRENTD_EXRENTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_RENTAL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -2994,6 +3457,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString, True, rowx("EXREP_EXREPKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_repair").Rows.Add(dtRow)
                             End If
 
@@ -3025,6 +3497,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPREPAIRMAINTENANCE.ToString, False, rowx("EXREPD_EXREPKEY"), rowx("EXREPD_EXREPDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_REPAIR_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3062,6 +3543,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPRND.ToString, True, rowx("EXRES_EXRESKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_research").Rows.Add(dtRow)
                             End If
 
@@ -3093,6 +3583,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPRND.ToString, False, rowx("EXRESD_EXRESKEY"), rowx("EXRESD_EXRESDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_RESEARCH_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3130,6 +3629,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPADVERTISEMENT.ToString, True, rowx("EXP_EXPKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_promote").Rows.Add(dtRow)
                             End If
 
@@ -3161,6 +3669,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPADVERTISEMENT.ToString, False, rowx("EXPD_EXPKEY"), rowx("EXPD_EXPDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_PROMOTE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3198,6 +3715,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPTRAVEL.ToString, True, rowx("EXT_EXTKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("expenses_travel").Rows.Add(dtRow)
                             End If
 
@@ -3229,6 +3755,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPTRAVEL.ToString, False, rowx("EXTD_EXTKEY"), rowx("EXTD_EXTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("EXPENSES_TRAVEL_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3265,6 +3800,15 @@ Module mdlPNL2
                                     dtRow("EXJK_DEDUCTIBLE_ADD") = False
                                 End If
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPJKDM.ToString, True, rowx("EXJK_EXJKKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 dtRow("RowIndex") = rowx("RowIndex")
 
 
@@ -3299,6 +3843,16 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPJKDM.ToString, False, rowx("EXJKD_EXJKKEY"), rowx("EXJKD_EXJKDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
 
                                 ds.Tables("EXPENSES_JKDM_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3338,6 +3892,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDEPRECIATION.ToString, True, rowx("EXODEP_EXODEPKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exdepreciation").Rows.Add(dtRow)
                             End If
 
@@ -3369,6 +3932,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDEPRECIATION.ToString, False, rowx("EXODEPD_EXODEPKEY"), rowx("EXODEPD_EXODEPDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
 
                                 ds.Tables("OTHER_EXDEPRECIATION_DETAIL").Rows.Add(dtRow)
                             Next
@@ -3409,6 +3981,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDONATIONAPPR.ToString, True, rowx("EXOAD_EXOADKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exapprdonation").Rows.Add(dtRow)
                             End If
 
@@ -3441,6 +4022,15 @@ Module mdlPNL2
                                 End If
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDONATIONAPPR.ToString, False, rowx("EXOADD_EXOADKEY"), rowx("EXOADD_EXOADDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3479,6 +4069,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString, True, rowx("EXONAD_EXONADKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exnapprdonation").Rows.Add(dtRow)
                             End If
 
@@ -3511,6 +4110,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPDONATIONNONAPPR.ToString, False, rowx("EXONADD_EXONADKEY"), rowx("EXONADD_EXONADDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXNAPPRDONATION_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3549,6 +4157,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPZAKAT.ToString, True, rowx("EXOZ_EXOZKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exzakat").Rows.Add(dtRow)
                             End If
 
@@ -3581,6 +4198,16 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPZAKAT.ToString, False, rowx("EXOZD_EXOZKEY"), rowx("EXOZD_EXOZDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("OTHER_EXZAKAT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3619,6 +4246,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPLOSSDISPFA.ToString, True, rowx("EXOLD_EXOLDKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exlossdisposalfa").Rows.Add(dtRow)
                             End If
 
@@ -3651,6 +4287,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPLOSSDISPFA.ToString, False, rowx("EXOLDD_EXOLDKEY"), rowx("EXOLDD_EXOLDDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXLOSSDISPOSALFA_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3689,6 +4334,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString, True, rowx("EXOENS_EXOENSKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_entertainnstaff").Rows.Add(dtRow)
                             End If
 
@@ -3721,6 +4375,16 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPENTERTAINNONSTAFF.ToString, False, rowx("EXOENSD_EXOENSKEY"), rowx("EXOENSD_EXOENSDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("OTHER_ENTERTAINNSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3759,6 +4423,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString, True, rowx("EXOES_EXOESKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_ENTERTAINSTAFF").Rows.Add(dtRow)
                             End If
 
@@ -3791,6 +4464,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPENTERTAINSTAFF.ToString, False, rowx("EXOESD_EXOESKEY"), rowx("EXOESD_EXOESDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_ENTERTAINSTAFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3829,6 +4511,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString, True, rowx("EXOP_EXOPKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_expenalty").Rows.Add(dtRow)
                             End If
 
@@ -3861,6 +4552,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPCOMPAUNDPENALTY.ToString, False, rowx("EXOPD_EXOPKEY"), rowx("EXOPD_EXOPDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXPENALTY_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3899,6 +4599,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPPROVISION.ToString, True, rowx("EXOPA_EXOPAKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exprovisionacc").Rows.Add(dtRow)
                             End If
 
@@ -3931,6 +4640,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPPROVISION.ToString, False, rowx("EXOPAD_EXOPAKEY"), rowx("EXOPAD_EXOPADKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXPROVISIONACC_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -3969,6 +4687,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString, True, rowx("EXOLP_EXOLPKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exleavepassage").Rows.Add(dtRow)
                             End If
 
@@ -4001,7 +4728,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPLEAVEPASSAGE.ToString, False, rowx("EXOLPD_EXOLPKEY"), rowx("EXOLPD_EXOLPDKEY"), Errorlog)
 
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXLEAVEPASSAGE_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4040,6 +4775,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString, True, rowx("EXOWO_EXOWOKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exfawrittenoff").Rows.Add(dtRow)
                             End If
 
@@ -4072,6 +4816,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPFAWRITTENOFF.ToString, False, rowx("EXOWOD_EXOWOKEY"), rowx("EXOWOD_EXOWODKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXFAWRITTENOFF_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4110,6 +4863,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString, True, rowx("EXOUR_EXOURKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exurlossforeign").Rows.Add(dtRow)
                             End If
 
@@ -4143,6 +4905,16 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPUNREALLOSSFE.ToString, False, rowx("EXOURD_EXOURKEY"), rowx("EXOURD_EXOURDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("OTHER_EXURLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4180,6 +4952,15 @@ Module mdlPNL2
                             dtRow("RowIndex") = rowx("RowIndex")
                             dtRow("Pecentage") = rowx("Pecentage")
                             dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                            If isPrint AndAlso clsNote IsNot Nothing Then
+                                dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString, True, rowx("EXORT_EXORTKEY"), -1, Errorlog)
+
+                                If dtNote IsNot Nothing Then
+                                    NoteOrder += 1
+
+                                    dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                End If
+                            End If
                             ds.Tables("other_exrlossforeignt").Rows.Add(dtRow)
                         Next
                         dt = Nothing
@@ -4210,6 +4991,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPREALLOSSFETRADE.ToString, False, rowx("EXORTD_EXORTKEY"), rowx("EXORTD_EXORTDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXRLOSSFOREIGNT_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4248,6 +5038,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString, True, rowx("EXOR_EXORKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exrlossforeign").Rows.Add(dtRow)
                             End If
 
@@ -4280,6 +5079,16 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPREALLOSSFENONTRADE.ToString, False, rowx("EXORD_EXORKEY"), rowx("EXORD_EXORDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("OTHER_EXRLOSSFOREIGN_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4318,6 +5127,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString, True, rowx("EXOIS_EXOISKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_exinitialsub").Rows.Add(dtRow)
                             End If
 
@@ -4350,6 +5168,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPINITIALSUBSCRIPT.ToString, False, rowx("EXOISD_EXOISKEY"), rowx("EXOISD_EXOISDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXINITIALSUB_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4388,6 +5215,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString, True, rowx("EXOCE_EXOCEKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_excapitalexp").Rows.Add(dtRow)
                             End If
 
@@ -4421,6 +5257,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPCAPITALEXPENDITURE.ToString, False, rowx("EXOCED_EXOCEKEY"), rowx("EXOCED_EXOCEDKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("OTHER_EXCAPITALEXP_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4469,6 +5314,15 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowx("RowIndex")
                                 dtRow("Pecentage") = rowx("Pecentage")
                                 dtRow("PecentageAmount") = IIf(IsDBNull(rowx("PecentageAmount")), 0, rowx("PecentageAmount"))
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString, True, rowx("EXO_EXOKEY"), -1, Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
                                 ds.Tables("other_expenses").Rows.Add(dtRow)
 
 
@@ -4505,6 +5359,16 @@ Module mdlPNL2
                                 dtRow("RowIndex") = rowC("RowIndex")
                                 dtRow("Pecentage") = rowC("Pecentage")
                                 dtRow("PecentageAmount") = rowC("PecentageAmount")
+                                If isPrint AndAlso clsNote IsNot Nothing Then
+                                    dtNote = clsNote.Load_Note(PNL_KEY, TaxComPNLEnuItem.EXPOTHERSEXPENSES.ToString, False, rowC("EXOD_EXOKEY"), rowC("EXOD_EXODKEY"), Errorlog)
+
+                                    If dtNote IsNot Nothing Then
+                                        NoteOrder += 1
+
+                                        dtRow("Note") = IIf(IsDBNull(dtNote.Rows(0)("TitleFront")), "", dtNote.Rows(0)("TitleFront")) & " " & IIf(IsDBNull(dtNote.Rows(0)("Title")), "", dtNote.Rows(0)("Title"))
+                                    End If
+                                End If
+
                                 ds.Tables("OTHER_EXPENSES_DETAIL").Rows.Add(dtRow)
                             Next
                         End If
@@ -4512,9 +5376,12 @@ Module mdlPNL2
                         isHaveData = False
                     End If
             End Select
+            Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
 
             With Errorlog
@@ -4526,9 +5393,9 @@ Module mdlPNL2
             Return False
         End Try
     End Function
-    Public Function Load_DT_Deduct(ByVal PNLKey As Integer, ByVal ID As Integer, ByVal Type As TaxComPNLEnuItem, Optional ByRef Errorlog As clsError = Nothing) As DataTable
+    Public Function Load_DT_Deduct(ByVal PNLKey As Integer, ByVal ID As Integer, ByVal Type As TaxComPNLEnuItem, Optional ByRef Errorlog As ClsError = Nothing) As DataTable
         Try
-            Dim SQLCmd As SqlCommand
+            Dim SQLCmd As SqlCommand = Nothing
             Dim strSQL As String = Nothing
             Select Case Type
                 Case TaxComPNLEnuItem.PURCHASE
@@ -4827,26 +5694,28 @@ Module mdlPNL2
             End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             Return Nothing
         End Try
     End Function
-    Public Function TransferFromImport_ToMain(ByVal dsMain As DataSet, ByVal dsMain2 As DataSet, ByVal dtRowImport As DataRow, ByVal TableName As String, ByVal Type As mdlEnum.TaxComPNLEnuItem, ByVal SourceNo As Integer, ByRef RefNo As String, ByVal YA As String, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function TransferFromImport_ToMain(ByVal dsMain As DataSet, ByVal dsMain2 As DataSet, ByVal dtRowImport As DataRow, ByVal TableName As String, ByVal Type As mdlEnum.TaxComPNLEnuItem, ByVal SourceNo As Integer, ByRef RefNo As String, ByVal YA As String, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
             Dim dtRow As DataRow = Nothing
 
             Select Case Type
                 Case TaxComPNLEnuItem.SALES
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("PLFS_KEY") = 0
+                    dtRow("PLFS_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("PLFS_SOURCENO") = SourceNo
                     dtRow("PLFS_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4859,7 +5728,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.OPENSTOCK
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("PLFOS_KEY") = 0
+                    dtRow("PLFOS_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("PLFOS_SOURCENO") = SourceNo
                     dtRow("PLFOS_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4872,7 +5741,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.PURCHASE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("PLFPUR_KEY") = 0
+                    dtRow("PLFPUR_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("PLFPUR_SOURCENO") = SourceNo
                     dtRow("PLFPUR_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4885,7 +5754,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.DEPRECIATION
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXDEP_KEY") = 0
+                    dtRow("EXDEP_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXDEP_SOURCENO") = SourceNo
                     dtRow("EXDEP_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4898,7 +5767,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.OTHERALLOWEXP
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXA_KEY") = 0
+                    dtRow("EXA_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXA_SOURCENO") = SourceNo
                     dtRow("EXA_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4911,7 +5780,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.OTHERNONALLOWEXP
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXNA_KEY") = 0
+                    dtRow("EXNA_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXNA_SOURCENO") = SourceNo
                     dtRow("EXNA_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4924,7 +5793,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.CLOSESTOCK
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("PLFCS_KEY") = 0
+                    dtRow("PLFCS_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("PLFCS_SOURCENO") = SourceNo
                     dtRow("PLFCS_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4937,7 +5806,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.OTHERBUSINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NSBI_KEY") = 0
+                    dtRow("NSBI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NSBI_SOURCENO") = SourceNo
                     dtRow("NSBI_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4950,7 +5819,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.REALFETRADE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("IRFET_KEY") = 0
+                    dtRow("IRFET_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("IRFET_SOURCENO") = SourceNo
                     dtRow("IRFET_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4963,7 +5832,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.DIVIDENDINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("DI_KEY") = 0
+                    dtRow("DI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("DI_SOURCENO") = SourceNo
                     dtRow("DI_COMPANY") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4975,17 +5844,17 @@ Module mdlPNL2
                     dtRow("DI_WARANT_NO") = "-"
                     dtRow("DI_DATE") = Now
                     dtRow("DI_TRANSFER") = "Single Tier"
-                    dtRow("DI_TAX") = 0
-                    dtRow("DI_NET") = 0
-                    dtRow("DI_TAXDEDUCTION") = 0
-                    dtRow("DI_NETDEDUCTION") = 0
+                    dtRow("DI_TAX") = dsMain.Tables(TableName).Rows.Count + 1
+                    dtRow("DI_NET") = dsMain.Tables(TableName).Rows.Count + 1
+                    dtRow("DI_TAXDEDUCTION") = dsMain.Tables(TableName).Rows.Count + 1
+                    dtRow("DI_NETDEDUCTION") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("DI_DISCLOSE") = "No"
-                    dtRow("DI_REGROSS") = 0
+                    dtRow("DI_REGROSS") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("DI_CHKREGROSS") = "No"
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.INTERESTINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NOBII_KEY") = 0
+                    dtRow("NOBII_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NOBII_SOURCENO") = SourceNo
                     dtRow("NOBII_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -4998,7 +5867,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.RENTALINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("RI_KEY") = 0
+                    dtRow("RI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("RI_SOURCENO") = SourceNo
                     dtRow("RI_ADDRESS") = dtRowImport("Description")
                     dtRow("RI_TYPE") = "Rental"
@@ -5013,7 +5882,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.ROYALTYINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NOBRI_KEY") = 0
+                    dtRow("NOBRI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NOBRI_SOURCENO") = SourceNo
                     dtRow("NOBRI_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5026,7 +5895,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.OTHERINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("OI_KEY") = 0
+                    dtRow("OI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("OI_SOURCENO") = SourceNo
                     dtRow("OI_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5039,7 +5908,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.PDFIXASSET
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NTIDFA_KEY") = 0
+                    dtRow("NTIDFA_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NTIDFA_SOURCENO") = SourceNo
                     dtRow("NTIDFA_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5052,7 +5921,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.PDINVEST
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NTIDI_KEY") = 0
+                    dtRow("NTIDI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NTIDI_SOURCENO") = SourceNo
                     dtRow("NTIDI_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5065,7 +5934,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXEMDIV
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("ED_KEY") = 0
+                    dtRow("ED_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("ED_SOURCENO") = SourceNo
                     dtRow("ED_COMPANY") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5078,7 +5947,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.FORINCREMIT
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NTIFIR_KEY") = 0
+                    dtRow("NTIFIR_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NTIFIR_SOURCENO") = SourceNo
                     dtRow("NTIFIR_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5091,7 +5960,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.REALFE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NTIUT_KEY") = 0
+                    dtRow("NTIUT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NTIUT_SOURCENO") = SourceNo
                     dtRow("NTIUT_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5104,7 +5973,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.UNREALFENONTRADE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NTIRFECT_KEY") = 0
+                    dtRow("NTIRFECT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NTIRFECT_SOURCENO") = SourceNo
                     dtRow("NTIRFECT_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5117,7 +5986,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.UNREALFETRADE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NTIUNT_KEY") = 0
+                    dtRow("NTIUNT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NTIUNT_SOURCENO") = SourceNo
                     dtRow("NTIUNT_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5130,10 +5999,10 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.OTHERNONTAXINC
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("NT_KEY") = 0
+                    dtRow("NT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("NT_REF_NO") = RefNo
                     dtRow("NT_YA") = YA
-                    dtRow("NTIUNT_SOURCENO") = SourceNo
+                    dtRow("NT_SOURCENO") = SourceNo
                     dtRow("NT_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
                         dtRow("NT_AMOUNT") = dtRowImport("LeftAmount")
@@ -5146,7 +6015,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPOTHERINTEREST
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXI_KEY") = 0
+                    dtRow("EXI_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXI_SOURCENO") = SourceNo
                     dtRow("EXI_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5161,7 +6030,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPLEGAL
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXL_KEY") = 0
+                    dtRow("EXL_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXL_SOURCENO") = SourceNo
                     dtRow("EXL_DESC") = dtRowImport("Description")
                     If IsNumeric(dtRowImport("LeftAmount")) = True AndAlso CDec(dtRowImport("LeftAmount")) > 0 Then
@@ -5176,7 +6045,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPTECHNICAL
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXTF_KEY") = 0
+                    dtRow("EXTF_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXTF_SOURCENO") = SourceNo
                     dtRow("EXTF_DESC") = dtRowImport("Description")
                     dtRow("EXTF_DEDUCTIBLE") = False
@@ -5191,7 +6060,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPCONTRACTPAY
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXC_KEY") = 0
+                    dtRow("EXC_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXC_SOURCENO") = SourceNo
                     dtRow("EXC_DESC") = dtRowImport("Description")
                     dtRow("EXC_DEDUCTIBLE") = False
@@ -5206,7 +6075,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPDIRECTORFEE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXDF_KEY") = 0
+                    dtRow("EXDF_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXDF_SOURCENO") = SourceNo
                     dtRow("EXDF_DESC") = dtRowImport("Description")
                     dtRow("EXDF_DEDUCTIBLE") = False
@@ -5221,7 +6090,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPSALARY
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXS_KEY") = 0
+                    dtRow("EXS_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXS_SOURCENO") = SourceNo
                     dtRow("EXS_DESC") = dtRowImport("Description")
                     dtRow("EXS_DEDUCTIBLE") = False
@@ -5236,7 +6105,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPEMPLOYEESTOCK
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXES_KEY") = 0
+                    dtRow("EXES_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXES_SOURCENO") = SourceNo
                     dtRow("EXES_DESC") = dtRowImport("Description")
                     dtRow("EXES_DEDUCTIBLE") = False
@@ -5251,7 +6120,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPROYALTY
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXRO_KEY") = 0
+                    dtRow("EXRO_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXRO_SOURCENO") = SourceNo
                     dtRow("EXRO_DESC") = dtRowImport("Description")
                     dtRow("EXRO_DEDUCTIBLE") = False
@@ -5266,7 +6135,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPRENTAL
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXRENT_KEY") = 0
+                    dtRow("EXRENT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXRENT_SOURCENO") = SourceNo
                     dtRow("EXRENT_DESC") = dtRowImport("Description")
                     dtRow("EXRENT_DEDUCTIBLE") = False
@@ -5281,7 +6150,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPREPAIRMAINTENANCE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXREP_KEY") = 0
+                    dtRow("EXREP_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXREP_SOURCENO") = SourceNo
                     dtRow("EXREP_DESC") = dtRowImport("Description")
                     dtRow("EXREP_DEDUCTIBLE") = False
@@ -5296,7 +6165,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPRND
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXRES_KEY") = 0
+                    dtRow("EXRES_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXRES_SOURCENO") = SourceNo
                     dtRow("EXRES_DESC") = dtRowImport("Description")
                     dtRow("EXRES_DEDUCTIBLE") = False
@@ -5311,7 +6180,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPADVERTISEMENT
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXP_KEY") = 0
+                    dtRow("EXP_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXP_SOURCENO") = SourceNo
                     dtRow("EXP_DESC") = dtRowImport("Description")
                     dtRow("EXP_DEDUCTIBLE") = False
@@ -5326,7 +6195,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPTRAVEL
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXT_KEY") = 0
+                    dtRow("EXT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXT_SOURCENO") = SourceNo
                     dtRow("EXT_DESC") = dtRowImport("Description")
                     dtRow("EXT_DEDUCTIBLE") = False
@@ -5341,7 +6210,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPJKDM
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXJK_KEY") = 0
+                    dtRow("EXJK_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXJK_SOURCENO") = SourceNo
                     dtRow("EXJK_DESC") = dtRowImport("Description")
                     dtRow("EXJK_DEDUCTIBLE") = False
@@ -5356,7 +6225,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPDEPRECIATION
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXODEP_KEY") = 0
+                    dtRow("EXODEP_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXODEP_SOURCENO") = SourceNo
                     dtRow("EXODEP_DESC") = dtRowImport("Description")
                     dtRow("EXODEP_DEDUCTIBLE") = False
@@ -5371,7 +6240,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPDONATIONAPPR
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOAD_KEY") = 0
+                    dtRow("EXOAD_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOAD_SOURCENO") = SourceNo
                     dtRow("EXOAD_DESC") = dtRowImport("Description")
                     dtRow("EXOAD_DEDUCTIBLE") = False
@@ -5386,7 +6255,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPDONATIONNONAPPR
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXONAD_KEY") = 0
+                    dtRow("EXONAD_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXONAD_SOURCENO") = SourceNo
                     dtRow("EXONAD_DESC") = dtRowImport("Description")
                     dtRow("EXONAD_DEDUCTIBLE") = False
@@ -5401,7 +6270,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPZAKAT
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOZ_KEY") = 0
+                    dtRow("EXOZ_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOZ_SOURCENO") = SourceNo
                     dtRow("EXOZ_DESC") = dtRowImport("Description")
                     dtRow("EXOZ_DEDUCTIBLE") = False
@@ -5416,7 +6285,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPLOSSDISPFA
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOLD_KEY") = 0
+                    dtRow("EXOLD_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOLD_SOURCENO") = SourceNo
                     dtRow("EXOLD_DESC") = dtRowImport("Description")
                     dtRow("EXOLD_DEDUCTIBLE") = False
@@ -5431,7 +6300,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPENTERTAINNONSTAFF
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOENS_KEY") = 0
+                    dtRow("EXOENS_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOENS_SOURCENO") = SourceNo
                     dtRow("EXOENS_DESC") = dtRowImport("Description")
                     dtRow("EXOENS_DEDUCTIBLE") = False
@@ -5446,7 +6315,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPENTERTAINSTAFF
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOES_KEY") = 0
+                    dtRow("EXOES_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOES_SOURCENO") = SourceNo
                     dtRow("EXOES_DESC") = dtRowImport("Description")
                     dtRow("EXOES_DEDUCTIBLE") = False
@@ -5461,7 +6330,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPCOMPAUNDPENALTY
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOP_KEY") = 0
+                    dtRow("EXOP_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOP_SOURCENO") = SourceNo
                     dtRow("EXOP_DESC") = dtRowImport("Description")
                     dtRow("EXOP_DEDUCTIBLE") = False
@@ -5476,7 +6345,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPPROVISION
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOPA_KEY") = 0
+                    dtRow("EXOPA_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOPA_SOURCENO") = SourceNo
                     dtRow("EXOPA_DESC") = dtRowImport("Description")
                     dtRow("EXOPA_DEDUCTIBLE") = False
@@ -5491,7 +6360,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPLEAVEPASSAGE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOLP_KEY") = 0
+                    dtRow("EXOLP_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOLP_SOURCENO") = SourceNo
                     dtRow("EXOLP_DESC") = dtRowImport("Description")
                     dtRow("EXOLP_DEDUCTIBLE") = False
@@ -5506,7 +6375,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPFAWRITTENOFF
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOWO_KEY") = 0
+                    dtRow("EXOWO_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOWO_SOURCENO") = SourceNo
                     dtRow("EXOWO_DESC") = dtRowImport("Description")
                     dtRow("EXOWO_DEDUCTIBLE") = False
@@ -5521,7 +6390,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPUNREALLOSSFE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOUR_KEY") = 0
+                    dtRow("EXOUR_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOUR_SOURCENO") = SourceNo
                     dtRow("EXOUR_DESC") = dtRowImport("Description")
                     dtRow("EXOUR_DEDUCTIBLE") = False
@@ -5536,7 +6405,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPREALLOSSFETRADE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXORT_KEY") = 0
+                    dtRow("EXORT_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXORT_SOURCENO") = SourceNo
                     dtRow("EXORT_DESC") = dtRowImport("Description")
                     dtRow("EXORT_DEDUCTIBLE") = False
@@ -5551,7 +6420,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPREALLOSSFENONTRADE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOR_KEY") = 0
+                    dtRow("EXOR_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOR_SOURCENO") = SourceNo
                     dtRow("EXOR_DESC") = dtRowImport("Description")
                     dtRow("EXOR_DEDUCTIBLE") = False
@@ -5566,7 +6435,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPINITIALSUBSCRIPT
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOIS_KEY") = 0
+                    dtRow("EXOIS_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOIS_SOURCENO") = SourceNo
                     dtRow("EXOIS_DESC") = dtRowImport("Description")
                     dtRow("EXOIS_DEDUCTIBLE") = False
@@ -5581,7 +6450,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPCAPITALEXPENDITURE
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXOCE_KEY") = 0
+                    dtRow("EXOCE_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXOCE_SOURCENO") = SourceNo
                     dtRow("EXOCE_DESC") = dtRowImport("Description")
                     dtRow("EXOCE_DEDUCTIBLE") = False
@@ -5596,7 +6465,7 @@ Module mdlPNL2
                     dsMain.Tables(TableName).Rows.Add(dtRow)
                 Case TaxComPNLEnuItem.EXPOTHERSEXPENSES
                     dtRow = dsMain.Tables(TableName).NewRow
-                    dtRow("EXO_KEY") = 0
+                    dtRow("EXO_KEY") = dsMain.Tables(TableName).Rows.Count + 1
                     dtRow("EXO_SOURCENO") = SourceNo
                     dtRow("EXO_DESC") = dtRowImport("Description")
                     dtRow("EXO_DEDUCTIBLE") = False
@@ -5615,8 +6484,10 @@ Module mdlPNL2
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -5629,7 +6500,7 @@ Module mdlPNL2
         End Try
     End Function
     Public Function PNL_GenerateReport(ByVal RefNo As String, ByVal YA As String, ByRef ID As String, _
-                                       Optional ByRef Errorlog As clsError = Nothing) As Boolean
+                                       Optional ByRef Errorlog As ClsError = Nothing) As Boolean
 
         Try
             Dim dtPNL As DataTable = ADO.Load_PNL(RefNo, YA, Errorlog)
@@ -5637,7 +6508,7 @@ Module mdlPNL2
 
             If dtPNL Is Nothing Then
                 If Errorlog Is Nothing Then
-                    Errorlog = New clsError
+                    Errorlog = New ClsError
                 End If
                 With Errorlog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -5731,21 +6602,23 @@ Module mdlPNL2
 
             Return False
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return True
         End Try
     End Function
 
-    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef Errorlog As clsError = Nothing) As Boolean
+    Public Function PNL_Report(ByVal RefNo As String, ByVal YA As String, ByRef ds As DataSet, Optional ByRef Errorlog As ClsError = Nothing) As Boolean
         Try
 
             Dim dtPNL As DataTable = ADO.Load_PNL(RefNo, YA, Errorlog)
@@ -5761,7 +6634,7 @@ Module mdlPNL2
 
             If dtPNL Is Nothing Then
                 If Errorlog Is Nothing Then
-                    Errorlog = New clsError
+                    Errorlog = New ClsError
                 End If
                 With Errorlog
                     .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
@@ -5785,7 +6658,7 @@ Module mdlPNL2
             Dim dtNoteColumn As DataTable = Nothing
             Dim dtNoteAttch As DataTable = Nothing
             Dim clsNote As clsNote_PNL = Nothing
-
+            Dim PNLType As Integer = 0
             If clsNote Is Nothing Then
                 clsNote = New clsNote_PNL
             End If
@@ -5818,10 +6691,20 @@ Module mdlPNL2
                         mdlPNL2.PNL_GetData(PNL_KEY, KeyNameEnum, RefNo, YA, ds, Errorlog, isHaveData, True, clsNote)
 
                         ColumnName = IIf(IsDBNull(rowInfo("ColumnName")), "", rowInfo("ColumnName"))
+                        PNLType = IIf(IsDBNull(rowInfo("Type")), 1, rowInfo("Type"))
                         If ColumnName <> "" Then
                             If isHaveData Then
-                                ScheduleInt += 1
-                                dtRow(ColumnName) = ScheduleInt
+                                dtExclude = Nothing
+                                If PNLType <> 1 AndAlso ColumnName <> "PL_PURCHASES" And ColumnName <> "PL_PRO_COST_DPC" And ColumnName <> "PL_PRO_COST_OAE" And ColumnName <> "PL_DISALLOWED_EXP" Then
+                                    dtExclude = ADO.Load_PNL_IncludeInReport(PNL_KEY, ColumnName)
+                                End If
+
+                                If dtExclude IsNot Nothing Then
+                                    dtRow(ColumnName) = ""
+                                Else
+                                    ScheduleInt += 1
+                                    dtRow(ColumnName) = ScheduleInt
+                                End If
                                 dtRowKeyName(ColumnName) = KeyNameEnum.ToString
 
                                 dtNote = Nothing
@@ -5895,10 +6778,11 @@ Module mdlPNL2
                         Application.DoEvents()
                     Next
                 End If
-
+               
                 ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_SCH").Rows.Add(dtRow)
                 ds.Tables("PROFIT_LOSS_ACCOUNT_REPORT_KEYNAME").Rows.Add(dtRowKeyName)
 
+                dtExclude = Nothing
                 dtExclude = ADO.Load_PNL_IncludeInReport(PNL_KEY, Errorlog)
 
                 If dtExclude IsNot Nothing Then
@@ -5910,14 +6794,16 @@ Module mdlPNL2
 
             Return True
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If Errorlog Is Nothing Then
-                Errorlog = New clsError
+                Errorlog = New ClsError
             End If
             With Errorlog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(Errorlog)
             Return False
@@ -5935,13 +6821,15 @@ Module mdlPNL2
                 Return False
             End If
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return False
         End Try
     End Function
 
 
     Public Sub LoadTable_InterestRestricted(ByRef ds As DataSet, ByVal Refno As String, ByVal YA As String, ByVal SourceNo As Integer, _
-                                             ByVal KeyID As Integer, Optional ByRef ErrorLog As clsError = Nothing)
+                                             ByVal KeyID As Integer, Optional ByRef ErrorLog As ClsError = Nothing)
         Try
 
             Dim dt As DataTable = ADO.Load_interestRestricMonthNBasis(Refno, YA, SourceNo, ErrorLog)
@@ -5973,48 +6861,53 @@ Module mdlPNL2
             Dim clm As System.Data.DataColumn
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "KeyID"
-            clm.Caption = "KeyID"
-            clm.DataType = System.Type.GetType("System.Int32")
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "KeyID",
+                .Caption = "KeyID",
+                .DataType = System.Type.GetType("System.Int32"),
+                .AllowDBNull = True
+            }
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "LabelTag"
-            clm.Caption = "Label Tag"
-            clm.DataType = System.Type.GetType("System.String")
-            clm.DefaultValue = ""
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "LabelTag",
+                .Caption = "Label Tag",
+                .DataType = System.Type.GetType("System.String"),
+                .DefaultValue = "",
+                .AllowDBNull = True
+            }
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "Title"
-            clm.Caption = "Title"
-            clm.DataType = System.Type.GetType("System.String")
-            clm.DefaultValue = ""
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "Title",
+                .Caption = "Title",
+                .DataType = System.Type.GetType("System.String"),
+                .DefaultValue = "",
+                .AllowDBNull = True
+            }
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TypeName"
-            clm.Caption = "Type Name"
-            clm.DataType = System.Type.GetType("System.String")
-            clm.DefaultValue = ""
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TypeName",
+                .Caption = "Type Name",
+                .DataType = System.Type.GetType("System.String"),
+                .DefaultValue = "",
+                .AllowDBNull = True
+            }
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TypeIncome"
-            clm.Caption = "Type Income"
-            clm.DataType = System.Type.GetType("System.String")
-            clm.DefaultValue = ""
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TypeIncome",
+                .Caption = "Type Income",
+                .DataType = System.Type.GetType("System.String"),
+                .DefaultValue = "",
+                .AllowDBNull = True
+            }
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
             For i As Integer = 0 To MonthDuration - 1
@@ -6022,21 +6915,23 @@ Module mdlPNL2
                 CurrBasisPeriod = CurrBasisPeriod.AddMonths(+1)
 
                 clm = Nothing
-                clm = New System.Data.DataColumn
-                clm.ColumnName = Format(CurrBasisPeriod, "MMM") & "_" & CurrBasisPeriod.Year
-                clm.Caption = Format(CurrBasisPeriod, "MMM") & " " & CurrBasisPeriod.Year
-                clm.DataType = System.Type.GetType("System.Decimal")
-                clm.AllowDBNull = True
+                clm = New System.Data.DataColumn With {
+                    .ColumnName = Format(CurrBasisPeriod, "MMM") & "_" & CurrBasisPeriod.Year,
+                    .Caption = Format(CurrBasisPeriod, "MMM") & " " & CurrBasisPeriod.Year,
+                    .DataType = System.Type.GetType("System.Decimal"),
+                    .AllowDBNull = True
+                }
                 ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
             Next
 
             clm = Nothing
-            clm = New System.Data.DataColumn
-            clm.ColumnName = "TotalYear"
-            clm.Caption = "Total"
-            clm.DataType = System.Type.GetType("System.Decimal")
-            clm.AllowDBNull = True
+            clm = New System.Data.DataColumn With {
+                .ColumnName = "TotalYear",
+                .Caption = "Total",
+                .DataType = System.Type.GetType("System.Decimal"),
+                .AllowDBNull = True
+            }
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Columns.Add(clm)
 
             Application.DoEvents()
@@ -6183,6 +7078,8 @@ Module mdlPNL2
             ds.Tables("INTEREST_RESTRIC_MONTLY_REPORT").Rows.Add(dtRow)
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
 
         End Try
     End Sub
@@ -6208,11 +7105,13 @@ Module mdlPNL2
             End Select
             Return "A"
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             Return "A"
         End Try
     End Function
     Public Sub AppenData_InterestRestricted(ByVal tmpDt_Data As DataTable, ByVal ds As DataSet, _
-                                             Optional ByRef ErrorLog As clsError = Nothing)
+                                             Optional ByRef ErrorLog As ClsError = Nothing)
         Try
             If tmpDt_Data Is Nothing Then
                 Exit Sub
@@ -6250,21 +7149,23 @@ Module mdlPNL2
 
             Next
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
     End Sub
     Public Sub AppenData_InterestRestricted_Report(ByVal tmpDt_Data As DataTable, ByVal ds As DataSet, _
                                             ByVal RefNo As String, ByVal YA As String, ByVal SourceNO As Integer, _
-                                            Optional ByRef ErrorLog As clsError = Nothing)
+                                            Optional ByRef ErrorLog As ClsError = Nothing)
         Try
             If tmpDt_Data Is Nothing Then
                 Exit Sub
@@ -6358,14 +7259,16 @@ Module mdlPNL2
             'End If
 
         Catch ex As Exception
+            Dim st As New StackTrace(True)
+             st = New StackTrace(ex, True)
             If ErrorLog Is Nothing Then
-                ErrorLog = New clsError
+                ErrorLog = New ClsError
             End If
             With ErrorLog
                 .ErrorName = System.Reflection.MethodBase.GetCurrentMethod().Name
                 .ErrorCode = ex.GetHashCode.ToString
                 .ErrorDateTime = Now
-                .ErrorMessage = ex.Message
+                .ErrorMessage = "Line: " & st.GetFrame(0).GetFileLineNumber().ToString & " - " & ex.Message
             End With
             AddListOfError(ErrorLog)
         End Try
